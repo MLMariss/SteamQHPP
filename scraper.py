@@ -1,32 +1,36 @@
 #!/usr/bin/env python3
 """
-Steam QHPP — accumulation scraper
-=================================
-Builds up a database of Steam games OVER TIME. Each run discovers more of the
-catalog, scrapes a batch of not-yet-seen games, refreshes a batch of stale or
-on-sale games (so prices/discounts stay current), and writes everything to
-games.json. Run it on a schedule (the included GitHub Action does this) and the
-dataset grows; the static page just reads games.json and filters it.
+Steam QHPP — accumulation scraper (v3)
+======================================
+Builds up a database of Steam games over time and commits it to the repo, so a
+static GitHub Pages frontend can read and filter it. Designed to run in a GitHub
+Action on a schedule.
 
-Why this shape: a static GitHub Pages site can't call Steam from the browser
-(no CORS headers), so scraping happens server-side in the Action. State lives in
-the repo (games.json + catalog.json are committed each run), so it survives
-between runs without any database or extra service.
+What changed in v3 (the upgrades):
+  * Universe from GetAppList, not store search. The whole games catalog is
+    enumerated cleanly via Steam's IStoreService/GetAppList (needs a free Web API
+    key) — games-only, appid-ordered, with a per-app last_modified timestamp.
+    Falls back to the keyless ISteamApps/GetAppList/v2 if no key is set.
+  * Change-driven refresh. Instead of a blind time-based re-scrape, a stored game
+    is refreshed only when GetAppList reports its last_modified is newer than when
+    we last scraped it (or it's currently on sale). HLTB is NEVER re-fetched on a
+    refresh — beat times don't change — only price/discount/rating/tags are.
+  * Time-budgeted runs that commit as they go. Rather than fixed per-run counts,
+    each run scrapes until RUN_MINUTES elapses, git-committing every few minutes
+    so a 6-hour-wall kill never loses progress.
 
-Per game it collects: title, store URL, rating (% positive) + review count,
-price before/after discount (USD), discount % + discount END time, release date,
-user tags, How Long To Beat (main / main+extras / completionist), and QHPP
-before & after discount.
+Per game: title, store URL, rating (% positive) + reviews, price before/after
+discount (USD), discount % + end time, release date, tags, HLTB
+(main/main+extras/completionist), and QHPP before & after discount.
 
-QHPP (quality hours per dollar), quality-weighted:
-    avg_hours = mean of whichever HLTB times exist
-    qhpp      = (avg_hours * (rating_pct / 100)) / price_usd
-  Higher = more quality-adjusted hours per dollar. Null for free games (no price)
-  and games with no HLTB data. qhpp_before uses full price; qhpp_after the sale price.
+QHPP = (avg HLTB hours × rating%) ÷ price. Higher = more quality-adjusted hours
+per dollar. Null for free games and games with no HLTB data.
 """
 
 import json
+import os
 import re
+import subprocess
 import sys
 import time
 from datetime import datetime, timezone
@@ -41,34 +45,34 @@ except ImportError:
     HowLongToBeat = None
 
 # --------------------------------------------------------------------------- #
-# CONFIG — edit these
+# CONFIG — edit these (or set the env vars)
 # --------------------------------------------------------------------------- #
 HERE = Path(__file__).resolve().parent
-GAMES_FILE = HERE / "games.json"          # display data + scraped game state (committed)
-CATALOG_FILE = HERE / "catalog.json"      # discovery cursor / queue / skips (committed)
-SEEDS_FILE = HERE / "seeds.txt"           # OPTIONAL games to scrape FIRST (see file)
+GAMES_FILE = HERE / "games.json"          # display data + scraped state (committed)
+CATALOG_FILE = HERE / "catalog.json"      # tiny state: last_sync, skip list, priority (committed)
+SEEDS_FILE = HERE / "seeds.txt"           # OPTIONAL games to scrape FIRST
 
-# The "universe" to work through over time. A broad Steam store search. Default:
-# all Games, highest review score first, so the most relevant titles are captured
-# earliest. Swap for release-sorted, a tag, etc. — see README.
-CATALOG_SEARCH = ("https://store.steampowered.com/search/"
-                  "?category1=998&supportedlang=english&sort_by=Reviews_DESC")
+# Free Steam Web API key from https://steamcommunity.com/dev/apikey (GitHub secret
+# STEAM_API_KEY). Without it, falls back to the keyless full list (all app types,
+# no last_modified, so refresh reverts to the REFRESH_DAYS timer).
+STEAM_API_KEY = os.environ.get("STEAM_API_KEY", "").strip()
 
-CATALOG_PAGES_PER_RUN = 5     # how many search pages (~100 apps each) to discover per run
-PRIORITY_PAGES = 10           # max search pages to pull from each seeds.txt search entry
-NEW_PER_RUN = 80              # how many never-seen games to fully scrape per run
-REFRESH_PER_RUN = 40          # how many stale/on-sale games to re-scrape per run
-REFRESH_DAYS = 7              # re-scrape games older than this many days
+RUN_MINUTES = int(os.environ.get("RUN_MINUTES", "180"))   # scrape budget per run
+CHECKPOINT_SECONDS = 600        # git-commit progress at least this often during a run
+TIME_BUFFER = 120               # stop scraping this long before the budget, to commit
+NEW_ORDER = "newest"            # "newest" (high appid first) or "oldest"
+REFRESH_DAYS = 7                # fallback refresh age when no API key (no last_modified)
 
 TOP_TAGS = 8
 HLTB_MIN_SIMILARITY = 0.65
-COUNTRY = "us"                # cc=us => USD prices
+COUNTRY = "us"                  # cc=us => USD prices
 
-# Politeness. Steam store ~200 req/5 min; SteamSpy ~1 req/sec. Don't lower much.
-STEAM_DELAY = 1.5
-STEAMSPY_DELAY = 1.0
+STEAM_DELAY = 1.5               # seconds between storefront calls (~200/5min limit)
+STEAMSPY_DELAY = 1.0            # SteamSpy allows ~1 req/sec
+WEBAPI_DELAY = 1.0             # between GetAppList pages
 MAX_RETRIES = 4
 
+IN_ACTIONS = os.environ.get("GITHUB_ACTIONS") == "true"
 SEARCH_URL = "https://store.steampowered.com/search/results/"
 HEADERS = {
     "User-Agent": "Mozilla/5.0 (steam-qhpp scraper; github pages dataset builder)",
@@ -89,14 +93,15 @@ def log(msg: str) -> None:
 # --------------------------------------------------------------------------- #
 # HTTP with retry/backoff
 # --------------------------------------------------------------------------- #
-def get(url, *, params=None, timeout=25, expect_json=False):
+def get(url, *, params=None, timeout=30, expect_json=False):
     for attempt in range(1, MAX_RETRIES + 1):
         try:
             r = SESSION.get(url, params=params, timeout=timeout)
             if r.status_code == 429:
-                wait = min(60, 5 * attempt)
-                log(f"  429 rate-limited, sleeping {wait}s")
-                time.sleep(wait); continue
+                wait = min(90, 5 * attempt)
+                log(f"  429 rate-limited, sleeping {wait}s"); time.sleep(wait); continue
+            if r.status_code == 403:
+                log("  403 (soft-limit); cooling down 5 min"); time.sleep(300); continue
             r.raise_for_status()
             if expect_json:
                 try:
@@ -112,7 +117,52 @@ def get(url, *, params=None, timeout=25, expect_json=False):
 
 
 # --------------------------------------------------------------------------- #
-# Search helpers (catalog discovery + priority seeds)
+# The games universe (GetAppList)
+# --------------------------------------------------------------------------- #
+def fetch_app_universe():
+    """Return ({appid: last_modified}, has_last_modified). Keyed IStoreService gives
+    a clean games-only list with timestamps; keyless v2 is the all-types fallback."""
+    if STEAM_API_KEY:
+        out, last, pages = {}, 0, 0
+        while True:
+            params = {"key": STEAM_API_KEY, "include_games": "true",
+                      "max_results": 50000, "last_appid": last}
+            data = get("https://api.steampowered.com/IStoreService/GetAppList/v1/",
+                       params=params, expect_json=True)
+            time.sleep(WEBAPI_DELAY)
+            resp = (data or {}).get("response", {})
+            apps = resp.get("apps", []) or []
+            for a in apps:
+                try:
+                    out[int(a["appid"])] = int(a.get("last_modified", 0))
+                except (KeyError, TypeError, ValueError):
+                    pass
+            pages += 1
+            nxt = resp.get("last_appid", last)
+            if resp.get("have_more_results") and apps and nxt != last:
+                last = nxt
+            else:
+                break
+            if pages > 30:                       # safety stop (~1.5M apps)
+                break
+        log(f"GetAppList (keyed): {len(out)} games across {pages} page(s)")
+        return out, True
+
+    data = get("https://api.steampowered.com/ISteamApps/GetAppList/v2/", expect_json=True)
+    apps = ((data or {}).get("applist", {}) or {}).get("apps", []) or []
+    out = {}
+    for a in apps:
+        if a.get("name"):
+            try:
+                out[int(a["appid"])] = 0
+            except (KeyError, TypeError, ValueError):
+                pass
+    log(f"GetAppList (keyless v2): {len(out)} apps — all types, no change timestamps")
+    return out, False
+
+
+# --------------------------------------------------------------------------- #
+# Priority seeds (optional, from seeds.txt)
 # --------------------------------------------------------------------------- #
 def search_params(seed: str) -> dict:
     p = {"infinite": 1, "count": 100, "cc": COUNTRY, "l": "english"}
@@ -125,11 +175,9 @@ def search_params(seed: str) -> dict:
     return p
 
 
-def fetch_search_page(params: dict, start: int):
-    """Return (list_of_appids, total_count) for one page of a store search."""
+def fetch_search_page(params, start):
     p = dict(params); p["start"] = start
-    data = get(SEARCH_URL, params=p, expect_json=True)
-    time.sleep(STEAM_DELAY)
+    data = get(SEARCH_URL, params=p, expect_json=True); time.sleep(STEAM_DELAY)
     if not data:
         return [], 0
     html = data.get("results_html", "")
@@ -142,11 +190,34 @@ def fetch_search_page(params: dict, start: int):
     return ids, total
 
 
+def ensure_priority(catalog):
+    if catalog.get("priority") is not None:
+        return
+    pr = []
+    if SEEDS_FILE.exists():
+        for raw in SEEDS_FILE.read_text(encoding="utf-8").splitlines():
+            line = raw.strip()
+            if not line or line.startswith("#"):
+                continue
+            if line.isdigit():
+                pr.append(int(line))
+            else:
+                params = search_params(line); start = 0
+                for _ in range(10):
+                    ids, total = fetch_search_page(params, start)
+                    if not ids:
+                        break
+                    pr.extend(ids); start += 100
+                    if total and start >= total:
+                        break
+    catalog["priority"] = list(dict.fromkeys(pr))
+    log(f"Priority seeds resolved: {len(catalog['priority'])} appids")
+
+
 # --------------------------------------------------------------------------- #
 # Per-game data sources
 # --------------------------------------------------------------------------- #
 def build_discount_expiration_map():
-    """featuredcategories exposes discount_expiration (unix) for current specials."""
     out = {}
     data = get("https://store.steampowered.com/api/featuredcategories",
                params={"cc": COUNTRY, "l": "english"}, expect_json=True)
@@ -180,10 +251,7 @@ _COUNTDOWN_PATTERNS = [
 ]
 
 
-def discount_end_from_page(appid: int):
-    """Best-effort discount end from store HTML (the game_purchase_discount_countdown
-    element). Could not be verified live in the build env — if a real sale shows no
-    timer, the log tells you and you add the matching pattern above."""
+def discount_end_from_page(appid):
     html = get(f"https://store.steampowered.com/app/{appid}/",
                params={"cc": COUNTRY, "l": "english"})
     time.sleep(STEAM_DELAY)
@@ -200,7 +268,7 @@ def discount_end_from_page(appid: int):
     return None
 
 
-def tags_from_steamspy(appid: int):
+def tags_from_steamspy(appid):
     data = get("https://steamspy.com/api.php",
                params={"request": "appdetails", "appid": appid}, expect_json=True)
     time.sleep(STEAMSPY_DELAY)
@@ -212,7 +280,7 @@ def tags_from_steamspy(appid: int):
     return []
 
 
-def rating_from_reviews(appid: int):
+def rating_from_reviews(appid):
     data = get(f"https://store.steampowered.com/appreviews/{appid}",
                params={"json": 1, "language": "all", "purchase_type": "all",
                        "num_per_page": 0}, expect_json=True)
@@ -225,7 +293,7 @@ def rating_from_reviews(appid: int):
     return round(pos / (pos + neg) * 100), pos + neg
 
 
-def hltb_for(title: str):
+def hltb_for(title):
     blank = {"main": None, "extra": None, "complete": None, "match": None}
     if HowLongToBeat is None:
         return blank
@@ -275,21 +343,22 @@ def qhpp(avg_hours, rating_pct, price_usd):
 
 
 # --------------------------------------------------------------------------- #
-# Build one game record. Returns dict | "skip" (non-game/delisted) | None (transient)
+# Build one game record. prev=record means this is a refresh -> reuse HLTB.
+# Returns dict | "skip" (non-game/delisted) | None (transient)
 # --------------------------------------------------------------------------- #
-def build_record(appid: int, discount_map):
+def build_record(appid, discount_map, prev=None):
     detail = get("https://store.steampowered.com/api/appdetails",
                  params={"appids": appid, "cc": COUNTRY, "l": "english"},
                  expect_json=True)
     time.sleep(STEAM_DELAY)
     if detail is None:
-        return None                                   # network gave up -> retry later
+        return None
     node = detail.get(str(appid), {})
     if not node.get("success"):
-        return "skip"                                 # delisted / not a store item
+        return "skip"
     d = node.get("data", {})
     if d.get("type") != "game":
-        return "skip"                                 # DLC, soundtrack, video, tool...
+        return "skip"
 
     title = d.get("name", f"App {appid}")
     is_free = bool(d.get("is_free"))
@@ -311,31 +380,31 @@ def build_record(appid: int, discount_map):
     tags = tags_from_steamspy(appid) or [g["description"] for g in d.get("genres", [])
                                          if g.get("description")]
     release_date, release_ts = parse_release(d)
-    h = hltb_for(title)
+
+    # HLTB: only fetch on first capture; on refresh reuse what we already have.
+    if prev is not None:
+        h = {"main": prev.get("hltb_main"), "extra": prev.get("hltb_extra"),
+             "complete": prev.get("hltb_complete"), "match": prev.get("hltb_match")}
+    else:
+        h = hltb_for(title)
     htimes = [t for t in (h["main"], h["extra"], h["complete"]) if t]
     avg = round(sum(htimes) / len(htimes), 1) if htimes else None
 
     rec = {
-        "appid": appid,
-        "title": title,
+        "appid": appid, "title": title,
         "url": f"https://store.steampowered.com/app/{appid}",
-        "rating_pct": rating_pct,
-        "review_count": review_count,
-        "price_initial": price_initial,
-        "price_final": price_final,
-        "discount_pct": discount_pct,
-        "discount_end": discount_end,
-        "is_free": is_free,
-        "release_date": release_date,
-        "release_ts": release_ts,
-        "tags": tags,
+        "rating_pct": rating_pct, "review_count": review_count,
+        "price_initial": price_initial, "price_final": price_final,
+        "discount_pct": discount_pct, "discount_end": discount_end, "is_free": is_free,
+        "release_date": release_date, "release_ts": release_ts, "tags": tags,
         "hltb_main": h["main"], "hltb_extra": h["extra"], "hltb_complete": h["complete"],
         "hltb_avg": avg, "hltb_match": h["match"],
         "qhpp_before": qhpp(avg, rating_pct, price_initial),
         "qhpp_after": qhpp(avg, rating_pct, price_final),
     }
-    log(f"  OK {title[:40]:40} rating={rating_pct} price={price_final}/{price_initial} "
-        f"avg={avg} qhpp_after={rec['qhpp_after']}")
+    tag = "refresh" if prev is not None else "new"
+    log(f"  {tag:7} {title[:38]:38} rating={rating_pct} price={price_final}/{price_initial} "
+        f"qhpp_after={rec['qhpp_after']}")
     return rec
 
 
@@ -343,7 +412,6 @@ def build_record(appid: int, discount_map):
 # Repo-committed state
 # --------------------------------------------------------------------------- #
 def load_games():
-    """Return {appid_str: record}. Ignores bundled sample data on first real run."""
     if not GAMES_FILE.exists():
         return {}
     try:
@@ -367,134 +435,116 @@ def load_catalog():
     if CATALOG_FILE.exists():
         try:
             c = json.loads(CATALOG_FILE.read_text(encoding="utf-8"))
-            c.setdefault("cursor", 0)
-            c.setdefault("pending", [])
+            c.setdefault("last_sync", 0)
             c.setdefault("skipped", [])
             c.setdefault("priority", None)
             return c
         except ValueError:
             pass
-    return {"cursor": 0, "pending": [], "skipped": [], "priority": None}
+    return {"last_sync": 0, "skipped": [], "priority": None}
 
 
 def save_catalog(c):
     CATALOG_FILE.write_text(json.dumps(c, ensure_ascii=False), encoding="utf-8")
 
 
-# --------------------------------------------------------------------------- #
-# Discovery + work selection
-# --------------------------------------------------------------------------- #
-def ensure_priority(catalog):
-    if catalog.get("priority") is not None:
+def git_checkpoint(msg):
+    if not IN_ACTIONS:
         return
-    pr = []
-    if SEEDS_FILE.exists():
-        for raw in SEEDS_FILE.read_text(encoding="utf-8").splitlines():
-            line = raw.strip()
-            if not line or line.startswith("#"):
-                continue
-            if line.isdigit():
-                pr.append(int(line))
-            else:
-                params = search_params(line); start = 0
-                for _ in range(PRIORITY_PAGES):
-                    ids, total = fetch_search_page(params, start)
-                    if not ids:
-                        break
-                    pr.extend(ids); start += 100
-                    if total and start >= total:
-                        break
-    catalog["priority"] = list(dict.fromkeys(pr))
-    log(f"Priority seeds resolved: {len(catalog['priority'])} appids")
+    try:
+        subprocess.run(["git", "add", "games.json", "catalog.json"], check=False)
+        staged = subprocess.run(["git", "diff", "--staged", "--quiet"]).returncode
+        if staged != 0:
+            subprocess.run(["git", "commit", "-m", msg], check=False)
+            subprocess.run(["git", "push"], check=False)
+            log(f"  committed: {msg}")
+    except Exception as e:
+        log(f"  git checkpoint failed: {e}")
 
 
-def ingest_catalog(catalog, processed):
-    params = search_params(CATALOG_SEARCH)
-    start = catalog["cursor"]
-    pending = set(catalog["pending"])
-    known = pending | {int(a) for a in processed} | set(catalog["skipped"])
-    added = 0; total = 0
-    for _ in range(CATALOG_PAGES_PER_RUN):
-        ids, total = fetch_search_page(params, start)
-        if not ids:
-            start = 0; break                       # wrap to re-discover newest next time
-        for a in ids:
-            if a not in known:
-                known.add(a); pending.add(a); added += 1
-        start += 100
-        if total and start >= total:
-            start = 0; break
-    catalog["cursor"] = start
-    catalog["pending"] = sorted(pending)
-    log(f"Catalog ingest: +{added} new appids (pending {len(pending)}, "
-        f"cursor {start}, universe ~{total})")
+# --------------------------------------------------------------------------- #
+# Work selection
+# --------------------------------------------------------------------------- #
+def select_work(master, has_lm, processed, catalog):
+    """Return (new_ids, refresh_ids). NEW = catalog games never scraped (priority
+    first, then by appid). REFRESH = stored games whose last_modified moved past our
+    scraped_at (or on sale), oldest-touched first."""
+    skipped = set(catalog["skipped"])
+    done = {int(a) for a in processed} | skipped
 
-
-def select_work(catalog, processed):
-    done = {int(a) for a in processed} | set(catalog["skipped"])
-    new, seen = [], set()
-    for source in (catalog.get("priority") or [], catalog["pending"]):
-        for a in source:
-            if a not in done and a not in seen:
-                new.append(a); seen.add(a)
-            if len(new) >= NEW_PER_RUN:
-                break
-        if len(new) >= NEW_PER_RUN:
-            break
+    fresh = [a for a in master if a not in done]
+    fresh.sort(reverse=(NEW_ORDER == "newest"))
+    pri = [a for a in (catalog.get("priority") or []) if a not in done]
+    pri_set = set(pri)
+    new_ids = pri + [a for a in fresh if a not in pri_set]
 
     now = int(time.time())
     cands = []
     for k, rec in processed.items():
-        age = now - rec.get("scraped_at", 0)
-        if rec.get("discount_pct", 0) > 0 or age >= REFRESH_DAYS * 86400:
-            cands.append((rec.get("scraped_at", 0), int(k)))
+        aid = int(k); sat = rec.get("scraped_at", 0)
+        if has_lm:
+            lm = master.get(aid)
+            changed = lm is not None and lm > sat
+        else:
+            changed = (now - sat) >= REFRESH_DAYS * 86400
+        if changed or rec.get("discount_pct", 0) > 0:
+            cands.append((sat, aid))
     cands.sort()
-    refresh = [a for _, a in cands[:REFRESH_PER_RUN]]
-    return new, refresh
+    refresh_ids = [a for _, a in cands]
+    return new_ids, refresh_ids
 
 
 # --------------------------------------------------------------------------- #
 # Main
 # --------------------------------------------------------------------------- #
 def main():
+    start = time.time()
     processed = load_games()
     catalog = load_catalog()
     ensure_priority(catalog)
-    ingest_catalog(catalog, processed)
 
-    new, refresh = select_work(catalog, processed)
-    log(f"This run: {len(new)} new + {len(refresh)} refresh "
-        f"(total stored so far: {len(processed)})")
-    if not new and not refresh:
-        save_games(processed); save_catalog(catalog)
-        log("Nothing to do this run.")
-        return 0
+    master, has_lm = fetch_app_universe()
+    if not master:
+        log("Could not fetch the app universe; aborting this run.")
+        return 1
+
+    new_ids, refresh_ids = select_work(master, has_lm, processed, catalog)
+    log(f"Universe {len(master)} | stored {len(processed)} | skipped "
+        f"{len(catalog['skipped'])} | to-do: {len(new_ids)} new, {len(refresh_ids)} refresh")
+    log(f"Budget: {RUN_MINUTES} min (refresh changed games first, then new coverage)")
 
     discount_map = build_discount_expiration_map()
-    pending = set(catalog["pending"]); skipped = set(catalog["skipped"])
-    work = [(a, "new") for a in new] + [(a, "refresh") for a in refresh]
+    skipped = set(catalog["skipped"])
+    budget = RUN_MINUTES * 60
+    last_commit = time.time()
+    n_new = n_ref = 0
 
-    for i, (appid, kind) in enumerate(work, 1):
-        log(f"[{i}/{len(work)}] {kind} appid {appid}")
-        res = build_record(appid, discount_map)
+    work = [(a, "refresh") for a in refresh_ids] + [(a, "new") for a in new_ids]
+    for aid, kind in work:
+        if budget - (time.time() - start) < TIME_BUFFER:
+            log("Time budget reached; wrapping up.")
+            break
+        prev = processed.get(str(aid)) if kind == "refresh" else None
+        res = build_record(aid, discount_map, prev=prev)
         if isinstance(res, dict):
             res["scraped_at"] = int(time.time())
-            processed[str(appid)] = res
-            pending.discard(appid)
+            processed[str(aid)] = res
+            n_ref += kind == "refresh"; n_new += kind == "new"
         elif res == "skip":
-            skipped.add(appid); pending.discard(appid)
-            log(f"  appid {appid}: skipped (not a store game)")
-        # res is None -> transient; leave in pending to retry next run
+            skipped.add(aid)
 
-        if i % 10 == 0:
-            catalog["pending"] = sorted(pending); catalog["skipped"] = sorted(skipped)
+        if time.time() - last_commit > CHECKPOINT_SECONDS:
+            catalog["skipped"] = sorted(skipped)
             save_games(processed); save_catalog(catalog)
+            git_checkpoint(f"checkpoint: {len(processed)} games stored")
+            last_commit = time.time()
 
-    catalog["pending"] = sorted(pending - {int(a) for a in processed})
     catalog["skipped"] = sorted(skipped)
+    catalog["last_sync"] = int(start)
     save_games(processed); save_catalog(catalog)
-    log(f"\nDone. Stored games: {len(processed)} | pending queue: "
-        f"{len(catalog['pending'])} | skipped: {len(catalog['skipped'])}")
+    git_checkpoint(f"scrape: {len(processed)} games (+{n_new} new, {n_ref} refreshed)")
+    log(f"\nDone. This run: {n_new} new, {n_ref} refreshed. "
+        f"Stored {len(processed)}, skipped {len(skipped)}.")
     return 0
 
 
