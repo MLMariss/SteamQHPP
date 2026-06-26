@@ -1,0 +1,41 @@
+name: Scrape Steam -> games.json
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 */6 * * *"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: steam-scrape
+  cancel-in-progress: false
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run accumulation scraper
+        run: python scraper.py
+
+      - name: Commit dataset + state
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add games.json catalog.json
+          if git diff --staged --quiet; then
+            echo "No changes this run"
+          else
+            git commit -m "Accumulate games.json ($(date -u +'%Y-%m-%d %H:%M') UTC)"
+            git push
+          fi
