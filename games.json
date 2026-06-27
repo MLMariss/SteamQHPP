@@ -1,5 +1,5 @@
 {
-  "generated_at": 1782562349,
+  "generated_at": 1782562951,
   "count": 4247,
   "games": [
     {
@@ -1799,7 +1799,7 @@
       "title": "Kingdom Rush  - Tower Defense",
       "url": "https://store.steampowered.com/app/246420",
       "rating_pct": 97,
-      "review_count": 16668,
+      "review_count": 16670,
       "price_initial": 9.99,
       "price_final": 4.99,
       "discount_pct": 50,
@@ -1824,7 +1824,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782550583
+      "scraped_at": 1782562355
     },
     {
       "appid": 248310,
@@ -1863,7 +1863,7 @@
       "title": "The Wolf Among Us",
       "url": "https://store.steampowered.com/app/250320",
       "rating_pct": 98,
-      "review_count": 39549,
+      "review_count": 39551,
       "price_initial": 14.99,
       "price_final": 7.49,
       "discount_pct": 50,
@@ -1888,14 +1888,14 @@
       "hltb_match": "The Wolf Among Us",
       "qhpp_before": 0.628,
       "qhpp_after": 1.256,
-      "scraped_at": 1782550588
+      "scraped_at": 1782562360
     },
     {
       "appid": 250900,
       "title": "The Binding of Isaac: Rebirth",
       "url": "https://store.steampowered.com/app/250900",
       "rating_pct": 97,
-      "review_count": 398204,
+      "review_count": 398370,
       "price_initial": 14.99,
       "price_final": 1.49,
       "discount_pct": 90,
@@ -1920,7 +1920,7 @@
       "hltb_match": "The Binding of Isaac: Rebirth",
       "qhpp_before": 10.599,
       "qhpp_after": 106.635,
-      "scraped_at": 1782550592
+      "scraped_at": 1782562364
     },
     {
       "appid": 251290,
@@ -1952,14 +1952,14 @@
       "hltb_match": "The Legend of Heroes: Trails in the Sky SC",
       "qhpp_before": 2.297,
       "qhpp_after": 3.535,
-      "scraped_at": 1782550597
+      "scraped_at": 1782562369
     },
     {
       "appid": 253230,
       "title": "A Hat in Time",
       "url": "https://store.steampowered.com/app/253230",
       "rating_pct": 98,
-      "review_count": 53141,
+      "review_count": 53142,
       "price_initial": 29.99,
       "price_final": 14.99,
       "discount_pct": 50,
@@ -1984,7 +1984,7 @@
       "hltb_match": "A Hat in Time",
       "qhpp_before": 0.474,
       "qhpp_after": 0.948,
-      "scraped_at": 1782550601
+      "scraped_at": 1782562374
     },
     {
       "appid": 260750,
@@ -2112,14 +2112,14 @@
       "hltb_match": "One Finger Death Punch",
       "qhpp_before": 3.574,
       "qhpp_after": 14.384,
-      "scraped_at": 1782550606
+      "scraped_at": 1782562378
     },
     {
       "appid": 264710,
       "title": "Subnautica",
       "url": "https://store.steampowered.com/app/264710",
       "rating_pct": 97,
-      "review_count": 373716,
+      "review_count": 373739,
       "price_initial": 29.99,
       "price_final": 7.49,
       "discount_pct": 75,
@@ -2144,7 +2144,7 @@
       "hltb_match": "Subnautica",
       "qhpp_before": 1.333,
       "qhpp_after": 5.336,
-      "scraped_at": 1782550610
+      "scraped_at": 1782562383
     },
     {
       "appid": 265610,
@@ -2176,7 +2176,7 @@
       "hltb_match": "Epic Battle Fantasy 4",
       "qhpp_before": 1.941,
       "qhpp_after": 6.481,
-      "scraped_at": 1782550615
+      "scraped_at": 1782562388
     },
     {
       "appid": 265890,
@@ -2247,7 +2247,7 @@
       "title": "American Truck Simulator",
       "url": "https://store.steampowered.com/app/270880",
       "rating_pct": 97,
-      "review_count": 192804,
+      "review_count": 192808,
       "price_initial": 19.99,
       "price_final": 4.99,
       "discount_pct": 75,
@@ -2272,7 +2272,7 @@
       "hltb_match": "American Truck Simulator",
       "qhpp_before": 3.45,
       "qhpp_after": 13.821,
-      "scraped_at": 1782550620
+      "scraped_at": 1782562393
     },
     {
       "appid": 272600,
@@ -2336,7 +2336,7 @@
       "hltb_match": "Broforce",
       "qhpp_before": 0.751,
       "qhpp_after": 3.763,
-      "scraped_at": 1782550624
+      "scraped_at": 1782562397
     },
     {
       "appid": 280220,
@@ -2439,7 +2439,7 @@
       "title": "BeamNG.drive",
       "url": "https://store.steampowered.com/app/284160",
       "rating_pct": 97,
-      "review_count": 400802,
+      "review_count": 400839,
       "price_initial": 24.99,
       "price_final": 19.99,
       "discount_pct": 20,
@@ -2464,7 +2464,7 @@
       "hltb_match": "BeamNG.drive",
       "qhpp_before": 0.388,
       "qhpp_after": 0.485,
-      "scraped_at": 1782550629
+      "scraped_at": 1782562402
     },
     {
       "appid": 284770,
@@ -2560,7 +2560,7 @@
       "hltb_match": "The Room",
       "qhpp_before": 0.511,
       "qhpp_after": 2.574,
-      "scraped_at": 1782550633
+      "scraped_at": 1782562406
     },
     {
       "appid": 292030,
@@ -2599,7 +2599,7 @@
       "title": "RimWorld",
       "url": "https://store.steampowered.com/app/294100",
       "rating_pct": 98,
-      "review_count": 241589,
+      "review_count": 241594,
       "price_initial": 34.99,
       "price_final": 27.99,
       "discount_pct": 20,
@@ -2624,7 +2624,7 @@
       "hltb_match": "RimWorld",
       "qhpp_before": 4.442,
       "qhpp_after": 5.553,
-      "scraped_at": 1782550638
+      "scraped_at": 1782562411
     },
     {
       "appid": 294660,
@@ -2848,7 +2848,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782550642
+      "scraped_at": 1782562416
     },
     {
       "appid": 310360,
@@ -2887,7 +2887,7 @@
       "title": "Duck Game",
       "url": "https://store.steampowered.com/app/312530",
       "rating_pct": 97,
-      "review_count": 39010,
+      "review_count": 39009,
       "price_initial": 12.99,
       "price_final": 9.09,
       "discount_pct": 30,
@@ -2912,7 +2912,7 @@
       "hltb_match": "Duck Game",
       "qhpp_before": 3.077,
       "qhpp_after": 4.396,
-      "scraped_at": 1782550647
+      "scraped_at": 1782562420
     },
     {
       "appid": 312990,
@@ -3008,7 +3008,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782550652
+      "scraped_at": 1782562425
     },
     {
       "appid": 316610,
@@ -3136,7 +3136,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782550656
+      "scraped_at": 1782562430
     },
     {
       "appid": 327400,
@@ -3271,7 +3271,7 @@
       "title": "Finding Paradise",
       "url": "https://store.steampowered.com/app/337340",
       "rating_pct": 98,
-      "review_count": 20105,
+      "review_count": 20106,
       "price_initial": 9.99,
       "price_final": 1.99,
       "discount_pct": 80,
@@ -3296,7 +3296,7 @@
       "hltb_match": "Finding Paradise",
       "qhpp_before": 0.53,
       "qhpp_after": 2.659,
-      "scraped_at": 1782550662
+      "scraped_at": 1782562435
     },
     {
       "appid": 341800,
@@ -3328,7 +3328,7 @@
       "hltb_match": "Keep Talking and Nobody Explodes",
       "qhpp_before": 0.55,
       "qhpp_after": 1.836,
-      "scraped_at": 1782550666
+      "scraped_at": 1782562439
     },
     {
       "appid": 344770,
@@ -3616,7 +3616,7 @@
       "hltb_match": "Fran Bow",
       "qhpp_before": 0.537,
       "qhpp_after": 1.793,
-      "scraped_at": 1782550671
+      "scraped_at": 1782562444
     },
     {
       "appid": 367520,
@@ -3680,7 +3680,7 @@
       "hltb_match": "Hook",
       "qhpp_before": 0.422,
       "qhpp_after": 0.716,
-      "scraped_at": 1782550676
+      "scraped_at": 1782562449
     },
     {
       "appid": 370360,
@@ -53872,7 +53872,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782552043
+      "scraped_at": 1782562951
     },
     {
       "appid": 4764300,
@@ -54170,7 +54170,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782551993
+      "scraped_at": 1782562948
     },
     {
       "appid": 4764700,
@@ -54199,7 +54199,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782551987
+      "scraped_at": 1782562943
     },
     {
       "appid": 4764780,
@@ -55072,7 +55072,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782551828
+      "scraped_at": 1782562938
     },
     {
       "appid": 4766160,
@@ -55098,7 +55098,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782551822
+      "scraped_at": 1782562933
     },
     {
       "appid": 4766180,
@@ -55446,7 +55446,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782551755
+      "scraped_at": 1782562928
     },
     {
       "appid": 4766670,
@@ -55669,7 +55669,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782551717
+      "scraped_at": 1782562923
     },
     {
       "appid": 4767010,
@@ -56452,7 +56452,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782551586
+      "scraped_at": 1782562919
     },
     {
       "appid": 4768420,
@@ -56536,8 +56536,8 @@
       "appid": 4768660,
       "title": "Slice To Meet You",
       "url": "https://store.steampowered.com/app/4768660",
-      "rating_pct": 73,
-      "review_count": 11,
+      "rating_pct": 69,
+      "review_count": 13,
       "price_initial": 3.99,
       "price_final": 3.39,
       "discount_pct": 15,
@@ -56557,7 +56557,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782551293
+      "scraped_at": 1782562905
     },
     {
       "appid": 4768690,
@@ -57171,7 +57171,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782551288
+      "scraped_at": 1782562901
     },
     {
       "appid": 4769590,
@@ -57621,7 +57621,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782551284
+      "scraped_at": 1782562896
     },
     {
       "appid": 4770910,
@@ -58155,7 +58155,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782551276
+      "scraped_at": 1782562891
     },
     {
       "appid": 4771610,
@@ -59414,7 +59414,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782551272
+      "scraped_at": 1782562887
     },
     {
       "appid": 4773680,
@@ -59527,8 +59527,8 @@
       "appid": 4773840,
       "title": "City Lights Love Bites Season 1 - The Reset",
       "url": "https://store.steampowered.com/app/4773840",
-      "rating_pct": 97,
-      "review_count": 173,
+      "rating_pct": 96,
+      "review_count": 182,
       "price_initial": 3.99,
       "price_final": 3.39,
       "discount_pct": 15,
@@ -59548,7 +59548,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782551267
+      "scraped_at": 1782562882
     },
     {
       "appid": 4773850,
@@ -59881,7 +59881,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782551259
+      "scraped_at": 1782562877
     },
     {
       "appid": 4774170,
@@ -59961,7 +59961,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782551254
+      "scraped_at": 1782562873
     },
     {
       "appid": 4774370,
@@ -61198,7 +61198,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782551244
+      "scraped_at": 1782562868
     },
     {
       "appid": 4776000,
@@ -61595,7 +61595,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782551239
+      "scraped_at": 1782562863
     },
     {
       "appid": 4776810,
@@ -62772,7 +62772,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782551232
+      "scraped_at": 1782562859
     },
     {
       "appid": 4778810,
@@ -62903,7 +62903,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782551227
+      "scraped_at": 1782562854
     },
     {
       "appid": 4778910,
@@ -64522,14 +64522,14 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782551222
+      "scraped_at": 1782562849
     },
     {
       "appid": 4781550,
       "title": "My Sexy Photo Store: Alice",
       "url": "https://store.steampowered.com/app/4781550",
       "rating_pct": 100,
-      "review_count": 1,
+      "review_count": 2,
       "price_initial": 2.99,
       "price_final": 2.69,
       "discount_pct": 10,
@@ -64548,7 +64548,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782551218
+      "scraped_at": 1782562845
     },
     {
       "appid": 4781560,
@@ -64732,7 +64732,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782551213
+      "scraped_at": 1782562840
     },
     {
       "appid": 4781750,
@@ -65817,7 +65817,7 @@
       "price_initial": 1.99,
       "price_final": 1.19,
       "discount_pct": 40,
-      "discount_end": 1783702817,
+      "discount_end": null,
       "is_free": false,
       "release_date": "Jun 26, 2026",
       "release_ts": 1782432000,
@@ -65834,7 +65834,7 @@
       "hltb_match": "Signal",
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782551205
+      "scraped_at": 1782562835
     },
     {
       "appid": 4783190,
@@ -66098,7 +66098,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782551202
+      "scraped_at": 1782562831
     },
     {
       "appid": 4783460,
@@ -66769,7 +66769,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782551198
+      "scraped_at": 1782562826
     },
     {
       "appid": 4784930,
@@ -66797,7 +66797,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782551193
+      "scraped_at": 1782562821
     },
     {
       "appid": 4784940,
@@ -67145,7 +67145,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782551185
+      "scraped_at": 1782562817
     },
     {
       "appid": 4785580,
@@ -68141,7 +68141,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782551175
+      "scraped_at": 1782562812
     },
     {
       "appid": 4787050,
@@ -68548,7 +68548,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782551170
+      "scraped_at": 1782562807
     },
     {
       "appid": 4787680,
@@ -68713,7 +68713,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782551165
+      "scraped_at": 1782562802
     },
     {
       "appid": 4787910,
@@ -68871,7 +68871,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782551161
+      "scraped_at": 1782562798
     },
     {
       "appid": 4788420,
@@ -69007,7 +69007,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782551156
+      "scraped_at": 1782562793
     },
     {
       "appid": 4788490,
@@ -69328,7 +69328,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782551152
+      "scraped_at": 1782562788
     },
     {
       "appid": 4788940,
@@ -69733,7 +69733,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782551147
+      "scraped_at": 1782562784
     },
     {
       "appid": 4789640,
@@ -69787,7 +69787,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782551142
+      "scraped_at": 1782562779
     },
     {
       "appid": 4789820,
@@ -70141,7 +70141,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782551137
+      "scraped_at": 1782562774
     },
     {
       "appid": 4790660,
@@ -70523,7 +70523,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782551133
+      "scraped_at": 1782562769
     },
     {
       "appid": 4791140,
@@ -70705,7 +70705,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782551125
+      "scraped_at": 1782562765
     },
     {
       "appid": 4791400,
@@ -70866,7 +70866,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782551121
+      "scraped_at": 1782562760
     },
     {
       "appid": 4791750,
@@ -70971,7 +70971,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782551116
+      "scraped_at": 1782562756
     },
     {
       "appid": 4791970,
@@ -71137,7 +71137,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782551111
+      "scraped_at": 1782562751
     },
     {
       "appid": 4792230,
@@ -71540,7 +71540,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782551107
+      "scraped_at": 1782562746
     },
     {
       "appid": 4793230,
@@ -72152,14 +72152,14 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782551102
+      "scraped_at": 1782562741
     },
     {
       "appid": 4794380,
       "title": "Thousand Floors",
       "url": "https://store.steampowered.com/app/4794380",
       "rating_pct": 55,
-      "review_count": 220,
+      "review_count": 221,
       "price_initial": 9.99,
       "price_final": 6.99,
       "discount_pct": 30,
@@ -72179,7 +72179,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782551098
+      "scraped_at": 1782562737
     },
     {
       "appid": 4794420,
@@ -72261,7 +72261,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782551093
+      "scraped_at": 1782562732
     },
     {
       "appid": 4794570,
@@ -72863,7 +72863,7 @@
       "hltb_match": "Sector 177",
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782551088
+      "scraped_at": 1782562727
     },
     {
       "appid": 4795560,
@@ -73528,7 +73528,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782551084
+      "scraped_at": 1782562723
     },
     {
       "appid": 4796860,
@@ -73636,7 +73636,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782551079
+      "scraped_at": 1782562718
     },
     {
       "appid": 4796940,
@@ -73688,7 +73688,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782551076
+      "scraped_at": 1782562715
     },
     {
       "appid": 4797110,
@@ -74089,7 +74089,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782551072
+      "scraped_at": 1782562710
     },
     {
       "appid": 4797800,
@@ -74170,7 +74170,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782551067
+      "scraped_at": 1782562706
     },
     {
       "appid": 4797900,
@@ -74251,7 +74251,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782551062
+      "scraped_at": 1782562701
     },
     {
       "appid": 4797940,
@@ -74279,7 +74279,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782551058
+      "scraped_at": 1782562696
     },
     {
       "appid": 4797950,
@@ -74307,7 +74307,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782551053
+      "scraped_at": 1782562692
     },
     {
       "appid": 4797970,
@@ -74602,7 +74602,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782551045
+      "scraped_at": 1782562687
     },
     {
       "appid": 4798280,
@@ -74628,7 +74628,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782551041
+      "scraped_at": 1782562682
     },
     {
       "appid": 4798320,
@@ -74683,7 +74683,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782551036
+      "scraped_at": 1782562678
     },
     {
       "appid": 4798350,
@@ -75615,7 +75615,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782551028
+      "scraped_at": 1782562673
     },
     {
       "appid": 4799750,
@@ -76017,7 +76017,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782551024
+      "scraped_at": 1782562669
     },
     {
       "appid": 4800470,
@@ -76259,7 +76259,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782551019
+      "scraped_at": 1782562664
     },
     {
       "appid": 4800950,
@@ -76364,7 +76364,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782551014
+      "scraped_at": 1782562659
     },
     {
       "appid": 4801140,
@@ -77546,7 +77546,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782551007
+      "scraped_at": 1782562655
     },
     {
       "appid": 4803530,
@@ -77599,7 +77599,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782551002
+      "scraped_at": 1782562650
     },
     {
       "appid": 4803630,
@@ -78160,7 +78160,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782550994
+      "scraped_at": 1782562645
     },
     {
       "appid": 4804690,
@@ -78342,7 +78342,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782550990
+      "scraped_at": 1782562641
     },
     {
       "appid": 4805000,
@@ -78529,7 +78529,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782550985
+      "scraped_at": 1782562636
     },
     {
       "appid": 4805270,
@@ -78584,7 +78584,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782550980
+      "scraped_at": 1782562631
     },
     {
       "appid": 4805350,
@@ -78938,7 +78938,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782550975
+      "scraped_at": 1782562627
     },
     {
       "appid": 4806070,
@@ -80233,7 +80233,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782550968
+      "scraped_at": 1782562622
     },
     {
       "appid": 4808730,
@@ -80815,7 +80815,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782550963
+      "scraped_at": 1782562618
     },
     {
       "appid": 4809410,
@@ -81103,7 +81103,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782550958
+      "scraped_at": 1782562613
     },
     {
       "appid": 4809710,
@@ -82116,7 +82116,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782550950
+      "scraped_at": 1782562608
     },
     {
       "appid": 4811600,
@@ -82520,7 +82520,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782550946
+      "scraped_at": 1782562603
     },
     {
       "appid": 4812550,
@@ -82841,7 +82841,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782550941
+      "scraped_at": 1782562598
     },
     {
       "appid": 4813170,
@@ -83376,7 +83376,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782550930
+      "scraped_at": 1782562594
     },
     {
       "appid": 4813880,
@@ -83454,7 +83454,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782550926
+      "scraped_at": 1782562589
     },
     {
       "appid": 4813970,
@@ -84256,7 +84256,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782550921
+      "scraped_at": 1782562585
     },
     {
       "appid": 4815820,
@@ -84285,7 +84285,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782550917
+      "scraped_at": 1782562580
     },
     {
       "appid": 4815830,
@@ -84528,7 +84528,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782550912
+      "scraped_at": 1782562575
     },
     {
       "appid": 4816210,
@@ -84957,7 +84957,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782550907
+      "scraped_at": 1782562571
     },
     {
       "appid": 4816880,
@@ -85087,7 +85087,7 @@
       "hltb_match": "Bitbuddy",
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782550903
+      "scraped_at": 1782562566
     },
     {
       "appid": 4817150,
@@ -85543,8 +85543,8 @@
       "appid": 4818220,
       "title": "Lust Horizons",
       "url": "https://store.steampowered.com/app/4818220",
-      "rating_pct": null,
-      "review_count": 0,
+      "rating_pct": 100,
+      "review_count": 1,
       "price_initial": 19.99,
       "price_final": 14.99,
       "discount_pct": 25,
@@ -85565,7 +85565,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782550895
+      "scraped_at": 1782562561
     },
     {
       "appid": 4818250,
@@ -85880,7 +85880,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782550893
+      "scraped_at": 1782562558
     },
     {
       "appid": 4818800,
@@ -86974,7 +86974,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782550885
+      "scraped_at": 1782562554
     },
     {
       "appid": 4820610,
@@ -87000,7 +87000,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782550881
+      "scraped_at": 1782562549
     },
     {
       "appid": 4820680,
@@ -87216,7 +87216,7 @@
       "hltb_match": "Greed and Grind",
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782550873
+      "scraped_at": 1782562544
     },
     {
       "appid": 4820990,
@@ -87268,7 +87268,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782550868
+      "scraped_at": 1782562540
     },
     {
       "appid": 4821280,
@@ -87640,7 +87640,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782550866
+      "scraped_at": 1782562537
     },
     {
       "appid": 4821700,
@@ -88177,7 +88177,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782550861
+      "scraped_at": 1782562532
     },
     {
       "appid": 4822610,
@@ -88311,7 +88311,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782550856
+      "scraped_at": 1782562527
     },
     {
       "appid": 4822760,
@@ -88638,7 +88638,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782550853
+      "scraped_at": 1782562524
     },
     {
       "appid": 4823120,
@@ -88907,7 +88907,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782550849
+      "scraped_at": 1782562520
     },
     {
       "appid": 4823390,
@@ -90460,7 +90460,7 @@
       "title": "爪爪改造家2 PawRebuild 2",
       "url": "https://store.steampowered.com/app/4825980",
       "rating_pct": 100,
-      "review_count": 9,
+      "review_count": 10,
       "price_initial": 1.99,
       "price_final": 1.19,
       "discount_pct": 40,
@@ -90479,7 +90479,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782550841
+      "scraped_at": 1782562515
     },
     {
       "appid": 4826160,
@@ -90719,7 +90719,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782550837
+      "scraped_at": 1782562511
     },
     {
       "appid": 4826380,
@@ -90853,8 +90853,8 @@
       "appid": 4826530,
       "title": "漢字でGOGO!",
       "url": "https://store.steampowered.com/app/4826530",
-      "rating_pct": 75,
-      "review_count": 4,
+      "rating_pct": 83,
+      "review_count": 6,
       "price_initial": 1.5,
       "price_final": 1.35,
       "discount_pct": 10,
@@ -90872,7 +90872,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782550832
+      "scraped_at": 1782562506
     },
     {
       "appid": 4826620,
@@ -91218,7 +91218,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782550827
+      "scraped_at": 1782562501
     },
     {
       "appid": 4827240,
@@ -93234,7 +93234,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782550820
+      "scraped_at": 1782562497
     },
     {
       "appid": 4830920,
@@ -93259,7 +93259,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782550817
+      "scraped_at": 1782562494
     },
     {
       "appid": 4830940,
@@ -93284,7 +93284,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782550812
+      "scraped_at": 1782562489
     },
     {
       "appid": 4830970,
@@ -93337,7 +93337,7 @@
       "hltb_match": "BAFF 2",
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782550804
+      "scraped_at": 1782562484
     },
     {
       "appid": 4831070,
@@ -93363,7 +93363,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782550799
+      "scraped_at": 1782562480
     },
     {
       "appid": 4831140,
@@ -93444,7 +93444,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782550795
+      "scraped_at": 1782562475
     },
     {
       "appid": 4831210,
@@ -94824,7 +94824,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782550790
+      "scraped_at": 1782562471
     },
     {
       "appid": 4833180,
@@ -95272,7 +95272,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782550780
+      "scraped_at": 1782562466
     },
     {
       "appid": 4834000,
@@ -95359,7 +95359,7 @@
       "title": "Don't Sleep With The Fishes",
       "url": "https://store.steampowered.com/app/4834070",
       "rating_pct": 99,
-      "review_count": 87,
+      "review_count": 98,
       "price_initial": 1.99,
       "price_final": 1.79,
       "discount_pct": 10,
@@ -95378,7 +95378,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782550775
+      "scraped_at": 1782562461
     },
     {
       "appid": 4834080,
@@ -95967,7 +95967,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782550765
+      "scraped_at": 1782562456
     },
     {
       "appid": 4835250,
@@ -99874,7 +99874,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782550740
+      "scraped_at": 1782562452
     },
     {
       "appid": 4843080,
@@ -109061,7 +109061,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782551462
+      "scraped_at": 1782562914
     },
     {
       "appid": 4866020,
@@ -111222,7 +111222,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782551431
+      "scraped_at": 1782562911
     },
     {
       "appid": 4872250,
@@ -113515,7 +113515,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782551366
+      "scraped_at": 1782562908
     },
     {
       "appid": 4883050,
