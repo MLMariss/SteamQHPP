@@ -1,5 +1,5 @@
 {
-  "generated_at": 1782521938,
+  "generated_at": 1782550656,
   "count": 2256,
   "games": [
     {
@@ -7,7 +7,7 @@
       "title": "Counter-Strike",
       "url": "https://store.steampowered.com/app/10",
       "rating_pct": 97,
-      "review_count": 260184,
+      "review_count": 260196,
       "price_initial": 9.99,
       "price_final": 1.99,
       "discount_pct": 80,
@@ -32,14 +32,14 @@
       "hltb_match": "Counter-Strike",
       "qhpp_before": 28.857,
       "qhpp_after": 144.866,
-      "scraped_at": 1782511408
+      "scraped_at": 1782550187
     },
     {
       "appid": 70,
       "title": "Half-Life",
       "url": "https://store.steampowered.com/app/70",
       "rating_pct": 97,
-      "review_count": 161590,
+      "review_count": 161609,
       "price_initial": 9.99,
       "price_final": 1.99,
       "discount_pct": 80,
@@ -64,14 +64,14 @@
       "hltb_match": "Half-Life",
       "qhpp_before": 1.34,
       "qhpp_after": 6.727,
-      "scraped_at": 1782511413
+      "scraped_at": 1782550191
     },
     {
       "appid": 220,
       "title": "Half-Life 2",
       "url": "https://store.steampowered.com/app/220",
       "rating_pct": 98,
-      "review_count": 274436,
+      "review_count": 274464,
       "price_initial": 9.99,
       "price_final": 1.99,
       "discount_pct": 80,
@@ -96,14 +96,14 @@
       "hltb_match": "Half-Life 2",
       "qhpp_before": 1.579,
       "qhpp_after": 7.929,
-      "scraped_at": 1782511729
+      "scraped_at": 1782550495
     },
     {
       "appid": 240,
       "title": "Counter-Strike: Source",
       "url": "https://store.steampowered.com/app/240",
       "rating_pct": 96,
-      "review_count": 191773,
+      "review_count": 191783,
       "price_initial": 9.99,
       "price_final": 1.99,
       "discount_pct": 80,
@@ -128,14 +128,14 @@
       "hltb_match": "Counter-Strike: Source",
       "qhpp_before": 18.96,
       "qhpp_after": 95.18,
-      "scraped_at": 1782511418
+      "scraped_at": 1782550196
     },
     {
       "appid": 400,
       "title": "Portal",
       "url": "https://store.steampowered.com/app/400",
       "rating_pct": 99,
-      "review_count": 195248,
+      "review_count": 195279,
       "price_initial": 9.99,
       "price_final": 1.99,
       "discount_pct": 80,
@@ -160,14 +160,14 @@
       "hltb_match": "Portal",
       "qhpp_before": 0.624,
       "qhpp_after": 3.134,
-      "scraped_at": 1782511733
+      "scraped_at": 1782550500
     },
     {
       "appid": 500,
       "title": "Left 4 Dead",
       "url": "https://store.steampowered.com/app/500",
       "rating_pct": 96,
-      "review_count": 67060,
+      "review_count": 67068,
       "price_initial": 9.99,
       "price_final": 1.99,
       "discount_pct": 80,
@@ -192,14 +192,14 @@
       "hltb_match": "Left 4 Dead",
       "qhpp_before": 2.71,
       "qhpp_after": 13.604,
-      "scraped_at": 1782511423
+      "scraped_at": 1782550200
     },
     {
       "appid": 550,
       "title": "Left 4 Dead 2",
       "url": "https://store.steampowered.com/app/550",
       "rating_pct": 98,
-      "review_count": 1039906,
+      "review_count": 1040094,
       "price_initial": 9.99,
       "price_final": 1.99,
       "discount_pct": 80,
@@ -224,14 +224,14 @@
       "hltb_match": "Left 4 Dead 2",
       "qhpp_before": 3.257,
       "qhpp_after": 16.35,
-      "scraped_at": 1782511738
+      "scraped_at": 1782550504
     },
     {
       "appid": 620,
       "title": "Portal 2",
       "url": "https://store.steampowered.com/app/620",
       "rating_pct": 99,
-      "review_count": 461256,
+      "review_count": 461295,
       "price_initial": 9.99,
       "price_final": 1.99,
       "discount_pct": 80,
@@ -256,14 +256,14 @@
       "hltb_match": "Portal 2",
       "qhpp_before": 1.477,
       "qhpp_after": 7.413,
-      "scraped_at": 1782511743
+      "scraped_at": 1782550509
     },
     {
       "appid": 2280,
       "title": "DOOM + DOOM II",
       "url": "https://store.steampowered.com/app/2280",
       "rating_pct": 97,
-      "review_count": 28355,
+      "review_count": 28356,
       "price_initial": 9.99,
       "price_final": 3.99,
       "discount_pct": 60,
@@ -288,14 +288,14 @@
       "hltb_match": "DOOM + DOOM II",
       "qhpp_before": 2.486,
       "qhpp_after": 6.224,
-      "scraped_at": 1782511428
+      "scraped_at": 1782550205
     },
     {
       "appid": 2310,
       "title": "Quake",
       "url": "https://store.steampowered.com/app/2310",
       "rating_pct": 97,
-      "review_count": 15517,
+      "review_count": 15521,
       "price_initial": 9.99,
       "price_final": 3.99,
       "discount_pct": 60,
@@ -320,14 +320,14 @@
       "hltb_match": "Quake",
       "qhpp_before": 0.99,
       "qhpp_after": 2.48,
-      "scraped_at": 1782511433
+      "scraped_at": 1782550210
     },
     {
       "appid": 2990,
       "title": "FlatOut 2",
       "url": "https://store.steampowered.com/app/2990",
       "rating_pct": 96,
-      "review_count": 21735,
+      "review_count": 21741,
       "price_initial": 9.99,
       "price_final": 1.99,
       "discount_pct": 80,
@@ -352,14 +352,14 @@
       "hltb_match": "FlatOut 2",
       "qhpp_before": 1.624,
       "qhpp_after": 8.153,
-      "scraped_at": 1782511438
+      "scraped_at": 1782550215
     },
     {
       "appid": 3320,
       "title": "Insaniquarium Deluxe",
       "url": "https://store.steampowered.com/app/3320",
       "rating_pct": 97,
-      "review_count": 6701,
+      "review_count": 6704,
       "price_initial": 4.99,
       "price_final": 0.99,
       "discount_pct": 80,
@@ -384,7 +384,7 @@
       "hltb_match": "Insaniquarium",
       "qhpp_before": 1.73,
       "qhpp_after": 8.72,
-      "scraped_at": 1782511443
+      "scraped_at": 1782550219
     },
     {
       "appid": 3390,
@@ -416,14 +416,14 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782511748
+      "scraped_at": 1782550514
     },
     {
       "appid": 3480,
       "title": "Peggle Deluxe",
       "url": "https://store.steampowered.com/app/3480",
       "rating_pct": 98,
-      "review_count": 13941,
+      "review_count": 13942,
       "price_initial": 4.99,
       "price_final": 0.99,
       "discount_pct": 80,
@@ -448,7 +448,7 @@
       "hltb_match": "Peggle Deluxe",
       "qhpp_before": 3.123,
       "qhpp_after": 15.739,
-      "scraped_at": 1782511752
+      "scraped_at": 1782550518
     },
     {
       "appid": 3540,
@@ -480,7 +480,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782511447
+      "scraped_at": 1782550224
     },
     {
       "appid": 3590,
@@ -519,7 +519,7 @@
       "title": "Garry's Mod",
       "url": "https://store.steampowered.com/app/4000",
       "rating_pct": 97,
-      "review_count": 1244747,
+      "review_count": 1244845,
       "price_initial": 9.99,
       "price_final": 4.99,
       "discount_pct": 50,
@@ -544,14 +544,14 @@
       "hltb_match": "Garry's Mod",
       "qhpp_before": 28.624,
       "qhpp_after": 57.306,
-      "scraped_at": 1782511452
+      "scraped_at": 1782550228
     },
     {
       "appid": 6020,
       "title": "STAR WARS™ Jedi Knight - Jedi Academy™",
       "url": "https://store.steampowered.com/app/6020",
       "rating_pct": 96,
-      "review_count": 13738,
+      "review_count": 13739,
       "price_initial": 9.99,
       "price_final": 3.49,
       "discount_pct": 65,
@@ -576,7 +576,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782511457
+      "scraped_at": 1782550233
     },
     {
       "appid": 7760,
@@ -608,7 +608,7 @@
       "hltb_match": "X-COM: UFO Defense",
       "qhpp_before": 10.109,
       "qhpp_after": 40.681,
-      "scraped_at": 1782511462
+      "scraped_at": 1782550238
     },
     {
       "appid": 8800,
@@ -640,14 +640,14 @@
       "hltb_match": "Sid Meier's Civilization IV: Beyond the Sword",
       "qhpp_before": 1.93,
       "qhpp_after": 9.664,
-      "scraped_at": 1782511467
+      "scraped_at": 1782550242
     },
     {
       "appid": 9420,
       "title": "Supreme Commander: Forged Alliance",
       "url": "https://store.steampowered.com/app/9420",
       "rating_pct": 97,
-      "review_count": 14203,
+      "review_count": 14204,
       "price_initial": 12.99,
       "price_final": 2.59,
       "discount_pct": 80,
@@ -672,7 +672,7 @@
       "hltb_match": "Supreme Commander: Forged Alliance",
       "qhpp_before": 1.807,
       "qhpp_after": 9.063,
-      "scraped_at": 1782511471
+      "scraped_at": 1782550247
     },
     {
       "appid": 18500,
@@ -704,14 +704,14 @@
       "hltb_match": "Defense Grid: The Awakening",
       "qhpp_before": 4.603,
       "qhpp_after": 11.525,
-      "scraped_at": 1782511476
+      "scraped_at": 1782550251
     },
     {
       "appid": 32440,
       "title": "LEGO® Star Wars™ - The Complete Saga",
       "url": "https://store.steampowered.com/app/32440",
       "rating_pct": 97,
-      "review_count": 25268,
+      "review_count": 25270,
       "price_initial": 19.99,
       "price_final": 4.99,
       "discount_pct": 75,
@@ -736,14 +736,14 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782511481
+      "scraped_at": 1782550256
     },
     {
       "appid": 32470,
       "title": "STAR WARS™ Empire at War - Gold Pack",
       "url": "https://store.steampowered.com/app/32470",
       "rating_pct": 98,
-      "review_count": 42641,
+      "review_count": 42646,
       "price_initial": 19.99,
       "price_final": 6.99,
       "discount_pct": 65,
@@ -768,14 +768,14 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782511757
+      "scraped_at": 1782550523
     },
     {
       "appid": 35140,
       "title": "Batman: Arkham Asylum Game of the Year Edition",
       "url": "https://store.steampowered.com/app/35140",
       "rating_pct": 96,
-      "review_count": 85000,
+      "review_count": 85022,
       "price_initial": 19.99,
       "price_final": 2.99,
       "discount_pct": 85,
@@ -800,14 +800,14 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782511486
+      "scraped_at": 1782550261
     },
     {
       "appid": 40970,
       "title": "Stronghold Crusader HD (2012)",
       "url": "https://store.steampowered.com/app/40970",
       "rating_pct": 98,
-      "review_count": 20923,
+      "review_count": 20921,
       "price_initial": 9.99,
       "price_final": 1.99,
       "discount_pct": 80,
@@ -832,7 +832,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782511762
+      "scraped_at": 1782550528
     },
     {
       "appid": 41060,
@@ -864,14 +864,14 @@
       "hltb_match": "Serious Sam: The Second Encounter",
       "qhpp_before": 1.859,
       "qhpp_after": 12.512,
-      "scraped_at": 1782511491
+      "scraped_at": 1782550265
     },
     {
       "appid": 48700,
       "title": "Mount & Blade: Warband",
       "url": "https://store.steampowered.com/app/48700",
       "rating_pct": 98,
-      "review_count": 171214,
+      "review_count": 171224,
       "price_initial": 19.99,
       "price_final": 4.99,
       "discount_pct": 75,
@@ -896,14 +896,14 @@
       "hltb_match": "Mount & Blade: Warband",
       "qhpp_before": 6.829,
       "qhpp_after": 27.358,
-      "scraped_at": 1782511766
+      "scraped_at": 1782550532
     },
     {
       "appid": 70300,
       "title": "VVVVVV",
       "url": "https://store.steampowered.com/app/70300",
       "rating_pct": 96,
-      "review_count": 10468,
+      "review_count": 10469,
       "price_initial": 4.99,
       "price_final": 1.24,
       "discount_pct": 75,
@@ -928,7 +928,7 @@
       "hltb_match": "VVVVVV",
       "qhpp_before": 0.673,
       "qhpp_after": 2.71,
-      "scraped_at": 1782511495
+      "scraped_at": 1782550270
     },
     {
       "appid": 70400,
@@ -960,7 +960,7 @@
       "hltb_match": "Recettear: An Item Shop's Tale",
       "qhpp_before": 1.407,
       "qhpp_after": 7.05,
-      "scraped_at": 1782511500
+      "scraped_at": 1782550275
     },
     {
       "appid": 78000,
@@ -992,14 +992,14 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782511505
+      "scraped_at": 1782550279
     },
     {
       "appid": 105600,
       "title": "Terraria",
       "url": "https://store.steampowered.com/app/105600",
       "rating_pct": 97,
-      "review_count": 1531063,
+      "review_count": 1531204,
       "price_initial": 9.99,
       "price_final": 4.99,
       "discount_pct": 50,
@@ -1024,14 +1024,14 @@
       "hltb_match": "Terraria",
       "qhpp_before": 11.312,
       "qhpp_after": 22.646,
-      "scraped_at": 1782511771
+      "scraped_at": 1782550537
     },
     {
       "appid": 204360,
       "title": "Castle Crashers®",
       "url": "https://store.steampowered.com/app/204360",
       "rating_pct": 96,
-      "review_count": 138290,
+      "review_count": 138335,
       "price_initial": 14.99,
       "price_final": 1.49,
       "discount_pct": 90,
@@ -1056,14 +1056,14 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782511509
+      "scraped_at": 1782550284
     },
     {
       "appid": 205100,
       "title": "Dishonored",
       "url": "https://store.steampowered.com/app/205100",
       "rating_pct": 98,
-      "review_count": 86215,
+      "review_count": 86230,
       "price_initial": 19.99,
       "price_final": 1.99,
       "discount_pct": 90,
@@ -1088,7 +1088,7 @@
       "hltb_match": "Dishonored",
       "qhpp_before": 1.118,
       "qhpp_after": 11.228,
-      "scraped_at": 1782511776
+      "scraped_at": 1782550541
     },
     {
       "appid": 206190,
@@ -1120,14 +1120,14 @@
       "hltb_match": "Gunpoint",
       "qhpp_before": 0.451,
       "qhpp_after": 2.265,
-      "scraped_at": 1782511781
+      "scraped_at": 1782550546
     },
     {
       "appid": 206440,
       "title": "To the Moon",
       "url": "https://store.steampowered.com/app/206440",
       "rating_pct": 96,
-      "review_count": 85604,
+      "review_count": 85610,
       "price_initial": 9.99,
       "price_final": 1.99,
       "discount_pct": 80,
@@ -1152,14 +1152,14 @@
       "hltb_match": "To the Moon",
       "qhpp_before": 0.423,
       "qhpp_after": 2.123,
-      "scraped_at": 1782511514
+      "scraped_at": 1782550288
     },
     {
       "appid": 207080,
       "title": "Indie Game: The Movie",
       "url": "https://store.steampowered.com/app/207080",
       "rating_pct": 92,
-      "review_count": 1890,
+      "review_count": 1889,
       "price_initial": 9.99,
       "price_final": 4.99,
       "discount_pct": 50,
@@ -1184,14 +1184,14 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782511519
+      "scraped_at": 1782550293
     },
     {
       "appid": 207610,
       "title": "The Walking Dead",
       "url": "https://store.steampowered.com/app/207610",
       "rating_pct": 97,
-      "review_count": 79602,
+      "review_count": 79609,
       "price_initial": 14.99,
       "price_final": 1.49,
       "discount_pct": 90,
@@ -1216,14 +1216,14 @@
       "hltb_match": "The Walking Dead",
       "qhpp_before": 0.032,
       "qhpp_after": 0.326,
-      "scraped_at": 1782511786
+      "scraped_at": 1782550550
     },
     {
       "appid": 213670,
       "title": "South Park™: The Stick of Truth™",
       "url": "https://store.steampowered.com/app/213670",
       "rating_pct": 98,
-      "review_count": 72789,
+      "review_count": 72791,
       "price_initial": 29.99,
       "price_final": 5.99,
       "discount_pct": 80,
@@ -1248,7 +1248,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782511791
+      "scraped_at": 1782550555
     },
     {
       "appid": 214560,
@@ -1287,7 +1287,7 @@
       "title": "Hotline Miami",
       "url": "https://store.steampowered.com/app/219150",
       "rating_pct": 97,
-      "review_count": 123700,
+      "review_count": 123741,
       "price_initial": 9.99,
       "price_final": 0.99,
       "discount_pct": 90,
@@ -1312,14 +1312,14 @@
       "hltb_match": "Hotline Miami",
       "qhpp_before": 0.903,
       "qhpp_after": 9.112,
-      "scraped_at": 1782511796
+      "scraped_at": 1782550560
     },
     {
       "appid": 219740,
       "title": "Don't Starve",
       "url": "https://store.steampowered.com/app/219740",
       "rating_pct": 97,
-      "review_count": 112920,
+      "review_count": 112928,
       "price_initial": 9.99,
       "price_final": 2.49,
       "discount_pct": 75,
@@ -1344,14 +1344,14 @@
       "hltb_match": "Don't Starve",
       "qhpp_before": 8.185,
       "qhpp_after": 32.84,
-      "scraped_at": 1782511524
+      "scraped_at": 1782550298
     },
     {
       "appid": 221260,
       "title": "Little Inferno",
       "url": "https://store.steampowered.com/app/221260",
       "rating_pct": 95,
-      "review_count": 13647,
+      "review_count": 13648,
       "price_initial": 14.99,
       "price_final": 3.74,
       "discount_pct": 75,
@@ -1376,14 +1376,14 @@
       "hltb_match": "Little Inferno",
       "qhpp_before": 0.26,
       "qhpp_after": 1.041,
-      "scraped_at": 1782511529
+      "scraped_at": 1782550303
     },
     {
       "appid": 221640,
       "title": "Super Hexagon",
       "url": "https://store.steampowered.com/app/221640",
       "rating_pct": 97,
-      "review_count": 25022,
+      "review_count": 25021,
       "price_initial": 2.99,
       "price_final": 0.74,
       "discount_pct": 75,
@@ -1408,14 +1408,14 @@
       "hltb_match": "Super Hexagon",
       "qhpp_before": 3.309,
       "qhpp_after": 13.37,
-      "scraped_at": 1782511801
+      "scraped_at": 1782550565
     },
     {
       "appid": 223470,
       "title": "POSTAL 2",
       "url": "https://store.steampowered.com/app/223470",
       "rating_pct": 97,
-      "review_count": 134641,
+      "review_count": 134659,
       "price_initial": 9.99,
       "price_final": 0.99,
       "discount_pct": 90,
@@ -1440,7 +1440,7 @@
       "hltb_match": "POSTAL 2: VR",
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782511533
+      "scraped_at": 1782550307
     },
     {
       "appid": 224820,
@@ -1504,14 +1504,14 @@
       "hltb_match": "Primordia",
       "qhpp_before": 0.728,
       "qhpp_after": 2.433,
-      "scraped_at": 1782511539
+      "scraped_at": 1782550312
     },
     {
       "appid": 227300,
       "title": "Euro Truck Simulator 2",
       "url": "https://store.steampowered.com/app/227300",
       "rating_pct": 97,
-      "review_count": 925483,
+      "review_count": 925527,
       "price_initial": 19.99,
       "price_final": 4.99,
       "discount_pct": 75,
@@ -1536,14 +1536,14 @@
       "hltb_match": "Euro Truck Simulator 2",
       "qhpp_before": 10.02,
       "qhpp_after": 40.141,
-      "scraped_at": 1782511806
+      "scraped_at": 1782550569
     },
     {
       "appid": 230290,
       "title": "Universe Sandbox",
       "url": "https://store.steampowered.com/app/230290",
       "rating_pct": 96,
-      "review_count": 31515,
+      "review_count": 31516,
       "price_initial": 29.99,
       "price_final": 20.09,
       "discount_pct": 33,
@@ -1568,7 +1568,7 @@
       "hltb_match": "Universe Sandbox",
       "qhpp_before": 2.202,
       "qhpp_after": 3.288,
-      "scraped_at": 1782511543
+      "scraped_at": 1782550317
     },
     {
       "appid": 235460,
@@ -1632,7 +1632,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782511548
+      "scraped_at": 1782550322
     },
     {
       "appid": 236930,
@@ -1664,14 +1664,14 @@
       "hltb_match": "The Blackwell Epiphany",
       "qhpp_before": 0.834,
       "qhpp_after": 2.786,
-      "scraped_at": 1782511553
+      "scraped_at": 1782550326
     },
     {
       "appid": 238320,
       "title": "Outlast",
       "url": "https://store.steampowered.com/app/238320",
       "rating_pct": 96,
-      "review_count": 136486,
+      "review_count": 136497,
       "price_initial": 14.99,
       "price_final": 3.74,
       "discount_pct": 75,
@@ -1696,14 +1696,14 @@
       "hltb_match": "Outlast",
       "qhpp_before": 0.506,
       "qhpp_after": 2.028,
-      "scraped_at": 1782511557
+      "scraped_at": 1782550331
     },
     {
       "appid": 238460,
       "title": "BattleBlock Theater®",
       "url": "https://store.steampowered.com/app/238460",
       "rating_pct": 97,
-      "review_count": 72694,
+      "review_count": 72700,
       "price_initial": 14.99,
       "price_final": 4.49,
       "discount_pct": 70,
@@ -1728,14 +1728,14 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782511811
+      "scraped_at": 1782550574
     },
     {
       "appid": 239030,
       "title": "Papers, Please",
       "url": "https://store.steampowered.com/app/239030",
       "rating_pct": 97,
-      "review_count": 79249,
+      "review_count": 79255,
       "price_initial": 9.99,
       "price_final": 4.99,
       "discount_pct": 50,
@@ -1760,7 +1760,7 @@
       "hltb_match": "Papers, Please",
       "qhpp_before": 0.942,
       "qhpp_after": 1.886,
-      "scraped_at": 1782511815
+      "scraped_at": 1782550578
     },
     {
       "appid": 242680,
@@ -1792,14 +1792,14 @@
       "hltb_match": "Nuclear Throne",
       "qhpp_before": 7.11,
       "qhpp_after": 9.483,
-      "scraped_at": 1782511562
+      "scraped_at": 1782550336
     },
     {
       "appid": 246420,
       "title": "Kingdom Rush  - Tower Defense",
       "url": "https://store.steampowered.com/app/246420",
       "rating_pct": 97,
-      "review_count": 16663,
+      "review_count": 16668,
       "price_initial": 9.99,
       "price_final": 4.99,
       "discount_pct": 50,
@@ -1824,7 +1824,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782511820
+      "scraped_at": 1782550583
     },
     {
       "appid": 248310,
@@ -1856,14 +1856,14 @@
       "hltb_match": "Freedom Planet",
       "qhpp_before": 0.767,
       "qhpp_after": 1.535,
-      "scraped_at": 1782511567
+      "scraped_at": 1782550341
     },
     {
       "appid": 250320,
       "title": "The Wolf Among Us",
       "url": "https://store.steampowered.com/app/250320",
       "rating_pct": 98,
-      "review_count": 39547,
+      "review_count": 39549,
       "price_initial": 14.99,
       "price_final": 7.49,
       "discount_pct": 50,
@@ -1888,14 +1888,14 @@
       "hltb_match": "The Wolf Among Us",
       "qhpp_before": 0.628,
       "qhpp_after": 1.256,
-      "scraped_at": 1782511825
+      "scraped_at": 1782550588
     },
     {
       "appid": 250900,
       "title": "The Binding of Isaac: Rebirth",
       "url": "https://store.steampowered.com/app/250900",
       "rating_pct": 97,
-      "review_count": 397635,
+      "review_count": 398204,
       "price_initial": 14.99,
       "price_final": 1.49,
       "discount_pct": 90,
@@ -1920,7 +1920,7 @@
       "hltb_match": "The Binding of Isaac: Rebirth",
       "qhpp_before": 10.599,
       "qhpp_after": 106.635,
-      "scraped_at": 1782511830
+      "scraped_at": 1782550592
     },
     {
       "appid": 251290,
@@ -1952,14 +1952,14 @@
       "hltb_match": "The Legend of Heroes: Trails in the Sky SC",
       "qhpp_before": 2.297,
       "qhpp_after": 3.535,
-      "scraped_at": 1782511835
+      "scraped_at": 1782550597
     },
     {
       "appid": 253230,
       "title": "A Hat in Time",
       "url": "https://store.steampowered.com/app/253230",
       "rating_pct": 98,
-      "review_count": 53136,
+      "review_count": 53141,
       "price_initial": 29.99,
       "price_final": 14.99,
       "discount_pct": 50,
@@ -1984,7 +1984,7 @@
       "hltb_match": "A Hat in Time",
       "qhpp_before": 0.474,
       "qhpp_after": 0.948,
-      "scraped_at": 1782511840
+      "scraped_at": 1782550601
     },
     {
       "appid": 260750,
@@ -2023,7 +2023,7 @@
       "title": "The Walking Dead: Season Two",
       "url": "https://store.steampowered.com/app/261030",
       "rating_pct": 97,
-      "review_count": 33710,
+      "review_count": 33712,
       "price_initial": 14.99,
       "price_final": 3.74,
       "discount_pct": 75,
@@ -2048,7 +2048,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782511572
+      "scraped_at": 1782550345
     },
     {
       "appid": 264080,
@@ -2112,14 +2112,14 @@
       "hltb_match": "One Finger Death Punch",
       "qhpp_before": 3.574,
       "qhpp_after": 14.384,
-      "scraped_at": 1782511845
+      "scraped_at": 1782550606
     },
     {
       "appid": 264710,
       "title": "Subnautica",
       "url": "https://store.steampowered.com/app/264710",
       "rating_pct": 97,
-      "review_count": 373661,
+      "review_count": 373716,
       "price_initial": 29.99,
       "price_final": 7.49,
       "discount_pct": 75,
@@ -2144,7 +2144,7 @@
       "hltb_match": "Subnautica",
       "qhpp_before": 1.333,
       "qhpp_after": 5.336,
-      "scraped_at": 1782511850
+      "scraped_at": 1782550610
     },
     {
       "appid": 265610,
@@ -2176,7 +2176,7 @@
       "hltb_match": "Epic Battle Fantasy 4",
       "qhpp_before": 1.941,
       "qhpp_after": 6.481,
-      "scraped_at": 1782511854
+      "scraped_at": 1782550615
     },
     {
       "appid": 265890,
@@ -2208,14 +2208,14 @@
       "hltb_match": "Hexcells",
       "qhpp_before": 0.714,
       "qhpp_after": 2.398,
-      "scraped_at": 1782511577
+      "scraped_at": 1782550350
     },
     {
       "appid": 268910,
       "title": "Cuphead",
       "url": "https://store.steampowered.com/app/268910",
       "rating_pct": 96,
-      "review_count": 213841,
+      "review_count": 213898,
       "price_initial": 19.99,
       "price_final": 13.99,
       "discount_pct": 30,
@@ -2240,14 +2240,14 @@
       "hltb_match": "Cuphead",
       "qhpp_before": 0.874,
       "qhpp_after": 1.249,
-      "scraped_at": 1782511582
+      "scraped_at": 1782550355
     },
     {
       "appid": 270880,
       "title": "American Truck Simulator",
       "url": "https://store.steampowered.com/app/270880",
       "rating_pct": 97,
-      "review_count": 192790,
+      "review_count": 192804,
       "price_initial": 19.99,
       "price_final": 4.99,
       "discount_pct": 75,
@@ -2272,14 +2272,14 @@
       "hltb_match": "American Truck Simulator",
       "qhpp_before": 3.45,
       "qhpp_after": 13.821,
-      "scraped_at": 1782511859
+      "scraped_at": 1782550620
     },
     {
       "appid": 272600,
       "title": "Detective Grimoire",
       "url": "https://store.steampowered.com/app/272600",
       "rating_pct": 96,
-      "review_count": 2378,
+      "review_count": 2379,
       "price_initial": 6.99,
       "price_final": 1.39,
       "discount_pct": 80,
@@ -2304,14 +2304,14 @@
       "hltb_match": "Detective Grimoire",
       "qhpp_before": 0.385,
       "qhpp_after": 1.934,
-      "scraped_at": 1782511587
+      "scraped_at": 1782550360
     },
     {
       "appid": 274190,
       "title": "Broforce",
       "url": "https://store.steampowered.com/app/274190",
       "rating_pct": 97,
-      "review_count": 60701,
+      "review_count": 60704,
       "price_initial": 14.99,
       "price_final": 2.99,
       "discount_pct": 80,
@@ -2336,7 +2336,7 @@
       "hltb_match": "Broforce",
       "qhpp_before": 0.751,
       "qhpp_after": 3.763,
-      "scraped_at": 1782511864
+      "scraped_at": 1782550624
     },
     {
       "appid": 280220,
@@ -2368,7 +2368,7 @@
       "hltb_match": "Creeper World 3: Arc Eternal",
       "qhpp_before": 2.946,
       "qhpp_after": 8.939,
-      "scraped_at": 1782511592
+      "scraped_at": 1782550364
     },
     {
       "appid": 283940,
@@ -2400,14 +2400,14 @@
       "hltb_match": "Freddi Fish and the Case of the Missing Kelp Seeds",
       "qhpp_before": 0.139,
       "qhpp_after": 0.232,
-      "scraped_at": 1782511597
+      "scraped_at": 1782550369
     },
     {
       "appid": 283960,
       "title": "Pajama Sam: No Need to Hide When It's Dark Outside",
       "url": "https://store.steampowered.com/app/283960",
       "rating_pct": 97,
-      "review_count": 1334,
+      "review_count": 1335,
       "price_initial": 6.99,
       "price_final": 4.19,
       "discount_pct": 40,
@@ -2432,14 +2432,14 @@
       "hltb_match": "Pajama Sam: Don't Fear The Dark",
       "qhpp_before": 0.25,
       "qhpp_after": 0.417,
-      "scraped_at": 1782511602
+      "scraped_at": 1782550374
     },
     {
       "appid": 284160,
       "title": "BeamNG.drive",
       "url": "https://store.steampowered.com/app/284160",
       "rating_pct": 97,
-      "review_count": 400743,
+      "review_count": 400802,
       "price_initial": 24.99,
       "price_final": 19.99,
       "discount_pct": 20,
@@ -2464,7 +2464,7 @@
       "hltb_match": "BeamNG.drive",
       "qhpp_before": 0.388,
       "qhpp_after": 0.485,
-      "scraped_at": 1782511869
+      "scraped_at": 1782550629
     },
     {
       "appid": 284770,
@@ -2496,7 +2496,7 @@
       "hltb_match": "Enigmatis: The Mists of Ravenwood",
       "qhpp_before": 0.356,
       "qhpp_after": 1.426,
-      "scraped_at": 1782511606
+      "scraped_at": 1782550378
     },
     {
       "appid": 285740,
@@ -2528,14 +2528,14 @@
       "hltb_match": "Kitty Powers' Matchmaker",
       "qhpp_before": 2.575,
       "qhpp_after": 3.846,
-      "scraped_at": 1782511611
+      "scraped_at": 1782550383
     },
     {
       "appid": 288160,
       "title": "The Room",
       "url": "https://store.steampowered.com/app/288160",
       "rating_pct": 98,
-      "review_count": 31342,
+      "review_count": 31344,
       "price_initial": 4.99,
       "price_final": 0.99,
       "discount_pct": 80,
@@ -2560,14 +2560,14 @@
       "hltb_match": "The Room",
       "qhpp_before": 0.511,
       "qhpp_after": 2.574,
-      "scraped_at": 1782511875
+      "scraped_at": 1782550633
     },
     {
       "appid": 292030,
       "title": "The Witcher 3: Wild Hunt",
       "url": "https://store.steampowered.com/app/292030",
       "rating_pct": 97,
-      "review_count": 873844,
+      "review_count": 873906,
       "price_initial": 39.99,
       "price_final": 3.99,
       "discount_pct": 90,
@@ -2592,14 +2592,14 @@
       "hltb_match": "The Witcher 3: Wild Hunt",
       "qhpp_before": 2.668,
       "qhpp_after": 26.742,
-      "scraped_at": 1782511616
+      "scraped_at": 1782550388
     },
     {
       "appid": 294100,
       "title": "RimWorld",
       "url": "https://store.steampowered.com/app/294100",
       "rating_pct": 98,
-      "review_count": 241554,
+      "review_count": 241589,
       "price_initial": 34.99,
       "price_final": 27.99,
       "discount_pct": 20,
@@ -2624,7 +2624,7 @@
       "hltb_match": "RimWorld",
       "qhpp_before": 4.442,
       "qhpp_after": 5.553,
-      "scraped_at": 1782511879
+      "scraped_at": 1782550638
     },
     {
       "appid": 294660,
@@ -2656,7 +2656,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782511621
+      "scraped_at": 1782550393
     },
     {
       "appid": 298030,
@@ -2720,7 +2720,7 @@
       "hltb_match": "Chicken Invaders 4: Ultimate Omelette",
       "qhpp_before": 0.687,
       "qhpp_after": 1.377,
-      "scraped_at": 1782511626
+      "scraped_at": 1782550397
     },
     {
       "appid": 301320,
@@ -2752,7 +2752,7 @@
       "hltb_match": "NoLimits 2: Roller Coaster Simulation",
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782511630
+      "scraped_at": 1782550402
     },
     {
       "appid": 303590,
@@ -2816,14 +2816,14 @@
       "hltb_match": "Hexcells Infinite",
       "qhpp_before": 2.138,
       "qhpp_after": 7.161,
-      "scraped_at": 1782511635
+      "scraped_at": 1782550407
     },
     {
       "appid": 304430,
       "title": "INSIDE",
       "url": "https://store.steampowered.com/app/304430",
       "rating_pct": 97,
-      "review_count": 74700,
+      "review_count": 74706,
       "price_initial": 24.99,
       "price_final": 2.49,
       "discount_pct": 90,
@@ -2848,7 +2848,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782511884
+      "scraped_at": 1782550642
     },
     {
       "appid": 310360,
@@ -2887,7 +2887,7 @@
       "title": "Duck Game",
       "url": "https://store.steampowered.com/app/312530",
       "rating_pct": 97,
-      "review_count": 39009,
+      "review_count": 39010,
       "price_initial": 12.99,
       "price_final": 9.09,
       "discount_pct": 30,
@@ -2912,7 +2912,7 @@
       "hltb_match": "Duck Game",
       "qhpp_before": 3.077,
       "qhpp_after": 4.396,
-      "scraped_at": 1782511889
+      "scraped_at": 1782550647
     },
     {
       "appid": 312990,
@@ -2951,7 +2951,7 @@
       "title": "SpaceEngine",
       "url": "https://store.steampowered.com/app/314650",
       "rating_pct": 96,
-      "review_count": 15847,
+      "review_count": 15848,
       "price_initial": 29.99,
       "price_final": 17.99,
       "discount_pct": 40,
@@ -2976,14 +2976,14 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782511640
+      "scraped_at": 1782550411
     },
     {
       "appid": 315810,
       "title": "eden*",
       "url": "https://store.steampowered.com/app/315810",
       "rating_pct": 97,
-      "review_count": 5140,
+      "review_count": 5141,
       "price_initial": 19.99,
       "price_final": 9.99,
       "discount_pct": 50,
@@ -3008,7 +3008,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782511894
+      "scraped_at": 1782550652
     },
     {
       "appid": 316610,
@@ -3040,7 +3040,7 @@
       "hltb_match": "A Good Snowman is Hard to Build",
       "qhpp_before": 0.203,
       "qhpp_after": 0.677,
-      "scraped_at": 1782511645
+      "scraped_at": 1782550416
     },
     {
       "appid": 318130,
@@ -3072,7 +3072,7 @@
       "hltb_match": "Doom & Destiny",
       "qhpp_before": 2.114,
       "qhpp_after": 7.064,
-      "scraped_at": 1782511650
+      "scraped_at": 1782550421
     },
     {
       "appid": 319630,
@@ -3111,7 +3111,7 @@
       "title": "CLANNAD",
       "url": "https://store.steampowered.com/app/324160",
       "rating_pct": 98,
-      "review_count": 10696,
+      "review_count": 10697,
       "price_initial": 44.99,
       "price_final": 17.99,
       "discount_pct": 60,
@@ -3136,7 +3136,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782511898
+      "scraped_at": 1782550656
     },
     {
       "appid": 327400,
@@ -3168,14 +3168,14 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782511655
+      "scraped_at": 1782550425
     },
     {
       "appid": 331750,
       "title": "Disney•Pixar WALL-E",
       "url": "https://store.steampowered.com/app/331750",
       "rating_pct": 97,
-      "review_count": 1407,
+      "review_count": 1409,
       "price_initial": 19.99,
       "price_final": 9.99,
       "discount_pct": 50,
@@ -3200,14 +3200,14 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782511660
+      "scraped_at": 1782550430
     },
     {
       "appid": 334940,
       "title": "Yoku's Island Express",
       "url": "https://store.steampowered.com/app/334940",
       "rating_pct": 96,
-      "review_count": 5215,
+      "review_count": 5217,
       "price_initial": 19.99,
       "price_final": 3.99,
       "discount_pct": 80,
@@ -3232,7 +3232,7 @@
       "hltb_match": "Yoku's Island Express",
       "qhpp_before": 0.403,
       "qhpp_after": 2.021,
-      "scraped_at": 1782511665
+      "scraped_at": 1782550435
     },
     {
       "appid": 337320,
@@ -3264,7 +3264,7 @@
       "hltb_match": "Paint the Town Red",
       "qhpp_before": 0.663,
       "qhpp_after": 1.326,
-      "scraped_at": 1782511670
+      "scraped_at": 1782550439
     },
     {
       "appid": 337340,
@@ -3335,7 +3335,7 @@
       "title": "fault - milestone two side:above",
       "url": "https://store.steampowered.com/app/344770",
       "rating_pct": 96,
-      "review_count": 2567,
+      "review_count": 2568,
       "price_initial": 14.99,
       "price_final": 5.99,
       "discount_pct": 60,
@@ -3360,7 +3360,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782511675
+      "scraped_at": 1782550444
     },
     {
       "appid": 348550,
@@ -3392,7 +3392,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782511680
+      "scraped_at": 1782550449
     },
     {
       "appid": 350910,
@@ -3424,7 +3424,7 @@
       "hltb_match": "Streets of Fury EX",
       "qhpp_before": 0.183,
       "qhpp_after": 0.917,
-      "scraped_at": 1782511685
+      "scraped_at": 1782550453
     },
     {
       "appid": 351640,
@@ -3488,7 +3488,7 @@
       "hltb_match": "Chicken Invaders: Cluck of the Dark Side",
       "qhpp_before": 1.202,
       "qhpp_after": 2.408,
-      "scraped_at": 1782511689
+      "scraped_at": 1782550458
     },
     {
       "appid": 353330,
@@ -3520,7 +3520,7 @@
       "hltb_match": "Love at First Sight",
       "qhpp_before": 0.25,
       "qhpp_after": 1.002,
-      "scraped_at": 1782511694
+      "scraped_at": 1782550463
     },
     {
       "appid": 353540,
@@ -3552,7 +3552,7 @@
       "hltb_match": "Stephen's Sausage Roll",
       "qhpp_before": 0.944,
       "qhpp_after": 1.889,
-      "scraped_at": 1782511700
+      "scraped_at": 1782550467
     },
     {
       "appid": 360740,
@@ -3584,7 +3584,7 @@
       "hltb_match": "Downwell",
       "qhpp_before": 3.569,
       "qhpp_after": 14.419,
-      "scraped_at": 1782511705
+      "scraped_at": 1782550472
     },
     {
       "appid": 362680,
@@ -3623,7 +3623,7 @@
       "title": "Hollow Knight",
       "url": "https://store.steampowered.com/app/367520",
       "rating_pct": 97,
-      "review_count": 547024,
+      "review_count": 547117,
       "price_initial": 14.99,
       "price_final": 7.49,
       "discount_pct": 50,
@@ -3648,7 +3648,7 @@
       "hltb_match": "Hollow Knight",
       "qhpp_before": 2.893,
       "qhpp_after": 5.789,
-      "scraped_at": 1782511709
+      "scraped_at": 1782550477
     },
     {
       "appid": 367580,
@@ -3687,7 +3687,7 @@
       "title": "TIS-100",
       "url": "https://store.steampowered.com/app/370360",
       "rating_pct": 97,
-      "review_count": 4077,
+      "review_count": 4078,
       "price_initial": 6.99,
       "price_final": 3.49,
       "discount_pct": 50,
@@ -3712,7 +3712,7 @@
       "hltb_match": "TIS-100",
       "qhpp_before": 3.802,
       "qhpp_after": 7.615,
-      "scraped_at": 1782511272
+      "scraped_at": 1782550059
     },
     {
       "appid": 373770,
@@ -3744,7 +3744,7 @@
       "hltb_match": "LiEat",
       "qhpp_before": 1.477,
       "qhpp_after": 3.711,
-      "scraped_at": 1782511714
+      "scraped_at": 1782550481
     },
     {
       "appid": 377860,
@@ -3776,14 +3776,14 @@
       "hltb_match": "Mushihime-sama",
       "qhpp_before": 0.631,
       "qhpp_after": 1.147,
-      "scraped_at": 1782511719
+      "scraped_at": 1782550486
     },
     {
       "appid": 383980,
       "title": "Rivals of Aether",
       "url": "https://store.steampowered.com/app/383980",
       "rating_pct": 96,
-      "review_count": 37789,
+      "review_count": 37792,
       "price_initial": 29.99,
       "price_final": 14.99,
       "discount_pct": 50,
@@ -3808,7 +3808,7 @@
       "hltb_match": "Rivals of Aether",
       "qhpp_before": 1.207,
       "qhpp_after": 2.414,
-      "scraped_at": 1782511724
+      "scraped_at": 1782550491
     },
     {
       "appid": 388210,
@@ -3840,7 +3840,7 @@
       "hltb_match": "Day of the Tentacle",
       "qhpp_before": 0.375,
       "qhpp_after": 1.882,
-      "scraped_at": 1782511278
+      "scraped_at": 1782550063
     },
     {
       "appid": 397740,
@@ -3904,7 +3904,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782511283
+      "scraped_at": 1782550068
     },
     {
       "appid": 407900,
@@ -3968,7 +3968,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782511287
+      "scraped_at": 1782550073
     },
     {
       "appid": 411960,
@@ -4000,14 +4000,14 @@
       "hltb_match": "TY the Tasmanian Tiger 4",
       "qhpp_before": 0.458,
       "qhpp_after": 0.916,
-      "scraped_at": 1782511292
+      "scraped_at": 1782550077
     },
     {
       "appid": 412830,
       "title": "STEINS;GATE",
       "url": "https://store.steampowered.com/app/412830",
       "rating_pct": 97,
-      "review_count": 26125,
+      "review_count": 26128,
       "price_initial": 29.99,
       "price_final": 8.99,
       "discount_pct": 70,
@@ -4032,14 +4032,14 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782511297
+      "scraped_at": 1782550082
     },
     {
       "appid": 413150,
       "title": "Stardew Valley",
       "url": "https://store.steampowered.com/app/413150",
       "rating_pct": 98,
-      "review_count": 1016107,
+      "review_count": 1016253,
       "price_initial": 14.99,
       "price_final": 8.99,
       "discount_pct": 40,
@@ -4064,14 +4064,14 @@
       "hltb_match": "Stardew Valley",
       "qhpp_before": 6.976,
       "qhpp_after": 11.631,
-      "scraped_at": 1782511302
+      "scraped_at": 1782550086
     },
     {
       "appid": 420110,
       "title": "NEKOPARA Vol. 2",
       "url": "https://store.steampowered.com/app/420110",
       "rating_pct": 97,
-      "review_count": 12801,
+      "review_count": 12799,
       "price_initial": 9.99,
       "price_final": 3.99,
       "discount_pct": 60,
@@ -4096,14 +4096,14 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782511306
+      "scraped_at": 1782550091
     },
     {
       "appid": 420530,
       "title": "OneShot",
       "url": "https://store.steampowered.com/app/420530",
       "rating_pct": 98,
-      "review_count": 63195,
+      "review_count": 63203,
       "price_initial": 9.99,
       "price_final": 5.99,
       "discount_pct": 40,
@@ -4128,7 +4128,7 @@
       "hltb_match": "OneShot",
       "qhpp_before": 0.667,
       "qhpp_after": 1.113,
-      "scraped_at": 1782511311
+      "scraped_at": 1782550096
     },
     {
       "appid": 424280,
@@ -4167,7 +4167,7 @@
       "title": "The Room Two",
       "url": "https://store.steampowered.com/app/425580",
       "rating_pct": 98,
-      "review_count": 21490,
+      "review_count": 21489,
       "price_initial": 4.99,
       "price_final": 0.99,
       "discount_pct": 80,
@@ -4192,7 +4192,7 @@
       "hltb_match": "The Room Two",
       "qhpp_before": 0.609,
       "qhpp_after": 3.069,
-      "scraped_at": 1782511316
+      "scraped_at": 1782550100
     },
     {
       "appid": 427520,
@@ -4256,14 +4256,14 @@
       "hltb_match": "Epic Battle Fantasy 5",
       "qhpp_before": 1.909,
       "qhpp_after": 4.777,
-      "scraped_at": 1782511321
+      "scraped_at": 1782550105
     },
     {
       "appid": 433340,
       "title": "Slime Rancher",
       "url": "https://store.steampowered.com/app/433340",
       "rating_pct": 98,
-      "review_count": 154507,
+      "review_count": 154521,
       "price_initial": 19.99,
       "price_final": 4.99,
       "discount_pct": 75,
@@ -4288,7 +4288,7 @@
       "hltb_match": "Slime Rancher",
       "qhpp_before": 1.24,
       "qhpp_after": 4.969,
-      "scraped_at": 1782511325
+      "scraped_at": 1782550109
     },
     {
       "appid": 435400,
@@ -4320,14 +4320,14 @@
       "hltb_match": "Hidden Folks",
       "qhpp_before": 0.349,
       "qhpp_after": 0.699,
-      "scraped_at": 1782511330
+      "scraped_at": 1782550114
     },
     {
       "appid": 439490,
       "title": "BLUE REVOLVER",
       "url": "https://store.steampowered.com/app/439490",
       "rating_pct": 98,
-      "review_count": 882,
+      "review_count": 883,
       "price_initial": 14.99,
       "price_final": 7.49,
       "discount_pct": 50,
@@ -4352,14 +4352,14 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782511335
+      "scraped_at": 1782550119
     },
     {
       "appid": 447530,
       "title": "VA-11 Hall-A: Cyberpunk Bartender Action",
       "url": "https://store.steampowered.com/app/447530",
       "rating_pct": 97,
-      "review_count": 38305,
+      "review_count": 38308,
       "price_initial": 14.99,
       "price_final": 10.04,
       "discount_pct": 33,
@@ -4384,7 +4384,7 @@
       "hltb_match": "VA-11 Hall-A: Cyberpunk Bartender Action",
       "qhpp_before": 0.925,
       "qhpp_after": 1.382,
-      "scraped_at": 1782511339
+      "scraped_at": 1782550123
     },
     {
       "appid": 450540,
@@ -4423,7 +4423,7 @@
       "title": "Katana ZERO",
       "url": "https://store.steampowered.com/app/460950",
       "rating_pct": 98,
-      "review_count": 75255,
+      "review_count": 75260,
       "price_initial": 14.99,
       "price_final": 8.99,
       "discount_pct": 40,
@@ -4448,7 +4448,7 @@
       "hltb_match": "Katana ZERO",
       "qhpp_before": 0.562,
       "qhpp_after": 0.937,
-      "scraped_at": 1782511344
+      "scraped_at": 1782550128
     },
     {
       "appid": 472870,
@@ -4480,14 +4480,14 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782511349
+      "scraped_at": 1782550132
     },
     {
       "appid": 483980,
       "title": "Mad Father",
       "url": "https://store.steampowered.com/app/483980",
       "rating_pct": 97,
-      "review_count": 6565,
+      "review_count": 6567,
       "price_initial": 9.99,
       "price_final": 4.99,
       "discount_pct": 50,
@@ -4512,14 +4512,14 @@
       "hltb_match": "Mad Father",
       "qhpp_before": 0.398,
       "qhpp_after": 0.797,
-      "scraped_at": 1782511354
+      "scraped_at": 1782550137
     },
     {
       "appid": 488860,
       "title": "MADNESS: Project Nexus",
       "url": "https://store.steampowered.com/app/488860",
       "rating_pct": 97,
-      "review_count": 17271,
+      "review_count": 17274,
       "price_initial": 24.99,
       "price_final": 19.99,
       "discount_pct": 20,
@@ -4544,14 +4544,14 @@
       "hltb_match": "MADNESS: Project Nexus",
       "qhpp_before": 4.025,
       "qhpp_after": 5.032,
-      "scraped_at": 1782511358
+      "scraped_at": 1782550142
     },
     {
       "appid": 504230,
       "title": "Celeste",
       "url": "https://store.steampowered.com/app/504230",
       "rating_pct": 97,
-      "review_count": 142721,
+      "review_count": 142749,
       "price_initial": 19.99,
       "price_final": 4.99,
       "discount_pct": 75,
@@ -4576,14 +4576,14 @@
       "hltb_match": "Celeste",
       "qhpp_before": 1.004,
       "qhpp_after": 4.024,
-      "scraped_at": 1782511363
+      "scraped_at": 1782550146
     },
     {
       "appid": 508440,
       "title": "Totally Accurate Battle Simulator",
       "url": "https://store.steampowered.com/app/508440",
       "rating_pct": 98,
-      "review_count": 150949,
+      "review_count": 150963,
       "price_initial": 19.99,
       "price_final": 6.79,
       "discount_pct": 66,
@@ -4608,7 +4608,7 @@
       "hltb_match": "Totally Accurate Battle Simulator",
       "qhpp_before": 1.088,
       "qhpp_after": 3.204,
-      "scraped_at": 1782511368
+      "scraped_at": 1782550151
     },
     {
       "appid": 519860,
@@ -4640,7 +4640,7 @@
       "hltb_match": "DUSK",
       "qhpp_before": 0.553,
       "qhpp_after": 1.629,
-      "scraped_at": 1782511373
+      "scraped_at": 1782550155
     },
     {
       "appid": 521200,
@@ -4679,7 +4679,7 @@
       "title": "Satisfactory",
       "url": "https://store.steampowered.com/app/526870",
       "rating_pct": 97,
-      "review_count": 273673,
+      "review_count": 273713,
       "price_initial": 39.99,
       "price_final": 27.99,
       "discount_pct": 30,
@@ -4704,14 +4704,14 @@
       "hltb_match": "Satisfactory",
       "qhpp_before": 3.849,
       "qhpp_after": 5.5,
-      "scraped_at": 1782511378
+      "scraped_at": 1782550160
     },
     {
       "appid": 531510,
       "title": "Just Shapes & Beats",
       "url": "https://store.steampowered.com/app/531510",
       "rating_pct": 98,
-      "review_count": 25612,
+      "review_count": 25617,
       "price_initial": 19.99,
       "price_final": 11.99,
       "discount_pct": 40,
@@ -4736,14 +4736,14 @@
       "hltb_match": "Just Shapes & Beats",
       "qhpp_before": 0.73,
       "qhpp_after": 1.218,
-      "scraped_at": 1782511384
+      "scraped_at": 1782550164
     },
     {
       "appid": 532110,
       "title": "Rusty Lake: Roots",
       "url": "https://store.steampowered.com/app/532110",
       "rating_pct": 97,
-      "review_count": 8798,
+      "review_count": 8801,
       "price_initial": 3.99,
       "price_final": 2.23,
       "discount_pct": 44,
@@ -4768,7 +4768,7 @@
       "hltb_match": "Rusty Lake: Roots",
       "qhpp_before": 1.118,
       "qhpp_after": 2.001,
-      "scraped_at": 1782511388
+      "scraped_at": 1782550169
     },
     {
       "appid": 541570,
@@ -4807,7 +4807,7 @@
       "title": "Half-Life: Alyx",
       "url": "https://store.steampowered.com/app/546560",
       "rating_pct": 98,
-      "review_count": 104175,
+      "review_count": 104185,
       "price_initial": 59.99,
       "price_final": 14.99,
       "discount_pct": 75,
@@ -4832,14 +4832,14 @@
       "hltb_match": "Half-Life: Alyx",
       "qhpp_before": 0.247,
       "qhpp_after": 0.987,
-      "scraped_at": 1782511394
+      "scraped_at": 1782550173
     },
     {
       "appid": 548430,
       "title": "Deep Rock Galactic",
       "url": "https://store.steampowered.com/app/548430",
       "rating_pct": 97,
-      "review_count": 377151,
+      "review_count": 377173,
       "price_initial": 29.99,
       "price_final": 8.99,
       "discount_pct": 70,
@@ -4864,7 +4864,7 @@
       "hltb_match": "Deep Rock Galactic",
       "qhpp_before": 7.31,
       "qhpp_after": 24.385,
-      "scraped_at": 1782511399
+      "scraped_at": 1782550178
     },
     {
       "appid": 553310,
@@ -4896,7 +4896,7 @@
       "hltb_match": "Lethal League Blaze",
       "qhpp_before": 0.738,
       "qhpp_after": 1.476,
-      "scraped_at": 1782511404
+      "scraped_at": 1782550182
     },
     {
       "appid": 4768660,
