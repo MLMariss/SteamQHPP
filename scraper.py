@@ -18,6 +18,12 @@ What changed in v3 (the upgrades):
   * Time-budgeted runs that commit as they go. Rather than fixed per-run counts,
     each run scrapes until RUN_MINUTES elapses, git-committing every few minutes
     so a 6-hour-wall kill never loses progress.
+  * Released-only, with a waiting room. Only games actually out (a concrete past
+    release date) are stored — no empty coming-soon shells. Unreleased games go to
+    catalog["pending"] = {appid: release_ts|null}, costing just one appdetails
+    probe, and are promoted to the scrape queue the moment their release date
+    passes. Nothing is ever permanently skipped for being unreleased. New work is
+    ordered newest-appid-first, so just-released titles surface near the front.
 
 Per game: title, store URL, rating (% positive) + reviews, price before/after
 discount (USD), discount % + end time, release date, tags, HLTB
@@ -382,7 +388,8 @@ def qhpp(avg_hours, rating_pct, price_usd):
 
 # --------------------------------------------------------------------------- #
 # Build one game record. prev=record means this is a refresh -> reuse HLTB.
-# Returns dict | "skip" (non-game/delisted) | None (transient)
+# Returns dict (released, scraped) | ("pending", date, ts) (not yet released ->
+# waiting room) | "skip" (non-game/delisted -> permanent) | None (transient error)
 # --------------------------------------------------------------------------- #
 def build_record(appid, discount_map, prev=None):
     detail = get("https://store.steampowered.com/api/appdetails",
@@ -397,6 +404,15 @@ def build_record(appid, discount_map, prev=None):
     d = node.get("data", {})
     if d.get("type") != "game":
         return "skip"
+
+    # Release gate: only store games actually out as of now. parse_release() yields
+    # a release_ts ONLY for a concrete past/real date; coming_soon and vague future
+    # strings ("Q4 2026", "2027", "To be announced") give ts=None. Unreleased games
+    # go to the pending waiting room (re-checked each run, never permanently skipped)
+    # and cost just this one appdetails probe -- no reviews/tags/HLTB/news fetched.
+    release_date, release_ts = parse_release(d)
+    if release_ts is None or release_ts > time.time():
+        return ("pending", release_date, release_ts)
 
     title = d.get("name", f"App {appid}")
     is_free = bool(d.get("is_free"))
@@ -417,7 +433,6 @@ def build_record(appid, discount_map, prev=None):
     rating_pct, review_count = rating_from_reviews(appid)
     tags = tags_from_steamspy(appid) or [g["description"] for g in d.get("genres", [])
                                          if g.get("description")]
-    release_date, release_ts = parse_release(d)
     last_update_ts = last_update_from_news(appid)   # cheap (separate API budget)
 
     # HLTB: only fetch on first capture; on refresh reuse what we already have.
@@ -478,14 +493,26 @@ def load_catalog():
             c.setdefault("last_sync", 0)
             c.setdefault("skipped", [])
             c.setdefault("priority", None)
+            # pending = unreleased games seen but not yet out: {appid: release_ts|null}.
+            # Normalize from any legacy list form to the dict form we use now.
+            pend = c.get("pending")
+            if isinstance(pend, list):
+                c["pending"] = {int(a): None for a in pend}
+            elif isinstance(pend, dict):
+                c["pending"] = {int(k): v for k, v in pend.items()}
+            else:
+                c["pending"] = {}
             return c
-        except ValueError:
+        except (ValueError, TypeError):
             pass
-    return {"last_sync": 0, "skipped": [], "priority": None}
+    return {"last_sync": 0, "skipped": [], "priority": None, "pending": {}}
 
 
 def save_catalog(c):
-    CATALOG_FILE.write_text(json.dumps(c, ensure_ascii=False), encoding="utf-8")
+    # Serialize pending with string keys (JSON object keys are strings anyway).
+    out = dict(c)
+    out["pending"] = {str(k): v for k, v in (c.get("pending") or {}).items()}
+    CATALOG_FILE.write_text(json.dumps(out, ensure_ascii=False), encoding="utf-8")
 
 
 def git_checkpoint(msg):
@@ -506,19 +533,63 @@ def git_checkpoint(msg):
 # Work selection
 # --------------------------------------------------------------------------- #
 def select_work(master, has_lm, processed, catalog):
-    """Return (new_ids, refresh_ids). NEW = catalog games never scraped (priority
-    first, then by appid). REFRESH = stored games whose last_modified moved past our
-    scraped_at (or on sale), oldest-touched first."""
+    """Return (new_ids, refresh_ids). NEW work, in priority order:
+      1. RIPE pending games -- previously seen as unreleased, whose release date has
+         now arrived (release_ts <= now). These jump the queue so a game that came
+         out since the last run gets scraped first.
+      2. Fresh catalog games never seen before, newest appid first.
+    Games still sitting unreleased in `pending` are NOT re-queued as fresh work here;
+    they're only re-probed once ripe (above) or, for undated/TBA ones, occasionally
+    via the catalog's last_modified signal -- so we don't burn probes on them.
+    REFRESH = stored (released) games whose last_modified moved past scraped_at (or on
+    sale), oldest-touched first.
+    """
+    now = int(time.time())
     skipped = set(catalog["skipped"])
+    pending = dict(catalog.get("pending") or {})           # {appid: release_ts|None}
     done = {int(a) for a in processed} | skipped
 
-    fresh = [a for a in master if a not in done]
-    fresh.sort(reverse=(NEW_ORDER == "newest"))
-    pri = [a for a in (catalog.get("priority") or []) if a not in done]
-    pri_set = set(pri)
-    new_ids = pri + [a for a in fresh if a not in pri_set]
+    # 1. Pending games whose release date has now passed -> ripe for scraping.
+    #    Undated/TBA (ts is None) stay pending until catalog last_modified flags a
+    #    change (handled below), so they don't get blindly re-probed every run.
+    ripe = sorted((aid for aid, ts in pending.items()
+                   if aid not in done and ts is not None and ts <= now),
+                  reverse=(NEW_ORDER == "newest"))
+    ripe_set = set(ripe)
 
-    now = int(time.time())
+    # Undated pending whose store page was touched since we filed it (keyed list only):
+    # worth a cheap re-probe in case it finally got a real release date.
+    if has_lm:
+        # We don't store when each pending game was filed, so use last_sync as the
+        # watermark: any TBA pending app modified after our last full sync is re-probed.
+        watermark = catalog.get("last_sync", 0)
+        touched_tba = sorted(
+            (aid for aid, ts in pending.items()
+             if aid not in done and aid not in ripe_set and ts is None
+             and master.get(aid, 0) > watermark),
+            reverse=(NEW_ORDER == "newest"))
+    else:
+        touched_tba = []
+    touched_set = set(touched_tba)
+
+    # 2. Genuinely fresh catalog apps: never scraped, never skipped, not already in
+    #    the pending waiting room (those are covered by ripe/touched logic above).
+    pending_ids = set(pending)
+    fresh = [a for a in master if a not in done and a not in pending_ids]
+    fresh.sort(reverse=(NEW_ORDER == "newest"))
+
+    pri = [a for a in (catalog.get("priority") or [])
+           if a not in done and a not in pending_ids]
+    pri_set = set(pri)
+
+    # Ripe + touched-TBA first (a release that just happened beats brand-new coverage),
+    # then priority seeds, then the fresh frontier.
+    new_ids = (ripe
+               + touched_tba
+               + pri
+               + [a for a in fresh if a not in pri_set
+                  and a not in ripe_set and a not in touched_set])
+
     cands = []
     for k, rec in processed.items():
         aid = int(k); sat = rec.get("scraped_at", 0)
@@ -550,14 +621,16 @@ def main():
 
     new_ids, refresh_ids = select_work(master, has_lm, processed, catalog)
     log(f"Universe {len(master)} | stored {len(processed)} | skipped "
-        f"{len(catalog['skipped'])} | to-do: {len(new_ids)} new, {len(refresh_ids)} refresh")
+        f"{len(catalog['skipped'])} | pending {len(catalog.get('pending') or {})} | "
+        f"to-do: {len(new_ids)} new, {len(refresh_ids)} refresh")
     log(f"Budget: {RUN_MINUTES} min (refresh changed games first, then new coverage)")
 
     discount_map = build_discount_expiration_map()
     skipped = set(catalog["skipped"])
+    pending = dict(catalog.get("pending") or {})
     budget = RUN_MINUTES * 60
     last_commit = time.time()
-    n_new = n_ref = 0
+    n_new = n_ref = n_pend = 0
 
     work = [(a, "refresh") for a in refresh_ids] + [(a, "new") for a in new_ids]
     for aid, kind in work:
@@ -569,22 +642,33 @@ def main():
         if isinstance(res, dict):
             res["scraped_at"] = int(time.time())
             processed[str(aid)] = res
+            pending.pop(aid, None)          # graduated from waiting room (if it was there)
             n_ref += kind == "refresh"; n_new += kind == "new"
+        elif isinstance(res, tuple) and res and res[0] == "pending":
+            # Not out yet -> waiting room. Store its release_ts (or None for TBA) so
+            # select_work can promote it the moment its date passes. Never skipped.
+            _, _pdate, pts = res
+            pending[aid] = pts
+            n_pend += 1
         elif res == "skip":
             skipped.add(aid)
+            pending.pop(aid, None)
 
         if time.time() - last_commit > CHECKPOINT_SECONDS:
             catalog["skipped"] = sorted(skipped)
+            catalog["pending"] = pending
             save_games(processed); save_catalog(catalog)
             git_checkpoint(f"checkpoint: {len(processed)} games stored")
             last_commit = time.time()
 
     catalog["skipped"] = sorted(skipped)
+    catalog["pending"] = pending
     catalog["last_sync"] = int(start)
     save_games(processed); save_catalog(catalog)
-    git_checkpoint(f"scrape: {len(processed)} games (+{n_new} new, {n_ref} refreshed)")
-    log(f"\nDone. This run: {n_new} new, {n_ref} refreshed. "
-        f"Stored {len(processed)}, skipped {len(skipped)}.")
+    git_checkpoint(f"scrape: {len(processed)} games (+{n_new} new, {n_ref} refreshed, "
+                   f"{n_pend} pending)")
+    log(f"\nDone. This run: {n_new} new, {n_ref} refreshed, {n_pend} held pending. "
+        f"Stored {len(processed)}, skipped {len(skipped)}, waiting {len(pending)}.")
     return 0
 
 
