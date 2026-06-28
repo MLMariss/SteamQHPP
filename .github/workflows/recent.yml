@@ -1,0 +1,40 @@
+name: Refresh recent reviews -> recent.json
+
+on:
+  workflow_dispatch:        # run manually from the Actions tab
+  schedule:
+    # offset from the main scrape (17 7,13,18) so the two jobs don't run together and
+    # fight the storefront rate limit; also avoids :00 and the 22:00-02:00 UTC congestion
+    - cron: "41 4,10,16,22 * * *"
+
+permissions:
+  contents: write           # commits recent.json as it runs
+
+concurrency:
+  group: steam-recent       # never overlap recent-refresh runs (separate group from the scraper)
+  cancel-in-progress: false
+
+jobs:
+  recent:
+    runs-on: ubuntu-latest
+    timeout-minutes: 330     # under the 6h hard cap; RUN_MINUTES stays well inside
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install requests
+
+      - name: Configure git (script commits progress itself, rebasing onto main)
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Refresh recent review scores
+        env:
+          STEAM_API_KEY: ${{ secrets.STEAM_API_KEY }}   # optional (appreviews is keyless)
+          RUN_MINUTES: "180"
+        run: python recent_refresh.py
