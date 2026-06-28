@@ -146,7 +146,7 @@
   /* ---- table ---- */
   .tablecard{background:linear-gradient(180deg,#1a2336,#151d2d); border:1px solid var(--line); border-radius:14px; overflow:hidden; margin-top:12px}
   .tablescroll{overflow-x:auto}
-  table{width:100%; border-collapse:collapse; table-layout:fixed; min-width:1280px}
+  table{width:100%; border-collapse:collapse; table-layout:fixed; min-width:1500px}
   thead th{font-family:var(--mono); font-size:12px; letter-spacing:.05em; text-transform:uppercase;
         color:var(--muted); text-align:left; padding:12px 12px; border-bottom:1px solid var(--line); white-space:nowrap; user-select:none}
   thead th.sortable{cursor:pointer}
@@ -154,8 +154,8 @@
   thead th.num{text-align:right}
   thead th.center{text-align:center}
   /* Game column has no width -> absorbs slack (wide for titles); Tags fixed + narrower */
-  col.c-rating{width:88px} col.c-price{width:104px} col.c-disc{width:92px} col.c-sale{width:100px}
-  col.c-rel{width:116px} col.c-tags{width:330px} col.c-hltb{width:210px} col.c-qhpp{width:184px}
+  col.c-rev{width:120px} col.c-trend{width:78px} col.c-price{width:104px} col.c-disc{width:88px} col.c-sale{width:98px}
+  col.c-rel{width:138px} col.c-tags{width:308px} col.c-hltb{width:206px} col.c-qhpp{width:178px}
   .arrow{color:var(--gold); margin-left:5px; font-size:12px}
   tbody td{padding:8px 12px; border-bottom:1px solid #222d45; vertical-align:middle}
   td.pad{padding-left:18px; padding-right:18px}
@@ -177,9 +177,23 @@
 
   .num{font-family:var(--mono); text-align:right; white-space:nowrap}
   .center{text-align:center}
-  .rating{display:flex; align-items:center; gap:8px}
   .dot{width:9px; height:9px; border-radius:50%; flex:none}
   .rval{font-family:var(--mono); font-size:14px}
+
+  /* stacked reviews: all-time over recent */
+  .ratecell{display:flex; flex-direction:column; gap:3px}
+  .rrow{display:flex; align-items:center; gap:6px}
+  .rlbl{font-family:var(--mono); font-size:12px; color:var(--muted-2); width:26px; flex:none; text-transform:uppercase}
+  .rrow .rval{font-size:13px}
+  .rcount{font-family:var(--mono); font-size:12px; color:var(--muted-2)}
+  .rrow.recent.stale .rval,.rrow.recent.muted .rval{color:var(--muted-2)}
+  .rrow.recent.stale{opacity:.7}
+
+  /* trend column */
+  .trend{font-family:var(--mono); font-size:14px; font-weight:600; white-space:nowrap}
+  .trend.up{color:var(--teal)} .trend.down{color:var(--coral)}
+  .trend.flat{color:var(--muted-2); font-weight:400} .trend.none{color:var(--muted-2)}
+  .trend.stale{opacity:.5; font-weight:400}
 
   .pricebox{display:flex; flex-direction:column; align-items:flex-start; gap:1px; line-height:1.2}
   .price-init{font-family:var(--mono); font-size:12px; color:var(--muted-2); text-decoration:line-through}
@@ -192,6 +206,8 @@
   .nosale{color:var(--muted-2)}
   .rel{font-family:var(--mono); font-size:13px; color:var(--muted)}
   .age{font-family:var(--mono); font-size:12px; color:var(--muted-2); margin-top:2px}
+  .updated{font-family:var(--mono); font-size:12px; color:var(--muted-2); margin-top:2px}
+  .updated.none{color:#c98a8a}
 
   /* all tags shown, wrap, fixed position, light up if selected */
   .tags{display:flex; gap:6px; flex-wrap:wrap}
@@ -236,12 +252,13 @@
     .thumb{width:184px; height:69px}
     .pricebox{align-items:flex-end}
     .tags{justify-content:flex-end}
-    .num,.qtop,.hltb,.rating{justify-content:flex-end}
+    .num,.qtop,.hltb{justify-content:flex-end}
     .center{justify-content:flex-end !important}
+    .ratecell{align-items:flex-end}
     .hltb-stack{text-align:right}
     td.tdqhpp{flex-wrap:wrap}
     .qbar{flex:1; max-width:180px; margin-top:0}
-    .age{text-align:right}
+    .age,.updated{text-align:right}
     .grouplabel{width:auto; text-align:left}
   }
   @media (prefers-reduced-motion:reduce){ .qfill{transition:none} }
@@ -320,6 +337,26 @@
           <label>&nbsp;</label>
           <button class="toggle" id="saleOnly" aria-pressed="false">On sale only</button>
         </div>
+        <div class="field">
+          <label>Review trend</label>
+          <div class="seg" role="group" aria-label="Review trend">
+            <button data-trend="any"  aria-pressed="true">Any</button>
+            <button data-trend="up">Improving</button>
+            <button data-trend="flat">Stable</button>
+            <button data-trend="down">Declining</button>
+          </div>
+        </div>
+        <div class="field">
+          <label>Updated within</label>
+          <div class="seg" role="group" aria-label="Updated within">
+            <button data-upd="any"  aria-pressed="true">Any</button>
+            <button data-upd="1mo">1mo</button>
+            <button data-upd="3mo">3mo</button>
+            <button data-upd="6mo">6mo</button>
+            <button data-upd="1yr">1yr</button>
+            <button data-upd="1yr+" title="No update in over a year (abandonware)">1yr+</button>
+          </div>
+        </div>
         <div class="field rangefield">
           <label>QHPP range (log scale, fits current results)</label>
           <div class="rangewrap">
@@ -347,13 +384,14 @@
     <div class="tablescroll">
       <table>
         <colgroup>
-          <col class="c-game"/><col class="c-rating"/><col class="c-price"/><col class="c-disc"/>
+          <col class="c-game"/><col class="c-rev"/><col class="c-trend"/><col class="c-price"/><col class="c-disc"/>
           <col class="c-sale"/><col class="c-rel"/><col class="c-tags"/><col class="c-hltb"/><col class="c-qhpp"/>
         </colgroup>
         <thead>
           <tr>
             <th class="sortable" data-sort="title">Game</th>
-            <th class="sortable" data-sort="rating_pct">Rating</th>
+            <th class="sortable" data-sort="rating_pct" title="All-time over recent (28-day) review score">Reviews</th>
+            <th class="sortable center" data-sort="trend" title="Recent minus all-time — improving, stable, or declining">Trend</th>
             <th class="sortable" data-sort="price_final">Price</th>
             <th class="sortable center" data-sort="discount_pct">Discount</th>
             <th class="sortable center" data-sort="discount_end">Sale ends</th>
@@ -376,13 +414,14 @@
 
 <script>
 const NOW = () => Math.floor(Date.now()/1000);
+const DAY = 86400;
 const SAMPLE = {sample:true, generated_at: NOW(), count:6, games:[
- {appid:413150,title:"Stardew Valley",url:"https://store.steampowered.com/app/413150",release_ts:1456444800,rating_pct:98,review_count:1015944,price_initial:14.99,price_final:8.99,discount_pct:40,discount_end:NOW()+6*86400,is_free:false,tags:["Farming Sim","Pixel Graphics","Life Sim","Multiplayer","Relaxing","Open World","Crafting","Online Co-Op"],hltb_main:53.4,hltb_extra:94.8,hltb_complete:171.8,hltb_avg:106.7},
- {appid:105600,title:"Terraria",url:"https://store.steampowered.com/app/105600",release_ts:1305158400,rating_pct:97,review_count:1530879,price_initial:9.99,price_final:4.99,discount_pct:50,discount_end:NOW()+4*86400+3600*5,is_free:false,tags:["Open World Survival Craft","Sandbox","Survival","2D","Adventure","Crafting","Co-Op","Building"],hltb_main:51.8,hltb_extra:91.9,hltb_complete:205.7,hltb_avg:116.5},
- {appid:548430,title:"Deep Rock Galactic",url:"https://store.steampowered.com/app/548430",release_ts:1589846400,rating_pct:97,review_count:377132,price_initial:29.99,price_final:8.99,discount_pct:70,discount_end:NOW()+6*86400,is_free:false,tags:["Co-Op","FPS","Mining","Multiplayer","Dwarf","Procedural Generation","PvE","Sci-fi"],hltb_main:44.8,hltb_extra:139.4,hltb_complete:493.8,hltb_avg:226.0},
- {appid:367520,title:"Hollow Knight",url:"https://store.steampowered.com/app/367520",release_ts:1487894400,rating_pct:97,review_count:712000,price_initial:14.99,price_final:14.99,discount_pct:0,discount_end:null,is_free:false,tags:["Metroidvania","Souls-like","Difficult","Atmospheric","Hand-drawn","Exploration","2D","Singleplayer"],hltb_main:26.6,hltb_extra:39.4,hltb_complete:62.9,hltb_avg:43.0},
- {appid:570,title:"Dota 2",url:"https://store.steampowered.com/app/570",release_ts:1373414400,rating_pct:84,review_count:2150000,price_initial:null,price_final:null,discount_pct:0,discount_end:null,is_free:true,tags:["Free to Play","MOBA","Multiplayer","Strategy","Competitive","Team-Based","PvP","Difficult"],hltb_main:null,hltb_extra:null,hltb_complete:null,hltb_avg:null},
- {appid:1623730,title:"Palworld",url:"https://store.steampowered.com/app/1623730",release_ts:1705968000,rating_pct:92,review_count:280000,price_initial:29.99,price_final:29.99,discount_pct:0,discount_end:null,is_free:false,tags:["Open World Survival Craft","Multiplayer","Creature Collector","Crafting","Base Building","Online Co-Op","Open World","Adventure"],hltb_main:30.0,hltb_extra:65.0,hltb_complete:140.0,hltb_avg:78.3}
+ {appid:413150,title:"Stardew Valley",url:"https://store.steampowered.com/app/413150",release_ts:1456444800,rating_pct:98,review_count:1015944,recent_pct:97,recent_count:8500,recent_scraped_at:NOW()-2*DAY,last_update_ts:NOW()-20*DAY,price_initial:14.99,price_final:8.99,discount_pct:40,discount_end:NOW()+6*DAY,is_free:false,tags:["Farming Sim","Pixel Graphics","Life Sim","Multiplayer","Relaxing","Open World","Crafting","Online Co-Op"],hltb_main:53.4,hltb_extra:94.8,hltb_complete:171.8,hltb_avg:106.7},
+ {appid:105600,title:"Terraria",url:"https://store.steampowered.com/app/105600",release_ts:1305158400,rating_pct:97,review_count:1530879,recent_pct:95,recent_count:1800,recent_scraped_at:NOW()-20*DAY,last_update_ts:NOW()-210*DAY,price_initial:9.99,price_final:4.99,discount_pct:50,discount_end:NOW()+4*DAY+3600*5,is_free:false,tags:["Open World Survival Craft","Sandbox","Survival","2D","Adventure","Crafting","Co-Op","Building"],hltb_main:51.8,hltb_extra:91.9,hltb_complete:205.7,hltb_avg:116.5},
+ {appid:548430,title:"Deep Rock Galactic",url:"https://store.steampowered.com/app/548430",release_ts:1589846400,rating_pct:97,review_count:377132,recent_pct:88,recent_count:5200,recent_scraped_at:NOW()-1*DAY,last_update_ts:NOW()-35*DAY,price_initial:29.99,price_final:8.99,discount_pct:70,discount_end:NOW()+6*DAY,is_free:false,tags:["Co-Op","FPS","Mining","Multiplayer","Dwarf","Procedural Generation","PvE","Sci-fi"],hltb_main:44.8,hltb_extra:139.4,hltb_complete:493.8,hltb_avg:226.0},
+ {appid:367520,title:"Hollow Knight",url:"https://store.steampowered.com/app/367520",release_ts:1487894400,rating_pct:97,review_count:712000,recent_pct:null,recent_count:0,recent_scraped_at:0,last_update_ts:NOW()-1100*DAY,price_initial:14.99,price_final:14.99,discount_pct:0,discount_end:null,is_free:false,tags:["Metroidvania","Souls-like","Difficult","Atmospheric","Hand-drawn","Exploration","2D","Singleplayer"],hltb_main:26.6,hltb_extra:39.4,hltb_complete:62.9,hltb_avg:43.0},
+ {appid:570,title:"Dota 2",url:"https://store.steampowered.com/app/570",release_ts:1373414400,rating_pct:84,review_count:2150000,recent_pct:78,recent_count:14000,recent_scraped_at:NOW()-3*DAY,last_update_ts:NOW()-12*DAY,price_initial:null,price_final:null,discount_pct:0,discount_end:null,is_free:true,tags:["Free to Play","MOBA","Multiplayer","Strategy","Competitive","Team-Based","PvP","Difficult"],hltb_main:null,hltb_extra:null,hltb_complete:null,hltb_avg:null},
+ {appid:1623730,title:"Palworld",url:"https://store.steampowered.com/app/1623730",release_ts:1705968000,rating_pct:92,review_count:280000,recent_pct:96,recent_count:9000,recent_scraped_at:NOW()-1*DAY,last_update_ts:NOW()-9*DAY,price_initial:29.99,price_final:29.99,discount_pct:0,discount_end:null,is_free:false,tags:["Open World Survival Craft","Multiplayer","Creature Collector","Crafting","Base Building","Online Co-Op","Open World","Adventure"],hltb_main:30.0,hltb_extra:65.0,hltb_complete:140.0,hltb_avg:78.3}
 ]};
 
 // ----- tag merging (variants -> one flag) -----
@@ -411,6 +450,7 @@ const MIN_TAG_COUNT = 10;
 // ----- state -----
 const state = { data:null, q:"", tagsInc:new Set(), tagsExc:new Set(), saleOnly:false,
                 qBasis:"after", hltbMetric:"avg", minScore:0, minPrice:null, maxPrice:null,
+                trendFilter:"any", updatedWithin:"any",
                 qMinVal:0, qMaxVal:0, qMaxUnbounded:true, qDomain:1,
                 wishlist:null, wishOnly:false, sortKey:"qhpp", sortDir:-1, fullCounts:{} };
 
@@ -463,6 +503,36 @@ function ageStr(ts){
   if(yrs < 1) return Math.max(1,Math.round(yrs*12)) + " mo old";
   return yrs.toFixed(1) + " yrs old";
 }
+function compactNum(n){
+  if(n == null) return "—";
+  if(n >= 1e6) return (n/1e6).toFixed(n >= 1e7 ? 0 : 1) + "M";
+  if(n >= 1e4) return Math.round(n/1e3) + "k";
+  return n.toLocaleString();
+}
+// recent vs all-time trend (recent − all-time), staleness gate, update recency
+const RECENT_STALE_DAYS = 14;
+function gTrend(g){
+  return (g.recent_pct != null && g.rating_pct != null) ? g.recent_pct - g.rating_pct : null;
+}
+function recentStale(g){
+  return !g.recent_scraped_at || (NOW() - g.recent_scraped_at) > RECENT_STALE_DAYS*86400;
+}
+function trendClass(g){
+  const t = gTrend(g);
+  if(t == null) return "none";
+  if(t > 3) return "up";
+  if(t < -3) return "down";
+  return "flat";
+}
+function updatedStr(ts){
+  if(!ts) return "no updates";
+  const s = NOW() - ts;
+  if(s < 86400) return "updated today";
+  const d = Math.floor(s/86400);
+  if(d < 30) return `updated ${d}d ago`;
+  if(d < 365) return `updated ${Math.floor(d/30)}mo ago`;
+  return `updated ${(d/365).toFixed(1)}yr ago`;
+}
 function relTime(ts){
   const s = NOW() - ts;
   if(s < 3600) return Math.max(1,Math.floor(s/60)) + "m ago";
@@ -479,6 +549,15 @@ function passNonRange(x){
   if(state.minPrice != null){ if(p == null || p < state.minPrice) return false; }
   if(state.maxPrice != null){ if(p == null || p > state.maxPrice) return false; }
   if(state.wishOnly && state.wishlist && !state.wishlist.has(x.appid)) return false;
+  if(state.trendFilter !== "any" && trendClass(x) !== state.trendFilter) return false;
+  if(state.updatedWithin !== "any"){
+    const age = x.last_update_ts ? (NOW() - x.last_update_ts) : Infinity;
+    if(state.updatedWithin === "1yr+"){ if(!(age > 365*86400)) return false; }
+    else {
+      const d = {"1mo":30,"3mo":90,"6mo":180,"1yr":365}[state.updatedWithin];
+      if(!(age <= d*86400)) return false;
+    }
+  }
   if(state.tagsInc.size || state.tagsExc.size){
     const cs = canonSet(x);
     for(const w of state.tagsInc) if(!cs.has(w)) return false;
@@ -495,7 +574,7 @@ function visibleGames(){
     return q != null && q >= state.qMinVal && (state.qMaxUnbounded || q <= state.qMaxVal);
   });
   const k = state.sortKey, dir = state.sortDir;
-  const val = x => k === "qhpp" ? activeQ(x) : x[k];
+  const val = x => k === "qhpp" ? activeQ(x) : k === "trend" ? gTrend(x) : x[k];
   g.sort((a,b)=>{
     if(k === "title") return dir * a.title.localeCompare(b.title);
     let av = val(a), bv = val(b);
@@ -609,6 +688,33 @@ function render(){
 
     const wished = state.wishlist && state.wishlist.has(g.appid) ? '<span class="wish-dot" title="On your wishlist"></span>' : '';
     const age = ageStr(g.release_ts);
+
+    // stacked reviews: all-time over recent (recent greyed when stale / absent)
+    const allRow = `<div class="rrow" title="All-time: ${g.rating_pct==null?'no':g.rating_pct+'% of '+(g.review_count||0).toLocaleString()} reviews positive">`
+      + `<span class="rlbl">all</span><span class="dot" style="background:${ratingColor(g.rating_pct)}"></span>`
+      + `<span class="rval" style="color:${ratingColor(g.rating_pct)}">${g.rating_pct==null?'—':g.rating_pct+'%'}</span>`
+      + `<span class="rcount">${compactNum(g.review_count)}</span></div>`;
+    const stale = recentStale(g);
+    let recRow;
+    if(g.recent_pct == null){
+      recRow = `<div class="rrow recent muted" title="No recent (28-day) review data yet"><span class="rlbl">28d</span>`
+        + `<span class="dot" style="background:var(--muted-2)"></span><span class="rval">—</span></div>`;
+    } else {
+      recRow = `<div class="rrow recent${stale?' stale':''}" title="Recent (28 days): ${g.recent_pct}% of ${(g.recent_count||0).toLocaleString()} reviews${stale?' · score is over '+RECENT_STALE_DAYS+' days old':''}">`
+        + `<span class="rlbl">28d</span><span class="dot" style="background:${stale?'var(--muted-2)':ratingColor(g.recent_pct)}"></span>`
+        + `<span class="rval"${stale?'':` style="color:${ratingColor(g.recent_pct)}"`}>${g.recent_pct}%</span>`
+        + `<span class="rcount">${compactNum(g.recent_count)}</span></div>`;
+    }
+    const reviews = `<div class="ratecell">${allRow}${recRow}</div>`;
+
+    // trend column: recent − all-time, with dead-band; greyed if stale
+    const tcls = trendClass(g), tval = gTrend(g);
+    let trend;
+    if(tcls === "none") trend = `<span class="trend none">—</span>`;
+    else if(tcls === "flat") trend = `<span class="trend flat${stale?' stale':''}" title="Stable: recent within 3 pts of all-time">≈</span>`;
+    else if(tcls === "up") trend = `<span class="trend up${stale?' stale':''}" title="Improving: recent ${tval} pts above all-time">▲ ${tval}</span>`;
+    else trend = `<span class="trend down${stale?' stale':''}" title="Declining: recent ${Math.abs(tval)} pts below all-time">▼ ${Math.abs(tval)}</span>`;
+
     return `<tr>
       <td data-label="Game"><div class="gamecell">
           <span class="thumb" data-appid="${g.appid}">
@@ -620,12 +726,12 @@ function render(){
             <a class="gtitle" href="${esc(g.url)}" target="_blank" rel="noopener">${esc(g.title)}</a>${wished}
             <div class="gsub">${g.review_count? g.review_count.toLocaleString()+" reviews" : "app "+g.appid}</div>
           </span></div></td>
-      <td data-label="Rating"><div class="rating"><span class="dot" style="background:${ratingColor(g.rating_pct)}"></span>
-          <span class="rval" style="color:${ratingColor(g.rating_pct)}">${g.rating_pct==null?'—':g.rating_pct+'%'}</span></div></td>
+      <td data-label="Reviews">${reviews}</td>
+      <td data-label="Trend" class="center">${trend}</td>
       <td data-label="Price">${price}</td>
       <td data-label="Discount" class="center">${disc}</td>
       <td data-label="Sale ends" class="center">${sale}</td>
-      <td data-label="Released" class="center"><span class="rel">${fmtRelease(g)}</span>${age?`<div class="age">${age}</div>`:""}</td>
+      <td data-label="Released" class="center"><span class="rel">${fmtRelease(g)}</span>${age?`<div class="age">${age}</div>`:""}<div class="updated${!g.last_update_ts?' none':''}">${updatedStr(g.last_update_ts)}</div></td>
       <td data-label="Tags"><div class="tags">${tagHtml}</div></td>
       <td data-label="HLTB M/E/100%" class="num pad">${hltb}</td>
       <td data-label="QHPP" class="num pad tdqhpp">${qhpp}</td>
@@ -824,6 +930,18 @@ function init(data){
       document.querySelectorAll("[data-minscore]").forEach(o => o.setAttribute("aria-pressed", o === b));
       update();
     }));
+  document.querySelectorAll("[data-trend]").forEach(b =>
+    b.addEventListener("click", () => {
+      state.trendFilter = b.dataset.trend;
+      document.querySelectorAll("[data-trend]").forEach(o => o.setAttribute("aria-pressed", o === b));
+      update();
+    }));
+  document.querySelectorAll("[data-upd]").forEach(b =>
+    b.addEventListener("click", () => {
+      state.updatedWithin = b.dataset.upd;
+      document.querySelectorAll("[data-upd]").forEach(o => o.setAttribute("aria-pressed", o === b));
+      update();
+    }));
   const priceHandler = () => {
     const lo = $("#minprice").value.trim(), hi = $("#maxprice").value.trim();
     state.minPrice = lo === "" ? null : Math.max(0, parseFloat(lo));
@@ -857,9 +975,12 @@ function init(data){
   $("#clear").addEventListener("click", () => {
     state.q=""; state.tagsInc.clear(); state.tagsExc.clear(); state.saleOnly=false;
     state.minScore=0; state.minPrice=null; state.maxPrice=null; state.wishOnly=false;
+    state.trendFilter="any"; state.updatedWithin="any";
     $("#q").value=""; $("#minprice").value=""; $("#maxprice").value="";
     $("#saleOnly").setAttribute("aria-pressed","false"); $("#wishOnly").setAttribute("aria-pressed","false");
     document.querySelectorAll("[data-minscore]").forEach(o => o.setAttribute("aria-pressed", o.dataset.minscore==="0"));
+    document.querySelectorAll("[data-trend]").forEach(o => o.setAttribute("aria-pressed", o.dataset.trend==="any"));
+    document.querySelectorAll("[data-upd]").forEach(o => o.setAttribute("aria-pressed", o.dataset.upd==="any"));
     update();
   });
 
@@ -871,10 +992,21 @@ function init(data){
   });
 }
 
-fetch("games.json", {cache:"no-store"})
-  .then(r => { if(!r.ok) throw new Error(r.status); return r.json(); })
-  .then(d => init(d && d.games && d.games.length ? d : SAMPLE))
-  .catch(() => init(SAMPLE));
+// load catalog + recent scores together, merge recent into each game by appid
+Promise.all([
+  fetch("games.json", {cache:"no-store"}).then(r => r.ok ? r.json() : null).catch(() => null),
+  fetch("recent.json", {cache:"no-store"}).then(r => r.ok ? r.json() : null).catch(() => null),
+]).then(([g, rj]) => {
+  const data = (g && g.games && g.games.length) ? g : SAMPLE;
+  const recentMap = (rj && rj.recent) ? rj.recent : null;
+  if(recentMap){
+    data.games.forEach(game => {
+      const r = recentMap[String(game.appid)];
+      if(r){ game.recent_pct = r.recent_pct; game.recent_count = r.recent_count; game.recent_scraped_at = r.recent_scraped_at; }
+    });
+  }
+  init(data);
+});
 </script>
 </body>
 </html>

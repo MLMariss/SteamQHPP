@@ -70,7 +70,18 @@ COUNTRY = "us"                  # cc=us => USD prices
 STEAM_DELAY = 1.5               # seconds between storefront calls (~200/5min limit)
 STEAMSPY_DELAY = 1.0            # SteamSpy allows ~1 req/sec
 WEBAPI_DELAY = 1.0             # between GetAppList pages
+NEWS_DELAY = 0.3               # between News API calls (api.steampowered.com; huge budget)
 MAX_RETRIES = 4
+
+# News items counted as "updates" (vs sale posts / announcements). The store page's
+# ?updates=true filter is driven by Steam update events; the public news feed doesn't
+# always tag them cleanly, so this is a good-enough heuristic: the patchnotes tag is
+# the strong signal, keywords are the fallback, and obvious sale posts are excluded.
+_UPDATE_TAGS = {"patchnotes"}
+_UPDATE_WORDS = ("update", "patch", "hotfix", "changelog", "release notes",
+                 "version", "build ", "bug fix", "bugfix", "fixes", "balance")
+_NOT_UPDATE = ("sale", "discount", "% off", "wishlist", "now available", "out now",
+               "launch", "release date", "pre-order", "preorder", "trailer", "soundtrack")
 
 IN_ACTIONS = os.environ.get("GITHUB_ACTIONS") == "true"
 SEARCH_URL = "https://store.steampowered.com/search/results/"
@@ -293,6 +304,33 @@ def rating_from_reviews(appid):
     return round(pos / (pos + neg) * 100), pos + neg
 
 
+def _is_update_item(item):
+    """True if a news item looks like a game update/patch rather than a sale post."""
+    if any(t in _UPDATE_TAGS for t in (item.get("tags") or [])):
+        return True
+    text = (str(item.get("title", "")) + " " + str(item.get("feedlabel", ""))).lower()
+    if any(bad in text for bad in _NOT_UPDATE):
+        return False
+    return any(w in text for w in _UPDATE_WORDS)
+
+
+def last_update_from_news(appid):
+    """Most recent *update* post timestamp via the News API. Lives on
+    api.steampowered.com (huge budget, separate from the storefront limit), so this is
+    cheap to refresh broadly. Returns a unix ts or None (no update posts found)."""
+    params = {"appid": appid, "count": 20, "maxlength": 1, "format": "json"}
+    if STEAM_API_KEY:
+        params["key"] = STEAM_API_KEY
+    data = get("https://api.steampowered.com/ISteamNews/GetNewsForApp/v2/",
+               params=params, expect_json=True)
+    time.sleep(NEWS_DELAY)
+    if not isinstance(data, dict):
+        return None
+    items = (data.get("appnews") or {}).get("newsitems") or []
+    stamps = [it.get("date") for it in items if _is_update_item(it) and it.get("date")]
+    return max(stamps) if stamps else None
+
+
 def hltb_for(title):
     blank = {"main": None, "extra": None, "complete": None, "match": None}
     if HowLongToBeat is None:
@@ -380,6 +418,7 @@ def build_record(appid, discount_map, prev=None):
     tags = tags_from_steamspy(appid) or [g["description"] for g in d.get("genres", [])
                                          if g.get("description")]
     release_date, release_ts = parse_release(d)
+    last_update_ts = last_update_from_news(appid)   # cheap (separate API budget)
 
     # HLTB: only fetch on first capture; on refresh reuse what we already have.
     if prev is not None:
@@ -397,6 +436,7 @@ def build_record(appid, discount_map, prev=None):
         "price_initial": price_initial, "price_final": price_final,
         "discount_pct": discount_pct, "discount_end": discount_end, "is_free": is_free,
         "release_date": release_date, "release_ts": release_ts, "tags": tags,
+        "last_update_ts": last_update_ts,
         "hltb_main": h["main"], "hltb_extra": h["extra"], "hltb_complete": h["complete"],
         "hltb_avg": avg, "hltb_match": h["match"],
         "qhpp_before": qhpp(avg, rating_pct, price_initial),
