@@ -401,7 +401,7 @@
         <thead>
           <tr>
             <th class="sortable" data-sort="title">Game</th>
-            <th class="sortable" data-sort="rating_pct" title="All-time over recent (28-day) review score">Reviews</th>
+            <th class="sortable" data-sort="rating_pct" title="All-time over recent (past 30 days) review score">Reviews</th>
             <th class="sortable center" data-sort="trend" title="Recent minus all-time — improving, stable, or declining">Trend</th>
             <th class="sortable" data-sort="price_final">Price</th>
             <th class="sortable center" data-sort="discount_pct">Discount</th>
@@ -709,11 +709,11 @@ function render(){
     const stale = recentStale(g);
     let recRow;
     if(g.recent_pct == null){
-      recRow = `<div class="rrow recent muted" title="No recent (28-day) review data yet"><span class="rlbl">28d</span>`
+      recRow = `<div class="rrow recent muted" title="No recent review score (Steam shows one only for games 45+ days old with enough recent reviews)"><span class="rlbl">30d</span>`
         + `<span class="dot" style="background:var(--muted-2)"></span><span class="rval">—</span></div>`;
     } else {
-      recRow = `<div class="rrow recent${stale?' stale':''}" title="Recent (28 days): ${g.recent_pct}% of ${(g.recent_count||0).toLocaleString()} reviews${stale?' · score is over '+RECENT_STALE_DAYS+' days old':''}">`
-        + `<span class="rlbl">28d</span><span class="dot" style="background:${stale?'var(--muted-2)':ratingColor(g.recent_pct)}"></span>`
+      recRow = `<div class="rrow recent${stale?' stale':''}" title="Recent Reviews (past 30 days): ${g.recent_pct}% of ${(g.recent_count||0).toLocaleString()} reviews${stale?' · score is over '+RECENT_STALE_DAYS+' days old':''}">`
+        + `<span class="rlbl">30d</span><span class="dot" style="background:${stale?'var(--muted-2)':ratingColor(g.recent_pct)}"></span>`
         + `<span class="rval"${stale?'':` style="color:${ratingColor(g.recent_pct)}"`}>${g.recent_pct}%</span>`
         + `<span class="rcount">${compactNum(g.recent_count)}</span></div>`;
     }

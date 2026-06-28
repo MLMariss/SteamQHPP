@@ -26,8 +26,12 @@ limit, so we spend calls where reviews are actually likely to be moving:
     so it sinks in the queue (still eligible, just last in line).
   * Oldest-first tiebreak so everything eventually refreshes.
 
-The recent window uses appreviews with filter=all&day_range=28: query_summary then
-reflects the windowed reviews. (~30 days is what Steam's "Recent Reviews" approximates.)
+The recent score mirrors Steam's store-page "Recent Reviews": the positive % of
+reviews in the past 30 days, shown only once a game is >= 45 days old and has enough
+recent reviews. Steam exposes no JSON field for it, so we reproduce its exact
+definition from the public appreviewhistogram endpoint (sum the daily up/down buckets
+over the trailing 30 days). Same formula + same data => the number matches the store
+page, with no fragile HTML scraping.
 """
 
 import json
@@ -51,11 +55,15 @@ RUN_MINUTES = int(os.environ.get("RUN_MINUTES", "180"))
 CHECKPOINT_SECONDS = 600
 TIME_BUFFER = 90
 
-RECENT_WINDOW_DAYS = 28          # the "recent" window (Steam shows ~30d)
+RECENT_WINDOW_DAYS = 30          # Steam's "Recent Reviews" window is the past 30 days
+MIN_AGE_DAYS = 45                # Steam shows no recent score until a game is this old
 RECENT_COOLDOWN_DAYS = 4         # don't re-check a recent score younger than this
 NOUPDATE_COOLDOWN_DAYS = 30      # games with no/old updates: check far less often
 UPDATE_ACTIVE_DAYS = 90          # "recently updated" = patched within this many days
-RECENT_MIN_COUNT = 50            # below this many recent reviews -> de-prioritise (noisy)
+RECENT_MIN_COUNT = 10            # Steam suppresses the recent score below ~this many
+                                 # reviews in the window (also our noise floor)
+LOWVOL_PRIORITY_COUNT = 50       # below this many recent reviews -> de-prioritise in
+                                 # the refresh queue (scheduling only, not suppression)
 
 STEAM_DELAY = 1.5                # storefront limit (~200/5min) — shared with scraper if co-running
 MAX_RETRIES = 4
@@ -97,22 +105,65 @@ def get(url, *, params=None, timeout=30):
 
 
 # --------------------------------------------------------------------------- #
-# Recent score for one game (28-day window)
+# Recent score for one game — mirrors Steam's store-page "Recent Reviews"
 # --------------------------------------------------------------------------- #
-def recent_score(appid):
-    """Return (recent_pct, recent_count) for ~the last RECENT_WINDOW_DAYS, or (None, 0).
-    day_range only takes effect with filter=all; query_summary is then windowed."""
-    data = get(f"https://store.steampowered.com/appreviews/{appid}",
-               params={"json": 1, "filter": "all", "language": "all",
-                       "purchase_type": "all", "day_range": RECENT_WINDOW_DAYS,
-                       "num_per_page": 0})
+# Steam's "Recent Reviews" = positive % of reviews in the past 30 days, shown ONLY
+# when the game has been on Steam >= 45 days AND has enough reviews in the window.
+# There is no JSON field for it (Valve computes it server-side into the page HTML),
+# so we reproduce Steam's exact definition from the public appreviewhistogram
+# endpoint: sum the daily up/down buckets over the trailing RECENT_WINDOW_DAYS and
+# take the positive ratio. Same formula, same data, same suppression rules => the
+# number matches the store page to ~the percentage point, with no HTML scraping.
+def _bucket_counts(b):
+    """Pull (up, down) from one histogram bucket, tolerating field-name variants."""
+    up = b.get("recommendations_up", b.get("up", 0))
+    down = b.get("recommendations_down", b.get("down", 0))
+    try:
+        return int(up or 0), int(down or 0)
+    except (TypeError, ValueError):
+        return 0, 0
+
+
+def recent_score(appid, release_ts=None):
+    """Return (recent_pct, recent_count) mirroring Steam's 30-day Recent Reviews, or
+    (None, 0) when Steam itself would show no recent score (too new, or too few recent
+    reviews). recent_count is the number of reviews in the trailing window."""
+    # Suppression rule 1: game must have been on Steam >= MIN_AGE_DAYS.
+    now = time.time()
+    if release_ts and (now - release_ts) < MIN_AGE_DAYS * 86400:
+        return None, 0
+
+    data = get(f"https://store.steampowered.com/appreviewhistogram/{appid}",
+               params={"l": "english"})
     if not isinstance(data, dict) or data.get("success") != 1:
         return None, 0
-    s = data.get("query_summary", {})
-    pos, neg = int(s.get("total_positive", 0)), int(s.get("total_negative", 0))
-    if pos + neg == 0:
+    results = data.get("results") or {}
+
+    # Prefer the daily 'recent' series (covers ~the last month) and sum the trailing
+    # RECENT_WINDOW_DAYS. Fall back to the most recent monthly rollup if no daily data.
+    cutoff = now - RECENT_WINDOW_DAYS * 86400
+    pos = neg = 0
+    daily = results.get("recent") or []
+    if daily:
+        for b in daily:
+            try:
+                ts = int(b.get("date", 0))
+            except (TypeError, ValueError):
+                continue
+            if ts >= cutoff:
+                u, d = _bucket_counts(b)
+                pos += u; neg += d
+    else:
+        rollups = results.get("rollups") or []
+        if rollups:
+            u, d = _bucket_counts(rollups[-1])
+            pos += u; neg += d
+
+    total = pos + neg
+    # Suppression rule 2: too few reviews in the window -> Steam shows no recent score.
+    if total < RECENT_MIN_COUNT:
         return None, 0
-    return round(pos / (pos + neg) * 100), pos + neg
+    return round(pos / total * 100), total
 
 
 # --------------------------------------------------------------------------- #
@@ -188,7 +239,7 @@ def priority(rec, last_update_ts, all_time_count, now):
     rcount = rec.get("recent_count")
     if rcount is None:
         rcount = all_time_count                          # unknown -> use all-time as a proxy
-    if rcount is not None and rcount < RECENT_MIN_COUNT:
+    if rcount is not None and rcount < LOWVOL_PRIORITY_COUNT:
         score -= 200                                     # noisy/low-volume -> de-prioritise
     score += min(200, (now - sat) / 86400)               # older = higher, capped
     return score
@@ -213,7 +264,8 @@ def main():
         rec = recent.get(aid, {})
         lu = g.get("last_update_ts")
         if is_eligible(rec, lu, now):
-            cands.append((priority(rec, lu, g.get("review_count"), now), int(aid), lu))
+            cands.append((priority(rec, lu, g.get("review_count"), now),
+                          int(aid), lu, g.get("release_ts")))
     cands.sort(reverse=True)
 
     log(f"Catalog {len(games)} | recent.json has {len(recent)} | eligible now: {len(cands)}")
@@ -223,11 +275,11 @@ def main():
     budget = RUN_MINUTES * 60
     last_commit = time.time()
     done = 0
-    for _score, aid, _lu in cands:
+    for _score, aid, _lu, rts in cands:
         if budget - (time.time() - start) < TIME_BUFFER:
             log("Time budget reached; wrapping up.")
             break
-        pct, count = recent_score(aid)
+        pct, count = recent_score(aid, rts)
         time.sleep(STEAM_DELAY)
         if pct is not None:
             recent[str(aid)] = {"recent_pct": pct, "recent_count": count,
@@ -235,10 +287,11 @@ def main():
             done += 1
             log(f"  recent {aid:>8}: {pct}% ({count} in {RECENT_WINDOW_DAYS}d)")
         else:
-            # no recent reviews -> still stamp it so the cooldown applies (don't re-hammer)
+            # Steam would show no recent score (too new / too few recent reviews).
+            # Stamp it anyway so the cooldown applies and we don't re-hammer it.
             recent[str(aid)] = {"recent_pct": None, "recent_count": 0,
                                 "recent_scraped_at": int(time.time())}
-            log(f"  recent {aid:>8}: no reviews in window")
+            log(f"  recent {aid:>8}: no recent score (suppressed)")
 
         if time.time() - last_commit > CHECKPOINT_SECONDS:
             save_recent(recent)
