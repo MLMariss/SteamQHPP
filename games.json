@@ -1,5 +1,5 @@
 {
-  "generated_at": 1782689884,
+  "generated_at": 1782690488,
   "count": 2555,
   "games": [
     {
@@ -8839,6 +8839,7 @@
         "Indie",
         "Sports"
       ],
+      "last_update_ts": 1779301636,
       "hltb_main": 1.6,
       "hltb_extra": null,
       "hltb_complete": null,
@@ -8846,8 +8847,7 @@
       "hltb_match": "Klifur",
       "qhpp_before": 0.314,
       "qhpp_after": 0.419,
-      "scraped_at": 1782605723,
-      "last_update_ts": 1779301636
+      "scraped_at": 1782690488
     },
     {
       "appid": 4573380,
@@ -8898,6 +8898,7 @@
         "Casual",
         "Indie"
       ],
+      "last_update_ts": 1777919807,
       "hltb_main": null,
       "hltb_extra": null,
       "hltb_complete": null,
@@ -8905,8 +8906,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782605674,
-      "last_update_ts": 1777919807
+      "scraped_at": 1782690483
     },
     {
       "appid": 4573500,
@@ -9008,6 +9008,7 @@
       "tags": [
         "Indie"
       ],
+      "last_update_ts": null,
       "hltb_main": null,
       "hltb_extra": null,
       "hltb_complete": null,
@@ -9015,8 +9016,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782605576,
-      "last_update_ts": null
+      "scraped_at": 1782690478
     },
     {
       "appid": 4574250,
@@ -9125,6 +9125,7 @@
         "Indie",
         "Early Access"
       ],
+      "last_update_ts": null,
       "hltb_main": null,
       "hltb_extra": null,
       "hltb_complete": null,
@@ -9132,8 +9133,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782605546,
-      "last_update_ts": null
+      "scraped_at": 1782690472
     },
     {
       "appid": 4574320,
@@ -9379,6 +9379,7 @@
         "Adventure",
         "Simulation"
       ],
+      "last_update_ts": null,
       "hltb_main": null,
       "hltb_extra": null,
       "hltb_complete": null,
@@ -9386,8 +9387,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782605431,
-      "last_update_ts": null
+      "scraped_at": 1782690466
     },
     {
       "appid": 4575140,
@@ -9406,6 +9406,7 @@
         "Action",
         "Casual"
       ],
+      "last_update_ts": 1781697077,
       "hltb_main": null,
       "hltb_extra": null,
       "hltb_complete": null,
@@ -9413,8 +9414,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782605415,
-      "last_update_ts": 1781697077
+      "scraped_at": 1782690461
     },
     {
       "appid": 4575150,
@@ -9433,6 +9433,7 @@
         "Indie",
         "Simulation"
       ],
+      "last_update_ts": 1782019069,
       "hltb_main": null,
       "hltb_extra": null,
       "hltb_complete": null,
@@ -9440,8 +9441,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782605408,
-      "last_update_ts": 1782019069
+      "scraped_at": 1782690456
     },
     {
       "appid": 4575200,
@@ -9547,6 +9547,7 @@
         "Simulation",
         "Sports"
       ],
+      "last_update_ts": null,
       "hltb_main": null,
       "hltb_extra": null,
       "hltb_complete": null,
@@ -9554,8 +9555,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782605375,
-      "last_update_ts": null
+      "scraped_at": 1782690450
     },
     {
       "appid": 4575320,
@@ -9617,7 +9617,7 @@
       "title": "Bow-wow Battle",
       "url": "https://store.steampowered.com/app/4575390",
       "rating_pct": 78,
-      "review_count": 162,
+      "review_count": 161,
       "price_initial": 4.99,
       "price_final": 3.99,
       "discount_pct": 20,
@@ -9631,6 +9631,7 @@
         "Indie",
         "Early Access"
       ],
+      "last_update_ts": 1781348395,
       "hltb_main": null,
       "hltb_extra": null,
       "hltb_complete": null,
@@ -9638,15 +9639,14 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782605354,
-      "last_update_ts": 1781348395
+      "scraped_at": 1782690445
     },
     {
       "appid": 4575490,
       "title": "Full Thrust at Work",
       "url": "https://store.steampowered.com/app/4575490",
       "rating_pct": 100,
-      "review_count": 6,
+      "review_count": 8,
       "price_initial": 4.99,
       "price_final": 3.99,
       "discount_pct": 20,
@@ -9659,6 +9659,7 @@
         "Indie",
         "Simulation"
       ],
+      "last_update_ts": null,
       "hltb_main": null,
       "hltb_extra": null,
       "hltb_complete": null,
@@ -9666,8 +9667,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782605330,
-      "last_update_ts": null
+      "scraped_at": 1782690440
     },
     {
       "appid": 4575530,
@@ -9714,6 +9714,7 @@
         "Casual",
         "Indie"
       ],
+      "last_update_ts": null,
       "hltb_main": null,
       "hltb_extra": null,
       "hltb_complete": null,
@@ -9721,8 +9722,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782605305,
-      "last_update_ts": null
+      "scraped_at": 1782690435
     },
     {
       "appid": 4575650,
@@ -9741,6 +9741,7 @@
         "Casual",
         "Indie"
       ],
+      "last_update_ts": 1780262435,
       "hltb_main": null,
       "hltb_extra": null,
       "hltb_complete": null,
@@ -9748,8 +9749,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782605280,
-      "last_update_ts": 1780262435
+      "scraped_at": 1782690430
     },
     {
       "appid": 4575670,
@@ -9797,6 +9797,7 @@
         "Casual",
         "Indie"
       ],
+      "last_update_ts": null,
       "hltb_main": null,
       "hltb_extra": null,
       "hltb_complete": null,
@@ -9804,8 +9805,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782605269,
-      "last_update_ts": null
+      "scraped_at": 1782690425
     },
     {
       "appid": 4575800,
@@ -9851,6 +9851,7 @@
       "tags": [
         "Casual"
       ],
+      "last_update_ts": 1778055286,
       "hltb_main": null,
       "hltb_extra": null,
       "hltb_complete": null,
@@ -9858,8 +9859,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782605249,
-      "last_update_ts": 1778055286
+      "scraped_at": 1782690420
     },
     {
       "appid": 4575880,
@@ -9878,6 +9878,7 @@
         "Casual",
         "Indie"
       ],
+      "last_update_ts": 1782312019,
       "hltb_main": null,
       "hltb_extra": null,
       "hltb_complete": null,
@@ -9885,8 +9886,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782605236,
-      "last_update_ts": 1782312019
+      "scraped_at": 1782690414
     },
     {
       "appid": 4575900,
@@ -9990,6 +9990,7 @@
         "Casual",
         "Simulation"
       ],
+      "last_update_ts": null,
       "hltb_main": null,
       "hltb_extra": null,
       "hltb_complete": null,
@@ -9997,8 +9998,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782605178,
-      "last_update_ts": null
+      "scraped_at": 1782690409
     },
     {
       "appid": 4576210,
@@ -10053,6 +10053,7 @@
         "Simulation",
         "Sports"
       ],
+      "last_update_ts": null,
       "hltb_main": null,
       "hltb_extra": null,
       "hltb_complete": null,
@@ -10060,8 +10061,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782605152,
-      "last_update_ts": null
+      "scraped_at": 1782690404
     },
     {
       "appid": 4576310,
@@ -10085,6 +10085,7 @@
         "Simulation",
         "Sports"
       ],
+      "last_update_ts": null,
       "hltb_main": null,
       "hltb_extra": null,
       "hltb_complete": null,
@@ -10092,8 +10093,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782605146,
-      "last_update_ts": null
+      "scraped_at": 1782690399
     },
     {
       "appid": 4576390,
@@ -10165,6 +10165,7 @@
       "tags": [
         "Indie"
       ],
+      "last_update_ts": 1777465668,
       "hltb_main": null,
       "hltb_extra": null,
       "hltb_complete": null,
@@ -10172,8 +10173,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782605089,
-      "last_update_ts": 1777465668
+      "scraped_at": 1782690394
     },
     {
       "appid": 4576650,
@@ -10221,6 +10221,7 @@
         "Indie",
         "Strategy"
       ],
+      "last_update_ts": null,
       "hltb_main": null,
       "hltb_extra": null,
       "hltb_complete": null,
@@ -10228,8 +10229,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782605045,
-      "last_update_ts": null
+      "scraped_at": 1782690389
     },
     {
       "appid": 4576940,
@@ -10332,6 +10332,7 @@
         "Indie",
         "Simulation"
       ],
+      "last_update_ts": null,
       "hltb_main": null,
       "hltb_extra": null,
       "hltb_complete": null,
@@ -10339,8 +10340,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782605007,
-      "last_update_ts": null
+      "scraped_at": 1782690383
     },
     {
       "appid": 4577230,
@@ -10390,6 +10390,7 @@
         "Simulation",
         "Strategy"
       ],
+      "last_update_ts": null,
       "hltb_main": null,
       "hltb_extra": null,
       "hltb_complete": null,
@@ -10397,8 +10398,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782604968,
-      "last_update_ts": null
+      "scraped_at": 1782690378
     },
     {
       "appid": 4577540,
@@ -10472,6 +10472,7 @@
         "Simulation",
         "Sports"
       ],
+      "last_update_ts": 1780186078,
       "hltb_main": null,
       "hltb_extra": null,
       "hltb_complete": null,
@@ -10479,8 +10480,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782604907,
-      "last_update_ts": 1780186078
+      "scraped_at": 1782690373
     },
     {
       "appid": 4577950,
@@ -10691,6 +10691,7 @@
         "Casual",
         "Indie"
       ],
+      "last_update_ts": null,
       "hltb_main": null,
       "hltb_extra": null,
       "hltb_complete": null,
@@ -10698,8 +10699,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782604787,
-      "last_update_ts": null
+      "scraped_at": 1782690368
     },
     {
       "appid": 4578650,
@@ -10719,6 +10719,7 @@
         "RPG",
         "Strategy"
       ],
+      "last_update_ts": null,
       "hltb_main": null,
       "hltb_extra": null,
       "hltb_complete": null,
@@ -10726,8 +10727,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782604776,
-      "last_update_ts": null
+      "scraped_at": 1782690362
     },
     {
       "appid": 4578760,
@@ -10808,6 +10808,7 @@
         "Simulation",
         "Strategy"
       ],
+      "last_update_ts": 1781613825,
       "hltb_main": null,
       "hltb_extra": null,
       "hltb_complete": null,
@@ -10815,8 +10816,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782604751,
-      "last_update_ts": 1781613825
+      "scraped_at": 1782690357
     },
     {
       "appid": 4578920,
@@ -10865,6 +10865,7 @@
         "Indie",
         "RPG"
       ],
+      "last_update_ts": 1782350988,
       "hltb_main": null,
       "hltb_extra": null,
       "hltb_complete": null,
@@ -10872,8 +10873,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782604712,
-      "last_update_ts": 1782350988
+      "scraped_at": 1782690352
     },
     {
       "appid": 4579360,
@@ -11210,6 +11210,7 @@
         "Casual",
         "Indie"
       ],
+      "last_update_ts": 1778678179,
       "hltb_main": null,
       "hltb_extra": null,
       "hltb_complete": null,
@@ -11217,15 +11218,14 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782604544,
-      "last_update_ts": 1778678179
+      "scraped_at": 1782690345
     },
     {
       "appid": 4579990,
       "title": "Brainrot Tung Tung Sahur",
       "url": "https://store.steampowered.com/app/4579990",
-      "rating_pct": 75,
-      "review_count": 4,
+      "rating_pct": 80,
+      "review_count": 5,
       "price_initial": 1.99,
       "price_final": 0.99,
       "discount_pct": 50,
@@ -11236,6 +11236,7 @@
       "tags": [
         "Action"
       ],
+      "last_update_ts": null,
       "hltb_main": null,
       "hltb_extra": null,
       "hltb_complete": null,
@@ -11243,8 +11244,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782604528,
-      "last_update_ts": null
+      "scraped_at": 1782690340
     },
     {
       "appid": 4580060,
@@ -11265,6 +11265,7 @@
         "Indie",
         "Simulation"
       ],
+      "last_update_ts": null,
       "hltb_main": null,
       "hltb_extra": null,
       "hltb_complete": null,
@@ -11272,8 +11273,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782604508,
-      "last_update_ts": null
+      "scraped_at": 1782690335
     },
     {
       "appid": 4580120,
@@ -11293,6 +11293,7 @@
         "Casual",
         "Indie"
       ],
+      "last_update_ts": null,
       "hltb_main": null,
       "hltb_extra": null,
       "hltb_complete": null,
@@ -11300,8 +11301,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782604502,
-      "last_update_ts": null
+      "scraped_at": 1782690330
     },
     {
       "appid": 4580220,
@@ -11345,6 +11345,7 @@
       "tags": [
         "Adventure"
       ],
+      "last_update_ts": null,
       "hltb_main": null,
       "hltb_extra": null,
       "hltb_complete": null,
@@ -11352,8 +11353,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782604459,
-      "last_update_ts": null
+      "scraped_at": 1782690325
     },
     {
       "appid": 4580380,
@@ -11373,6 +11373,7 @@
         "Indie",
         "Early Access"
       ],
+      "last_update_ts": 1782463876,
       "hltb_main": null,
       "hltb_extra": null,
       "hltb_complete": null,
@@ -11380,8 +11381,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782604444,
-      "last_update_ts": 1782463876
+      "scraped_at": 1782690319
     },
     {
       "appid": 4580560,
@@ -11400,6 +11400,7 @@
         "Action",
         "Indie"
       ],
+      "last_update_ts": 1781279966,
       "hltb_main": null,
       "hltb_extra": null,
       "hltb_complete": null,
@@ -11407,8 +11408,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782604423,
-      "last_update_ts": 1781279966
+      "scraped_at": 1782690314
     },
     {
       "appid": 4580610,
@@ -11480,6 +11480,7 @@
       "tags": [
         "Casual"
       ],
+      "last_update_ts": null,
       "hltb_main": null,
       "hltb_extra": null,
       "hltb_complete": null,
@@ -11487,8 +11488,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782604380,
-      "last_update_ts": null
+      "scraped_at": 1782690309
     },
     {
       "appid": 4580760,
@@ -11507,6 +11507,7 @@
         "Action",
         "Indie"
       ],
+      "last_update_ts": null,
       "hltb_main": null,
       "hltb_extra": null,
       "hltb_complete": null,
@@ -11514,8 +11515,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782604374,
-      "last_update_ts": null
+      "scraped_at": 1782690304
     },
     {
       "appid": 4580780,
@@ -11647,6 +11647,7 @@
         "Indie",
         "Strategy"
       ],
+      "last_update_ts": null,
       "hltb_main": null,
       "hltb_extra": null,
       "hltb_complete": null,
@@ -11654,8 +11655,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782604294,
-      "last_update_ts": null
+      "scraped_at": 1782690299
     },
     {
       "appid": 4581190,
@@ -11703,6 +11703,7 @@
         "Action",
         "Indie"
       ],
+      "last_update_ts": 1778870608,
       "hltb_main": null,
       "hltb_extra": null,
       "hltb_complete": null,
@@ -11710,8 +11711,7 @@
       "hltb_match": "HEXAROMA",
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782604274,
-      "last_update_ts": 1778870608
+      "scraped_at": 1782690293
     },
     {
       "appid": 4581410,
@@ -11762,6 +11762,7 @@
         "RPG",
         "Strategy"
       ],
+      "last_update_ts": null,
       "hltb_main": null,
       "hltb_extra": null,
       "hltb_complete": null,
@@ -11769,8 +11770,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782604231,
-      "last_update_ts": null
+      "scraped_at": 1782690288
     },
     {
       "appid": 4581510,
@@ -11821,6 +11821,7 @@
         "Indie",
         "Simulation"
       ],
+      "last_update_ts": 1777638523,
       "hltb_main": null,
       "hltb_extra": null,
       "hltb_complete": null,
@@ -11828,8 +11829,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782604211,
-      "last_update_ts": 1777638523
+      "scraped_at": 1782690283
     },
     {
       "appid": 4581640,
@@ -11932,6 +11932,7 @@
         "Indie",
         "Strategy"
       ],
+      "last_update_ts": null,
       "hltb_main": null,
       "hltb_extra": null,
       "hltb_complete": null,
@@ -11939,8 +11940,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782604158,
-      "last_update_ts": null
+      "scraped_at": 1782690277
     },
     {
       "appid": 4581850,
@@ -11958,6 +11958,7 @@
       "tags": [
         "Simulation"
       ],
+      "last_update_ts": 1776994136,
       "hltb_main": null,
       "hltb_extra": null,
       "hltb_complete": null,
@@ -11965,15 +11966,14 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782604152,
-      "last_update_ts": 1776994136
+      "scraped_at": 1782690272
     },
     {
       "appid": 4581930,
       "title": "S.A.L.A.M.E.",
       "url": "https://store.steampowered.com/app/4581930",
       "rating_pct": 97,
-      "review_count": 31,
+      "review_count": 33,
       "price_initial": 3.99,
       "price_final": 3.19,
       "discount_pct": 20,
@@ -11986,6 +11986,7 @@
         "Simulation",
         "Strategy"
       ],
+      "last_update_ts": null,
       "hltb_main": null,
       "hltb_extra": null,
       "hltb_complete": null,
@@ -11993,8 +11994,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782604124,
-      "last_update_ts": null
+      "scraped_at": 1782690267
     },
     {
       "appid": 4582030,
@@ -12068,6 +12068,7 @@
         "RPG",
         "Strategy"
       ],
+      "last_update_ts": null,
       "hltb_main": null,
       "hltb_extra": null,
       "hltb_complete": null,
@@ -12075,8 +12076,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782604090,
-      "last_update_ts": null
+      "scraped_at": 1782690262
     },
     {
       "appid": 4582160,
@@ -12097,6 +12097,7 @@
         "Strategy",
         "Early Access"
       ],
+      "last_update_ts": 1779662235,
       "hltb_main": null,
       "hltb_extra": null,
       "hltb_complete": null,
@@ -12104,8 +12105,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782604084,
-      "last_update_ts": 1779662235
+      "scraped_at": 1782690257
     },
     {
       "appid": 4582250,
@@ -12239,6 +12239,7 @@
         "RPG",
         "Strategy"
       ],
+      "last_update_ts": 1778879014,
       "hltb_main": null,
       "hltb_extra": null,
       "hltb_complete": null,
@@ -12246,8 +12247,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782604008,
-      "last_update_ts": 1778879014
+      "scraped_at": 1782690252
     },
     {
       "appid": 4582600,
@@ -12268,6 +12268,7 @@
         "Simulation",
         "Early Access"
       ],
+      "last_update_ts": 1778467505,
       "hltb_main": null,
       "hltb_extra": null,
       "hltb_complete": null,
@@ -12275,8 +12276,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782604002,
-      "last_update_ts": 1778467505
+      "scraped_at": 1782690246
     },
     {
       "appid": 4582660,
@@ -12354,6 +12354,7 @@
         "Simulation",
         "Strategy"
       ],
+      "last_update_ts": null,
       "hltb_main": null,
       "hltb_extra": null,
       "hltb_complete": null,
@@ -12361,8 +12362,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782603972,
-      "last_update_ts": null
+      "scraped_at": 1782690241
     },
     {
       "appid": 4582850,
@@ -12453,7 +12453,7 @@
       "title": "Hidden Raccoons in Asia",
       "url": "https://store.steampowered.com/app/4583100",
       "rating_pct": 100,
-      "review_count": 8,
+      "review_count": 10,
       "price_initial": 1.99,
       "price_final": 1.79,
       "discount_pct": 10,
@@ -12465,6 +12465,7 @@
         "Casual",
         "Indie"
       ],
+      "last_update_ts": null,
       "hltb_main": null,
       "hltb_extra": null,
       "hltb_complete": null,
@@ -12472,15 +12473,14 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782603911,
-      "last_update_ts": null
+      "scraped_at": 1782690236
     },
     {
       "appid": 4583110,
       "title": "Hidden Raccoons in Summer",
       "url": "https://store.steampowered.com/app/4583110",
       "rating_pct": 100,
-      "review_count": 12,
+      "review_count": 13,
       "price_initial": 1.99,
       "price_final": 1.79,
       "discount_pct": 10,
@@ -12492,6 +12492,7 @@
         "Casual",
         "Indie"
       ],
+      "last_update_ts": null,
       "hltb_main": null,
       "hltb_extra": null,
       "hltb_complete": null,
@@ -12499,8 +12500,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782603905,
-      "last_update_ts": null
+      "scraped_at": 1782690230
     },
     {
       "appid": 4583130,
@@ -12560,8 +12560,8 @@
       "appid": 4583440,
       "title": "Terrastone",
       "url": "https://store.steampowered.com/app/4583440",
-      "rating_pct": 100,
-      "review_count": 6,
+      "rating_pct": 86,
+      "review_count": 7,
       "price_initial": 9.99,
       "price_final": 8.49,
       "discount_pct": 15,
@@ -12576,6 +12576,7 @@
         "RPG",
         "Early Access"
       ],
+      "last_update_ts": 1781408302,
       "hltb_main": null,
       "hltb_extra": null,
       "hltb_complete": null,
@@ -12583,8 +12584,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782603852,
-      "last_update_ts": 1781408302
+      "scraped_at": 1782690225
     },
     {
       "appid": 4583560,
@@ -12634,6 +12634,7 @@
         "Casual",
         "Indie"
       ],
+      "last_update_ts": null,
       "hltb_main": null,
       "hltb_extra": null,
       "hltb_complete": null,
@@ -12641,8 +12642,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782603836,
-      "last_update_ts": null
+      "scraped_at": 1782690220
     },
     {
       "appid": 4583700,
@@ -12661,6 +12661,7 @@
         "Casual",
         "Indie"
       ],
+      "last_update_ts": null,
       "hltb_main": null,
       "hltb_extra": null,
       "hltb_complete": null,
@@ -12668,8 +12669,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782603830,
-      "last_update_ts": null
+      "scraped_at": 1782690215
     },
     {
       "appid": 4583740,
@@ -12688,6 +12688,7 @@
         "Indie",
         "RPG"
       ],
+      "last_update_ts": null,
       "hltb_main": null,
       "hltb_extra": null,
       "hltb_complete": null,
@@ -12695,8 +12696,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782603823,
-      "last_update_ts": null
+      "scraped_at": 1782690209
     },
     {
       "appid": 4583750,
@@ -12715,6 +12715,7 @@
         "Indie",
         "Simulation"
       ],
+      "last_update_ts": 1778893624,
       "hltb_main": null,
       "hltb_extra": null,
       "hltb_complete": null,
@@ -12722,15 +12723,14 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782603817,
-      "last_update_ts": 1778893624
+      "scraped_at": 1782690204
     },
     {
       "appid": 4583820,
       "title": "NTR Live Broadcast!? While on Phone with Her Boyfriend, From Behind...",
       "url": "https://store.steampowered.com/app/4583820",
       "rating_pct": 100,
-      "review_count": 5,
+      "review_count": 7,
       "price_initial": 1.99,
       "price_final": 1.79,
       "discount_pct": 10,
@@ -12742,6 +12742,7 @@
         "Casual",
         "Simulation"
       ],
+      "last_update_ts": null,
       "hltb_main": null,
       "hltb_extra": null,
       "hltb_complete": null,
@@ -12749,8 +12750,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782603810,
-      "last_update_ts": null
+      "scraped_at": 1782690199
     },
     {
       "appid": 4584060,
@@ -12770,6 +12770,7 @@
         "Indie",
         "RPG"
       ],
+      "last_update_ts": null,
       "hltb_main": null,
       "hltb_extra": null,
       "hltb_complete": null,
@@ -12777,8 +12778,7 @@
       "hltb_match": "Visual novel: Dashing 90s",
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782603786,
-      "last_update_ts": null
+      "scraped_at": 1782690194
     },
     {
       "appid": 4584110,
@@ -12828,6 +12828,7 @@
         "Indie",
         "Simulation"
       ],
+      "last_update_ts": null,
       "hltb_main": null,
       "hltb_extra": null,
       "hltb_complete": null,
@@ -12835,8 +12836,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782603766,
-      "last_update_ts": null
+      "scraped_at": 1782690189
     },
     {
       "appid": 4584300,
@@ -12885,6 +12885,7 @@
         "Racing",
         "Simulation"
       ],
+      "last_update_ts": null,
       "hltb_main": null,
       "hltb_extra": null,
       "hltb_complete": null,
@@ -12892,8 +12893,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782603732,
-      "last_update_ts": null
+      "scraped_at": 1782690184
     },
     {
       "appid": 4584450,
@@ -12912,6 +12912,7 @@
         "Casual",
         "Simulation"
       ],
+      "last_update_ts": null,
       "hltb_main": null,
       "hltb_extra": null,
       "hltb_complete": null,
@@ -12919,8 +12920,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782603725,
-      "last_update_ts": null
+      "scraped_at": 1782690178
     },
     {
       "appid": 4584510,
@@ -12940,6 +12940,7 @@
         "Casual",
         "Indie"
       ],
+      "last_update_ts": null,
       "hltb_main": null,
       "hltb_extra": null,
       "hltb_complete": null,
@@ -12947,8 +12948,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782603710,
-      "last_update_ts": null
+      "scraped_at": 1782690173
     },
     {
       "appid": 4584530,
@@ -12996,6 +12996,7 @@
         "Casual",
         "Simulation"
       ],
+      "last_update_ts": null,
       "hltb_main": 6.0,
       "hltb_extra": 8.8,
       "hltb_complete": 10.0,
@@ -13003,8 +13004,7 @@
       "hltb_match": "Order Up!",
       "qhpp_before": 2.498,
       "qhpp_after": 5.013,
-      "scraped_at": 1782603689,
-      "last_update_ts": null
+      "scraped_at": 1782690166
     },
     {
       "appid": 4584700,
@@ -13051,6 +13051,7 @@
         "Indie",
         "Simulation"
       ],
+      "last_update_ts": 1777946588,
       "hltb_main": null,
       "hltb_extra": null,
       "hltb_complete": null,
@@ -13058,15 +13059,14 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782603678,
-      "last_update_ts": 1777946588
+      "scraped_at": 1782690161
     },
     {
       "appid": 4584940,
       "title": "Frog Climb",
       "url": "https://store.steampowered.com/app/4584940",
-      "rating_pct": 94,
-      "review_count": 17,
+      "rating_pct": 95,
+      "review_count": 21,
       "price_initial": null,
       "price_final": null,
       "discount_pct": 0,
@@ -13079,6 +13079,7 @@
         "Indie",
         "Free To Play"
       ],
+      "last_update_ts": 1782641477,
       "hltb_main": 0.3,
       "hltb_extra": 0.3,
       "hltb_complete": 2.2,
@@ -13086,8 +13087,7 @@
       "hltb_match": "Frog Climbers",
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782603653,
-      "last_update_ts": 1782641477
+      "scraped_at": 1782690156
     },
     {
       "appid": 4585000,
@@ -13281,8 +13281,8 @@
       "appid": 4585830,
       "title": "Barbecue",
       "url": "https://store.steampowered.com/app/4585830",
-      "rating_pct": 75,
-      "review_count": 20,
+      "rating_pct": 76,
+      "review_count": 21,
       "price_initial": 4.95,
       "price_final": 3.46,
       "discount_pct": 30,
@@ -13296,6 +13296,7 @@
         "Indie",
         "Simulation"
       ],
+      "last_update_ts": 1782255214,
       "hltb_main": null,
       "hltb_extra": null,
       "hltb_complete": null,
@@ -13303,8 +13304,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782603562,
-      "last_update_ts": 1782255214
+      "scraped_at": 1782690153
     },
     {
       "appid": 4585900,
@@ -13324,6 +13324,7 @@
         "Indie",
         "Strategy"
       ],
+      "last_update_ts": null,
       "hltb_main": null,
       "hltb_extra": null,
       "hltb_complete": null,
@@ -13331,8 +13332,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782603546,
-      "last_update_ts": null
+      "scraped_at": 1782690148
     },
     {
       "appid": 4585960,
@@ -13353,6 +13353,7 @@
         "Indie",
         "Early Access"
       ],
+      "last_update_ts": 1780594085,
       "hltb_main": null,
       "hltb_extra": null,
       "hltb_complete": null,
@@ -13360,8 +13361,7 @@
       "hltb_match": "Endeavor",
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782603539,
-      "last_update_ts": 1780594085
+      "scraped_at": 1782690142
     },
     {
       "appid": 4586000,
@@ -13379,6 +13379,7 @@
       "tags": [
         "Strategy"
       ],
+      "last_update_ts": null,
       "hltb_main": null,
       "hltb_extra": null,
       "hltb_complete": null,
@@ -13386,8 +13387,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782603529,
-      "last_update_ts": null
+      "scraped_at": 1782690137
     },
     {
       "appid": 4586030,
@@ -13408,6 +13408,7 @@
         "Indie",
         "Racing"
       ],
+      "last_update_ts": 1778544010,
       "hltb_main": null,
       "hltb_extra": null,
       "hltb_complete": null,
@@ -13415,8 +13416,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782603522,
-      "last_update_ts": 1778544010
+      "scraped_at": 1782690132
     },
     {
       "appid": 4586320,
@@ -13435,6 +13435,7 @@
         "Action",
         "Adventure"
       ],
+      "last_update_ts": null,
       "hltb_main": null,
       "hltb_extra": null,
       "hltb_complete": null,
@@ -13442,8 +13443,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782603466,
-      "last_update_ts": null
+      "scraped_at": 1782690127
     },
     {
       "appid": 4586600,
@@ -13491,6 +13491,7 @@
         "Casual",
         "Early Access"
       ],
+      "last_update_ts": 1781557198,
       "hltb_main": null,
       "hltb_extra": null,
       "hltb_complete": null,
@@ -13498,8 +13499,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782603407,
-      "last_update_ts": 1781557198
+      "scraped_at": 1782690122
     },
     {
       "appid": 4586630,
@@ -13550,6 +13550,7 @@
         "RPG",
         "Simulation"
       ],
+      "last_update_ts": 1781524923,
       "hltb_main": null,
       "hltb_extra": null,
       "hltb_complete": null,
@@ -13557,8 +13558,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782603396,
-      "last_update_ts": 1781524923
+      "scraped_at": 1782690116
     },
     {
       "appid": 4586680,
@@ -13577,6 +13577,7 @@
         "Indie",
         "RPG"
       ],
+      "last_update_ts": 1779321927,
       "hltb_main": null,
       "hltb_extra": null,
       "hltb_complete": null,
@@ -13584,15 +13585,14 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782603390,
-      "last_update_ts": 1779321927
+      "scraped_at": 1782690111
     },
     {
       "appid": 4586760,
       "title": "Sphere TD",
       "url": "https://store.steampowered.com/app/4586760",
       "rating_pct": 100,
-      "review_count": 1,
+      "review_count": 2,
       "price_initial": 13.99,
       "price_final": 12.59,
       "discount_pct": 10,
@@ -13605,6 +13605,7 @@
         "Strategy",
         "Early Access"
       ],
+      "last_update_ts": 1782561185,
       "hltb_main": null,
       "hltb_extra": null,
       "hltb_complete": null,
@@ -13612,8 +13613,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782603370,
-      "last_update_ts": 1782561185
+      "scraped_at": 1782690105
     },
     {
       "appid": 4586780,
@@ -13649,8 +13649,8 @@
       "appid": 4587010,
       "title": "Beggar's Road",
       "url": "https://store.steampowered.com/app/4587010",
-      "rating_pct": 85,
-      "review_count": 20,
+      "rating_pct": 82,
+      "review_count": 22,
       "price_initial": 7.99,
       "price_final": 5.99,
       "discount_pct": 25,
@@ -13663,6 +13663,7 @@
         "Indie",
         "RPG"
       ],
+      "last_update_ts": 1782275678,
       "hltb_main": null,
       "hltb_extra": null,
       "hltb_complete": null,
@@ -13670,8 +13671,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782603327,
-      "last_update_ts": 1782275678
+      "scraped_at": 1782690100
     },
     {
       "appid": 4587030,
@@ -13749,6 +13749,7 @@
         "Casual",
         "Indie"
       ],
+      "last_update_ts": null,
       "hltb_main": null,
       "hltb_extra": null,
       "hltb_complete": null,
@@ -13756,8 +13757,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782603298,
-      "last_update_ts": null
+      "scraped_at": 1782690095
     },
     {
       "appid": 4587550,
@@ -13778,6 +13778,7 @@
         "Indie",
         "Early Access"
       ],
+      "last_update_ts": null,
       "hltb_main": null,
       "hltb_extra": null,
       "hltb_complete": null,
@@ -13785,8 +13786,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782603287,
-      "last_update_ts": null
+      "scraped_at": 1782690090
     },
     {
       "appid": 4587580,
@@ -13805,6 +13805,7 @@
         "Casual",
         "Indie"
       ],
+      "last_update_ts": null,
       "hltb_main": null,
       "hltb_extra": null,
       "hltb_complete": null,
@@ -13812,8 +13813,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782603280,
-      "last_update_ts": null
+      "scraped_at": 1782690085
     },
     {
       "appid": 4587630,
@@ -13833,6 +13833,7 @@
         "RPG",
         "Strategy"
       ],
+      "last_update_ts": null,
       "hltb_main": null,
       "hltb_extra": null,
       "hltb_complete": null,
@@ -13840,8 +13841,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782603265,
-      "last_update_ts": null
+      "scraped_at": 1782690080
     },
     {
       "appid": 4587670,
@@ -13863,6 +13863,7 @@
         "Simulation",
         "Sports"
       ],
+      "last_update_ts": null,
       "hltb_main": null,
       "hltb_extra": null,
       "hltb_complete": null,
@@ -13870,8 +13871,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782603258,
-      "last_update_ts": null
+      "scraped_at": 1782690074
     },
     {
       "appid": 4587780,
@@ -13974,6 +13974,7 @@
         "Casual",
         "Indie"
       ],
+      "last_update_ts": null,
       "hltb_main": null,
       "hltb_extra": null,
       "hltb_complete": null,
@@ -13981,8 +13982,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782603206,
-      "last_update_ts": null
+      "scraped_at": 1782690069
     },
     {
       "appid": 4587980,
@@ -14002,6 +14002,7 @@
         "Casual",
         "Indie"
       ],
+      "last_update_ts": 1780213632,
       "hltb_main": 0.6,
       "hltb_extra": null,
       "hltb_complete": null,
@@ -14009,8 +14010,7 @@
       "hltb_match": "Veiled",
       "qhpp_before": 0.026,
       "qhpp_after": 0.032,
-      "scraped_at": 1782603181,
-      "last_update_ts": 1780213632
+      "scraped_at": 1782690064
     },
     {
       "appid": 4588170,
@@ -14057,6 +14057,7 @@
         "Casual",
         "Indie"
       ],
+      "last_update_ts": null,
       "hltb_main": null,
       "hltb_extra": null,
       "hltb_complete": null,
@@ -14064,8 +14065,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782603156,
-      "last_update_ts": null
+      "scraped_at": 1782690059
     },
     {
       "appid": 4588330,
@@ -14113,6 +14113,7 @@
         "Indie",
         "Strategy"
       ],
+      "last_update_ts": null,
       "hltb_main": null,
       "hltb_extra": null,
       "hltb_complete": null,
@@ -14120,8 +14121,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782603127,
-      "last_update_ts": null
+      "scraped_at": 1782690054
     },
     {
       "appid": 4588410,
@@ -14141,6 +14141,7 @@
         "Indie",
         "Simulation"
       ],
+      "last_update_ts": 1779102829,
       "hltb_main": null,
       "hltb_extra": null,
       "hltb_complete": null,
@@ -14148,8 +14149,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782603116,
-      "last_update_ts": 1779102829
+      "scraped_at": 1782690048
     },
     {
       "appid": 4588470,
@@ -14223,6 +14223,7 @@
         "Indie",
         "Strategy"
       ],
+      "last_update_ts": null,
       "hltb_main": null,
       "hltb_extra": null,
       "hltb_complete": null,
@@ -14230,8 +14231,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782603053,
-      "last_update_ts": null
+      "scraped_at": 1782690043
     },
     {
       "appid": 4589010,
@@ -14251,6 +14251,7 @@
         "Indie",
         "Strategy"
       ],
+      "last_update_ts": 1782398151,
       "hltb_main": null,
       "hltb_extra": null,
       "hltb_complete": null,
@@ -14258,8 +14259,7 @@
       "hltb_match": "THE BUTTON",
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782603015,
-      "last_update_ts": 1782398151
+      "scraped_at": 1782690038
     },
     {
       "appid": 4589040,
@@ -14332,6 +14332,7 @@
       "tags": [
         "RPG"
       ],
+      "last_update_ts": null,
       "hltb_main": null,
       "hltb_extra": null,
       "hltb_complete": null,
@@ -14339,8 +14340,7 @@
       "hltb_match": "RED PROTOCOL",
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782602957,
-      "last_update_ts": null
+      "scraped_at": 1782690033
     },
     {
       "appid": 4589400,
@@ -14557,6 +14557,7 @@
         "Action",
         "Indie"
       ],
+      "last_update_ts": null,
       "hltb_main": null,
       "hltb_extra": null,
       "hltb_complete": null,
@@ -14564,8 +14565,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782602851,
-      "last_update_ts": null
+      "scraped_at": 1782690028
     },
     {
       "appid": 4590200,
@@ -14604,8 +14604,8 @@
       "rating_pct": 50,
       "review_count": 4,
       "price_initial": 0.99,
-      "price_final": 0.49,
-      "discount_pct": 51,
+      "price_final": 0.99,
+      "discount_pct": 0,
       "discount_end": null,
       "is_free": false,
       "release_date": "Apr 29, 2026",
@@ -14613,6 +14613,7 @@
       "tags": [
         "Indie"
       ],
+      "last_update_ts": null,
       "hltb_main": null,
       "hltb_extra": null,
       "hltb_complete": null,
@@ -14620,8 +14621,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782602825,
-      "last_update_ts": null
+      "scraped_at": 1782690023
     },
     {
       "appid": 4590260,
@@ -14695,6 +14695,7 @@
         "Indie",
         "Simulation"
       ],
+      "last_update_ts": null,
       "hltb_main": null,
       "hltb_extra": null,
       "hltb_complete": null,
@@ -14702,8 +14703,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782602801,
-      "last_update_ts": null
+      "scraped_at": 1782690019
     },
     {
       "appid": 4590620,
@@ -14861,6 +14861,7 @@
         "Action",
         "Adventure"
       ],
+      "last_update_ts": 1781789284,
       "hltb_main": null,
       "hltb_extra": null,
       "hltb_complete": null,
@@ -14868,8 +14869,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782602696,
-      "last_update_ts": 1781789284
+      "scraped_at": 1782690014
     },
     {
       "appid": 4591240,
@@ -14889,6 +14889,7 @@
         "Casual",
         "Indie"
       ],
+      "last_update_ts": 1777016673,
       "hltb_main": 0.5,
       "hltb_extra": null,
       "hltb_complete": 1.6,
@@ -14896,8 +14897,7 @@
       "hltb_match": "FIND KITTENS 11: Dollhouse",
       "qhpp_before": 0.922,
       "qhpp_after": 1.383,
-      "scraped_at": 1782602686,
-      "last_update_ts": 1777016673
+      "scraped_at": 1782690009
     },
     {
       "appid": 4591270,
@@ -14943,6 +14943,7 @@
         "Indie",
         "Strategy"
       ],
+      "last_update_ts": null,
       "hltb_main": null,
       "hltb_extra": null,
       "hltb_complete": null,
@@ -14950,8 +14951,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782602670,
-      "last_update_ts": null
+      "scraped_at": 1782690004
     },
     {
       "appid": 4591380,
@@ -14971,6 +14971,7 @@
         "Indie",
         "RPG"
       ],
+      "last_update_ts": 1780487729,
       "hltb_main": null,
       "hltb_extra": null,
       "hltb_complete": null,
@@ -14978,8 +14979,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782602655,
-      "last_update_ts": 1780487729
+      "scraped_at": 1782689999
     },
     {
       "appid": 4591390,
@@ -15112,6 +15112,7 @@
         "Casual",
         "Indie"
       ],
+      "last_update_ts": null,
       "hltb_main": null,
       "hltb_extra": null,
       "hltb_complete": null,
@@ -15119,8 +15120,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782602607,
-      "last_update_ts": null
+      "scraped_at": 1782689993
     },
     {
       "appid": 4591720,
@@ -15138,6 +15138,7 @@
       "tags": [
         "Indie"
       ],
+      "last_update_ts": null,
       "hltb_main": null,
       "hltb_extra": null,
       "hltb_complete": null,
@@ -15145,8 +15146,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782602601,
-      "last_update_ts": null
+      "scraped_at": 1782689988
     },
     {
       "appid": 4591870,
@@ -15275,6 +15275,7 @@
         "Casual",
         "Indie"
       ],
+      "last_update_ts": null,
       "hltb_main": null,
       "hltb_extra": null,
       "hltb_complete": null,
@@ -15282,8 +15283,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782602460,
-      "last_update_ts": null
+      "scraped_at": 1782689983
     },
     {
       "appid": 4592630,
@@ -15302,6 +15302,7 @@
         "Casual",
         "Indie"
       ],
+      "last_update_ts": 1779171435,
       "hltb_main": null,
       "hltb_extra": null,
       "hltb_complete": null,
@@ -15309,8 +15310,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782602449,
-      "last_update_ts": 1779171435
+      "scraped_at": 1782689978
     },
     {
       "appid": 4592800,
@@ -15330,6 +15330,7 @@
         "Indie",
         "Strategy"
       ],
+      "last_update_ts": 1777990288,
       "hltb_main": null,
       "hltb_extra": null,
       "hltb_complete": null,
@@ -15337,8 +15338,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782602434,
-      "last_update_ts": 1777990288
+      "scraped_at": 1782689973
     },
     {
       "appid": 4592980,
@@ -15357,6 +15357,7 @@
         "Indie",
         "Simulation"
       ],
+      "last_update_ts": 1780800403,
       "hltb_main": null,
       "hltb_extra": null,
       "hltb_complete": null,
@@ -15364,8 +15365,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782602423,
-      "last_update_ts": 1780800403
+      "scraped_at": 1782689968
     },
     {
       "appid": 4592990,
@@ -15413,6 +15413,7 @@
         "Indie",
         "Sports"
       ],
+      "last_update_ts": 1782668878,
       "hltb_main": null,
       "hltb_extra": null,
       "hltb_complete": null,
@@ -15420,8 +15421,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782602412,
-      "last_update_ts": 1782599115
+      "scraped_at": 1782689962
     },
     {
       "appid": 4593150,
@@ -15443,6 +15443,7 @@
         "Simulation",
         "Early Access"
       ],
+      "last_update_ts": null,
       "hltb_main": null,
       "hltb_extra": null,
       "hltb_complete": null,
@@ -15450,8 +15451,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782602391,
-      "last_update_ts": null
+      "scraped_at": 1782689957
     },
     {
       "appid": 4593180,
@@ -15470,6 +15470,7 @@
         "Simulation",
         "Strategy"
       ],
+      "last_update_ts": null,
       "hltb_main": null,
       "hltb_extra": null,
       "hltb_complete": null,
@@ -15477,8 +15478,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782602380,
-      "last_update_ts": null
+      "scraped_at": 1782689952
     },
     {
       "appid": 4593220,
@@ -15529,6 +15529,7 @@
         "Indie",
         "Simulation"
       ],
+      "last_update_ts": null,
       "hltb_main": null,
       "hltb_extra": null,
       "hltb_complete": null,
@@ -15536,8 +15537,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782602365,
-      "last_update_ts": null
+      "scraped_at": 1782689947
     },
     {
       "appid": 4593290,
@@ -15557,6 +15557,7 @@
         "Adventure",
         "Indie"
       ],
+      "last_update_ts": 1780541214,
       "hltb_main": null,
       "hltb_extra": null,
       "hltb_complete": null,
@@ -15564,15 +15565,14 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782602359,
-      "last_update_ts": 1780541214
+      "scraped_at": 1782689942
     },
     {
       "appid": 4593300,
       "title": "ARTSEC",
       "url": "https://store.steampowered.com/app/4593300",
-      "rating_pct": null,
-      "review_count": 0,
+      "rating_pct": 100,
+      "review_count": 1,
       "price_initial": 4.99,
       "price_final": 2.49,
       "discount_pct": 50,
@@ -15584,6 +15584,7 @@
         "Indie",
         "Simulation"
       ],
+      "last_update_ts": 1779635561,
       "hltb_main": null,
       "hltb_extra": null,
       "hltb_complete": null,
@@ -15591,8 +15592,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782602352,
-      "last_update_ts": 1779635561
+      "scraped_at": 1782689937
     },
     {
       "appid": 4593340,
@@ -15612,6 +15612,7 @@
         "Indie",
         "Simulation"
       ],
+      "last_update_ts": null,
       "hltb_main": null,
       "hltb_extra": null,
       "hltb_complete": null,
@@ -15619,8 +15620,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782602345,
-      "last_update_ts": null
+      "scraped_at": 1782689932
     },
     {
       "appid": 4593520,
@@ -15640,6 +15640,7 @@
         "Casual",
         "Indie"
       ],
+      "last_update_ts": null,
       "hltb_main": null,
       "hltb_extra": null,
       "hltb_complete": null,
@@ -15647,8 +15648,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782602325,
-      "last_update_ts": null
+      "scraped_at": 1782689927
     },
     {
       "appid": 4593570,
@@ -15739,7 +15739,7 @@
       "title": "Demon Princess Retreat",
       "url": "https://store.steampowered.com/app/4593710",
       "rating_pct": 100,
-      "review_count": 7,
+      "review_count": 9,
       "price_initial": 3.99,
       "price_final": 3.39,
       "discount_pct": 15,
@@ -15753,6 +15753,7 @@
         "Simulation",
         "Strategy"
       ],
+      "last_update_ts": 1782626720,
       "hltb_main": null,
       "hltb_extra": null,
       "hltb_complete": null,
@@ -15760,8 +15761,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782602278,
-      "last_update_ts": 1782626720
+      "scraped_at": 1782689921
     },
     {
       "appid": 4593750,
@@ -15779,6 +15779,7 @@
       "tags": [
         "Simulation"
       ],
+      "last_update_ts": 1780038231,
       "hltb_main": null,
       "hltb_extra": null,
       "hltb_complete": null,
@@ -15786,8 +15787,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782602271,
-      "last_update_ts": 1780038231
+      "scraped_at": 1782689916
     },
     {
       "appid": 4593770,
@@ -16090,6 +16090,7 @@
       "tags": [
         "Action"
       ],
+      "last_update_ts": 1782433814,
       "hltb_main": null,
       "hltb_extra": null,
       "hltb_complete": null,
@@ -16097,15 +16098,14 @@
       "hltb_match": "A.K.O - Arrow Keys Only",
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782602129,
-      "last_update_ts": 1782433814
+      "scraped_at": 1782689911
     },
     {
       "appid": 4594460,
       "title": "Mall Simulator Together",
       "url": "https://store.steampowered.com/app/4594460",
-      "rating_pct": null,
-      "review_count": 0,
+      "rating_pct": 0,
+      "review_count": 2,
       "price_initial": 11.99,
       "price_final": 7.19,
       "discount_pct": 40,
@@ -16118,6 +16118,7 @@
         "Massively Multiplayer",
         "Simulation"
       ],
+      "last_update_ts": 1780246907,
       "hltb_main": null,
       "hltb_extra": null,
       "hltb_complete": null,
@@ -16125,8 +16126,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782602118,
-      "last_update_ts": 1780246907
+      "scraped_at": 1782689906
     },
     {
       "appid": 4594500,
@@ -16145,6 +16145,7 @@
         "Indie",
         "Strategy"
       ],
+      "last_update_ts": null,
       "hltb_main": null,
       "hltb_extra": null,
       "hltb_complete": null,
@@ -16152,8 +16153,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782602107,
-      "last_update_ts": null
+      "scraped_at": 1782689901
     },
     {
       "appid": 4594750,
@@ -16225,6 +16225,7 @@
         "Casual",
         "Indie"
       ],
+      "last_update_ts": 1781588482,
       "hltb_main": null,
       "hltb_extra": null,
       "hltb_complete": null,
@@ -16232,8 +16233,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782602055,
-      "last_update_ts": 1781588482
+      "scraped_at": 1782689896
     },
     {
       "appid": 4595100,
@@ -16340,6 +16340,7 @@
         "Simulation",
         "Strategy"
       ],
+      "last_update_ts": 1781193706,
       "hltb_main": null,
       "hltb_extra": null,
       "hltb_complete": null,
@@ -16347,8 +16348,7 @@
       "hltb_match": null,
       "qhpp_before": null,
       "qhpp_after": null,
-      "scraped_at": 1782601987,
-      "last_update_ts": 1781193706
+      "scraped_at": 1782689890
     },
     {
       "appid": 4595540,
