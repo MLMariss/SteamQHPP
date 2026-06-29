@@ -3,8 +3,10 @@ name: Scrape Steam -> games.json
 on:
   workflow_dispatch:        # run manually from the Actions tab
   schedule:
-    # off-peak, offset minute (avoid :00 and the 22:00-02:00 UTC congestion window)
-    - cron: "17 7,13,18 * * *"
+    # Every 6h on the clock (00:00 / 06:00 / 12:00 / 18:00 UTC). With RUN_MINUTES=330
+    # (5.5h) and cancel-in-progress:false, a new run queues right as the previous one
+    # ends, so the scraper covers ~22h/day — near-continuous backlog clearing.
+    - cron: "0 0,6,12,18 * * *"
 
 permissions:
   contents: write           # the scraper commits games.json + catalog.json as it runs
@@ -35,5 +37,5 @@ jobs:
       - name: Run scraper
         env:
           STEAM_API_KEY: ${{ secrets.STEAM_API_KEY }}   # optional; enables clean full-catalog + smart refresh
-          RUN_MINUTES: "180"                            # scrape budget per run
+          RUN_MINUTES: "330"                            # 5.5h budget per run (near-continuous with 6h cron)
         run: python scraper.py
