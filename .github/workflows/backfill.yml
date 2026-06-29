@@ -22,6 +22,9 @@ jobs:
     timeout-minutes: 60       # backfill is ~13 min; generous headroom
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
 
       - uses: actions/setup-python@v5
         with:
@@ -45,8 +48,9 @@ jobs:
           git add games.json
           if ! git diff --staged --quiet; then
             git commit -m "backfill: last_update_ts for existing games"
-            git pull --rebase --autostash
-            git push
+            git fetch origin main
+            git rebase --autostash origin/main
+            git push origin HEAD:main
           else
             echo "No changes to commit."
           fi

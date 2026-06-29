@@ -20,6 +20,9 @@ jobs:
     timeout-minutes: 330     # under the 6h hard cap; RUN_MINUTES stays well inside
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
 
       - uses: actions/setup-python@v5
         with:
