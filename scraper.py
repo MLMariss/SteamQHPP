@@ -38,17 +38,16 @@ import os
 import re
 import subprocess
 import sys
+import threading
 import time
+from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime, timezone
 from pathlib import Path
 from urllib.parse import urlparse, parse_qs
 
 import requests
 
-try:
-    from howlongtobeatpy import HowLongToBeat
-except ImportError:
-    HowLongToBeat = None
+# HLTB lookups moved to hltb_refresh.py (they were the per-game bottleneck).
 
 # --------------------------------------------------------------------------- #
 # CONFIG — edit these (or set the env vars)
@@ -70,7 +69,6 @@ NEW_ORDER = "newest"            # "newest" (high appid first) or "oldest"
 REFRESH_DAYS = 7                # fallback refresh age when no API key (no last_modified)
 
 TOP_TAGS = 8
-HLTB_MIN_SIMILARITY = 0.65
 COUNTRY = "us"                  # cc=us => USD prices
 
 STEAM_DELAY = 1.5               # seconds between storefront calls (~200/5min limit)
@@ -98,9 +96,18 @@ HEADERS = {
 COOKIES = {"birthtime": "568022401", "mature_content": "1",
            "Steam_Language": "english", "wants_mature_content": "1"}
 
-SESSION = requests.Session()
-SESSION.headers.update(HEADERS)
-SESSION.cookies.update(COOKIES)
+_thread_local = threading.local()
+
+def _session():
+    """Thread-local requests.Session — requests Sessions aren't thread-safe to share, and
+    build_record now fires reviews/tags/news concurrently, so each thread gets its own."""
+    s = getattr(_thread_local, "session", None)
+    if s is None:
+        s = requests.Session()
+        s.headers.update(HEADERS)
+        s.cookies.update(COOKIES)
+        _thread_local.session = s
+    return s
 
 
 def log(msg: str) -> None:
@@ -113,7 +120,7 @@ def log(msg: str) -> None:
 def get(url, *, params=None, timeout=30, expect_json=False):
     for attempt in range(1, MAX_RETRIES + 1):
         try:
-            r = SESSION.get(url, params=params, timeout=timeout)
+            r = _session().get(url, params=params, timeout=timeout)
             if r.status_code == 429:
                 wait = min(90, 5 * attempt)
                 log(f"  429 rate-limited, sleeping {wait}s"); time.sleep(wait); continue
@@ -292,32 +299,6 @@ def last_update_from_news(appid):
     return max(stamps) if stamps else None
 
 
-def hltb_for(title):
-    blank = {"main": None, "extra": None, "complete": None, "match": None}
-    if HowLongToBeat is None:
-        return blank
-    try:
-        results = HowLongToBeat().search(title)
-    except Exception as e:
-        log(f"  HLTB error '{title}': {e}")
-        return blank
-    if not results:
-        return blank
-    best = max(results, key=lambda r: r.similarity or 0)
-    if (best.similarity or 0) < HLTB_MIN_SIMILARITY:
-        return blank
-
-    def hrs(v):
-        try:
-            v = float(v)
-        except (TypeError, ValueError):
-            return None
-        return round(v, 1) if v > 0 else None
-
-    return {"main": hrs(best.main_story), "extra": hrs(best.main_extra),
-            "complete": hrs(best.completionist), "match": best.game_name}
-
-
 _RELEASE_FORMATS = ("%d %b, %Y", "%b %d, %Y", "%d %B, %Y", "%B %d, %Y", "%b %Y", "%Y")
 
 
@@ -335,15 +316,9 @@ def parse_release(d):
     return (s or None), ts
 
 
-def qhpp(avg_hours, rating_pct, price_usd):
-    if not avg_hours or not rating_pct or not price_usd or price_usd <= 0:
-        return None
-    return round((avg_hours * (rating_pct / 100)) / price_usd, 3)
-
-
 # --------------------------------------------------------------------------- #
-# Build one game record. prev=record means this is a refresh -> reuse HLTB.
-# Returns dict (released, scraped) | ("pending", date, ts) (not yet released ->
+# Build one game record. Returns dict (released, scraped) | ("pending", date, ts)
+# (not yet released ->
 # waiting room) | "skip" (non-game/delisted -> permanent) | None (transient error)
 # --------------------------------------------------------------------------- #
 def build_record(appid, prev=None):
@@ -386,19 +361,23 @@ def build_record(appid, prev=None):
     # extensions. The main scraper only records that a discount exists (discount_pct) and
     # the prices; the frontend merges sales.json for the countdown.
 
-    rating_pct, review_count = rating_from_reviews(appid)
-    tags = tags_from_steamspy(appid) or [g["description"] for g in d.get("genres", [])
-                                         if g.get("description")]
-    last_update_ts = last_update_from_news(appid)   # cheap (separate API budget)
+    # The three remaining per-game lookups — reviews (storefront), tags (SteamSpy), and
+    # last-update (News API) — are independent of each other and hit DIFFERENT hosts, so
+    # we run them concurrently. Each keeps its own internal rate-pacing sleep; overlapping
+    # those sleeps is exactly the speedup (per-game time drops from ~the sum to ~the max).
+    genre_fallback = [g["description"] for g in d.get("genres", []) if g.get("description")]
+    with ThreadPoolExecutor(max_workers=3) as ex:
+        f_reviews = ex.submit(rating_from_reviews, appid)
+        f_tags = ex.submit(tags_from_steamspy, appid)
+        f_news = ex.submit(last_update_from_news, appid)
+        rating_pct, review_count = f_reviews.result()
+        tags = f_tags.result() or genre_fallback
+        last_update_ts = f_news.result()
 
-    # HLTB: only fetch on first capture; on refresh reuse what we already have.
-    if prev is not None:
-        h = {"main": prev.get("hltb_main"), "extra": prev.get("hltb_extra"),
-             "complete": prev.get("hltb_complete"), "match": prev.get("hltb_match")}
-    else:
-        h = hltb_for(title)
-    htimes = [t for t in (h["main"], h["extra"], h["complete"]) if t]
-    avg = round(sum(htimes) / len(htimes), 1) if htimes else None
+    # HLTB is no longer fetched in the main loop — it was the dominant per-game cost
+    # (slow, flaky scrape of howlongtobeat.com). hltb_refresh.py fills hltb.json out of
+    # band, once per game (completion times are static). The frontend merges it and
+    # computes QHPP client-side, so QHPP isn't stored here anymore.
 
     rec = {
         "appid": appid, "title": title,
@@ -408,14 +387,9 @@ def build_record(appid, prev=None):
         "discount_pct": discount_pct, "is_free": is_free,
         "release_date": release_date, "release_ts": release_ts, "tags": tags,
         "last_update_ts": last_update_ts,
-        "hltb_main": h["main"], "hltb_extra": h["extra"], "hltb_complete": h["complete"],
-        "hltb_avg": avg, "hltb_match": h["match"],
-        "qhpp_before": qhpp(avg, rating_pct, price_initial),
-        "qhpp_after": qhpp(avg, rating_pct, price_final),
     }
     tag = "refresh" if prev is not None else "new"
-    log(f"  {tag:7} {title[:38]:38} rating={rating_pct} price={price_final}/{price_initial} "
-        f"qhpp_after={rec['qhpp_after']}")
+    log(f"  {tag:7} {title[:38]:38} rating={rating_pct} price={price_final}/{price_initial}")
     return rec
 
 

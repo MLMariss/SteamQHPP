@@ -1251,28 +1251,47 @@ function expireSaleIfEnded(game, now){
   return false;
 }
 
-// load catalog + recent scores + sale end-dates together, merge each by appid.
-// games.json: catalog/price/discount_pct. recent.json: 30-day scores.
-// sales.json: live discount_end (sole owner). Then expire any past-due sales offline.
+// Load the catalog plus the three decoupled data layers, merge each by appid:
+//   games.json  : catalog, rating, tags, last_update, release (the slow stuff)
+//   prices.json : price_initial/final, discount_pct, discount_end (fast pricing layer)
+//   hltb.json   : main/extra/complete/avg completion times (static)
+//   recent.json : 30-day review scores
+// Anything missing from a layer falls back to whatever games.json still carries (a new
+// game has price/rating from the initial scrape until the refreshers catch up). QHPP is
+// then computed client-side from the merged fields. Past-due sales collapse offline.
 Promise.all([
-  fetch("games.json", {cache:"no-store"}).then(r => r.ok ? r.json() : null).catch(() => null),
+  fetch("games.json",  {cache:"no-store"}).then(r => r.ok ? r.json() : null).catch(() => null),
+  fetch("prices.json", {cache:"no-store"}).then(r => r.ok ? r.json() : null).catch(() => null),
+  fetch("hltb.json",   {cache:"no-store"}).then(r => r.ok ? r.json() : null).catch(() => null),
   fetch("recent.json", {cache:"no-store"}).then(r => r.ok ? r.json() : null).catch(() => null),
-  fetch("sales.json",  {cache:"no-store"}).then(r => r.ok ? r.json() : null).catch(() => null),
-]).then(([g, rj, sj]) => {
+]).then(([g, pj, hj, rj]) => {
   const data = (g && g.games && g.games.length) ? g : SAMPLE;
+  const priceMap  = (pj && pj.prices) ? pj.prices : null;
+  const hltbMap   = (hj && hj.hltb)   ? hj.hltb   : null;
   const recentMap = (rj && rj.recent) ? rj.recent : null;
-  const salesMap  = (sj && sj.sales)  ? sj.sales  : null;
   const now = NOW();
   data.games.forEach(game => {
-    if(recentMap){
-      const r = recentMap[String(game.appid)];
-      if(r){ game.recent_pct = r.recent_pct; game.recent_count = r.recent_count; game.recent_scraped_at = r.recent_scraped_at; }
+    const key = String(game.appid);
+    // prices.json is the source of truth for the pricing layer (falls back to games.json).
+    if(priceMap && priceMap[key]){
+      const p = priceMap[key];
+      if(p.price_initial !== undefined) game.price_initial = p.price_initial;
+      if(p.price_final   !== undefined) game.price_final   = p.price_final;
+      if(p.discount_pct  !== undefined) game.discount_pct  = p.discount_pct;
+      game.discount_end = (p.discount_end != null) ? p.discount_end : null;
+    } else {
+      game.discount_end = game.discount_end ?? null;
     }
-    // sales.json is the single source of truth for discount_end. If a game is on sale
-    // but has no entry (no dated end, or pruned), leave discount_end null -> shows
-    // "on sale" with no countdown, exactly as before.
-    game.discount_end = (salesMap && salesMap[String(game.appid)])
-      ? salesMap[String(game.appid)].discount_end : null;
+    // hltb.json provides completion times (games.json no longer stores them).
+    if(hltbMap && hltbMap[key]){
+      const h = hltbMap[key];
+      game.hltb_main = h.main; game.hltb_extra = h.extra;
+      game.hltb_complete = h.complete; game.hltb_avg = h.avg; game.hltb_match = h.match;
+    }
+    if(recentMap && recentMap[key]){
+      const r = recentMap[key];
+      game.recent_pct = r.recent_pct; game.recent_count = r.recent_count; game.recent_scraped_at = r.recent_scraped_at;
+    }
     expireSaleIfEnded(game, now);     // offline collapse of any already-ended sale
   });
   init(data);
