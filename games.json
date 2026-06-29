@@ -1,5 +1,5 @@
 {
-  "generated_at": 1782732233,
+  "generated_at": 1782732836,
   "count": 3183,
   "games": [
     {
@@ -36239,7 +36239,6 @@
       "price_initial": 9.99,
       "price_final": 7.99,
       "discount_pct": 20,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 8, 2026",
       "release_ts": 1778198400,
@@ -36249,25 +36248,17 @@
         "Strategy"
       ],
       "last_update_ts": null,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782689594
+      "scraped_at": 1782732836
     },
     {
       "appid": 4606620,
       "title": "National Transit",
       "url": "https://store.steampowered.com/app/4606620",
       "rating_pct": 100,
-      "review_count": 12,
+      "review_count": 13,
       "price_initial": 4.99,
       "price_final": 2.99,
       "discount_pct": 40,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Jun 23, 2026",
       "release_ts": 1782172800,
@@ -36277,14 +36268,7 @@
         "Early Access"
       ],
       "last_update_ts": 1782591524,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782689588
+      "scraped_at": 1782732833
     },
     {
       "appid": 4606730,
@@ -36407,7 +36391,6 @@
       "price_initial": 1.99,
       "price_final": 1.79,
       "discount_pct": 10,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Apr 30, 2026",
       "release_ts": 1777507200,
@@ -36417,14 +36400,7 @@
         "Indie"
       ],
       "last_update_ts": null,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782689582
+      "scraped_at": 1782732831
     },
     {
       "appid": 4607110,
@@ -36463,7 +36439,6 @@
       "price_initial": 8.99,
       "price_final": 5.84,
       "discount_pct": 35,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 24, 2026",
       "release_ts": 1779580800,
@@ -36471,14 +36446,7 @@
         "Action"
       ],
       "last_update_ts": 1782654310,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782689577
+      "scraped_at": 1782732828
     },
     {
       "appid": 4607320,
@@ -36489,7 +36457,6 @@
       "price_initial": 8.0,
       "price_final": 6.4,
       "discount_pct": 20,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 4, 2026",
       "release_ts": 1777852800,
@@ -36499,14 +36466,7 @@
         "Early Access"
       ],
       "last_update_ts": 1779435922,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782689572
+      "scraped_at": 1782732825
     },
     {
       "appid": 4607490,
@@ -36517,7 +36477,6 @@
       "price_initial": 7.99,
       "price_final": 7.19,
       "discount_pct": 10,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 1, 2026",
       "release_ts": 1777593600,
@@ -36526,14 +36485,7 @@
         "Strategy"
       ],
       "last_update_ts": 1782491697,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782689566
+      "scraped_at": 1782732822
     },
     {
       "appid": 4607520,
@@ -36710,7 +36662,6 @@
       "price_initial": 4.99,
       "price_final": 3.49,
       "discount_pct": 30,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 4, 2026",
       "release_ts": 1777852800,
@@ -36719,14 +36670,7 @@
         "Indie"
       ],
       "last_update_ts": null,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782689561
+      "scraped_at": 1782732820
     },
     {
       "appid": 4608280,
@@ -36737,7 +36681,6 @@
       "price_initial": 4.99,
       "price_final": 3.49,
       "discount_pct": 30,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 6, 2026",
       "release_ts": 1778025600,
@@ -36746,14 +36689,7 @@
         "Indie"
       ],
       "last_update_ts": null,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782689556
+      "scraped_at": 1782732817
     },
     {
       "appid": 4608340,
@@ -36792,7 +36728,6 @@
       "price_initial": 1.99,
       "price_final": 1.49,
       "discount_pct": 25,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 4, 2026",
       "release_ts": 1777852800,
@@ -36801,14 +36736,7 @@
         "Indie"
       ],
       "last_update_ts": 1780760835,
-      "hltb_main": 3.9,
-      "hltb_extra": null,
-      "hltb_complete": 4.8,
-      "hltb_avg": 4.3,
-      "hltb_match": "Quadrant",
-      "qhpp_before": 2.161,
-      "qhpp_after": 2.886,
-      "scraped_at": 1782689551
+      "scraped_at": 1782732814
     },
     {
       "appid": 4608460,
@@ -36872,7 +36800,6 @@
       "price_initial": 0.99,
       "price_final": 0.49,
       "discount_pct": 51,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 7, 2026",
       "release_ts": 1778112000,
@@ -36883,14 +36810,7 @@
         "Strategy"
       ],
       "last_update_ts": 1778612035,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782689545
+      "scraped_at": 1782732811
     },
     {
       "appid": 4608830,
@@ -36928,7 +36848,6 @@
       "price_initial": 3.99,
       "price_final": 3.19,
       "discount_pct": 20,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Apr 28, 2026",
       "release_ts": 1777334400,
@@ -36939,14 +36858,7 @@
         "Strategy"
       ],
       "last_update_ts": 1780058819,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782689540
+      "scraped_at": 1782732808
     },
     {
       "appid": 4609400,
@@ -37069,7 +36981,6 @@
       "price_initial": 9.99,
       "price_final": 7.49,
       "discount_pct": 25,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 11, 2026",
       "release_ts": 1778457600,
@@ -37078,14 +36989,7 @@
         "Strategy"
       ],
       "last_update_ts": 1781053634,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782689535
+      "scraped_at": 1782732806
     },
     {
       "appid": 4610020,
@@ -37206,7 +37110,6 @@
       "price_initial": 4.99,
       "price_final": 2.49,
       "discount_pct": 50,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 3, 2026",
       "release_ts": 1777766400,
@@ -37218,14 +37121,7 @@
         "Early Access"
       ],
       "last_update_ts": 1777954490,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782689529
+      "scraped_at": 1782732803
     },
     {
       "appid": 4610210,
@@ -37293,7 +37189,6 @@
       "price_initial": 6.99,
       "price_final": 5.24,
       "discount_pct": 25,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 14, 2026",
       "release_ts": 1778716800,
@@ -37302,14 +37197,7 @@
         "Indie"
       ],
       "last_update_ts": null,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782689523
+      "scraped_at": 1782732800
     },
     {
       "appid": 4610270,
@@ -37375,7 +37263,6 @@
       "price_initial": 4.99,
       "price_final": 3.74,
       "discount_pct": 25,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Jun 23, 2026",
       "release_ts": 1782172800,
@@ -37384,14 +37271,7 @@
         "Simulation"
       ],
       "last_update_ts": null,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782689518
+      "scraped_at": 1782732797
     },
     {
       "appid": 4610720,
@@ -37457,7 +37337,6 @@
       "price_initial": 7.99,
       "price_final": 5.59,
       "discount_pct": 30,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Jun 23, 2026",
       "release_ts": 1782172800,
@@ -37467,14 +37346,7 @@
         "Strategy"
       ],
       "last_update_ts": 1782432990,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782689513
+      "scraped_at": 1782732795
     },
     {
       "appid": 4610780,
@@ -37514,7 +37386,6 @@
       "price_initial": 4.99,
       "price_final": 4.24,
       "discount_pct": 15,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Jun 26, 2026",
       "release_ts": 1782432000,
@@ -37523,14 +37394,7 @@
         "Indie"
       ],
       "last_update_ts": null,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782689507
+      "scraped_at": 1782732792
     },
     {
       "appid": 4610810,
@@ -37541,7 +37405,6 @@
       "price_initial": 4.99,
       "price_final": 3.24,
       "discount_pct": 35,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 5, 2026",
       "release_ts": 1777939200,
@@ -37550,14 +37413,7 @@
         "Indie"
       ],
       "last_update_ts": 1778156734,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782689502
+      "scraped_at": 1782732789
     },
     {
       "appid": 4610960,
@@ -37568,7 +37424,6 @@
       "price_initial": 11.99,
       "price_final": 5.99,
       "discount_pct": 50,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 1, 2026",
       "release_ts": 1777593600,
@@ -37576,14 +37431,7 @@
         "Strategy"
       ],
       "last_update_ts": null,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782689497
+      "scraped_at": 1782732786
     },
     {
       "appid": 4611050,
@@ -37766,7 +37614,6 @@
       "price_initial": 6.99,
       "price_final": 5.24,
       "discount_pct": 25,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 8, 2026",
       "release_ts": 1778198400,
@@ -37775,14 +37622,7 @@
         "Early Access"
       ],
       "last_update_ts": 1781970755,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782689492
+      "scraped_at": 1782732783
     },
     {
       "appid": 4611340,
@@ -37821,7 +37661,6 @@
       "price_initial": 4.99,
       "price_final": 3.24,
       "discount_pct": 35,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 10, 2026",
       "release_ts": 1778371200,
@@ -37831,14 +37670,7 @@
         "Indie"
       ],
       "last_update_ts": 1780097447,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782689487
+      "scraped_at": 1782732781
     },
     {
       "appid": 4611400,
@@ -37849,7 +37681,6 @@
       "price_initial": 13.99,
       "price_final": 12.59,
       "discount_pct": 10,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Jun 22, 2026",
       "release_ts": 1782086400,
@@ -37862,14 +37693,7 @@
         "Simulation"
       ],
       "last_update_ts": 1782425434,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782689482
+      "scraped_at": 1782732778
     },
     {
       "appid": 4611470,
@@ -37906,7 +37730,6 @@
       "price_initial": 5.99,
       "price_final": 3.59,
       "discount_pct": 40,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 16, 2026",
       "release_ts": 1778889600,
@@ -37915,14 +37738,7 @@
         "Indie"
       ],
       "last_update_ts": 1779623151,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782689477
+      "scraped_at": 1782732775
     },
     {
       "appid": 4611870,
@@ -38124,7 +37940,6 @@
       "price_initial": 1.99,
       "price_final": 1.59,
       "discount_pct": 20,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 5, 2026",
       "release_ts": 1777939200,
@@ -38132,14 +37947,7 @@
         "Casual"
       ],
       "last_update_ts": null,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782689472
+      "scraped_at": 1782732772
     },
     {
       "appid": 4612960,
@@ -38176,7 +37984,6 @@
       "price_initial": 0.99,
       "price_final": 0.49,
       "discount_pct": 51,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 15, 2026",
       "release_ts": 1778803200,
@@ -38185,14 +37992,7 @@
         "Indie"
       ],
       "last_update_ts": 1782403789,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782689466
+      "scraped_at": 1782732770
     },
     {
       "appid": 4613470,
@@ -38230,7 +38030,6 @@
       "price_initial": 3.99,
       "price_final": 2.79,
       "discount_pct": 30,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Jun 10, 2026",
       "release_ts": 1781049600,
@@ -38239,14 +38038,7 @@
         "Indie"
       ],
       "last_update_ts": 1777523286,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782689461
+      "scraped_at": 1782732767
     },
     {
       "appid": 4613610,
@@ -38312,7 +38104,6 @@
       "price_initial": 4.99,
       "price_final": 3.49,
       "discount_pct": 30,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 10, 2026",
       "release_ts": 1778371200,
@@ -38322,14 +38113,7 @@
         "Strategy"
       ],
       "last_update_ts": 1782327156,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782689456
+      "scraped_at": 1782732764
     },
     {
       "appid": 4613730,
@@ -38368,7 +38152,6 @@
       "price_initial": 4.99,
       "price_final": 2.99,
       "discount_pct": 40,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Apr 29, 2026",
       "release_ts": 1777420800,
@@ -38380,14 +38163,7 @@
         "Strategy"
       ],
       "last_update_ts": null,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782689451
+      "scraped_at": 1782732761
     },
     {
       "appid": 4614010,
@@ -38398,7 +38174,6 @@
       "price_initial": 6.99,
       "price_final": 5.03,
       "discount_pct": 28,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Apr 29, 2026",
       "release_ts": 1777420800,
@@ -38408,14 +38183,7 @@
         "Strategy"
       ],
       "last_update_ts": 1778765035,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782689445
+      "scraped_at": 1782732759
     },
     {
       "appid": 4614290,
@@ -38426,7 +38194,6 @@
       "price_initial": 6.99,
       "price_final": 3.49,
       "discount_pct": 50,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 13, 2026",
       "release_ts": 1778630400,
@@ -38434,14 +38201,7 @@
         "Strategy"
       ],
       "last_update_ts": null,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782689440
+      "scraped_at": 1782732756
     },
     {
       "appid": 4614580,
@@ -38452,7 +38212,6 @@
       "price_initial": 1.99,
       "price_final": 1.19,
       "discount_pct": 40,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 1, 2026",
       "release_ts": 1777593600,
@@ -38462,14 +38221,7 @@
         "Indie"
       ],
       "last_update_ts": null,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782689435
+      "scraped_at": 1782732753
     },
     {
       "appid": 4614650,
@@ -38480,7 +38232,6 @@
       "price_initial": 4.99,
       "price_final": 3.24,
       "discount_pct": 35,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 5, 2026",
       "release_ts": 1777939200,
@@ -38491,25 +38242,17 @@
         "Strategy"
       ],
       "last_update_ts": 1778995570,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782689430
+      "scraped_at": 1782732750
     },
     {
       "appid": 4614780,
       "title": "[MFTK: Survivors] Mortemforge: TekaRenzen's Konquerax: Survivors",
       "url": "https://store.steampowered.com/app/4614780",
-      "rating_pct": null,
-      "review_count": 0,
+      "rating_pct": 100,
+      "review_count": 1,
       "price_initial": 3.8,
       "price_final": 3.42,
       "discount_pct": 10,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Jun 26, 2026",
       "release_ts": 1782432000,
@@ -38518,14 +38261,7 @@
         "Early Access"
       ],
       "last_update_ts": 1782613001,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782689424
+      "scraped_at": 1782732747
     },
     {
       "appid": 4614800,
@@ -38566,7 +38302,6 @@
       "price_initial": 4.99,
       "price_final": 2.49,
       "discount_pct": 50,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 1, 2026",
       "release_ts": 1777593600,
@@ -38577,14 +38312,7 @@
         "Strategy"
       ],
       "last_update_ts": null,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782689419
+      "scraped_at": 1782732745
     },
     {
       "appid": 4614890,
@@ -38625,7 +38353,6 @@
       "price_initial": 6.99,
       "price_final": 4.19,
       "discount_pct": 40,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 7, 2026",
       "release_ts": 1778112000,
@@ -38634,14 +38361,7 @@
         "Simulation"
       ],
       "last_update_ts": null,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782689414
+      "scraped_at": 1782732742
     },
     {
       "appid": 4615020,
@@ -38736,7 +38456,6 @@
       "price_initial": 3.99,
       "price_final": 2.79,
       "discount_pct": 30,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 14, 2026",
       "release_ts": 1778716800,
@@ -38747,14 +38466,7 @@
         "Sports"
       ],
       "last_update_ts": 1779239988,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782689409
+      "scraped_at": 1782732739
     },
     {
       "appid": 4615610,
@@ -38765,7 +38477,6 @@
       "price_initial": 3.99,
       "price_final": 1.99,
       "discount_pct": 50,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 3, 2026",
       "release_ts": 1777766400,
@@ -38774,14 +38485,7 @@
         "Indie"
       ],
       "last_update_ts": 1778986683,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": "The Lost",
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782689403
+      "scraped_at": 1782732736
     },
     {
       "appid": 4615640,
@@ -38822,7 +38526,6 @@
       "price_initial": 14.99,
       "price_final": 11.24,
       "discount_pct": 25,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 19, 2026",
       "release_ts": 1779148800,
@@ -38831,14 +38534,7 @@
         "Indie"
       ],
       "last_update_ts": 1781077266,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782689398
+      "scraped_at": 1782732734
     },
     {
       "appid": 4615730,
@@ -38938,7 +38634,6 @@
       "price_initial": 2.99,
       "price_final": 1.49,
       "discount_pct": 50,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 5, 2026",
       "release_ts": 1777939200,
@@ -38947,14 +38642,7 @@
         "Indie"
       ],
       "last_update_ts": 1778677461,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782689393
+      "scraped_at": 1782732731
     },
     {
       "appid": 4616180,
@@ -39189,7 +38877,6 @@
       "price_initial": 6.0,
       "price_final": 4.2,
       "discount_pct": 30,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Jun 26, 2026",
       "release_ts": 1782432000,
@@ -39201,14 +38888,7 @@
         "Early Access"
       ],
       "last_update_ts": null,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782689388
+      "scraped_at": 1782732728
     },
     {
       "appid": 4616930,
@@ -39274,7 +38954,6 @@
       "price_initial": 9.99,
       "price_final": 7.49,
       "discount_pct": 25,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Apr 30, 2026",
       "release_ts": 1777507200,
@@ -39282,14 +38961,7 @@
         "Casual"
       ],
       "last_update_ts": 1778197528,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782689382
+      "scraped_at": 1782732725
     },
     {
       "appid": 4617210,
@@ -39412,7 +39084,6 @@
       "price_initial": 4.99,
       "price_final": 3.99,
       "discount_pct": 20,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 14, 2026",
       "release_ts": 1778716800,
@@ -39422,14 +39093,7 @@
         "Early Access"
       ],
       "last_update_ts": 1782414295,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782689377
+      "scraped_at": 1782732722
     },
     {
       "appid": 4617670,
@@ -39467,7 +39131,6 @@
       "price_initial": 1.99,
       "price_final": 0.69,
       "discount_pct": 65,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 7, 2026",
       "release_ts": 1778112000,
@@ -39476,14 +39139,7 @@
         "Indie"
       ],
       "last_update_ts": null,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782689372
+      "scraped_at": 1782732720
     },
     {
       "appid": 4617700,
@@ -39494,7 +39150,6 @@
       "price_initial": 1.99,
       "price_final": 0.69,
       "discount_pct": 65,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 13, 2026",
       "release_ts": 1778630400,
@@ -39503,14 +39158,7 @@
         "Indie"
       ],
       "last_update_ts": null,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782689367
+      "scraped_at": 1782732717
     },
     {
       "appid": 4618090,
@@ -39521,7 +39169,6 @@
       "price_initial": 1.99,
       "price_final": 0.69,
       "discount_pct": 65,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 15, 2026",
       "release_ts": 1778803200,
@@ -39532,14 +39179,7 @@
         "Early Access"
       ],
       "last_update_ts": 1779190893,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782689362
+      "scraped_at": 1782732714
     },
     {
       "appid": 4618160,
@@ -39634,7 +39274,6 @@
       "price_initial": 4.99,
       "price_final": 3.99,
       "discount_pct": 20,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 8, 2026",
       "release_ts": 1778198400,
@@ -39645,14 +39284,7 @@
         "Early Access"
       ],
       "last_update_ts": 1781770366,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782689356
+      "scraped_at": 1782732711
     },
     {
       "appid": 4618830,
@@ -39690,7 +39322,6 @@
       "price_initial": 1.99,
       "price_final": 0.69,
       "discount_pct": 65,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 26, 2026",
       "release_ts": 1779753600,
@@ -39699,14 +39330,7 @@
         "Indie"
       ],
       "last_update_ts": null,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782689350
+      "scraped_at": 1782732709
     },
     {
       "appid": 4618910,
@@ -39799,7 +39423,6 @@
       "price_initial": 14.99,
       "price_final": 13.49,
       "discount_pct": 10,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Jun 22, 2026",
       "release_ts": 1782086400,
@@ -39808,14 +39431,7 @@
         "Strategy"
       ],
       "last_update_ts": null,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782689345
+      "scraped_at": 1782732706
     },
     {
       "appid": 4619020,
@@ -39908,7 +39524,6 @@
       "price_initial": 4.99,
       "price_final": 3.74,
       "discount_pct": 25,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Jun 24, 2026",
       "release_ts": 1782259200,
@@ -39918,14 +39533,7 @@
         "Simulation"
       ],
       "last_update_ts": null,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782689340
+      "scraped_at": 1782732703
     },
     {
       "appid": 4619290,
@@ -39966,7 +39574,6 @@
       "price_initial": 12.99,
       "price_final": 3.24,
       "discount_pct": 75,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 21, 2026",
       "release_ts": 1779321600,
@@ -39977,14 +39584,7 @@
         "Simulation"
       ],
       "last_update_ts": 1777952821,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782689335
+      "scraped_at": 1782732700
     },
     {
       "appid": 4619620,
@@ -40023,7 +39623,6 @@
       "price_initial": 3.99,
       "price_final": 2.99,
       "discount_pct": 25,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 15, 2026",
       "release_ts": 1778803200,
@@ -40031,14 +39630,7 @@
         "Early Access"
       ],
       "last_update_ts": 1782094791,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782689330
+      "scraped_at": 1782732698
     },
     {
       "appid": 4619700,
@@ -40127,7 +39719,6 @@
       "price_initial": 3.99,
       "price_final": 1.35,
       "discount_pct": 66,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 19, 2026",
       "release_ts": 1779148800,
@@ -40136,14 +39727,7 @@
         "Indie"
       ],
       "last_update_ts": null,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782689325
+      "scraped_at": 1782732695
     },
     {
       "appid": 4620070,
@@ -40154,7 +39738,6 @@
       "price_initial": 6.99,
       "price_final": 4.19,
       "discount_pct": 40,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 8, 2026",
       "release_ts": 1778198400,
@@ -40164,14 +39747,7 @@
         "RPG"
       ],
       "last_update_ts": 1778735945,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782689319
+      "scraped_at": 1782732692
     },
     {
       "appid": 4620190,
@@ -40211,7 +39787,6 @@
       "price_initial": 0.99,
       "price_final": 0.69,
       "discount_pct": 30,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 13, 2026",
       "release_ts": 1778630400,
@@ -40221,14 +39796,7 @@
         "Simulation"
       ],
       "last_update_ts": 1780047863,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782689314
+      "scraped_at": 1782732689
     },
     {
       "appid": 4620480,
@@ -40239,7 +39807,6 @@
       "price_initial": 1.99,
       "price_final": 0.99,
       "discount_pct": 50,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Apr 29, 2026",
       "release_ts": 1777420800,
@@ -40250,14 +39817,7 @@
         "RPG"
       ],
       "last_update_ts": null,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782689308
+      "scraped_at": 1782732686
     },
     {
       "appid": 4620720,
@@ -40324,7 +39884,6 @@
       "price_initial": 10.99,
       "price_final": 9.89,
       "discount_pct": 10,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 1, 2026",
       "release_ts": 1777593600,
@@ -40332,14 +39891,7 @@
         "Casual"
       ],
       "last_update_ts": null,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782689303
+      "scraped_at": 1782732684
     },
     {
       "appid": 4620930,
@@ -40406,7 +39958,6 @@
       "price_initial": 3.99,
       "price_final": 1.99,
       "discount_pct": 50,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 7, 2026",
       "release_ts": 1778112000,
@@ -40415,25 +39966,17 @@
         "Indie"
       ],
       "last_update_ts": null,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782689298
+      "scraped_at": 1782732681
     },
     {
       "appid": 4621210,
       "title": "Stream Empire: Platform Simulator",
       "url": "https://store.steampowered.com/app/4621210",
-      "rating_pct": 50,
-      "review_count": 4,
+      "rating_pct": 60,
+      "review_count": 5,
       "price_initial": 7.99,
       "price_final": 5.59,
       "discount_pct": 30,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 5, 2026",
       "release_ts": 1777939200,
@@ -40443,14 +39986,7 @@
         "Strategy"
       ],
       "last_update_ts": 1782157340,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782689293
+      "scraped_at": 1782732678
     },
     {
       "appid": 4621300,
@@ -40515,7 +40051,6 @@
       "price_initial": 3.99,
       "price_final": 3.19,
       "discount_pct": 20,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 14, 2026",
       "release_ts": 1778716800,
@@ -40525,14 +40060,7 @@
         "Simulation"
       ],
       "last_update_ts": null,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782689287
+      "scraped_at": 1782732675
     },
     {
       "appid": 4621650,
@@ -40601,7 +40129,6 @@
       "price_initial": 2.99,
       "price_final": 1.49,
       "discount_pct": 50,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 5, 2026",
       "release_ts": 1777939200,
@@ -40611,14 +40138,7 @@
         "Simulation"
       ],
       "last_update_ts": null,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782689281
+      "scraped_at": 1782732673
     },
     {
       "appid": 4621860,
@@ -40768,7 +40288,6 @@
       "price_initial": 1.0,
       "price_final": 0.9,
       "discount_pct": 10,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 12, 2026",
       "release_ts": 1778544000,
@@ -40777,14 +40296,7 @@
         "Indie"
       ],
       "last_update_ts": null,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782689276
+      "scraped_at": 1782732670
     },
     {
       "appid": 4622350,
@@ -40795,7 +40307,6 @@
       "price_initial": 7.99,
       "price_final": 6.39,
       "discount_pct": 20,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 5, 2026",
       "release_ts": 1777939200,
@@ -40806,14 +40317,7 @@
         "Early Access"
       ],
       "last_update_ts": null,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782689271
+      "scraped_at": 1782732667
     },
     {
       "appid": 4622590,
@@ -40994,7 +40498,6 @@
       "price_initial": 0.99,
       "price_final": 0.74,
       "discount_pct": 25,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 1, 2026",
       "release_ts": 1777593600,
@@ -41005,14 +40508,7 @@
         "Early Access"
       ],
       "last_update_ts": 1781069105,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782689265
+      "scraped_at": 1782732664
     },
     {
       "appid": 4623310,
@@ -41023,7 +40519,6 @@
       "price_initial": 14.99,
       "price_final": 10.49,
       "discount_pct": 30,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 4, 2026",
       "release_ts": 1777852800,
@@ -41031,14 +40526,7 @@
         "Casual"
       ],
       "last_update_ts": null,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782689260
+      "scraped_at": 1782732661
     },
     {
       "appid": 4623360,
@@ -41071,12 +40559,11 @@
       "appid": 4623620,
       "title": "Postin Paradise",
       "url": "https://store.steampowered.com/app/4623620",
-      "rating_pct": null,
-      "review_count": 0,
+      "rating_pct": 100,
+      "review_count": 2,
       "price_initial": 4.99,
       "price_final": 3.99,
       "discount_pct": 20,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Jun 23, 2026",
       "release_ts": 1782172800,
@@ -41085,14 +40572,7 @@
         "Indie"
       ],
       "last_update_ts": 1782682891,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782689255
+      "scraped_at": 1782732659
     },
     {
       "appid": 4623650,
@@ -41190,7 +40670,6 @@
       "price_initial": 4.99,
       "price_final": 2.99,
       "discount_pct": 40,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 6, 2026",
       "release_ts": 1778025600,
@@ -41200,14 +40679,7 @@
         "RPG"
       ],
       "last_update_ts": 1782407332,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782689250
+      "scraped_at": 1782732656
     },
     {
       "appid": 4624060,
@@ -41271,7 +40743,6 @@
       "price_initial": 4.99,
       "price_final": 2.49,
       "discount_pct": 50,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 7, 2026",
       "release_ts": 1778112000,
@@ -41281,14 +40752,7 @@
         "Strategy"
       ],
       "last_update_ts": 1780202007,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782689245
+      "scraped_at": 1782732653
     },
     {
       "appid": 4624460,
@@ -41412,7 +40876,6 @@
       "price_initial": 9.99,
       "price_final": 7.99,
       "discount_pct": 20,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 15, 2026",
       "release_ts": 1778803200,
@@ -41422,14 +40885,7 @@
         "RPG"
       ],
       "last_update_ts": 1779925891,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782689236
+      "scraped_at": 1782732650
     },
     {
       "appid": 4624870,
@@ -41628,7 +41084,6 @@
       "price_initial": 5.99,
       "price_final": 4.19,
       "discount_pct": 30,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 1, 2026",
       "release_ts": 1777593600,
@@ -41637,14 +41092,7 @@
         "Indie"
       ],
       "last_update_ts": 1777885099,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782689231
+      "scraped_at": 1782732648
     },
     {
       "appid": 4625560,
@@ -41800,7 +41248,6 @@
       "price_initial": 7.99,
       "price_final": 7.19,
       "discount_pct": 10,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Apr 30, 2026",
       "release_ts": 1777507200,
@@ -41810,14 +41257,7 @@
         "Indie"
       ],
       "last_update_ts": 1782562826,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782689226
+      "scraped_at": 1782732645
     },
     {
       "appid": 4626000,
@@ -41828,7 +41268,6 @@
       "price_initial": 7.99,
       "price_final": 7.19,
       "discount_pct": 10,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Jun 25, 2026",
       "release_ts": 1782345600,
@@ -41839,14 +41278,7 @@
         "Sports"
       ],
       "last_update_ts": null,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782689220
+      "scraped_at": 1782732642
     },
     {
       "appid": 4626190,
@@ -41885,7 +41317,6 @@
       "price_initial": 2.99,
       "price_final": 2.69,
       "discount_pct": 10,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 10, 2026",
       "release_ts": 1778371200,
@@ -41895,14 +41326,7 @@
         "Casual"
       ],
       "last_update_ts": null,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782689215
+      "scraped_at": 1782732639
     },
     {
       "appid": 4626410,
@@ -41913,7 +41337,6 @@
       "price_initial": 2.99,
       "price_final": 2.09,
       "discount_pct": 30,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 15, 2026",
       "release_ts": 1778803200,
@@ -41923,14 +41346,7 @@
         "Strategy"
       ],
       "last_update_ts": 1782607868,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782689210
+      "scraped_at": 1782732637
     },
     {
       "appid": 4626420,
@@ -41969,7 +41385,6 @@
       "price_initial": 1.99,
       "price_final": 0.99,
       "discount_pct": 50,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 4, 2026",
       "release_ts": 1777852800,
@@ -41977,14 +41392,7 @@
         "RPG"
       ],
       "last_update_ts": 1781597370,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782689205
+      "scraped_at": 1782732634
     },
     {
       "appid": 4626560,
@@ -41995,7 +41403,6 @@
       "price_initial": 12.99,
       "price_final": 7.79,
       "discount_pct": 40,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 4, 2026",
       "release_ts": 1777852800,
@@ -42005,14 +41412,7 @@
         "Early Access"
       ],
       "last_update_ts": null,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782689199
+      "scraped_at": 1782732631
     },
     {
       "appid": 4626700,
@@ -42023,7 +41423,6 @@
       "price_initial": 0.99,
       "price_final": 0.74,
       "discount_pct": 25,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 10, 2026",
       "release_ts": 1778371200,
@@ -42033,14 +41432,7 @@
         "Indie"
       ],
       "last_update_ts": 1779042049,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782689194
+      "scraped_at": 1782732628
     },
     {
       "appid": 4626730,
@@ -42080,7 +41472,6 @@
       "price_initial": 4.99,
       "price_final": 2.49,
       "discount_pct": 50,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 11, 2026",
       "release_ts": 1778457600,
@@ -42089,14 +41480,7 @@
         "Indie"
       ],
       "last_update_ts": 1778694987,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782689189
+      "scraped_at": 1782732625
     },
     {
       "appid": 4627300,
@@ -42133,7 +41517,6 @@
       "price_initial": 2.99,
       "price_final": 2.36,
       "discount_pct": 21,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 14, 2026",
       "release_ts": 1778716800,
@@ -42142,14 +41525,7 @@
         "Early Access"
       ],
       "last_update_ts": 1779569790,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782689183
+      "scraped_at": 1782732623
     },
     {
       "appid": 4627420,
@@ -42186,20 +41562,12 @@
       "price_initial": 1.99,
       "price_final": 1.59,
       "discount_pct": 20,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Jun 16, 2026",
       "release_ts": 1781568000,
       "tags": [],
       "last_update_ts": 1781636390,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782689178
+      "scraped_at": 1782732620
     },
     {
       "appid": 4627600,
@@ -42265,7 +41633,6 @@
       "price_initial": 8.99,
       "price_final": 4.49,
       "discount_pct": 50,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 25, 2026",
       "release_ts": 1779667200,
@@ -42275,14 +41642,7 @@
         "Indie"
       ],
       "last_update_ts": null,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782689173
+      "scraped_at": 1782732617
     },
     {
       "appid": 4627740,
@@ -42349,7 +41709,6 @@
       "price_initial": 9.99,
       "price_final": 6.99,
       "discount_pct": 30,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 16, 2026",
       "release_ts": 1778889600,
@@ -42359,14 +41718,7 @@
         "Simulation"
       ],
       "last_update_ts": null,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782689167
+      "scraped_at": 1782732614
     },
     {
       "appid": 4628110,
@@ -42377,7 +41729,6 @@
       "price_initial": 3.99,
       "price_final": 0.79,
       "discount_pct": 80,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 16, 2026",
       "release_ts": 1778889600,
@@ -42387,14 +41738,7 @@
         "Strategy"
       ],
       "last_update_ts": null,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782689162
+      "scraped_at": 1782732612
     },
     {
       "appid": 4628310,
@@ -42432,7 +41776,6 @@
       "price_initial": 7.99,
       "price_final": 6.39,
       "discount_pct": 20,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 11, 2026",
       "release_ts": 1778457600,
@@ -42445,14 +41788,7 @@
         "Early Access"
       ],
       "last_update_ts": 1782175664,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782689157
+      "scraped_at": 1782732609
     },
     {
       "appid": 4628480,
@@ -42463,7 +41799,6 @@
       "price_initial": 9.99,
       "price_final": 7.99,
       "discount_pct": 20,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Jun 26, 2026",
       "release_ts": 1782432000,
@@ -42474,14 +41809,7 @@
         "Simulation"
       ],
       "last_update_ts": null,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782689152
+      "scraped_at": 1782732606
     },
     {
       "appid": 4628500,
@@ -42492,7 +41820,6 @@
       "price_initial": 5.99,
       "price_final": 5.09,
       "discount_pct": 15,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 15, 2026",
       "release_ts": 1778803200,
@@ -42501,14 +41828,7 @@
         "RPG"
       ],
       "last_update_ts": 1782558973,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782689146
+      "scraped_at": 1782732603
     },
     {
       "appid": 4628600,
@@ -42519,7 +41839,6 @@
       "price_initial": 13.99,
       "price_final": 12.59,
       "discount_pct": 10,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 8, 2026",
       "release_ts": 1778198400,
@@ -42529,14 +41848,7 @@
         "Strategy"
       ],
       "last_update_ts": 1781784261,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782689141
+      "scraped_at": 1782732600
     },
     {
       "appid": 4628740,
@@ -42597,7 +41909,6 @@
       "price_initial": 8.99,
       "price_final": 4.49,
       "discount_pct": 50,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 4, 2026",
       "release_ts": 1777852800,
@@ -42610,14 +41921,7 @@
         "Strategy"
       ],
       "last_update_ts": null,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782689136
+      "scraped_at": 1782732598
     },
     {
       "appid": 4629400,
@@ -42628,7 +41932,6 @@
       "price_initial": 6.99,
       "price_final": 5.59,
       "discount_pct": 20,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 14, 2026",
       "release_ts": 1778716800,
@@ -42638,14 +41941,7 @@
         "Simulation"
       ],
       "last_update_ts": 1782176710,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782689131
+      "scraped_at": 1782732595
     },
     {
       "appid": 4629500,
@@ -42829,7 +42125,6 @@
       "price_initial": 6.99,
       "price_final": 5.24,
       "discount_pct": 25,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 15, 2026",
       "release_ts": 1778803200,
@@ -42837,14 +42132,7 @@
         "Indie"
       ],
       "last_update_ts": 1779913191,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782689126
+      "scraped_at": 1782732592
     },
     {
       "appid": 4629790,
@@ -42914,7 +42202,6 @@
       "price_initial": 4.99,
       "price_final": 4.24,
       "discount_pct": 15,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 8, 2026",
       "release_ts": 1778198400,
@@ -42923,14 +42210,7 @@
         "Indie"
       ],
       "last_update_ts": 1779405308,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782689120
+      "scraped_at": 1782732589
     },
     {
       "appid": 4630050,
@@ -43025,7 +42305,6 @@
       "price_initial": 1.99,
       "price_final": 0.99,
       "discount_pct": 50,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 14, 2026",
       "release_ts": 1778716800,
@@ -43034,14 +42313,7 @@
         "Indie"
       ],
       "last_update_ts": 1777619740,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782689115
+      "scraped_at": 1782732586
     },
     {
       "appid": 4630400,
@@ -43052,7 +42324,6 @@
       "price_initial": 4.99,
       "price_final": 4.24,
       "discount_pct": 15,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Jun 24, 2026",
       "release_ts": 1782259200,
@@ -43063,14 +42334,7 @@
         "Simulation"
       ],
       "last_update_ts": null,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782689110
+      "scraped_at": 1782732584
     },
     {
       "appid": 4630420,
@@ -43252,7 +42516,6 @@
       "price_initial": 2.99,
       "price_final": 2.39,
       "discount_pct": 20,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 15, 2026",
       "release_ts": 1778803200,
@@ -43261,14 +42524,7 @@
         "Indie"
       ],
       "last_update_ts": null,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782689105
+      "scraped_at": 1782732581
     },
     {
       "appid": 4631030,
@@ -43363,7 +42619,6 @@
       "price_initial": 5.99,
       "price_final": 4.79,
       "discount_pct": 20,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Jun 24, 2026",
       "release_ts": 1782259200,
@@ -43373,14 +42628,7 @@
         "Simulation"
       ],
       "last_update_ts": 1782578849,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782689099
+      "scraped_at": 1782732578
     },
     {
       "appid": 4631200,
@@ -43391,7 +42639,6 @@
       "price_initial": 3.99,
       "price_final": 3.39,
       "discount_pct": 15,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Jun 25, 2026",
       "release_ts": 1782345600,
@@ -43401,14 +42648,7 @@
         "Strategy"
       ],
       "last_update_ts": null,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782689094
+      "scraped_at": 1782732575
     },
     {
       "appid": 4631250,
@@ -43473,7 +42713,6 @@
       "price_initial": 8.99,
       "price_final": 7.19,
       "discount_pct": 20,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 13, 2026",
       "release_ts": 1778630400,
@@ -43482,14 +42721,7 @@
         "Indie"
       ],
       "last_update_ts": null,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782689089
+      "scraped_at": 1782732573
     },
     {
       "appid": 4632030,
@@ -43725,7 +42957,6 @@
       "price_initial": 2.99,
       "price_final": 2.54,
       "discount_pct": 15,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Jun 23, 2026",
       "release_ts": 1782172800,
@@ -43735,14 +42966,7 @@
         "Strategy"
       ],
       "last_update_ts": null,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782689084
+      "scraped_at": 1782732570
     },
     {
       "appid": 4633000,
@@ -43861,7 +43085,6 @@
       "price_initial": 2.99,
       "price_final": 1.79,
       "discount_pct": 40,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Jun 19, 2026",
       "release_ts": 1781827200,
@@ -43869,14 +43092,7 @@
         "Casual"
       ],
       "last_update_ts": null,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": "The Hidden Room",
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782689078
+      "scraped_at": 1782732567
     },
     {
       "appid": 4633230,
@@ -43887,7 +43103,6 @@
       "price_initial": 1.99,
       "price_final": 1.59,
       "discount_pct": 20,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 14, 2026",
       "release_ts": 1778716800,
@@ -43895,14 +43110,7 @@
         "Casual"
       ],
       "last_update_ts": null,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782689073
+      "scraped_at": 1782732564
     },
     {
       "appid": 4633340,
@@ -43941,7 +43149,6 @@
       "price_initial": 6.99,
       "price_final": 4.19,
       "discount_pct": 40,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 10, 2026",
       "release_ts": 1778371200,
@@ -43950,14 +43157,7 @@
         "Simulation"
       ],
       "last_update_ts": null,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782689068
+      "scraped_at": 1782732561
     },
     {
       "appid": 4633600,
@@ -44056,7 +43256,6 @@
       "price_initial": 6.99,
       "price_final": 5.24,
       "discount_pct": 25,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 14, 2026",
       "release_ts": 1778716800,
@@ -44064,14 +43263,7 @@
         "Simulation"
       ],
       "last_update_ts": null,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782689062
+      "scraped_at": 1782732559
     },
     {
       "appid": 4634090,
@@ -44110,7 +43302,6 @@
       "price_initial": 9.99,
       "price_final": 3.99,
       "discount_pct": 60,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 11, 2026",
       "release_ts": 1778457600,
@@ -44119,14 +43310,7 @@
         "Strategy"
       ],
       "last_update_ts": 1778959718,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782689057
+      "scraped_at": 1782732556
     },
     {
       "appid": 4634300,
@@ -44137,7 +43321,6 @@
       "price_initial": 4.99,
       "price_final": 3.74,
       "discount_pct": 25,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 19, 2026",
       "release_ts": 1779148800,
@@ -44148,14 +43331,7 @@
         "Early Access"
       ],
       "last_update_ts": 1781851775,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782689051
+      "scraped_at": 1782732553
     },
     {
       "appid": 4634520,
@@ -44247,7 +43423,6 @@
       "price_initial": 4.99,
       "price_final": 3.99,
       "discount_pct": 20,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 19, 2026",
       "release_ts": 1779148800,
@@ -44256,14 +43431,7 @@
         "Indie"
       ],
       "last_update_ts": 1779704181,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782689046
+      "scraped_at": 1782732550
     },
     {
       "appid": 4634980,
@@ -44328,7 +43496,6 @@
       "price_initial": 6.99,
       "price_final": 1.39,
       "discount_pct": 80,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 5, 2026",
       "release_ts": 1777939200,
@@ -44339,25 +43506,17 @@
         "RPG"
       ],
       "last_update_ts": null,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782689041
+      "scraped_at": 1782732548
     },
     {
       "appid": 4635530,
       "title": "TOOSIN : 투신",
       "url": "https://store.steampowered.com/app/4635530",
-      "rating_pct": 93,
+      "rating_pct": 100,
       "review_count": 14,
       "price_initial": 9.99,
       "price_final": 5.99,
       "discount_pct": 40,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 6, 2026",
       "release_ts": 1778025600,
@@ -44368,14 +43527,7 @@
         "Early Access"
       ],
       "last_update_ts": 1781440104,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782689036
+      "scraped_at": 1782732545
     },
     {
       "appid": 4635540,
@@ -44471,7 +43623,6 @@
       "price_initial": 0.99,
       "price_final": 0.49,
       "discount_pct": 51,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 1, 2026",
       "release_ts": 1777593600,
@@ -44481,14 +43632,7 @@
         "Indie"
       ],
       "last_update_ts": null,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782689030
+      "scraped_at": 1782732542
     },
     {
       "appid": 4636050,
@@ -44499,7 +43643,6 @@
       "price_initial": 7.99,
       "price_final": 5.99,
       "discount_pct": 25,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Jun 23, 2026",
       "release_ts": 1782172800,
@@ -44510,14 +43653,7 @@
         "Strategy"
       ],
       "last_update_ts": null,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782689025
+      "scraped_at": 1782732539
     },
     {
       "appid": 4636080,
@@ -44692,7 +43828,6 @@
       "price_initial": 4.99,
       "price_final": 2.99,
       "discount_pct": 40,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 5, 2026",
       "release_ts": 1777939200,
@@ -44701,14 +43836,7 @@
         "Early Access"
       ],
       "last_update_ts": 1781464638,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782689020
+      "scraped_at": 1782732537
     },
     {
       "appid": 4636770,
@@ -44719,7 +43847,6 @@
       "price_initial": 1.99,
       "price_final": 1.53,
       "discount_pct": 23,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 11, 2026",
       "release_ts": 1778457600,
@@ -44727,14 +43854,7 @@
         "Casual"
       ],
       "last_update_ts": null,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782689015
+      "scraped_at": 1782732534
     },
     {
       "appid": 4636860,
@@ -44801,7 +43921,6 @@
       "price_initial": 3.0,
       "price_final": 2.25,
       "discount_pct": 25,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 18, 2026",
       "release_ts": 1779062400,
@@ -44811,14 +43930,7 @@
         "Indie"
       ],
       "last_update_ts": 1781540126,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782689010
+      "scraped_at": 1782732531
     },
     {
       "appid": 4637280,
@@ -44829,7 +43941,6 @@
       "price_initial": 0.99,
       "price_final": 0.49,
       "discount_pct": 51,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 13, 2026",
       "release_ts": 1778630400,
@@ -44839,14 +43950,7 @@
         "Strategy"
       ],
       "last_update_ts": 1781791187,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782689005
+      "scraped_at": 1782732528
     },
     {
       "appid": 4637330,
@@ -44883,7 +43987,6 @@
       "price_initial": 0.99,
       "price_final": 0.49,
       "discount_pct": 51,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 14, 2026",
       "release_ts": 1778716800,
@@ -44892,14 +43995,7 @@
         "Indie"
       ],
       "last_update_ts": null,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782688999
+      "scraped_at": 1782732525
     },
     {
       "appid": 4637430,
@@ -45058,7 +44154,6 @@
       "price_initial": 13.99,
       "price_final": 8.39,
       "discount_pct": 40,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 7, 2026",
       "release_ts": 1778112000,
@@ -45067,14 +44162,7 @@
         "Early Access"
       ],
       "last_update_ts": 1782354099,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782688994
+      "scraped_at": 1782732523
     },
     {
       "appid": 4638110,
@@ -45085,7 +44173,6 @@
       "price_initial": 4.99,
       "price_final": 2.49,
       "discount_pct": 50,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 7, 2026",
       "release_ts": 1778112000,
@@ -45094,14 +44181,7 @@
         "Strategy"
       ],
       "last_update_ts": null,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782688989
+      "scraped_at": 1782732520
     },
     {
       "appid": 4638130,
@@ -45171,7 +44251,6 @@
       "price_initial": 9.79,
       "price_final": 6.46,
       "discount_pct": 34,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 13, 2026",
       "release_ts": 1778630400,
@@ -45182,14 +44261,7 @@
         "Simulation"
       ],
       "last_update_ts": null,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782688983
+      "scraped_at": 1782732517
     },
     {
       "appid": 4638490,
@@ -45257,7 +44329,6 @@
       "price_initial": 2.99,
       "price_final": 2.24,
       "discount_pct": 25,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 18, 2026",
       "release_ts": 1779062400,
@@ -45267,14 +44338,7 @@
         "RPG"
       ],
       "last_update_ts": null,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782688978
+      "scraped_at": 1782732514
     },
     {
       "appid": 4638830,
@@ -45450,7 +44514,6 @@
       "price_initial": 19.99,
       "price_final": 9.99,
       "discount_pct": 50,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 15, 2026",
       "release_ts": 1778803200,
@@ -45462,14 +44525,7 @@
         "RPG"
       ],
       "last_update_ts": null,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782688973
+      "scraped_at": 1782732512
     },
     {
       "appid": 4639230,
@@ -45480,7 +44536,6 @@
       "price_initial": 3.99,
       "price_final": 3.19,
       "discount_pct": 20,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Jun 23, 2026",
       "release_ts": 1782172800,
@@ -45489,14 +44544,7 @@
         "Strategy"
       ],
       "last_update_ts": 1779098767,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782688968
+      "scraped_at": 1782732509
     },
     {
       "appid": 4639300,
@@ -45536,7 +44584,6 @@
       "price_initial": 4.99,
       "price_final": 3.49,
       "discount_pct": 30,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Jun 22, 2026",
       "release_ts": 1782086400,
@@ -45547,40 +44594,25 @@
         "Simulation"
       ],
       "last_update_ts": null,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782688963
+      "scraped_at": 1782732506
     },
     {
       "appid": 4639520,
       "title": "Mini Murder Mysteries",
       "url": "https://store.steampowered.com/app/4639520",
-      "rating_pct": 90,
-      "review_count": 42,
+      "rating_pct": 89,
+      "review_count": 47,
       "price_initial": 4.99,
       "price_final": 4.49,
       "discount_pct": 10,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Jun 23, 2026",
       "release_ts": 1782172800,
       "tags": [
         "Indie"
       ],
-      "last_update_ts": 1782488523,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": "Mini Murder Mysteries",
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782688958
+      "last_update_ts": 1782729303,
+      "scraped_at": 1782732503
     },
     {
       "appid": 4639750,
@@ -45649,7 +44681,6 @@
       "price_initial": 8.99,
       "price_final": 7.19,
       "discount_pct": 20,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 8, 2026",
       "release_ts": 1778198400,
@@ -45658,14 +44689,7 @@
         "Indie"
       ],
       "last_update_ts": 1782401323,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782688953
+      "scraped_at": 1782732501
     },
     {
       "appid": 4640030,
@@ -45786,7 +44810,6 @@
       "price_initial": 2.99,
       "price_final": 2.09,
       "discount_pct": 30,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 11, 2026",
       "release_ts": 1778457600,
@@ -45798,14 +44821,7 @@
         "Early Access"
       ],
       "last_update_ts": 1781844990,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782688948
+      "scraped_at": 1782732498
     },
     {
       "appid": 4640540,
@@ -45816,7 +44832,6 @@
       "price_initial": 0.99,
       "price_final": 0.69,
       "discount_pct": 30,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 10, 2026",
       "release_ts": 1778371200,
@@ -45824,14 +44839,7 @@
         "RPG"
       ],
       "last_update_ts": null,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782688942
+      "scraped_at": 1782732495
     },
     {
       "appid": 4640590,
@@ -45842,7 +44850,6 @@
       "price_initial": 3.99,
       "price_final": 3.39,
       "discount_pct": 15,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Jun 18, 2026",
       "release_ts": 1781740800,
@@ -45854,14 +44861,7 @@
         "Early Access"
       ],
       "last_update_ts": null,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782688937
+      "scraped_at": 1782732492
     },
     {
       "appid": 4640620,
@@ -45930,7 +44930,6 @@
       "price_initial": 1.99,
       "price_final": 0.99,
       "discount_pct": 50,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 6, 2026",
       "release_ts": 1778025600,
@@ -45940,14 +44939,7 @@
         "RPG"
       ],
       "last_update_ts": null,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782688932
+      "scraped_at": 1782732489
     },
     {
       "appid": 4641370,
@@ -46161,7 +45153,6 @@
       "price_initial": 2.99,
       "price_final": 1.49,
       "discount_pct": 50,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 8, 2026",
       "release_ts": 1778198400,
@@ -46171,14 +45162,7 @@
         "Indie"
       ],
       "last_update_ts": 1778352740,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782688927
+      "scraped_at": 1782732487
     },
     {
       "appid": 4642310,
@@ -46273,7 +45257,6 @@
       "price_initial": 4.99,
       "price_final": 1.74,
       "discount_pct": 65,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 15, 2026",
       "release_ts": 1778803200,
@@ -46283,14 +45266,7 @@
         "Strategy"
       ],
       "last_update_ts": 1780365138,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782688922
+      "scraped_at": 1782732484
     },
     {
       "appid": 4642630,
@@ -46412,7 +45388,6 @@
       "price_initial": 0.99,
       "price_final": 0.59,
       "discount_pct": 40,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Jun 25, 2026",
       "release_ts": 1782345600,
@@ -46421,14 +45396,7 @@
         "Indie"
       ],
       "last_update_ts": 1782573914,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782688916
+      "scraped_at": 1782732481
     },
     {
       "appid": 4643160,
@@ -46576,7 +45544,6 @@
       "price_initial": 4.99,
       "price_final": 3.49,
       "discount_pct": 30,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 8, 2026",
       "release_ts": 1778198400,
@@ -46585,14 +45552,7 @@
         "Indie"
       ],
       "last_update_ts": null,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782688911
+      "scraped_at": 1782732478
     },
     {
       "appid": 4643520,
@@ -46603,7 +45563,6 @@
       "price_initial": 2.99,
       "price_final": 2.39,
       "discount_pct": 20,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 19, 2026",
       "release_ts": 1779148800,
@@ -46613,14 +45572,7 @@
         "Strategy"
       ],
       "last_update_ts": 1779542205,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782688906
+      "scraped_at": 1782732476
     },
     {
       "appid": 4643580,
@@ -46631,7 +45583,6 @@
       "price_initial": 3.99,
       "price_final": 1.39,
       "discount_pct": 65,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 15, 2026",
       "release_ts": 1778803200,
@@ -46645,14 +45596,7 @@
         "Sports"
       ],
       "last_update_ts": null,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782688901
+      "scraped_at": 1782732473
     },
     {
       "appid": 4643590,
@@ -46663,7 +45607,6 @@
       "price_initial": 3.99,
       "price_final": 1.39,
       "discount_pct": 65,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 8, 2026",
       "release_ts": 1778198400,
@@ -46677,14 +45620,7 @@
         "Sports"
       ],
       "last_update_ts": null,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782688895
+      "scraped_at": 1782732470
     },
     {
       "appid": 4643650,
@@ -46724,7 +45660,6 @@
       "price_initial": 1.69,
       "price_final": 0.84,
       "discount_pct": 50,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 7, 2026",
       "release_ts": 1778112000,
@@ -46735,14 +45670,7 @@
         "Early Access"
       ],
       "last_update_ts": null,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782688890
+      "scraped_at": 1782732467
     },
     {
       "appid": 4644040,
@@ -46780,7 +45708,6 @@
       "price_initial": 2.99,
       "price_final": 0.89,
       "discount_pct": 70,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 11, 2026",
       "release_ts": 1778457600,
@@ -46789,14 +45716,7 @@
         "Indie"
       ],
       "last_update_ts": null,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782688885
+      "scraped_at": 1782732464
     },
     {
       "appid": 4644090,
@@ -46835,7 +45755,6 @@
       "price_initial": 0.99,
       "price_final": 0.49,
       "discount_pct": 51,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 8, 2026",
       "release_ts": 1778198400,
@@ -46845,14 +45764,7 @@
         "Indie"
       ],
       "last_update_ts": null,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782688880
+      "scraped_at": 1782732462
     },
     {
       "appid": 4644190,
@@ -46863,7 +45775,6 @@
       "price_initial": 4.99,
       "price_final": 4.24,
       "discount_pct": 15,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Jun 23, 2026",
       "release_ts": 1782172800,
@@ -46874,14 +45785,7 @@
         "Massively Multiplayer"
       ],
       "last_update_ts": null,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782688874
+      "scraped_at": 1782732459
     },
     {
       "appid": 4644600,
@@ -46922,7 +45826,6 @@
       "price_initial": 2.99,
       "price_final": 1.79,
       "discount_pct": 40,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 18, 2026",
       "release_ts": 1779062400,
@@ -46932,14 +45835,7 @@
         "Simulation"
       ],
       "last_update_ts": null,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782688869
+      "scraped_at": 1782732456
     },
     {
       "appid": 4644670,
@@ -47059,7 +45955,6 @@
       "price_initial": 5.99,
       "price_final": 2.99,
       "discount_pct": 50,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 22, 2026",
       "release_ts": 1779408000,
@@ -47070,14 +45965,7 @@
         "RPG"
       ],
       "last_update_ts": 1779477468,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782688864
+      "scraped_at": 1782732453
     },
     {
       "appid": 4645330,
@@ -47195,12 +46083,11 @@
       "appid": 4645730,
       "title": "Assassin Of Aliens",
       "url": "https://store.steampowered.com/app/4645730",
-      "rating_pct": 86,
-      "review_count": 14,
+      "rating_pct": 87,
+      "review_count": 15,
       "price_initial": 3.99,
       "price_final": 0.67,
       "discount_pct": 83,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 5, 2026",
       "release_ts": 1777939200,
@@ -47211,14 +46098,7 @@
         "Indie"
       ],
       "last_update_ts": null,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782688859
+      "scraped_at": 1782732451
     },
     {
       "appid": 4645760,
@@ -47304,11 +46184,10 @@
       "title": "No.13813",
       "url": "https://store.steampowered.com/app/4646050",
       "rating_pct": 88,
-      "review_count": 16,
+      "review_count": 17,
       "price_initial": 5.99,
       "price_final": 5.39,
       "discount_pct": 10,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 24, 2026",
       "release_ts": 1779580800,
@@ -47318,14 +46197,7 @@
         "Indie"
       ],
       "last_update_ts": 1782317733,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782688853
+      "scraped_at": 1782732448
     },
     {
       "appid": 4646130,
@@ -47362,7 +46234,6 @@
       "price_initial": 0.99,
       "price_final": 0.59,
       "discount_pct": 40,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 13, 2026",
       "release_ts": 1778630400,
@@ -47371,14 +46242,7 @@
         "Simulation"
       ],
       "last_update_ts": 1779131648,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": "Kill Your Darlings",
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782688848
+      "scraped_at": 1782732445
     },
     {
       "appid": 4646220,
@@ -47448,7 +46312,6 @@
       "price_initial": 5.99,
       "price_final": 4.19,
       "discount_pct": 30,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 12, 2026",
       "release_ts": 1778544000,
@@ -47457,14 +46320,7 @@
         "Indie"
       ],
       "last_update_ts": null,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782688843
+      "scraped_at": 1782732442
     },
     {
       "appid": 4646550,
@@ -47720,7 +46576,6 @@
       "price_initial": 2.99,
       "price_final": 2.39,
       "discount_pct": 20,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 14, 2026",
       "release_ts": 1778716800,
@@ -47731,14 +46586,7 @@
         "Strategy"
       ],
       "last_update_ts": 1780557212,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782688837
+      "scraped_at": 1782732439
     },
     {
       "appid": 4650900,
@@ -47832,7 +46680,6 @@
       "price_initial": 0.99,
       "price_final": 0.49,
       "discount_pct": 51,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 8, 2026",
       "release_ts": 1778198400,
@@ -47842,14 +46689,7 @@
         "Simulation"
       ],
       "last_update_ts": 1781368007,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782688832
+      "scraped_at": 1782732437
     },
     {
       "appid": 4651000,
@@ -47860,7 +46700,6 @@
       "price_initial": 4.99,
       "price_final": 2.09,
       "discount_pct": 58,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 9, 2026",
       "release_ts": 1778284800,
@@ -47871,14 +46710,7 @@
         "Strategy"
       ],
       "last_update_ts": null,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782688826
+      "scraped_at": 1782732434
     },
     {
       "appid": 4651020,
@@ -47912,12 +46744,11 @@
       "appid": 4651030,
       "title": "PeeWee Purpdrank's FOENEM Clicker",
       "url": "https://store.steampowered.com/app/4651030",
-      "rating_pct": 97,
-      "review_count": 218,
+      "rating_pct": 96,
+      "review_count": 221,
       "price_initial": 2.99,
       "price_final": 1.94,
       "discount_pct": 35,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 20, 2026",
       "release_ts": 1779235200,
@@ -47925,14 +46756,7 @@
         "Casual"
       ],
       "last_update_ts": null,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782688821
+      "scraped_at": 1782732431
     },
     {
       "appid": 4651070,
@@ -47969,7 +46793,6 @@
       "price_initial": 9.99,
       "price_final": 6.99,
       "discount_pct": 30,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 17, 2026",
       "release_ts": 1778976000,
@@ -47979,14 +46802,7 @@
         "Simulation"
       ],
       "last_update_ts": null,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782688816
+      "scraped_at": 1782732428
     },
     {
       "appid": 4651360,
@@ -48107,7 +46923,6 @@
       "price_initial": 4.99,
       "price_final": 2.49,
       "discount_pct": 50,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 22, 2026",
       "release_ts": 1779408000,
@@ -48117,14 +46932,7 @@
         "Strategy"
       ],
       "last_update_ts": 1779473594,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782688811
+      "scraped_at": 1782732425
     },
     {
       "appid": 4651880,
@@ -48135,7 +46943,6 @@
       "price_initial": 9.99,
       "price_final": 3.99,
       "discount_pct": 60,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 17, 2026",
       "release_ts": 1778976000,
@@ -48144,14 +46951,7 @@
         "Indie"
       ],
       "last_update_ts": null,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782688806
+      "scraped_at": 1782732423
     },
     {
       "appid": 4651980,
@@ -48276,7 +47076,6 @@
       "price_initial": 0.99,
       "price_final": 0.49,
       "discount_pct": 51,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 7, 2026",
       "release_ts": 1778112000,
@@ -48287,14 +47086,7 @@
         "Indie"
       ],
       "last_update_ts": null,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782688801
+      "scraped_at": 1782732420
     },
     {
       "appid": 4653180,
@@ -48333,7 +47125,6 @@
       "price_initial": 4.99,
       "price_final": 3.99,
       "discount_pct": 20,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 14, 2026",
       "release_ts": 1778716800,
@@ -48346,14 +47137,7 @@
         "Strategy"
       ],
       "last_update_ts": 1782159685,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782688795
+      "scraped_at": 1782732417
     },
     {
       "appid": 4653340,
@@ -48477,7 +47261,6 @@
       "price_initial": 6.99,
       "price_final": 5.24,
       "discount_pct": 25,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 18, 2026",
       "release_ts": 1779062400,
@@ -48487,14 +47270,7 @@
         "Simulation"
       ],
       "last_update_ts": 1779381056,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782688790
+      "scraped_at": 1782732414
     },
     {
       "appid": 4653610,
@@ -48673,7 +47449,6 @@
       "price_initial": 9.99,
       "price_final": 8.99,
       "discount_pct": 10,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Jun 24, 2026",
       "release_ts": 1782259200,
@@ -48684,14 +47459,7 @@
         "Early Access"
       ],
       "last_update_ts": 1782465010,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782688785
+      "scraped_at": 1782732412
     },
     {
       "appid": 4654140,
@@ -48759,7 +47527,6 @@
       "price_initial": 6.99,
       "price_final": 4.19,
       "discount_pct": 40,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 13, 2026",
       "release_ts": 1778630400,
@@ -48768,14 +47535,7 @@
         "Simulation"
       ],
       "last_update_ts": null,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782688779
+      "scraped_at": 1782732409
     },
     {
       "appid": 4654260,
@@ -48786,7 +47546,6 @@
       "price_initial": 0.99,
       "price_final": 0.59,
       "discount_pct": 40,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 21, 2026",
       "release_ts": 1779321600,
@@ -48794,14 +47553,7 @@
         "Simulation"
       ],
       "last_update_ts": null,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782688774
+      "scraped_at": 1782732406
     },
     {
       "appid": 4654280,
@@ -48870,7 +47622,6 @@
       "price_initial": 12.88,
       "price_final": 7.72,
       "discount_pct": 40,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Jun 23, 2026",
       "release_ts": 1782172800,
@@ -48881,14 +47632,7 @@
         "Simulation"
       ],
       "last_update_ts": null,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782688769
+      "scraped_at": 1782732403
     },
     {
       "appid": 4654680,
@@ -49011,7 +47755,6 @@
       "price_initial": 2.99,
       "price_final": 1.88,
       "discount_pct": 37,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 20, 2026",
       "release_ts": 1779235200,
@@ -49020,14 +47763,7 @@
         "Indie"
       ],
       "last_update_ts": null,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782688764
+      "scraped_at": 1782732400
     },
     {
       "appid": 4654940,
@@ -49122,7 +47858,6 @@
       "price_initial": 2.99,
       "price_final": 2.39,
       "discount_pct": 20,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 15, 2026",
       "release_ts": 1778803200,
@@ -49131,14 +47866,7 @@
         "Indie"
       ],
       "last_update_ts": null,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782688758
+      "scraped_at": 1782732398
     },
     {
       "appid": 4655240,
@@ -49149,7 +47877,6 @@
       "price_initial": 11.99,
       "price_final": 7.19,
       "discount_pct": 40,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 23, 2026",
       "release_ts": 1779494400,
@@ -49159,14 +47886,7 @@
         "Early Access"
       ],
       "last_update_ts": 1782417893,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782688753
+      "scraped_at": 1782732395
     },
     {
       "appid": 4655250,
@@ -49208,7 +47928,6 @@
       "price_initial": 1.99,
       "price_final": 1.29,
       "discount_pct": 35,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 15, 2026",
       "release_ts": 1778803200,
@@ -49217,14 +47936,7 @@
         "Simulation"
       ],
       "last_update_ts": 1781326238,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782688748
+      "scraped_at": 1782732392
     },
     {
       "appid": 4655410,
@@ -49263,7 +47975,6 @@
       "price_initial": 4.99,
       "price_final": 4.49,
       "discount_pct": 10,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Jun 23, 2026",
       "release_ts": 1782172800,
@@ -49272,14 +47983,7 @@
         "Indie"
       ],
       "last_update_ts": null,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782688742
+      "scraped_at": 1782732389
     },
     {
       "appid": 4655760,
@@ -49485,7 +48189,6 @@
       "price_initial": 9.99,
       "price_final": 8.99,
       "discount_pct": 10,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Jun 22, 2026",
       "release_ts": 1782086400,
@@ -49495,14 +48198,7 @@
         "Simulation"
       ],
       "last_update_ts": null,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782688737
+      "scraped_at": 1782732386
     },
     {
       "appid": 4656630,
@@ -49513,7 +48209,6 @@
       "price_initial": 19.99,
       "price_final": 14.99,
       "discount_pct": 25,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 14, 2026",
       "release_ts": 1778716800,
@@ -49521,14 +48216,7 @@
         "RPG"
       ],
       "last_update_ts": null,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782688732
+      "scraped_at": 1782732384
     },
     {
       "appid": 4656670,
@@ -49706,7 +48394,6 @@
       "price_initial": 3.99,
       "price_final": 3.59,
       "discount_pct": 10,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Jun 25, 2026",
       "release_ts": 1782345600,
@@ -49715,14 +48402,7 @@
         "Strategy"
       ],
       "last_update_ts": null,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782688726
+      "scraped_at": 1782732381
     },
     {
       "appid": 4656920,
@@ -49814,7 +48494,6 @@
       "price_initial": 0.99,
       "price_final": 0.59,
       "discount_pct": 40,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Jun 17, 2026",
       "release_ts": 1781654400,
@@ -49822,14 +48501,7 @@
         "Action"
       ],
       "last_update_ts": null,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782688721
+      "scraped_at": 1782732378
     },
     {
       "appid": 4657390,
@@ -50035,7 +48707,6 @@
       "price_initial": 1.3,
       "price_final": 0.65,
       "discount_pct": 50,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 21, 2026",
       "release_ts": 1779321600,
@@ -50044,14 +48715,7 @@
         "RPG"
       ],
       "last_update_ts": 1779942537,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782688716
+      "scraped_at": 1782732375
     },
     {
       "appid": 4658940,
@@ -50062,7 +48726,6 @@
       "price_initial": 3.99,
       "price_final": 2.79,
       "discount_pct": 30,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 7, 2026",
       "release_ts": 1778112000,
@@ -50073,14 +48736,7 @@
         "RPG"
       ],
       "last_update_ts": null,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782688710
+      "scraped_at": 1782732373
     },
     {
       "appid": 4659260,
@@ -50091,7 +48747,6 @@
       "price_initial": 1.99,
       "price_final": 1.19,
       "discount_pct": 40,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Jun 19, 2026",
       "release_ts": 1781827200,
@@ -50102,14 +48757,7 @@
         "Simulation"
       ],
       "last_update_ts": null,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782688704
+      "scraped_at": 1782732370
     },
     {
       "appid": 4659280,
@@ -50261,7 +48909,6 @@
       "price_initial": 1.99,
       "price_final": 1.39,
       "discount_pct": 30,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 11, 2026",
       "release_ts": 1778457600,
@@ -50270,14 +48917,7 @@
         "Indie"
       ],
       "last_update_ts": 1778866046,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782688696
+      "scraped_at": 1782732367
     },
     {
       "appid": 4660050,
@@ -50573,7 +49213,6 @@
       "price_initial": 4.99,
       "price_final": 3.99,
       "discount_pct": 20,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 11, 2026",
       "release_ts": 1778457600,
@@ -50582,14 +49221,7 @@
         "Strategy"
       ],
       "last_update_ts": null,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782688690
+      "scraped_at": 1782732364
     },
     {
       "appid": 4660760,
@@ -50630,7 +49262,6 @@
       "price_initial": 4.99,
       "price_final": 1.49,
       "discount_pct": 70,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 18, 2026",
       "release_ts": 1779062400,
@@ -50640,14 +49271,7 @@
         "Indie"
       ],
       "last_update_ts": null,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782688685
+      "scraped_at": 1782732361
     },
     {
       "appid": 4660990,
@@ -50971,7 +49595,6 @@
       "price_initial": 2.69,
       "price_final": 1.88,
       "discount_pct": 30,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 24, 2026",
       "release_ts": 1779580800,
@@ -50980,14 +49603,7 @@
         "Utilities"
       ],
       "last_update_ts": 1781663171,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782688678
+      "scraped_at": 1782732359
     },
     {
       "appid": 4662430,
@@ -51160,7 +49776,6 @@
       "price_initial": 0.99,
       "price_final": 0.49,
       "discount_pct": 51,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 15, 2026",
       "release_ts": 1778803200,
@@ -51170,14 +49785,7 @@
         "Indie"
       ],
       "last_update_ts": null,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782688673
+      "scraped_at": 1782732356
     },
     {
       "appid": 4663090,
@@ -51243,7 +49851,6 @@
       "price_initial": 9.99,
       "price_final": 0.99,
       "discount_pct": 90,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 14, 2026",
       "release_ts": 1778716800,
@@ -51251,14 +49858,7 @@
         "RPG"
       ],
       "last_update_ts": null,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782688668
+      "scraped_at": 1782732353
     },
     {
       "appid": 4663330,
@@ -51269,7 +49869,6 @@
       "price_initial": 9.99,
       "price_final": 0.99,
       "discount_pct": 90,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 18, 2026",
       "release_ts": 1779062400,
@@ -51277,14 +49876,7 @@
         "RPG"
       ],
       "last_update_ts": null,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782688662
+      "scraped_at": 1782732350
     },
     {
       "appid": 4663350,
@@ -51295,7 +49887,6 @@
       "price_initial": 9.99,
       "price_final": 0.99,
       "discount_pct": 90,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 12, 2026",
       "release_ts": 1778544000,
@@ -51303,14 +49894,7 @@
         "RPG"
       ],
       "last_update_ts": null,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": "Beacon of Neyda",
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782688657
+      "scraped_at": 1782732347
     },
     {
       "appid": 4663360,
@@ -51321,7 +49905,6 @@
       "price_initial": 9.99,
       "price_final": 0.99,
       "discount_pct": 90,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 8, 2026",
       "release_ts": 1778198400,
@@ -51329,14 +49912,7 @@
         "RPG"
       ],
       "last_update_ts": null,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782688652
+      "scraped_at": 1782732345
     },
     {
       "appid": 4663380,
@@ -51347,7 +49923,6 @@
       "price_initial": 3.99,
       "price_final": 3.39,
       "discount_pct": 15,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 18, 2026",
       "release_ts": 1779062400,
@@ -51357,14 +49932,7 @@
         "Simulation"
       ],
       "last_update_ts": 1779800241,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782688647
+      "scraped_at": 1782732342
     },
     {
       "appid": 4663520,
@@ -51462,7 +50030,6 @@
       "price_initial": 5.99,
       "price_final": 4.49,
       "discount_pct": 25,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Jun 21, 2026",
       "release_ts": 1782000000,
@@ -51477,14 +50044,7 @@
         "Early Access"
       ],
       "last_update_ts": 1782630534,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782688641
+      "scraped_at": 1782732339
     },
     {
       "appid": 4663990,
@@ -51549,7 +50109,6 @@
       "price_initial": 4.99,
       "price_final": 3.99,
       "discount_pct": 20,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Jun 22, 2026",
       "release_ts": 1782086400,
@@ -51557,14 +50116,7 @@
         "Strategy"
       ],
       "last_update_ts": 1778999866,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782688636
+      "scraped_at": 1782732336
     },
     {
       "appid": 4664370,
@@ -51575,7 +50127,6 @@
       "price_initial": 0.99,
       "price_final": 0.59,
       "discount_pct": 40,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Jun 19, 2026",
       "release_ts": 1781827200,
@@ -51585,14 +50136,7 @@
         "Strategy"
       ],
       "last_update_ts": null,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782688631
+      "scraped_at": 1782732334
     },
     {
       "appid": 4664530,
@@ -51603,7 +50147,6 @@
       "price_initial": 1.42,
       "price_final": 1.1,
       "discount_pct": 23,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 21, 2026",
       "release_ts": 1779321600,
@@ -51611,14 +50154,7 @@
         "Adventure"
       ],
       "last_update_ts": null,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782688626
+      "scraped_at": 1782732331
     },
     {
       "appid": 4664660,
@@ -51685,7 +50221,6 @@
       "price_initial": 1.99,
       "price_final": 0.99,
       "discount_pct": 50,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 15, 2026",
       "release_ts": 1778803200,
@@ -51695,14 +50230,7 @@
         "Indie"
       ],
       "last_update_ts": null,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782688620
+      "scraped_at": 1782732328
     },
     {
       "appid": 4665070,
@@ -51796,7 +50324,6 @@
       "price_initial": 1.99,
       "price_final": 1.19,
       "discount_pct": 40,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Jun 24, 2026",
       "release_ts": 1782259200,
@@ -51805,14 +50332,7 @@
         "Simulation"
       ],
       "last_update_ts": null,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782688615
+      "scraped_at": 1782732325
     },
     {
       "appid": 4665830,
@@ -51850,7 +50370,6 @@
       "price_initial": 4.99,
       "price_final": 4.49,
       "discount_pct": 10,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Jun 23, 2026",
       "release_ts": 1782172800,
@@ -51860,14 +50379,7 @@
         "Strategy"
       ],
       "last_update_ts": null,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782688610
+      "scraped_at": 1782732322
     },
     {
       "appid": 4666250,
@@ -51878,7 +50390,6 @@
       "price_initial": 8.99,
       "price_final": 6.74,
       "discount_pct": 25,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Jun 23, 2026",
       "release_ts": 1782172800,
@@ -51888,14 +50399,7 @@
         "Strategy"
       ],
       "last_update_ts": null,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782688605
+      "scraped_at": 1782732320
     },
     {
       "appid": 4666660,
@@ -51993,7 +50497,6 @@
       "price_initial": 4.99,
       "price_final": 4.49,
       "discount_pct": 10,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Jun 23, 2026",
       "release_ts": 1782172800,
@@ -52003,14 +50506,7 @@
         "Strategy"
       ],
       "last_update_ts": 1781287792,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782688599
+      "scraped_at": 1782732317
     },
     {
       "appid": 4666970,
@@ -52021,7 +50517,6 @@
       "price_initial": 1.99,
       "price_final": 0.99,
       "discount_pct": 50,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 22, 2026",
       "release_ts": 1779408000,
@@ -52030,14 +50525,7 @@
         "RPG"
       ],
       "last_update_ts": 1780899351,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782688594
+      "scraped_at": 1782732314
     },
     {
       "appid": 4667030,
@@ -52108,7 +50596,6 @@
       "price_initial": 9.99,
       "price_final": 7.99,
       "discount_pct": 20,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 24, 2026",
       "release_ts": 1779580800,
@@ -52118,14 +50605,7 @@
         "Strategy"
       ],
       "last_update_ts": 1782440897,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782688589
+      "scraped_at": 1782732311
     },
     {
       "appid": 4667260,
@@ -52409,12 +50889,11 @@
       "appid": 4667920,
       "title": "Richer than the King",
       "url": "https://store.steampowered.com/app/4667920",
-      "rating_pct": null,
-      "review_count": 0,
+      "rating_pct": 100,
+      "review_count": 1,
       "price_initial": 2.99,
       "price_final": 2.24,
       "discount_pct": 25,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Jun 25, 2026",
       "release_ts": 1782345600,
@@ -52425,14 +50904,7 @@
         "Strategy"
       ],
       "last_update_ts": null,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782688584
+      "scraped_at": 1782732309
     },
     {
       "appid": 4668230,
@@ -52498,7 +50970,6 @@
       "price_initial": 14.99,
       "price_final": 8.99,
       "discount_pct": 40,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Jun 16, 2026",
       "release_ts": 1781568000,
@@ -52506,14 +50977,7 @@
         "Indie"
       ],
       "last_update_ts": 1782354047,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782688579
+      "scraped_at": 1782732306
     },
     {
       "appid": 4668570,
@@ -52524,7 +50988,6 @@
       "price_initial": 2.99,
       "price_final": 1.94,
       "discount_pct": 35,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 13, 2026",
       "release_ts": 1778630400,
@@ -52533,14 +50996,7 @@
         "Indie"
       ],
       "last_update_ts": null,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782688574
+      "scraped_at": 1782732303
     },
     {
       "appid": 4668590,
@@ -52578,7 +51034,6 @@
       "price_initial": 2.99,
       "price_final": 2.54,
       "discount_pct": 15,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 13, 2026",
       "release_ts": 1778630400,
@@ -52587,14 +51042,7 @@
         "Indie"
       ],
       "last_update_ts": 1779058096,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782688569
+      "scraped_at": 1782732300
     },
     {
       "appid": 4668820,
@@ -52664,7 +51112,6 @@
       "price_initial": 5.99,
       "price_final": 2.99,
       "discount_pct": 50,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 20, 2026",
       "release_ts": 1779235200,
@@ -52672,14 +51119,7 @@
         "Indie"
       ],
       "last_update_ts": 1779306939,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782688563
+      "scraped_at": 1782732297
     },
     {
       "appid": 4669230,
@@ -52690,7 +51130,6 @@
       "price_initial": 19.99,
       "price_final": 9.79,
       "discount_pct": 51,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 16, 2026",
       "release_ts": 1778889600,
@@ -52700,14 +51139,7 @@
         "Simulation"
       ],
       "last_update_ts": 1779102914,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782688558
+      "scraped_at": 1782732295
     },
     {
       "appid": 4669420,
@@ -52746,7 +51178,6 @@
       "price_initial": 4.99,
       "price_final": 4.24,
       "discount_pct": 15,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Jun 24, 2026",
       "release_ts": 1782259200,
@@ -52756,14 +51187,7 @@
         "RPG"
       ],
       "last_update_ts": null,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782688553
+      "scraped_at": 1782732292
     },
     {
       "appid": 4669610,
@@ -52774,7 +51198,6 @@
       "price_initial": 9.99,
       "price_final": 7.99,
       "discount_pct": 20,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 25, 2026",
       "release_ts": 1779667200,
@@ -52783,14 +51206,7 @@
         "Early Access"
       ],
       "last_update_ts": 1780084719,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782688548
+      "scraped_at": 1782732289
     },
     {
       "appid": 4669680,
@@ -52801,7 +51217,6 @@
       "price_initial": 4.99,
       "price_final": 1.24,
       "discount_pct": 75,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 17, 2026",
       "release_ts": 1778976000,
@@ -52811,14 +51226,7 @@
         "Simulation"
       ],
       "last_update_ts": null,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782688543
+      "scraped_at": 1782732286
     },
     {
       "appid": 4669900,
@@ -52829,7 +51237,6 @@
       "price_initial": 5.99,
       "price_final": 4.19,
       "discount_pct": 30,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 13, 2026",
       "release_ts": 1778630400,
@@ -52838,14 +51245,7 @@
         "Indie"
       ],
       "last_update_ts": null,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782688538
+      "scraped_at": 1782732284
     },
     {
       "appid": 4670670,
@@ -52856,7 +51256,6 @@
       "price_initial": 4.99,
       "price_final": 4.24,
       "discount_pct": 15,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Jun 25, 2026",
       "release_ts": 1782345600,
@@ -52866,14 +51265,7 @@
         "Indie"
       ],
       "last_update_ts": 1782431990,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782688532
+      "scraped_at": 1782732281
     },
     {
       "appid": 4670730,
@@ -52972,7 +51364,6 @@
       "price_initial": 14.99,
       "price_final": 13.49,
       "discount_pct": 10,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 14, 2026",
       "release_ts": 1778716800,
@@ -52981,14 +51372,7 @@
         "Sports"
       ],
       "last_update_ts": 1780842654,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782688527
+      "scraped_at": 1782732278
     },
     {
       "appid": 4671490,
@@ -52999,7 +51383,6 @@
       "price_initial": 3.0,
       "price_final": 2.4,
       "discount_pct": 20,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 19, 2026",
       "release_ts": 1779148800,
@@ -53007,14 +51390,7 @@
         "Indie"
       ],
       "last_update_ts": 1779971881,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782688522
+      "scraped_at": 1782732275
     },
     {
       "appid": 4671590,
@@ -53204,7 +51580,6 @@
       "price_initial": 4.99,
       "price_final": 3.49,
       "discount_pct": 30,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 20, 2026",
       "release_ts": 1779235200,
@@ -53214,14 +51589,7 @@
         "Indie"
       ],
       "last_update_ts": 1779531321,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782688517
+      "scraped_at": 1782732273
     },
     {
       "appid": 4672140,
@@ -53318,7 +51686,6 @@
       "price_initial": 6.99,
       "price_final": 4.19,
       "discount_pct": 40,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 20, 2026",
       "release_ts": 1779235200,
@@ -53327,14 +51694,7 @@
         "Simulation"
       ],
       "last_update_ts": null,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782688512
+      "scraped_at": 1782732270
     },
     {
       "appid": 4672380,
@@ -53426,7 +51786,6 @@
       "price_initial": 3.99,
       "price_final": 2.99,
       "discount_pct": 25,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 26, 2026",
       "release_ts": 1779753600,
@@ -53434,14 +51793,7 @@
         "Action"
       ],
       "last_update_ts": null,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782688506
+      "scraped_at": 1782732267
     },
     {
       "appid": 4672870,
@@ -53646,7 +51998,6 @@
       "price_initial": 6.99,
       "price_final": 5.94,
       "discount_pct": 15,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Jun 23, 2026",
       "release_ts": 1782172800,
@@ -53656,14 +52007,7 @@
         "Indie"
       ],
       "last_update_ts": null,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782688501
+      "scraped_at": 1782732264
     },
     {
       "appid": 4673590,
@@ -53814,7 +52158,6 @@
       "price_initial": 7.99,
       "price_final": 5.99,
       "discount_pct": 25,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 13, 2026",
       "release_ts": 1778630400,
@@ -53823,14 +52166,7 @@
         "Strategy"
       ],
       "last_update_ts": null,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782688496
+      "scraped_at": 1782732261
     },
     {
       "appid": 4674000,
@@ -53922,7 +52258,6 @@
       "price_initial": 5.99,
       "price_final": 4.19,
       "discount_pct": 30,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 17, 2026",
       "release_ts": 1778976000,
@@ -53931,14 +52266,7 @@
         "Indie"
       ],
       "last_update_ts": null,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782688486
+      "scraped_at": 1782732259
     },
     {
       "appid": 4674130,
@@ -54061,7 +52389,6 @@
       "price_initial": 3.99,
       "price_final": 3.19,
       "discount_pct": 20,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Jun 22, 2026",
       "release_ts": 1782086400,
@@ -54073,14 +52400,7 @@
         "Strategy"
       ],
       "last_update_ts": 1782552440,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782688481
+      "scraped_at": 1782732256
     },
     {
       "appid": 4674560,
@@ -54118,7 +52438,6 @@
       "price_initial": 2.99,
       "price_final": 1.49,
       "discount_pct": 50,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 17, 2026",
       "release_ts": 1778976000,
@@ -54127,14 +52446,7 @@
         "Indie"
       ],
       "last_update_ts": null,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782688475
+      "scraped_at": 1782732253
     },
     {
       "appid": 4674800,
@@ -54175,7 +52487,6 @@
       "price_initial": 1.99,
       "price_final": 1.19,
       "discount_pct": 40,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Jun 15, 2026",
       "release_ts": 1781481600,
@@ -54184,14 +52495,7 @@
         "Indie"
       ],
       "last_update_ts": 1782027931,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782688470
+      "scraped_at": 1782732250
     },
     {
       "appid": 4675130,
@@ -54543,7 +52847,6 @@
       "price_initial": 2.99,
       "price_final": 1.79,
       "discount_pct": 40,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 14, 2026",
       "release_ts": 1778716800,
@@ -54552,14 +52855,7 @@
         "Indie"
       ],
       "last_update_ts": 1781399623,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782688465
+      "scraped_at": 1782732248
     },
     {
       "appid": 4676940,
@@ -54597,7 +52893,6 @@
       "price_initial": 2.49,
       "price_final": 0.87,
       "discount_pct": 65,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 13, 2026",
       "release_ts": 1778630400,
@@ -54606,14 +52901,7 @@
         "Indie"
       ],
       "last_update_ts": null,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782688460
+      "scraped_at": 1782732245
     },
     {
       "appid": 4677020,
@@ -54737,7 +53025,6 @@
       "price_initial": 2.99,
       "price_final": 2.69,
       "discount_pct": 10,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 20, 2026",
       "release_ts": 1779235200,
@@ -54745,14 +53032,7 @@
         "Casual"
       ],
       "last_update_ts": 1780450949,
-      "hltb_main": 8.4,
-      "hltb_extra": 12.2,
-      "hltb_complete": 20.9,
-      "hltb_avg": 13.8,
-      "hltb_match": "Farm For Your Life",
-      "qhpp_before": 4.615,
-      "qhpp_after": 5.13,
-      "scraped_at": 1782688454
+      "scraped_at": 1782732242
     },
     {
       "appid": 4677270,
@@ -54787,11 +53067,10 @@
       "title": "My Secret Summer Vacation",
       "url": "https://store.steampowered.com/app/4677310",
       "rating_pct": 85,
-      "review_count": 54,
+      "review_count": 62,
       "price_initial": 7.99,
       "price_final": 6.39,
       "discount_pct": 20,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Jun 24, 2026",
       "release_ts": 1782259200,
@@ -54802,14 +53081,7 @@
         "Simulation"
       ],
       "last_update_ts": 1782466036,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782688449
+      "scraped_at": 1782732239
     },
     {
       "appid": 4677360,
@@ -54847,7 +53119,6 @@
       "price_initial": 2.99,
       "price_final": 2.09,
       "discount_pct": 30,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 26, 2026",
       "release_ts": 1779753600,
@@ -54857,14 +53128,7 @@
         "Simulation"
       ],
       "last_update_ts": 1780229847,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782688444
+      "scraped_at": 1782732237
     },
     {
       "appid": 4677820,
