@@ -1,6 +1,6 @@
 {
-  "generated_at": 1782758275,
-  "count": 5016,
+  "generated_at": 1782758877,
+  "count": 5145,
   "games": [
     {
       "appid": 10,
@@ -3242,6 +3242,2592 @@
       ],
       "last_update_ts": null,
       "scraped_at": 1782734657
+    },
+    {
+      "appid": 4330770,
+      "title": "Elixion",
+      "url": "https://store.steampowered.com/app/4330770",
+      "rating_pct": 100,
+      "review_count": 32,
+      "price_initial": 2.99,
+      "price_final": 1.49,
+      "discount_pct": 50,
+      "is_free": false,
+      "release_date": "Feb 10, 2026",
+      "release_ts": 1770681600,
+      "tags": [
+        "Action",
+        "Adventure",
+        "Casual",
+        "Indie",
+        "RPG",
+        "Strategy"
+      ],
+      "last_update_ts": 1773969643,
+      "scraped_at": 1782758876
+    },
+    {
+      "appid": 4330830,
+      "title": "Legend Sword 100",
+      "url": "https://store.steampowered.com/app/4330830",
+      "rating_pct": 50,
+      "review_count": 8,
+      "price_initial": 0.99,
+      "price_final": 0.79,
+      "discount_pct": 20,
+      "is_free": false,
+      "release_date": "Mar 5, 2026",
+      "release_ts": 1772668800,
+      "tags": [
+        "Indie",
+        "Simulation",
+        "Strategy"
+      ],
+      "last_update_ts": null,
+      "scraped_at": 1782758870
+    },
+    {
+      "appid": 4330860,
+      "title": "Desktop Nard: Dice Idle",
+      "url": "https://store.steampowered.com/app/4330860",
+      "rating_pct": 69,
+      "review_count": 108,
+      "price_initial": 4.99,
+      "price_final": 3.99,
+      "discount_pct": 20,
+      "is_free": false,
+      "release_date": "May 20, 2026",
+      "release_ts": 1779235200,
+      "tags": [
+        "Action",
+        "Casual",
+        "Indie",
+        "RPG",
+        "Strategy"
+      ],
+      "last_update_ts": 1779303712,
+      "scraped_at": 1782758867
+    },
+    {
+      "appid": 4331030,
+      "title": "Megabonk Apocalypse",
+      "url": "https://store.steampowered.com/app/4331030",
+      "rating_pct": null,
+      "review_count": 0,
+      "price_initial": 15.99,
+      "price_final": 15.99,
+      "discount_pct": 0,
+      "is_free": false,
+      "release_date": "Feb 13, 2026",
+      "release_ts": 1770940800,
+      "tags": [
+        "Action",
+        "Adventure",
+        "Casual",
+        "Indie",
+        "Racing",
+        "RPG",
+        "Simulation",
+        "Sports",
+        "Early Access"
+      ],
+      "last_update_ts": null,
+      "scraped_at": 1782758855
+    },
+    {
+      "appid": 4331210,
+      "title": "星珀庄园的花语",
+      "url": "https://store.steampowered.com/app/4331210",
+      "rating_pct": 100,
+      "review_count": 6,
+      "price_initial": 2.99,
+      "price_final": 2.24,
+      "discount_pct": 25,
+      "is_free": false,
+      "release_date": "May 5, 2026",
+      "release_ts": 1777939200,
+      "tags": [
+        "Adventure",
+        "Casual",
+        "Indie",
+        "RPG"
+      ],
+      "last_update_ts": 1778078485,
+      "scraped_at": 1782758841
+    },
+    {
+      "appid": 4331360,
+      "title": "UMBRA",
+      "url": "https://store.steampowered.com/app/4331360",
+      "rating_pct": 86,
+      "review_count": 21,
+      "price_initial": null,
+      "price_final": null,
+      "discount_pct": 0,
+      "is_free": true,
+      "release_date": "Mar 10, 2026",
+      "release_ts": 1773100800,
+      "tags": [
+        "Adventure",
+        "Indie",
+        "Free To Play"
+      ],
+      "last_update_ts": null,
+      "scraped_at": 1782758836
+    },
+    {
+      "appid": 4331640,
+      "title": "Enjoyable Family Trip",
+      "url": "https://store.steampowered.com/app/4331640",
+      "rating_pct": 20,
+      "review_count": 5,
+      "price_initial": 54.99,
+      "price_final": 38.49,
+      "discount_pct": 30,
+      "is_free": false,
+      "release_date": "Mar 5, 2026",
+      "release_ts": 1772668800,
+      "tags": [
+        "Adventure"
+      ],
+      "last_update_ts": null,
+      "scraped_at": 1782758832
+    },
+    {
+      "appid": 4331840,
+      "title": "Hentai Clicker: Davinya is streaming",
+      "url": "https://store.steampowered.com/app/4331840",
+      "rating_pct": 86,
+      "review_count": 7,
+      "price_initial": 2.99,
+      "price_final": 1.49,
+      "discount_pct": 50,
+      "is_free": false,
+      "release_date": "Feb 16, 2026",
+      "release_ts": 1771200000,
+      "tags": [
+        "Casual",
+        "Indie"
+      ],
+      "last_update_ts": 1778690692,
+      "scraped_at": 1782758827
+    },
+    {
+      "appid": 4331890,
+      "title": "GetHigh.EXE",
+      "url": "https://store.steampowered.com/app/4331890",
+      "rating_pct": 100,
+      "review_count": 2,
+      "price_initial": 1.99,
+      "price_final": 0.99,
+      "discount_pct": 50,
+      "is_free": false,
+      "release_date": "Feb 25, 2026",
+      "release_ts": 1771977600,
+      "tags": [
+        "Action",
+        "Casual",
+        "Indie"
+      ],
+      "last_update_ts": null,
+      "scraped_at": 1782758823
+    },
+    {
+      "appid": 4331920,
+      "title": "SQUARE::ERAUQS",
+      "url": "https://store.steampowered.com/app/4331920",
+      "rating_pct": null,
+      "review_count": 0,
+      "price_initial": 1.99,
+      "price_final": 1.99,
+      "discount_pct": 0,
+      "is_free": false,
+      "release_date": "Mar 6, 2026",
+      "release_ts": 1772755200,
+      "tags": [
+        "Casual",
+        "Indie",
+        "Strategy"
+      ],
+      "last_update_ts": null,
+      "scraped_at": 1782758821
+    },
+    {
+      "appid": 4331940,
+      "title": "TrollMaker",
+      "url": "https://store.steampowered.com/app/4331940",
+      "rating_pct": 100,
+      "review_count": 2,
+      "price_initial": 1.99,
+      "price_final": 0.79,
+      "discount_pct": 60,
+      "is_free": false,
+      "release_date": "Mar 31, 2026",
+      "release_ts": 1774915200,
+      "tags": [
+        "Action",
+        "Casual",
+        "Indie",
+        "Strategy"
+      ],
+      "last_update_ts": 1775563677,
+      "scraped_at": 1782758819
+    },
+    {
+      "appid": 4332080,
+      "title": "Cliché Horror 2000s: The Witch’s Lair",
+      "url": "https://store.steampowered.com/app/4332080",
+      "rating_pct": 100,
+      "review_count": 4,
+      "price_initial": 2.99,
+      "price_final": 1.49,
+      "discount_pct": 50,
+      "is_free": false,
+      "release_date": "May 19, 2026",
+      "release_ts": 1779148800,
+      "tags": [
+        "Action",
+        "Adventure",
+        "Indie"
+      ],
+      "last_update_ts": null,
+      "scraped_at": 1782758812
+    },
+    {
+      "appid": 4332150,
+      "title": "Shoot The Barrels",
+      "url": "https://store.steampowered.com/app/4332150",
+      "rating_pct": 73,
+      "review_count": 95,
+      "price_initial": 1.99,
+      "price_final": 1.49,
+      "discount_pct": 25,
+      "is_free": false,
+      "release_date": "Mar 4, 2026",
+      "release_ts": 1772582400,
+      "tags": [
+        "Action",
+        "Casual",
+        "Indie",
+        "Strategy"
+      ],
+      "last_update_ts": 1773314377,
+      "scraped_at": 1782758808
+    },
+    {
+      "appid": 4332350,
+      "title": "Luhor's Memory",
+      "url": "https://store.steampowered.com/app/4332350",
+      "rating_pct": 82,
+      "review_count": 11,
+      "price_initial": null,
+      "price_final": null,
+      "discount_pct": 0,
+      "is_free": true,
+      "release_date": "Feb 12, 2026",
+      "release_ts": 1770854400,
+      "tags": [
+        "Action",
+        "Adventure",
+        "Indie",
+        "Free To Play"
+      ],
+      "last_update_ts": null,
+      "scraped_at": 1782758797
+    },
+    {
+      "appid": 4332360,
+      "title": "Gibby's Candy Store",
+      "url": "https://store.steampowered.com/app/4332360",
+      "rating_pct": 100,
+      "review_count": 3,
+      "price_initial": null,
+      "price_final": null,
+      "discount_pct": 0,
+      "is_free": true,
+      "release_date": "Mar 9, 2026",
+      "release_ts": 1773014400,
+      "tags": [
+        "Indie",
+        "Free To Play"
+      ],
+      "last_update_ts": null,
+      "scraped_at": 1782758795
+    },
+    {
+      "appid": 4332460,
+      "title": "The Vanguard Expanse 4065",
+      "url": "https://store.steampowered.com/app/4332460",
+      "rating_pct": 57,
+      "review_count": 7,
+      "price_initial": 1.99,
+      "price_final": 0.99,
+      "discount_pct": 50,
+      "is_free": false,
+      "release_date": "Feb 4, 2026",
+      "release_ts": 1770163200,
+      "tags": [
+        "Action",
+        "Casual",
+        "Indie",
+        "RPG",
+        "Simulation",
+        "Strategy"
+      ],
+      "last_update_ts": 1779302463,
+      "scraped_at": 1782758793
+    },
+    {
+      "appid": 4332500,
+      "title": "HEAVYDELIC",
+      "url": "https://store.steampowered.com/app/4332500",
+      "rating_pct": 25,
+      "review_count": 4,
+      "price_initial": 4.5,
+      "price_final": 4.5,
+      "discount_pct": 0,
+      "is_free": false,
+      "release_date": "Jun 23, 2026",
+      "release_ts": 1782172800,
+      "tags": [
+        "Action",
+        "Adventure",
+        "Casual",
+        "Indie",
+        "Early Access"
+      ],
+      "last_update_ts": null,
+      "scraped_at": 1782758789
+    },
+    {
+      "appid": 4332610,
+      "title": "Gripless: Drift Valley",
+      "url": "https://store.steampowered.com/app/4332610",
+      "rating_pct": 92,
+      "review_count": 12,
+      "price_initial": 4.99,
+      "price_final": 1.99,
+      "discount_pct": 60,
+      "is_free": false,
+      "release_date": "Mar 31, 2026",
+      "release_ts": 1774915200,
+      "tags": [
+        "Indie",
+        "Racing"
+      ],
+      "last_update_ts": 1775143785,
+      "scraped_at": 1782758785
+    },
+    {
+      "appid": 4332700,
+      "title": "6 Floors",
+      "url": "https://store.steampowered.com/app/4332700",
+      "rating_pct": 71,
+      "review_count": 45,
+      "price_initial": null,
+      "price_final": null,
+      "discount_pct": 0,
+      "is_free": true,
+      "release_date": "Mar 24, 2026",
+      "release_ts": 1774310400,
+      "tags": [
+        "Adventure",
+        "Indie",
+        "Free To Play"
+      ],
+      "last_update_ts": 1774732163,
+      "scraped_at": 1782758781
+    },
+    {
+      "appid": 4332850,
+      "title": "Global Business Tycoon",
+      "url": "https://store.steampowered.com/app/4332850",
+      "rating_pct": 64,
+      "review_count": 14,
+      "price_initial": 12.99,
+      "price_final": 6.49,
+      "discount_pct": 50,
+      "is_free": false,
+      "release_date": "Mar 27, 2026",
+      "release_ts": 1774569600,
+      "tags": [
+        "Simulation"
+      ],
+      "last_update_ts": 1780757654,
+      "scraped_at": 1782758774
+    },
+    {
+      "appid": 4332930,
+      "title": "CheeseMoney",
+      "url": "https://store.steampowered.com/app/4332930",
+      "rating_pct": 27,
+      "review_count": 15,
+      "price_initial": 2.99,
+      "price_final": 2.99,
+      "discount_pct": 0,
+      "is_free": false,
+      "release_date": "May 31, 2026",
+      "release_ts": 1780185600,
+      "tags": [
+        "Massively Multiplayer",
+        "Simulation",
+        "Strategy"
+      ],
+      "last_update_ts": null,
+      "scraped_at": 1782758769
+    },
+    {
+      "appid": 4333040,
+      "title": "Waifus Achievement Clicker",
+      "url": "https://store.steampowered.com/app/4333040",
+      "rating_pct": 100,
+      "review_count": 2,
+      "price_initial": 0.99,
+      "price_final": 0.99,
+      "discount_pct": 0,
+      "is_free": false,
+      "release_date": "Mar 4, 2026",
+      "release_ts": 1772582400,
+      "tags": [
+        "Casual",
+        "Indie"
+      ],
+      "last_update_ts": null,
+      "scraped_at": 1782758765
+    },
+    {
+      "appid": 4333100,
+      "title": "Bloodbath Armageddon",
+      "url": "https://store.steampowered.com/app/4333100",
+      "rating_pct": 100,
+      "review_count": 1,
+      "price_initial": 0.99,
+      "price_final": 0.99,
+      "discount_pct": 0,
+      "is_free": false,
+      "release_date": "Feb 13, 2026",
+      "release_ts": 1770940800,
+      "tags": [
+        "Action",
+        "Indie"
+      ],
+      "last_update_ts": 1779960111,
+      "scraped_at": 1782758760
+    },
+    {
+      "appid": 4333220,
+      "title": "Rummy Odyssey",
+      "url": "https://store.steampowered.com/app/4333220",
+      "rating_pct": 95,
+      "review_count": 20,
+      "price_initial": 7.99,
+      "price_final": 1.19,
+      "discount_pct": 85,
+      "is_free": false,
+      "release_date": "Feb 17, 2026",
+      "release_ts": 1771286400,
+      "tags": [
+        "Casual",
+        "Indie",
+        "Strategy"
+      ],
+      "last_update_ts": 1777827530,
+      "scraped_at": 1782758754
+    },
+    {
+      "appid": 4333320,
+      "title": "Car сhallenge",
+      "url": "https://store.steampowered.com/app/4333320",
+      "rating_pct": 64,
+      "review_count": 33,
+      "price_initial": 0.99,
+      "price_final": 0.49,
+      "discount_pct": 51,
+      "is_free": false,
+      "release_date": "Feb 10, 2026",
+      "release_ts": 1770681600,
+      "tags": [
+        "Action",
+        "Racing"
+      ],
+      "last_update_ts": null,
+      "scraped_at": 1782758749
+    },
+    {
+      "appid": 4333340,
+      "title": "Dumbers",
+      "url": "https://store.steampowered.com/app/4333340",
+      "rating_pct": 86,
+      "review_count": 7,
+      "price_initial": 3.99,
+      "price_final": 3.59,
+      "discount_pct": 10,
+      "is_free": false,
+      "release_date": "Feb 3, 2026",
+      "release_ts": 1770076800,
+      "tags": [
+        "Indie",
+        "Strategy"
+      ],
+      "last_update_ts": 1774136077,
+      "scraped_at": 1782758747
+    },
+    {
+      "appid": 4333410,
+      "title": "JAMBREDREK: TWO GUNS",
+      "url": "https://store.steampowered.com/app/4333410",
+      "rating_pct": 100,
+      "review_count": 2,
+      "price_initial": 1.99,
+      "price_final": 1.39,
+      "discount_pct": 30,
+      "is_free": false,
+      "release_date": "Feb 13, 2026",
+      "release_ts": 1770940800,
+      "tags": [
+        "Action",
+        "Indie"
+      ],
+      "last_update_ts": 1780510315,
+      "scraped_at": 1782758745
+    },
+    {
+      "appid": 4333440,
+      "title": "SNOTROCKET™",
+      "url": "https://store.steampowered.com/app/4333440",
+      "rating_pct": 89,
+      "review_count": 18,
+      "price_initial": 3.99,
+      "price_final": 3.99,
+      "discount_pct": 0,
+      "is_free": false,
+      "release_date": "Apr 28, 2026",
+      "release_ts": 1777334400,
+      "tags": [
+        "Action",
+        "Casual",
+        "Indie",
+        "Early Access"
+      ],
+      "last_update_ts": 1782677862,
+      "scraped_at": 1782758741
+    },
+    {
+      "appid": 4333460,
+      "title": "The Meter is Running",
+      "url": "https://store.steampowered.com/app/4333460",
+      "rating_pct": 79,
+      "review_count": 227,
+      "price_initial": 7.0,
+      "price_final": 5.6,
+      "discount_pct": 20,
+      "is_free": false,
+      "release_date": "May 22, 2026",
+      "release_ts": 1779408000,
+      "tags": [
+        "Indie",
+        "Simulation",
+        "Strategy"
+      ],
+      "last_update_ts": 1782416256,
+      "scraped_at": 1782758739
+    },
+    {
+      "appid": 4333610,
+      "title": "Unit League",
+      "url": "https://store.steampowered.com/app/4333610",
+      "rating_pct": null,
+      "review_count": 0,
+      "price_initial": 0.99,
+      "price_final": 0.99,
+      "discount_pct": 0,
+      "is_free": false,
+      "release_date": "Feb 4, 2026",
+      "release_ts": 1770163200,
+      "tags": [
+        "Indie",
+        "Simulation"
+      ],
+      "last_update_ts": null,
+      "scraped_at": 1782758732
+    },
+    {
+      "appid": 4333620,
+      "title": "HAKOTOREE",
+      "url": "https://store.steampowered.com/app/4333620",
+      "rating_pct": 100,
+      "review_count": 2,
+      "price_initial": 3.99,
+      "price_final": 1.99,
+      "discount_pct": 50,
+      "is_free": false,
+      "release_date": "Mar 12, 2026",
+      "release_ts": 1773273600,
+      "tags": [
+        "Action"
+      ],
+      "last_update_ts": null,
+      "scraped_at": 1782758729
+    },
+    {
+      "appid": 4333640,
+      "title": "OUTBREAK FALL: BIOHAZARD",
+      "url": "https://store.steampowered.com/app/4333640",
+      "rating_pct": 100,
+      "review_count": 3,
+      "price_initial": 2.99,
+      "price_final": 1.19,
+      "discount_pct": 60,
+      "is_free": false,
+      "release_date": "Feb 4, 2026",
+      "release_ts": 1770163200,
+      "tags": [
+        "Action",
+        "Adventure",
+        "Simulation"
+      ],
+      "last_update_ts": null,
+      "scraped_at": 1782758727
+    },
+    {
+      "appid": 4333700,
+      "title": "Knock",
+      "url": "https://store.steampowered.com/app/4333700",
+      "rating_pct": 71,
+      "review_count": 14,
+      "price_initial": 1.99,
+      "price_final": 0.99,
+      "discount_pct": 50,
+      "is_free": false,
+      "release_date": "Apr 3, 2026",
+      "release_ts": 1775174400,
+      "tags": [
+        "Adventure",
+        "Indie"
+      ],
+      "last_update_ts": 1777083348,
+      "scraped_at": 1782758724
+    },
+    {
+      "appid": 4333720,
+      "title": "Idle Roller",
+      "url": "https://store.steampowered.com/app/4333720",
+      "rating_pct": 100,
+      "review_count": 4,
+      "price_initial": 3.99,
+      "price_final": 2.59,
+      "discount_pct": 35,
+      "is_free": false,
+      "release_date": "Mar 9, 2026",
+      "release_ts": 1773014400,
+      "tags": [
+        "Casual",
+        "Indie"
+      ],
+      "last_update_ts": 1773107274,
+      "scraped_at": 1782758722
+    },
+    {
+      "appid": 4333730,
+      "title": "Qualial Nature",
+      "url": "https://store.steampowered.com/app/4333730",
+      "rating_pct": 50,
+      "review_count": 4,
+      "price_initial": null,
+      "price_final": null,
+      "discount_pct": 0,
+      "is_free": true,
+      "release_date": "Feb 21, 2026",
+      "release_ts": 1771632000,
+      "tags": [
+        "Casual",
+        "Indie",
+        "Simulation",
+        "Free To Play",
+        "Early Access"
+      ],
+      "last_update_ts": 1777475989,
+      "scraped_at": 1782758719
+    },
+    {
+      "appid": 4333760,
+      "title": "Detectives United: Vengeance from the Past Collector's Edition",
+      "url": "https://store.steampowered.com/app/4333760",
+      "rating_pct": null,
+      "review_count": 0,
+      "price_initial": 19.99,
+      "price_final": 9.99,
+      "discount_pct": 50,
+      "is_free": false,
+      "release_date": "Feb 23, 2026",
+      "release_ts": 1771804800,
+      "tags": [
+        "Adventure",
+        "Casual"
+      ],
+      "last_update_ts": null,
+      "scraped_at": 1782758717
+    },
+    {
+      "appid": 4333770,
+      "title": "Mona and the Witch's Hat Deluxe",
+      "url": "https://store.steampowered.com/app/4333770",
+      "rating_pct": 92,
+      "review_count": 12,
+      "price_initial": null,
+      "price_final": null,
+      "discount_pct": 0,
+      "is_free": true,
+      "release_date": "Feb 11, 2026",
+      "release_ts": 1770768000,
+      "tags": [
+        "Action",
+        "Adventure",
+        "Indie",
+        "Free To Play"
+      ],
+      "last_update_ts": null,
+      "scraped_at": 1782758715
+    },
+    {
+      "appid": 4333780,
+      "title": "Whippet At Large",
+      "url": "https://store.steampowered.com/app/4333780",
+      "rating_pct": 88,
+      "review_count": 8,
+      "price_initial": null,
+      "price_final": null,
+      "discount_pct": 0,
+      "is_free": true,
+      "release_date": "Feb 24, 2026",
+      "release_ts": 1771891200,
+      "tags": [
+        "RPG",
+        "Free To Play"
+      ],
+      "last_update_ts": null,
+      "scraped_at": 1782758713
+    },
+    {
+      "appid": 4333820,
+      "title": "Damashan Mountain in Guangxi Binyang County",
+      "url": "https://store.steampowered.com/app/4333820",
+      "rating_pct": 100,
+      "review_count": 1,
+      "price_initial": 0.99,
+      "price_final": 0.99,
+      "discount_pct": 0,
+      "is_free": false,
+      "release_date": "Feb 2, 2026",
+      "release_ts": 1769990400,
+      "tags": [
+        "Casual"
+      ],
+      "last_update_ts": null,
+      "scraped_at": 1782758709
+    },
+    {
+      "appid": 4333840,
+      "title": "Dash Trails",
+      "url": "https://store.steampowered.com/app/4333840",
+      "rating_pct": null,
+      "review_count": 0,
+      "price_initial": 9.99,
+      "price_final": 4.99,
+      "discount_pct": 50,
+      "is_free": false,
+      "release_date": "Feb 22, 2026",
+      "release_ts": 1771718400,
+      "tags": [
+        "Action",
+        "Adventure",
+        "Casual",
+        "Indie"
+      ],
+      "last_update_ts": null,
+      "scraped_at": 1782758707
+    },
+    {
+      "appid": 4333930,
+      "title": "NeonSurvivor",
+      "url": "https://store.steampowered.com/app/4333930",
+      "rating_pct": 0,
+      "review_count": 2,
+      "price_initial": 0.99,
+      "price_final": 0.79,
+      "discount_pct": 20,
+      "is_free": false,
+      "release_date": "Feb 7, 2026",
+      "release_ts": 1770422400,
+      "tags": [
+        "Casual",
+        "Indie",
+        "Strategy"
+      ],
+      "last_update_ts": null,
+      "scraped_at": 1782758702
+    },
+    {
+      "appid": 4333960,
+      "title": "TYPER3000",
+      "url": "https://store.steampowered.com/app/4333960",
+      "rating_pct": 100,
+      "review_count": 3,
+      "price_initial": 11.99,
+      "price_final": 11.99,
+      "discount_pct": 0,
+      "is_free": false,
+      "release_date": "Jun 2, 2026",
+      "release_ts": 1780358400,
+      "tags": [
+        "Action",
+        "Casual"
+      ],
+      "last_update_ts": 1782397480,
+      "scraped_at": 1782758699
+    },
+    {
+      "appid": 4334020,
+      "title": "SUITE:The Automated Card Engine",
+      "url": "https://store.steampowered.com/app/4334020",
+      "rating_pct": null,
+      "review_count": 0,
+      "price_initial": 5.99,
+      "price_final": 5.99,
+      "discount_pct": 0,
+      "is_free": false,
+      "release_date": "Jun 23, 2026",
+      "release_ts": 1782172800,
+      "tags": [
+        "Indie",
+        "Strategy"
+      ],
+      "last_update_ts": 1770393024,
+      "scraped_at": 1782758696
+    },
+    {
+      "appid": 4334140,
+      "title": "Transit Tag",
+      "url": "https://store.steampowered.com/app/4334140",
+      "rating_pct": null,
+      "review_count": 0,
+      "price_initial": 2.99,
+      "price_final": 2.24,
+      "discount_pct": 25,
+      "is_free": false,
+      "release_date": "Mar 5, 2026",
+      "release_ts": 1772668800,
+      "tags": [
+        "Indie",
+        "Strategy"
+      ],
+      "last_update_ts": null,
+      "scraped_at": 1782758685
+    },
+    {
+      "appid": 4334320,
+      "title": "Security Breach",
+      "url": "https://store.steampowered.com/app/4334320",
+      "rating_pct": null,
+      "review_count": 0,
+      "price_initial": 5.99,
+      "price_final": 5.99,
+      "discount_pct": 0,
+      "is_free": false,
+      "release_date": "Feb 11, 2026",
+      "release_ts": 1770768000,
+      "tags": [
+        "Casual",
+        "Indie"
+      ],
+      "last_update_ts": null,
+      "scraped_at": 1782758676
+    },
+    {
+      "appid": 4334390,
+      "title": "Never Ending",
+      "url": "https://store.steampowered.com/app/4334390",
+      "rating_pct": null,
+      "review_count": 0,
+      "price_initial": 2.99,
+      "price_final": 1.49,
+      "discount_pct": 50,
+      "is_free": false,
+      "release_date": "Feb 11, 2026",
+      "release_ts": 1770768000,
+      "tags": [
+        "RPG"
+      ],
+      "last_update_ts": null,
+      "scraped_at": 1782758673
+    },
+    {
+      "appid": 4334460,
+      "title": "Nmnmah",
+      "url": "https://store.steampowered.com/app/4334460",
+      "rating_pct": null,
+      "review_count": 0,
+      "price_initial": 6.99,
+      "price_final": 6.99,
+      "discount_pct": 0,
+      "is_free": false,
+      "release_date": "Feb 21, 2026",
+      "release_ts": 1771632000,
+      "tags": [
+        "Indie"
+      ],
+      "last_update_ts": null,
+      "scraped_at": 1782758670
+    },
+    {
+      "appid": 4334470,
+      "title": "Sweet Worker",
+      "url": "https://store.steampowered.com/app/4334470",
+      "rating_pct": null,
+      "review_count": 0,
+      "price_initial": 0.99,
+      "price_final": 0.84,
+      "discount_pct": 15,
+      "is_free": false,
+      "release_date": "Apr 23, 2026",
+      "release_ts": 1776902400,
+      "tags": [
+        "Casual",
+        "Indie"
+      ],
+      "last_update_ts": null,
+      "scraped_at": 1782758668
+    },
+    {
+      "appid": 4334550,
+      "title": "POLLUX - Space Runner",
+      "url": "https://store.steampowered.com/app/4334550",
+      "rating_pct": null,
+      "review_count": 0,
+      "price_initial": 4.99,
+      "price_final": 1.99,
+      "discount_pct": 60,
+      "is_free": false,
+      "release_date": "Mar 12, 2026",
+      "release_ts": 1773273600,
+      "tags": [
+        "Casual"
+      ],
+      "last_update_ts": null,
+      "scraped_at": 1782758662
+    },
+    {
+      "appid": 4334840,
+      "title": "Mesozoic Dawn",
+      "url": "https://store.steampowered.com/app/4334840",
+      "rating_pct": 71,
+      "review_count": 56,
+      "price_initial": null,
+      "price_final": null,
+      "discount_pct": 0,
+      "is_free": true,
+      "release_date": "Jun 21, 2026",
+      "release_ts": 1782000000,
+      "tags": [
+        "Indie",
+        "RPG",
+        "Simulation",
+        "Free To Play"
+      ],
+      "last_update_ts": 1782683569,
+      "scraped_at": 1782758650
+    },
+    {
+      "appid": 4335040,
+      "title": "Iron Graves",
+      "url": "https://store.steampowered.com/app/4335040",
+      "rating_pct": null,
+      "review_count": 0,
+      "price_initial": 9.99,
+      "price_final": 8.99,
+      "discount_pct": 10,
+      "is_free": false,
+      "release_date": "Apr 26, 2026",
+      "release_ts": 1777161600,
+      "tags": [
+        "Action",
+        "Adventure",
+        "Casual",
+        "Indie",
+        "Simulation",
+        "Strategy",
+        "Early Access"
+      ],
+      "last_update_ts": 1781512355,
+      "scraped_at": 1782758642
+    },
+    {
+      "appid": 4335060,
+      "title": "Minesweeper",
+      "url": "https://store.steampowered.com/app/4335060",
+      "rating_pct": 95,
+      "review_count": 20,
+      "price_initial": 3.99,
+      "price_final": 2.99,
+      "discount_pct": 25,
+      "is_free": false,
+      "release_date": "Mar 15, 2026",
+      "release_ts": 1773532800,
+      "tags": [
+        "Casual",
+        "Strategy"
+      ],
+      "last_update_ts": 1782290362,
+      "scraped_at": 1782758638
+    },
+    {
+      "appid": 4335210,
+      "title": "IMRY",
+      "url": "https://store.steampowered.com/app/4335210",
+      "rating_pct": 92,
+      "review_count": 13,
+      "price_initial": 7.99,
+      "price_final": 5.59,
+      "discount_pct": 30,
+      "is_free": false,
+      "release_date": "Feb 11, 2026",
+      "release_ts": 1770768000,
+      "tags": [
+        "Adventure",
+        "Indie",
+        "RPG"
+      ],
+      "last_update_ts": 1771187516,
+      "scraped_at": 1782758633
+    },
+    {
+      "appid": 4335270,
+      "title": "SHED",
+      "url": "https://store.steampowered.com/app/4335270",
+      "rating_pct": 100,
+      "review_count": 11,
+      "price_initial": 6.6,
+      "price_final": 5.28,
+      "discount_pct": 20,
+      "is_free": false,
+      "release_date": "Jun 23, 2026",
+      "release_ts": 1782172800,
+      "tags": [
+        "Casual",
+        "Indie",
+        "Strategy"
+      ],
+      "last_update_ts": 1782719353,
+      "scraped_at": 1782758631
+    },
+    {
+      "appid": 4335290,
+      "title": "Monster Tower",
+      "url": "https://store.steampowered.com/app/4335290",
+      "rating_pct": 100,
+      "review_count": 2,
+      "price_initial": 0.99,
+      "price_final": 0.99,
+      "discount_pct": 0,
+      "is_free": false,
+      "release_date": "Feb 4, 2026",
+      "release_ts": 1770163200,
+      "tags": [
+        "Indie"
+      ],
+      "last_update_ts": null,
+      "scraped_at": 1782758629
+    },
+    {
+      "appid": 4335420,
+      "title": "Hentai Sora",
+      "url": "https://store.steampowered.com/app/4335420",
+      "rating_pct": 93,
+      "review_count": 14,
+      "price_initial": 0.99,
+      "price_final": 0.49,
+      "discount_pct": 51,
+      "is_free": false,
+      "release_date": "Feb 26, 2026",
+      "release_ts": 1772064000,
+      "tags": [
+        "Casual",
+        "Indie",
+        "Sports",
+        "Strategy"
+      ],
+      "last_update_ts": null,
+      "scraped_at": 1782758626
+    },
+    {
+      "appid": 4335440,
+      "title": "Focus Knight: Productivity RPG",
+      "url": "https://store.steampowered.com/app/4335440",
+      "rating_pct": 70,
+      "review_count": 27,
+      "price_initial": null,
+      "price_final": null,
+      "discount_pct": 0,
+      "is_free": true,
+      "release_date": "Mar 23, 2026",
+      "release_ts": 1774224000,
+      "tags": [
+        "Casual",
+        "Indie",
+        "RPG",
+        "Free To Play"
+      ],
+      "last_update_ts": 1776541367,
+      "scraped_at": 1782758623
+    },
+    {
+      "appid": 4335450,
+      "title": "GYROPIA",
+      "url": "https://store.steampowered.com/app/4335450",
+      "rating_pct": 100,
+      "review_count": 53,
+      "price_initial": 4.99,
+      "price_final": 2.49,
+      "discount_pct": 50,
+      "is_free": false,
+      "release_date": "Apr 1, 2026",
+      "release_ts": 1775001600,
+      "tags": [
+        "Adventure"
+      ],
+      "last_update_ts": null,
+      "scraped_at": 1782758621
+    },
+    {
+      "appid": 4335460,
+      "title": "BOXROOM",
+      "url": "https://store.steampowered.com/app/4335460",
+      "rating_pct": 68,
+      "review_count": 215,
+      "price_initial": 7.99,
+      "price_final": 7.99,
+      "discount_pct": 0,
+      "is_free": false,
+      "release_date": "Jun 11, 2026",
+      "release_ts": 1781136000,
+      "tags": [
+        "Indie",
+        "Simulation",
+        "Strategy",
+        "Early Access"
+      ],
+      "last_update_ts": 1782392631,
+      "scraped_at": 1782758618
+    },
+    {
+      "appid": 4335660,
+      "title": "MíManny",
+      "url": "https://store.steampowered.com/app/4335660",
+      "rating_pct": 100,
+      "review_count": 2,
+      "price_initial": 0.99,
+      "price_final": 0.99,
+      "discount_pct": 0,
+      "is_free": false,
+      "release_date": "Mar 17, 2026",
+      "release_ts": 1773705600,
+      "tags": [
+        "Action",
+        "Adventure",
+        "Indie",
+        "Early Access"
+      ],
+      "last_update_ts": 1775749740,
+      "scraped_at": 1782758608
+    },
+    {
+      "appid": 4335670,
+      "title": "Altered Priest",
+      "url": "https://store.steampowered.com/app/4335670",
+      "rating_pct": 0,
+      "review_count": 1,
+      "price_initial": 9.99,
+      "price_final": 9.99,
+      "discount_pct": 0,
+      "is_free": false,
+      "release_date": "Apr 11, 2026",
+      "release_ts": 1775865600,
+      "tags": [
+        "Action",
+        "Early Access"
+      ],
+      "last_update_ts": null,
+      "scraped_at": 1782758606
+    },
+    {
+      "appid": 4335800,
+      "title": "Mesudoku",
+      "url": "https://store.steampowered.com/app/4335800",
+      "rating_pct": 56,
+      "review_count": 9,
+      "price_initial": null,
+      "price_final": null,
+      "discount_pct": 0,
+      "is_free": true,
+      "release_date": "Apr 14, 2026",
+      "release_ts": 1776124800,
+      "tags": [
+        "Casual",
+        "Indie",
+        "Free To Play"
+      ],
+      "last_update_ts": null,
+      "scraped_at": 1782758602
+    },
+    {
+      "appid": 4335890,
+      "title": "Can deliver?  Survival Kit",
+      "url": "https://store.steampowered.com/app/4335890",
+      "rating_pct": 93,
+      "review_count": 14,
+      "price_initial": 199.99,
+      "price_final": 9.99,
+      "discount_pct": 95,
+      "is_free": false,
+      "release_date": "Feb 12, 2026",
+      "release_ts": 1770854400,
+      "tags": [
+        "Action",
+        "Adventure",
+        "Casual",
+        "Indie",
+        "Racing",
+        "RPG",
+        "Simulation",
+        "Sports",
+        "Strategy"
+      ],
+      "last_update_ts": null,
+      "scraped_at": 1782758598
+    },
+    {
+      "appid": 4335910,
+      "title": "Catch the Turtle",
+      "url": "https://store.steampowered.com/app/4335910",
+      "rating_pct": 100,
+      "review_count": 12,
+      "price_initial": 199.99,
+      "price_final": 9.99,
+      "discount_pct": 95,
+      "is_free": false,
+      "release_date": "Feb 12, 2026",
+      "release_ts": 1770854400,
+      "tags": [
+        "Action",
+        "Adventure",
+        "Casual",
+        "Indie",
+        "Racing",
+        "RPG",
+        "Simulation",
+        "Sports",
+        "Strategy"
+      ],
+      "last_update_ts": null,
+      "scraped_at": 1782758595
+    },
+    {
+      "appid": 4335920,
+      "title": "Neon Curves Racing",
+      "url": "https://store.steampowered.com/app/4335920",
+      "rating_pct": 95,
+      "review_count": 107,
+      "price_initial": 12.99,
+      "price_final": 9.74,
+      "discount_pct": 25,
+      "is_free": false,
+      "release_date": "Feb 12, 2026",
+      "release_ts": 1770854400,
+      "tags": [
+        "Racing",
+        "Sports"
+      ],
+      "last_update_ts": 1770923668,
+      "scraped_at": 1782758592
+    },
+    {
+      "appid": 4335930,
+      "title": "Veiled Vents",
+      "url": "https://store.steampowered.com/app/4335930",
+      "rating_pct": null,
+      "review_count": 0,
+      "price_initial": 0.99,
+      "price_final": 0.84,
+      "discount_pct": 15,
+      "is_free": false,
+      "release_date": "Jun 21, 2026",
+      "release_ts": 1782000000,
+      "tags": [
+        "Adventure",
+        "Casual",
+        "Indie",
+        "RPG",
+        "Simulation",
+        "Early Access"
+      ],
+      "last_update_ts": 1782087521,
+      "scraped_at": 1782758590
+    },
+    {
+      "appid": 4336050,
+      "title": "Grim Hammer",
+      "url": "https://store.steampowered.com/app/4336050",
+      "rating_pct": 75,
+      "review_count": 12,
+      "price_initial": 2.99,
+      "price_final": 2.99,
+      "discount_pct": 0,
+      "is_free": false,
+      "release_date": "Feb 12, 2026",
+      "release_ts": 1770854400,
+      "tags": [
+        "Simulation"
+      ],
+      "last_update_ts": null,
+      "scraped_at": 1782758585
+    },
+    {
+      "appid": 4336060,
+      "title": "Final Payload",
+      "url": "https://store.steampowered.com/app/4336060",
+      "rating_pct": 82,
+      "review_count": 11,
+      "price_initial": 2.99,
+      "price_final": 2.99,
+      "discount_pct": 0,
+      "is_free": false,
+      "release_date": "Feb 12, 2026",
+      "release_ts": 1770854400,
+      "tags": [
+        "Casual"
+      ],
+      "last_update_ts": null,
+      "scraped_at": 1782758583
+    },
+    {
+      "appid": 4336190,
+      "title": "Omni Kitty",
+      "url": "https://store.steampowered.com/app/4336190",
+      "rating_pct": null,
+      "review_count": 0,
+      "price_initial": 4.99,
+      "price_final": 1.24,
+      "discount_pct": 75,
+      "is_free": false,
+      "release_date": "Feb 17, 2026",
+      "release_ts": 1771286400,
+      "tags": [
+        "Action",
+        "Indie"
+      ],
+      "last_update_ts": null,
+      "scraped_at": 1782758581
+    },
+    {
+      "appid": 4336370,
+      "title": "Cruel Paradise",
+      "url": "https://store.steampowered.com/app/4336370",
+      "rating_pct": null,
+      "review_count": 0,
+      "price_initial": 4.99,
+      "price_final": 4.99,
+      "discount_pct": 0,
+      "is_free": false,
+      "release_date": "Apr 23, 2026",
+      "release_ts": 1776902400,
+      "tags": [
+        "Action",
+        "Indie"
+      ],
+      "last_update_ts": 1777101619,
+      "scraped_at": 1782758569
+    },
+    {
+      "appid": 4336440,
+      "title": "Dead Lasso: Temple Of Shadows",
+      "url": "https://store.steampowered.com/app/4336440",
+      "rating_pct": 85,
+      "review_count": 13,
+      "price_initial": 1.99,
+      "price_final": 1.49,
+      "discount_pct": 25,
+      "is_free": false,
+      "release_date": "Feb 5, 2026",
+      "release_ts": 1770249600,
+      "tags": [
+        "Action",
+        "Adventure",
+        "Casual",
+        "Indie"
+      ],
+      "last_update_ts": null,
+      "scraped_at": 1782758563
+    },
+    {
+      "appid": 4336450,
+      "title": "Help Is On The Way",
+      "url": "https://store.steampowered.com/app/4336450",
+      "rating_pct": 96,
+      "review_count": 26,
+      "price_initial": null,
+      "price_final": null,
+      "discount_pct": 0,
+      "is_free": true,
+      "release_date": "Feb 6, 2026",
+      "release_ts": 1770336000,
+      "tags": [
+        "Simulation",
+        "Free To Play"
+      ],
+      "last_update_ts": null,
+      "scraped_at": 1782758561
+    },
+    {
+      "appid": 4336560,
+      "title": "Aarotonia Rising",
+      "url": "https://store.steampowered.com/app/4336560",
+      "rating_pct": 100,
+      "review_count": 1,
+      "price_initial": 4.99,
+      "price_final": 4.99,
+      "discount_pct": 0,
+      "is_free": false,
+      "release_date": "Mar 18, 2026",
+      "release_ts": 1773792000,
+      "tags": [
+        "Action",
+        "Adventure",
+        "Indie",
+        "RPG"
+      ],
+      "last_update_ts": 1776135515,
+      "scraped_at": 1782758550
+    },
+    {
+      "appid": 4336570,
+      "title": "Usurper Reborn",
+      "url": "https://store.steampowered.com/app/4336570",
+      "rating_pct": 95,
+      "review_count": 19,
+      "price_initial": 5.99,
+      "price_final": 2.99,
+      "discount_pct": 50,
+      "is_free": false,
+      "release_date": "Mar 12, 2026",
+      "release_ts": 1773273600,
+      "tags": [
+        "Action",
+        "Adventure",
+        "Casual",
+        "Indie",
+        "RPG",
+        "Early Access"
+      ],
+      "last_update_ts": 1782689764,
+      "scraped_at": 1782758548
+    },
+    {
+      "appid": 4336710,
+      "title": "Imperial Command",
+      "url": "https://store.steampowered.com/app/4336710",
+      "rating_pct": 100,
+      "review_count": 1,
+      "price_initial": 4.99,
+      "price_final": 2.99,
+      "discount_pct": 40,
+      "is_free": false,
+      "release_date": "Feb 27, 2026",
+      "release_ts": 1772150400,
+      "tags": [
+        "Indie",
+        "Strategy"
+      ],
+      "last_update_ts": 1772171916,
+      "scraped_at": 1782758544
+    },
+    {
+      "appid": 4336930,
+      "title": "Under the  Gray Sky",
+      "url": "https://store.steampowered.com/app/4336930",
+      "rating_pct": 100,
+      "review_count": 3,
+      "price_initial": 1.0,
+      "price_final": 1.0,
+      "discount_pct": 0,
+      "is_free": false,
+      "release_date": "Apr 29, 2026",
+      "release_ts": 1777420800,
+      "tags": [
+        "Adventure",
+        "Indie"
+      ],
+      "last_update_ts": null,
+      "scraped_at": 1782758535
+    },
+    {
+      "appid": 4337020,
+      "title": "Amanecer",
+      "url": "https://store.steampowered.com/app/4337020",
+      "rating_pct": 100,
+      "review_count": 1,
+      "price_initial": 1.99,
+      "price_final": 1.99,
+      "discount_pct": 0,
+      "is_free": false,
+      "release_date": "Feb 8, 2026",
+      "release_ts": 1770508800,
+      "tags": [
+        "Adventure",
+        "Indie"
+      ],
+      "last_update_ts": null,
+      "scraped_at": 1782758528
+    },
+    {
+      "appid": 4337100,
+      "title": "Unstimulated Simulator",
+      "url": "https://store.steampowered.com/app/4337100",
+      "rating_pct": 100,
+      "review_count": 18,
+      "price_initial": 0.99,
+      "price_final": 0.89,
+      "discount_pct": 10,
+      "is_free": false,
+      "release_date": "Feb 12, 2026",
+      "release_ts": 1770854400,
+      "tags": [
+        "Casual",
+        "Simulation"
+      ],
+      "last_update_ts": 1771301901,
+      "scraped_at": 1782758521
+    },
+    {
+      "appid": 4337150,
+      "title": "Hentai Tales: Night Service Duo",
+      "url": "https://store.steampowered.com/app/4337150",
+      "rating_pct": 90,
+      "review_count": 10,
+      "price_initial": 0.99,
+      "price_final": 0.59,
+      "discount_pct": 40,
+      "is_free": false,
+      "release_date": "Mar 12, 2026",
+      "release_ts": 1773273600,
+      "tags": [
+        "Casual",
+        "Indie",
+        "Strategy"
+      ],
+      "last_update_ts": null,
+      "scraped_at": 1782758519
+    },
+    {
+      "appid": 4337170,
+      "title": "My NEET Life",
+      "url": "https://store.steampowered.com/app/4337170",
+      "rating_pct": 100,
+      "review_count": 3,
+      "price_initial": 5.99,
+      "price_final": 5.09,
+      "discount_pct": 15,
+      "is_free": false,
+      "release_date": "Feb 19, 2026",
+      "release_ts": 1771459200,
+      "tags": [
+        "Adventure",
+        "Casual",
+        "Indie",
+        "RPG"
+      ],
+      "last_update_ts": 1772210543,
+      "scraped_at": 1782758517
+    },
+    {
+      "appid": 4337200,
+      "title": "Antpocalypse",
+      "url": "https://store.steampowered.com/app/4337200",
+      "rating_pct": null,
+      "review_count": 0,
+      "price_initial": 4.99,
+      "price_final": 4.99,
+      "discount_pct": 0,
+      "is_free": false,
+      "release_date": "Feb 5, 2026",
+      "release_ts": 1770249600,
+      "tags": [
+        "Casual",
+        "Indie"
+      ],
+      "last_update_ts": null,
+      "scraped_at": 1782758514
+    },
+    {
+      "appid": 4337210,
+      "title": "Berserker Onslaught",
+      "url": "https://store.steampowered.com/app/4337210",
+      "rating_pct": 67,
+      "review_count": 373,
+      "price_initial": 9.99,
+      "price_final": 6.99,
+      "discount_pct": 30,
+      "is_free": false,
+      "release_date": "May 20, 2026",
+      "release_ts": 1779235200,
+      "tags": [
+        "Action",
+        "Indie",
+        "RPG"
+      ],
+      "last_update_ts": 1781748764,
+      "scraped_at": 1782758512
+    },
+    {
+      "appid": 4337220,
+      "title": "Heisen-Bro Hustler",
+      "url": "https://store.steampowered.com/app/4337220",
+      "rating_pct": 60,
+      "review_count": 5,
+      "price_initial": null,
+      "price_final": null,
+      "discount_pct": 0,
+      "is_free": true,
+      "release_date": "Feb 10, 2026",
+      "release_ts": 1770681600,
+      "tags": [
+        "Casual",
+        "Indie",
+        "Simulation",
+        "Strategy",
+        "Free To Play"
+      ],
+      "last_update_ts": null,
+      "scraped_at": 1782758510
+    },
+    {
+      "appid": 4337240,
+      "title": "Hentai Tales: Possession Stream Nightmare Idol",
+      "url": "https://store.steampowered.com/app/4337240",
+      "rating_pct": 100,
+      "review_count": 8,
+      "price_initial": 0.99,
+      "price_final": 0.99,
+      "discount_pct": 0,
+      "is_free": false,
+      "release_date": "Apr 24, 2026",
+      "release_ts": 1776988800,
+      "tags": [
+        "Casual",
+        "Indie",
+        "Strategy"
+      ],
+      "last_update_ts": null,
+      "scraped_at": 1782758506
+    },
+    {
+      "appid": 4337450,
+      "title": "Hentai Age SCI-FI",
+      "url": "https://store.steampowered.com/app/4337450",
+      "rating_pct": 93,
+      "review_count": 14,
+      "price_initial": 0.99,
+      "price_final": 0.99,
+      "discount_pct": 0,
+      "is_free": false,
+      "release_date": "Feb 20, 2026",
+      "release_ts": 1771545600,
+      "tags": [
+        "Action",
+        "Casual",
+        "Indie"
+      ],
+      "last_update_ts": null,
+      "scraped_at": 1782758500
+    },
+    {
+      "appid": 4337510,
+      "title": "Restless Nights",
+      "url": "https://store.steampowered.com/app/4337510",
+      "rating_pct": 100,
+      "review_count": 13,
+      "price_initial": 9.99,
+      "price_final": 3.99,
+      "discount_pct": 60,
+      "is_free": false,
+      "release_date": "Feb 10, 2026",
+      "release_ts": 1770681600,
+      "tags": [
+        "Action",
+        "Indie",
+        "Strategy"
+      ],
+      "last_update_ts": 1772830770,
+      "scraped_at": 1782758496
+    },
+    {
+      "appid": 4337640,
+      "title": "The Unbroken line 不朽防线",
+      "url": "https://store.steampowered.com/app/4337640",
+      "rating_pct": null,
+      "review_count": 0,
+      "price_initial": 0.99,
+      "price_final": 0.99,
+      "discount_pct": 0,
+      "is_free": false,
+      "release_date": "Feb 7, 2026",
+      "release_ts": 1770422400,
+      "tags": [
+        "Casual",
+        "Strategy"
+      ],
+      "last_update_ts": null,
+      "scraped_at": 1782758492
+    },
+    {
+      "appid": 4337700,
+      "title": "HAKO TOWER",
+      "url": "https://store.steampowered.com/app/4337700",
+      "rating_pct": 100,
+      "review_count": 1,
+      "price_initial": 2.99,
+      "price_final": 2.09,
+      "discount_pct": 30,
+      "is_free": false,
+      "release_date": "Feb 19, 2026",
+      "release_ts": 1771459200,
+      "tags": [
+        "Action",
+        "Casual",
+        "Indie",
+        "Simulation",
+        "Strategy"
+      ],
+      "last_update_ts": null,
+      "scraped_at": 1782758488
+    },
+    {
+      "appid": 4337790,
+      "title": "Akuma Rise",
+      "url": "https://store.steampowered.com/app/4337790",
+      "rating_pct": 0,
+      "review_count": 1,
+      "price_initial": 19.99,
+      "price_final": 14.99,
+      "discount_pct": 25,
+      "is_free": false,
+      "release_date": "May 7, 2026",
+      "release_ts": 1778112000,
+      "tags": [
+        "Adventure",
+        "RPG",
+        "Simulation",
+        "Strategy"
+      ],
+      "last_update_ts": null,
+      "scraped_at": 1782758484
+    },
+    {
+      "appid": 4337830,
+      "title": "Jobless Hero",
+      "url": "https://store.steampowered.com/app/4337830",
+      "rating_pct": 90,
+      "review_count": 20,
+      "price_initial": 8.99,
+      "price_final": 8.09,
+      "discount_pct": 10,
+      "is_free": false,
+      "release_date": "Apr 17, 2026",
+      "release_ts": 1776384000,
+      "tags": [
+        "Casual",
+        "Simulation",
+        "Strategy"
+      ],
+      "last_update_ts": null,
+      "scraped_at": 1782758482
+    },
+    {
+      "appid": 4337900,
+      "title": "Clicky Bunny",
+      "url": "https://store.steampowered.com/app/4337900",
+      "rating_pct": 67,
+      "review_count": 3,
+      "price_initial": 3.99,
+      "price_final": 3.19,
+      "discount_pct": 20,
+      "is_free": false,
+      "release_date": "May 18, 2026",
+      "release_ts": 1779062400,
+      "tags": [
+        "Casual",
+        "Indie",
+        "Simulation"
+      ],
+      "last_update_ts": 1779097752,
+      "scraped_at": 1782758478
+    },
+    {
+      "appid": 4338030,
+      "title": "Kantmis-Zero",
+      "url": "https://store.steampowered.com/app/4338030",
+      "rating_pct": 100,
+      "review_count": 1,
+      "price_initial": 0.99,
+      "price_final": 0.99,
+      "discount_pct": 0,
+      "is_free": false,
+      "release_date": "Feb 9, 2026",
+      "release_ts": 1770595200,
+      "tags": [
+        "Action",
+        "Indie"
+      ],
+      "last_update_ts": null,
+      "scraped_at": 1782758476
+    },
+    {
+      "appid": 4338130,
+      "title": "Isekai Guild Simulation",
+      "url": "https://store.steampowered.com/app/4338130",
+      "rating_pct": 100,
+      "review_count": 3,
+      "price_initial": 3.99,
+      "price_final": 2.99,
+      "discount_pct": 25,
+      "is_free": false,
+      "release_date": "Mar 20, 2026",
+      "release_ts": 1773964800,
+      "tags": [
+        "Simulation"
+      ],
+      "last_update_ts": 1779812535,
+      "scraped_at": 1782758469
+    },
+    {
+      "appid": 4338280,
+      "title": "Chickey Kong",
+      "url": "https://store.steampowered.com/app/4338280",
+      "rating_pct": null,
+      "review_count": 0,
+      "price_initial": 1.99,
+      "price_final": 1.99,
+      "discount_pct": 0,
+      "is_free": false,
+      "release_date": "Apr 13, 2026",
+      "release_ts": 1776038400,
+      "tags": [
+        "Adventure",
+        "Casual"
+      ],
+      "last_update_ts": null,
+      "scraped_at": 1782758460
+    },
+    {
+      "appid": 4338450,
+      "title": "Heavy Is The Crown",
+      "url": "https://store.steampowered.com/app/4338450",
+      "rating_pct": 100,
+      "review_count": 2,
+      "price_initial": 1.99,
+      "price_final": 1.69,
+      "discount_pct": 15,
+      "is_free": false,
+      "release_date": "Jun 18, 2026",
+      "release_ts": 1781740800,
+      "tags": [
+        "Action",
+        "Casual",
+        "Indie"
+      ],
+      "last_update_ts": null,
+      "scraped_at": 1782758453
+    },
+    {
+      "appid": 4338460,
+      "title": "Lost Lands: Stories about the Sorceress, the Prince and the Minotaur Collector's Edition",
+      "url": "https://store.steampowered.com/app/4338460",
+      "rating_pct": 100,
+      "review_count": 20,
+      "price_initial": 9.99,
+      "price_final": 9.99,
+      "discount_pct": 0,
+      "is_free": false,
+      "release_date": "Mar 10, 2026",
+      "release_ts": 1773100800,
+      "tags": [
+        "Adventure",
+        "Casual"
+      ],
+      "last_update_ts": null,
+      "scraped_at": 1782758451
+    },
+    {
+      "appid": 4338470,
+      "title": "Only Jump",
+      "url": "https://store.steampowered.com/app/4338470",
+      "rating_pct": null,
+      "review_count": 0,
+      "price_initial": 0.99,
+      "price_final": 0.99,
+      "discount_pct": 0,
+      "is_free": false,
+      "release_date": "Mar 6, 2026",
+      "release_ts": 1772755200,
+      "tags": [
+        "Adventure",
+        "Casual",
+        "Indie",
+        "Strategy"
+      ],
+      "last_update_ts": null,
+      "scraped_at": 1782758449
+    },
+    {
+      "appid": 4338480,
+      "title": "The Angel's Mandate",
+      "url": "https://store.steampowered.com/app/4338480",
+      "rating_pct": 88,
+      "review_count": 8,
+      "price_initial": 4.99,
+      "price_final": 4.99,
+      "discount_pct": 0,
+      "is_free": false,
+      "release_date": "May 27, 2026",
+      "release_ts": 1779840000,
+      "tags": [
+        "Adventure",
+        "Indie"
+      ],
+      "last_update_ts": 1781091704,
+      "scraped_at": 1782758446
+    },
+    {
+      "appid": 4338560,
+      "title": "JOTT : Jump Over The Time",
+      "url": "https://store.steampowered.com/app/4338560",
+      "rating_pct": 100,
+      "review_count": 6,
+      "price_initial": 4.99,
+      "price_final": 4.99,
+      "discount_pct": 0,
+      "is_free": false,
+      "release_date": "Apr 15, 2026",
+      "release_ts": 1776211200,
+      "tags": [
+        "Action",
+        "Indie"
+      ],
+      "last_update_ts": 1781189520,
+      "scraped_at": 1782758442
+    },
+    {
+      "appid": 4338700,
+      "title": "Desperate Cavern",
+      "url": "https://store.steampowered.com/app/4338700",
+      "rating_pct": null,
+      "review_count": 0,
+      "price_initial": 19.99,
+      "price_final": 19.99,
+      "discount_pct": 0,
+      "is_free": false,
+      "release_date": "Mar 14, 2026",
+      "release_ts": 1773446400,
+      "tags": [
+        "Adventure",
+        "Casual",
+        "Indie",
+        "RPG"
+      ],
+      "last_update_ts": null,
+      "scraped_at": 1782758436
+    },
+    {
+      "appid": 4338780,
+      "title": "MicroFab",
+      "url": "https://store.steampowered.com/app/4338780",
+      "rating_pct": 76,
+      "review_count": 17,
+      "price_initial": 4.99,
+      "price_final": 3.99,
+      "discount_pct": 20,
+      "is_free": false,
+      "release_date": "May 15, 2026",
+      "release_ts": 1778803200,
+      "tags": [
+        "Simulation"
+      ],
+      "last_update_ts": 1774532937,
+      "scraped_at": 1782758427
+    },
+    {
+      "appid": 4338790,
+      "title": "HOS - House of Shadows",
+      "url": "https://store.steampowered.com/app/4338790",
+      "rating_pct": null,
+      "review_count": 0,
+      "price_initial": 1.99,
+      "price_final": 1.99,
+      "discount_pct": 0,
+      "is_free": false,
+      "release_date": "Feb 13, 2026",
+      "release_ts": 1770940800,
+      "tags": [
+        "Adventure",
+        "Casual",
+        "Indie"
+      ],
+      "last_update_ts": null,
+      "scraped_at": 1782758424
+    },
+    {
+      "appid": 4338800,
+      "title": "天道模拟器之放置修仙",
+      "url": "https://store.steampowered.com/app/4338800",
+      "rating_pct": 90,
+      "review_count": 42,
+      "price_initial": null,
+      "price_final": null,
+      "discount_pct": 0,
+      "is_free": true,
+      "release_date": "Apr 2, 2026",
+      "release_ts": 1775088000,
+      "tags": [
+        "Casual",
+        "Indie",
+        "Massively Multiplayer",
+        "RPG",
+        "Simulation",
+        "Free To Play",
+        "Early Access"
+      ],
+      "last_update_ts": null,
+      "scraped_at": 1782758422
+    },
+    {
+      "appid": 4339040,
+      "title": "My Little Merling",
+      "url": "https://store.steampowered.com/app/4339040",
+      "rating_pct": 100,
+      "review_count": 1,
+      "price_initial": 5.99,
+      "price_final": 5.99,
+      "discount_pct": 0,
+      "is_free": false,
+      "release_date": "Feb 9, 2026",
+      "release_ts": 1770595200,
+      "tags": [
+        "Simulation"
+      ],
+      "last_update_ts": null,
+      "scraped_at": 1782758411
+    },
+    {
+      "appid": 4339080,
+      "title": "Slot or Die",
+      "url": "https://store.steampowered.com/app/4339080",
+      "rating_pct": 50,
+      "review_count": 4,
+      "price_initial": 13.99,
+      "price_final": 11.19,
+      "discount_pct": 20,
+      "is_free": false,
+      "release_date": "Jun 25, 2026",
+      "release_ts": 1782345600,
+      "tags": [
+        "Action",
+        "Casual",
+        "Indie",
+        "RPG",
+        "Strategy"
+      ],
+      "last_update_ts": 1781542813,
+      "scraped_at": 1782758407
+    },
+    {
+      "appid": 4339200,
+      "title": "Choiceline Brawl",
+      "url": "https://store.steampowered.com/app/4339200",
+      "rating_pct": 75,
+      "review_count": 8,
+      "price_initial": null,
+      "price_final": null,
+      "discount_pct": 0,
+      "is_free": true,
+      "release_date": "Apr 9, 2026",
+      "release_ts": 1775692800,
+      "tags": [
+        "Action",
+        "Indie",
+        "Strategy",
+        "Free To Play"
+      ],
+      "last_update_ts": 1777561293,
+      "scraped_at": 1782758405
+    },
+    {
+      "appid": 4339340,
+      "title": "The Forgotten Killer",
+      "url": "https://store.steampowered.com/app/4339340",
+      "rating_pct": null,
+      "review_count": 0,
+      "price_initial": 4.99,
+      "price_final": 4.99,
+      "discount_pct": 0,
+      "is_free": false,
+      "release_date": "May 28, 2026",
+      "release_ts": 1779926400,
+      "tags": [
+        "Action",
+        "Adventure",
+        "Casual",
+        "Strategy"
+      ],
+      "last_update_ts": 1781977599,
+      "scraped_at": 1782758396
+    },
+    {
+      "appid": 4339350,
+      "title": "Cite",
+      "url": "https://store.steampowered.com/app/4339350",
+      "rating_pct": 100,
+      "review_count": 4,
+      "price_initial": 2.99,
+      "price_final": 2.99,
+      "discount_pct": 0,
+      "is_free": false,
+      "release_date": "Mar 17, 2026",
+      "release_ts": 1773705600,
+      "tags": [
+        "Casual",
+        "Strategy"
+      ],
+      "last_update_ts": null,
+      "scraped_at": 1782758394
+    },
+    {
+      "appid": 4339530,
+      "title": "Runeomicon: Training Room",
+      "url": "https://store.steampowered.com/app/4339530",
+      "rating_pct": 33,
+      "review_count": 3,
+      "price_initial": null,
+      "price_final": null,
+      "discount_pct": 0,
+      "is_free": true,
+      "release_date": "Feb 23, 2026",
+      "release_ts": 1771804800,
+      "tags": [
+        "Action",
+        "Indie",
+        "Strategy",
+        "Free To Play"
+      ],
+      "last_update_ts": 1771878127,
+      "scraped_at": 1782758384
+    },
+    {
+      "appid": 4339660,
+      "title": "SUPROTYV",
+      "url": "https://store.steampowered.com/app/4339660",
+      "rating_pct": 71,
+      "review_count": 7,
+      "price_initial": 1.0,
+      "price_final": 1.0,
+      "discount_pct": 0,
+      "is_free": false,
+      "release_date": "Apr 23, 2026",
+      "release_ts": 1776902400,
+      "tags": [
+        "Action",
+        "Indie",
+        "Early Access"
+      ],
+      "last_update_ts": 1782651170,
+      "scraped_at": 1782758371
+    },
+    {
+      "appid": 4340100,
+      "title": "Dangerous Shark Depths",
+      "url": "https://store.steampowered.com/app/4340100",
+      "rating_pct": null,
+      "review_count": 0,
+      "price_initial": 199.99,
+      "price_final": 199.99,
+      "discount_pct": 0,
+      "is_free": false,
+      "release_date": "Apr 12, 2026",
+      "release_ts": 1775952000,
+      "tags": [
+        "Adventure",
+        "Casual"
+      ],
+      "last_update_ts": null,
+      "scraped_at": 1782758350
+    },
+    {
+      "appid": 4340110,
+      "title": "Ghost Mansion Run",
+      "url": "https://store.steampowered.com/app/4340110",
+      "rating_pct": null,
+      "review_count": 0,
+      "price_initial": 199.99,
+      "price_final": 199.99,
+      "discount_pct": 0,
+      "is_free": false,
+      "release_date": "Apr 12, 2026",
+      "release_ts": 1775952000,
+      "tags": [
+        "Action",
+        "Adventure",
+        "Casual"
+      ],
+      "last_update_ts": null,
+      "scraped_at": 1782758347
+    },
+    {
+      "appid": 4340120,
+      "title": "Ninja Soldier Raid",
+      "url": "https://store.steampowered.com/app/4340120",
+      "rating_pct": null,
+      "review_count": 0,
+      "price_initial": 199.99,
+      "price_final": 199.99,
+      "discount_pct": 0,
+      "is_free": false,
+      "release_date": "Apr 12, 2026",
+      "release_ts": 1775952000,
+      "tags": [
+        "Action",
+        "Adventure",
+        "Casual"
+      ],
+      "last_update_ts": null,
+      "scraped_at": 1782758345
+    },
+    {
+      "appid": 4340130,
+      "title": "WorldDrive: Real Open-World Driving Simulator",
+      "url": "https://store.steampowered.com/app/4340130",
+      "rating_pct": 38,
+      "review_count": 16,
+      "price_initial": 19.99,
+      "price_final": 19.99,
+      "discount_pct": 0,
+      "is_free": false,
+      "release_date": "Jun 3, 2026",
+      "release_ts": 1780444800,
+      "tags": [
+        "Adventure",
+        "Casual",
+        "Indie",
+        "Racing",
+        "Simulation",
+        "Early Access"
+      ],
+      "last_update_ts": 1781537854,
+      "scraped_at": 1782758343
+    },
+    {
+      "appid": 4340250,
+      "title": "Myriad Realms",
+      "url": "https://store.steampowered.com/app/4340250",
+      "rating_pct": 83,
+      "review_count": 23,
+      "price_initial": 3.99,
+      "price_final": 3.19,
+      "discount_pct": 20,
+      "is_free": false,
+      "release_date": "Jun 23, 2026",
+      "release_ts": 1782172800,
+      "tags": [
+        "Adventure",
+        "Casual",
+        "Indie",
+        "RPG"
+      ],
+      "last_update_ts": 1782371938,
+      "scraped_at": 1782758336
+    },
+    {
+      "appid": 4340290,
+      "title": "Cosmic Order Fleet",
+      "url": "https://store.steampowered.com/app/4340290",
+      "rating_pct": 100,
+      "review_count": 3,
+      "price_initial": 4.99,
+      "price_final": 0.74,
+      "discount_pct": 85,
+      "is_free": false,
+      "release_date": "Feb 8, 2026",
+      "release_ts": 1770508800,
+      "tags": [
+        "Indie",
+        "Strategy"
+      ],
+      "last_update_ts": 1771694362,
+      "scraped_at": 1782758332
+    },
+    {
+      "appid": 4340390,
+      "title": "Revenger ORIGIN",
+      "url": "https://store.steampowered.com/app/4340390",
+      "rating_pct": 80,
+      "review_count": 5,
+      "price_initial": 0.99,
+      "price_final": 0.69,
+      "discount_pct": 30,
+      "is_free": false,
+      "release_date": "Feb 25, 2026",
+      "release_ts": 1771977600,
+      "tags": [
+        "RPG"
+      ],
+      "last_update_ts": null,
+      "scraped_at": 1782758321
+    },
+    {
+      "appid": 4340510,
+      "title": "Alehundred",
+      "url": "https://store.steampowered.com/app/4340510",
+      "rating_pct": 75,
+      "review_count": 4,
+      "price_initial": null,
+      "price_final": null,
+      "discount_pct": 0,
+      "is_free": true,
+      "release_date": "Jun 4, 2026",
+      "release_ts": 1780531200,
+      "tags": [
+        "Action",
+        "Adventure",
+        "Casual",
+        "Indie",
+        "Free To Play",
+        "Early Access"
+      ],
+      "last_update_ts": 1782190928,
+      "scraped_at": 1782758318
+    },
+    {
+      "appid": 4340560,
+      "title": "BLOCLASH",
+      "url": "https://store.steampowered.com/app/4340560",
+      "rating_pct": 50,
+      "review_count": 2,
+      "price_initial": 4.99,
+      "price_final": 2.99,
+      "discount_pct": 40,
+      "is_free": false,
+      "release_date": "Feb 11, 2026",
+      "release_ts": 1770768000,
+      "tags": [
+        "Action",
+        "Casual",
+        "Indie"
+      ],
+      "last_update_ts": 1776301752,
+      "scraped_at": 1782758315
+    },
+    {
+      "appid": 4340600,
+      "title": "Team Principal: A Racing Manager",
+      "url": "https://store.steampowered.com/app/4340600",
+      "rating_pct": 94,
+      "review_count": 50,
+      "price_initial": 12.99,
+      "price_final": 11.69,
+      "discount_pct": 10,
+      "is_free": false,
+      "release_date": "Feb 12, 2026",
+      "release_ts": 1770854400,
+      "tags": [
+        "Simulation",
+        "Early Access"
+      ],
+      "last_update_ts": 1782700667,
+      "scraped_at": 1782758313
+    },
+    {
+      "appid": 4340610,
+      "title": "IRIS",
+      "url": "https://store.steampowered.com/app/4340610",
+      "rating_pct": 88,
+      "review_count": 8,
+      "price_initial": null,
+      "price_final": null,
+      "discount_pct": 0,
+      "is_free": true,
+      "release_date": "Feb 5, 2026",
+      "release_ts": 1770249600,
+      "tags": [
+        "Casual",
+        "Indie",
+        "Free To Play"
+      ],
+      "last_update_ts": null,
+      "scraped_at": 1782758311
+    },
+    {
+      "appid": 4340640,
+      "title": "Zeri Factory",
+      "url": "https://store.steampowered.com/app/4340640",
+      "rating_pct": null,
+      "review_count": 0,
+      "price_initial": 16.99,
+      "price_final": 3.39,
+      "discount_pct": 80,
+      "is_free": false,
+      "release_date": "Feb 19, 2026",
+      "release_ts": 1771459200,
+      "tags": [
+        "Action",
+        "Indie"
+      ],
+      "last_update_ts": null,
+      "scraped_at": 1782758309
+    },
+    {
+      "appid": 4340810,
+      "title": "Echoed Nights",
+      "url": "https://store.steampowered.com/app/4340810",
+      "rating_pct": 80,
+      "review_count": 5,
+      "price_initial": null,
+      "price_final": null,
+      "discount_pct": 0,
+      "is_free": true,
+      "release_date": "Mar 5, 2026",
+      "release_ts": 1772668800,
+      "tags": [
+        "Indie",
+        "Free To Play"
+      ],
+      "last_update_ts": null,
+      "scraped_at": 1782758305
+    },
+    {
+      "appid": 4340820,
+      "title": "Isekai Villain",
+      "url": "https://store.steampowered.com/app/4340820",
+      "rating_pct": 75,
+      "review_count": 4,
+      "price_initial": 19.99,
+      "price_final": 19.99,
+      "discount_pct": 0,
+      "is_free": false,
+      "release_date": "Jun 4, 2026",
+      "release_ts": 1780531200,
+      "tags": [
+        "Adventure",
+        "RPG",
+        "Simulation",
+        "Strategy"
+      ],
+      "last_update_ts": null,
+      "scraped_at": 1782758303
+    },
+    {
+      "appid": 4340880,
+      "title": "VILOVEJETS",
+      "url": "https://store.steampowered.com/app/4340880",
+      "rating_pct": 92,
+      "review_count": 13,
+      "price_initial": 9.99,
+      "price_final": 0.79,
+      "discount_pct": 92,
+      "is_free": false,
+      "release_date": "Feb 4, 2026",
+      "release_ts": 1770163200,
+      "tags": [
+        "Action",
+        "Adventure",
+        "Casual",
+        "Simulation",
+        "Sports"
+      ],
+      "last_update_ts": null,
+      "scraped_at": 1782758301
+    },
+    {
+      "appid": 4340900,
+      "title": "女世異-Josei",
+      "url": "https://store.steampowered.com/app/4340900",
+      "rating_pct": 50,
+      "review_count": 2,
+      "price_initial": null,
+      "price_final": null,
+      "discount_pct": 0,
+      "is_free": true,
+      "release_date": "Feb 6, 2026",
+      "release_ts": 1770336000,
+      "tags": [
+        "Indie",
+        "Free To Play"
+      ],
+      "last_update_ts": 1777942738,
+      "scraped_at": 1782758299
+    },
+    {
+      "appid": 4340940,
+      "title": "Between",
+      "url": "https://store.steampowered.com/app/4340940",
+      "rating_pct": 100,
+      "review_count": 1,
+      "price_initial": 4.99,
+      "price_final": 2.49,
+      "discount_pct": 50,
+      "is_free": false,
+      "release_date": "Apr 15, 2026",
+      "release_ts": 1776211200,
+      "tags": [
+        "Adventure"
+      ],
+      "last_update_ts": null,
+      "scraped_at": 1782758297
+    },
+    {
+      "appid": 4341050,
+      "title": "摆脱它",
+      "url": "https://store.steampowered.com/app/4341050",
+      "rating_pct": null,
+      "review_count": 0,
+      "price_initial": 1.99,
+      "price_final": 1.99,
+      "discount_pct": 0,
+      "is_free": false,
+      "release_date": "Feb 12, 2026",
+      "release_ts": 1770854400,
+      "tags": [
+        "Adventure"
+      ],
+      "last_update_ts": null,
+      "scraped_at": 1782758292
+    },
+    {
+      "appid": 4341080,
+      "title": "HearHen",
+      "url": "https://store.steampowered.com/app/4341080",
+      "rating_pct": 75,
+      "review_count": 8,
+      "price_initial": null,
+      "price_final": null,
+      "discount_pct": 0,
+      "is_free": true,
+      "release_date": "Feb 11, 2026",
+      "release_ts": 1770768000,
+      "tags": [
+        "Casual",
+        "Indie",
+        "Simulation",
+        "Free To Play"
+      ],
+      "last_update_ts": null,
+      "scraped_at": 1782758290
     },
     {
       "appid": 4341280,
