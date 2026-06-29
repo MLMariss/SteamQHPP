@@ -1,5 +1,5 @@
 {
-  "generated_at": 1782696934,
+  "generated_at": 1782731630,
   "count": 3183,
   "games": [
     {
@@ -7,11 +7,10 @@
       "title": "Counter-Strike",
       "url": "https://store.steampowered.com/app/10",
       "rating_pct": 97,
-      "review_count": 260264,
+      "review_count": 260280,
       "price_initial": 9.99,
       "price_final": 1.99,
       "discount_pct": 80,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Nov 1, 2000",
       "release_ts": 973036800,
@@ -26,25 +25,17 @@
         "Competitive"
       ],
       "last_update_ts": 1739968505,
-      "hltb_main": 25.4,
-      "hltb_extra": 91.3,
-      "hltb_complete": 774.8,
-      "hltb_avg": 297.2,
-      "hltb_match": "Counter-Strike",
-      "qhpp_before": 28.857,
-      "qhpp_after": 144.866,
-      "scraped_at": 1782686527
+      "scraped_at": 1782731221
     },
     {
       "appid": 70,
       "title": "Half-Life",
       "url": "https://store.steampowered.com/app/70",
       "rating_pct": 97,
-      "review_count": 161706,
+      "review_count": 161726,
       "price_initial": 9.99,
       "price_final": 1.99,
       "discount_pct": 80,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Nov 19, 1998",
       "release_ts": 911433600,
@@ -59,25 +50,17 @@
         "Action"
       ],
       "last_update_ts": 1765645200,
-      "hltb_main": 12.0,
-      "hltb_extra": 14.1,
-      "hltb_complete": 15.4,
-      "hltb_avg": 13.8,
-      "hltb_match": "Half-Life",
-      "qhpp_before": 1.34,
-      "qhpp_after": 6.727,
-      "scraped_at": 1782686533
+      "scraped_at": 1782731224
     },
     {
       "appid": 220,
       "title": "Half-Life 2",
       "url": "https://store.steampowered.com/app/220",
       "rating_pct": 98,
-      "review_count": 274596,
+      "review_count": 274639,
       "price_initial": 9.99,
       "price_final": 1.99,
       "discount_pct": 80,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Nov 16, 2004",
       "release_ts": 1100563200,
@@ -92,25 +75,17 @@
         "First-Person"
       ],
       "last_update_ts": 1782577705,
-      "hltb_main": 12.9,
-      "hltb_extra": 15.6,
-      "hltb_complete": 19.9,
-      "hltb_avg": 16.1,
-      "hltb_match": "Half-Life 2",
-      "qhpp_before": 1.579,
-      "qhpp_after": 7.929,
-      "scraped_at": 1782686872
+      "scraped_at": 1782731409
     },
     {
       "appid": 240,
       "title": "Counter-Strike: Source",
       "url": "https://store.steampowered.com/app/240",
       "rating_pct": 96,
-      "review_count": 191846,
+      "review_count": 191861,
       "price_initial": 9.99,
       "price_final": 1.99,
       "discount_pct": 80,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Nov 1, 2004",
       "release_ts": 1099267200,
@@ -125,25 +100,17 @@
         "Tactical"
       ],
       "last_update_ts": 1739910347,
-      "hltb_main": 67.1,
-      "hltb_extra": 113.6,
-      "hltb_complete": 411.2,
-      "hltb_avg": 197.3,
-      "hltb_match": "Counter-Strike: Source",
-      "qhpp_before": 18.96,
-      "qhpp_after": 95.18,
-      "scraped_at": 1782686537
+      "scraped_at": 1782731227
     },
     {
       "appid": 400,
       "title": "Portal",
       "url": "https://store.steampowered.com/app/400",
       "rating_pct": 99,
-      "review_count": 195459,
+      "review_count": 195503,
       "price_initial": 9.99,
       "price_final": 1.99,
       "discount_pct": 80,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Oct 10, 2007",
       "release_ts": 1191974400,
@@ -158,25 +125,17 @@
         "Female Protagonist"
       ],
       "last_update_ts": 1751034429,
-      "hltb_main": 3.1,
-      "hltb_extra": 5.2,
-      "hltb_complete": 10.5,
-      "hltb_avg": 6.3,
-      "hltb_match": "Portal",
-      "qhpp_before": 0.624,
-      "qhpp_after": 3.134,
-      "scraped_at": 1782686877
+      "scraped_at": 1782731412
     },
     {
       "appid": 500,
       "title": "Left 4 Dead",
       "url": "https://store.steampowered.com/app/500",
       "rating_pct": 96,
-      "review_count": 67101,
+      "review_count": 67112,
       "price_initial": 9.99,
       "price_final": 1.99,
       "discount_pct": 80,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Nov 17, 2008",
       "release_ts": 1226880000,
@@ -191,25 +150,17 @@
         "Online Co-Op"
       ],
       "last_update_ts": 1782487859,
-      "hltb_main": 7.0,
-      "hltb_extra": 18.8,
-      "hltb_complete": 58.8,
-      "hltb_avg": 28.2,
-      "hltb_match": "Left 4 Dead",
-      "qhpp_before": 2.71,
-      "qhpp_after": 13.604,
-      "scraped_at": 1782686543
+      "scraped_at": 1782731230
     },
     {
       "appid": 550,
       "title": "Left 4 Dead 2",
       "url": "https://store.steampowered.com/app/550",
       "rating_pct": 98,
-      "review_count": 1040693,
+      "review_count": 1040888,
       "price_initial": 9.99,
       "price_final": 1.99,
       "discount_pct": 80,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Nov 16, 2009",
       "release_ts": 1258329600,
@@ -224,25 +175,17 @@
         "Survival"
       ],
       "last_update_ts": 1782493444,
-      "hltb_main": 10.2,
-      "hltb_extra": 27.9,
-      "hltb_complete": 61.4,
-      "hltb_avg": 33.2,
-      "hltb_match": "Left 4 Dead 2",
-      "qhpp_before": 3.257,
-      "qhpp_after": 16.35,
-      "scraped_at": 1782686882
+      "scraped_at": 1782731415
     },
     {
       "appid": 620,
       "title": "Portal 2",
       "url": "https://store.steampowered.com/app/620",
       "rating_pct": 99,
-      "review_count": 461479,
+      "review_count": 461528,
       "price_initial": 9.99,
       "price_final": 1.99,
       "discount_pct": 80,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Apr 18, 2011",
       "release_ts": 1303084800,
@@ -257,25 +200,17 @@
         "Female Protagonist"
       ],
       "last_update_ts": 1782489423,
-      "hltb_main": 8.5,
-      "hltb_extra": 13.7,
-      "hltb_complete": 22.5,
-      "hltb_avg": 14.9,
-      "hltb_match": "Portal 2",
-      "qhpp_before": 1.477,
-      "qhpp_after": 7.413,
-      "scraped_at": 1782686887
+      "scraped_at": 1782731418
     },
     {
       "appid": 2280,
       "title": "DOOM + DOOM II",
       "url": "https://store.steampowered.com/app/2280",
       "rating_pct": 97,
-      "review_count": 28370,
+      "review_count": 28371,
       "price_initial": 9.99,
       "price_final": 3.99,
       "discount_pct": 60,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Aug 3, 2007",
       "release_ts": 1186099200,
@@ -290,25 +225,17 @@
         "Demons"
       ],
       "last_update_ts": 1744300315,
-      "hltb_main": 11.9,
-      "hltb_extra": 25.4,
-      "hltb_complete": 39.5,
-      "hltb_avg": 25.6,
-      "hltb_match": "DOOM + DOOM II",
-      "qhpp_before": 2.486,
-      "qhpp_after": 6.224,
-      "scraped_at": 1782686548
+      "scraped_at": 1782731232
     },
     {
       "appid": 2310,
       "title": "Quake",
       "url": "https://store.steampowered.com/app/2310",
       "rating_pct": 97,
-      "review_count": 15525,
+      "review_count": 15526,
       "price_initial": 9.99,
       "price_final": 3.99,
       "discount_pct": 60,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Aug 3, 2007",
       "release_ts": 1186099200,
@@ -323,25 +250,17 @@
         "First-Person"
       ],
       "last_update_ts": 1739029348,
-      "hltb_main": 5.3,
-      "hltb_extra": 7.7,
-      "hltb_complete": 17.5,
-      "hltb_avg": 10.2,
-      "hltb_match": "Quake",
-      "qhpp_before": 0.99,
-      "qhpp_after": 2.48,
-      "scraped_at": 1782686553
+      "scraped_at": 1782731235
     },
     {
       "appid": 2990,
       "title": "FlatOut 2",
       "url": "https://store.steampowered.com/app/2990",
       "rating_pct": 96,
-      "review_count": 21756,
+      "review_count": 21758,
       "price_initial": 9.99,
       "price_final": 1.99,
       "discount_pct": 80,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Dec 21, 2006",
       "release_ts": 1166659200,
@@ -356,25 +275,17 @@
         "Driving"
       ],
       "last_update_ts": 1764598404,
-      "hltb_main": 12.4,
-      "hltb_extra": 16.6,
-      "hltb_complete": 21.8,
-      "hltb_avg": 16.9,
-      "hltb_match": "FlatOut 2",
-      "qhpp_before": 1.624,
-      "qhpp_after": 8.153,
-      "scraped_at": 1782686559
+      "scraped_at": 1782731238
     },
     {
       "appid": 3320,
       "title": "Insaniquarium Deluxe",
       "url": "https://store.steampowered.com/app/3320",
       "rating_pct": 97,
-      "review_count": 6704,
+      "review_count": 6707,
       "price_initial": 4.99,
       "price_final": 0.99,
       "discount_pct": 80,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Aug 30, 2006",
       "release_ts": 1156896000,
@@ -389,25 +300,17 @@
         "Cute"
       ],
       "last_update_ts": null,
-      "hltb_main": 4.2,
-      "hltb_extra": 6.6,
-      "hltb_complete": 15.9,
-      "hltb_avg": 8.9,
-      "hltb_match": "Insaniquarium",
-      "qhpp_before": 1.73,
-      "qhpp_after": 8.72,
-      "scraped_at": 1782686564
+      "scraped_at": 1782731241
     },
     {
       "appid": 3390,
       "title": "Feeding Frenzy 2 Deluxe",
       "url": "https://store.steampowered.com/app/3390",
       "rating_pct": 97,
-      "review_count": 2721,
+      "review_count": 2722,
       "price_initial": 4.99,
       "price_final": 0.99,
       "discount_pct": 80,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Aug 30, 2006",
       "release_ts": 1156896000,
@@ -422,25 +325,17 @@
         "Psychological Horror"
       ],
       "last_update_ts": null,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782686892
+      "scraped_at": 1782731420
     },
     {
       "appid": 3480,
       "title": "Peggle Deluxe",
       "url": "https://store.steampowered.com/app/3480",
       "rating_pct": 98,
-      "review_count": 13952,
+      "review_count": 13958,
       "price_initial": 4.99,
       "price_final": 0.99,
       "discount_pct": 80,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Mar 6, 2007",
       "release_ts": 1173139200,
@@ -455,25 +350,17 @@
         "Family Friendly"
       ],
       "last_update_ts": null,
-      "hltb_main": 4.1,
-      "hltb_extra": 10.4,
-      "hltb_complete": 33.2,
-      "hltb_avg": 15.9,
-      "hltb_match": "Peggle Deluxe",
-      "qhpp_before": 3.123,
-      "qhpp_after": 15.739,
-      "scraped_at": 1782686897
+      "scraped_at": 1782731423
     },
     {
       "appid": 3540,
       "title": "Peggle™ Nights",
       "url": "https://store.steampowered.com/app/3540",
       "rating_pct": 97,
-      "review_count": 3298,
+      "review_count": 3299,
       "price_initial": 4.99,
       "price_final": 0.99,
       "discount_pct": 80,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Oct 15, 2008",
       "release_ts": 1224028800,
@@ -488,14 +375,7 @@
         "Mouse only"
       ],
       "last_update_ts": null,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782686569
+      "scraped_at": 1782731244
     },
     {
       "appid": 3590,
@@ -535,11 +415,10 @@
       "title": "Garry's Mod",
       "url": "https://store.steampowered.com/app/4000",
       "rating_pct": 97,
-      "review_count": 1245274,
+      "review_count": 1245408,
       "price_initial": 9.99,
       "price_final": 4.99,
       "discount_pct": 50,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Nov 29, 2006",
       "release_ts": 1164758400,
@@ -554,25 +433,17 @@
         "First-Person"
       ],
       "last_update_ts": 1777474770,
-      "hltb_main": 51.4,
-      "hltb_extra": 279.0,
-      "hltb_complete": 554.0,
-      "hltb_avg": 294.8,
-      "hltb_match": "Garry's Mod",
-      "qhpp_before": 28.624,
-      "qhpp_after": 57.306,
-      "scraped_at": 1782686574
+      "scraped_at": 1782731246
     },
     {
       "appid": 6020,
       "title": "STAR WARS™ Jedi Knight - Jedi Academy™",
       "url": "https://store.steampowered.com/app/6020",
       "rating_pct": 96,
-      "review_count": 13742,
+      "review_count": 13743,
       "price_initial": 9.99,
       "price_final": 3.49,
       "discount_pct": 65,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Sep 16, 2009",
       "release_ts": 1253059200,
@@ -587,14 +458,7 @@
         "Character Customization"
       ],
       "last_update_ts": null,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782686580
+      "scraped_at": 1782731249
     },
     {
       "appid": 7760,
@@ -605,7 +469,6 @@
       "price_initial": 4.99,
       "price_final": 1.24,
       "discount_pct": 75,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Sep 4, 2008",
       "release_ts": 1220486400,
@@ -620,14 +483,7 @@
         "Singleplayer"
       ],
       "last_update_ts": 1551718837,
-      "hltb_main": 38.7,
-      "hltb_extra": 49.0,
-      "hltb_complete": 71.7,
-      "hltb_avg": 53.1,
-      "hltb_match": "X-COM: UFO Defense",
-      "qhpp_before": 10.109,
-      "qhpp_after": 40.681,
-      "scraped_at": 1782686585
+      "scraped_at": 1782731252
     },
     {
       "appid": 8800,
@@ -638,7 +494,6 @@
       "price_initial": 29.99,
       "price_final": 5.99,
       "discount_pct": 80,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Jul 24, 2007",
       "release_ts": 1185235200,
@@ -653,25 +508,17 @@
         "Moddable"
       ],
       "last_update_ts": null,
-      "hltb_main": 30.9,
-      "hltb_extra": 63.7,
-      "hltb_complete": 86.4,
-      "hltb_avg": 60.3,
-      "hltb_match": "Sid Meier's Civilization IV: Beyond the Sword",
-      "qhpp_before": 1.93,
-      "qhpp_after": 9.664,
-      "scraped_at": 1782686591
+      "scraped_at": 1782731255
     },
     {
       "appid": 9420,
       "title": "Supreme Commander: Forged Alliance",
       "url": "https://store.steampowered.com/app/9420",
       "rating_pct": 97,
-      "review_count": 14211,
+      "review_count": 14213,
       "price_initial": 12.99,
       "price_final": 2.59,
       "discount_pct": 80,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Sep 28, 2011",
       "release_ts": 1317168000,
@@ -686,14 +533,7 @@
         "Co-op"
       ],
       "last_update_ts": null,
-      "hltb_main": 18.0,
-      "hltb_extra": 22.7,
-      "hltb_complete": 31.8,
-      "hltb_avg": 24.2,
-      "hltb_match": "Supreme Commander: Forged Alliance",
-      "qhpp_before": 1.807,
-      "qhpp_after": 9.063,
-      "scraped_at": 1782686596
+      "scraped_at": 1782731258
     },
     {
       "appid": 18500,
@@ -704,7 +544,6 @@
       "price_initial": 9.99,
       "price_final": 3.99,
       "discount_pct": 60,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Dec 8, 2008",
       "release_ts": 1228694400,
@@ -719,25 +558,17 @@
         "Addictive"
       ],
       "last_update_ts": 1360088880,
-      "hltb_main": 11.3,
-      "hltb_extra": 28.8,
-      "hltb_complete": 103.7,
-      "hltb_avg": 47.9,
-      "hltb_match": "Defense Grid: The Awakening",
-      "qhpp_before": 4.603,
-      "qhpp_after": 11.525,
-      "scraped_at": 1782686601
+      "scraped_at": 1782731261
     },
     {
       "appid": 32440,
       "title": "LEGO® Star Wars™ - The Complete Saga",
       "url": "https://store.steampowered.com/app/32440",
       "rating_pct": 97,
-      "review_count": 25284,
+      "review_count": 25286,
       "price_initial": 19.99,
       "price_final": 4.99,
       "discount_pct": 75,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Nov 12, 2009",
       "release_ts": 1257984000,
@@ -752,25 +583,17 @@
         "Singleplayer"
       ],
       "last_update_ts": null,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782686606
+      "scraped_at": 1782731263
     },
     {
       "appid": 32470,
       "title": "STAR WARS™ Empire at War - Gold Pack",
       "url": "https://store.steampowered.com/app/32470",
       "rating_pct": 98,
-      "review_count": 42664,
+      "review_count": 42669,
       "price_initial": 19.99,
       "price_final": 6.99,
       "discount_pct": 65,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 25, 2010",
       "release_ts": 1274745600,
@@ -785,25 +608,17 @@
         "Mod"
       ],
       "last_update_ts": 1729621358,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782686902
+      "scraped_at": 1782731426
     },
     {
       "appid": 35140,
       "title": "Batman: Arkham Asylum Game of the Year Edition",
       "url": "https://store.steampowered.com/app/35140",
       "rating_pct": 96,
-      "review_count": 85122,
+      "review_count": 85150,
       "price_initial": 19.99,
       "price_final": 2.99,
       "discount_pct": 85,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Mar 26, 2010",
       "release_ts": 1269561600,
@@ -818,25 +633,17 @@
         "Beat 'em up"
       ],
       "last_update_ts": null,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782686612
+      "scraped_at": 1782731266
     },
     {
       "appid": 40970,
       "title": "Stronghold Crusader HD (2012)",
       "url": "https://store.steampowered.com/app/40970",
       "rating_pct": 98,
-      "review_count": 20930,
+      "review_count": 20932,
       "price_initial": 9.99,
       "price_final": 1.99,
       "discount_pct": 80,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Oct 21, 2013",
       "release_ts": 1382313600,
@@ -851,25 +658,17 @@
         "Base-Building"
       ],
       "last_update_ts": 1754583702,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782686907
+      "scraped_at": 1782731428
     },
     {
       "appid": 41060,
       "title": "Serious Sam Classic: The Second Encounter",
       "url": "https://store.steampowered.com/app/41060",
       "rating_pct": 96,
-      "review_count": 2016,
+      "review_count": 2018,
       "price_initial": 5.99,
       "price_final": 0.89,
       "discount_pct": 85,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Aug 30, 2019",
       "release_ts": 1567123200,
@@ -884,25 +683,17 @@
         "Indie"
       ],
       "last_update_ts": 1570095314,
-      "hltb_main": 8.1,
-      "hltb_extra": 12.8,
-      "hltb_complete": 13.9,
-      "hltb_avg": 11.6,
-      "hltb_match": "Serious Sam: The Second Encounter",
-      "qhpp_before": 1.859,
-      "qhpp_after": 12.512,
-      "scraped_at": 1782686617
+      "scraped_at": 1782731269
     },
     {
       "appid": 48700,
       "title": "Mount & Blade: Warband",
       "url": "https://store.steampowered.com/app/48700",
       "rating_pct": 98,
-      "review_count": 171244,
+      "review_count": 171246,
       "price_initial": 19.99,
       "price_final": 4.99,
       "discount_pct": 75,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Mar 31, 2010",
       "release_ts": 1269993600,
@@ -917,25 +708,17 @@
         "Moddable"
       ],
       "last_update_ts": 1725279154,
-      "hltb_main": 73.7,
-      "hltb_extra": 111.6,
-      "hltb_complete": 232.6,
-      "hltb_avg": 139.3,
-      "hltb_match": "Mount & Blade: Warband",
-      "qhpp_before": 6.829,
-      "qhpp_after": 27.358,
-      "scraped_at": 1782686913
+      "scraped_at": 1782731431
     },
     {
       "appid": 70300,
       "title": "VVVVVV",
       "url": "https://store.steampowered.com/app/70300",
       "rating_pct": 96,
-      "review_count": 10471,
+      "review_count": 10473,
       "price_initial": 4.99,
       "price_final": 1.24,
       "discount_pct": 75,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Sep 7, 2010",
       "release_ts": 1283817600,
@@ -950,25 +733,17 @@
         "Retro"
       ],
       "last_update_ts": 1776790027,
-      "hltb_main": 2.4,
-      "hltb_extra": 3.4,
-      "hltb_complete": 4.8,
-      "hltb_avg": 3.5,
-      "hltb_match": "VVVVVV",
-      "qhpp_before": 0.673,
-      "qhpp_after": 2.71,
-      "scraped_at": 1782686622
+      "scraped_at": 1782731272
     },
     {
       "appid": 70400,
       "title": "Recettear: An Item Shop's Tale",
       "url": "https://store.steampowered.com/app/70400",
       "rating_pct": 96,
-      "review_count": 7473,
+      "review_count": 7475,
       "price_initial": 19.99,
       "price_final": 3.99,
       "discount_pct": 80,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Sep 10, 2010",
       "release_ts": 1284076800,
@@ -983,25 +758,17 @@
         "Cute"
       ],
       "last_update_ts": 1286841240,
-      "hltb_main": 13.2,
-      "hltb_extra": 25.1,
-      "hltb_complete": 49.7,
-      "hltb_avg": 29.3,
-      "hltb_match": "Recettear: An Item Shop's Tale",
-      "qhpp_before": 1.407,
-      "qhpp_after": 7.05,
-      "scraped_at": 1782686627
+      "scraped_at": 1782731275
     },
     {
       "appid": 78000,
       "title": "Bejeweled® 3",
       "url": "https://store.steampowered.com/app/78000",
       "rating_pct": 96,
-      "review_count": 8015,
+      "review_count": 8016,
       "price_initial": 4.99,
       "price_final": 0.99,
       "discount_pct": 80,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Dec 7, 2010",
       "release_ts": 1291680000,
@@ -1016,25 +783,17 @@
         "Classic"
       ],
       "last_update_ts": null,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782686633
+      "scraped_at": 1782731277
     },
     {
       "appid": 105600,
       "title": "Terraria",
       "url": "https://store.steampowered.com/app/105600",
       "rating_pct": 97,
-      "review_count": 1531792,
+      "review_count": 1531944,
       "price_initial": 9.99,
       "price_final": 4.99,
       "discount_pct": 50,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 16, 2011",
       "release_ts": 1305504000,
@@ -1049,25 +808,17 @@
         "Crafting"
       ],
       "last_update_ts": 1780142641,
-      "hltb_main": 51.8,
-      "hltb_extra": 91.9,
-      "hltb_complete": 205.7,
-      "hltb_avg": 116.5,
-      "hltb_match": "Terraria",
-      "qhpp_before": 11.312,
-      "qhpp_after": 22.646,
-      "scraped_at": 1782686917
+      "scraped_at": 1782731434
     },
     {
       "appid": 204360,
       "title": "Castle Crashers®",
       "url": "https://store.steampowered.com/app/204360",
       "rating_pct": 96,
-      "review_count": 138435,
+      "review_count": 138476,
       "price_initial": 14.99,
       "price_final": 1.49,
       "discount_pct": 90,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Sep 26, 2012",
       "release_ts": 1348617600,
@@ -1082,25 +833,17 @@
         "4 Player Local"
       ],
       "last_update_ts": 1782330138,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782686638
+      "scraped_at": 1782731280
     },
     {
       "appid": 205100,
       "title": "Dishonored",
       "url": "https://store.steampowered.com/app/205100",
       "rating_pct": 98,
-      "review_count": 86294,
+      "review_count": 86309,
       "price_initial": 19.99,
       "price_final": 1.99,
       "discount_pct": 90,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Oct 8, 2012",
       "release_ts": 1349654400,
@@ -1115,25 +858,17 @@
         "Story Rich"
       ],
       "last_update_ts": null,
-      "hltb_main": 12.2,
-      "hltb_extra": 18.5,
-      "hltb_complete": 37.7,
-      "hltb_avg": 22.8,
-      "hltb_match": "Dishonored",
-      "qhpp_before": 1.118,
-      "qhpp_after": 11.228,
-      "scraped_at": 1782686922
+      "scraped_at": 1782731437
     },
     {
       "appid": 206190,
       "title": "Gunpoint",
       "url": "https://store.steampowered.com/app/206190",
       "rating_pct": 98,
-      "review_count": 13292,
+      "review_count": 13293,
       "price_initial": 9.99,
       "price_final": 1.99,
       "discount_pct": 80,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Jun 3, 2013",
       "release_ts": 1370217600,
@@ -1148,25 +883,17 @@
         "Action"
       ],
       "last_update_ts": null,
-      "hltb_main": 3.0,
-      "hltb_extra": 4.3,
-      "hltb_complete": 6.5,
-      "hltb_avg": 4.6,
-      "hltb_match": "Gunpoint",
-      "qhpp_before": 0.451,
-      "qhpp_after": 2.265,
-      "scraped_at": 1782686928
+      "scraped_at": 1782731439
     },
     {
       "appid": 206440,
       "title": "To the Moon",
       "url": "https://store.steampowered.com/app/206440",
       "rating_pct": 96,
-      "review_count": 85651,
+      "review_count": 85658,
       "price_initial": 9.99,
       "price_final": 1.99,
       "discount_pct": 80,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Sep 7, 2012",
       "release_ts": 1346976000,
@@ -1181,14 +908,7 @@
         "Singleplayer"
       ],
       "last_update_ts": 1760032127,
-      "hltb_main": 4.1,
-      "hltb_extra": 4.5,
-      "hltb_complete": 4.6,
-      "hltb_avg": 4.4,
-      "hltb_match": "To the Moon",
-      "qhpp_before": 0.423,
-      "qhpp_after": 2.123,
-      "scraped_at": 1782686643
+      "scraped_at": 1782731283
     },
     {
       "appid": 207080,
@@ -1199,7 +919,6 @@
       "price_initial": 9.99,
       "price_final": 4.99,
       "discount_pct": 50,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Jun 12, 2012",
       "release_ts": 1339459200,
@@ -1214,25 +933,17 @@
         "Game Development"
       ],
       "last_update_ts": null,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782686648
+      "scraped_at": 1782731286
     },
     {
       "appid": 207610,
       "title": "The Walking Dead",
       "url": "https://store.steampowered.com/app/207610",
       "rating_pct": 97,
-      "review_count": 79636,
+      "review_count": 79643,
       "price_initial": 14.99,
       "price_final": 1.49,
       "discount_pct": 90,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Apr 24, 2012",
       "release_ts": 1335225600,
@@ -1247,25 +958,17 @@
         "Drama"
       ],
       "last_update_ts": null,
-      "hltb_main": 0.5,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": 0.5,
-      "hltb_match": "The Walking Dead",
-      "qhpp_before": 0.032,
-      "qhpp_after": 0.326,
-      "scraped_at": 1782686933
+      "scraped_at": 1782731442
     },
     {
       "appid": 213670,
       "title": "South Park™: The Stick of Truth™",
       "url": "https://store.steampowered.com/app/213670",
       "rating_pct": 98,
-      "review_count": 72808,
+      "review_count": 72815,
       "price_initial": 29.99,
       "price_final": 5.99,
       "discount_pct": 80,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Mar 3, 2014",
       "release_ts": 1393804800,
@@ -1280,14 +983,7 @@
         "Action"
       ],
       "last_update_ts": 1396982979,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782686939
+      "scraped_at": 1782731445
     },
     {
       "appid": 214560,
@@ -1327,11 +1023,10 @@
       "title": "Hotline Miami",
       "url": "https://store.steampowered.com/app/219150",
       "rating_pct": 97,
-      "review_count": 123959,
+      "review_count": 124016,
       "price_initial": 9.99,
       "price_final": 0.99,
       "discount_pct": 90,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Oct 23, 2012",
       "release_ts": 1350950400,
@@ -1346,25 +1041,17 @@
         "1980s"
       ],
       "last_update_ts": null,
-      "hltb_main": 5.2,
-      "hltb_extra": 7.3,
-      "hltb_complete": 15.4,
-      "hltb_avg": 9.3,
-      "hltb_match": "Hotline Miami",
-      "qhpp_before": 0.903,
-      "qhpp_after": 9.112,
-      "scraped_at": 1782686944
+      "scraped_at": 1782731448
     },
     {
       "appid": 219740,
       "title": "Don't Starve",
       "url": "https://store.steampowered.com/app/219740",
       "rating_pct": 97,
-      "review_count": 112943,
+      "review_count": 112949,
       "price_initial": 9.99,
       "price_final": 2.49,
       "discount_pct": 75,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Apr 23, 2013",
       "release_ts": 1366675200,
@@ -1379,25 +1066,17 @@
         "Perma Death"
       ],
       "last_update_ts": 1682617572,
-      "hltb_main": 28.0,
-      "hltb_extra": 71.4,
-      "hltb_complete": 153.6,
-      "hltb_avg": 84.3,
-      "hltb_match": "Don't Starve",
-      "qhpp_before": 8.185,
-      "qhpp_after": 32.84,
-      "scraped_at": 1782686653
+      "scraped_at": 1782731288
     },
     {
       "appid": 221260,
       "title": "Little Inferno",
       "url": "https://store.steampowered.com/app/221260",
       "rating_pct": 95,
-      "review_count": 13652,
+      "review_count": 13653,
       "price_initial": 14.99,
       "price_final": 3.74,
       "discount_pct": 75,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Nov 19, 2012",
       "release_ts": 1353283200,
@@ -1412,14 +1091,7 @@
         "Comedy"
       ],
       "last_update_ts": 1670471665,
-      "hltb_main": 3.4,
-      "hltb_extra": 4.2,
-      "hltb_complete": 4.8,
-      "hltb_avg": 4.1,
-      "hltb_match": "Little Inferno",
-      "qhpp_before": 0.26,
-      "qhpp_after": 1.041,
-      "scraped_at": 1782686658
+      "scraped_at": 1782731291
     },
     {
       "appid": 221640,
@@ -1430,7 +1102,6 @@
       "price_initial": 2.99,
       "price_final": 0.74,
       "discount_pct": 75,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Nov 27, 2012",
       "release_ts": 1353974400,
@@ -1445,25 +1116,17 @@
         "Singleplayer"
       ],
       "last_update_ts": null,
-      "hltb_main": 5.2,
-      "hltb_extra": 8.1,
-      "hltb_complete": 17.4,
-      "hltb_avg": 10.2,
-      "hltb_match": "Super Hexagon",
-      "qhpp_before": 3.309,
-      "qhpp_after": 13.37,
-      "scraped_at": 1782686949
+      "scraped_at": 1782731450
     },
     {
       "appid": 223470,
       "title": "POSTAL 2",
       "url": "https://store.steampowered.com/app/223470",
       "rating_pct": 97,
-      "review_count": 134745,
+      "review_count": 134759,
       "price_initial": 9.99,
       "price_final": 0.99,
       "discount_pct": 90,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Nov 2, 2012",
       "release_ts": 1351814400,
@@ -1478,14 +1141,7 @@
         "Sandbox"
       ],
       "last_update_ts": 1682012531,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": "POSTAL 2: VR",
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782686663
+      "scraped_at": 1782731294
     },
     {
       "appid": 224820,
@@ -1529,7 +1185,6 @@
       "price_initial": 9.99,
       "price_final": 2.99,
       "discount_pct": 70,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Dec 5, 2012",
       "release_ts": 1354665600,
@@ -1544,25 +1199,17 @@
         "Atmospheric"
       ],
       "last_update_ts": 1780996759,
-      "hltb_main": 6.1,
-      "hltb_extra": 7.5,
-      "hltb_complete": 8.8,
-      "hltb_avg": 7.5,
-      "hltb_match": "Primordia",
-      "qhpp_before": 0.728,
-      "qhpp_after": 2.433,
-      "scraped_at": 1782686669
+      "scraped_at": 1782731297
     },
     {
       "appid": 227300,
       "title": "Euro Truck Simulator 2",
       "url": "https://store.steampowered.com/app/227300",
       "rating_pct": 97,
-      "review_count": 925979,
+      "review_count": 926064,
       "price_initial": 19.99,
       "price_final": 4.99,
       "discount_pct": 75,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Oct 12, 2012",
       "release_ts": 1350000000,
@@ -1577,25 +1224,17 @@
         "Relaxing"
       ],
       "last_update_ts": 1781765331,
-      "hltb_main": 45.9,
-      "hltb_extra": 115.5,
-      "hltb_complete": 458.0,
-      "hltb_avg": 206.5,
-      "hltb_match": "Euro Truck Simulator 2",
-      "qhpp_before": 10.02,
-      "qhpp_after": 40.141,
-      "scraped_at": 1782686954
+      "scraped_at": 1782731453
     },
     {
       "appid": 230290,
       "title": "Universe Sandbox",
       "url": "https://store.steampowered.com/app/230290",
       "rating_pct": 96,
-      "review_count": 31539,
+      "review_count": 31548,
       "price_initial": 29.99,
       "price_final": 20.09,
       "discount_pct": 33,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Aug 24, 2015",
       "release_ts": 1440374400,
@@ -1610,14 +1249,7 @@
         "God Game"
       ],
       "last_update_ts": 1782414862,
-      "hltb_main": 2.6,
-      "hltb_extra": null,
-      "hltb_complete": 134.9,
-      "hltb_avg": 68.8,
-      "hltb_match": "Universe Sandbox",
-      "qhpp_before": 2.202,
-      "qhpp_after": 3.288,
-      "scraped_at": 1782686674
+      "scraped_at": 1782731299
     },
     {
       "appid": 235460,
@@ -1661,7 +1293,6 @@
       "price_initial": 9.99,
       "price_final": 2.49,
       "discount_pct": 75,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Sep 24, 2013",
       "release_ts": 1379980800,
@@ -1676,14 +1307,7 @@
         "Great Soundtrack"
       ],
       "last_update_ts": 1381501811,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782686679
+      "scraped_at": 1782731302
     },
     {
       "appid": 236930,
@@ -1694,7 +1318,6 @@
       "price_initial": 9.99,
       "price_final": 2.99,
       "discount_pct": 70,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Apr 24, 2014",
       "release_ts": 1398297600,
@@ -1709,25 +1332,17 @@
         "Pixel Graphics"
       ],
       "last_update_ts": 1780370194,
-      "hltb_main": 6.6,
-      "hltb_extra": 7.6,
-      "hltb_complete": 11.2,
-      "hltb_avg": 8.5,
-      "hltb_match": "The Blackwell Epiphany",
-      "qhpp_before": 0.834,
-      "qhpp_after": 2.786,
-      "scraped_at": 1782686684
+      "scraped_at": 1782731305
     },
     {
       "appid": 238320,
       "title": "Outlast",
       "url": "https://store.steampowered.com/app/238320",
       "rating_pct": 96,
-      "review_count": 136570,
+      "review_count": 136577,
       "price_initial": 14.99,
       "price_final": 3.74,
       "discount_pct": 75,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Sep 4, 2013",
       "release_ts": 1378252800,
@@ -1742,25 +1357,17 @@
         "Survival"
       ],
       "last_update_ts": null,
-      "hltb_main": 5.1,
-      "hltb_extra": 7.3,
-      "hltb_complete": 11.4,
-      "hltb_avg": 7.9,
-      "hltb_match": "Outlast",
-      "qhpp_before": 0.506,
-      "qhpp_after": 2.028,
-      "scraped_at": 1782686689
+      "scraped_at": 1782731308
     },
     {
       "appid": 238460,
       "title": "BattleBlock Theater®",
       "url": "https://store.steampowered.com/app/238460",
       "rating_pct": 97,
-      "review_count": 72701,
+      "review_count": 72705,
       "price_initial": 14.99,
       "price_final": 4.49,
       "discount_pct": 70,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 15, 2014",
       "release_ts": 1400112000,
@@ -1775,25 +1382,17 @@
         "2D"
       ],
       "last_update_ts": 1781197783,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782686960
+      "scraped_at": 1782731456
     },
     {
       "appid": 239030,
       "title": "Papers, Please",
       "url": "https://store.steampowered.com/app/239030",
       "rating_pct": 97,
-      "review_count": 79300,
+      "review_count": 79306,
       "price_initial": 9.99,
       "price_final": 4.99,
       "discount_pct": 50,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Aug 8, 2013",
       "release_ts": 1375920000,
@@ -1808,25 +1407,17 @@
         "Multiple Endings"
       ],
       "last_update_ts": 1679386575,
-      "hltb_main": 5.0,
-      "hltb_extra": 8.1,
-      "hltb_complete": 16.1,
-      "hltb_avg": 9.7,
-      "hltb_match": "Papers, Please",
-      "qhpp_before": 0.942,
-      "qhpp_after": 1.886,
-      "scraped_at": 1782686965
+      "scraped_at": 1782731458
     },
     {
       "appid": 242680,
       "title": "Nuclear Throne",
       "url": "https://store.steampowered.com/app/242680",
       "rating_pct": 96,
-      "review_count": 19636,
+      "review_count": 19638,
       "price_initial": 11.99,
       "price_final": 8.99,
       "discount_pct": 25,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Dec 5, 2015",
       "release_ts": 1449273600,
@@ -1841,25 +1432,17 @@
         "Rogue-lite"
       ],
       "last_update_ts": 1764957640,
-      "hltb_main": 17.0,
-      "hltb_extra": 58.7,
-      "hltb_complete": 190.6,
-      "hltb_avg": 88.8,
-      "hltb_match": "Nuclear Throne",
-      "qhpp_before": 7.11,
-      "qhpp_after": 9.483,
-      "scraped_at": 1782686695
+      "scraped_at": 1782731310
     },
     {
       "appid": 246420,
       "title": "Kingdom Rush  - Tower Defense",
       "url": "https://store.steampowered.com/app/246420",
       "rating_pct": 97,
-      "review_count": 16681,
+      "review_count": 16686,
       "price_initial": 9.99,
       "price_final": 4.99,
       "discount_pct": 50,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Jan 6, 2014",
       "release_ts": 1388966400,
@@ -1874,25 +1457,17 @@
         "Action"
       ],
       "last_update_ts": null,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782686970
+      "scraped_at": 1782731461
     },
     {
       "appid": 248310,
       "title": "Freedom Planet",
       "url": "https://store.steampowered.com/app/248310",
       "rating_pct": 95,
-      "review_count": 4880,
+      "review_count": 4879,
       "price_initial": 14.99,
       "price_final": 7.49,
       "discount_pct": 50,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Jul 21, 2014",
       "release_ts": 1405900800,
@@ -1907,25 +1482,17 @@
         "Retro"
       ],
       "last_update_ts": 1535651004,
-      "hltb_main": 4.8,
-      "hltb_extra": 9.3,
-      "hltb_complete": 22.1,
-      "hltb_avg": 12.1,
-      "hltb_match": "Freedom Planet",
-      "qhpp_before": 0.767,
-      "qhpp_after": 1.535,
-      "scraped_at": 1782686700
+      "scraped_at": 1782731313
     },
     {
       "appid": 250320,
       "title": "The Wolf Among Us",
       "url": "https://store.steampowered.com/app/250320",
       "rating_pct": 98,
-      "review_count": 39580,
+      "review_count": 39592,
       "price_initial": 14.99,
       "price_final": 7.49,
       "discount_pct": 50,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Oct 11, 2013",
       "release_ts": 1381449600,
@@ -1940,25 +1507,17 @@
         "Mature"
       ],
       "last_update_ts": null,
-      "hltb_main": 8.6,
-      "hltb_extra": 9.3,
-      "hltb_complete": 11.0,
-      "hltb_avg": 9.6,
-      "hltb_match": "The Wolf Among Us",
-      "qhpp_before": 0.628,
-      "qhpp_after": 1.256,
-      "scraped_at": 1782686975
+      "scraped_at": 1782731464
     },
     {
       "appid": 250900,
       "title": "The Binding of Isaac: Rebirth",
       "url": "https://store.steampowered.com/app/250900",
       "rating_pct": 97,
-      "review_count": 400686,
+      "review_count": 401428,
       "price_initial": 14.99,
       "price_final": 1.49,
       "discount_pct": 90,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Nov 4, 2014",
       "release_ts": 1415059200,
@@ -1973,14 +1532,7 @@
         "Great Soundtrack"
       ],
       "last_update_ts": 1775871807,
-      "hltb_main": 5.6,
-      "hltb_extra": 98.8,
-      "hltb_complete": 386.9,
-      "hltb_avg": 163.8,
-      "hltb_match": "The Binding of Isaac: Rebirth",
-      "qhpp_before": 10.599,
-      "qhpp_after": 106.635,
-      "scraped_at": 1782686980
+      "scraped_at": 1782731466
     },
     {
       "appid": 251290,
@@ -1991,7 +1543,6 @@
       "price_initial": 29.99,
       "price_final": 19.49,
       "discount_pct": 35,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Oct 29, 2015",
       "release_ts": 1446076800,
@@ -2006,25 +1557,17 @@
         "Singleplayer"
       ],
       "last_update_ts": 1503169791,
-      "hltb_main": 50.1,
-      "hltb_extra": 70.4,
-      "hltb_complete": 90.3,
-      "hltb_avg": 70.3,
-      "hltb_match": "The Legend of Heroes: Trails in the Sky SC",
-      "qhpp_before": 2.297,
-      "qhpp_after": 3.535,
-      "scraped_at": 1782686985
+      "scraped_at": 1782731469
     },
     {
       "appid": 253230,
       "title": "A Hat in Time",
       "url": "https://store.steampowered.com/app/253230",
       "rating_pct": 98,
-      "review_count": 53150,
+      "review_count": 53156,
       "price_initial": 29.99,
       "price_final": 14.99,
       "discount_pct": 50,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Oct 5, 2017",
       "release_ts": 1507161600,
@@ -2039,14 +1582,7 @@
         "Indie"
       ],
       "last_update_ts": 1751654250,
-      "hltb_main": 9.4,
-      "hltb_extra": 15.1,
-      "hltb_complete": 19.1,
-      "hltb_avg": 14.5,
-      "hltb_match": "A Hat in Time",
-      "qhpp_before": 0.474,
-      "qhpp_after": 0.948,
-      "scraped_at": 1782686990
+      "scraped_at": 1782731472
     },
     {
       "appid": 260750,
@@ -2086,11 +1622,10 @@
       "title": "The Walking Dead: Season Two",
       "url": "https://store.steampowered.com/app/261030",
       "rating_pct": 97,
-      "review_count": 33722,
+      "review_count": 33723,
       "price_initial": 14.99,
       "price_final": 3.74,
       "discount_pct": 75,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Dec 17, 2013",
       "release_ts": 1387238400,
@@ -2105,14 +1640,7 @@
         "Drama"
       ],
       "last_update_ts": null,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782686705
+      "scraped_at": 1782731316
     },
     {
       "appid": 264080,
@@ -2156,7 +1684,6 @@
       "price_initial": 4.99,
       "price_final": 1.24,
       "discount_pct": 75,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Mar 3, 2014",
       "release_ts": 1393804800,
@@ -2171,25 +1698,17 @@
         "Addictive"
       ],
       "last_update_ts": 1721246963,
-      "hltb_main": 7.1,
-      "hltb_extra": 11.6,
-      "hltb_complete": 36.0,
-      "hltb_avg": 18.2,
-      "hltb_match": "One Finger Death Punch",
-      "qhpp_before": 3.574,
-      "qhpp_after": 14.384,
-      "scraped_at": 1782686995
+      "scraped_at": 1782731475
     },
     {
       "appid": 264710,
       "title": "Subnautica",
       "url": "https://store.steampowered.com/app/264710",
       "rating_pct": 97,
-      "review_count": 374014,
+      "review_count": 374088,
       "price_initial": 29.99,
       "price_final": 7.49,
       "discount_pct": 75,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Jan 23, 2018",
       "release_ts": 1516665600,
@@ -2204,25 +1723,17 @@
         "Base-Building"
       ],
       "last_update_ts": 1759529093,
-      "hltb_main": 29.6,
-      "hltb_extra": 41.9,
-      "hltb_complete": 52.1,
-      "hltb_avg": 41.2,
-      "hltb_match": "Subnautica",
-      "qhpp_before": 1.333,
-      "qhpp_after": 5.336,
-      "scraped_at": 1782687001
+      "scraped_at": 1782731477
     },
     {
       "appid": 265610,
       "title": "Epic Battle Fantasy 4",
       "url": "https://store.steampowered.com/app/265610",
       "rating_pct": 97,
-      "review_count": 3295,
+      "review_count": 3296,
       "price_initial": 14.99,
       "price_final": 4.49,
       "discount_pct": 70,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Feb 25, 2014",
       "release_ts": 1393286400,
@@ -2237,14 +1748,7 @@
         "Fantasy"
       ],
       "last_update_ts": 1713362154,
-      "hltb_main": 19.5,
-      "hltb_extra": 27.9,
-      "hltb_complete": 42.6,
-      "hltb_avg": 30.0,
-      "hltb_match": "Epic Battle Fantasy 4",
-      "qhpp_before": 1.941,
-      "qhpp_after": 6.481,
-      "scraped_at": 1782687007
+      "scraped_at": 1782731480
     },
     {
       "appid": 265890,
@@ -2255,7 +1759,6 @@
       "price_initial": 2.99,
       "price_final": 0.89,
       "discount_pct": 70,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Feb 19, 2014",
       "release_ts": 1392768000,
@@ -2270,25 +1773,17 @@
         "Relaxing"
       ],
       "last_update_ts": 1597854699,
-      "hltb_main": 2.0,
-      "hltb_extra": 2.0,
-      "hltb_complete": 2.7,
-      "hltb_avg": 2.2,
-      "hltb_match": "Hexcells",
-      "qhpp_before": 0.714,
-      "qhpp_after": 2.398,
-      "scraped_at": 1782686710
+      "scraped_at": 1782731319
     },
     {
       "appid": 268910,
       "title": "Cuphead",
       "url": "https://store.steampowered.com/app/268910",
       "rating_pct": 96,
-      "review_count": 214139,
+      "review_count": 214205,
       "price_initial": 19.99,
       "price_final": 13.99,
       "discount_pct": 30,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Sep 29, 2017",
       "release_ts": 1506643200,
@@ -2303,25 +1798,17 @@
         "Multiplayer"
       ],
       "last_update_ts": 1660938741,
-      "hltb_main": 10.5,
-      "hltb_extra": 16.1,
-      "hltb_complete": 27.9,
-      "hltb_avg": 18.2,
-      "hltb_match": "Cuphead",
-      "qhpp_before": 0.874,
-      "qhpp_after": 1.249,
-      "scraped_at": 1782686714
+      "scraped_at": 1782731321
     },
     {
       "appid": 270880,
       "title": "American Truck Simulator",
       "url": "https://store.steampowered.com/app/270880",
       "rating_pct": 97,
-      "review_count": 192900,
+      "review_count": 192933,
       "price_initial": 19.99,
       "price_final": 4.99,
       "discount_pct": 75,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Feb 2, 2016",
       "release_ts": 1454371200,
@@ -2336,25 +1823,17 @@
         "Moddable"
       ],
       "last_update_ts": 1781594167,
-      "hltb_main": 23.2,
-      "hltb_extra": 75.5,
-      "hltb_complete": 114.6,
-      "hltb_avg": 71.1,
-      "hltb_match": "American Truck Simulator",
-      "qhpp_before": 3.45,
-      "qhpp_after": 13.821,
-      "scraped_at": 1782687012
+      "scraped_at": 1782731483
     },
     {
       "appid": 272600,
       "title": "Detective Grimoire",
       "url": "https://store.steampowered.com/app/272600",
       "rating_pct": 96,
-      "review_count": 2379,
+      "review_count": 2380,
       "price_initial": 6.99,
       "price_final": 1.39,
       "discount_pct": 80,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Aug 18, 2014",
       "release_ts": 1408320000,
@@ -2369,25 +1848,17 @@
         "Conversation"
       ],
       "last_update_ts": 1449519860,
-      "hltb_main": 2.5,
-      "hltb_extra": 2.9,
-      "hltb_complete": 3.1,
-      "hltb_avg": 2.8,
-      "hltb_match": "Detective Grimoire",
-      "qhpp_before": 0.385,
-      "qhpp_after": 1.934,
-      "scraped_at": 1782686720
+      "scraped_at": 1782731326
     },
     {
       "appid": 274190,
       "title": "Broforce",
       "url": "https://store.steampowered.com/app/274190",
       "rating_pct": 97,
-      "review_count": 60720,
+      "review_count": 60725,
       "price_initial": 14.99,
       "price_final": 2.99,
       "discount_pct": 80,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Oct 15, 2015",
       "release_ts": 1444867200,
@@ -2402,14 +1873,7 @@
         "Multiplayer"
       ],
       "last_update_ts": 1703157392,
-      "hltb_main": 7.2,
-      "hltb_extra": 10.1,
-      "hltb_complete": 17.6,
-      "hltb_avg": 11.6,
-      "hltb_match": "Broforce",
-      "qhpp_before": 0.751,
-      "qhpp_after": 3.763,
-      "scraped_at": 1782687017
+      "scraped_at": 1782731486
     },
     {
       "appid": 280220,
@@ -2420,7 +1884,6 @@
       "price_initial": 14.99,
       "price_final": 4.94,
       "discount_pct": 67,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Mar 27, 2014",
       "release_ts": 1395878400,
@@ -2435,14 +1898,7 @@
         "Simulation"
       ],
       "last_update_ts": 1774204416,
-      "hltb_main": 15.6,
-      "hltb_extra": 26.0,
-      "hltb_complete": 96.5,
-      "hltb_avg": 46.0,
-      "hltb_match": "Creeper World 3: Arc Eternal",
-      "qhpp_before": 2.946,
-      "qhpp_after": 8.939,
-      "scraped_at": 1782686725
+      "scraped_at": 1782731328
     },
     {
       "appid": 283940,
@@ -2453,7 +1909,6 @@
       "price_initial": 6.99,
       "price_final": 4.19,
       "discount_pct": 40,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Apr 17, 2014",
       "release_ts": 1397692800,
@@ -2468,14 +1923,7 @@
         "1990's"
       ],
       "last_update_ts": 1524098146,
-      "hltb_main": 0.9,
-      "hltb_extra": 1.0,
-      "hltb_complete": 1.1,
-      "hltb_avg": 1.0,
-      "hltb_match": "Freddi Fish and the Case of the Missing Kelp Seeds",
-      "qhpp_before": 0.139,
-      "qhpp_after": 0.232,
-      "scraped_at": 1782686730
+      "scraped_at": 1782731331
     },
     {
       "appid": 283960,
@@ -2486,7 +1934,6 @@
       "price_initial": 6.99,
       "price_final": 4.19,
       "discount_pct": 40,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Apr 17, 2014",
       "release_ts": 1397692800,
@@ -2501,25 +1948,17 @@
         "Singleplayer"
       ],
       "last_update_ts": 1574731465,
-      "hltb_main": 1.5,
-      "hltb_extra": 1.5,
-      "hltb_complete": 2.5,
-      "hltb_avg": 1.8,
-      "hltb_match": "Pajama Sam: Don't Fear The Dark",
-      "qhpp_before": 0.25,
-      "qhpp_after": 0.417,
-      "scraped_at": 1782686735
+      "scraped_at": 1782731334
     },
     {
       "appid": 284160,
       "title": "BeamNG.drive",
       "url": "https://store.steampowered.com/app/284160",
       "rating_pct": 97,
-      "review_count": 401146,
+      "review_count": 401227,
       "price_initial": 24.99,
       "price_final": 19.99,
       "discount_pct": 20,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 29, 2015",
       "release_ts": 1432857600,
@@ -2534,14 +1973,7 @@
         "Open World"
       ],
       "last_update_ts": 1765817774,
-      "hltb_main": 6.5,
-      "hltb_extra": 8.4,
-      "hltb_complete": 15.1,
-      "hltb_avg": 10.0,
-      "hltb_match": "BeamNG.drive",
-      "qhpp_before": 0.388,
-      "qhpp_after": 0.485,
-      "scraped_at": 1782687022
+      "scraped_at": 1782731488
     },
     {
       "appid": 284770,
@@ -2552,7 +1984,6 @@
       "price_initial": 14.99,
       "price_final": 3.74,
       "discount_pct": 75,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Jun 5, 2014",
       "release_ts": 1401926400,
@@ -2567,14 +1998,7 @@
         "Mystery"
       ],
       "last_update_ts": 1561485520,
-      "hltb_main": 4.1,
-      "hltb_extra": 5.2,
-      "hltb_complete": 7.1,
-      "hltb_avg": 5.5,
-      "hltb_match": "Enigmatis: The Mists of Ravenwood",
-      "qhpp_before": 0.356,
-      "qhpp_after": 1.426,
-      "scraped_at": 1782686741
+      "scraped_at": 1782731337
     },
     {
       "appid": 285740,
@@ -2585,7 +2009,6 @@
       "price_initial": 9.99,
       "price_final": 6.69,
       "discount_pct": 33,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Apr 22, 2015",
       "release_ts": 1429660800,
@@ -2600,25 +2023,17 @@
         "Simulation"
       ],
       "last_update_ts": 1658332388,
-      "hltb_main": 9.2,
-      "hltb_extra": 22.7,
-      "hltb_complete": 48.5,
-      "hltb_avg": 26.8,
-      "hltb_match": "Kitty Powers' Matchmaker",
-      "qhpp_before": 2.575,
-      "qhpp_after": 3.846,
-      "scraped_at": 1782686746
+      "scraped_at": 1782731340
     },
     {
       "appid": 288160,
       "title": "The Room",
       "url": "https://store.steampowered.com/app/288160",
       "rating_pct": 98,
-      "review_count": 31359,
+      "review_count": 31363,
       "price_initial": 4.99,
       "price_final": 0.99,
       "discount_pct": 80,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Jul 28, 2014",
       "release_ts": 1406505600,
@@ -2633,25 +2048,17 @@
         "Hidden Object"
       ],
       "last_update_ts": null,
-      "hltb_main": 2.6,
-      "hltb_extra": 2.6,
-      "hltb_complete": 2.6,
-      "hltb_avg": 2.6,
-      "hltb_match": "The Room",
-      "qhpp_before": 0.511,
-      "qhpp_after": 2.574,
-      "scraped_at": 1782687028
+      "scraped_at": 1782731491
     },
     {
       "appid": 292030,
       "title": "The Witcher 3: Wild Hunt",
       "url": "https://store.steampowered.com/app/292030",
       "rating_pct": 97,
-      "review_count": 874371,
+      "review_count": 874476,
       "price_initial": 39.99,
       "price_final": 3.99,
       "discount_pct": 90,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 18, 2015",
       "release_ts": 1431907200,
@@ -2666,25 +2073,17 @@
         "Singleplayer"
       ],
       "last_update_ts": 1775552979,
-      "hltb_main": 51.6,
-      "hltb_extra": 103.7,
-      "hltb_complete": 174.6,
-      "hltb_avg": 110.0,
-      "hltb_match": "The Witcher 3: Wild Hunt",
-      "qhpp_before": 2.668,
-      "qhpp_after": 26.742,
-      "scraped_at": 1782686751
+      "scraped_at": 1782731342
     },
     {
       "appid": 294100,
       "title": "RimWorld",
       "url": "https://store.steampowered.com/app/294100",
       "rating_pct": 98,
-      "review_count": 241720,
+      "review_count": 241750,
       "price_initial": 34.99,
       "price_final": 27.99,
       "discount_pct": 20,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Oct 17, 2018",
       "release_ts": 1539734400,
@@ -2699,25 +2098,17 @@
         "Simulation"
       ],
       "last_update_ts": 1780945930,
-      "hltb_main": 63.6,
-      "hltb_extra": 111.6,
-      "hltb_complete": 300.6,
-      "hltb_avg": 158.6,
-      "hltb_match": "RimWorld",
-      "qhpp_before": 4.442,
-      "qhpp_after": 5.553,
-      "scraped_at": 1782687033
+      "scraped_at": 1782731494
     },
     {
       "appid": 294660,
       "title": "Putt-Putt® Saves The Zoo",
       "url": "https://store.steampowered.com/app/294660",
       "rating_pct": 97,
-      "review_count": 807,
+      "review_count": 808,
       "price_initial": 6.99,
       "price_final": 4.19,
       "discount_pct": 40,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Jul 3, 2014",
       "release_ts": 1404345600,
@@ -2732,14 +2123,7 @@
         "Education"
       ],
       "last_update_ts": 1524086464,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782686756
+      "scraped_at": 1782731345
     },
     {
       "appid": 298030,
@@ -2779,11 +2163,10 @@
       "title": "Chicken Invaders 4",
       "url": "https://store.steampowered.com/app/301300",
       "rating_pct": 98,
-      "review_count": 608,
+      "review_count": 607,
       "price_initial": 5.99,
       "price_final": 2.99,
       "discount_pct": 50,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Jun 6, 2014",
       "release_ts": 1402012800,
@@ -2798,14 +2181,7 @@
         "Bullet Hell"
       ],
       "last_update_ts": 1777383784,
-      "hltb_main": 2.3,
-      "hltb_extra": 6.0,
-      "hltb_complete": null,
-      "hltb_avg": 4.2,
-      "hltb_match": "Chicken Invaders 4: Ultimate Omelette",
-      "qhpp_before": 0.687,
-      "qhpp_after": 1.377,
-      "scraped_at": 1782686762
+      "scraped_at": 1782731348
     },
     {
       "appid": 301320,
@@ -2816,7 +2192,6 @@
       "price_initial": 39.99,
       "price_final": 23.99,
       "discount_pct": 40,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Aug 21, 2014",
       "release_ts": 1408579200,
@@ -2831,14 +2206,7 @@
         "Adventure"
       ],
       "last_update_ts": 1768990404,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": "NoLimits 2: Roller Coaster Simulation",
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782686767
+      "scraped_at": 1782731351
     },
     {
       "appid": 303590,
@@ -2878,11 +2246,10 @@
       "title": "Hexcells Infinite",
       "url": "https://store.steampowered.com/app/304410",
       "rating_pct": 97,
-      "review_count": 4669,
+      "review_count": 4670,
       "price_initial": 4.99,
       "price_final": 1.49,
       "discount_pct": 70,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Sep 1, 2014",
       "release_ts": 1409529600,
@@ -2897,25 +2264,17 @@
         "Strategy"
       ],
       "last_update_ts": 1597854776,
-      "hltb_main": 5.5,
-      "hltb_extra": 8.9,
-      "hltb_complete": 18.5,
-      "hltb_avg": 11.0,
-      "hltb_match": "Hexcells Infinite",
-      "qhpp_before": 2.138,
-      "qhpp_after": 7.161,
-      "scraped_at": 1782686772
+      "scraped_at": 1782731353
     },
     {
       "appid": 304430,
       "title": "INSIDE",
       "url": "https://store.steampowered.com/app/304430",
       "rating_pct": 97,
-      "review_count": 74738,
+      "review_count": 74745,
       "price_initial": 24.99,
       "price_final": 2.49,
       "discount_pct": 90,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Jul 7, 2016",
       "release_ts": 1467849600,
@@ -2930,14 +2289,7 @@
         "Cinematic"
       ],
       "last_update_ts": null,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782687038
+      "scraped_at": 1782731496
     },
     {
       "appid": 310360,
@@ -2977,11 +2329,10 @@
       "title": "Duck Game",
       "url": "https://store.steampowered.com/app/312530",
       "rating_pct": 97,
-      "review_count": 39010,
+      "review_count": 39011,
       "price_initial": 12.99,
       "price_final": 9.09,
       "discount_pct": 30,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Jun 4, 2015",
       "release_ts": 1433376000,
@@ -2996,14 +2347,7 @@
         "Platformer"
       ],
       "last_update_ts": 1652297826,
-      "hltb_main": 3.5,
-      "hltb_extra": 3.6,
-      "hltb_complete": 116.5,
-      "hltb_avg": 41.2,
-      "hltb_match": "Duck Game",
-      "qhpp_before": 3.077,
-      "qhpp_after": 4.396,
-      "scraped_at": 1782687043
+      "scraped_at": 1782731499
     },
     {
       "appid": 312990,
@@ -3043,11 +2387,10 @@
       "title": "SpaceEngine",
       "url": "https://store.steampowered.com/app/314650",
       "rating_pct": 96,
-      "review_count": 15873,
+      "review_count": 15878,
       "price_initial": 29.99,
       "price_final": 17.99,
       "discount_pct": 40,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Jun 11, 2019",
       "release_ts": 1560211200,
@@ -3062,25 +2405,17 @@
         "Flight"
       ],
       "last_update_ts": 1781017894,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782686777
+      "scraped_at": 1782731356
     },
     {
       "appid": 315810,
       "title": "eden*",
       "url": "https://store.steampowered.com/app/315810",
       "rating_pct": 97,
-      "review_count": 5144,
+      "review_count": 5146,
       "price_initial": 19.99,
       "price_final": 9.99,
       "discount_pct": 50,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Jan 30, 2015",
       "release_ts": 1422576000,
@@ -3095,14 +2430,7 @@
         "Great Soundtrack"
       ],
       "last_update_ts": 1665680404,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782687048
+      "scraped_at": 1782731502
     },
     {
       "appid": 316610,
@@ -3113,7 +2441,6 @@
       "price_initial": 14.99,
       "price_final": 4.49,
       "discount_pct": 70,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Feb 25, 2015",
       "release_ts": 1424822400,
@@ -3128,14 +2455,7 @@
         "Strategy"
       ],
       "last_update_ts": 1745337832,
-      "hltb_main": 2.1,
-      "hltb_extra": 3.1,
-      "hltb_complete": 4.3,
-      "hltb_avg": 3.2,
-      "hltb_match": "A Good Snowman is Hard to Build",
-      "qhpp_before": 0.203,
-      "qhpp_after": 0.677,
-      "scraped_at": 1782686782
+      "scraped_at": 1782731359
     },
     {
       "appid": 318130,
@@ -3146,7 +2466,6 @@
       "price_initial": 9.99,
       "price_final": 2.99,
       "discount_pct": 70,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Mar 18, 2015",
       "release_ts": 1426636800,
@@ -3161,14 +2480,7 @@
         "JRPG"
       ],
       "last_update_ts": 1664786478,
-      "hltb_main": 12.6,
-      "hltb_extra": 22.4,
-      "hltb_complete": 31.0,
-      "hltb_avg": 22.0,
-      "hltb_match": "Doom & Destiny",
-      "qhpp_before": 2.114,
-      "qhpp_after": 7.064,
-      "scraped_at": 1782686788
+      "scraped_at": 1782731362
     },
     {
       "appid": 319630,
@@ -3208,11 +2520,10 @@
       "title": "CLANNAD",
       "url": "https://store.steampowered.com/app/324160",
       "rating_pct": 98,
-      "review_count": 10703,
+      "review_count": 10705,
       "price_initial": 44.99,
       "price_final": 17.99,
       "discount_pct": 60,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Nov 23, 2015",
       "release_ts": 1448236800,
@@ -3227,14 +2538,7 @@
         "Dating Sim"
       ],
       "last_update_ts": 1576730224,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782687054
+      "scraped_at": 1782731505
     },
     {
       "appid": 327400,
@@ -3245,7 +2549,6 @@
       "price_initial": 6.99,
       "price_final": 1.39,
       "discount_pct": 80,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Oct 9, 2014",
       "release_ts": 1412812800,
@@ -3260,14 +2563,7 @@
         "Historical"
       ],
       "last_update_ts": null,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782686793
+      "scraped_at": 1782731364
     },
     {
       "appid": 331750,
@@ -3278,7 +2574,6 @@
       "price_initial": 19.99,
       "price_final": 9.99,
       "discount_pct": 50,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Feb 24, 2015",
       "release_ts": 1424736000,
@@ -3293,14 +2588,7 @@
         "Family Friendly"
       ],
       "last_update_ts": null,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782686798
+      "scraped_at": 1782731367
     },
     {
       "appid": 334940,
@@ -3311,7 +2599,6 @@
       "price_initial": 19.99,
       "price_final": 3.99,
       "discount_pct": 80,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 29, 2018",
       "release_ts": 1527552000,
@@ -3326,25 +2613,17 @@
         "Puzzle-Platformer"
       ],
       "last_update_ts": 1537955385,
-      "hltb_main": 5.7,
-      "hltb_extra": 8.1,
-      "hltb_complete": 11.3,
-      "hltb_avg": 8.4,
-      "hltb_match": "Yoku's Island Express",
-      "qhpp_before": 0.403,
-      "qhpp_after": 2.021,
-      "scraped_at": 1782686803
+      "scraped_at": 1782731370
     },
     {
       "appid": 337320,
       "title": "Paint the Town Red",
       "url": "https://store.steampowered.com/app/337320",
       "rating_pct": 96,
-      "review_count": 32121,
+      "review_count": 32126,
       "price_initial": 19.99,
       "price_final": 9.99,
       "discount_pct": 50,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Jul 29, 2021",
       "release_ts": 1627516800,
@@ -3359,25 +2638,17 @@
         "Physics"
       ],
       "last_update_ts": 1727359105,
-      "hltb_main": 5.7,
-      "hltb_extra": 10.8,
-      "hltb_complete": 24.9,
-      "hltb_avg": 13.8,
-      "hltb_match": "Paint the Town Red",
-      "qhpp_before": 0.663,
-      "qhpp_after": 1.326,
-      "scraped_at": 1782686808
+      "scraped_at": 1782731373
     },
     {
       "appid": 337340,
       "title": "Finding Paradise",
       "url": "https://store.steampowered.com/app/337340",
       "rating_pct": 98,
-      "review_count": 20112,
+      "review_count": 20113,
       "price_initial": 9.99,
       "price_final": 1.99,
       "discount_pct": 80,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Dec 14, 2017",
       "release_ts": 1513209600,
@@ -3392,25 +2663,17 @@
         "Funny"
       ],
       "last_update_ts": 1603661868,
-      "hltb_main": 5.1,
-      "hltb_extra": 5.6,
-      "hltb_complete": 5.6,
-      "hltb_avg": 5.4,
-      "hltb_match": "Finding Paradise",
-      "qhpp_before": 0.53,
-      "qhpp_after": 2.659,
-      "scraped_at": 1782687059
+      "scraped_at": 1782731507
     },
     {
       "appid": 341800,
       "title": "Keep Talking and Nobody Explodes",
       "url": "https://store.steampowered.com/app/341800",
       "rating_pct": 97,
-      "review_count": 16929,
+      "review_count": 16932,
       "price_initial": 14.99,
       "price_final": 4.49,
       "discount_pct": 70,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Oct 8, 2015",
       "release_ts": 1444262400,
@@ -3425,14 +2688,7 @@
         "Party"
       ],
       "last_update_ts": 1605629696,
-      "hltb_main": 5.2,
-      "hltb_extra": 6.6,
-      "hltb_complete": 13.8,
-      "hltb_avg": 8.5,
-      "hltb_match": "Keep Talking and Nobody Explodes",
-      "qhpp_before": 0.55,
-      "qhpp_after": 1.836,
-      "scraped_at": 1782687064
+      "scraped_at": 1782731510
     },
     {
       "appid": 344770,
@@ -3443,7 +2699,6 @@
       "price_initial": 14.99,
       "price_final": 5.99,
       "discount_pct": 60,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Sep 8, 2015",
       "release_ts": 1441670400,
@@ -3458,25 +2713,17 @@
         "Fantasy"
       ],
       "last_update_ts": 1522537359,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782686813
+      "scraped_at": 1782731376
     },
     {
       "appid": 348550,
       "title": "GUILTY GEAR XX ACCENT CORE PLUS R",
       "url": "https://store.steampowered.com/app/348550",
       "rating_pct": 96,
-      "review_count": 7643,
+      "review_count": 7642,
       "price_initial": 14.99,
       "price_final": 3.74,
       "discount_pct": 75,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 26, 2015",
       "release_ts": 1432598400,
@@ -3491,25 +2738,17 @@
         "Competitive"
       ],
       "last_update_ts": 1701167570,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782686818
+      "scraped_at": 1782731378
     },
     {
       "appid": 350910,
       "title": "Streets of Fury EX",
       "url": "https://store.steampowered.com/app/350910",
       "rating_pct": 96,
-      "review_count": 860,
+      "review_count": 861,
       "price_initial": 9.99,
       "price_final": 1.99,
       "discount_pct": 80,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Jun 25, 2015",
       "release_ts": 1435190400,
@@ -3524,14 +2763,7 @@
         "Martial Arts"
       ],
       "last_update_ts": 1770835771,
-      "hltb_main": 1.6,
-      "hltb_extra": 2.2,
-      "hltb_complete": null,
-      "hltb_avg": 1.9,
-      "hltb_match": "Streets of Fury EX",
-      "qhpp_before": 0.183,
-      "qhpp_after": 0.917,
-      "scraped_at": 1782686823
+      "scraped_at": 1782731381
     },
     {
       "appid": 351640,
@@ -3571,11 +2803,10 @@
       "title": "Chicken Invaders 5",
       "url": "https://store.steampowered.com/app/353090",
       "rating_pct": 96,
-      "review_count": 1107,
+      "review_count": 1106,
       "price_initial": 5.99,
       "price_final": 2.99,
       "discount_pct": 50,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Mar 13, 2015",
       "release_ts": 1426204800,
@@ -3590,14 +2821,7 @@
         "Arcade"
       ],
       "last_update_ts": 1755009070,
-      "hltb_main": 3.4,
-      "hltb_extra": 4.5,
-      "hltb_complete": 14.5,
-      "hltb_avg": 7.5,
-      "hltb_match": "Chicken Invaders: Cluck of the Dark Side",
-      "qhpp_before": 1.202,
-      "qhpp_after": 2.408,
-      "scraped_at": 1782686829
+      "scraped_at": 1782731384
     },
     {
       "appid": 353330,
@@ -3608,7 +2832,6 @@
       "price_initial": 9.99,
       "price_final": 2.49,
       "discount_pct": 75,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 18, 2015",
       "release_ts": 1431907200,
@@ -3623,25 +2846,17 @@
         "Dating Sim"
       ],
       "last_update_ts": 1434011287,
-      "hltb_main": 2.2,
-      "hltb_extra": 2.6,
-      "hltb_complete": 3.1,
-      "hltb_avg": 2.6,
-      "hltb_match": "Love at First Sight",
-      "qhpp_before": 0.25,
-      "qhpp_after": 1.002,
-      "scraped_at": 1782686834
+      "scraped_at": 1782731387
     },
     {
       "appid": 353540,
       "title": "Stephen's Sausage Roll",
       "url": "https://store.steampowered.com/app/353540",
       "rating_pct": 95,
-      "review_count": 1982,
+      "review_count": 1983,
       "price_initial": 29.99,
       "price_final": 14.99,
       "discount_pct": 50,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Apr 17, 2016",
       "release_ts": 1460851200,
@@ -3656,25 +2871,17 @@
         "Top-Down"
       ],
       "last_update_ts": null,
-      "hltb_main": 29.0,
-      "hltb_extra": 29.7,
-      "hltb_complete": 30.7,
-      "hltb_avg": 29.8,
-      "hltb_match": "Stephen's Sausage Roll",
-      "qhpp_before": 0.944,
-      "qhpp_after": 1.889,
-      "scraped_at": 1782686839
+      "scraped_at": 1782731390
     },
     {
       "appid": 360740,
       "title": "Downwell",
       "url": "https://store.steampowered.com/app/360740",
       "rating_pct": 97,
-      "review_count": 8552,
+      "review_count": 8553,
       "price_initial": 2.99,
       "price_final": 0.74,
       "discount_pct": 75,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Oct 15, 2015",
       "release_ts": 1444867200,
@@ -3689,25 +2896,17 @@
         "Action"
       ],
       "last_update_ts": 1653999922,
-      "hltb_main": 6.4,
-      "hltb_extra": 11.8,
-      "hltb_complete": 14.8,
-      "hltb_avg": 11.0,
-      "hltb_match": "Downwell",
-      "qhpp_before": 3.569,
-      "qhpp_after": 14.419,
-      "scraped_at": 1782686844
+      "scraped_at": 1782731392
     },
     {
       "appid": 362680,
       "title": "Fran Bow",
       "url": "https://store.steampowered.com/app/362680",
       "rating_pct": 97,
-      "review_count": 22386,
+      "review_count": 22388,
       "price_initial": 14.99,
       "price_final": 4.49,
       "discount_pct": 70,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Aug 27, 2015",
       "release_ts": 1440633600,
@@ -3722,25 +2921,17 @@
         "Dark"
       ],
       "last_update_ts": 1683637704,
-      "hltb_main": 7.6,
-      "hltb_extra": 8.6,
-      "hltb_complete": 8.7,
-      "hltb_avg": 8.3,
-      "hltb_match": "Fran Bow",
-      "qhpp_before": 0.537,
-      "qhpp_after": 1.793,
-      "scraped_at": 1782687069
+      "scraped_at": 1782731513
     },
     {
       "appid": 367520,
       "title": "Hollow Knight",
       "url": "https://store.steampowered.com/app/367520",
       "rating_pct": 97,
-      "review_count": 547555,
+      "review_count": 547668,
       "price_initial": 14.99,
       "price_final": 7.49,
       "discount_pct": 50,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Feb 24, 2017",
       "release_ts": 1487894400,
@@ -3755,14 +2946,7 @@
         "Singleplayer"
       ],
       "last_update_ts": 1774585536,
-      "hltb_main": 27.0,
-      "hltb_extra": 41.6,
-      "hltb_complete": 65.6,
-      "hltb_avg": 44.7,
-      "hltb_match": "Hollow Knight",
-      "qhpp_before": 2.893,
-      "qhpp_after": 5.789,
-      "scraped_at": 1782686849
+      "scraped_at": 1782731395
     },
     {
       "appid": 367580,
@@ -3773,7 +2957,6 @@
       "price_initial": 2.99,
       "price_final": 1.76,
       "discount_pct": 41,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Jul 6, 2015",
       "release_ts": 1436140800,
@@ -3788,14 +2971,7 @@
         "Family Friendly"
       ],
       "last_update_ts": 1656842829,
-      "hltb_main": 1.1,
-      "hltb_extra": 1.4,
-      "hltb_complete": 1.4,
-      "hltb_avg": 1.3,
-      "hltb_match": "Hook",
-      "qhpp_before": 0.422,
-      "qhpp_after": 0.716,
-      "scraped_at": 1782687074
+      "scraped_at": 1782731515
     },
     {
       "appid": 370360,
@@ -3806,7 +2982,6 @@
       "price_initial": 6.99,
       "price_final": 3.49,
       "discount_pct": 50,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Jul 20, 2015",
       "release_ts": 1437350400,
@@ -3821,25 +2996,17 @@
         "Singleplayer"
       ],
       "last_update_ts": 1713897529,
-      "hltb_main": 14.3,
-      "hltb_extra": 32.0,
-      "hltb_complete": 36.0,
-      "hltb_avg": 27.4,
-      "hltb_match": "TIS-100",
-      "qhpp_before": 3.802,
-      "qhpp_after": 7.615,
-      "scraped_at": 1782686384
+      "scraped_at": 1782731144
     },
     {
       "appid": 373770,
       "title": "LiEat",
       "url": "https://store.steampowered.com/app/373770",
       "rating_pct": 96,
-      "review_count": 4643,
+      "review_count": 4644,
       "price_initial": 2.99,
       "price_final": 1.19,
       "discount_pct": 60,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Feb 25, 2016",
       "release_ts": 1456358400,
@@ -3854,25 +3021,17 @@
         "Party-Based RPG"
       ],
       "last_update_ts": null,
-      "hltb_main": 4.1,
-      "hltb_extra": 4.6,
-      "hltb_complete": 5.2,
-      "hltb_avg": 4.6,
-      "hltb_match": "LiEat",
-      "qhpp_before": 1.477,
-      "qhpp_after": 3.711,
-      "scraped_at": 1782686855
+      "scraped_at": 1782731398
     },
     {
       "appid": 377860,
       "title": "Mushihimesama",
       "url": "https://store.steampowered.com/app/377860",
       "rating_pct": 97,
-      "review_count": 1549,
+      "review_count": 1550,
       "price_initial": 19.99,
       "price_final": 10.99,
       "discount_pct": 45,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Nov 12, 2015",
       "release_ts": 1447286400,
@@ -3887,25 +3046,17 @@
         "Female Protagonist"
       ],
       "last_update_ts": 1518051918,
-      "hltb_main": 0.7,
-      "hltb_extra": 5.4,
-      "hltb_complete": 33.0,
-      "hltb_avg": 13.0,
-      "hltb_match": "Mushihime-sama",
-      "qhpp_before": 0.631,
-      "qhpp_after": 1.147,
-      "scraped_at": 1782686860
+      "scraped_at": 1782731401
     },
     {
       "appid": 383980,
       "title": "Rivals of Aether",
       "url": "https://store.steampowered.com/app/383980",
       "rating_pct": 96,
-      "review_count": 37805,
+      "review_count": 37807,
       "price_initial": 29.99,
       "price_final": 14.99,
       "discount_pct": 50,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Mar 28, 2017",
       "release_ts": 1490659200,
@@ -3920,14 +3071,7 @@
         "Platformer"
       ],
       "last_update_ts": 1747157534,
-      "hltb_main": 1.7,
-      "hltb_extra": 18.9,
-      "hltb_complete": 92.4,
-      "hltb_avg": 37.7,
-      "hltb_match": "Rivals of Aether",
-      "qhpp_before": 1.207,
-      "qhpp_after": 2.414,
-      "scraped_at": 1782686865
+      "scraped_at": 1782731404
     },
     {
       "appid": 388210,
@@ -3938,7 +3082,6 @@
       "price_initial": 14.99,
       "price_final": 2.99,
       "discount_pct": 80,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Mar 21, 2016",
       "release_ts": 1458518400,
@@ -3953,14 +3096,7 @@
         "Puzzle"
       ],
       "last_update_ts": 1476487875,
-      "hltb_main": 5.2,
-      "hltb_extra": 5.8,
-      "hltb_complete": 6.5,
-      "hltb_avg": 5.8,
-      "hltb_match": "Day of the Tentacle",
-      "qhpp_before": 0.375,
-      "qhpp_after": 1.882,
-      "scraped_at": 1782686389
+      "scraped_at": 1782731146
     },
     {
       "appid": 397740,
@@ -4004,7 +3140,6 @@
       "price_initial": 9.99,
       "price_final": 1.89,
       "discount_pct": 81,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Oct 20, 2015",
       "release_ts": 1445299200,
@@ -4019,14 +3154,7 @@
         "Retro"
       ],
       "last_update_ts": 1673969492,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782686394
+      "scraped_at": 1782731149
     },
     {
       "appid": 407900,
@@ -4066,11 +3194,10 @@
       "title": "Higurashi When They Cry Hou - Ch.2 Watanagashi",
       "url": "https://store.steampowered.com/app/410890",
       "rating_pct": 97,
-      "review_count": 1880,
+      "review_count": 1882,
       "price_initial": 7.99,
       "price_final": 3.99,
       "discount_pct": 50,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Nov 13, 2015",
       "release_ts": 1447372800,
@@ -4085,14 +3212,7 @@
         "Great Soundtrack"
       ],
       "last_update_ts": 1554100256,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782686399
+      "scraped_at": 1782731152
     },
     {
       "appid": 411960,
@@ -4103,7 +3223,6 @@
       "price_initial": 14.99,
       "price_final": 7.49,
       "discount_pct": 50,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Dec 12, 2016",
       "release_ts": 1481500800,
@@ -4118,25 +3237,17 @@
         "Funny"
       ],
       "last_update_ts": 1585764038,
-      "hltb_main": 3.8,
-      "hltb_extra": 7.3,
-      "hltb_complete": 10.0,
-      "hltb_avg": 7.0,
-      "hltb_match": "TY the Tasmanian Tiger 4",
-      "qhpp_before": 0.458,
-      "qhpp_after": 0.916,
-      "scraped_at": 1782686404
+      "scraped_at": 1782731155
     },
     {
       "appid": 412830,
       "title": "STEINS;GATE",
       "url": "https://store.steampowered.com/app/412830",
       "rating_pct": 97,
-      "review_count": 26146,
+      "review_count": 26148,
       "price_initial": 29.99,
       "price_final": 8.99,
       "discount_pct": 70,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Sep 8, 2016",
       "release_ts": 1473292800,
@@ -4151,25 +3262,17 @@
         "Choices Matter"
       ],
       "last_update_ts": null,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782686410
+      "scraped_at": 1782731158
     },
     {
       "appid": 413150,
       "title": "Stardew Valley",
       "url": "https://store.steampowered.com/app/413150",
       "rating_pct": 98,
-      "review_count": 1016868,
+      "review_count": 1017039,
       "price_initial": 14.99,
       "price_final": 8.99,
       "discount_pct": 40,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Feb 26, 2016",
       "release_ts": 1456444800,
@@ -4184,14 +3287,7 @@
         "Simulation"
       ],
       "last_update_ts": 1772212355,
-      "hltb_main": 53.4,
-      "hltb_extra": 94.8,
-      "hltb_complete": 171.8,
-      "hltb_avg": 106.7,
-      "hltb_match": "Stardew Valley",
-      "qhpp_before": 6.976,
-      "qhpp_after": 11.631,
-      "scraped_at": 1782686415
+      "scraped_at": 1782731160
     },
     {
       "appid": 420110,
@@ -4202,7 +3298,6 @@
       "price_initial": 9.99,
       "price_final": 3.99,
       "discount_pct": 60,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Feb 19, 2016",
       "release_ts": 1455840000,
@@ -4217,25 +3312,17 @@
         "Story Rich"
       ],
       "last_update_ts": null,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782686420
+      "scraped_at": 1782731163
     },
     {
       "appid": 420530,
       "title": "OneShot",
       "url": "https://store.steampowered.com/app/420530",
       "rating_pct": 98,
-      "review_count": 63287,
+      "review_count": 63299,
       "price_initial": 9.99,
       "price_final": 5.99,
       "discount_pct": 40,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Dec 8, 2016",
       "release_ts": 1481155200,
@@ -4250,14 +3337,7 @@
         "Singleplayer"
       ],
       "last_update_ts": 1728462137,
-      "hltb_main": 4.6,
-      "hltb_extra": 7.0,
-      "hltb_complete": 8.8,
-      "hltb_avg": 6.8,
-      "hltb_match": "OneShot",
-      "qhpp_before": 0.667,
-      "qhpp_after": 1.113,
-      "scraped_at": 1782686425
+      "scraped_at": 1782731166
     },
     {
       "appid": 424280,
@@ -4297,11 +3377,10 @@
       "title": "The Room Two",
       "url": "https://store.steampowered.com/app/425580",
       "rating_pct": 98,
-      "review_count": 21496,
+      "review_count": 21499,
       "price_initial": 4.99,
       "price_final": 0.99,
       "discount_pct": 80,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Jul 5, 2016",
       "release_ts": 1467676800,
@@ -4316,14 +3395,7 @@
         "Adventure"
       ],
       "last_update_ts": null,
-      "hltb_main": 3.1,
-      "hltb_extra": 3.1,
-      "hltb_complete": 3.1,
-      "hltb_avg": 3.1,
-      "hltb_match": "The Room Two",
-      "qhpp_before": 0.609,
-      "qhpp_after": 3.069,
-      "scraped_at": 1782686430
+      "scraped_at": 1782731169
     },
     {
       "appid": 427520,
@@ -4363,11 +3435,10 @@
       "title": "Epic Battle Fantasy 5",
       "url": "https://store.steampowered.com/app/432350",
       "rating_pct": 99,
-      "review_count": 6028,
+      "review_count": 6029,
       "price_initial": 24.99,
       "price_final": 9.99,
       "discount_pct": 60,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Nov 30, 2018",
       "release_ts": 1543536000,
@@ -4382,25 +3453,17 @@
         "RPG"
       ],
       "last_update_ts": 1668194774,
-      "hltb_main": 27.7,
-      "hltb_extra": 42.8,
-      "hltb_complete": 74.1,
-      "hltb_avg": 48.2,
-      "hltb_match": "Epic Battle Fantasy 5",
-      "qhpp_before": 1.909,
-      "qhpp_after": 4.777,
-      "scraped_at": 1782686435
+      "scraped_at": 1782731171
     },
     {
       "appid": 433340,
       "title": "Slime Rancher",
       "url": "https://store.steampowered.com/app/433340",
       "rating_pct": 98,
-      "review_count": 154597,
+      "review_count": 154612,
       "price_initial": 19.99,
       "price_final": 4.99,
       "discount_pct": 75,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Aug 1, 2017",
       "release_ts": 1501545600,
@@ -4415,14 +3478,7 @@
         "Funny"
       ],
       "last_update_ts": 1639178081,
-      "hltb_main": 14.6,
-      "hltb_extra": 22.9,
-      "hltb_complete": 38.5,
-      "hltb_avg": 25.3,
-      "hltb_match": "Slime Rancher",
-      "qhpp_before": 1.24,
-      "qhpp_after": 4.969,
-      "scraped_at": 1782686440
+      "scraped_at": 1782731174
     },
     {
       "appid": 435400,
@@ -4433,7 +3489,6 @@
       "price_initial": 14.99,
       "price_final": 7.49,
       "discount_pct": 50,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Feb 15, 2017",
       "release_ts": 1487116800,
@@ -4448,14 +3503,7 @@
         "Funny"
       ],
       "last_update_ts": 1521016619,
-      "hltb_main": 3.7,
-      "hltb_extra": 5.0,
-      "hltb_complete": 7.6,
-      "hltb_avg": 5.4,
-      "hltb_match": "Hidden Folks",
-      "qhpp_before": 0.349,
-      "qhpp_after": 0.699,
-      "scraped_at": 1782686446
+      "scraped_at": 1782731177
     },
     {
       "appid": 439490,
@@ -4466,7 +3514,6 @@
       "price_initial": 14.99,
       "price_final": 7.49,
       "discount_pct": 50,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Oct 11, 2016",
       "release_ts": 1476144000,
@@ -4481,25 +3528,17 @@
         "Anime"
       ],
       "last_update_ts": 1498124983,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782686451
+      "scraped_at": 1782731180
     },
     {
       "appid": 447530,
       "title": "VA-11 Hall-A: Cyberpunk Bartender Action",
       "url": "https://store.steampowered.com/app/447530",
       "rating_pct": 97,
-      "review_count": 38319,
+      "review_count": 38323,
       "price_initial": 14.99,
       "price_final": 10.04,
       "discount_pct": 33,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Jun 21, 2016",
       "release_ts": 1466467200,
@@ -4514,14 +3553,7 @@
         "Choices Matter"
       ],
       "last_update_ts": 1514212589,
-      "hltb_main": 11.1,
-      "hltb_extra": 13.6,
-      "hltb_complete": 18.1,
-      "hltb_avg": 14.3,
-      "hltb_match": "VA-11 Hall-A: Cyberpunk Bartender Action",
-      "qhpp_before": 0.925,
-      "qhpp_after": 1.382,
-      "scraped_at": 1782686456
+      "scraped_at": 1782731182
     },
     {
       "appid": 450540,
@@ -4561,11 +3593,10 @@
       "title": "Katana ZERO",
       "url": "https://store.steampowered.com/app/460950",
       "rating_pct": 98,
-      "review_count": 75290,
+      "review_count": 75302,
       "price_initial": 14.99,
       "price_final": 8.99,
       "discount_pct": 40,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Apr 18, 2019",
       "release_ts": 1555545600,
@@ -4580,25 +3611,17 @@
         "Indie"
       ],
       "last_update_ts": 1744648487,
-      "hltb_main": 4.7,
-      "hltb_extra": 6.3,
-      "hltb_complete": 14.7,
-      "hltb_avg": 8.6,
-      "hltb_match": "Katana ZERO",
-      "qhpp_before": 0.562,
-      "qhpp_after": 0.937,
-      "scraped_at": 1782686461
+      "scraped_at": 1782731185
     },
     {
       "appid": 472870,
       "title": "Higurashi When They Cry Hou - Ch.3 Tatarigoroshi",
       "url": "https://store.steampowered.com/app/472870",
       "rating_pct": 98,
-      "review_count": 1314,
+      "review_count": 1316,
       "price_initial": 7.99,
       "price_final": 3.99,
       "discount_pct": 50,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Jun 17, 2016",
       "release_ts": 1466121600,
@@ -4613,25 +3636,17 @@
         "Great Soundtrack"
       ],
       "last_update_ts": 1554100260,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782686466
+      "scraped_at": 1782731188
     },
     {
       "appid": 483980,
       "title": "Mad Father",
       "url": "https://store.steampowered.com/app/483980",
       "rating_pct": 97,
-      "review_count": 6571,
+      "review_count": 6572,
       "price_initial": 9.99,
       "price_final": 4.99,
       "discount_pct": 50,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Sep 22, 2016",
       "release_ts": 1474502400,
@@ -4646,14 +3661,7 @@
         "Survival Horror"
       ],
       "last_update_ts": 1723706139,
-      "hltb_main": 3.1,
-      "hltb_extra": 4.1,
-      "hltb_complete": 5.1,
-      "hltb_avg": 4.1,
-      "hltb_match": "Mad Father",
-      "qhpp_before": 0.398,
-      "qhpp_after": 0.797,
-      "scraped_at": 1782686471
+      "scraped_at": 1782731191
     },
     {
       "appid": 488860,
@@ -4664,7 +3672,6 @@
       "price_initial": 24.99,
       "price_final": 19.99,
       "discount_pct": 20,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Sep 29, 2021",
       "release_ts": 1632873600,
@@ -4679,25 +3686,17 @@
         "Character Customization"
       ],
       "last_update_ts": 1776279750,
-      "hltb_main": 13.5,
-      "hltb_extra": 60.9,
-      "hltb_complete": 236.7,
-      "hltb_avg": 103.7,
-      "hltb_match": "MADNESS: Project Nexus",
-      "qhpp_before": 4.025,
-      "qhpp_after": 5.032,
-      "scraped_at": 1782686477
+      "scraped_at": 1782731194
     },
     {
       "appid": 504230,
       "title": "Celeste",
       "url": "https://store.steampowered.com/app/504230",
       "rating_pct": 97,
-      "review_count": 142859,
+      "review_count": 142889,
       "price_initial": 19.99,
       "price_final": 4.99,
       "discount_pct": 75,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Jan 25, 2018",
       "release_ts": 1516838400,
@@ -4712,25 +3711,17 @@
         "Female Protagonist"
       ],
       "last_update_ts": 1706611556,
-      "hltb_main": 8.3,
-      "hltb_extra": 14.6,
-      "hltb_complete": 39.2,
-      "hltb_avg": 20.7,
-      "hltb_match": "Celeste",
-      "qhpp_before": 1.004,
-      "qhpp_after": 4.024,
-      "scraped_at": 1782686482
+      "scraped_at": 1782731197
     },
     {
       "appid": 508440,
       "title": "Totally Accurate Battle Simulator",
       "url": "https://store.steampowered.com/app/508440",
       "rating_pct": 98,
-      "review_count": 151034,
+      "review_count": 151052,
       "price_initial": 19.99,
       "price_final": 6.79,
       "discount_pct": 66,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Apr 1, 2021",
       "release_ts": 1617235200,
@@ -4745,25 +3736,17 @@
         "Realistic"
       ],
       "last_update_ts": 1734433682,
-      "hltb_main": 8.7,
-      "hltb_extra": 16.0,
-      "hltb_complete": 41.8,
-      "hltb_avg": 22.2,
-      "hltb_match": "Totally Accurate Battle Simulator",
-      "qhpp_before": 1.088,
-      "qhpp_after": 3.204,
-      "scraped_at": 1782686487
+      "scraped_at": 1782731199
     },
     {
       "appid": 519860,
       "title": "DUSK",
       "url": "https://store.steampowered.com/app/519860",
       "rating_pct": 97,
-      "review_count": 25236,
+      "review_count": 25240,
       "price_initial": 19.99,
       "price_final": 6.79,
       "discount_pct": 66,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Dec 10, 2018",
       "release_ts": 1544400000,
@@ -4778,14 +3761,7 @@
         "First-Person"
       ],
       "last_update_ts": 1708917215,
-      "hltb_main": 7.5,
-      "hltb_extra": 9.6,
-      "hltb_complete": 17.0,
-      "hltb_avg": 11.4,
-      "hltb_match": "DUSK",
-      "qhpp_before": 0.553,
-      "qhpp_after": 1.629,
-      "scraped_at": 1782686492
+      "scraped_at": 1782731202
     },
     {
       "appid": 521200,
@@ -4825,11 +3801,10 @@
       "title": "Satisfactory",
       "url": "https://store.steampowered.com/app/526870",
       "rating_pct": 97,
-      "review_count": 273865,
+      "review_count": 273903,
       "price_initial": 39.99,
       "price_final": 27.99,
       "discount_pct": 30,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Sep 10, 2024",
       "release_ts": 1725926400,
@@ -4844,25 +3819,17 @@
         "Resource Management"
       ],
       "last_update_ts": 1782321946,
-      "hltb_main": 106.6,
-      "hltb_extra": 145.6,
-      "hltb_complete": 224.0,
-      "hltb_avg": 158.7,
-      "hltb_match": "Satisfactory",
-      "qhpp_before": 3.849,
-      "qhpp_after": 5.5,
-      "scraped_at": 1782686497
+      "scraped_at": 1782731205
     },
     {
       "appid": 531510,
       "title": "Just Shapes & Beats",
       "url": "https://store.steampowered.com/app/531510",
       "rating_pct": 98,
-      "review_count": 25627,
+      "review_count": 25631,
       "price_initial": 19.99,
       "price_final": 11.99,
       "discount_pct": 40,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 31, 2018",
       "release_ts": 1527724800,
@@ -4877,25 +3844,17 @@
         "Indie"
       ],
       "last_update_ts": 1760469780,
-      "hltb_main": 3.3,
-      "hltb_extra": 7.3,
-      "hltb_complete": 34.0,
-      "hltb_avg": 14.9,
-      "hltb_match": "Just Shapes & Beats",
-      "qhpp_before": 0.73,
-      "qhpp_after": 1.218,
-      "scraped_at": 1782686502
+      "scraped_at": 1782731208
     },
     {
       "appid": 532110,
       "title": "Rusty Lake: Roots",
       "url": "https://store.steampowered.com/app/532110",
       "rating_pct": 97,
-      "review_count": 8806,
+      "review_count": 8809,
       "price_initial": 3.99,
       "price_final": 2.23,
       "discount_pct": 44,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Oct 20, 2016",
       "release_ts": 1476921600,
@@ -4910,14 +3869,7 @@
         "Singleplayer"
       ],
       "last_update_ts": null,
-      "hltb_main": 4.0,
-      "hltb_extra": 4.6,
-      "hltb_complete": 5.1,
-      "hltb_avg": 4.6,
-      "hltb_match": "Rusty Lake: Roots",
-      "qhpp_before": 1.118,
-      "qhpp_after": 2.001,
-      "scraped_at": 1782686507
+      "scraped_at": 1782731210
     },
     {
       "appid": 541570,
@@ -4957,11 +3909,10 @@
       "title": "Half-Life: Alyx",
       "url": "https://store.steampowered.com/app/546560",
       "rating_pct": 98,
-      "review_count": 104227,
+      "review_count": 104234,
       "price_initial": 59.99,
       "price_final": 14.99,
       "discount_pct": 75,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Mar 23, 2020",
       "release_ts": 1584921600,
@@ -4976,25 +3927,17 @@
         "First-Person"
       ],
       "last_update_ts": 1651881313,
-      "hltb_main": 12.2,
-      "hltb_extra": 14.3,
-      "hltb_complete": 18.9,
-      "hltb_avg": 15.1,
-      "hltb_match": "Half-Life: Alyx",
-      "qhpp_before": 0.247,
-      "qhpp_after": 0.987,
-      "scraped_at": 1782686512
+      "scraped_at": 1782731213
     },
     {
       "appid": 548430,
       "title": "Deep Rock Galactic",
       "url": "https://store.steampowered.com/app/548430",
       "rating_pct": 97,
-      "review_count": 377264,
+      "review_count": 377295,
       "price_initial": 29.99,
       "price_final": 8.99,
       "discount_pct": 70,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 13, 2020",
       "release_ts": 1589328000,
@@ -5009,25 +3952,17 @@
         "Exploration"
       ],
       "last_update_ts": 1772455822,
-      "hltb_main": 44.8,
-      "hltb_extra": 139.4,
-      "hltb_complete": 493.8,
-      "hltb_avg": 226.0,
-      "hltb_match": "Deep Rock Galactic",
-      "qhpp_before": 7.31,
-      "qhpp_after": 24.385,
-      "scraped_at": 1782686517
+      "scraped_at": 1782731216
     },
     {
       "appid": 553310,
       "title": "Lethal League Blaze",
       "url": "https://store.steampowered.com/app/553310",
       "rating_pct": 97,
-      "review_count": 6643,
+      "review_count": 6644,
       "price_initial": 19.99,
       "price_final": 9.99,
       "discount_pct": 50,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Oct 24, 2018",
       "release_ts": 1540339200,
@@ -5042,14 +3977,7 @@
         "Local Multiplayer"
       ],
       "last_update_ts": null,
-      "hltb_main": 2.3,
-      "hltb_extra": 8.1,
-      "hltb_complete": 35.2,
-      "hltb_avg": 15.2,
-      "hltb_match": "Lethal League Blaze",
-      "qhpp_before": 0.738,
-      "qhpp_after": 1.476,
-      "scraped_at": 1782686522
+      "scraped_at": 1782731219
     },
     {
       "appid": 1444480,
@@ -28256,7 +27184,6 @@
       "price_initial": null,
       "price_final": null,
       "discount_pct": 0,
-      "discount_end": null,
       "is_free": true,
       "release_date": "Apr 26, 2026",
       "release_ts": 1777161600,
@@ -28269,15 +27196,8 @@
         "Simulation",
         "Free To Play"
       ],
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782604607,
-      "last_update_ts": 1782494170
+      "last_update_ts": 1782494170,
+      "scraped_at": 1782731118
     },
     {
       "appid": 4579700,
@@ -41129,7 +40049,6 @@
       "price_initial": 5.99,
       "price_final": 5.99,
       "discount_pct": 0,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 31, 2026",
       "release_ts": 1780185600,
@@ -41137,15 +40056,8 @@
         "Indie",
         "Simulation"
       ],
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782583620,
-      "last_update_ts": 1782353963
+      "last_update_ts": 1782353963,
+      "scraped_at": 1782731103
     },
     {
       "appid": 4619730,
@@ -42694,7 +41606,6 @@
       "price_initial": 5.0,
       "price_final": 5.0,
       "discount_pct": 0,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Jun 15, 2026",
       "release_ts": 1781481600,
@@ -42705,15 +41616,8 @@
         "Simulation",
         "Strategy"
       ],
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782582720,
-      "last_update_ts": 1782378263
+      "last_update_ts": 1782378263,
+      "scraped_at": 1782731100
     },
     {
       "appid": 4625480,
@@ -57856,12 +56760,11 @@
       "appid": 4687330,
       "title": "Ultimate Blacksmith Tycoon ~The Appraiser-Shopkeeper Conquers the Blacksmith Trade~",
       "url": "https://store.steampowered.com/app/4687330",
-      "rating_pct": 67,
-      "review_count": 3,
+      "rating_pct": 75,
+      "review_count": 4,
       "price_initial": 14.99,
       "price_final": 14.99,
       "discount_pct": 0,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Jun 13, 2026",
       "release_ts": 1781308800,
@@ -57872,15 +56775,8 @@
         "Strategy",
         "Early Access"
       ],
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782564247,
-      "last_update_ts": 1782636038
+      "last_update_ts": 1782636038,
+      "scraped_at": 1782731084
     },
     {
       "appid": 4687470,
@@ -59994,22 +58890,14 @@
       "price_initial": 4.99,
       "price_final": 4.99,
       "discount_pct": 0,
-      "discount_end": null,
       "is_free": false,
       "release_date": "May 28, 2026",
       "release_ts": 1779926400,
       "tags": [
         "Casual"
       ],
-      "hltb_main": 0.9,
-      "hltb_extra": null,
-      "hltb_complete": 1.5,
-      "hltb_avg": 1.2,
-      "hltb_match": "Astra's Garden",
-      "qhpp_before": 0.226,
-      "qhpp_after": 0.226,
-      "scraped_at": 1782560391,
-      "last_update_ts": 1780064663
+      "last_update_ts": 1782691506,
+      "scraped_at": 1782731080
     },
     {
       "appid": 4694980,
@@ -70132,7 +69020,6 @@
       "price_initial": 3.99,
       "price_final": 3.59,
       "discount_pct": 10,
-      "discount_end": 1783184401,
       "is_free": false,
       "release_date": "Jun 27, 2026",
       "release_ts": 1782518400,
@@ -70144,14 +69031,7 @@
         "Strategy"
       ],
       "last_update_ts": null,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782686367
+      "scraped_at": 1782731132
     },
     {
       "appid": 4733610,
@@ -70275,7 +69155,6 @@
       "price_initial": 9.99,
       "price_final": 9.99,
       "discount_pct": 0,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Jun 3, 2026",
       "release_ts": 1780444800,
@@ -70283,15 +69162,8 @@
         "Casual",
         "Indie"
       ],
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782555469,
-      "last_update_ts": 1780664963
+      "last_update_ts": 1780664963,
+      "scraped_at": 1782731072
     },
     {
       "appid": 4733960,
@@ -78982,7 +77854,6 @@
       "price_initial": 4.99,
       "price_final": 4.49,
       "discount_pct": 10,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Jun 27, 2026",
       "release_ts": 1782518400,
@@ -78992,14 +77863,7 @@
         "Early Access"
       ],
       "last_update_ts": 1782633618,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782686372
+      "scraped_at": 1782731135
     },
     {
       "appid": 4774660,
@@ -80189,12 +79053,11 @@
       "appid": 4781090,
       "title": "Friction",
       "url": "https://store.steampowered.com/app/4781090",
-      "rating_pct": 100,
-      "review_count": 8,
+      "rating_pct": 89,
+      "review_count": 9,
       "price_initial": null,
       "price_final": null,
       "discount_pct": 0,
-      "discount_end": null,
       "is_free": true,
       "release_date": "Jun 18, 2026",
       "release_ts": 1781740800,
@@ -80206,14 +79069,7 @@
         "Early Access"
       ],
       "last_update_ts": 1782601751,
-      "hltb_main": 0.4,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": 0.4,
-      "hltb_match": "Friction",
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782686295
+      "scraped_at": 1782731124
     },
     {
       "appid": 4781390,
@@ -83573,11 +82429,10 @@
       "title": "Covet the Countdown",
       "url": "https://store.steampowered.com/app/4800630",
       "rating_pct": 100,
-      "review_count": 2,
+      "review_count": 3,
       "price_initial": 6.99,
       "price_final": 4.19,
       "discount_pct": 40,
-      "discount_end": 1783789233,
       "is_free": false,
       "release_date": "Jun 27, 2026",
       "release_ts": 1782518400,
@@ -83586,14 +82441,7 @@
         "Simulation"
       ],
       "last_update_ts": null,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782686364
+      "scraped_at": 1782731130
     },
     {
       "appid": 4800860,
@@ -83656,11 +82504,10 @@
       "title": "HexLemma",
       "url": "https://store.steampowered.com/app/4801330",
       "rating_pct": 100,
-      "review_count": 1,
+      "review_count": 2,
       "price_initial": 9.99,
       "price_final": 8.99,
       "discount_pct": 10,
-      "discount_end": 1783184441,
       "is_free": false,
       "release_date": "Jun 27, 2026",
       "release_ts": 1782518400,
@@ -83668,14 +82515,7 @@
         "Casual"
       ],
       "last_update_ts": 1782657521,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782686379
+      "scraped_at": 1782731141
     },
     {
       "appid": 4801780,
@@ -83943,7 +82783,6 @@
       "price_initial": 5.0,
       "price_final": 4.0,
       "discount_pct": 20,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Jun 27, 2026",
       "release_ts": 1782518400,
@@ -83953,14 +82792,7 @@
         "Racing"
       ],
       "last_update_ts": null,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782686360
+      "scraped_at": 1782731127
     },
     {
       "appid": 4804670,
@@ -84054,7 +82886,6 @@
       "price_initial": 0.99,
       "price_final": 0.49,
       "discount_pct": 51,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Jun 20, 2026",
       "release_ts": 1781913600,
@@ -84064,14 +82895,7 @@
         "Indie"
       ],
       "last_update_ts": null,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782687275
+      "scraped_at": 1782731630
     },
     {
       "appid": 4805330,
@@ -84082,7 +82906,6 @@
       "price_initial": 0.99,
       "price_final": 0.49,
       "discount_pct": 51,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Jun 18, 2026",
       "release_ts": 1781740800,
@@ -84093,14 +82916,7 @@
         "Racing"
       ],
       "last_update_ts": null,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782687270
+      "scraped_at": 1782731627
     },
     {
       "appid": 4805390,
@@ -84170,7 +82986,6 @@
       "price_initial": 5.99,
       "price_final": 4.49,
       "discount_pct": 25,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Jun 22, 2026",
       "release_ts": 1782086400,
@@ -84180,14 +82995,7 @@
         "Sports"
       ],
       "last_update_ts": 1782427110,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782687264
+      "scraped_at": 1782731624
     },
     {
       "appid": 4806090,
@@ -84509,7 +83317,6 @@
       "price_initial": 19.99,
       "price_final": 15.99,
       "discount_pct": 20,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Jun 19, 2026",
       "release_ts": 1781827200,
@@ -84518,14 +83325,7 @@
         "Strategy"
       ],
       "last_update_ts": null,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782687259
+      "scraped_at": 1782731622
     },
     {
       "appid": 4808750,
@@ -84703,7 +83503,6 @@
       "price_initial": 5.99,
       "price_final": 4.79,
       "discount_pct": 20,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Jun 19, 2026",
       "release_ts": 1781827200,
@@ -84712,14 +83511,7 @@
         "Indie"
       ],
       "last_update_ts": null,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782687254
+      "scraped_at": 1782731619
     },
     {
       "appid": 4809700,
@@ -84730,7 +83522,6 @@
       "price_initial": 2.99,
       "price_final": 2.39,
       "discount_pct": 20,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Jun 19, 2026",
       "release_ts": 1781827200,
@@ -84740,14 +83531,7 @@
         "Indie"
       ],
       "last_update_ts": 1781885844,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782687249
+      "scraped_at": 1782731616
     },
     {
       "appid": 4810250,
@@ -84876,7 +83660,6 @@
       "price_initial": 0.99,
       "price_final": 0.59,
       "discount_pct": 40,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Jun 19, 2026",
       "release_ts": 1781827200,
@@ -84885,14 +83668,7 @@
         "Indie"
       ],
       "last_update_ts": null,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782687244
+      "scraped_at": 1782731613
     },
     {
       "appid": 4811790,
@@ -84961,7 +83737,6 @@
       "price_initial": 0.99,
       "price_final": 0.79,
       "discount_pct": 20,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Jun 19, 2026",
       "release_ts": 1781827200,
@@ -84971,14 +83746,7 @@
         "Indie"
       ],
       "last_update_ts": null,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782687238
+      "scraped_at": 1782731610
     },
     {
       "appid": 4813120,
@@ -85017,7 +83785,6 @@
       "price_initial": 2.99,
       "price_final": 2.09,
       "discount_pct": 30,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Jun 25, 2026",
       "release_ts": 1782345600,
@@ -85029,14 +83796,7 @@
         "Early Access"
       ],
       "last_update_ts": null,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782687233
+      "scraped_at": 1782731607
     },
     {
       "appid": 4813540,
@@ -85075,7 +83835,6 @@
       "price_initial": 2.99,
       "price_final": 1.79,
       "discount_pct": 40,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Jun 21, 2026",
       "release_ts": 1782000000,
@@ -85088,14 +83847,7 @@
         "Strategy"
       ],
       "last_update_ts": null,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782687228
+      "scraped_at": 1782731605
     },
     {
       "appid": 4813930,
@@ -85134,7 +83886,6 @@
       "price_initial": 9.99,
       "price_final": 5.99,
       "discount_pct": 40,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Jun 20, 2026",
       "release_ts": 1781913600,
@@ -85142,14 +83893,7 @@
         "Casual"
       ],
       "last_update_ts": null,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782687223
+      "scraped_at": 1782731602
     },
     {
       "appid": 4813970,
@@ -85270,12 +84014,11 @@
       "appid": 4815720,
       "title": "Portalborn",
       "url": "https://store.steampowered.com/app/4815720",
-      "rating_pct": 86,
-      "review_count": 22,
+      "rating_pct": 89,
+      "review_count": 27,
       "price_initial": 9.99,
       "price_final": 8.49,
       "discount_pct": 15,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Jun 24, 2026",
       "release_ts": 1782259200,
@@ -85285,15 +84028,8 @@
         "RPG",
         "Early Access"
       ],
-      "last_update_ts": 1782681103,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782687218
+      "last_update_ts": 1782691837,
+      "scraped_at": 1782731599
     },
     {
       "appid": 4815820,
@@ -85304,7 +84040,6 @@
       "price_initial": 1.49,
       "price_final": 1.34,
       "discount_pct": 10,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Jun 25, 2026",
       "release_ts": 1782345600,
@@ -85316,14 +84051,7 @@
         "Simulation"
       ],
       "last_update_ts": null,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782687213
+      "scraped_at": 1782731596
     },
     {
       "appid": 4816200,
@@ -85334,7 +84062,6 @@
       "price_initial": 7.99,
       "price_final": 6.39,
       "discount_pct": 20,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Jun 23, 2026",
       "release_ts": 1782172800,
@@ -85344,14 +84071,7 @@
         "Early Access"
       ],
       "last_update_ts": 1782427610,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782687208
+      "scraped_at": 1782731593
     },
     {
       "appid": 4816650,
@@ -85390,7 +84110,6 @@
       "price_initial": 2.99,
       "price_final": 2.09,
       "discount_pct": 30,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Jun 24, 2026",
       "release_ts": 1782259200,
@@ -85401,14 +84120,7 @@
         "Early Access"
       ],
       "last_update_ts": 1782391481,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782687203
+      "scraped_at": 1782731591
     },
     {
       "appid": 4816900,
@@ -85445,7 +84157,6 @@
       "price_initial": 3.99,
       "price_final": 2.39,
       "discount_pct": 40,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Jun 25, 2026",
       "release_ts": 1782345600,
@@ -85454,14 +84165,7 @@
         "Simulation"
       ],
       "last_update_ts": null,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": 30.0,
-      "hltb_avg": 30.0,
-      "hltb_match": "Bitbuddy",
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782687198
+      "scraped_at": 1782731587
     },
     {
       "appid": 4817600,
@@ -85528,7 +84232,6 @@
       "price_initial": 19.99,
       "price_final": 14.99,
       "discount_pct": 25,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Jun 27, 2026",
       "release_ts": 1782518400,
@@ -85539,14 +84242,7 @@
         "Simulation"
       ],
       "last_update_ts": null,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782687193
+      "scraped_at": 1782731584
     },
     {
       "appid": 4818490,
@@ -85610,24 +84306,16 @@
       "price_initial": null,
       "price_final": null,
       "discount_pct": 0,
-      "discount_end": null,
       "is_free": true,
-      "release_date": "June 2026",
-      "release_ts": null,
+      "release_date": "Jun 28, 2026",
+      "release_ts": 1782604800,
       "tags": [
         "Casual",
         "Indie",
         "Free To Play"
       ],
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782516654,
-      "last_update_ts": null
+      "last_update_ts": null,
+      "scraped_at": 1782731044
     },
     {
       "appid": 4818790,
@@ -85638,7 +84326,6 @@
       "price_initial": 6.99,
       "price_final": 5.24,
       "discount_pct": 25,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Jun 24, 2026",
       "release_ts": 1782259200,
@@ -85646,14 +84333,7 @@
         "Casual"
       ],
       "last_update_ts": null,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782687187
+      "scraped_at": 1782731582
     },
     {
       "appid": 4818930,
@@ -85836,7 +84516,6 @@
       "price_initial": 1.99,
       "price_final": 1.19,
       "discount_pct": 40,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Jun 23, 2026",
       "release_ts": 1782172800,
@@ -85847,25 +84526,17 @@
         "Simulation"
       ],
       "last_update_ts": 1782292917,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782687182
+      "scraped_at": 1782731579
     },
     {
       "appid": 4820610,
       "title": "Project Threshold",
       "url": "https://store.steampowered.com/app/4820610",
       "rating_pct": 94,
-      "review_count": 16,
+      "review_count": 18,
       "price_initial": 2.99,
       "price_final": 2.39,
       "discount_pct": 20,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Jun 25, 2026",
       "release_ts": 1782345600,
@@ -85874,14 +84545,7 @@
         "Indie"
       ],
       "last_update_ts": 1782445018,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782687177
+      "scraped_at": 1782731576
     },
     {
       "appid": 4820830,
@@ -85921,7 +84585,6 @@
       "price_initial": 0.99,
       "price_final": 0.59,
       "discount_pct": 40,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Jun 22, 2026",
       "release_ts": 1782086400,
@@ -85929,14 +84592,7 @@
         "Casual"
       ],
       "last_update_ts": 1781800173,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": "Greed and Grind",
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782687172
+      "scraped_at": 1782731573
     },
     {
       "appid": 4820990,
@@ -85975,7 +84631,6 @@
       "price_initial": 9.99,
       "price_final": 5.99,
       "discount_pct": 40,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Jun 26, 2026",
       "release_ts": 1782432000,
@@ -85983,14 +84638,7 @@
         "Indie"
       ],
       "last_update_ts": 1782530269,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782687167
+      "scraped_at": 1782731570
     },
     {
       "appid": 4821280,
@@ -86141,7 +84789,6 @@
       "price_initial": 0.99,
       "price_final": 0.59,
       "discount_pct": 40,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Jun 25, 2026",
       "release_ts": 1782345600,
@@ -86153,14 +84800,7 @@
         "RPG"
       ],
       "last_update_ts": null,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782687162
+      "scraped_at": 1782731568
     },
     {
       "appid": 4821980,
@@ -86201,7 +84841,6 @@
       "price_initial": 1.99,
       "price_final": 1.19,
       "discount_pct": 40,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Jun 23, 2026",
       "release_ts": 1782172800,
@@ -86211,14 +84850,7 @@
         "Indie"
       ],
       "last_update_ts": 1782298474,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782687157
+      "scraped_at": 1782731565
     },
     {
       "appid": 4823070,
@@ -86260,7 +84892,6 @@
       "price_initial": 2.99,
       "price_final": 2.39,
       "discount_pct": 20,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Jun 23, 2026",
       "release_ts": 1782172800,
@@ -86270,14 +84901,7 @@
         "Simulation"
       ],
       "last_update_ts": null,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782687152
+      "scraped_at": 1782731562
     },
     {
       "appid": 4823380,
@@ -86288,7 +84912,6 @@
       "price_initial": 5.49,
       "price_final": 3.29,
       "discount_pct": 40,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Jun 26, 2026",
       "release_ts": 1782432000,
@@ -86299,14 +84922,7 @@
         "Strategy"
       ],
       "last_update_ts": null,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782687146
+      "scraped_at": 1782731559
     },
     {
       "appid": 4823420,
@@ -86487,7 +85103,6 @@
       "price_initial": 1.99,
       "price_final": 1.19,
       "discount_pct": 40,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Jun 26, 2026",
       "release_ts": 1782432000,
@@ -86496,14 +85111,7 @@
         "Indie"
       ],
       "last_update_ts": null,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782687141
+      "scraped_at": 1782731556
     },
     {
       "appid": 4826160,
@@ -86572,7 +85180,6 @@
       "price_initial": 3.99,
       "price_final": 3.39,
       "discount_pct": 15,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Jun 24, 2026",
       "release_ts": 1782259200,
@@ -86582,14 +85189,7 @@
         "Indie"
       ],
       "last_update_ts": null,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782687136
+      "scraped_at": 1782731551
     },
     {
       "appid": 4826380,
@@ -86623,12 +85223,11 @@
       "appid": 4826530,
       "title": "漢字でGOGO!",
       "url": "https://store.steampowered.com/app/4826530",
-      "rating_pct": 86,
-      "review_count": 14,
+      "rating_pct": 88,
+      "review_count": 16,
       "price_initial": 1.5,
       "price_final": 1.35,
       "discount_pct": 10,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Jun 26, 2026",
       "release_ts": 1782432000,
@@ -86636,14 +85235,7 @@
         "Simulation"
       ],
       "last_update_ts": null,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782687130
+      "scraped_at": 1782731547
     },
     {
       "appid": 4826740,
@@ -86684,7 +85276,6 @@
       "price_initial": 1.99,
       "price_final": 1.19,
       "discount_pct": 40,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Jun 26, 2026",
       "release_ts": 1782432000,
@@ -86696,14 +85287,7 @@
         "Simulation"
       ],
       "last_update_ts": null,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782687125
+      "scraped_at": 1782731543
     },
     {
       "appid": 4827240,
@@ -87019,7 +85603,6 @@
       "price_initial": 9.99,
       "price_final": 8.99,
       "discount_pct": 10,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Jun 25, 2026",
       "release_ts": 1782345600,
@@ -87027,14 +85610,7 @@
         "Casual"
       ],
       "last_update_ts": null,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782687120
+      "scraped_at": 1782731541
     },
     {
       "appid": 4830940,
@@ -87045,7 +85621,6 @@
       "price_initial": 1.99,
       "price_final": 1.19,
       "discount_pct": 40,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Jun 25, 2026",
       "release_ts": 1782345600,
@@ -87053,14 +85628,7 @@
         "Casual"
       ],
       "last_update_ts": null,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782687115
+      "scraped_at": 1782731538
     },
     {
       "appid": 4830980,
@@ -87071,7 +85639,6 @@
       "price_initial": 1.99,
       "price_final": 1.19,
       "discount_pct": 40,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Jun 25, 2026",
       "release_ts": 1782345600,
@@ -87080,14 +85647,7 @@
         "Indie"
       ],
       "last_update_ts": null,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": 0.3,
-      "hltb_avg": 0.3,
-      "hltb_match": "BAFF 2",
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782687110
+      "scraped_at": 1782731535
     },
     {
       "appid": 4831070,
@@ -87098,7 +85658,6 @@
       "price_initial": 4.99,
       "price_final": 3.49,
       "discount_pct": 30,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Jun 26, 2026",
       "release_ts": 1782432000,
@@ -87107,25 +85666,17 @@
         "Indie"
       ],
       "last_update_ts": null,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782687105
+      "scraped_at": 1782731532
     },
     {
       "appid": 4831190,
       "title": "染上你的颜色",
       "url": "https://store.steampowered.com/app/4831190",
-      "rating_pct": 100,
-      "review_count": 15,
+      "rating_pct": 94,
+      "review_count": 16,
       "price_initial": 1.99,
       "price_final": 1.59,
       "discount_pct": 20,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Jun 25, 2026",
       "release_ts": 1782345600,
@@ -87134,14 +85685,7 @@
         "RPG"
       ],
       "last_update_ts": null,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782687100
+      "scraped_at": 1782731529
     },
     {
       "appid": 4831310,
@@ -87297,7 +85841,6 @@
       "price_initial": 3.99,
       "price_final": 3.59,
       "discount_pct": 10,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Jun 25, 2026",
       "release_ts": 1782345600,
@@ -87307,14 +85850,7 @@
         "Strategy"
       ],
       "last_update_ts": 1782541579,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782687095
+      "scraped_at": 1782731527
     },
     {
       "appid": 4833850,
@@ -87325,7 +85861,6 @@
       "price_initial": 4.99,
       "price_final": 4.49,
       "discount_pct": 10,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Jun 25, 2026",
       "release_ts": 1782345600,
@@ -87335,25 +85870,17 @@
         "Indie"
       ],
       "last_update_ts": null,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782687089
+      "scraped_at": 1782731524
     },
     {
       "appid": 4834070,
       "title": "Don't Sleep With The Fishes",
       "url": "https://store.steampowered.com/app/4834070",
       "rating_pct": 97,
-      "review_count": 155,
+      "review_count": 166,
       "price_initial": 1.99,
       "price_final": 1.79,
       "discount_pct": 10,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Jun 26, 2026",
       "release_ts": 1782432000,
@@ -87362,14 +85889,7 @@
         "Indie"
       ],
       "last_update_ts": null,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782687085
+      "scraped_at": 1782731521
     },
     {
       "appid": 4834620,
@@ -87467,7 +85987,6 @@
       "price_initial": 2.99,
       "price_final": 2.39,
       "discount_pct": 20,
-      "discount_end": null,
       "is_free": false,
       "release_date": "Jun 26, 2026",
       "release_ts": 1782432000,
@@ -87476,14 +85995,7 @@
         "Indie"
       ],
       "last_update_ts": null,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782687079
+      "scraped_at": 1782731518
     },
     {
       "appid": 4835250,
@@ -87522,7 +86034,6 @@
       "price_initial": 0.99,
       "price_final": 0.59,
       "discount_pct": 40,
-      "discount_end": 1783789204,
       "is_free": false,
       "release_date": "Jun 27, 2026",
       "release_ts": 1782518400,
@@ -87531,14 +86042,7 @@
         "Indie"
       ],
       "last_update_ts": null,
-      "hltb_main": null,
-      "hltb_extra": null,
-      "hltb_complete": null,
-      "hltb_avg": null,
-      "hltb_match": null,
-      "qhpp_before": null,
-      "qhpp_after": null,
-      "scraped_at": 1782686375
+      "scraped_at": 1782731138
     },
     {
       "appid": 4835800,
