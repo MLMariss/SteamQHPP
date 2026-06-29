@@ -30,6 +30,7 @@ Reads games.json (read-only) for the appid list.
 
 import json
 import os
+import random
 import subprocess
 import sys
 import time
@@ -129,12 +130,14 @@ def git_checkpoint(msg):
         subprocess.run(["git", "add", "tags.json"], check=False)
         if subprocess.run(["git", "diff", "--staged", "--quiet"]).returncode != 0:
             subprocess.run(["git", "commit", "-m", msg], check=False)
-            for _attempt in range(1, 5):    # retry against other jobs pushing concurrently
-                subprocess.run(["git", "pull", "--rebase", "--autostash"], check=False)
-                if subprocess.run(["git", "push"], capture_output=True, text=True).returncode == 0:
+            for _attempt in range(1, 9):    # retry against other jobs pushing concurrently
+                subprocess.run(["git", "fetch", "origin", "main"], check=False)
+                subprocess.run(["git", "rebase", "--autostash", "origin/main"], check=False)
+                if subprocess.run(["git", "push", "origin", "HEAD:main"],
+                                  capture_output=True, text=True).returncode == 0:
                     log(f"  committed: {msg}")
                     break
-                time.sleep(2 * _attempt)
+                time.sleep(2 * _attempt + random.uniform(0, 2))
     except Exception as e:
         log(f"  git checkpoint failed: {e}")
 

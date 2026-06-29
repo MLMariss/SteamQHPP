@@ -35,6 +35,7 @@ per dollar. Null for free games and games with no HLTB data.
 
 import json
 import os
+import random
 import re
 import subprocess
 import sys
@@ -445,15 +446,17 @@ def git_checkpoint(msg):
         if subprocess.run(["git", "diff", "--staged", "--quiet"]).returncode == 0:
             return                                    # nothing to commit
         subprocess.run(["git", "commit", "-m", msg], check=False)
-        for attempt in range(1, 5):                   # retry against concurrent pushers
-            subprocess.run(["git", "pull", "--rebase", "--autostash"], check=False)
-            push = subprocess.run(["git", "push"], capture_output=True, text=True)
+        for attempt in range(1, 9):                   # retry against concurrent pushers
+            subprocess.run(["git", "fetch", "origin", "main"], check=False)
+            subprocess.run(["git", "rebase", "--autostash", "origin/main"], check=False)
+            push = subprocess.run(["git", "push", "origin", "HEAD:main"],
+                                  capture_output=True, text=True)
             if push.returncode == 0:
                 log(f"  committed: {msg}")
                 return
-            log(f"  push rejected (attempt {attempt}/4), another job pushed; "
+            log(f"  push rejected (attempt {attempt}/8), another job pushed; "
                 f"re-pulling and retrying")
-            time.sleep(2 * attempt)
+            time.sleep(2 * attempt + random.uniform(0, 2))
         log(f"  push still failing after retries; progress kept locally, "
             f"next checkpoint will carry it")
     except Exception as e:
