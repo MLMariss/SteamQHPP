@@ -943,25 +943,51 @@ function parseSteamId(input){
   if(/^\d{17}$/.test(input)) return input;
   return null;
 }
+// ===== Wishlist import via the QHPP Cloudflare Worker proxy =====
+// The Worker calls Steam server-side (no CORS, key kept secret) and returns just the
+// appid list. SET THIS to your deployed Worker URL (e.g. the *.workers.dev address, or
+// your custom route). Until it's set, the import button explains it's not configured.
+const WISHLIST_PROXY = "https://qhpp-wishlist.mlmariss.workers.dev";
+
 async function importWishlist(){
   const id = parseSteamId($("#steamid").value);
   if(!id){
     toast(`Enter your 17-digit SteamID64 or a <code>/profiles/&lt;id&gt;</code> URL. Vanity <code>/id/name</code> URLs can't be resolved here — get your number at <a href="https://steamid.io" target="_blank" rel="noopener">steamid.io</a>.`, "err", 10000);
     return;
   }
-  toast("Fetching wishlist…", "", 3000);
-  const api = `https://api.steampowered.com/IWishlistService/GetWishlist/v1/?steamid=${id}`;
-  let data = null;
-  try { const r = await fetch(api); if(r.ok) data = await r.json(); } catch(e){}
-  if(!data || !data.response){
-    try { const r = await fetch(`https://api.allorigins.win/raw?url=${encodeURIComponent(api)}`); if(r.ok) data = await r.json(); } catch(e){}
-  }
-  const items = data && data.response && data.response.items;
-  if(!Array.isArray(items)){
-    toast(`Couldn't read that wishlist. If your profile is private, set <b>Game details</b> to Public at <a href="https://steamcommunity.com/my/edit/settings" target="_blank" rel="noopener">steamcommunity.com/my/edit/settings</a>, then retry.`, "err", 10000);
+  if(WISHLIST_PROXY.includes("REPLACE-WITH-YOUR-WORKER")){
+    toast(`Wishlist import isn't configured yet (no proxy URL set).`, "err", 8000);
     return;
   }
-  state.wishlist = new Set(items.map(i => i.appid));
+  toast("Fetching wishlist…", "", 4000);
+
+  let data = null, netError = false;
+  try {
+    const r = await fetch(`${WISHLIST_PROXY}/?steamid=${encodeURIComponent(id)}`, {cache:"no-store"});
+    data = await r.json().catch(() => null);
+  } catch(e){ netError = true; }
+
+  if(netError || !data){
+    toast(`Couldn't reach the wishlist service. Check your connection and try again in a moment.`, "err", 9000);
+    return;
+  }
+  if(data.ok === false){
+    if(data.reason === "private_or_empty"){
+      toast(`No games came back. Either the wishlist is empty, or the profile's <b>game details</b> are private — set them to Public at <a href="https://steamcommunity.com/my/edit/settings" target="_blank" rel="noopener">steamcommunity.com/my/edit/settings</a>, then retry.`, "err", 11000);
+    } else if(data.reason === "bad_steamid"){
+      toast(`That SteamID didn't look valid (need the 17-digit SteamID64).`, "err", 8000);
+    } else {
+      toast(`Steam didn't respond (it may be down or rate-limiting). Try again shortly.`, "err", 9000);
+    }
+    return;
+  }
+
+  const appids = Array.isArray(data.appids) ? data.appids : [];
+  if(!appids.length){
+    toast(`No wishlist games returned.`, "err", 7000);
+    return;
+  }
+  state.wishlist = new Set(appids);
   const inDb = state.data.games.filter(g => state.wishlist.has(g.appid)).length;
   toast(`Imported <b>${state.wishlist.size}</b> wishlist games — <b>${inDb}</b> are in this database.`, "ok", 7000);
   $("#wishOnly").style.display = ""; $("#wishClear").style.display = "";
