@@ -34,6 +34,8 @@ import sys
 import time
 from pathlib import Path
 
+import hltb_estimate as HE      # shared fill logic (live median ratio + missing-value fill)
+
 try:
     from howlongtobeatpy import HowLongToBeat
 except ImportError:
@@ -56,9 +58,13 @@ def log(msg):
 
 
 def hltb_for(title):
-    """Best-match HLTB times for a title, or all-None blank. Identical logic to what the
-    main scraper used to run inline — just lives here now."""
-    blank = {"main": None, "extra": None, "complete": None, "avg": None, "match": None}
+    """Fetch best-match HLTB times for a title. Returns a dict of RAW values:
+    {"main", "extra", "complete", "match"} — zeros/missing as None, NO estimation
+    and NO avg here (the shared estimator fills + averages at storage time). A
+    genuine no-match returns the raw blank (recorded so we don't re-search it
+    every run during the first pass). A transient error returns None (leave
+    unresolved, retry next run)."""
+    blank = {"main": None, "extra": None, "complete": None, "match": None}
     if HowLongToBeat is None:
         return blank
     try:
@@ -79,10 +85,8 @@ def hltb_for(title):
             return None
         return round(v, 1) if v > 0 else None
 
-    m, e, c = hrs(best.main_story), hrs(best.main_extra), hrs(best.completionist)
-    times = [t for t in (m, e, c) if t]
-    avg = round(sum(times) / len(times), 1) if times else None
-    return {"main": m, "extra": e, "complete": c, "avg": avg, "match": best.game_name}
+    return {"main": hrs(best.main_story), "extra": hrs(best.main_extra),
+            "complete": hrs(best.completionist), "match": best.game_name}
 
 
 def load_games():
@@ -156,6 +160,17 @@ def main():
     budget = RUN_MINUTES * 60
     last_commit = time.time()
     n_hit = n_blank = 0
+
+    # Live ratios for filling missing/zero HLTB values, computed ONCE from the
+    # current corpus's real `raw` triples (estimates can't pollute it — see
+    # hltb_estimate.compute_ratios). Fixed at run start for determinism; new real
+    # triples found this run feed next run's ratio. Falls back to frozen medians
+    # until enough real triples exist.
+    ratios, n_triples = HE.compute_ratios(hltb)
+    log(f"Fill ratios from {n_triples} real triples "
+        f"({'live median' if n_triples >= HE.MIN_TRIPLES_FOR_LIVE else 'frozen fallback'}): "
+        f"1 : {ratios['extra_per_main']:.2f} : {ratios['complete_per_main']:.2f}")
+
     for i, (aid, title) in enumerate(todo, 1):
         if budget - (time.time() - start) < TIME_BUFFER:
             log("Time budget reached; wrapping up.")
@@ -164,8 +179,13 @@ def main():
         time.sleep(HLTB_DELAY)
         if res is None:
             continue                      # transient error -> leave unresolved, retry next run
-        hltb[aid] = res
-        if res.get("avg") is not None:
+        # Build the stored entry: normalizes zeros to null in `raw`, fills missing
+        # values from ratios, computes avg over the completed triple, marks `est`,
+        # stamps fetched_at. A genuine no-match yields a fully-blank entry.
+        hltb[aid] = HE.make_entry(res.get("main"), res.get("extra"),
+                                  res.get("complete"), res.get("match"),
+                                  time.time(), ratios)
+        if hltb[aid].get("avg") is not None:
             n_hit += 1
         else:
             n_blank += 1

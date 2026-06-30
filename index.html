@@ -266,6 +266,16 @@
   .hcol .v{font-family:var(--mono); font-size:15px}
   .hcol .l{font-family:var(--mono); font-size:12px; color:var(--muted-2); letter-spacing:.04em; text-transform:uppercase}
   .hcol.sel .v{color:var(--gold)} .hcol.sel .l{color:var(--gold)}
+  /* estimated value (filled from the genre-average ratio, not from HLTB):
+     distinct blue accent + a dotted underline as a second, color-independent cue.
+     help-cursor signals the explanatory tooltip on hover. */
+  .hcol.est{cursor:help}
+  .hcol.est .v{color:var(--blue); border-bottom:1px dotted var(--blue); padding-bottom:1px}
+  .hcol.est .l{color:var(--blue)}
+  /* when an estimated column is ALSO the selected QHPP metric, gold wins for the
+     number (emphasis), but keep the dotted underline so it still reads as estimated. */
+  .hcol.est.sel .v{color:var(--gold); border-bottom-color:var(--gold)}
+  .hcol.est.sel .l{color:var(--gold)}
   .havg{font-family:var(--mono); font-size:14px; color:var(--muted); text-align:center; margin-top:4px}
   .havg b{color:var(--text); font-weight:700; font-size:15px}
   .havg.sel{color:var(--gold)} .havg.sel b{color:var(--gold)}
@@ -484,7 +494,7 @@ const SAMPLE = {sample:true, generated_at: NOW(), count:6, games:[
  {appid:548430,title:"Deep Rock Galactic",url:"https://store.steampowered.com/app/548430",release_ts:1589846400,rating_pct:97,review_count:377132,recent_pct:88,recent_count:5200,recent_scraped_at:NOW()-1*DAY,last_update_ts:NOW()-35*DAY,price_initial:29.99,price_final:8.99,discount_pct:70,discount_end:NOW()+6*DAY,is_free:false,tags:["Co-Op","FPS","Mining","Multiplayer","Dwarf","Procedural Generation","PvE","Sci-fi"],hltb_main:44.8,hltb_extra:139.4,hltb_complete:493.8,hltb_avg:226.0},
  {appid:367520,title:"Hollow Knight",url:"https://store.steampowered.com/app/367520",release_ts:1487894400,rating_pct:97,review_count:712000,recent_pct:null,recent_count:0,recent_scraped_at:0,last_update_ts:NOW()-1100*DAY,price_initial:14.99,price_final:14.99,discount_pct:0,discount_end:null,is_free:false,tags:["Metroidvania","Souls-like","Difficult","Atmospheric","Hand-drawn","Exploration","2D","Singleplayer"],hltb_main:26.6,hltb_extra:39.4,hltb_complete:62.9,hltb_avg:43.0},
  {appid:570,title:"Dota 2",url:"https://store.steampowered.com/app/570",release_ts:1373414400,rating_pct:84,review_count:2150000,recent_pct:78,recent_count:14000,recent_scraped_at:NOW()-3*DAY,last_update_ts:NOW()-12*DAY,price_initial:null,price_final:null,discount_pct:0,discount_end:null,is_free:true,tags:["Free to Play","MOBA","Multiplayer","Strategy","Competitive","Team-Based","PvP","Difficult"],hltb_main:null,hltb_extra:null,hltb_complete:null,hltb_avg:null},
- {appid:1623730,title:"Palworld",url:"https://store.steampowered.com/app/1623730",release_ts:1705968000,rating_pct:92,review_count:280000,recent_pct:96,recent_count:9000,recent_scraped_at:NOW()-1*DAY,last_update_ts:NOW()-9*DAY,price_initial:29.99,price_final:29.99,discount_pct:0,discount_end:null,is_free:false,tags:["Open World Survival Craft","Multiplayer","Creature Collector","Crafting","Base Building","Online Co-Op","Open World","Adventure"],hltb_main:30.0,hltb_extra:65.0,hltb_complete:140.0,hltb_avg:78.3}
+ {appid:1623730,title:"Palworld",url:"https://store.steampowered.com/app/1623730",release_ts:1705968000,rating_pct:92,review_count:280000,recent_pct:96,recent_count:9000,recent_scraped_at:NOW()-1*DAY,last_update_ts:NOW()-9*DAY,price_initial:29.99,price_final:29.99,discount_pct:0,discount_end:null,is_free:false,tags:["Open World Survival Craft","Multiplayer","Creature Collector","Crafting","Base Building","Online Co-Op","Open World","Adventure"],hltb_main:30.0,hltb_extra:65.0,hltb_complete:140.0,hltb_avg:78.3,hltb_est:["complete"]}
 ]};
 
 // ----- tag merging (variants -> one flag) -----
@@ -753,7 +763,14 @@ function render(){
       return `<button class="tag${isSel?' sel':''}" data-tag="${esc(t.toLowerCase())}">${esc(t)}</button>`;
     }).join("");
 
-    const hc = (v,l,key) => `<div class="hcol${sel===key?' sel':''}"><div class="v">${v==null?'—':v}</div><div class="l">${l}</div></div>`;
+    const estSet = g.hltb_est || [];
+    const ESTTIP = "Estimated from the genre-average ratio between main / extras / completionist times — not reported by HowLongToBeat. Replaced automatically if HLTB data is found later.";
+    const hc = (v,l,key) => {
+      const isEst = v!=null && estSet.indexOf(key)!==-1;
+      return `<div class="hcol${sel===key?' sel':''}${isEst?' est':''}"`
+           + (isEst?` title="${ESTTIP}"`:``)
+           + `><div class="v">${v==null?'—':v}</div><div class="l">${l}</div></div>`;
+    };
     const hltb = `<div class="hltb-stack"><div class="hltb">${hc(g.hltb_main,'main','main')}${hc(g.hltb_extra,'+ext','extra')}${hc(g.hltb_complete,'100%','complete')}</div>`
                + `<div class="havg${sel==='avg'?' sel':''}">avg <b>${g.hltb_avg==null?'—':g.hltb_avg}</b> h</div></div>`;
 
@@ -1359,6 +1376,9 @@ Promise.all([
       const h = hltbMap[key];
       game.hltb_main = h.main; game.hltb_extra = h.extra;
       game.hltb_complete = h.complete; game.hltb_avg = h.avg; game.hltb_match = h.match;
+      // which of main/extra/complete are estimated (filled from the genre-average
+      // ratio rather than fetched from HLTB) — drives the distinct rendering.
+      game.hltb_est = Array.isArray(h.est) ? h.est : [];
     }
     // tags.json provides SteamSpy user-tags; they replace the genre fallback in games.json
     // when present (richer/more specific). A non-empty list wins; otherwise keep the fallback.
