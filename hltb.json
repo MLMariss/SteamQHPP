@@ -1,6 +1,6 @@
 {
-  "generated_at": 1782811976,
-  "count": 6138,
+  "generated_at": 1782812279,
+  "count": 6263,
   "hltb": {
     "10": {
       "main": 25.4,
@@ -42962,6 +42962,881 @@
       "match": null
     },
     "3837080": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3837090": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3837100": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3837110": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3837200": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3837210": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3837230": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3837300": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3837330": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3837340": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3837380": {
+      "main": 6.9,
+      "extra": 12.8,
+      "complete": 31.7,
+      "avg": 17.1,
+      "match": "Majogami"
+    },
+    "3837390": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3837410": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3837430": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3837460": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3837530": {
+      "main": null,
+      "extra": null,
+      "complete": 7.7,
+      "avg": 7.7,
+      "match": "Magical Greenhouse"
+    },
+    "3837620": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3837650": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": "Nightmare"
+    },
+    "3837690": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": "Mind Lure"
+    },
+    "3837720": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3837760": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3837890": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3837930": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3837970": {
+      "main": 0.1,
+      "extra": 0.1,
+      "complete": 0.1,
+      "avg": 0.1,
+      "match": "Don't Let Me Fade"
+    },
+    "3837990": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3838120": {
+      "main": 40.7,
+      "extra": 55.9,
+      "complete": 62.2,
+      "avg": 52.9,
+      "match": "Expeditions: Rome"
+    },
+    "3838140": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3838170": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3838210": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3838260": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3838270": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3838280": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3838290": {
+      "main": 6.5,
+      "extra": null,
+      "complete": 9.3,
+      "avg": 7.9,
+      "match": "Refate: Echoes of Desire"
+    },
+    "3838370": {
+      "main": 6.2,
+      "extra": 6.3,
+      "complete": 6.4,
+      "avg": 6.3,
+      "match": "TR-49"
+    },
+    "3838400": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3838460": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3838470": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3838620": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3838660": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3838670": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3838710": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3838740": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3838760": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3838900": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": "Prism"
+    },
+    "3838920": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3839060": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3839110": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3839130": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3839150": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3839190": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3839230": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3839240": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3839260": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3839320": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3839350": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3839550": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3839580": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3839590": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3839600": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3839620": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3839660": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3839740": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3839810": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3839850": {
+      "main": 7.1,
+      "extra": null,
+      "complete": null,
+      "avg": 7.1,
+      "match": "Crystal of Atlan"
+    },
+    "3839930": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3840090": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3840150": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3840180": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3840230": {
+      "main": 2.9,
+      "extra": 4.0,
+      "complete": 5.3,
+      "avg": 4.1,
+      "match": "Adorable Adventures"
+    },
+    "3840250": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3840290": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3840320": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3840360": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3840370": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3840490": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3840590": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3840600": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3840640": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3840680": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3840810": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3840890": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3840950": {
+      "main": null,
+      "extra": null,
+      "complete": 5.5,
+      "avg": 5.5,
+      "match": "Bitter Harvest"
+    },
+    "3840970": {
+      "main": null,
+      "extra": 1.8,
+      "complete": 1.8,
+      "avg": 1.8,
+      "match": "Casey Noir and Carved Pumpkin's Latte"
+    },
+    "3841000": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3841010": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3841040": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3841140": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3841160": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3841220": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3841240": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3841250": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3841260": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3841280": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3841340": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3841370": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3841380": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3841400": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3841430": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3841480": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3841560": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3841570": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3841600": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3841620": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": "Project Skylab"
+    },
+    "3841660": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3841700": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3841720": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3841730": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3841750": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3841830": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3841900": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3841940": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3841970": {
+      "main": null,
+      "extra": 250.0,
+      "complete": null,
+      "avg": 250.0,
+      "match": "Battle On! Hero Academy"
+    },
+    "3841980": {
+      "main": 0.9,
+      "extra": null,
+      "complete": null,
+      "avg": 0.9,
+      "match": "Compadrone: Land Wars"
+    },
+    "3842180": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3842300": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3842340": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3842370": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3842380": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3842430": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3842470": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3842530": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3842550": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3842580": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3842640": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3842700": {
+      "main": null,
+      "extra": 0.8,
+      "complete": null,
+      "avg": 0.8,
+      "match": "P1: Anchor Light"
+    },
+    "3842740": {
       "main": null,
       "extra": null,
       "complete": null,
