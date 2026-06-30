@@ -1,6 +1,6 @@
 {
-  "generated_at": 1782815307,
-  "count": 7494,
+  "generated_at": 1782815610,
+  "count": 7618,
   "hltb": {
     "10": {
       "main": 25.4,
@@ -52454,6 +52454,874 @@
       "match": null
     },
     "3899160": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3899180": {
+      "main": 1.5,
+      "extra": null,
+      "complete": null,
+      "avg": 1.5,
+      "match": "Project X"
+    },
+    "3899230": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3899300": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3899310": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3899320": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3899370": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3899400": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3899510": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3899540": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3899560": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3899610": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3899620": {
+      "main": null,
+      "extra": null,
+      "complete": 1.5,
+      "avg": 1.5,
+      "match": "Sexercise Club"
+    },
+    "3899640": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3899660": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3899760": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3899780": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3899870": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3899970": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3899980": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3900000": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3900040": {
+      "main": null,
+      "extra": null,
+      "complete": 0.7,
+      "avg": 0.7,
+      "match": "Anime Dream Match: Birds"
+    },
+    "3900070": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3900080": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3900120": {
+      "main": 6.0,
+      "extra": null,
+      "complete": 10.2,
+      "avg": 8.1,
+      "match": "Život Není Krásný: Poslední Exekuce"
+    },
+    "3900130": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3900190": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3900210": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3900250": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3900290": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3900300": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": "Lost my Collection of 100 Shells"
+    },
+    "3900360": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3900380": {
+      "main": 0.5,
+      "extra": 0.7,
+      "complete": 1.0,
+      "avg": 0.7,
+      "match": "El 39"
+    },
+    "3900450": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3900500": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3900540": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3900620": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3900640": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3900650": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3900660": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3900720": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3900740": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3900970": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3900980": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3901530": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3901600": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3901780": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3901890": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3901910": {
+      "main": 4.5,
+      "extra": 5.2,
+      "complete": 7.1,
+      "avg": 5.6,
+      "match": "The Liar Princess and the Blind Prince"
+    },
+    "3901970": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3901990": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3902010": {
+      "main": 2.3,
+      "extra": null,
+      "complete": 2.4,
+      "avg": 2.3,
+      "match": "Overwords"
+    },
+    "3902050": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3902060": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3902210": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3902220": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3902230": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3902280": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3902340": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3902390": {
+      "main": null,
+      "extra": null,
+      "complete": 0.3,
+      "avg": 0.3,
+      "match": "Tokyo Hotel"
+    },
+    "3902400": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3902430": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3902440": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3902490": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3902500": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3902510": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3902520": {
+      "main": null,
+      "extra": 12.2,
+      "complete": 34.0,
+      "avg": 23.1,
+      "match": "Ukrainian Warfare: Gostomel Heroes"
+    },
+    "3902530": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3902560": {
+      "main": null,
+      "extra": null,
+      "complete": 3.9,
+      "avg": 3.9,
+      "match": "Fetch Re;Quest"
+    },
+    "3902590": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3902600": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3902610": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3902660": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3902670": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3902680": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3902690": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3902710": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3902740": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3902830": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3902860": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3902980": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3903010": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3903110": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3903140": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3903170": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3903190": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3903200": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3903430": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3903490": {
+      "main": 2.2,
+      "extra": 2.9,
+      "complete": 3.7,
+      "avg": 2.9,
+      "match": "Prune"
+    },
+    "3903530": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3903540": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3903590": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3903600": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3903620": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": "Just Another Night Shift"
+    },
+    "3903650": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3903740": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3903800": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": "Mom Stolen in Space"
+    },
+    "3903830": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3903920": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3903980": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3904000": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3904120": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3904450": {
+      "main": 6.5,
+      "extra": 7.9,
+      "complete": 8.0,
+      "avg": 7.5,
+      "match": "The Way"
+    },
+    "3904710": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3904800": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3904810": {
+      "main": 3.0,
+      "extra": 3.3,
+      "complete": 4.2,
+      "avg": 3.5,
+      "match": "Holo Hidden - My Lovely Fans Can't Be This Hidden"
+    },
+    "3904960": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3905040": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3905080": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3905340": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3905380": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3905430": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3905510": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3905520": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3905590": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3905630": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3905680": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3905690": {
+      "main": 1.3,
+      "extra": null,
+      "complete": null,
+      "avg": 1.3,
+      "match": "Reliquare"
+    },
+    "3905740": {
+      "main": null,
+      "extra": null,
+      "complete": 1.1,
+      "avg": 1.1,
+      "match": "Vindilis"
+    },
+    "3905760": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3905850": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3905880": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3905890": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3906000": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3906040": {
       "main": null,
       "extra": null,
       "complete": null,
