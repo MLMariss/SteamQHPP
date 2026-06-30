@@ -1,6 +1,6 @@
 {
-  "generated_at": 1782812884,
-  "count": 6511,
+  "generated_at": 1782813188,
+  "count": 6634,
   "hltb": {
     "10": {
       "main": 25.4,
@@ -45573,6 +45573,867 @@
       "match": "[REDACTED]"
     },
     "3854170": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3854200": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3854270": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3854310": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3854330": {
+      "main": 26.6,
+      "extra": 32.1,
+      "complete": 38.4,
+      "avg": 32.4,
+      "match": "My Little Spider"
+    },
+    "3854340": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3854380": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3854410": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3854430": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3854470": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3854490": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3854510": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3854520": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": "Blast Radius"
+    },
+    "3854540": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3854560": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3854580": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3854590": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3854600": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3854620": {
+      "main": null,
+      "extra": 1.8,
+      "complete": null,
+      "avg": 1.8,
+      "match": "Banzo - Marks of Slavery"
+    },
+    "3854650": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3854660": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3854760": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3854780": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3854840": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3854870": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3854880": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3854890": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3854930": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3854940": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3854960": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3854990": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3855000": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3855020": {
+      "main": 0.8,
+      "extra": 1.2,
+      "complete": 1.9,
+      "avg": 1.3,
+      "match": "Gate of Doom"
+    },
+    "3855140": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3855190": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3855280": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3855380": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3855510": {
+      "main": 5.5,
+      "extra": 5.8,
+      "complete": 8.0,
+      "avg": 6.4,
+      "match": "Mango"
+    },
+    "3855520": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3855620": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3855690": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3855710": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3855760": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3855840": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3855970": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3855990": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3856010": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3856040": {
+      "main": 1.9,
+      "extra": 2.0,
+      "complete": 2.9,
+      "avg": 2.3,
+      "match": "Just Move Fall Dungeon Endless Abyss"
+    },
+    "3856050": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3856060": {
+      "main": 1.5,
+      "extra": 1.6,
+      "complete": null,
+      "avg": 1.6,
+      "match": "Red Bow: Strange Dream"
+    },
+    "3856100": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3856120": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3856150": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3856180": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3856190": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3856210": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3856280": {
+      "main": null,
+      "extra": 10.0,
+      "complete": 18.0,
+      "avg": 14.0,
+      "match": "holoVillage: Our Cozy Days"
+    },
+    "3856300": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3856320": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3856340": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3856500": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3856540": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3856650": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3856660": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3856670": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3856690": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3856700": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3856860": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3857070": {
+      "main": 0.9,
+      "extra": null,
+      "complete": null,
+      "avg": 0.9,
+      "match": "C.U.T.S"
+    },
+    "3857120": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3857170": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3857180": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3857190": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3857290": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3857380": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3857410": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3857420": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3857430": {
+      "main": 7.0,
+      "extra": null,
+      "complete": 13.0,
+      "avg": 10.0,
+      "match": "Interdimensional Vending Machine"
+    },
+    "3857460": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3857590": {
+      "main": 0.9,
+      "extra": 0.9,
+      "complete": 1.1,
+      "avg": 1.0,
+      "match": "Wish Upon a Cat"
+    },
+    "3857700": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3857740": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3857770": {
+      "main": 0.5,
+      "extra": null,
+      "complete": null,
+      "avg": 0.5,
+      "match": "Backmooms"
+    },
+    "3857830": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3857870": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3857880": {
+      "main": null,
+      "extra": null,
+      "complete": 0.4,
+      "avg": 0.4,
+      "match": "Slide Hexagon"
+    },
+    "3857900": {
+      "main": null,
+      "extra": null,
+      "complete": 0.2,
+      "avg": 0.2,
+      "match": "Adult Puzzles - Hentai NightClub"
+    },
+    "3857950": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3857970": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3857980": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3858120": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3858130": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3858140": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3858150": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3858230": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3858270": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3858370": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3858400": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3858410": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3858510": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3858560": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3858570": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3858620": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3858650": {
+      "main": 5.8,
+      "extra": 6.2,
+      "complete": null,
+      "avg": 6.0,
+      "match": "Crushed in Time"
+    },
+    "3858850": {
+      "main": null,
+      "extra": null,
+      "complete": 3.7,
+      "avg": 3.7,
+      "match": "Hydra Heli"
+    },
+    "3858890": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3858940": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3858990": {
+      "main": 0.3,
+      "extra": null,
+      "complete": null,
+      "avg": 0.3,
+      "match": "Watertight"
+    },
+    "3859020": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3859030": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3859080": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3859090": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3859100": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3859220": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3859300": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3859340": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3859350": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3859420": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3859520": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3859560": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3859570": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3859590": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3859690": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3859700": {
       "main": null,
       "extra": null,
       "complete": null,
