@@ -1,6 +1,6 @@
 {
-  "generated_at": 1782817849,
-  "count": 8445,
+  "generated_at": 1782818152,
+  "count": 8576,
   "hltb": {
     "10": {
       "main": 25.4,
@@ -59111,6 +59111,923 @@
       "match": null
     },
     "3720880": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3720920": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3720950": {
+      "main": null,
+      "extra": null,
+      "complete": 1.4,
+      "avg": 1.4,
+      "match": "Left By Angels"
+    },
+    "3720960": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3720970": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3720990": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3721040": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3721080": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3721180": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3721200": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3721240": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3721250": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3721290": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3721350": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3721400": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3721420": {
+      "main": 0.7,
+      "extra": 0.8,
+      "complete": 1.0,
+      "avg": 0.8,
+      "match": "The Pony Factory"
+    },
+    "3721490": {
+      "main": null,
+      "extra": null,
+      "complete": 230.5,
+      "avg": 230.5,
+      "match": "Yollen"
+    },
+    "3721500": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3721560": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3721570": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3721660": {
+      "main": 2.2,
+      "extra": null,
+      "complete": 2.9,
+      "avg": 2.5,
+      "match": "Cozy Crunch"
+    },
+    "3721680": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3721760": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3721790": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3721890": {
+      "main": 9.5,
+      "extra": 12.0,
+      "complete": null,
+      "avg": 10.8,
+      "match": "Maid of Salvation"
+    },
+    "3721930": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3721940": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3721950": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3721960": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3721970": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3722000": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3722040": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3722070": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3722150": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3722180": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3722210": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3722400": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3722440": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3722510": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3722540": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": "Space Race"
+    },
+    "3722600": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": "Last Term"
+    },
+    "3722690": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": "Fields of Mine"
+    },
+    "3722760": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3722810": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3722860": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3722890": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": "Cube Foundry"
+    },
+    "3722990": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3723050": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3723100": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3723150": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3723160": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3723310": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": "My Cute Roommate 2"
+    },
+    "3723350": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3723400": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3723410": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3723430": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3723450": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3723480": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3723530": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": "Paperwork"
+    },
+    "3723580": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3723610": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3723680": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3723720": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3723730": {
+      "main": null,
+      "extra": null,
+      "complete": 141.0,
+      "avg": 141.0,
+      "match": "The Inquisitor"
+    },
+    "3723750": {
+      "main": 1.8,
+      "extra": null,
+      "complete": null,
+      "avg": 1.8,
+      "match": "Trading Card Inspector"
+    },
+    "3723800": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3723850": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3723940": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3723970": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3724020": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3724110": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3724310": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3724340": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3724380": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3724430": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3724440": {
+      "main": 2.2,
+      "extra": 2.7,
+      "complete": null,
+      "avg": 2.5,
+      "match": "Not Not 2 - A Brain Challenge"
+    },
+    "3724470": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3724490": {
+      "main": 2.4,
+      "extra": null,
+      "complete": 3.3,
+      "avg": 2.8,
+      "match": "Idle Gumball Machine"
+    },
+    "3724540": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3724550": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3724560": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3724570": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3724650": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3724750": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": "Void Raiders"
+    },
+    "3724800": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": "The Night Shift"
+    },
+    "3724870": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3724910": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3724950": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3725010": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3725050": {
+      "main": 21.0,
+      "extra": null,
+      "complete": null,
+      "avg": 21.0,
+      "match": "The Dark Eye: Book of Heroes"
+    },
+    "3725070": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3725090": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3725130": {
+      "main": 0.5,
+      "extra": null,
+      "complete": null,
+      "avg": 0.5,
+      "match": "Meow Path 2"
+    },
+    "3725150": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": "Legitimate Space Corp Simulator LLC"
+    },
+    "3725220": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3725360": {
+      "main": null,
+      "extra": null,
+      "complete": 0.1,
+      "avg": 0.1,
+      "match": "101 Cats Hidden in Barcelona"
+    },
+    "3725450": {
+      "main": 0.7,
+      "extra": 1.5,
+      "complete": 3.1,
+      "avg": 1.8,
+      "match": "Space Ace"
+    },
+    "3725510": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3725520": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3725620": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3725630": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3725670": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": "Dead Underworld"
+    },
+    "3725730": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3725750": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3725770": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3725860": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3725870": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3725900": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3725910": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3725960": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3726010": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3726040": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3726080": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3726110": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3726190": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3726210": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3726250": {
+      "main": 12.0,
+      "extra": null,
+      "complete": 23.6,
+      "avg": 17.8,
+      "match": "My Little Cafe Nightmare"
+    },
+    "3726350": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3726370": {
+      "main": 2.7,
+      "extra": null,
+      "complete": null,
+      "avg": 2.7,
+      "match": "Heavy Metal Death Can"
+    },
+    "3726380": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3726400": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3726420": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3726440": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3726480": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3726500": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3726630": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3726670": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3726700": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3726770": {
+      "main": 0.7,
+      "extra": null,
+      "complete": 0.8,
+      "avg": 0.8,
+      "match": "Leaving Home"
+    },
+    "3726790": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3726830": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null
+    },
+    "3726970": {
       "main": null,
       "extra": null,
       "complete": null,
