@@ -1,6 +1,6 @@
 {
-  "generated_at": 1782833974,
-  "count": 13755,
+  "generated_at": 1782834277,
+  "count": 13878,
   "hltb": {
     "10": {
       "main": 25.4,
@@ -181546,6 +181546,1642 @@
       "avg": null,
       "match": null,
       "fetched_at": 1782833974,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3550880": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782833979,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3550900": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782833981,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3550920": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": "Ballgame",
+      "fetched_at": 1782833984,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3550930": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": "INVERTA",
+      "fetched_at": 1782833986,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3551100": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782833988,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3551190": {
+      "main": 1.8,
+      "extra": 2.5,
+      "complete": 3.9,
+      "avg": 2.7,
+      "match": "The Last Salvage Squad",
+      "fetched_at": 1782833991,
+      "raw": {
+        "main": 1.8,
+        "extra": null,
+        "complete": null
+      },
+      "est": [
+        "extra",
+        "complete"
+      ]
+    },
+    "3551200": {
+      "main": 0.5,
+      "extra": 0.7,
+      "complete": 1.0,
+      "avg": 0.7,
+      "match": "Slime Feet",
+      "fetched_at": 1782833993,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": 1.0
+      },
+      "est": [
+        "main",
+        "extra"
+      ]
+    },
+    "3551320": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782833995,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3551330": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782834012,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3551340": {
+      "main": 106.2,
+      "extra": 231.8,
+      "complete": 300.0,
+      "avg": 212.7,
+      "match": "Football Manager 26",
+      "fetched_at": 1782834014,
+      "raw": {
+        "main": 106.2,
+        "extra": 231.8,
+        "complete": 300.0
+      }
+    },
+    "3551350": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782834016,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3551370": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782834019,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3551460": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782834021,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3551570": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782834024,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3551600": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782834026,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3551620": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782834028,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3551630": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782834030,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3551680": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782834032,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3551750": {
+      "main": 3.3,
+      "extra": 4.9,
+      "complete": 7.1,
+      "avg": 5.1,
+      "match": "Murder in Crayontopia",
+      "fetched_at": 1782834035,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": 7.1
+      },
+      "est": [
+        "main",
+        "extra"
+      ]
+    },
+    "3551850": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782834037,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3552050": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782834039,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3552120": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782834041,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3552140": {
+      "main": 13.2,
+      "extra": 17.0,
+      "complete": 20.7,
+      "avg": 17.0,
+      "match": "Retro Rewind - Video Store Simulator",
+      "fetched_at": 1782834043,
+      "raw": {
+        "main": 13.2,
+        "extra": 17.0,
+        "complete": 20.7
+      }
+    },
+    "3552200": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782834046,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3552220": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782834048,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3552310": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782834050,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3552390": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782834053,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3552430": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782834055,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3552470": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782834057,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3552500": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782834059,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3552510": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782834062,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3552560": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782834064,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3552570": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782834066,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3552630": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782834068,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3552680": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782834071,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3552690": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782834073,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3552750": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782834075,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3552760": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782834077,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3552790": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782834079,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3552820": {
+      "main": 20.0,
+      "extra": 27.3,
+      "complete": 42.9,
+      "avg": 30.1,
+      "match": "The Horde Wants You Dead",
+      "fetched_at": 1782834082,
+      "raw": {
+        "main": 20.0,
+        "extra": null,
+        "complete": null
+      },
+      "est": [
+        "extra",
+        "complete"
+      ]
+    },
+    "3552840": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782834084,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3552870": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782834086,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3552900": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782834089,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3552910": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782834091,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3552920": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782834094,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3552970": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782834096,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3553020": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782834098,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3553040": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782834101,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3553060": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782834103,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3553110": {
+      "main": 0.9,
+      "extra": 1.2,
+      "complete": 1.8,
+      "avg": 1.3,
+      "match": "Poop Killer - Flush or Die",
+      "fetched_at": 1782834105,
+      "raw": {
+        "main": null,
+        "extra": 1.2,
+        "complete": null
+      },
+      "est": [
+        "main",
+        "complete"
+      ]
+    },
+    "3553150": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782834108,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3553190": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782834110,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3553210": {
+      "main": 0.6,
+      "extra": 0.8,
+      "complete": 14.7,
+      "avg": 5.4,
+      "match": "Auto Rogue",
+      "fetched_at": 1782834112,
+      "raw": {
+        "main": 0.6,
+        "extra": null,
+        "complete": 14.7
+      },
+      "est": [
+        "extra"
+      ]
+    },
+    "3553260": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782834114,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3553320": {
+      "main": 0.8,
+      "extra": 1.1,
+      "complete": 1.7,
+      "avg": 1.2,
+      "match": "Them",
+      "fetched_at": 1782834117,
+      "raw": {
+        "main": 0.8,
+        "extra": null,
+        "complete": null
+      },
+      "est": [
+        "extra",
+        "complete"
+      ]
+    },
+    "3553350": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782834119,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3553500": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782834121,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3553580": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782834124,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3553600": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782834126,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3553610": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782834128,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3553630": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782834131,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3553650": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782834133,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3553670": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782834135,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3553690": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782834137,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3553750": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782834140,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3553790": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": "AquaLife",
+      "fetched_at": 1782834142,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3553870": {
+      "main": 8.5,
+      "extra": 14.8,
+      "complete": 24.0,
+      "avg": 15.8,
+      "match": "Dirt 5",
+      "fetched_at": 1782834144,
+      "raw": {
+        "main": 8.5,
+        "extra": 14.8,
+        "complete": 24.0
+      }
+    },
+    "3553880": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782834146,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3553890": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": "Ginga Denshou",
+      "fetched_at": 1782834149,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3553920": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782834151,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3553930": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782834153,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3553970": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782834155,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3554000": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782834158,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3554010": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782834160,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3554020": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782834162,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3554030": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782834164,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3554050": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782834167,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3554100": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782834169,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3554110": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782834171,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3554130": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782834173,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3554150": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782834177,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3554340": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782834184,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3554350": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782834186,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3554420": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782834188,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3554430": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782834190,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3554450": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782834193,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3554520": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": "cheapskate",
+      "fetched_at": 1782834195,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3554600": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": "Life of a Dispatch English Teacher in Japan",
+      "fetched_at": 1782834198,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3554630": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782834200,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3554660": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782834202,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3554680": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782834205,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3554750": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782834207,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3554760": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782834210,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3554770": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782834212,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3554790": {
+      "main": 0.8,
+      "extra": 1.1,
+      "complete": 1.0,
+      "avg": 1.0,
+      "match": "Dark Burial",
+      "fetched_at": 1782834214,
+      "raw": {
+        "main": 0.8,
+        "extra": null,
+        "complete": 1.0
+      },
+      "est": [
+        "extra"
+      ]
+    },
+    "3554810": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782834216,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3554900": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782834218,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3554930": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782834221,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3554940": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": "Slut Squad",
+      "fetched_at": 1782834223,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3554950": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782834225,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3554980": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782834227,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3554990": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782834230,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3555050": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782834232,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3555150": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782834234,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3555370": {
+      "main": 1.5,
+      "extra": 1.7,
+      "complete": 1.9,
+      "avg": 1.7,
+      "match": "Datura",
+      "fetched_at": 1782834237,
+      "raw": {
+        "main": 1.5,
+        "extra": 1.7,
+        "complete": 1.9
+      }
+    },
+    "3555410": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": "HIT",
+      "fetched_at": 1782834239,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3555430": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782834241,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3555490": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782834244,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3555500": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782834246,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3555520": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782834248,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3555600": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782834250,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3555630": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782834253,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3555670": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782834255,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3555700": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782834257,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3555730": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782834259,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3555840": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782834261,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3555860": {
+      "main": 0.5,
+      "extra": 0.7,
+      "complete": 1.1,
+      "avg": 0.8,
+      "match": "Dora the Explorer: Super Star Adventures",
+      "fetched_at": 1782834264,
+      "raw": {
+        "main": 0.5,
+        "extra": null,
+        "complete": null
+      },
+      "est": [
+        "extra",
+        "complete"
+      ]
+    },
+    "3555890": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782834266,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3555930": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782834268,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3555950": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782834270,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3555960": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782834273,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3555980": {
+      "main": 2.6,
+      "extra": 3.1,
+      "complete": 4.5,
+      "avg": 3.4,
+      "match": "Caput Mortum",
+      "fetched_at": 1782834275,
+      "raw": {
+        "main": 2.6,
+        "extra": 3.1,
+        "complete": null
+      },
+      "est": [
+        "complete"
+      ]
+    },
+    "3556350": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782834277,
       "raw": {
         "main": null,
         "extra": null,
