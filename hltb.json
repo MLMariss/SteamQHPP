@@ -1,6 +1,6 @@
 {
-  "generated_at": 1782828904,
-  "count": 13035,
+  "generated_at": 1782829206,
+  "count": 13162,
   "hltb": {
     "10": {
       "main": 25.4,
@@ -172018,6 +172018,1680 @@
       "avg": null,
       "match": null,
       "fetched_at": 1782828904,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "4014340": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782828908,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "4014400": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782828910,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "4014430": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782828912,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "4014480": {
+      "main": 0.2,
+      "extra": 0.2,
+      "complete": 0.3,
+      "avg": 0.2,
+      "match": "Flightless",
+      "fetched_at": 1782828915,
+      "raw": {
+        "main": 0.2,
+        "extra": 0.2,
+        "complete": 0.3
+      }
+    },
+    "4014630": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782828917,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "4014650": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782828919,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "4014680": {
+      "main": 0.3,
+      "extra": 0.3,
+      "complete": 0.5,
+      "avg": 0.4,
+      "match": "Water Womb World",
+      "fetched_at": 1782828922,
+      "raw": {
+        "main": 0.3,
+        "extra": 0.3,
+        "complete": 0.5
+      }
+    },
+    "4014750": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782828924,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "4014760": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782828927,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "4014830": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782828929,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "4015000": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782828932,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "4015060": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782828934,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "4015080": {
+      "main": 2.2,
+      "extra": 3.2,
+      "complete": 4.7,
+      "avg": 3.4,
+      "match": "Beat Shapes",
+      "fetched_at": 1782828936,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": 4.7
+      },
+      "est": [
+        "main",
+        "extra"
+      ]
+    },
+    "4015090": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782828938,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "4015100": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782828941,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "4015110": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782828943,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "4015120": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782828945,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "4015160": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782828947,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "4015240": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782828949,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "4015260": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782828952,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "4015290": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782828954,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "4015300": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782828956,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "4015470": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782828964,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "4015530": {
+      "main": 0.5,
+      "extra": 0.7,
+      "complete": 1.1,
+      "avg": 0.8,
+      "match": "MyVoiceZoo",
+      "fetched_at": 1782828966,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": 1.1
+      },
+      "est": [
+        "main",
+        "extra"
+      ]
+    },
+    "4015590": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782828968,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "4015740": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782828971,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "4015810": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782828973,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "4015860": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782828975,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "4015870": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782828978,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "4016000": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782828980,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "4016120": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782828982,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "4016210": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782828985,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "4016260": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782828987,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "4016300": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782828989,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "4016370": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782828991,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "4016390": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782828993,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "4016420": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782828996,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "4016530": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782828998,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "4016550": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782829000,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "4016560": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782829002,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "4016600": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782829004,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "4016630": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782829007,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "4016670": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782829009,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "4016720": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782829011,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "4016750": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782829013,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "4016760": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782829016,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "4016880": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782829018,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "4016890": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782829020,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "4016900": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782829023,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "4016920": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782829026,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "4016940": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782829028,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "4017140": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782829030,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "4017170": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782829032,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "4017180": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782829034,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "4017190": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782829037,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "4017200": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782829039,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "4017210": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782829041,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "4017350": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782829043,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "4017450": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782829046,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "4017480": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782829048,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "4017500": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782829050,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "4017520": {
+      "main": 0.8,
+      "extra": 1.2,
+      "complete": 1.7,
+      "avg": 1.2,
+      "match": "Netoo",
+      "fetched_at": 1782829052,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": 1.7
+      },
+      "est": [
+        "main",
+        "extra"
+      ]
+    },
+    "4017580": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782829054,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "4017720": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782829056,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "4017780": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782829059,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "4017820": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782829061,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "4017920": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782829063,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "4017930": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782829065,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "4017960": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782829067,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "4017990": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782829070,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "4018020": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782829072,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "4018050": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782829074,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "4018090": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782829076,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "4018110": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782829078,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "4018160": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782829081,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "4018170": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782829083,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "4018200": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782829085,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "4018210": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782829087,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "4018400": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782829089,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "4018430": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782829092,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "4018510": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782829094,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "4018580": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782829096,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "4018640": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782829098,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "4018850": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782829100,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "4018910": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782829102,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "4018920": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782829105,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "4019090": {
+      "main": 4.5,
+      "extra": 6.2,
+      "complete": 9.8,
+      "avg": 6.8,
+      "match": "HAM: The Game",
+      "fetched_at": 1782829107,
+      "raw": {
+        "main": 4.5,
+        "extra": null,
+        "complete": null
+      },
+      "est": [
+        "extra",
+        "complete"
+      ]
+    },
+    "4019130": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": "Psyvariar 3",
+      "fetched_at": 1782829109,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "4019180": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782829112,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "4019450": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782829115,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "4019610": {
+      "main": 16.4,
+      "extra": 26.4,
+      "complete": 39.0,
+      "avg": 27.3,
+      "match": "Rogue Legacy",
+      "fetched_at": 1782829117,
+      "raw": {
+        "main": 16.4,
+        "extra": 26.4,
+        "complete": 39.0
+      }
+    },
+    "4019680": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782829120,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "4019820": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782829122,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "4019830": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782829124,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "4019840": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782829126,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "4019860": {
+      "main": 0.1,
+      "extra": 0.1,
+      "complete": 0.2,
+      "avg": 0.1,
+      "match": "Iliria",
+      "fetched_at": 1782829128,
+      "raw": {
+        "main": 0.1,
+        "extra": null,
+        "complete": null
+      },
+      "est": [
+        "extra",
+        "complete"
+      ]
+    },
+    "4019890": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782829130,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "4019910": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782829133,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "4019970": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782829135,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "4020000": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782829138,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "4020010": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782829147,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "4020020": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782829150,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "4020030": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782829152,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "4020110": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782829154,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "4020150": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": "Labyrinth Trailblazer",
+      "fetched_at": 1782829156,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "4020250": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782829158,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "4020280": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782829161,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "4020300": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782829163,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "4020320": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782829165,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "4020630": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782829167,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "4020660": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782829170,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "4020670": {
+      "main": 0.3,
+      "extra": 0.3,
+      "complete": 0.3,
+      "avg": 0.3,
+      "match": "Kinoko",
+      "fetched_at": 1782829172,
+      "raw": {
+        "main": 0.3,
+        "extra": 0.3,
+        "complete": 0.3
+      }
+    },
+    "4020680": {
+      "main": 1.4,
+      "extra": 4.2,
+      "complete": 6.2,
+      "avg": 3.9,
+      "match": "Dungeon Campaign",
+      "fetched_at": 1782829175,
+      "raw": {
+        "main": 1.4,
+        "extra": 4.2,
+        "complete": null
+      },
+      "est": [
+        "complete"
+      ]
+    },
+    "4020720": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782829177,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "4020850": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782829179,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "4020880": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782829181,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "4020960": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": "Shuwa Shuwa Guin!",
+      "fetched_at": 1782829184,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "4020970": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782829186,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "4021020": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782829188,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "4021170": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782829191,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "4021230": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782829193,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "4021380": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782829195,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "4021390": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782829197,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "4021430": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782829199,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "4021440": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782829201,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "4021570": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782829204,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "4021670": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782829206,
       "raw": {
         "main": null,
         "extra": null,
