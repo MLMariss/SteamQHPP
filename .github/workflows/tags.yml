@@ -5,9 +5,11 @@ on:
   schedule:
     # SteamSpy tags are nearly static, so this just fills games that don't have an entry
     # yet and rarely re-fetches. It's slow per game (SteamSpy is slow to respond), so it
-    # runs out of band on its own schedule and never blocks the main scrape. Offset to :29
-    # to avoid the other jobs; own concurrency group prevents overlap.
-    - cron: "29 */6 * * *"  # every 6 hours
+    # runs out of band on its own schedule and never blocks the main scrape. It hits
+    # steamspy.com (NOT Steam), so it doesn't compete with the storefront rate budget —
+    # safe to run near-continuously. Offset to :29 to stagger from the other jobs; own
+    # concurrency group (cancel-in-progress:false) queues rather than overlaps.
+    - cron: "29 */2 * * *"  # every 2 hours (near-continuous with RUN_MINUTES=110)
 
 permissions:
   contents: write           # commits tags.json as it runs
@@ -19,7 +21,7 @@ concurrency:
 jobs:
   tags:
     runs-on: ubuntu-latest
-    timeout-minutes: 135     # RUN_MINUTES=120 leaves headroom; SteamSpy is slow per game
+    timeout-minutes: 120     # RUN_MINUTES=110 leaves ~10 min headroom before the next cron
     steps:
       - uses: actions/checkout@v4
         with:
@@ -40,5 +42,5 @@ jobs:
 
       - name: Refresh SteamSpy tags
         env:
-          RUN_MINUTES: "120"
+          RUN_MINUTES: "110"
         run: python tags_refresh.py

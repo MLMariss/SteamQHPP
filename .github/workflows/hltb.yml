@@ -5,9 +5,11 @@ on:
   schedule:
     # HLTB completion times are static, so this just fills in games that don't have an
     # entry yet and never re-fetches. It's the slow part (scrapes howlongtobeat.com), so
-    # it runs out of band on its own schedule and never blocks the main scrape. Offset to
-    # :53 to avoid the other jobs; own concurrency group prevents overlap.
-    - cron: "53 */6 * * *"  # every 6 hours
+    # it runs out of band on its own schedule and never blocks the main scrape. It hits
+    # howlongtobeat.com (NOT Steam), so it doesn't compete with the storefront rate budget
+    # — safe to run near-continuously. Offset to :53 to stagger from the other jobs; own
+    # concurrency group (cancel-in-progress:false) queues rather than overlaps.
+    - cron: "53 */2 * * *"  # every 2 hours (near-continuous with RUN_MINUTES=110)
 
 permissions:
   contents: write           # commits hltb.json as it runs
@@ -19,7 +21,7 @@ concurrency:
 jobs:
   hltb:
     runs-on: ubuntu-latest
-    timeout-minutes: 135     # RUN_MINUTES=120 leaves headroom; HLTB is slow per game
+    timeout-minutes: 120     # RUN_MINUTES=110 leaves ~10 min headroom before the next cron
     steps:
       - uses: actions/checkout@v4
         with:
@@ -40,5 +42,5 @@ jobs:
 
       - name: Refresh HowLongToBeat times
         env:
-          RUN_MINUTES: "120"
+          RUN_MINUTES: "110"
         run: python hltb_refresh.py
