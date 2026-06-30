@@ -77,15 +77,17 @@ confusion. Code-level fixes (not yet applied to source as of 2026-06-30).
   key dropped from the committed `catalog.json` (no code change needed — nothing
   referenced it). Zero risk. (Schema: §10. Detail: §14 → T1.)
 
-- **🔴 T2 — Purge the orphaned `sales_refresh.py` / `sales.json` references.**
-  `price_and_sale.py` replaced the old `sales_refresh.py`, and **nothing writes
-  `sales.json` anymore**, but stale comments still point to the non-existent file: in
+- **🟢 ~~T2 — Purge the orphaned `sales_refresh.py` / `sales.json` references.~~**
+  `price_and_sale.py` replaced the old `sales_refresh.py`, and nothing wrote
+  `sales.json` anymore, but stale comments still pointed to the non-existent file: in
   `scraper.py` (the `# NOTE: sale end-dates …` block near the per-game data sources, and
   the `# discount_end is no longer scraped here …` comment inside `build_record`) and in
-  `price_and_sale.py`'s own header (`(replaces sales_refresh.py)` / `[was
-  sales_refresh.py]`). Fix: rewrite those comments to reference
-  `price_and_sale.py`/`prices.json`, and delete `sales.json` from the repo.
-  Comment-and-file-deletion only — no behavior change. (Ownership: §4. Detail: §14 → T2.)
+  `price_and_sale.py`'s own header. **Done (2026-06-30):** all four comment references
+  rewritten to point to `price_and_sale.py`/`prices.json` (or had the dead-file mention
+  dropped), `sales.json` deleted from the repo, and its now-defunct §4 table row and §10
+  schema entry removed. Verified no `sales_refresh`/`sales.json` references remain in any
+  `.py`/`.yml`; both scripts still compile. Comment-and-file-deletion only — no behavior
+  change. (Ownership: §4. Detail: §14 → T2.)
 
 - **🔴 T3 — Delete the spent one-off scripts + workflows.** `hltb_backfill.py` +
   `backfill-hltb.yml` and `backfill_updates.py` + `backfill.yml` have already run and
@@ -197,7 +199,6 @@ Each data layer lives in its own file with a single owner:
 | `recent.json`  | `recent_refresh.py`  | 30-day rolling "recent reviews" score per appid.               |
 | `seeds.txt`    | **human only**       | Optional priority appids/terms/URLs. The scraper *reads* it but **never writes** it — preserving one-writer-per-file (see §6). |
 | `seeds_log.txt`| `scraper.py`         | Append-only audit of seed reconciliations.                     |
-| `sales.json`   | *(legacy, orphaned)* | Older standalone sale-end-date file, superseded by `prices.json`'s `discount_end`. **No script writes it anymore** (the `sales_refresh.py` it came from was replaced by `price_and_sale.py`). Stale comments in `scraper.py` still reference it — see §14 cleanup. Safe to delete. |
 
 The **frontend merges all of these by appid at load time** and computes QHPP from the
 merged record. QHPP is never stored server-side — it's derived in the browser from
@@ -816,9 +817,6 @@ game probes parked in the waiting room), `skipped` ~165, `priority` ~2.9k (mostl
 the live `strategy`/`colony sim`/`management`/`base-building` term seeds), `seeds_ledger`
 5 entries.
 
-**`sales.json`** — legacy standalone sale-end file (`{ appid: { discount_end,
-scraped_at } }`), superseded by `prices.json`'s `discount_end`.
-
 ---
 
 ## 11. Operating the system
@@ -958,16 +956,18 @@ cursor). It survived only because `save_catalog` does `dict(c)` and round-trips 
 keys. **Resolved:** the key was deleted from the committed `catalog.json` directly — no
 code change was required, since nothing referenced it. (Schema: §10.)
 
-### T2 — Purge the orphaned `sales.json` / `sales_refresh.py` references (§2.1)
+### T2 — Purge the orphaned `sales.json` / `sales_refresh.py` references (§2.1) — ✅ done 2026-06-30
 
-`price_and_sale.py` replaced the old `sales_refresh.py`, and `sales.json` is no longer
-written by anything. But **stale comments still point to the non-existent
-`sales_refresh.py`** — in `scraper.py` (the `# NOTE: sale end-dates …` block around the
+`price_and_sale.py` replaced the old `sales_refresh.py`, and `sales.json` was no longer
+written by anything — but stale comments still pointed to the non-existent
+`sales_refresh.py`: in `scraper.py` (the `# NOTE: sale end-dates …` block around the
 per-game data sources, and the `# discount_end is no longer scraped here …` comment in
-`build_record`) and in `price_and_sale.py`'s own header (`(replaces sales_refresh.py)` /
-`[was sales_refresh.py]`). These mislead a future reader who'll go looking for a file
-that isn't there. Cleanup: rewrite those comments to reference
-`price_and_sale.py`/`prices.json`, and delete `sales.json` from the repo.
+`build_record`) and in `price_and_sale.py`'s own header. **Resolved:** the `scraper.py`
+comments now reference `price_and_sale.py`/`prices.json`; the `price_and_sale.py` header
+no longer names the deleted file (the `(replaces …)` title note and the `[was …]` tag in
+its ownership block were dropped); `sales.json` was deleted from the repo, along with its
+now-defunct §4 ownership-table row and §10 schema entry. Verified: no `sales_refresh` or
+`sales.json` strings remain in any `.py`/`.yml`, and both scripts compile clean.
 Comment-and-file-deletion only — no behavior change. (Ownership: §4.)
 
 ### T3 — Delete the spent one-off scripts + workflows (§2.1)

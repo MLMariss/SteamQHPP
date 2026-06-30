@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Steam QHPP — prices + sale end-dates refresher  (replaces sales_refresh.py)
+Steam QHPP — prices + sale end-dates refresher
 ===========================================================================
 One SEPARATE, independent job that owns the whole fast-changing PRICING layer:
 current price, discount %, and sale end-date. It writes a single prices.json; the main
@@ -28,7 +28,7 @@ end. Ended/expired sales are pruned (frontend also collapses past-due sales offl
 
 Ownership (one writer per file):
   scraper.py      -> games.json   (catalog, rating, tags, last_update, release)
-  THIS            -> prices.json  (price, discount %, sale end)   [was sales_refresh.py]
+  THIS            -> prices.json  (price, discount %, sale end)
   hltb_refresh    -> hltb.json    (static completion times)
   recent_refresh  -> recent.json  (30-day review scores)
 Frontend merges all four by appid; QHPP is computed client-side from the merge.

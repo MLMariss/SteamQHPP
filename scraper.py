@@ -397,8 +397,8 @@ def reconcile_seeds(catalog, processed, seeds_text=None):
 # --------------------------------------------------------------------------- #
 # Per-game data sources
 # --------------------------------------------------------------------------- #
-# NOTE: sale end-dates are no longer fetched here. They're owned by sales_refresh.py
-# (sales.json), which uses the batched IStoreBrowseService/GetItems endpoint — far
+# NOTE: sale end-dates are no longer fetched here. They're owned by price_and_sale.py
+# (prices.json), which uses the batched IStoreBrowseService/GetItems endpoint — far
 # cheaper and more reliable than the old featuredcategories map + per-page HTML scrape
 # that used to live here, and decoupled from this slow, rate-limited main scrape.
 
@@ -500,10 +500,10 @@ def build_record(appid, prev=None):
         price_final = round(po.get("final", 0) / 100, 2) or None
         discount_pct = int(po.get("discount_percent", 0))
 
-    # discount_end is no longer scraped here. It's owned by sales_refresh.py (sales.json),
+    # discount_end is no longer scraped here. It's owned by price_and_sale.py (prices.json),
     # which polls IStoreBrowseService/GetItems frequently to track live end dates and
     # extensions. The main scraper only records that a discount exists (discount_pct) and
-    # the prices; the frontend merges sales.json for the countdown.
+    # the prices; the frontend merges prices.json for the countdown.
 
     # Two remaining per-game lookups — reviews (storefront) and last-update (News API) —
     # run concurrently. SteamSpy tags were decoupled to tags_refresh.py (tags.json): even
