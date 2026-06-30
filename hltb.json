@@ -1,6 +1,6 @@
 {
-  "generated_at": 1782837308,
-  "count": 15178,
+  "generated_at": 1782837611,
+  "count": 15308,
   "hltb": {
     "10": {
       "main": 25.4,
@@ -200456,6 +200456,1725 @@
       "avg": null,
       "match": null,
       "fetched_at": 1782837308,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3616960": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": "His Bet, Her Loss",
+      "fetched_at": 1782837313,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3616970": {
+      "main": 6.0,
+      "extra": 8.2,
+      "complete": 7.1,
+      "avg": 7.1,
+      "match": "Out of the Ocean",
+      "fetched_at": 1782837315,
+      "raw": {
+        "main": 6.0,
+        "extra": null,
+        "complete": 7.1
+      },
+      "est": [
+        "extra"
+      ]
+    },
+    "3616990": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782837317,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3617020": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782837319,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3617040": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782837322,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3617110": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782837324,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3617190": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782837326,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3617200": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782837328,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3617270": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782837330,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3617310": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782837333,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3617320": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782837335,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3617340": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782837337,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3617390": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782837340,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3617400": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782837342,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3617420": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782837344,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3617430": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782837346,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3617460": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782837349,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3617470": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782837351,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3617490": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782837353,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3617560": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782837355,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3617570": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782837357,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3617600": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782837360,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3617620": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": "My Card Is Better Than Your Card!",
+      "fetched_at": 1782837362,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3617650": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": "BUTLER GUILLOTINE",
+      "fetched_at": 1782837364,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3617690": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782837367,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3617730": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782837369,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3617750": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782837371,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3617820": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782837374,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3617900": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782837376,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3617930": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782837378,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3618010": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782837380,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3618020": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782837383,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3618050": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782837385,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3618060": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782837387,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3618070": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782837389,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3618090": {
+      "main": 2.4,
+      "extra": 3.0,
+      "complete": 4.4,
+      "avg": 3.3,
+      "match": "Noosphere",
+      "fetched_at": 1782837392,
+      "raw": {
+        "main": 2.4,
+        "extra": 3.0,
+        "complete": null
+      },
+      "est": [
+        "complete"
+      ]
+    },
+    "3618140": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782837394,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3618170": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782837396,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3618200": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782837398,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3618390": {
+      "main": 1.6,
+      "extra": 6.5,
+      "complete": 33.4,
+      "avg": 13.8,
+      "match": "Gamblers Table",
+      "fetched_at": 1782837401,
+      "raw": {
+        "main": 1.6,
+        "extra": 6.5,
+        "complete": 33.4
+      }
+    },
+    "3618400": {
+      "main": 15.0,
+      "extra": 20.5,
+      "complete": 32.1,
+      "avg": 22.5,
+      "match": "Eternal Return: Black Survival",
+      "fetched_at": 1782837403,
+      "raw": {
+        "main": 15.0,
+        "extra": null,
+        "complete": null
+      },
+      "est": [
+        "extra",
+        "complete"
+      ]
+    },
+    "3618470": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782837405,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3618510": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782837407,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3618520": {
+      "main": 2.6,
+      "extra": 3.6,
+      "complete": 5.2,
+      "avg": 3.8,
+      "match": "Twin Shot",
+      "fetched_at": 1782837410,
+      "raw": {
+        "main": 2.6,
+        "extra": null,
+        "complete": 5.2
+      },
+      "est": [
+        "extra"
+      ]
+    },
+    "3618560": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782837412,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3618590": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782837414,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3618660": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782837417,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3618700": {
+      "main": 1.1,
+      "extra": 1.5,
+      "complete": 1.9,
+      "avg": 1.5,
+      "match": "Cats Visiting Historical Times",
+      "fetched_at": 1782837422,
+      "raw": {
+        "main": 1.1,
+        "extra": null,
+        "complete": 1.9
+      },
+      "est": [
+        "extra"
+      ]
+    },
+    "3618720": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782837424,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3618760": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782837427,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3618780": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782837429,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3618790": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782837431,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3618880": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": "Desktop Fishes",
+      "fetched_at": 1782837433,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3618890": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782837436,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3618960": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782837438,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3619030": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782837440,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3619240": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782837442,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3619290": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782837445,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3619350": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782837447,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3619420": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782837449,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3619600": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782837451,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3619730": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782837453,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3619760": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782837456,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3619780": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782837458,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3619950": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782837460,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3620000": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782837462,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3620020": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782837465,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3620050": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782837467,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3620060": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782837469,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3620070": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782837472,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3620120": {
+      "main": 0.7,
+      "extra": 1.0,
+      "complete": 1.0,
+      "avg": 0.9,
+      "match": "Find Cats 4",
+      "fetched_at": 1782837474,
+      "raw": {
+        "main": 0.7,
+        "extra": null,
+        "complete": 1.0
+      },
+      "est": [
+        "extra"
+      ]
+    },
+    "3620140": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782837476,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3620180": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782837479,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3620210": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782837481,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3620360": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782837484,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3620430": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782837486,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3620440": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782837488,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3620470": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782837491,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3620510": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782837493,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3620560": {
+      "main": 3.0,
+      "extra": 4.0,
+      "complete": 5.9,
+      "avg": 4.3,
+      "match": "Night Jackal: Blood Debt",
+      "fetched_at": 1782837495,
+      "raw": {
+        "main": 3.0,
+        "extra": 4.0,
+        "complete": null
+      },
+      "est": [
+        "complete"
+      ]
+    },
+    "3620570": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782837497,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3620600": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782837500,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3620680": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782837502,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3620720": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782837504,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3620740": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782837506,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3620750": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782837508,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3620780": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782837511,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3620830": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782837513,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3620880": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782837515,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3620940": {
+      "main": 3.0,
+      "extra": 4.1,
+      "complete": 4.7,
+      "avg": 3.9,
+      "match": "Sushi Cat Legacy Collection",
+      "fetched_at": 1782837517,
+      "raw": {
+        "main": 3.0,
+        "extra": null,
+        "complete": 4.7
+      },
+      "est": [
+        "extra"
+      ]
+    },
+    "3621040": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782837520,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3621050": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782837522,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3621150": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782837525,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3621170": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782837527,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3621190": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782837531,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3621210": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782837533,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3621260": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": "Castle of Terror",
+      "fetched_at": 1782837535,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3621290": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782837537,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3621320": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782837539,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3621400": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782837542,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3621410": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": "The Fifth Expedition",
+      "fetched_at": 1782837544,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3621440": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782837546,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3621490": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782837548,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3621620": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782837550,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3621660": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782837553,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3621680": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": "Cosmic Cocktails",
+      "fetched_at": 1782837555,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3621700": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": "Try To Drive",
+      "fetched_at": 1782837557,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3621840": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782837559,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3621860": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782837562,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3621870": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782837564,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3621930": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": "Unsent",
+      "fetched_at": 1782837566,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3622010": {
+      "main": 1.2,
+      "extra": 1.8,
+      "complete": 2.6,
+      "avg": 1.9,
+      "match": "Putt Down",
+      "fetched_at": 1782837568,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": 2.6
+      },
+      "est": [
+        "main",
+        "extra"
+      ]
+    },
+    "3622090": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": "Moonshot",
+      "fetched_at": 1782837571,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3622180": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782837573,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3622230": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782837575,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3622250": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782837577,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3622260": {
+      "main": 4.7,
+      "extra": 6.1,
+      "complete": 7.3,
+      "avg": 6.0,
+      "match": "April Grove",
+      "fetched_at": 1782837579,
+      "raw": {
+        "main": 4.7,
+        "extra": 6.1,
+        "complete": 7.3
+      }
+    },
+    "3622290": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782837582,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3622310": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782837584,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3622420": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782837586,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3622450": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782837589,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3622490": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782837591,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3622510": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782837593,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3622570": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782837595,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3622640": {
+      "main": 7.5,
+      "extra": 8.2,
+      "complete": 23.1,
+      "avg": 12.9,
+      "match": "Vending Machine Co.",
+      "fetched_at": 1782837598,
+      "raw": {
+        "main": 7.5,
+        "extra": 8.2,
+        "complete": 23.1
+      }
+    },
+    "3622650": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782837601,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3622730": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782837604,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3622760": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782837606,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3622810": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782837608,
+      "raw": {
+        "main": null,
+        "extra": null,
+        "complete": null
+      }
+    },
+    "3622840": {
+      "main": null,
+      "extra": null,
+      "complete": null,
+      "avg": null,
+      "match": null,
+      "fetched_at": 1782837611,
       "raw": {
         "main": null,
         "extra": null,
