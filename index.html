@@ -549,15 +549,23 @@ const GROUP_ORDER = TAG_GROUPS.map(g => g[0]).concat(["Other"]);
 const MIN_TAG_COUNT = 10;
 // Min-reviews is a two-handle range across these lower-bound bands (indices 0..4):
 //   0 -> 0-9, 1 -> 10-99, 2 -> 100-999, 3 -> 1k-4999, 4 -> 5000+.
-// revLow/revHigh are inclusive band indices; everything between is included. The effective
-// review filter is: count >= REV_BANDS[revLow]  AND  count <= REV_MAX(revHigh).
+// Min-reviews is a set of INDEPENDENT band toggles (indices 0..4):
+//   0 -> 0-9, 1 -> 10-99, 2 -> 100-999, 3 -> 1k-4999, 4 -> 5000+.
+// state.revBands is a Set of enabled band indices; a game passes if the band its
+// review-count falls into is enabled. Gaps are allowed (e.g. {0,4} = "0-9 OR 5000+").
+// Empty set means "no filter" (all pass), same as the trend toggles.
 const REV_BANDS = [0, 10, 100, 1000, 5000];
-const revMin = lowIdx => REV_BANDS[lowIdx];
-const revMax = highIdx => (highIdx >= REV_BANDS.length - 1) ? Infinity : (REV_BANDS[highIdx + 1] - 1);
+// Which band index does a review count fall into? null -> band 0 (treat "no reviews" as 0-9).
+const bandOf = rc => {
+  const n = (rc == null) ? 0 : rc;
+  let b = 0;
+  for(let i = 0; i < REV_BANDS.length; i++){ if(n >= REV_BANDS[i]) b = i; }
+  return b;
+};
 
 // ----- state -----
 const state = { data:null, q:"", tagsInc:new Set(), tagsExc:new Set(), saleOnly:false,
-                qBasis:"after", hltbMetric:"main", minScore:0, revLow:1, revHigh:4, minPrice:null, maxPrice:null,
+                qBasis:"after", hltbMetric:"main", minScore:0, revBands:new Set([1,2,3,4]), minPrice:null, maxPrice:null,
                 trendSet:new Set(["up","flat","down"]), updatedWithin:"any",
                 qMinVal:0, qMaxVal:0, qMaxUnbounded:true, qDomain:1, qRangeTouched:false,
                 hidden:new Set(),
@@ -683,14 +691,10 @@ function passNonRange(x){
   if(state.q){ if(!x.title.toLowerCase().includes(state.q.trim().toLowerCase())) return false; }
   if(state.saleOnly && !(x.discount_pct > 0)) return false;
   if(state.minScore > 0 && !(x.rating_pct != null && x.rating_pct >= state.minScore)) return false;
-  // Two-handle review-count range. Default (revLow=1..revHigh=4) is effectively "10+".
-  // Games with a null review_count are excluded unless the low handle is 0 (0-9 band).
-  {
-    const lo = revMin(state.revLow), hi = revMax(state.revHigh);
-    const rc = x.review_count;
-    if(rc == null){ if(lo > 0) return false; }
-    else if(rc < lo || rc > hi) return false;
-  }
+  // Review-count band toggles. A game passes if its band is enabled. Empty set = no filter.
+  // Default {1,2,3,4} excludes only the 0-9 band (i.e. "10+"). Games with null review_count
+  // fall in band 0, so they only show when the 0-9 band is enabled.
+  if(state.revBands.size > 0 && !state.revBands.has(bandOf(x.review_count))) return false;
   const p = x.is_free ? 0 : x.price_final;
   if(state.minPrice != null){ if(p == null || p < state.minPrice) return false; }
   if(state.maxPrice != null){ if(p == null || p > state.maxPrice) return false; }
@@ -1266,7 +1270,8 @@ function syncURL(){
   if(state.qBasis !== "after") p.set("basis", state.qBasis);
   if(state.hltbMetric !== "main") p.set("hltb", state.hltbMetric);
   if(state.minScore) p.set("minscore", state.minScore);
-  if(!(state.revLow === 1 && state.revHigh === 4)) p.set("rev", state.revLow + "-" + state.revHigh);
+  { const def = [1,2,3,4].join(","), cur = [...state.revBands].sort().join(",");
+    if(cur !== def) p.set("rev", cur); }
   if(state.minPrice != null) p.set("pmin", state.minPrice);
   if(state.maxPrice != null) p.set("pmax", state.maxPrice);
   if(state.trendSet.size > 0 && state.trendSet.size < 3) p.set("trend", [...state.trendSet].join(","));
@@ -1301,8 +1306,8 @@ function loadFromURL(){
     document.querySelectorAll("[data-metric]").forEach(o => o.setAttribute("aria-pressed", o.dataset.metric===v)); });
   setIf("minscore", v => { state.minScore = parseInt(v,10)||0;
     document.querySelectorAll("[data-minscore]").forEach(o => o.setAttribute("aria-pressed", o.dataset.minscore===String(state.minScore))); });
-  setIf("rev", v => { const m = v.split("-").map(n => parseInt(n,10));
-    if(m.length===2 && m[0]>=0 && m[1]<REV_BANDS.length && m[0]<=m[1]){ state.revLow=m[0]; state.revHigh=m[1]; }
+  setIf("rev", v => { const idxs = v.split(",").map(n => parseInt(n,10)).filter(n => n>=0 && n<REV_BANDS.length);
+    state.revBands = new Set(idxs);
     syncRevButtons(); });
   setIf("pmin", v => { const n=parseFloat(v); if(!isNaN(n)){ state.minPrice=n; const el=$("#minprice"); if(el) el.value=n; } });
   setIf("pmax", v => { const n=parseFloat(v); if(!isNaN(n)){ state.maxPrice=n; const el=$("#maxprice"); if(el) el.value=n; } });
@@ -1336,13 +1341,10 @@ function applyURLRange(){
 }
 
 
-// Reflect the two-handle review range on the band buttons: every band from revLow to
-// revHigh (inclusive) is pressed.
+// Reflect the enabled review bands on the band buttons.
 function syncRevButtons(){
-  document.querySelectorAll("[data-rev]").forEach(o => {
-    const i = parseInt(o.dataset.rev, 10);
-    o.setAttribute("aria-pressed", i >= state.revLow && i <= state.revHigh);
-  });
+  document.querySelectorAll("[data-rev]").forEach(o =>
+    o.setAttribute("aria-pressed", state.revBands.has(parseInt(o.dataset.rev, 10))));
 }
 // Filters collapse/expand via the button ONLY — no scroll-driven auto-collapse (T7).
 // The nav is normal page flow: it scrolls away naturally and the sticky <thead> takes
@@ -1363,7 +1365,7 @@ function init(data){
   window.addEventListener("popstate", () => {   // back/forward navigation
     // reset to defaults, then re-read URL, then refresh everything
     state.q=""; state.tagsInc.clear(); state.tagsExc.clear(); state.saleOnly=false;
-    state.qBasis="after"; state.hltbMetric="main"; state.minScore=0; state.revLow=1; state.revHigh=4;
+    state.qBasis="after"; state.hltbMetric="main"; state.minScore=0; state.revBands=new Set([1,2,3,4]);
     state.minPrice=null; state.maxPrice=null; state.trendSet=new Set(["up","flat","down"]); state.updatedWithin="any";
     state.wishOnly=false; state.sortKey="qhpp"; state.sortDir=-1; state.ratingSource="recent"; state.qRangeTouched=false;
     loadFromURL();
@@ -1395,22 +1397,14 @@ function init(data){
       state.ratingSource = b.dataset.ratesrc;
       document.querySelectorAll("[data-ratesrc]").forEach(o => o.setAttribute("aria-pressed", o === b));
       syncSortArrows();     // header hint reflects which score drives the Reviews sort
-      // Only re-sort if the Reviews column is the active sort; otherwise just record it.
-      if(state.sortKey === "rating_pct"){ render(); } 
+      if(state.sortKey === "rating_pct"){ render(); }
       syncURL();
     }));
   document.querySelectorAll("[data-rev]").forEach(b =>
     b.addEventListener("click", () => {
       const i = parseInt(b.dataset.rev, 10);
-      // Two-handle range: clicking below the low handle extends low down; clicking above
-      // the high handle extends high up; clicking inside the range moves whichever handle
-      // is nearer to i (ties collapse toward that band). Range can never invert or empty.
-      if(i < state.revLow){ state.revLow = i; }
-      else if(i > state.revHigh){ state.revHigh = i; }
-      else {
-        const dLow = i - state.revLow, dHigh = state.revHigh - i;
-        if(dLow <= dHigh) state.revLow = i; else state.revHigh = i;
-      }
+      // Independent toggle: flip this band on/off. Gaps are allowed.
+      if(state.revBands.has(i)) state.revBands.delete(i); else state.revBands.add(i);
       syncRevButtons();
       update();
     }));
@@ -1459,7 +1453,7 @@ function init(data){
 
   $("#clear").addEventListener("click", () => {
     state.q=""; state.tagsInc.clear(); state.tagsExc.clear(); state.saleOnly=false;
-    state.minScore=0; state.revLow=1; state.revHigh=4; state.minPrice=null; state.maxPrice=null; state.wishOnly=false;
+    state.minScore=0; state.revBands=new Set([1,2,3,4]); state.minPrice=null; state.maxPrice=null; state.wishOnly=false;
     state.trendSet=new Set(["up","flat","down"]); state.updatedWithin="any"; state.ratingSource="recent";
     $("#q").value=""; $("#minprice").value=""; $("#maxprice").value="";
     $("#saleOnly").setAttribute("aria-pressed","false"); $("#wishOnly").setAttribute("aria-pressed","false");

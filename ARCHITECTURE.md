@@ -72,7 +72,7 @@ lowest open T-number. Rough priority order within each tier is top-to-bottom.
 
 ### 2.1 Immediate — needed now
 
-- **🟡 T7 — Filter panel / sticky-header / tag rail (build + QA rounds 2–3; #5 tag-search + 2 QA-R3 items pending).** Core T7 (points 1–7) + QA Round 2 shipped (sticky-header fix, min-reviews range, rating-source sort toggle, trend arrows, default Main metric, per-page loader fix). **Still open:** #5 tag-search dropdown (parked mid-build; `+N more` expander live meanwhile) and QA Round 3's two items — **#R3-1** min/max HLTB filter by selected metric, and **#R3-2** make single-select seg toggles un-toggleable (Min Rating has a real "Any" off-state; rating-source/metric/basis need a user decision since "off" isn't meaningful). See §14 → T7 "QA Round 2" and "QA Round 3" for detail + continuation steps.
+- **🟡 T7 — Filter panel / sticky-header / tag rail (build + QA rounds 2–3; #5 tag-search + #R3-1 HLTB filter pending).** Core T7 (points 1–7) + QA Round 2 shipped (sticky-header fix, min-reviews band control, rating-source sort toggle, trend arrows, default Main metric, per-page loader fix); QA Round 3 shipped **#R3-2** (min-reviews changed from a two-handle range to independent per-band on/off toggles; the four radio groups — metric/basis/rating/source — needed no change and were left as-is). **Still open:** #5 tag-search dropdown (parked mid-build; `+N more` expander live meanwhile) and **#R3-1** min/max HLTB filter by the selected metric. See §14 → T7 "QA Round 2/3" for detail + continuation steps.
   On a 1440p screen the filter panel fills the *entire* viewport — the game table is
   pushed fully below the fold and never visible without scrolling; on smaller screens it's
   unusable. Root cause: the tag rail renders **every** tag above `MIN_TAG_COUNT` (≈150
@@ -1326,15 +1326,14 @@ with the card instead of pinning to the viewport. Removed `overflow:hidden` from
 `.tablescroll` overflow fix alone was insufficient because `.tablecard` was the real
 clipper). ⚠ still browser-verify the header pins across Chrome/Firefox/Safari.
 
-**#2 — Min-reviews is now a two-handle RANGE. SHIPPED.** Replaced the single min-value
-buttons with band buttons **0 / 10 / 100 / 1k / 5k+** mapping to lower-bound bands
-`REV_BANDS = [0,10,100,1000,5000]` (indices 0–4). State is `revLow`/`revHigh` (inclusive
-band indices); the effective filter is `count >= REV_BANDS[revLow] && count <= revMax(revHigh)`
-where `revMax` returns `Infinity` for the top band. **Default `revLow=1, revHigh=4` = "10+"**.
-Click behavior: clicking below the low handle extends low down; above the high handle
-extends high up; inside the range moves whichever handle is nearer (ties collapse toward
-that band) — range can never invert or empty. Games with null `review_count` are excluded
-unless the low handle is the 0-band. All 14 filter tests + click-logic tests pass.
+**#2 — Min-reviews band control. SHIPPED (initially a two-handle range; later changed to
+independent band toggles — see §14 → T7 QA Round 3 #R3-2 for the final behavior).**
+Replaced the single min-value buttons with band buttons **0 / 10 / 100 / 1k / 5k+** mapping
+to bands `REV_BANDS = [0,10,100,1000,5000]` (indices 0–4). It first shipped as a two-handle
+range (`revLow`/`revHigh`), then per user request became **independent per-band on/off
+toggles** (`state.revBands` Set, gaps allowed, empty = no filter, default `{1,2,3,4}` =
+"10+"). The band definitions and the `0/10/100/1k/5k+` buttons are unchanged; only the
+selection model changed from range to toggle-set. See #R3-2 for the shipped detail.
 
 **#3 — Rating source toggle (All-time / 30-day) driving the Reviews sort. SHIPPED.** New
 `state.ratingSource` ("all" | "recent", **default "recent"**) + an "All-time / 30-day" seg
@@ -1426,32 +1425,25 @@ number inputs with steppers) — a parallel "HLTB hours" min/max pair.
   - **Consider:** whether the QHPP log-range slider and this HLTB range should visually
     group; not required, but they're both "numeric range" controls.
 
-**#R3-2 — Make the single-select seg toggles un-toggleable (like the trend arrows).** 🔴
-Several segmented controls are currently radio-style: clicking a value selects it, but you
-can't click the **active** button again to turn it OFF / return to default. Round 2 fixed
-this for Review Trend (multi-toggle) but NOT for these single-select groups. Requested:
-clicking an already-active button clears it back to the group's default.
-  - **Affected groups + their "off"/default state:**
-    - **Min Rating** (`data-minscore`, Any/60/70/80/90): clicking the active threshold →
-      back to **Any** (`minScore = 0`).
-    - **Rating source** (`data-ratesrc`, All-time/30-day): this one has no "neither" state
-      that makes sense (the Reviews column must sort by *something*) — CONFIRM with user
-      whether it should toggle at all, or stay always-one-selected. Likely leave as-is, or
-      make clicking-active a no-op. **Open question — flag before implementing.**
-    - **HLTB metric** (`data-metric`, Main/+Extras/100%/Average): QHPP must be computed
-      from *some* metric, so "off" isn't meaningful here either. Same open question as
-      rating source — probably stays always-one-selected. **Flag before implementing.**
-    - **QHPP price basis** (`#qb-after`/`#qb-before`, After/Before): also always-one.
-  - **So the ACTUAL actionable fix is Min Rating** (it has a true "Any" off-state). The
-    others are single-select by necessity — need user confirmation on whether they want a
-    forced toggle there anyway (and if so, what "off" means).
-  - **Implementation (Min Rating):** in the `data-minscore` click handler, if the clicked
-    button is already the active one (`state.minScore === parseInt(b.dataset.minscore)`),
-    set `minScore = 0` and press the "Any" button instead; else select as now. Same pattern
-    could apply to any group given a defined default.
-  - **Note (not a bug):** the Round-2 screenshot showed "Average" still highlighted despite
-    the new "Main" default — that's URL-state persistence (`?hltb=avg` from a prior
-    session), NOT a code error. A fresh load with no query string correctly shows Main.
+**#R3-2 — Review-count bands are now INDEPENDENT toggles. ✅ SHIPPED 2026-07-01.**
+Correction to the earlier framing: the four single-select seg groups (**HLTB metric**,
+**QHPP price basis**, **Min Rating**, **Rating source**) are plain radio groups — exactly
+one option active at all times, click another to switch — and they were **already working
+correctly**. They needed NO change. (An earlier attempt wrongly added a "click-active →
+flash → default" behavior to all four via a `segToggle` helper; that was reverted — those
+groups are back to their original one-active-at-a-time handlers.)
+  - **The one control that actually needed fixing was Min Reviews.** In QA Round 2 it was
+    built as a two-handle range; the user then chose to make each band an **independent
+    on/off toggle** (like the trend arrows), gaps allowed.
+  - **Implemented:** `state.revBands` is now a Set of enabled band indices (0..4 →
+    0-9 / 10-99 / 100-999 / 1k-4999 / 5000+). Clicking a band flips it in/out of the set.
+    A game passes if the band its `review_count` falls into (`bandOf(rc)`) is enabled;
+    empty set = no filter (all pass), matching the trend-toggle convention. **Default is
+    {1,2,3,4}** (everything except the 0-9 band = effective "10+"). Null review counts fall
+    in band 0, so they only appear when the 0-9 band is on. `bandOf` + membership filter,
+    `syncRevButtons` reflects the set, URL param `rev` is a comma list, both resets restore
+    {1,2,3,4}. Logic verified with a 24-case node test (band boundaries, default, gaps like
+    {0,4}, empty, single-band).
 
 ### T8 — Load-time / scaling ceiling as the dataset grows (§2.2)
 
