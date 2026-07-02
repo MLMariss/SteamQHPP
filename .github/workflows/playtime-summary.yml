@@ -1,0 +1,39 @@
+name: Summarize playtime -> playtime.json (frontend)
+
+on:
+  workflow_dispatch:        # run manually any time
+  schedule:
+    # Once daily, at :50 of hour 5 — AFTER the 02:23 and (likely-finished) overnight
+    # raw scrape, so it summarizes fresh data. Reads playtime_raw.json, writes the
+    # small playtime.json the frontend downloads. This is a pure local recompute
+    # (no Steam calls), so it doesn't touch the storefront budget at all.
+    - cron: "50 5 * * *"
+
+permissions:
+  contents: write           # commits playtime.json
+
+concurrency:
+  group: steam-playtime-summary
+  cancel-in-progress: false
+
+jobs:
+  playtime-summary:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15      # trivial: it only reads one file and computes medians
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+
+      - name: Configure git
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Summarize raw playtime into the frontend file
+        run: python playtime_summarize.py

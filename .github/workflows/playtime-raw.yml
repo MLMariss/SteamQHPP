@@ -1,0 +1,52 @@
+name: Refresh review playtime -> playtime_raw.json
+
+on:
+  workflow_dispatch:        # run manually (also used for deep passes via DEEPEN_TARGET)
+  schedule:
+    # Isolated storefront slot. The ~200/5min storefront budget is shared by
+    # scrape.py (:00 of 0,6,12,18 — LONG runs), price_and_sale.py (:07 every 3h),
+    # and recent_refresh.py (:41 of 4,10,16,22). This job runs at :23 of 2,8,14,20 —
+    # a couple hours after each scrape start (winding down) and clear of the
+    # prices/recent offsets — so it has the storefront budget largely to itself and
+    # a 403 here won't stall the others. (hltb :53 / tags :29 hit different hosts.)
+    - cron: "23 2,8,14,20 * * *"
+
+permissions:
+  contents: write           # commits playtime_raw.json once at run-end (G2)
+
+concurrency:
+  group: steam-playtime-raw # never overlap raw-scrape runs (own group)
+  cancel-in-progress: false
+
+jobs:
+  playtime-raw:
+    runs-on: ubuntu-latest
+    timeout-minutes: 330     # under the 6h cap; RUN_MINUTES stays well inside
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install requests
+
+      - name: Configure git (script commits once at run-end, rebasing onto main)
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Refresh review playtime (identity-keyed, sentiment-split)
+        env:
+          STEAM_API_KEY: ${{ secrets.STEAM_API_KEY }}   # optional (appreviews is keyless)
+          RUN_MINUTES: "180"
+          TARGET_REVIEWS: "200"        # reviews aimed for per game on a normal pass
+          # One-off DEEP pass: run this workflow manually and set a higher target
+          # (capped at PER_GAME_CAP=1000 in the script). It resumes each game by
+          # review identity, catching new reviews AND walking deeper into unseen ones.
+          # DEEPEN_TARGET: "1000"
+        run: python playtime_refresh.py
