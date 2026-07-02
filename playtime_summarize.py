@@ -73,13 +73,31 @@ def load_raw_games():
 
 
 def save_summary(summary, per_game_cap):
+    """Lean, compact output. Each game maps to a positional array — NOT an object —
+    to strip repeated JSON key names across tens of thousands of games:
+
+        "<appid>": [median_up, median_down, n_up, n_down]
+                     [0]         [1]          [2]     [3]
+        * median_up   = fans' median playtime, MINUTES (null if < min_segment fans)
+        * median_down = detractors' median playtime, MINUTES (null if too few)
+        * n_up        = fan reviews behind the median (confidence hint)
+        * n_down      = detractor reviews behind the median
+
+    median_all / n_all are intentionally omitted — they're derivable and the split
+    is the whole point. The frontend reads by index (see `_format` in the meta).
+    Compact separators + no indent: ~1.7 MB at full catalog vs ~120 MB if we stored
+    raw arrays here (that's what playtime_raw.json is for; the browser never loads it).
+    """
+    payload = {k: [s["median_up"], s["median_down"], s["n_up"], s["n_down"]]
+               for k, s in summary.items()}
     OUT_FILE.write_text(json.dumps(
         {"generated_at": int(time.time()),
          "per_game_cap": per_game_cap,
          "min_segment": MIN_SEGMENT_FOR_MEDIAN,
-         "count": len(summary),
-         "playtime": summary},
-        ensure_ascii=False, indent=2), encoding="utf-8")
+         "_format": ["median_up_min", "median_down_min", "n_up", "n_down"],
+         "count": len(payload),
+         "playtime": payload},
+        ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
 
 
 def git_commit():
