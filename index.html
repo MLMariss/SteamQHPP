@@ -60,8 +60,12 @@
   .bar-filters > .ctl-row:first-child{margin:0; padding:6px 0; min-height:47px; align-items:center}
   body:not(.layout-card) .bar-filters > .filter-section[data-section="value"]{border-top:0}
   .topbar.compact .bar-filters{display:none}             /* instant, no animation */
-  .topbar.compact .tagline{display:none}
-  .topbar.compact .logo{font-size:23px}
+  /* The brand reads identically whether the filter panel is open or shut — same 28px logo, same
+     tagline. Collapsing the filters used to also shrink the logo to 23px and drop "quality time
+     per dollar", so the two states looked like two different sites and the one people see FIRST
+     (filters shut) was the one that never explained what QTPD stands for. The slimming survives
+     only on narrow screens, where the compact bar is sticky and every pixel of it is real
+     estate taken from the list — see the body.narrow block below. */
 
   .collapse-handle{display:block; width:100%; border:0; border-top:1px solid var(--line); background:var(--panel);
         color:var(--muted); font-family:var(--mono); font-size:13px; letter-spacing:.04em; padding:8px; cursor:pointer}
@@ -167,6 +171,19 @@
 
   /* toasts (transient wishlist messages) */
   .toast-host{position:fixed; right:18px; bottom:18px; z-index:200; display:flex; flex-direction:column; gap:8px; max-width:380px}
+  /* Back to top. The desktop topbar scrolls away (only thead sticks), so once Lucky drops you a
+     few thousand rows down there is no way back to the search box or the filters except a long
+     scroll. Fixed bottom-right, and it only exists once you're actually deep — no permanent
+     furniture over the list. Toasts live in the same corner, so they step up out of its way. */
+  .totop{position:fixed; right:18px; bottom:18px; z-index:190; display:none; align-items:center; gap:7px;
+        background:var(--panel-2); color:var(--text); border:1px solid var(--line); border-radius:999px;
+        font-family:var(--mono); font-size:13px; letter-spacing:.04em; padding:10px 15px; cursor:pointer;
+        box-shadow:0 10px 30px #000a}
+  body.can-top .totop{display:flex}
+  body.can-top .toast-host{bottom:74px}
+  .totop:hover{background:var(--panel); border-color:var(--gold-deep); color:var(--gold)}
+  .totop:focus-visible{outline:2px solid var(--gold); outline-offset:3px}
+  .totop .tt-arrow{font-size:15px; line-height:1}
   .toast{background:var(--panel-2); border:1px solid var(--line); border-radius:10px; padding:11px 14px;
         font-family:var(--mono); font-size:13px; color:var(--text); box-shadow:0 10px 30px #000a; animation:toastin .18s ease}
   .toast.err{border-color:var(--coral)} .toast.ok{border-color:var(--teal)} .toast a{color:var(--blue)} .toast b{color:var(--gold)}
@@ -952,6 +969,10 @@
   body.narrow .collapse-handle{border-radius:0 0 14px 14px}
   body.narrow .topbar.compact{position:sticky; top:0}
   body.narrow .topbar.compact .meta{display:none}   /* count/updated dupes the summary line — drop it to slim the sticky browsing nav */
+  /* Phone-only brand slimming: the tagline would push the search box onto its own line, and this
+     bar is sticky while browsing. Desktop keeps the full brand in both states. */
+  body.narrow .topbar.compact .tagline{display:none}
+  body.narrow .topbar.compact .logo{font-size:23px}
   body.narrow .topbar:not(.compact) .collapse-handle{position:sticky; bottom:0; z-index:41; box-shadow:0 -7px 18px #0008}
   /* Once scrolled, the sticky compact nav shrinks to just the filter-summary + the Show-filters
      bar — the logo/search/view/tools row (bar-main) hides until you scroll back to the top or open
@@ -1353,6 +1374,9 @@ try{
   <div class="foot" id="foot"></div>
 </div>
 
+<button class="totop" id="toTop" type="button"
+        title="Back to the top — search, filters and the view switcher live up there"
+        aria-label="Back to top"><span class="tt-arrow" aria-hidden="true">↑</span>top</button>
 <div class="toast-host" id="toastHost"></div>
 <!-- shared popover host: L2 summary editors + L4 CSV column-picker -->
 <div class="pop-host" id="popHost"><div class="pop-backdrop" id="popBackdrop"></div><div class="popover" id="popover" role="dialog"></div></div>
@@ -3462,13 +3486,24 @@ function init(data){
   document.addEventListener("keydown", e => { if(e.key === "Escape") closePopover(); });
   // Mobile: once scrolled a little, shrink the sticky compact nav to just the summary + Show-filters
   // bar (CSS hides bar-main under body.nav-scrolled). Passive + class-only so scrolling stays smooth.
-  let _navScrolled = false;
+  // Second threshold on the same handler: once you're a screenful-and-a-half down, the topbar is
+  // long gone, so offer the way back (body.can-top shows #toTop). One listener, two class flips.
+  let _navScrolled = false, _canTop = false;
   const onNavScroll = () => {
     const s = window.scrollY > 24;
     if(s !== _navScrolled){ _navScrolled = s; document.body.classList.toggle("nav-scrolled", s); }
+    const t = window.scrollY > 900;
+    if(t !== _canTop){ _canTop = t; document.body.classList.toggle("can-top", t); }
   };
   window.addEventListener("scroll", onNavScroll, {passive:true});
   onNavScroll();
+  // Land on the topbar itself rather than firing focus around — the search box is right there and
+  // the filter panel is one click on the logo, which is what "drill into the nav from mid-list"
+  // actually needs. Honours reduced-motion, since 900px+ of smooth scroll is a lot of movement.
+  $("#toTop").addEventListener("click", () => {
+    const smooth = !matchMedia("(prefers-reduced-motion:reduce)").matches;
+    window.scrollTo({top:0, behavior: smooth ? "smooth" : "auto"});
+  });
 }
 
 // Collapse a sale whose end date has passed: show base price, no discount, no QTPD
