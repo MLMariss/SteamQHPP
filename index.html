@@ -443,6 +443,10 @@
   /* "from" prefix on apps whose store page sells several products and has no price of its
      own (the shared Call of Duty launcher). Muted and small so the number stays the focus. */
   .pricefrom{font-family:var(--mono); font-size:11px; color:var(--muted-2); margin-right:4px; cursor:help}
+  /* "not sold" / "only $X" in place of a bare dash, when we know WHY there's no price.
+     Dashed underline marks it as explained-on-hover rather than just missing data. */
+  .nosale.avail{font-family:var(--mono); font-size:12px; cursor:help;
+    border-bottom:1px dotted var(--muted-2); padding-bottom:1px}
   .disc{font-family:var(--mono); font-size:13px; color:#0e1320; background:var(--coral); padding:1px 5px; border-radius:5px; font-weight:700}
   /* Split "Price / Sale" header: two independently-clickable sort targets in one <th>. */
   thead th.th-split{gap:5px}
@@ -1514,6 +1518,31 @@ function pkgFrom(g){
   return g.price_src === "package"
     ? `<span class="pricefrom" title="${esc(pkgTip(g))}">from</span>` : "";
 }
+// Why a game has no price, when we know. "notsold" = Steam lists no package for it at all,
+// which is what a delisting looks like from the outside; "only" = it isn't sold on its own,
+// the page's single purchase option is a bundle or the successor product. only_price is
+// shown but deliberately never feeds price_final/QTPD — it isn't this game's price.
+// Anything else (including apps that are unbuyable but still have a package, usually free
+// ones) stays an honest dash.
+function noPriceText(g){
+  if(g.avail === "notsold") return "not sold";
+  if(g.avail === "only" && g.only_price != null) return `only $${g.only_price.toFixed(2)}`;
+  return "—";
+}
+function noPriceTip(g){
+  if(g.avail === "notsold")
+    return "Steam lists no package for this app — there is no way to buy it. Usually means "
+         + "it was delisted; the reviews and playtime are from the years it was on sale.";
+  if(g.avail === "only")
+    return `Not sold on its own. The only thing this store page sells is ${g.only_name || "a bundle"}`
+         + (g.only_price != null ? `, at $${g.only_price.toFixed(2)}` : "")
+         + " — which is why QTPD leaves this one unscored.";
+  return "No price from Steam for this app.";
+}
+function noPriceHTML(g){
+  const known = g.avail === "notsold" || g.avail === "only";
+  return `<span class="nosale${known ? " avail" : ""}" title="${esc(noPriceTip(g))}">${esc(noPriceText(g))}</span>`;
+}
 function computeQ(g, basis){
   const h = hoursFor(g), r = g.rating_pct, p = priceFor(g, basis);
   return (h && r && p && p > 0) ? (h * (r/100)) / p : null;
@@ -1855,7 +1884,7 @@ function render(){
     const from = pkgFrom(g);
     let price;
     if(g.is_free) price = `<span class="free">Free</span>`;
-    else if(g.price_final == null) price = `<span class="nosale">—</span>`;
+    else if(g.price_final == null) price = noPriceHTML(g);
     else if(g.discount_pct > 0)
       price = `<div class="pricebox"><span class="price-init">$${g.price_initial.toFixed(2)}</span>`
             + `<span class="price-line">${from}<span class="price-final">$${g.price_final.toFixed(2)}</span>`
@@ -2407,7 +2436,7 @@ function gridCardHTML(g){
   let priceTxt;
   const pfx = g.price_src === "package" ? "from " : "";
   if(g.is_free) priceTxt = "Free";
-  else if(g.price_final == null) priceTxt = "—";
+  else if(g.price_final == null) priceTxt = noPriceText(g);
   else if(onSale) priceTxt = `${pfx}$${g.price_final.toFixed(2)} (-${g.discount_pct}%)`;
   else priceTxt = `${pfx}$${g.price_final.toFixed(2)}`;
   const h = hoursFor(g);
@@ -3527,6 +3556,13 @@ Promise.all([
       game.price_src = p.price_src || null;
       game.pkg_name  = p.pkg_name  || null;
       game.pkg_count = p.pkg_count || 0;
+      // avail explains a MISSING price: "notsold" (no package on Steam at all — what a
+      // delisting looks like), "only" (sold solely inside only_name at only_price), or
+      // "unknown". Presentation only: only_price never becomes price_final, so a bundle's
+      // price can't leak into QTPD or the price sort.
+      game.avail      = p.avail      || null;
+      game.only_name  = p.only_name  || null;
+      game.only_price = (p.only_price != null) ? p.only_price : null;
     } else {
       game.discount_end = game.discount_end ?? null;
     }
