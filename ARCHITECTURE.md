@@ -684,6 +684,19 @@ Because `price_and_sale.py` rebuilds the whole set each run rather than patching
 mid-run checkpoint legitimately holds a **partial** set — a count well below the ~106k
 non-free base is a pass in progress, not data loss.
 
+A handful of rows carry three extra keys — `price_src: "package"`, `pkg_name`, `pkg_count`.
+These are apps Steam quotes **no app-level price** for because their store page fronts
+several distinct products; the shared Call of Duty launcher (`1938090`) sells Modern
+Warfare 4 and Black Ops 7 side by side, so `appdetails?filters=price_overview` returns
+success with an empty data block. The price is then the **cheapest** qualifying package
+from GetItems and the frontend renders it `from $X`. Qualifying is deliberately strict —
+the package must sit in a *named* `package_group` (not `default`, not a `display_type: 1`
+dropdown) — because the loose reading produces confidently wrong prices: delisted apps
+offer their successor in the default group (Half-Life 2: Deathmatch → "The Orange Box",
+ARK: SOTF → "ARK: Survival Evolved"), dead games offer leftover DLC, and dropdown groups
+are in-game currency (CoD Points would price Call of Duty at $1.99). A wrong price is
+worse than none here — it feeds QTPD, sorting and the CSV — so ambiguity keeps the `—`.
+
 **`hltb.json`** — `{ generated_at, count, "hltb": { "<appid>": { main, extra, complete, avg,
 match, fetched_at, raw: { main, extra, complete }, est?: ["extra", …], attempts?: N } } }`.
 The four time fields are **unprefixed** (`main`, not `hltb_main`). `raw` holds the ground-truth

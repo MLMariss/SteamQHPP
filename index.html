@@ -440,6 +440,9 @@
   .price-init{font-family:var(--mono); font-size:12px; color:var(--muted-2); text-decoration:line-through}
   .price-line{display:flex; align-items:center; gap:6px}
   .price-final{font-family:var(--mono); font-size:14px; font-weight:600}
+  /* "from" prefix on apps whose store page sells several products and has no price of its
+     own (the shared Call of Duty launcher). Muted and small so the number stays the focus. */
+  .pricefrom{font-family:var(--mono); font-size:11px; color:var(--muted-2); margin-right:4px; cursor:help}
   .disc{font-family:var(--mono); font-size:13px; color:#0e1320; background:var(--coral); padding:1px 5px; border-radius:5px; font-weight:700}
   /* Split "Price / Sale" header: two independently-clickable sort targets in one <th>. */
   thead th.th-split{gap:5px}
@@ -1497,6 +1500,20 @@ function hoursFor(g){
   return m==="main" ? g.hltb_main : m==="extra" ? g.hltb_extra : m==="complete" ? g.hltb_complete : g.hltb_avg;
 }
 function priceFor(g, basis){ if(g.is_free) return null; return basis==="after" ? g.price_final : g.price_initial; }
+// Apps with no price of their own (price_src "package") carry the CHEAPEST of the several
+// products their store page fronts, so the figure is a floor, not the price. Returns the
+// "from" prefix markup for those, "" for everything else. Tooltip names the package and
+// how many others there are, so 4-in-one pages like Call of Duty read honestly.
+function pkgTip(g){
+  const n = g.pkg_count || 0;
+  return `Steam lists no single price for this app — its store page sells ${n>1?n+" separate products":"a package"}`
+       + (g.pkg_name ? `. Cheapest is ${g.pkg_name}` : "")
+       + `, so this is the lowest price to get in, not the price of everything on the page.`;
+}
+function pkgFrom(g){
+  return g.price_src === "package"
+    ? `<span class="pricefrom" title="${esc(pkgTip(g))}">from</span>` : "";
+}
 function computeQ(g, basis){
   const h = hoursFor(g), r = g.rating_pct, p = priceFor(g, basis);
   return (h && r && p && p > 0) ? (h * (r/100)) / p : null;
@@ -1834,14 +1851,16 @@ function render(){
   const inc = state.tagsInc;
   tbody.innerHTML = games.map(g => {
     // Merged Price/Sale cell: struck full price on top, sale price + discount badge below.
+    // A package-priced app gets a "from" prefix — see pkgFrom().
+    const from = pkgFrom(g);
     let price;
     if(g.is_free) price = `<span class="free">Free</span>`;
     else if(g.price_final == null) price = `<span class="nosale">—</span>`;
     else if(g.discount_pct > 0)
       price = `<div class="pricebox"><span class="price-init">$${g.price_initial.toFixed(2)}</span>`
-            + `<span class="price-line"><span class="price-final">$${g.price_final.toFixed(2)}</span>`
+            + `<span class="price-line">${from}<span class="price-final">$${g.price_final.toFixed(2)}</span>`
             + `<span class="disc">-${g.discount_pct}%</span></span></div>`;
-    else price = `<span class="price-final">$${g.price_final.toFixed(2)}</span>`;
+    else price = `${from}<span class="price-final">$${g.price_final.toFixed(2)}</span>`;
 
     let sale;
     if(g.discount_pct > 0 && g.discount_end){
@@ -2386,10 +2405,11 @@ function gridCardHTML(g){
     ? `<span class="grate" style="color:${ratingColor(g.rating_pct)}" title="Steam review score ${g.rating_pct}%${g.review_count ? " · " + g.review_count.toLocaleString() + " reviews" : ""}">${g.rating_pct}%</span>`
     : `<span class="grate na" title="No reviews yet">—</span>`;
   let priceTxt;
+  const pfx = g.price_src === "package" ? "from " : "";
   if(g.is_free) priceTxt = "Free";
   else if(g.price_final == null) priceTxt = "—";
-  else if(onSale) priceTxt = `$${g.price_final.toFixed(2)} (-${g.discount_pct}%)`;
-  else priceTxt = `$${g.price_final.toFixed(2)}`;
+  else if(onSale) priceTxt = `${pfx}$${g.price_final.toFixed(2)} (-${g.discount_pct}%)`;
+  else priceTxt = `${pfx}$${g.price_final.toFixed(2)}`;
   const h = hoursFor(g);
   const hStr = h != null ? (h >= 10 ? Math.round(h) : (Math.round(h * 10) / 10).toFixed(1)) + "h" : "—";
   return `<div class="${cls}" data-gappid="${g.appid}" tabindex="0" role="button" aria-label="${esc(g.title)}">
@@ -3500,6 +3520,13 @@ Promise.all([
       if(p.price_final   !== undefined) game.price_final   = p.price_final;
       if(p.discount_pct  !== undefined) game.discount_pct  = p.discount_pct;
       game.discount_end = (p.discount_end != null) ? p.discount_end : null;
+      // price_src "package": the app has no price of its own — its store page fronts
+      // several separate products (the shared Call of Duty launcher sells Modern Warfare 4
+      // and Black Ops 7 side by side). The price is the cheapest of those packages, so it
+      // renders as "from $X". pkg_name/pkg_count feed the tooltip.
+      game.price_src = p.price_src || null;
+      game.pkg_name  = p.pkg_name  || null;
+      game.pkg_count = p.pkg_count || 0;
     } else {
       game.discount_end = game.discount_end ?? null;
     }
