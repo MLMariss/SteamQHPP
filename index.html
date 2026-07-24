@@ -73,8 +73,12 @@
   .bar-filters > .ctl-row:first-child{margin:0; padding:6px 0; min-height:47px; align-items:center}
   body:not(.layout-card) .bar-filters > .filter-section[data-section="value"]{border-top:0}
   .topbar.compact .bar-filters{display:none}             /* instant, no animation */
-  .topbar.compact .tagline{display:none}
-  .topbar.compact .logo{font-size:23px}
+  /* The brand reads identically whether the filter panel is open or shut — same 28px logo, same
+     tagline. Collapsing the filters used to also shrink the logo to 23px and drop "quality time
+     per dollar", so the two states looked like two different sites and the one people see FIRST
+     (filters shut) was the one that never explained what QTPD stands for. The slimming survives
+     only on narrow screens, where the compact bar is sticky and every pixel of it is real
+     estate taken from the list — see the body.narrow block below. */
 
   .collapse-handle{display:block; width:100%; border:0; border-top:1px solid var(--line); background:var(--panel);
         color:var(--muted); font-family:var(--mono); font-size:13px; letter-spacing:.04em; padding:8px; cursor:pointer}
@@ -227,6 +231,19 @@
 
   /* toasts (transient wishlist messages) */
   .toast-host{position:fixed; right:18px; bottom:18px; z-index:200; display:flex; flex-direction:column; gap:8px; max-width:380px}
+  /* Back to top. The desktop topbar scrolls away (only thead sticks), so once Lucky drops you a
+     few thousand rows down there is no way back to the search box or the filters except a long
+     scroll. Fixed bottom-right, and it only exists once you're actually deep — no permanent
+     furniture over the list. Toasts live in the same corner, so they step up out of its way. */
+  .totop{position:fixed; right:18px; bottom:18px; z-index:190; display:none; align-items:center; gap:7px;
+        background:var(--panel-2); color:var(--text); border:1px solid var(--line); border-radius:999px;
+        font-family:var(--mono); font-size:13px; letter-spacing:.04em; padding:10px 15px; cursor:pointer;
+        box-shadow:0 10px 30px #000a}
+  body.can-top .totop{display:flex}
+  body.can-top .toast-host{bottom:74px}
+  .totop:hover{background:var(--panel); border-color:var(--gold-deep); color:var(--gold)}
+  .totop:focus-visible{outline:2px solid var(--gold); outline-offset:3px}
+  .totop .tt-arrow{font-size:15px; line-height:1}
   .toast{background:var(--panel-2); border:1px solid var(--line); border-radius:10px; padding:11px 14px;
         font-family:var(--mono); font-size:13px; color:var(--text); box-shadow:0 10px 30px #000a; animation:toastin .18s ease}
   .toast.err{border-color:var(--coral)} .toast.ok{border-color:var(--teal)} .toast a{color:var(--blue)} .toast b{color:var(--gold)}
@@ -506,6 +523,13 @@
   .price-init{font-family:var(--mono); font-size:12px; color:var(--muted-2); text-decoration:line-through}
   .price-line{display:flex; align-items:center; gap:6px}
   .price-final{font-family:var(--mono); font-size:14px; font-weight:600}
+  /* "from" prefix on apps whose store page sells several products and has no price of its
+     own (the shared Call of Duty launcher). Muted and small so the number stays the focus. */
+  .pricefrom{font-family:var(--mono); font-size:11px; color:var(--muted-2); margin-right:4px; cursor:help}
+  /* "not sold" / "only $X" in place of a bare dash, when we know WHY there's no price.
+     Dashed underline marks it as explained-on-hover rather than just missing data. */
+  .nosale.avail{font-family:var(--mono); font-size:12px; cursor:help;
+    border-bottom:1px dotted var(--muted-2); padding-bottom:1px}
   .disc{font-family:var(--mono); font-size:13px; color:#0e1320; background:var(--coral); padding:1px 5px; border-radius:5px; font-weight:700}
   /* Split "Price / Sale" header: two independently-clickable sort targets in one <th>. */
   thead th.th-split{gap:5px}
@@ -1029,6 +1053,10 @@
   body.narrow .collapse-handle{border-radius:0 0 14px 14px}
   body.narrow .topbar.compact{position:sticky; top:0}
   body.narrow .topbar.compact .meta{display:none}   /* count/updated dupes the summary line — drop it to slim the sticky browsing nav */
+  /* Phone-only brand slimming: the tagline would push the search box onto its own line, and this
+     bar is sticky while browsing. Desktop keeps the full brand in both states. */
+  body.narrow .topbar.compact .tagline{display:none}
+  body.narrow .topbar.compact .logo{font-size:23px}
   body.narrow .topbar:not(.compact) .collapse-handle{position:sticky; bottom:0; z-index:41; box-shadow:0 -7px 18px #0008}
   /* Once scrolled, the sticky compact nav shrinks to just the filter-summary + the Show-filters
      bar — the logo/search/view/tools row (bar-main) hides until you scroll back to the top or open
@@ -1425,6 +1453,9 @@ try{
   <div class="foot" id="foot"></div>
 </div>
 
+<button class="totop" id="toTop" type="button"
+        title="Back to the top — search, filters and the view switcher live up there"
+        aria-label="Back to top"><span class="tt-arrow" aria-hidden="true">↑</span>top</button>
 <div class="toast-host" id="toastHost"></div>
 <!-- shared popover host: L2 summary editors + L4 CSV column-picker -->
 <div class="pop-host" id="popHost"><div class="pop-backdrop" id="popBackdrop"></div><div class="popover" id="popover" role="dialog"></div></div>
@@ -1576,6 +1607,45 @@ function hoursFor(g){
   return m==="main" ? g.hltb_main : m==="extra" ? g.hltb_extra : m==="complete" ? g.hltb_complete : g.hltb_avg;
 }
 function priceFor(g, basis){ if(g.is_free) return null; return basis==="after" ? g.price_final : g.price_initial; }
+// Apps with no price of their own (price_src "package") carry the CHEAPEST of the several
+// products their store page fronts, so the figure is a floor, not the price. Returns the
+// "from" prefix markup for those, "" for everything else. Tooltip names the package and
+// how many others there are, so 4-in-one pages like Call of Duty read honestly.
+function pkgTip(g){
+  const n = g.pkg_count || 0;
+  return `Steam lists no single price for this app — its store page sells ${n>1?n+" separate products":"a package"}`
+       + (g.pkg_name ? `. Cheapest is ${g.pkg_name}` : "")
+       + `, so this is the lowest price to get in, not the price of everything on the page.`;
+}
+function pkgFrom(g){
+  return g.price_src === "package"
+    ? `<span class="pricefrom" title="${esc(pkgTip(g))}">from</span>` : "";
+}
+// Why a game has no price, when we know. "notsold" = Steam lists no package for it at all,
+// which is what a delisting looks like from the outside; "only" = it isn't sold on its own,
+// the page's single purchase option is a bundle or the successor product. only_price is
+// shown but deliberately never feeds price_final/QTPD — it isn't this game's price.
+// Anything else (including apps that are unbuyable but still have a package, usually free
+// ones) stays an honest dash.
+function noPriceText(g){
+  if(g.avail === "notsold") return "not sold";
+  if(g.avail === "only" && g.only_price != null) return `only $${g.only_price.toFixed(2)}`;
+  return "—";
+}
+function noPriceTip(g){
+  if(g.avail === "notsold")
+    return "Steam lists no package for this app — there is no way to buy it. Usually means "
+         + "it was delisted; the reviews and playtime are from the years it was on sale.";
+  if(g.avail === "only")
+    return `Not sold on its own. The only thing this store page sells is ${g.only_name || "a bundle"}`
+         + (g.only_price != null ? `, at $${g.only_price.toFixed(2)}` : "")
+         + " — which is why QTPD leaves this one unscored.";
+  return "No price from Steam for this app.";
+}
+function noPriceHTML(g){
+  const known = g.avail === "notsold" || g.avail === "only";
+  return `<span class="nosale${known ? " avail" : ""}" title="${esc(noPriceTip(g))}">${esc(noPriceText(g))}</span>`;
+}
 function computeQ(g, basis){
   const h = hoursFor(g), r = g.rating_pct, p = priceFor(g, basis);
   return (h && r && p && p > 0) ? (h * (r/100)) / p : null;
@@ -1913,14 +1983,16 @@ function render(){
   const inc = state.tagsInc;
   tbody.innerHTML = games.map(g => {
     // Merged Price/Sale cell: struck full price on top, sale price + discount badge below.
+    // A package-priced app gets a "from" prefix — see pkgFrom().
+    const from = pkgFrom(g);
     let price;
     if(g.is_free) price = `<span class="free">Free</span>`;
-    else if(g.price_final == null) price = `<span class="nosale">—</span>`;
+    else if(g.price_final == null) price = noPriceHTML(g);
     else if(g.discount_pct > 0)
       price = `<div class="pricebox"><span class="price-init">$${g.price_initial.toFixed(2)}</span>`
-            + `<span class="price-line"><span class="price-final">$${g.price_final.toFixed(2)}</span>`
+            + `<span class="price-line">${from}<span class="price-final">$${g.price_final.toFixed(2)}</span>`
             + `<span class="disc">-${g.discount_pct}%</span></span></div>`;
-    else price = `<span class="price-final">$${g.price_final.toFixed(2)}</span>`;
+    else price = `${from}<span class="price-final">$${g.price_final.toFixed(2)}</span>`;
 
     let sale;
     if(g.discount_pct > 0 && g.discount_end){
@@ -2470,10 +2542,11 @@ function gridCardHTML(g){
     ? `<span class="grate" style="color:${ratingColor(g.rating_pct)}" title="Steam review score ${g.rating_pct}%${g.review_count ? " · " + g.review_count.toLocaleString() + " reviews" : ""}">${g.rating_pct}%</span>`
     : `<span class="grate na" title="No reviews yet">—</span>`;
   let priceTxt;
+  const pfx = g.price_src === "package" ? "from " : "";
   if(g.is_free) priceTxt = "Free";
-  else if(g.price_final == null) priceTxt = "—";
-  else if(onSale) priceTxt = `$${g.price_final.toFixed(2)} (-${g.discount_pct}%)`;
-  else priceTxt = `$${g.price_final.toFixed(2)}`;
+  else if(g.price_final == null) priceTxt = noPriceText(g);
+  else if(onSale) priceTxt = `${pfx}$${g.price_final.toFixed(2)} (-${g.discount_pct}%)`;
+  else priceTxt = `${pfx}$${g.price_final.toFixed(2)}`;
   const h = hoursFor(g);
   const hStr = h != null ? (h >= 10 ? Math.round(h) : (Math.round(h * 10) / 10).toFixed(1)) + "h" : "—";
   return `<div class="${cls}" data-gappid="${g.appid}" tabindex="0" role="button" aria-label="${esc(g.title)}">
@@ -3617,13 +3690,24 @@ function init(data){
   document.addEventListener("keydown", e => { if(e.key === "Escape") closePopover(); });
   // Mobile: once scrolled a little, shrink the sticky compact nav to just the summary + Show-filters
   // bar (CSS hides bar-main under body.nav-scrolled). Passive + class-only so scrolling stays smooth.
-  let _navScrolled = false;
+  // Second threshold on the same handler: once you're a screenful-and-a-half down, the topbar is
+  // long gone, so offer the way back (body.can-top shows #toTop). One listener, two class flips.
+  let _navScrolled = false, _canTop = false;
   const onNavScroll = () => {
     const s = window.scrollY > 24;
     if(s !== _navScrolled){ _navScrolled = s; document.body.classList.toggle("nav-scrolled", s); }
+    const t = window.scrollY > 900;
+    if(t !== _canTop){ _canTop = t; document.body.classList.toggle("can-top", t); }
   };
   window.addEventListener("scroll", onNavScroll, {passive:true});
   onNavScroll();
+  // Land on the topbar itself rather than firing focus around — the search box is right there and
+  // the filter panel is one click on the logo, which is what "drill into the nav from mid-list"
+  // actually needs. Honours reduced-motion, since 900px+ of smooth scroll is a lot of movement.
+  $("#toTop").addEventListener("click", () => {
+    const smooth = !matchMedia("(prefers-reduced-motion:reduce)").matches;
+    window.scrollTo({top:0, behavior: smooth ? "smooth" : "auto"});
+  });
 }
 
 // Collapse a sale whose end date has passed: show base price, no discount, no QTPD
@@ -3704,6 +3788,20 @@ Promise.all([
       if(p.price_final   !== undefined) game.price_final   = p.price_final;
       if(p.discount_pct  !== undefined) game.discount_pct  = p.discount_pct;
       game.discount_end = (p.discount_end != null) ? p.discount_end : null;
+      // price_src "package": the app has no price of its own — its store page fronts
+      // several separate products (the shared Call of Duty launcher sells Modern Warfare 4
+      // and Black Ops 7 side by side). The price is the cheapest of those packages, so it
+      // renders as "from $X". pkg_name/pkg_count feed the tooltip.
+      game.price_src = p.price_src || null;
+      game.pkg_name  = p.pkg_name  || null;
+      game.pkg_count = p.pkg_count || 0;
+      // avail explains a MISSING price: "notsold" (no package on Steam at all — what a
+      // delisting looks like), "only" (sold solely inside only_name at only_price), or
+      // "unknown". Presentation only: only_price never becomes price_final, so a bundle's
+      // price can't leak into QTPD or the price sort.
+      game.avail      = p.avail      || null;
+      game.only_name  = p.only_name  || null;
+      game.only_price = (p.only_price != null) ? p.only_price : null;
     } else {
       game.discount_end = game.discount_end ?? null;
     }
