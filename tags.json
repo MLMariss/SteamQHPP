@@ -1,6 +1,6 @@
 {
-  "generated_at": 1785095185,
-  "count": 124553,
+  "generated_at": 1785101447,
+  "count": 124555,
   "tags": {
     "10": [
       "Action",
@@ -1166183,6 +1166183,26 @@
       "Strategy",
       "Card Battler",
       "Diplomacy"
+    ],
+    "2966910": [
+      "Action",
+      "Action-Adventure",
+      "Adventure",
+      "Parkour",
+      "Space",
+      "2.5D",
+      "Sci-fi",
+      "Pixel Graphics"
+    ],
+    "4312110": [
+      "Simulation",
+      "3D",
+      "Realistic",
+      "Third Person",
+      "Family Friendly",
+      "Sports",
+      "Football (American)",
+      "Character Customization"
     ]
   },
   "store_checked": [
@@ -1181755,6 +1181775,7 @@
     2966700,
     2966720,
     2966790,
+    2966910,
     2966970,
     2966990,
     2967000,
@@ -1203671,6 +1203692,7 @@
     4311860,
     4312050,
     4312080,
+    4312110,
     4312210,
     4312280,
     4312440,
