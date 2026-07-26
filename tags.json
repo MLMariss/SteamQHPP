@@ -1,6 +1,6 @@
 {
-  "generated_at": 1785061351,
-  "count": 124538,
+  "generated_at": 1785075166,
+  "count": 124546,
   "tags": {
     "10": [
       "Action",
@@ -1166037,6 +1166037,84 @@
       "Adventure",
       "Multiplayer",
       "Action"
+    ],
+    "3810540": [
+      "Strategy",
+      "Collectathon",
+      "Idler",
+      "Incremental",
+      "Point & Click",
+      "Casual",
+      "2D",
+      "Split Screen"
+    ],
+    "4481470": [
+      "Casual",
+      "Visual Novel",
+      "CRPG",
+      "Anime",
+      "Dialogue Heavy",
+      "Singleplayer"
+    ],
+    "4543060": [
+      "Horror",
+      "Psychological Horror",
+      "Atmospheric",
+      "Action Roguelike",
+      "Roguelite",
+      "Text-Based",
+      "Roguelike",
+      "Time Management"
+    ],
+    "4808530": [
+      "RPG",
+      "Adventure",
+      "JRPG",
+      "Open World",
+      "Exploration",
+      "Tanks",
+      "3D",
+      "Turn-Based Combat"
+    ],
+    "4827940": [
+      "Early Access",
+      "Card Battler",
+      "Roguelike Deckbuilder",
+      "Roguelite",
+      "Interactive Fiction",
+      "Female Protagonist",
+      "Strategy",
+      "Inventory Management"
+    ],
+    "4856940": [
+      "RPG",
+      "Interactive Fiction",
+      "Dating Sim",
+      "Visual Novel",
+      "2D Platformer",
+      "2.5D",
+      "FMV",
+      "Anime"
+    ],
+    "4895240": [
+      "Action",
+      "3D Platformer",
+      "Parkour",
+      "First-Person",
+      "Third Person",
+      "Singleplayer",
+      "Family Friendly",
+      "Platformer"
+    ],
+    "4923640": [
+      "Bullet Hell",
+      "Roguelite",
+      "Action Roguelike",
+      "Shooter",
+      "2D",
+      "Colorful",
+      "Minimalist",
+      "Stylized"
     ]
   },
   "store_checked": [
@@ -1194081,6 +1194159,7 @@
     3810340,
     3810390,
     3810480,
+    3810540,
     3810570,
     3810580,
     3810620,
@@ -1205651,6 +1205730,7 @@
     4481370,
     4481440,
     4481450,
+    4481470,
     4481490,
     4481520,
     4481530,
@@ -1206041,6 +1206121,7 @@
     4542800,
     4542860,
     4543030,
+    4543060,
     4543710,
     4544940,
     4545780,
@@ -1206579,6 +1206660,7 @@
     4806800,
     4808280,
     4808420,
+    4808530,
     4808730,
     4808760,
     4808770,
@@ -1206670,6 +1206752,7 @@
     4826450,
     4826510,
     4827850,
+    4827940,
     4828030,
     4828160,
     4828210,
@@ -1206827,6 +1206910,7 @@
     4856670,
     4856840,
     4856850,
+    4856940,
     4857170,
     4857190,
     4857240,
@@ -1206996,6 +1207080,7 @@
     4894220,
     4894580,
     4894950,
+    4895240,
     4895290,
     4895370,
     4895390,
@@ -1207093,6 +1207178,7 @@
     4921730,
     4921930,
     4923160,
+    4923640,
     4923890,
     4924130,
     4924380,
