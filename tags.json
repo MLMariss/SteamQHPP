@@ -1,6 +1,6 @@
 {
-  "generated_at": 1785075166,
-  "count": 124546,
+  "generated_at": 1785095185,
+  "count": 124553,
   "tags": {
     "10": [
       "Action",
@@ -1166115,6 +1166115,74 @@
       "Colorful",
       "Minimalist",
       "Stylized"
+    ],
+    "4224980": [
+      "Adventure",
+      "Action",
+      "Puzzle",
+      "Action-Adventure",
+      "Exploration",
+      "Indie",
+      "3D",
+      "First-Person"
+    ],
+    "4382130": [
+      "Strategy",
+      "Board Game",
+      "2D",
+      "Turn-Based Tactics",
+      "Singleplayer",
+      "Free to Play"
+    ],
+    "4572790": [
+      "Casual",
+      "Party Game",
+      "Puzzle",
+      "Falling Blocks",
+      "2D",
+      "Cartoony",
+      "Cute",
+      "Colorful"
+    ],
+    "4650440": [
+      "Casual",
+      "Party Game",
+      "Puzzle",
+      "Falling Blocks",
+      "2D",
+      "Cartoony",
+      "Cute",
+      "Colorful"
+    ],
+    "4887360": [
+      "FPS",
+      "Action-Adventure",
+      "3D",
+      "First-Person",
+      "Funny",
+      "Linear",
+      "Open World",
+      "Story Rich"
+    ],
+    "4897770": [
+      "Indie",
+      "Poker",
+      "Casual",
+      "Card Game",
+      "Singleplayer",
+      "Interactive Fiction",
+      "Roguelite",
+      "Tactical"
+    ],
+    "4911010": [
+      "Card Game",
+      "Tabletop",
+      "Board Game",
+      "City Builder",
+      "Turn-Based Strategy",
+      "Strategy",
+      "Card Battler",
+      "Diplomacy"
     ]
   },
   "store_checked": [
@@ -1202114,6 +1202182,7 @@
     4224900,
     4224920,
     4224950,
+    4224980,
     4224990,
     4225020,
     4225060,
@@ -1204523,6 +1204592,7 @@
     4381840,
     4381950,
     4382100,
+    4382130,
     4382160,
     4382220,
     4382250,
@@ -1206180,6 +1206250,7 @@
     4571480,
     4571590,
     4572290,
+    4572790,
     4575990,
     4576500,
     4577240,
@@ -1206319,6 +1206390,7 @@
     4646260,
     4646460,
     4647170,
+    4650440,
     4650570,
     4651220,
     4651470,
@@ -1207053,6 +1207125,7 @@
     4885960,
     4886040,
     4886100,
+    4887360,
     4887520,
     4887750,
     4887830,
@@ -1207095,6 +1207168,7 @@
     4897450,
     4897530,
     4897540,
+    4897770,
     4898140,
     4898150,
     4898380,
@@ -1207143,6 +1207217,7 @@
     4910600,
     4910700,
     4910780,
+    4911010,
     4911200,
     4911220,
     4911330,
