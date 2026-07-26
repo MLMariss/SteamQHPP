@@ -1,6 +1,6 @@
 {
-  "generated_at": 1785039047,
-  "count": 124533,
+  "generated_at": 1785061351,
+  "count": 124538,
   "tags": {
     "10": [
       "Action",
@@ -1165987,6 +1165987,56 @@
       "Text-Based",
       "Artificial Intelligence",
       "Indie"
+    ],
+    "1657740": [
+      "Adventure",
+      "3D Platformer",
+      "Comedy",
+      "Platformer",
+      "Sandbox",
+      "Exploration",
+      "Collectathon",
+      "3D"
+    ],
+    "3602710": [
+      "Adventure",
+      "Action",
+      "Casual",
+      "Action-Adventure",
+      "Platformer",
+      "Puzzle",
+      "2D Platformer",
+      "Puzzle Platformer"
+    ],
+    "4278010": [
+      "Adventure",
+      "Detective",
+      "Female Protagonist",
+      "RPG",
+      "Mystery",
+      "Visual Novel",
+      "Wholesome",
+      "Cute"
+    ],
+    "4567580": [
+      "Roguelike",
+      "Casual",
+      "Singleplayer",
+      "Strategy",
+      "Bullet Hell",
+      "Action Roguelike",
+      "Survival",
+      "Roguelite"
+    ],
+    "4911220": [
+      "Action RPG",
+      "Hack and Slash",
+      "Loot",
+      "Isometric",
+      "Action-Adventure",
+      "Adventure",
+      "Multiplayer",
+      "Action"
     ]
   },
   "store_checked": [
@@ -1169455,6 +1169505,7 @@
     1657170,
     1657540,
     1657570,
+    1657740,
     1657760,
     1657780,
     1657880,
@@ -1190197,6 +1190248,7 @@
     3602540,
     3602570,
     3602600,
+    3602710,
     3602720,
     3602790,
     3602880,
@@ -1202874,6 +1202926,7 @@
     4277930,
     4277940,
     4277950,
+    4278010,
     4278160,
     4278170,
     4278180,
@@ -1206033,6 +1206086,7 @@
     4566690,
     4567080,
     4567230,
+    4567580,
     4568910,
     4568980,
     4570010,
@@ -1207005,6 +1207059,7 @@
     4910700,
     4910780,
     4911200,
+    4911220,
     4911330,
     4912570,
     4912930,
