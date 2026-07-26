@@ -1,6 +1,6 @@
 {
-  "generated_at": 1785008843,
-  "count": 124530,
+  "generated_at": 1785039047,
+  "count": 124533,
   "tags": {
     "10": [
       "Action",
@@ -1165958,6 +1165958,35 @@
       "Time Management",
       "2.5D",
       "2D"
+    ],
+    "3848460": [
+      "Spaceships",
+      "Space",
+      "Sci-fi",
+      "Combat",
+      "Flight",
+      "2.5D",
+      "3D Platformer",
+      "Top-Down Shooter"
+    ],
+    "4378860": [
+      "Casual",
+      "Rhythm",
+      "Simulation",
+      "Music",
+      "Arcade",
+      "Score Attack",
+      "Education",
+      "Singleplayer"
+    ],
+    "4851930": [
+      "Casual",
+      "Simulation",
+      "Historical",
+      "Singleplayer",
+      "Text-Based",
+      "Artificial Intelligence",
+      "Indie"
     ]
   },
   "store_checked": [
@@ -1194868,6 +1194897,7 @@
     3848270,
     3848320,
     3848430,
+    3848460,
     3848490,
     3848510,
     3848540,
@@ -1204308,6 +1204338,7 @@
     4378350,
     4378600,
     4378720,
+    4378860,
     4378920,
     4379130,
     4379140,
@@ -1206708,6 +1206739,7 @@
     4851420,
     4851630,
     4851720,
+    4851930,
     4852330,
     4852380,
     4852580,
