@@ -27,7 +27,8 @@ extras / completionist / avg) feeds the formula.
 > data schemas, the HLTB estimation system, and the playtime / weighted-rating pipeline —
 > see **[ARCHITECTURE.md](ARCHITECTURE.md)**. For what's planned, parked, or deliberately
 > not being built, see **[ROADMAP.md](ROADMAP.md)**. Live data coverage is in the generated
-> **[COVERAGE.md](COVERAGE.md)**.
+> **[COVERAGE.md](COVERAGE.md)**, and how current that data is — per task, with the next
+> refresh due and where the gap is too big — in the generated **[FRESHNESS.md](FRESHNESS.md)**.
 
 ## How it works
 
@@ -53,9 +54,10 @@ frontend merges every file by appid in the browser and computes QTPD client-side
 | `pics_merge.py`         | `pics.json`          | Flattens the 64 `pics/` shards into the single file the browser downloads, keeping only the keys the frontend reads. Chained step; pure local recompute. |
 | `coverage.py`           | `COVERAGE.md`        | Regenerates the coverage/freshness snapshot from the live files after every scrape. Stdlib-only, no Steam calls. |
 | `shard_health.py`       | `SHARDS.md`          | Daily per-shard size/evenness report for `playtime_raw/`, watching the 100 MB per-file limit. No Steam calls. |
+| `freshness.py`          | `FRESHNESS.md`       | Daily 07:00 UTC freshness check: per-task last-run → next-run → gap, how much of the catalog each task holds up to date vs pending, and the per-game wait distribution. Reads the workflow crons themselves; stdlib-only, no Steam calls. |
 
-`COVERAGE.md` and `SHARDS.md` are **generated** — read them for current numbers, don't edit
-them. Three tiny static decode maps in `lookups/` (`tags.json`, `genres.json`,
+`COVERAGE.md`, `SHARDS.md` and `FRESHNESS.md` are **generated** — read them for current
+numbers, don't edit them. Three tiny static decode maps in `lookups/` (`tags.json`, `genres.json`,
 `categories.json`) turn the PICS IDs back into names in the browser; they're refreshed by hand
 via `pics_lookups.py` / `build_category_map.py`.
 

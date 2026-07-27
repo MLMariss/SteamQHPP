@@ -549,10 +549,10 @@ pipeline hierarchy:
 | `1.` | The catalog scraper — the only finder of new games | `scrape.yml` |
 | `2.x` | Refreshers — enrich games the scraper already found | prices, recent, playtime-raw, updates, hltb, tags, pics |
 | `3.x` | Summarizers — pure local recompute, `[2.3 / manual]` marks that job 2.3 is their real trigger | playtime-summary, playtime-ratings |
-| `4.x` | Monitors / generated docs | shard-health, coverage |
+| `4.x` | Monitors / generated docs | shard-health, coverage, freshness |
 | `[ONE-OFF]` | Run-once utilities, deletable when drained | `queue-null-updates.yml` |
 
-**14 workflow files, 13 numbered** — only the `[ONE-OFF]` sits outside the sequence, which is
+**15 workflow files, 14 numbered** — only the `[ONE-OFF]` sits outside the sequence, which is
 deliberate: it isn't part of the standing pipeline. Numbering is cosmetic — nothing keys off
 it — with one exception: `coverage.yml`'s `workflow_run` trigger matches the scrape workflow's
 **exact `name:` string**, so renaming `scrape.yml` silently breaks it (see the callout below).
@@ -617,6 +617,7 @@ each single-writes its `.md`):
 |---------------------|-------------------|---------------|--------------------------------------------------|-------------------|
 | `shard-health.yml`  | `shard_health.py` | `SHARDS.md`   | `35 6 * * *` (daily)                             | `shards-md`       |
 | `coverage.yml`      | `coverage.py`     | `COVERAGE.md` | `workflow_run` after **scrape** succeeds (~4×/day) | `coverage-md`     |
+| `freshness.yml`     | `freshness.py`    | `FRESHNESS.md`| `0 7 * * *` (daily, the morning oversight pass)  | `freshness-md`    |
 
 `coverage.py` recomputes every coverage figure from the live files + shards and self-commits
 `COVERAGE.md`. It reports **two axes** (full design in §11.5): **Axis 1 — total coverage**
@@ -639,6 +640,15 @@ background job with no user-facing path.
 > fixed by updating the `workflows:` array to the new name (2026-07).
 `COVERAGE.md` is now a generated artifact — previously it was hand-authored and silently drifted
 as the data jobs kept running.
+
+`freshness.py` is the third generated doc (§11.6). It answers the *time* question the coverage
+snapshot doesn't: for every scheduled task, when it last actually wrote its file, when its cron
+fires next, and how big the gap between those two gets. It reads the `cron:` and
+`timeout-minutes` lines out of `.github/workflows/` directly — a schedule change shows up in the
+doc on the next run with no edit here — and imports `coverage.py` for the cooldown constants and
+bucketers, so the two docs can never disagree about what "overdue" means. Daily at **07:00 UTC**,
+deliberately behind 4.1 (06:35) and an hour after the 06:00 scrape slot, so it reads a settled
+tree.
 
 **One-off (deletable) workflows.** `cleanup_shells.py` is a run-once utility that shares its
 target file's concurrency group so it can't clobber an in-progress scrape. `queue_null_updates.py`
@@ -2037,6 +2047,66 @@ tracked in [ROADMAP.md](ROADMAP.md) §3.5.
 
 ---
 
+## 11.6 Freshness tracking (`freshness.py` → `FRESHNESS.md`)
+
+`COVERAGE.md` measures **volume** ("how much of the catalog do we hold?"). `FRESHNESS.md`
+measures **time** ("when was each task last run, when does it run next, how much of what it owns
+is up to date, and where is the wait too long?"). The split is deliberate: coverage was already
+carrying a partial freshness story in its Axis 2, but nothing in the repo answered the operator
+question — *is every job actually still firing, and how long until this file gets touched again?*
+Answering that meant opening the Actions tab and reading fifteen workflow histories by hand.
+
+Rebuilt **daily at 07:00 UTC** (`freshness.yml`, task 4.3). Stdlib-only, no network, no git —
+the workflow commits the file, same one-writer discipline as `shard_health.py`.
+
+### The two clocks (why there are three tables, not one number)
+
+A single "freshness %" would fuse two failures that need opposite fixes, so they are reported
+separately:
+
+1. **Job clock — is the task running?** (Table 1.) Cron, worst-case cadence, last write, next
+   fire, and `gap (last → next)` = how stale the file will be, at worst, by the time the task
+   next gets a chance to touch it.
+2. **Game clock — how long does one title wait?** (Table 3.) Each file's per-game refresh window
+   next to the observed row-age distribution (p50 / p95 / oldest).
+3. Between them, **Table 2** splits covered rows into up-to-date / pending-refresh /
+   pending-fill / skipped-by-design, using `coverage.py`'s bucketers unchanged.
+
+A stalled job is a broken pipeline (check Actions). A healthy job with a blown p95 is a budget
+shortfall (more run minutes, more slots, or accept the tail). One number would hide which.
+
+### Status = missed fires, not an age ratio
+
+A task is judged by **how many of its own cron fires came and went without its output file being
+re-stamped** — 🟢 0, 🟡 1, 🔴 2+. An age-vs-cadence ratio was tried first and rejected: it flatters
+slow schedules (a daily job can skip an entire run and still sit at 1.05×) while being trigger-happy
+on fast ones. Each fire is granted the job's declared `timeout-minutes` as grace before it can
+count as missed, so a long pass still in flight (playtime legitimately stamps up to 5.5h after
+its cron) is never mistaken for a miss.
+
+The signal works because **every scraper here rewrites `generated_at` on each successful pass** —
+a missed fire really does mean "no successful write". The one exception is handled explicitly:
+
+- **Fill-only tasks** (`tags_refresh.py`) write only while unresolved games remain and commit
+  nothing when they find none. Scoring those on missed fires would print a red light daily for a
+  job that is working as designed, so they carry a 🔵 **fill-only** status, are exempt from the
+  gate, and get a standing alert instead — because a fill-only task with a drained frontier means
+  its data is **frozen**, which is the pipeline's real structural freshness gap (tags have no
+  rescrape cadence at all; [ROADMAP.md](ROADMAP.md) §3.5).
+
+### Invariants
+
+- **One writer:** `freshness.py` → `FRESHNESS.md` only. All reads read-only.
+- **No duplicated gates.** Cooldown constants and bucketers are imported from `coverage.py`
+  (`import coverage as CV`), never copied. Add a scraper → update `coverage.py`, and both docs
+  follow.
+- **Schedules are read, not restated.** Crons and timeouts come from the workflow files at run
+  time; the only per-task metadata in `freshness.py` is the registry mapping task → workflow →
+  output file.
+- **Generated, never hand-edited** — a banner at the top of `FRESHNESS.md` says so.
+
+---
+
 ## 12. Wishlist import & the Cloudflare Worker
 
 The browser can't read a Steam wishlist cross-origin, so a small Cloudflare Worker (free tier)
@@ -2258,6 +2328,26 @@ revert is just `STEAM_DELAY` back to 2.0 and/or fewer slots.
 ---
 
 ## 16. Recent changes
+
+- **`FRESHNESS.md` — daily data-freshness check (Jul 2026).** New generated doc + workflow
+  (`freshness.py`, `freshness.yml`, task **4.3**, daily **07:00 UTC**), full design in §11.6.
+  Coverage told us *how much* we hold; nothing told us *how current it is per task* without
+  reading fifteen workflow histories by hand. The doc reports, for every scheduled task: its
+  cron and worst-case cadence, when it **last actually wrote** its file, when it **fires next**,
+  the **gap between those two**, then how many catalog rows it holds **up to date vs pending
+  refresh vs pending fill**, and finally the **per-game wait distribution** (p50/p95/oldest)
+  against each scraper's own refresh window. Three design decisions worth keeping:
+  1. **Schedules are read, not restated.** `cron:` and `timeout-minutes` are parsed out of
+     `.github/workflows/` at run time, so a schedule edit can never leave the doc stale — the
+     failure mode that silently broke `coverage.yml`'s `workflow_run` link (see §4).
+  2. **Gates are imported, not copied.** `import coverage as CV` pulls the cooldown constants and
+     bucketers, so FRESHNESS.md and COVERAGE.md cannot disagree about "overdue".
+  3. **Status counts missed fires, not an age ratio.** Each cron fire that passed without the
+     output being re-stamped counts as a miss (🟢 0 / 🟡 1 / 🔴 2+), with the job's own
+     `timeout-minutes` as grace. A ratio would let a daily job skip a whole run and still read
+     green. Fill-only tasks (`tags`) are exempt and flagged 🔵 instead — they write only while
+     unresolved games remain, so their silence is expected and their real problem is that the
+     data is frozen, not that a run failed.
 
 - **Custom tooltip layer, full filter-tooltip coverage, tags readability, arrow fix (Jul 2026).**
   Frontend only, no data changes.
