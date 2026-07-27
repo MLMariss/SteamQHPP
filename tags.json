@@ -1,6 +1,6 @@
 {
-  "generated_at": 1785125920,
-  "count": 124565,
+  "generated_at": 1785153298,
+  "count": 124580,
   "tags": {
     "10": [
       "Action",
@@ -1166303,6 +1166303,155 @@
       "Colony Sim",
       "Sandbox",
       "PvE"
+    ],
+    "1999520": [
+      "Puzzle-Platformer",
+      "Cats",
+      "Adventure",
+      "Cute",
+      "Puzzle",
+      "Indie",
+      "Pixel Graphics",
+      "Platformer"
+    ],
+    "3330210": [
+      "Roguelike Deckbuilder",
+      "Deckbuilding",
+      "Strategy",
+      "Physics",
+      "Turn-Based Strategy",
+      "Roguelike",
+      "Cooking",
+      "Job Simulator"
+    ],
+    "4030760": [
+      "Adventure",
+      "Strategy",
+      "RPG",
+      "Strategy RPG",
+      "Roguelike",
+      "Match 3",
+      "Roguelite",
+      "Dungeon Crawler"
+    ],
+    "4212480": [
+      "Adventure",
+      "RPG",
+      "MMORPG",
+      "Massively Multiplayer",
+      "Fantasy",
+      "Character Customization",
+      "Action",
+      "3D"
+    ],
+    "4317900": [
+      "Casual",
+      "Incremental",
+      "Idler",
+      "Mining",
+      "Automation",
+      "2D",
+      "Pixel Graphics",
+      "Resource Management"
+    ],
+    "4430500": [
+      "Puzzle",
+      "Match 3",
+      "Casual",
+      "Puzzle Platformer",
+      "Arcade",
+      "Strategy",
+      "Minimalist",
+      "Local Multiplayer"
+    ],
+    "4467920": [
+      "Casual",
+      "2D",
+      "Singleplayer",
+      "Tabletop",
+      "2D Platformer",
+      "1980s",
+      "Free to Play"
+    ],
+    "4811000": [
+      "Casual",
+      "Party Game",
+      "Time Management",
+      "3D",
+      "Cartoon",
+      "Cute",
+      "Top-Down",
+      "Crafting"
+    ],
+    "4830090": [
+      "Horror",
+      "Thriller",
+      "Puzzle",
+      "Walking Simulator",
+      "Psychological Horror",
+      "RPG",
+      "Female Protagonist",
+      "Multiple Endings"
+    ],
+    "4890480": [
+      "Adventure",
+      "Arcade",
+      "Interactive Fiction",
+      "Exploration",
+      "Third Person",
+      "Pixel Graphics",
+      "Atmospheric",
+      "Funny"
+    ],
+    "4903000": [
+      "Casual",
+      "Adventure",
+      "Walking Simulator",
+      "Simulation",
+      "Exploration",
+      "Sandbox",
+      "3D",
+      "First-Person"
+    ],
+    "4903450": [
+      "Casual",
+      "Strategy",
+      "Card Game",
+      "Tabletop",
+      "Board Game",
+      "Poker",
+      "Solitaire",
+      "2D"
+    ],
+    "4930640": [
+      "Horror",
+      "Story Rich",
+      "Adventure",
+      "Walking Simulator",
+      "Choose Your Own Adventure",
+      "Singleplayer",
+      "First-Person",
+      "Casual"
+    ],
+    "4938440": [
+      "Hidden Object",
+      "Party Game",
+      "Funny",
+      "Casual",
+      "Voxel",
+      "Multiplayer",
+      "Design & Illustration",
+      "Cats"
+    ],
+    "4942350": [
+      "Political Sim",
+      "Strategy",
+      "Immersive Sim",
+      "Casual",
+      "Simulation",
+      "Diplomacy",
+      "Politics",
+      "Political"
     ]
   },
   "store_checked": [
@@ -1186436,6 +1186585,7 @@
     3330160,
     3330180,
     3330200,
+    3330210,
     3330220,
     3330360,
     3330390,
@@ -1198903,6 +1199053,7 @@
     4030650,
     4030660,
     4030740,
+    4030760,
     4030810,
     4030830,
     4030940,
@@ -1202057,6 +1202208,7 @@
     4212210,
     4212340,
     4212400,
+    4212480,
     4212530,
     4212590,
     4212640,
@@ -1203897,6 +1204049,7 @@
     4317710,
     4317720,
     4317850,
+    4317900,
     4317970,
     4317980,
     4318030,
@@ -1205353,6 +1205506,7 @@
     4430420,
     4430470,
     4430480,
+    4430500,
     4430550,
     4430740,
     4430750,
@@ -1205836,6 +1205990,7 @@
     4467620,
     4467640,
     4467830,
+    4467920,
     4467950,
     4468030,
     4468150,
@@ -1206881,6 +1207036,7 @@
     4810320,
     4810840,
     4810930,
+    4811000,
     4811410,
     4812140,
     4812220,
@@ -1206973,6 +1207129,7 @@
     4829710,
     4829840,
     4829980,
+    4830090,
     4830350,
     4830480,
     4830970,
@@ -1207271,6 +1207428,7 @@
     4889950,
     4890090,
     4890280,
+    4890480,
     4890720,
     4891330,
     4892050,
@@ -1207325,9 +1207483,11 @@
     4902300,
     4902480,
     4902550,
+    4903000,
     4903080,
     4903180,
     4903260,
+    4903450,
     4903980,
     4904130,
     4904420,
@@ -1207393,10 +1207553,13 @@
     4925480,
     4927140,
     4927290,
+    4930640,
     4930820,
     4930960,
     4931410,
     4935790,
-    4937420
+    4937420,
+    4938440,
+    4942350
   ]
 }
