@@ -1,6 +1,6 @@
 {
-  "generated_at": 1785236632,
-  "count": 124681,
+  "generated_at": 1785251020,
+  "count": 124691,
   "tags": {
     "10": [
       "Action",
@@ -1167457,6 +1167457,105 @@
       "Adventure",
       "Story Rich",
       "3D Platformer"
+    ],
+    "3041730": [
+      "Exploration",
+      "Puzzle",
+      "Adventure",
+      "Walking Simulator",
+      "Story Rich",
+      "Atmospheric",
+      "Relaxing",
+      "Cute"
+    ],
+    "3044420": [
+      "Post-apocalyptic",
+      "Roguelike",
+      "Action",
+      "Sci-fi",
+      "Space",
+      "Tower Defense",
+      "Hex Grid",
+      "Robots"
+    ],
+    "3840530": [
+      "Shoot 'Em Up",
+      "Top-Down Shooter",
+      "Twin Stick Shooter",
+      "Bullet Hell",
+      "Shooter",
+      "Arcade",
+      "2D",
+      "Post-apocalyptic"
+    ],
+    "4594150": [
+      "Tower Defense",
+      "Incremental",
+      "War",
+      "Roguelite",
+      "Military",
+      "Management",
+      "Physics",
+      "PvE"
+    ],
+    "4729160": [
+      "Visual Novel",
+      "Detective",
+      "Mystery",
+      "Cinematic",
+      "Simulation",
+      "Anime",
+      "Adventure",
+      "2D"
+    ],
+    "4734200": [
+      "Action",
+      "Strategy",
+      "Action Roguelike",
+      "Roguelike",
+      "Dungeon Crawler",
+      "Exploration",
+      "2D",
+      "Top-Down"
+    ],
+    "4899720": [
+      "Action",
+      "Casual",
+      "Strategy",
+      "Arcade",
+      "Roguelike",
+      "Action Roguelike",
+      "Incremental",
+      "Roguelite"
+    ],
+    "4929300": [
+      "RPG",
+      "Pixel Graphics",
+      "Crime",
+      "Turn-Based Strategy",
+      "2D",
+      "Singleplayer",
+      "Adventure",
+      "Strategy"
+    ],
+    "4934380": [
+      "Casual",
+      "2D",
+      "Modern",
+      "Singleplayer",
+      "Puzzle",
+      "Word Game",
+      "Indie"
+    ],
+    "4938760": [
+      "Casual",
+      "Visual Novel",
+      "First-Person",
+      "Emotional",
+      "Fantasy",
+      "Singleplayer",
+      "Nudity",
+      "Sexual Content"
     ]
   },
   "store_checked": [
@@ -1183921,6 +1184020,7 @@
     3041330,
     3041500,
     3041550,
+    3041730,
     3041890,
     3041920,
     3042230,
@@ -1183955,6 +1184055,7 @@
     3044180,
     3044210,
     3044220,
+    3044420,
     3044510,
     3044550,
     3044560,
@@ -1196216,6 +1196317,7 @@
     3840360,
     3840370,
     3840490,
+    3840530,
     3840590,
     3840600,
     3840640,
@@ -1207627,6 +1207729,7 @@
     4592120,
     4593070,
     4593080,
+    4594150,
     4594650,
     4596000,
     4596160,
@@ -1207877,6 +1207980,7 @@
     4727290,
     4727300,
     4727680,
+    4729160,
     4729470,
     4730160,
     4730180,
@@ -1207893,6 +1207997,7 @@
     4733520,
     4733840,
     4734110,
+    4734200,
     4736050,
     4736640,
     4737050,
@@ -1208557,6 +1208662,7 @@
     4899300,
     4899470,
     4899660,
+    4899720,
     4899790,
     4899880,
     4900150,
@@ -1208648,17 +1208754,20 @@
     4925480,
     4927140,
     4927290,
+    4929300,
     4929970,
     4930640,
     4930820,
     4930960,
     4931410,
     4932470,
+    4934380,
     4935790,
     4936120,
     4937340,
     4937420,
     4938440,
+    4938760,
     4942350
   ]
 }
