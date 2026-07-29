@@ -1,6 +1,6 @@
 {
-  "generated_at": 1785297366,
-  "count": 124760,
+  "generated_at": 1785323246,
+  "count": 124769,
   "tags": {
     "10": [
       "Action",
@@ -1168242,6 +1168242,93 @@
       "2D",
       "Tactical",
       "Singleplayer"
+    ],
+    "2976110": [
+      "Online Co-Op",
+      "Horror",
+      "Multiplayer",
+      "Puzzle",
+      "PvE",
+      "Co-op",
+      "Stealth",
+      "Action"
+    ],
+    "4599710": [
+      "Incremental",
+      "Idler",
+      "Exploration",
+      "Trading",
+      "Crafting",
+      "Simulation",
+      "Loot",
+      "Casual"
+    ],
+    "4643910": [
+      "Casual",
+      "Singleplayer",
+      "2D",
+      "Strategy",
+      "Detective",
+      "Minimalist",
+      "Indie",
+      "Puzzle"
+    ],
+    "4872330": [
+      "Exploration",
+      "Immersive Sim",
+      "Puzzle",
+      "Walking Simulator",
+      "Casual",
+      "Simulation",
+      "3D",
+      "First-Person"
+    ],
+    "4906540": [
+      "Casual",
+      "Strategy",
+      "Puzzle",
+      "2D",
+      "Singleplayer"
+    ],
+    "4910280": [
+      "Bullet Heaven",
+      "Action Roguelike",
+      "Roguelite",
+      "Action",
+      "Arcade",
+      "Combat",
+      "Character Customization",
+      "Class-Based"
+    ],
+    "4912720": [
+      "Action",
+      "Casual",
+      "Strategy",
+      "Arcade",
+      "Turn-Based Strategy",
+      "Exploration",
+      "Typing",
+      "Pixel Graphics"
+    ],
+    "4941330": [
+      "Adventure",
+      "Platformer",
+      "Capybaras",
+      "Collectathon",
+      "Exploration",
+      "Online Co-Op",
+      "Character Customization",
+      "Multiplayer"
+    ],
+    "4945600": [
+      "Farming Sim",
+      "Simulation",
+      "Multiplayer",
+      "Colorful",
+      "Cute",
+      "Cartoony",
+      "Time Management",
+      "Immersive Sim"
     ]
   },
   "store_checked": [
@@ -1183925,6 +1184012,7 @@
     2975940,
     2975950,
     2976020,
+    2976110,
     2976230,
     2976260,
     2976510,
@@ -1208467,6 +1208555,7 @@
     4599400,
     4599460,
     4599580,
+    4599710,
     4599720,
     4600020,
     4600350,
@@ -1208559,6 +1208648,7 @@
     4643440,
     4643740,
     4643880,
+    4643910,
     4644050,
     4644150,
     4645200,
@@ -1209276,6 +1209366,7 @@
     4871920,
     4872120,
     4872250,
+    4872330,
     4872540,
     4872590,
     4872610,
@@ -1209433,6 +1209524,7 @@
     4905930,
     4905950,
     4906520,
+    4906540,
     4907970,
     4908340,
     4908350,
@@ -1209445,6 +1209537,7 @@
     4909260,
     4910140,
     4910220,
+    4910280,
     4910310,
     4910450,
     4910530,
@@ -1209456,6 +1209549,7 @@
     4911220,
     4911330,
     4912570,
+    4912720,
     4912850,
     4912930,
     4913430,
@@ -1209521,7 +1209615,9 @@
     4938760,
     4939000,
     4939980,
+    4941330,
     4942350,
+    4945600,
     4946980
   ]
 }
