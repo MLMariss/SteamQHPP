@@ -1,6 +1,6 @@
 {
-  "generated_at": 1785323246,
-  "count": 124769,
+  "generated_at": 1785336332,
+  "count": 124782,
   "tags": {
     "10": [
       "Action",
@@ -1168329,6 +1168329,134 @@
       "Cartoony",
       "Time Management",
       "Immersive Sim"
+    ],
+    "4400270": [
+      "Roguelike",
+      "Sports",
+      "Billiards",
+      "Horror",
+      "Retro",
+      "Physics",
+      "Casual",
+      "Simulation"
+    ],
+    "4433730": [
+      "Incremental",
+      "Roguelite",
+      "Casual",
+      "Idler",
+      "Puzzle",
+      "Multiple Endings",
+      "Story Rich",
+      "Dystopian"
+    ],
+    "4489000": [
+      "Early Access",
+      "Action Roguelike",
+      "Card Battler",
+      "Trading Card Game",
+      "Bullet Heaven",
+      "Bullet Hell",
+      "Card Game",
+      "Action RPG"
+    ],
+    "4617230": [
+      "Simulation",
+      "Job Simulator",
+      "Resource Management",
+      "Multiplayer",
+      "Economy",
+      "Time Management",
+      "Management",
+      "Immersive Sim"
+    ],
+    "4711170": [
+      "Puzzle",
+      "Roguelite",
+      "Female Protagonist",
+      "Relaxing",
+      "Fantasy",
+      "2D",
+      "Crafting",
+      "Singleplayer"
+    ],
+    "4738830": [
+      "Simulation",
+      "Sports",
+      "Strategy",
+      "Sandbox",
+      "Cricket",
+      "Immersive Sim",
+      "Real Time Tactics",
+      "Realistic"
+    ],
+    "4803740": [
+      "Strategy",
+      "Economy",
+      "Capitalism",
+      "Medieval",
+      "Simulation",
+      "Singleplayer",
+      "Resource Management",
+      "Management"
+    ],
+    "4860990": [
+      "Casual",
+      "Simulation",
+      "Animation & Modeling",
+      "Dating Sim",
+      "Incremental",
+      "Sexual Content",
+      "Nudity",
+      "Shop Keeper"
+    ],
+    "4877590": [
+      "Casual",
+      "Strategy",
+      "Party Game",
+      "Word Game",
+      "Board Game",
+      "RTS",
+      "2D",
+      "Minimalist"
+    ],
+    "4911580": [
+      "Simulation",
+      "Strategy",
+      "Racing",
+      "Management",
+      "Automobile Sim",
+      "Resource Management",
+      "Economy",
+      "Time Management"
+    ],
+    "4924470": [
+      "Indie",
+      "Casual",
+      "Adventure",
+      "2D",
+      "Pixel Graphics",
+      "Singleplayer"
+    ],
+    "4926270": [
+      "Casual",
+      "Strategy",
+      "2D Fighter",
+      "3D Fighter",
+      "Arcade",
+      "Card Game",
+      "Point & Click",
+      "Souls-like"
+    ],
+    "4948410": [
+      "Vehicular Combat",
+      "Top-Down Shooter",
+      "Driving",
+      "Zombies",
+      "Top-Down",
+      "Open World",
+      "Casual",
+      "Action"
     ]
   },
   "store_checked": [
@@ -1207081,6 +1207209,7 @@
     4400130,
     4400190,
     4400240,
+    4400270,
     4400300,
     4400480,
     4400520,
@@ -1207496,6 +1207625,7 @@
     4433320,
     4433630,
     4433710,
+    4433730,
     4433780,
     4433790,
     4433850,
@@ -1208146,6 +1208276,7 @@
     4488780,
     4488820,
     4488930,
+    4489000,
     4489310,
     4489330,
     4489340,
@@ -1208591,6 +1208722,7 @@
     4616160,
     4616840,
     4617060,
+    4617230,
     4617470,
     4618250,
     4618290,
@@ -1208765,6 +1208897,7 @@
     4709940,
     4710190,
     4710320,
+    4711170,
     4711500,
     4712070,
     4712290,
@@ -1208823,6 +1208956,7 @@
     4738230,
     4738290,
     4738530,
+    4738830,
     4738940,
     4739690,
     4740010,
@@ -1208999,6 +1209133,7 @@
     4803450,
     4803630,
     4803650,
+    4803740,
     4804250,
     4804430,
     4804440,
@@ -1209308,6 +1209443,7 @@
     4860510,
     4860730,
     4860790,
+    4860990,
     4861030,
     4861100,
     4861740,
@@ -1209400,6 +1209536,7 @@
     4877320,
     4877390,
     4877400,
+    4877590,
     4877890,
     4878120,
     4878610,
@@ -1209548,6 +1209685,7 @@
     4911200,
     4911220,
     4911330,
+    4911580,
     4912570,
     4912720,
     4912850,
@@ -1209595,8 +1209733,10 @@
     4923890,
     4924130,
     4924380,
+    4924470,
     4925330,
     4925480,
+    4926270,
     4927140,
     4927290,
     4929300,
@@ -1209618,6 +1209758,7 @@
     4941330,
     4942350,
     4945600,
-    4946980
+    4946980,
+    4948410
   ]
 }
