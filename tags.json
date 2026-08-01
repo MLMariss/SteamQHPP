@@ -1,6 +1,6 @@
 {
-  "generated_at": 1785613777,
-  "count": 125211,
+  "generated_at": 1785619380,
+  "count": 125213,
   "tags": {
     "10": [
       "Action",
@@ -1172735,6 +1172735,26 @@
       "Puzzle",
       "Cozy",
       "Cute"
+    ],
+    "3670260": [
+      "Action",
+      "Platformer",
+      "2D Platformer",
+      "2D",
+      "Anime",
+      "Cartoon",
+      "Pixel Graphics",
+      "Aliens"
+    ],
+    "3853250": [
+      "Dating Sim",
+      "LGBTQ+",
+      "Visual Novel",
+      "Story Rich",
+      "Simulation",
+      "Dystopian",
+      "Military",
+      "Romance"
     ]
   },
   "store_checked": [
@@ -1198250,6 +1198270,7 @@
     3670040,
     3670100,
     3670140,
+    3670260,
     3670290,
     3670310,
     3670320,
@@ -1201885,6 +1201906,7 @@
     3853200,
     3853220,
     3853230,
+    3853250,
     3853330,
     3853350,
     3853400,
