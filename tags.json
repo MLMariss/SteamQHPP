@@ -1,6 +1,6 @@
 {
-  "generated_at": 1785579747,
-  "count": 125187,
+  "generated_at": 1785593583,
+  "count": 125195,
   "tags": {
     "10": [
       "Action",
@@ -1172495,6 +1172495,86 @@
       "Action",
       "Walking Simulator",
       "Action-Adventure"
+    ],
+    "4607570": [
+      "Action",
+      "Shooter",
+      "FPS",
+      "3D",
+      "First-Person",
+      "1990's",
+      "Survival",
+      "Open World"
+    ],
+    "4659030": [
+      "Deckbuilding",
+      "Roguelike",
+      "Cyberpunk",
+      "Card Battler",
+      "Pixel Graphics",
+      "Card Game",
+      "Strategy",
+      "Singleplayer"
+    ],
+    "4699240": [
+      "Casual",
+      "Arcade",
+      "Incremental",
+      "Runner",
+      "2D",
+      "Minimalist",
+      "Top-Down",
+      "Psychological Horror"
+    ],
+    "4712720": [
+      "Music",
+      "Trivia",
+      "Casual",
+      "Party Game",
+      "Local Multiplayer",
+      "4 Player Local",
+      "Singleplayer",
+      "PvP"
+    ],
+    "4836070": [
+      "FPS",
+      "Action",
+      "PvE",
+      "PvP",
+      "Shooter",
+      "Character Customization",
+      "First-Person",
+      "VR"
+    ],
+    "4875420": [
+      "Casual",
+      "Adventure",
+      "Action",
+      "Mining",
+      "Arcade",
+      "2D",
+      "Cute",
+      "Character Customization"
+    ],
+    "4888520": [
+      "Dungeon Crawler",
+      "Casual",
+      "Action Roguelike",
+      "Action",
+      "Auto Battler",
+      "Hack and Slash",
+      "Action RPG",
+      "Action-Adventure"
+    ],
+    "4961970": [
+      "Action",
+      "Arcade",
+      "Shooter",
+      "On-Rails Shooter",
+      "Shoot 'Em Up",
+      "Casual",
+      "Minimalist",
+      "1980s"
     ]
   },
   "store_checked": [
@@ -1212962,6 +1213042,7 @@
     4606830,
     4606960,
     4607350,
+    4607570,
     4607920,
     4608320,
     4608380,
@@ -1213080,6 +1213161,7 @@
     4656410,
     4656460,
     4657900,
+    4659030,
     4659040,
     4659610,
     4659900,
@@ -1213151,6 +1213233,7 @@
     4697460,
     4698020,
     4698310,
+    4699240,
     4699430,
     4699490,
     4699700,
@@ -1213187,6 +1213270,7 @@
     4712070,
     4712290,
     4712560,
+    4712720,
     4713810,
     4714260,
     4715200,
@@ -1213646,6 +1213730,7 @@
     4834880,
     4834920,
     4835520,
+    4836070,
     4836100,
     4836160,
     4836280,
@@ -1213874,6 +1213959,7 @@
     4875040,
     4875060,
     4875330,
+    4875420,
     4875460,
     4875810,
     4875860,
@@ -1213945,6 +1214031,7 @@
     4887740,
     4887750,
     4887830,
+    4888520,
     4888720,
     4888830,
     4889190,
@@ -1214193,6 +1214280,7 @@
     4960690,
     4960770,
     4961210,
+    4961970,
     4962230,
     4962700,
     4966860
