@@ -1,6 +1,6 @@
 {
-  "generated_at": 1785557257,
-  "count": 125177,
+  "generated_at": 1785579747,
+  "count": 125187,
   "tags": {
     "10": [
       "Action",
@@ -1172396,6 +1172396,105 @@
       "Loot",
       "Physics",
       "Singleplayer"
+    ],
+    "4317470": [
+      "Strategy",
+      "Board Game",
+      "Turn-Based Tactics",
+      "3D",
+      "Medieval",
+      "Multiplayer",
+      "Indie"
+    ],
+    "4330520": [
+      "Early Access",
+      "Action Roguelike",
+      "Top-Down Shooter",
+      "RPG",
+      "Roguelite",
+      "Singleplayer",
+      "Shooter",
+      "Action RPG"
+    ],
+    "4423700": [
+      "Sexual Content",
+      "Nudity",
+      "3D",
+      "Action",
+      "Deckbuilding",
+      "RPG",
+      "Roguelike",
+      "Post-apocalyptic"
+    ],
+    "4431180": [
+      "Strategy",
+      "Casual",
+      "Turn-Based Strategy",
+      "Turn-Based Tactics",
+      "Wargame",
+      "2D",
+      "Relaxing",
+      "Grand Strategy"
+    ],
+    "4434460": [
+      "Early Access",
+      "Action Roguelike",
+      "Exploration",
+      "Turn-Based Tactics",
+      "Dungeon Crawler",
+      "Roguelite",
+      "Beat 'em up",
+      "PvE"
+    ],
+    "4458730": [
+      "Sexual Content",
+      "Hentai",
+      "RPG",
+      "Simulation",
+      "Anime",
+      "Multiple Endings",
+      "Romance",
+      "Exploration"
+    ],
+    "4748420": [
+      "Early Access",
+      "Card Battler",
+      "Roguelite",
+      "Creature Collector",
+      "Auto Battler",
+      "PvE",
+      "Strategy",
+      "RPG"
+    ],
+    "4805600": [
+      "Co-op",
+      "Action",
+      "Online Co-Op",
+      "First-Person",
+      "Exploration",
+      "Sci-fi",
+      "Adventure",
+      "Procedural Generation"
+    ],
+    "4868190": [
+      "Casual",
+      "Party Game",
+      "3D",
+      "Cartoon",
+      "PvP",
+      "Multiplayer",
+      "Indie",
+      "Early Access"
+    ],
+    "4966860": [
+      "Hidden Object",
+      "RPG",
+      "Puzzle",
+      "Rhythm",
+      "PvE",
+      "Action",
+      "Walking Simulator",
+      "Action-Adventure"
     ]
   },
   "store_checked": [
@@ -1210207,6 +1210306,7 @@
     4317250,
     4317370,
     4317450,
+    4317470,
     4317500,
     4317600,
     4317700,
@@ -1210387,6 +1210487,7 @@
     4330290,
     4330380,
     4330410,
+    4330520,
     4330590,
     4330640,
     4330710,
@@ -1211622,6 +1211723,7 @@
     4423530,
     4423640,
     4423680,
+    4423700,
     4423850,
     4423940,
     4424000,
@@ -1211716,6 +1211818,7 @@
     4431110,
     4431130,
     4431140,
+    4431180,
     4431240,
     4431260,
     4431330,
@@ -1211754,6 +1211857,7 @@
     4434290,
     4434300,
     4434310,
+    4434460,
     4434520,
     4434680,
     4434710,
@@ -1212078,6 +1212182,7 @@
     4458590,
     4458600,
     4458630,
+    4458730,
     4458750,
     4458810,
     4458820,
@@ -1213170,6 +1213275,7 @@
     4748160,
     4748300,
     4748330,
+    4748420,
     4749130,
     4749140,
     4749160,
@@ -1213362,6 +1213468,7 @@
     4805120,
     4805170,
     4805520,
+    4805600,
     4805790,
     4805840,
     4806100,
@@ -1213727,6 +1213834,7 @@
     4868110,
     4868140,
     4868150,
+    4868190,
     4868610,
     4868620,
     4868710,
@@ -1214086,6 +1214194,7 @@
     4960770,
     4961210,
     4962230,
-    4962700
+    4962700,
+    4966860
   ]
 }
