@@ -1,6 +1,6 @@
 {
-  "generated_at": 1785619380,
-  "count": 125213,
+  "generated_at": 1785643879,
+  "count": 125220,
   "tags": {
     "10": [
       "Action",
@@ -1172755,6 +1172755,76 @@
       "Dystopian",
       "Military",
       "Romance"
+    ],
+    "2623970": [
+      "Massively Multiplayer",
+      "VR",
+      "Adventure",
+      "Action",
+      "RPG",
+      "MMORPG",
+      "Capitalism",
+      "Open World"
+    ],
+    "4166740": [
+      "Incremental",
+      "Mining",
+      "Gambling",
+      "Idler",
+      "Casual",
+      "2D",
+      "Pixel Graphics",
+      "Funny"
+    ],
+    "4173880": [
+      "Action",
+      "Casual",
+      "Adventure",
+      "RPG",
+      "2D",
+      "Colorful",
+      "Singleplayer",
+      "Family Friendly"
+    ],
+    "4484050": [
+      "First-Person",
+      "Action",
+      "Combat",
+      "3D",
+      "Singleplayer",
+      "Co-op",
+      "Local Multiplayer",
+      "PvP"
+    ],
+    "4694660": [
+      "Exploration",
+      "FPS",
+      "Survival Horror",
+      "1990's",
+      "Action-Adventure",
+      "First-Person",
+      "Horror",
+      "Linear"
+    ],
+    "4790300": [
+      "Strategy",
+      "Puzzle",
+      "Arcade",
+      "Bowling",
+      "Board Game",
+      "RTS",
+      "Sokoban",
+      "Match 3"
+    ],
+    "4931010": [
+      "RPG",
+      "Horror",
+      "Pixel Graphics",
+      "Psychological Horror",
+      "Action RPG",
+      "2D",
+      "Puzzle Platformer",
+      "Comic Book"
     ]
   },
   "store_checked": [
@@ -1184654,6 +1184724,7 @@
     2623580,
     2623680,
     2623750,
+    2623970,
     2624080,
     2624120,
     2624320,
@@ -1207890,6 +1207961,7 @@
     4166620,
     4166650,
     4166710,
+    4166740,
     4166750,
     4166770,
     4166800,
@@ -1208020,6 +1208092,7 @@
     4173810,
     4173840,
     4173860,
+    4173880,
     4173940,
     4173970,
     4174060,
@@ -1212712,6 +1212785,7 @@
     4483800,
     4483840,
     4484000,
+    4484050,
     4484100,
     4484190,
     4484250,
@@ -1213415,6 +1213489,7 @@
     4693930,
     4694140,
     4694530,
+    4694660,
     4695530,
     4696020,
     4696420,
@@ -1213679,6 +1213754,7 @@
     4788610,
     4788670,
     4789860,
+    4790300,
     4790340,
     4790370,
     4790380,
@@ -1214434,6 +1214510,7 @@
     4930640,
     4930820,
     4930960,
+    4931010,
     4931390,
     4931410,
     4931920,
