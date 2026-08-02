@@ -1,6 +1,6 @@
 {
-  "generated_at": 1785666107,
-  "count": 125226,
+  "generated_at": 1785680095,
+  "count": 125235,
   "tags": {
     "10": [
       "Action",
@@ -1172885,6 +1172885,93 @@
       "Atmospheric",
       "Singleplayer",
       "Indie"
+    ],
+    "2163340": [
+      "Casual",
+      "Board Game",
+      "Strategy",
+      "Roguelike",
+      "Tabletop",
+      "Roguelite",
+      "Poker",
+      "Pixel Graphics"
+    ],
+    "4575750": [
+      "Interactive Fiction",
+      "RPG",
+      "Choose Your Own Adventure",
+      "Choices Matter",
+      "Multiple Endings",
+      "Nonlinear",
+      "Lore-Rich",
+      "Story Rich"
+    ],
+    "4818650": [
+      "Action",
+      "Platformer",
+      "Pixel Graphics",
+      "Retro",
+      "Singleplayer"
+    ],
+    "4828620": [
+      "FPS",
+      "Racing",
+      "Shooter",
+      "First-Person",
+      "Combat",
+      "3D",
+      "Singleplayer",
+      "Combat Racing"
+    ],
+    "4886540": [
+      "Strategy",
+      "2D Fighter",
+      "Card Game",
+      "Roguelike",
+      "Card Battler",
+      "Turn-Based Tactics",
+      "2D",
+      "Hand-drawn"
+    ],
+    "4915370": [
+      "Simulation",
+      "Sports",
+      "Strategy",
+      "Sandbox",
+      "2D",
+      "Text-Based",
+      "Football (Soccer)",
+      "Multiple Endings"
+    ],
+    "4916300": [
+      "Simulation",
+      "Incremental",
+      "Point & Click",
+      "2D",
+      "Singleplayer",
+      "Minimalist",
+      "Life Sim",
+      "Indie"
+    ],
+    "4946490": [
+      "Simulation",
+      "Casual",
+      "Idler",
+      "Incremental",
+      "2D",
+      "Space",
+      "Indie",
+      "Singleplayer"
+    ],
+    "4954070": [
+      "Casual",
+      "RPG",
+      "Elves",
+      "Simulation",
+      "Dark Fantasy",
+      "LGBTQ+",
+      "Adventure",
+      "Visual Novel"
     ]
   },
   "store_checked": [
@@ -1180311,6 +1180398,7 @@
     2163190,
     2163210,
     2163220,
+    2163340,
     2163430,
     2163450,
     2163540,
@@ -1213291,6 +1213379,7 @@
     4571590,
     4572290,
     4572790,
+    4575750,
     4575870,
     4575990,
     4576500,
@@ -1213945,6 +1214034,7 @@
     4818250,
     4818410,
     4818580,
+    4818650,
     4819200,
     4819370,
     4819410,
@@ -1214004,6 +1214094,7 @@
     4828210,
     4828450,
     4828550,
+    4828620,
     4828640,
     4828690,
     4828720,
@@ -1214357,6 +1214448,7 @@
     4885960,
     4886040,
     4886100,
+    4886540,
     4886760,
     4886870,
     4887360,
@@ -1214511,6 +1214603,7 @@
     4914890,
     4915140,
     4915240,
+    4915370,
     4915450,
     4915590,
     4915810,
@@ -1214519,6 +1214612,7 @@
     4916170,
     4916250,
     4916270,
+    4916300,
     4916320,
     4916400,
     4916440,
@@ -1214604,6 +1214698,7 @@
     4943760,
     4944180,
     4945600,
+    4946490,
     4946980,
     4948410,
     4948420,
@@ -1214613,6 +1214708,7 @@
     4951050,
     4951350,
     4951600,
+    4954070,
     4954340,
     4958760,
     4960070,
