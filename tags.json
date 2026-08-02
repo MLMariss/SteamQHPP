@@ -1,6 +1,6 @@
 {
-  "generated_at": 1785643879,
-  "count": 125220,
+  "generated_at": 1785666107,
+  "count": 125226,
   "tags": {
     "10": [
       "Action",
@@ -1172825,6 +1172825,66 @@
       "2D",
       "Puzzle Platformer",
       "Comic Book"
+    ],
+    "2693730": [
+      "RPG",
+      "Turn-Based Tactics",
+      "Strategy",
+      "CRPG",
+      "Tactical RPG",
+      "Character Customization",
+      "Anime",
+      "Turn-Based Combat"
+    ],
+    "4621410": [
+      "Idler",
+      "Incremental",
+      "Strategy",
+      "2D",
+      "Relaxing",
+      "Casual",
+      "Pixel Graphics",
+      "Automation"
+    ],
+    "4733330": [
+      "RPG",
+      "Visual Novel",
+      "2D Platformer",
+      "2D",
+      "Anime",
+      "Cartoon",
+      "Comedy",
+      "Emotional"
+    ],
+    "4923900": [
+      "Casual",
+      "Desktop Companion",
+      "Cats",
+      "Cozy",
+      "Idler",
+      "Simulation",
+      "Cute",
+      "Utilities"
+    ],
+    "4937570": [
+      "Action RPG",
+      "Hack and Slash",
+      "Loot",
+      "Isometric",
+      "RPG",
+      "Idler",
+      "Exploration",
+      "Dungeon Crawler"
+    ],
+    "4968440": [
+      "Casual",
+      "Side Scroller",
+      "2D",
+      "Abstract",
+      "Minimalist",
+      "Atmospheric",
+      "Singleplayer",
+      "Indie"
     ]
   },
   "store_checked": [
@@ -1213337,6 +1213397,7 @@
     4618590,
     4620450,
     4620770,
+    4621410,
     4621450,
     4621460,
     4621900,
@@ -1213584,6 +1213645,7 @@
     4732210,
     4732330,
     4732390,
+    4733330,
     4733420,
     4733520,
     4733840,
@@ -1214493,6 +1214555,7 @@
     4923520,
     4923640,
     4923890,
+    4923900,
     4924130,
     4924380,
     4924470,
@@ -1214525,6 +1214588,7 @@
     4937100,
     4937340,
     4937420,
+    4937570,
     4938440,
     4938760,
     4939000,
@@ -1214558,6 +1214622,7 @@
     4961970,
     4962230,
     4962700,
-    4966860
+    4966860,
+    4968440
   ]
 }
