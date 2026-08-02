@@ -1,6 +1,6 @@
 {
-  "generated_at": 1785680095,
-  "count": 125235,
+  "generated_at": 1785700552,
+  "count": 125241,
   "tags": {
     "10": [
       "Action",
@@ -1172972,6 +1172972,65 @@
       "LGBTQ+",
       "Adventure",
       "Visual Novel"
+    ],
+    "4440080": [
+      "Adventure",
+      "Horror",
+      "Mystery",
+      "Singleplayer",
+      "Action-Adventure",
+      "Sci-fi",
+      "3D",
+      "Action"
+    ],
+    "4443810": [
+      "Bullet Hell",
+      "Tower Defense",
+      "Arcade",
+      "Roguelike",
+      "Minimalist",
+      "Indie",
+      "Colorful",
+      "PvE"
+    ],
+    "4805750": [
+      "Casual",
+      "Arcade",
+      "Incremental",
+      "Puzzle Platformer",
+      "3D",
+      "First-Person",
+      "Pixel Graphics",
+      "Comedy"
+    ],
+    "4833240": [
+      "Strategy",
+      "Turn-Based Tactics",
+      "PvE",
+      "PvP",
+      "4X",
+      "2D",
+      "Top-Down",
+      "Alternate History"
+    ],
+    "4927750": [
+      "Strategy",
+      "Tower Defense",
+      "2D",
+      "Minimalist",
+      "Fantasy",
+      "Turn-Based Tactics",
+      "Singleplayer",
+      "Indie"
+    ],
+    "4946580": [
+      "Simulation",
+      "Sandbox",
+      "Flight",
+      "3D",
+      "Open World",
+      "Singleplayer",
+      "Retro"
     ]
   },
   "store_checked": [
@@ -1212419,6 +1212478,7 @@
     4439520,
     4439570,
     4439870,
+    4440080,
     4440360,
     4440410,
     4440510,
@@ -1212464,6 +1212524,7 @@
     4443740,
     4443770,
     4443800,
+    4443810,
     4443870,
     4444130,
     4444190,
@@ -1213971,6 +1214032,7 @@
     4805170,
     4805520,
     4805600,
+    4805750,
     4805790,
     4805840,
     4806100,
@@ -1214135,6 +1214197,7 @@
     4832460,
     4832790,
     4833000,
+    4833240,
     4833520,
     4833560,
     4833670,
@@ -1214661,6 +1214724,7 @@
     4927100,
     4927140,
     4927290,
+    4927750,
     4929300,
     4929970,
     4930620,
@@ -1214699,6 +1214763,7 @@
     4944180,
     4945600,
     4946490,
+    4946580,
     4946980,
     4948410,
     4948420,
