@@ -1,6 +1,6 @@
 {
-  "generated_at": 1785700552,
-  "count": 125241,
+  "generated_at": 1785706318,
+  "count": 125243,
   "tags": {
     "10": [
       "Action",
@@ -1173031,6 +1173031,26 @@
       "Open World",
       "Singleplayer",
       "Retro"
+    ],
+    "3039180": [
+      "Adventure",
+      "Casual",
+      "Action",
+      "Action-Adventure",
+      "Arcade",
+      "2D Platformer",
+      "Collectathon",
+      "2D"
+    ],
+    "3177510": [
+      "Roguelike",
+      "Deckbuilding",
+      "Strategy",
+      "Sci-fi",
+      "2.5D",
+      "Card Battler",
+      "Roguelite",
+      "Card Game"
     ]
   },
   "store_checked": [
@@ -1189515,6 +1189535,7 @@
     3039020,
     3039040,
     3039060,
+    3039180,
     3039230,
     3039260,
     3039310,
@@ -1191325,6 +1191346,7 @@
     3177070,
     3177130,
     3177380,
+    3177510,
     3177650,
     3177660,
     3177740,
