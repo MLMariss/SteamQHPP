@@ -1,6 +1,6 @@
 {
-  "generated_at": 1785772014,
-  "count": 125301,
+  "generated_at": 1785782046,
+  "count": 125309,
   "tags": {
     "10": [
       "Action",
@@ -1173629,6 +1173629,86 @@
       "Modern",
       "Linear",
       "Turn-Based Combat"
+    ],
+    "3156330": [
+      "Early Access",
+      "Singleplayer",
+      "Action",
+      "Action Roguelike",
+      "Roguelite",
+      "Crafting",
+      "Dark Comedy",
+      "Tactical"
+    ],
+    "3596650": [
+      "Visual Novel",
+      "Anime",
+      "Psychological Horror",
+      "Dark",
+      "Mystery",
+      "Casual",
+      "Story Rich",
+      "Futuristic"
+    ],
+    "3809310": [
+      "Party Game",
+      "Multiplayer",
+      "Arcade",
+      "Beat 'em up",
+      "2D Platformer",
+      "Combat Racing",
+      "Action",
+      "Racing"
+    ],
+    "3882980": [
+      "Adventure",
+      "Casual",
+      "Arcade",
+      "Platformer",
+      "Puzzle",
+      "2D Platformer",
+      "Exploration",
+      "Puzzle Platformer"
+    ],
+    "3925310": [
+      "Visual Novel",
+      "Female Protagonist",
+      "Horror",
+      "Cute",
+      "Relaxing",
+      "Comedy",
+      "Casual",
+      "Stylized"
+    ],
+    "3985680": [
+      "Action",
+      "Shooter",
+      "Massively Multiplayer",
+      "Boomer Shooter",
+      "3D",
+      "Assassins",
+      "Combat",
+      "Free to Play"
+    ],
+    "4108690": [
+      "Match 3",
+      "Puzzle",
+      "2D",
+      "Cute",
+      "Relaxing",
+      "Cozy",
+      "Casual",
+      "Stylized"
+    ],
+    "4141270": [
+      "Casual",
+      "Adventure",
+      "Exploration",
+      "3D",
+      "Cartoony",
+      "Pixel Graphics",
+      "Fishing",
+      "Indie"
     ]
   },
   "store_checked": [
@@ -1191662,6 +1191742,7 @@
     3156000,
     3156100,
     3156120,
+    3156330,
     3156450,
     3156590,
     3156820,
@@ -1197847,6 +1197928,7 @@
     3596410,
     3596470,
     3596610,
+    3596650,
     3596670,
     3596700,
     3596720,
@@ -1201776,6 +1201858,7 @@
     3809180,
     3809220,
     3809280,
+    3809310,
     3809330,
     3809370,
     3809380,
@@ -1203475,6 +1203558,7 @@
     3882860,
     3882880,
     3882910,
+    3882980,
     3883070,
     3883240,
     3883250,
@@ -1204388,6 +1204472,7 @@
     3925040,
     3925110,
     3925220,
+    3925310,
     3925410,
     3925420,
     3925540,
@@ -1205601,6 +1205686,7 @@
     3985500,
     3985600,
     3985660,
+    3985680,
     3985710,
     3985730,
     3985760,
@@ -1207687,6 +1207773,7 @@
     4108420,
     4108490,
     4108540,
+    4108690,
     4108710,
     4108750,
     4108760,
@@ -1208307,6 +1208394,7 @@
     4141060,
     4141080,
     4141140,
+    4141270,
     4141370,
     4141430,
     4141510,
