@@ -1,6 +1,6 @@
 {
-  "generated_at": 1785816370,
-  "count": 125356,
+  "generated_at": 1785842359,
+  "count": 125367,
   "tags": {
     "10": [
       "Action",
@@ -1174175,6 +1174175,116 @@
       "Animals",
       "Singleplayer",
       "Indie"
+    ],
+    "4382860": [
+      "Incremental",
+      "Casual",
+      "Idler",
+      "Loot",
+      "Arcade",
+      "Resource Management",
+      "Funny",
+      "Cartoony"
+    ],
+    "4800290": [
+      "RPG",
+      "Traditional Roguelike",
+      "Turn-Based Tactics",
+      "Roguelite",
+      "Roguelike",
+      "2D",
+      "Thriller",
+      "Lovecraftian"
+    ],
+    "4853110": [
+      "Desktop Companion",
+      "Chess",
+      "Puzzle",
+      "Pixel Graphics",
+      "Idler",
+      "Strategy",
+      "Simulation",
+      "2D"
+    ],
+    "4880700": [
+      "Simulation",
+      "Strategy",
+      "City Builder",
+      "RTS",
+      "Wargame",
+      "Real Time Tactics",
+      "Samurai",
+      "Medieval"
+    ],
+    "4881390": [
+      "Casual",
+      "Strategy",
+      "Arcade",
+      "Card Game",
+      "Roguelike",
+      "Card Battler",
+      "Incremental",
+      "Poker"
+    ],
+    "4903910": [
+      "Puzzle",
+      "Typing",
+      "Detective",
+      "Interactive Fiction",
+      "Text-Based",
+      "Adventure",
+      "Spelling",
+      "Language Learning"
+    ],
+    "4908850": [
+      "Casual",
+      "Education",
+      "Singleplayer",
+      "Cute",
+      "Top-Down Shooter",
+      "Action-Adventure",
+      "2D",
+      "Top-Down"
+    ],
+    "4965900": [
+      "Strategy",
+      "Auto Battler",
+      "Turn-Based Strategy",
+      "PvP",
+      "Turn-Based Tactics",
+      "Simulation",
+      "Wargame",
+      "Multiplayer"
+    ],
+    "4968450": [
+      "Action",
+      "Roguelike",
+      "Action Roguelike",
+      "Bullet Hell",
+      "Top-Down Shooter",
+      "2D",
+      "Top-Down",
+      "Colorful"
+    ],
+    "4975090": [
+      "Action",
+      "Arcade",
+      "Bullet Hell",
+      "Controller",
+      "Singleplayer",
+      "Colorful",
+      "Indie",
+      "1980s"
+    ],
+    "4975370": [
+      "Action",
+      "Arcade",
+      "Shooter",
+      "Shoot 'Em Up",
+      "Bullet Hell",
+      "2D",
+      "Pixel Graphics",
+      "1980s"
     ]
   },
   "store_checked": [
@@ -1212888,6 +1212998,7 @@
     4382390,
     4382450,
     4382520,
+    4382860,
     4382900,
     4382920,
     4383040,
@@ -1215217,6 +1215328,7 @@
     4799470,
     4799920,
     4800160,
+    4800290,
     4800590,
     4800620,
     4800840,
@@ -1215527,6 +1215639,7 @@
     4852880,
     4852900,
     4853070,
+    4853110,
     4853420,
     4853490,
     4853590,
@@ -1215714,11 +1215827,13 @@
     4880470,
     4880540,
     4880660,
+    4880700,
     4880890,
     4880930,
     4881020,
     4881210,
     4881310,
+    4881390,
     4881410,
     4881550,
     4881700,
@@ -1215838,6 +1215953,7 @@
     4903180,
     4903260,
     4903450,
+    4903910,
     4903980,
     4904130,
     4904220,
@@ -1215858,6 +1215974,7 @@
     4908470,
     4908570,
     4908630,
+    4908850,
     4908920,
     4909070,
     4909080,
@@ -1216037,11 +1216154,15 @@
     4962230,
     4962700,
     4964080,
+    4965900,
     4966860,
     4967530,
     4968440,
+    4968450,
     4969580,
     4971380,
-    4971970
+    4971970,
+    4975090,
+    4975370
   ]
 }
