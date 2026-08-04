@@ -1,6 +1,6 @@
 {
-  "generated_at": 1785856666,
-  "count": 125381,
+  "generated_at": 1785868388,
+  "count": 125389,
   "tags": {
     "10": [
       "Action",
@@ -1174425,6 +1174425,79 @@
       "3D",
       "Colorful",
       "Cute"
+    ],
+    "790060": [
+      "Action Roguelike",
+      "Bullet Hell",
+      "Indie",
+      "Shoot 'Em Up",
+      "Action",
+      "Boss Rush",
+      "Rogue-lite",
+      "Early Access"
+    ],
+    "896250": [
+      "Early Access",
+      "RTS",
+      "Strategy",
+      "Multiplayer",
+      "Combat",
+      "Wargame",
+      "Sci-fi",
+      "Fantasy"
+    ],
+    "897330": [
+      "Free to Play",
+      "Pixel Graphics",
+      "Relaxing",
+      "Casual",
+      "Singleplayer",
+      "Indie",
+      "Colorful",
+      "Family Friendly"
+    ],
+    "1353230": [
+      "Action",
+      "3D Platformer",
+      "Stylized",
+      "Adventure",
+      "Parkour",
+      "Colorful",
+      "3D",
+      "Cyberpunk"
+    ],
+    "1478500": [
+      "Adventure",
+      "Open World",
+      "Exploration",
+      "Co-op Campaign",
+      "Puzzle",
+      "Funny",
+      "Immersive Sim",
+      "Relaxing"
+    ],
+    "3399900": [
+      "RPG",
+      "Dungeon Crawler",
+      "Dark Fantasy",
+      "Turn-Based Combat",
+      "Demons",
+      "Indie",
+      "Old School",
+      "Top-Down"
+    ],
+    "3578980": [
+      "Sexual Content",
+      "Strategy",
+      "Lovecraftian",
+      "Hentai",
+      "2D",
+      "Nudity",
+      "Interactive Fiction",
+      "Anime"
+    ],
+    "4982420": [
+      "Simulation"
     ]
   },
   "store_checked": [
@@ -1174849,6 +1174922,7 @@
     893370,
     894060,
     896010,
+    896250,
     897110,
     897160,
     898400,
@@ -1176804,6 +1176878,7 @@
     1477810,
     1477890,
     1478140,
+    1478500,
     1478960,
     1479120,
     1479300,
@@ -1195682,6 +1195757,7 @@
     3399840,
     3399860,
     3399880,
+    3399900,
     3399920,
     3399930,
     3399940,
@@ -1198347,6 +1198423,7 @@
     3578710,
     3578940,
     3578960,
+    3578980,
     3579010,
     3579050,
     3579100,
@@ -1216317,6 +1216394,7 @@
     4971970,
     4975090,
     4975370,
-    4980010
+    4980010,
+    4982420
   ]
 }
