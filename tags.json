@@ -1,6 +1,6 @@
 {
-  "generated_at": 1785794323,
-  "count": 125347,
+  "generated_at": 1785816370,
+  "count": 125356,
   "tags": {
     "10": [
       "Action",
@@ -1174088,6 +1174088,93 @@
       "Cyberpunk",
       "Simulation",
       "Atmospheric"
+    ],
+    "2001760": [
+      "Dogs",
+      "Adventure",
+      "Souls-like",
+      "Action RPG",
+      "Singleplayer",
+      "Female Protagonist",
+      "Action",
+      "Combat"
+    ],
+    "3651950": [
+      "Twin Stick Shooter",
+      "Arcade",
+      "Action Roguelike",
+      "Top-Down Shooter",
+      "Shoot 'Em Up",
+      "Score Attack",
+      "Bullet Hell",
+      "Perma Death"
+    ],
+    "4194520": [
+      "Puzzle",
+      "Horror",
+      "Multiple Endings",
+      "Exploration",
+      "Atmospheric",
+      "Casual",
+      "Hidden Object",
+      "Emotional"
+    ],
+    "4495630": [
+      "Strategy",
+      "Action RTS",
+      "Wargame",
+      "PvP",
+      "RTS",
+      "3D",
+      "Dark Comedy",
+      "Funny"
+    ],
+    "4650490": [
+      "Idler",
+      "Cyberpunk",
+      "Point & Click",
+      "Collectathon",
+      "Tower Defense",
+      "Strategy",
+      "Casual",
+      "Fantasy"
+    ],
+    "4923960": [
+      "Casual",
+      "Arcade",
+      "Puzzle",
+      "2D",
+      "Cartoon",
+      "Cute",
+      "Minimalist",
+      "Comic Book"
+    ],
+    "4936190": [
+      "Simulation",
+      "Walking Simulator",
+      "Immersive Sim",
+      "First-Person",
+      "Mystery",
+      "Singleplayer"
+    ],
+    "4942110": [
+      "Action",
+      "Strategy",
+      "Action-Adventure",
+      "Action Roguelike",
+      "Shooter",
+      "Top-Down Shooter",
+      "Mahjong",
+      "2D"
+    ],
+    "4969580": [
+      "Casual",
+      "Puzzle Platformer",
+      "Arcade",
+      "2D",
+      "Animals",
+      "Singleplayer",
+      "Indie"
     ]
   },
   "store_checked": [
@@ -1180363,6 +1180450,7 @@
     2001150,
     2001210,
     2001380,
+    2001760,
     2001830,
     2001860,
     2001870,
@@ -1199299,6 +1199387,7 @@
     3651780,
     3651830,
     3651880,
+    3651950,
     3652020,
     3652080,
     3652120,
@@ -1209752,6 +1209841,7 @@
     4194020,
     4194160,
     4194220,
+    4194520,
     4194550,
     4194560,
     4194690,
@@ -1214219,6 +1214309,7 @@
     4494970,
     4495180,
     4495530,
+    4495630,
     4495870,
     4495990,
     4496250,
@@ -1214726,6 +1214817,7 @@
     4646780,
     4647170,
     4650440,
+    4650490,
     4650570,
     4651220,
     4651470,
@@ -1215857,6 +1215949,7 @@
     4923640,
     4923890,
     4923900,
+    4923960,
     4924130,
     4924380,
     4924470,
@@ -1215890,6 +1215983,7 @@
     4934610,
     4935790,
     4936120,
+    4936190,
     4937100,
     4937340,
     4937420,
@@ -1215903,6 +1215997,7 @@
     4941330,
     4941520,
     4941730,
+    4942110,
     4942350,
     4943310,
     4943550,
@@ -1215945,6 +1216040,7 @@
     4966860,
     4967530,
     4968440,
+    4969580,
     4971380,
     4971970
   ]
