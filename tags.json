@@ -1,6 +1,6 @@
 {
-  "generated_at": 1785842359,
-  "count": 125367,
+  "generated_at": 1785856666,
+  "count": 125381,
   "tags": {
     "10": [
       "Action",
@@ -1174285,6 +1174285,146 @@
       "2D",
       "Pixel Graphics",
       "1980s"
+    ],
+    "3778480": [
+      "Action",
+      "Adventure",
+      "Arcade",
+      "VR",
+      "Multiplayer",
+      "Interactive Fiction",
+      "First-Person",
+      "Horror"
+    ],
+    "3914750": [
+      "Story Rich",
+      "Point & Click",
+      "Action RPG",
+      "Action-Adventure",
+      "Adventure",
+      "Female Protagonist",
+      "Faith",
+      "Top-Down"
+    ],
+    "4290250": [
+      "Casual",
+      "Strategy",
+      "Card Game",
+      "Dark Fantasy",
+      "Deckbuilding",
+      "Top-Down",
+      "Stylized",
+      "Card Battler"
+    ],
+    "4724980": [
+      "Action",
+      "Arcade",
+      "Combat Racing",
+      "Racing",
+      "Spectacle fighter",
+      "3D",
+      "Third Person",
+      "Split Screen"
+    ],
+    "4754810": [
+      "RPG",
+      "Turn-Based Tactics",
+      "Casual",
+      "Action RPG",
+      "Action-Adventure",
+      "Adventure",
+      "2D",
+      "Comic Book"
+    ],
+    "4799010": [
+      "Adventure",
+      "Interactive Fiction",
+      "Visual Novel",
+      "Mystery",
+      "Detective",
+      "Historical",
+      "Dialogue Heavy",
+      "Singleplayer"
+    ],
+    "4802210": [
+      "Adventure",
+      "Action",
+      "Visual Novel",
+      "Puzzle",
+      "Exploration",
+      "Cute",
+      "Stylized",
+      "Colorful"
+    ],
+    "4897700": [
+      "Simulation",
+      "Life Sim",
+      "Casual",
+      "Cozy",
+      "Time Management",
+      "2D",
+      "Singleplayer",
+      "Strategy"
+    ],
+    "4901970": [
+      "Action",
+      "Physics",
+      "Score Attack",
+      "Arcade",
+      "2D",
+      "Singleplayer",
+      "Sports",
+      "Character Customization"
+    ],
+    "4920530": [
+      "Action",
+      "Horror",
+      "Multiplayer",
+      "Online Co-Op",
+      "Casual",
+      "FPS",
+      "Arcade",
+      "Hidden Object"
+    ],
+    "4925760": [
+      "Puzzle",
+      "Difficult",
+      "Casual",
+      "Board Game",
+      "Female Protagonist",
+      "2D",
+      "Cute",
+      "Relaxing"
+    ],
+    "4944570": [
+      "Casual",
+      "Singleplayer",
+      "Cats",
+      "Cute",
+      "Wholesome",
+      "Cozy",
+      "2D",
+      "Cartoon"
+    ],
+    "4961280": [
+      "RPG",
+      "Time Management",
+      "Idler",
+      "Incremental",
+      "Strategy RPG",
+      "2D",
+      "Cyberpunk",
+      "Lore-Rich"
+    ],
+    "4980010": [
+      "Adventure",
+      "Action",
+      "Racing",
+      "Action-Adventure",
+      "3D Platformer",
+      "3D",
+      "Colorful",
+      "Cute"
     ]
   },
   "store_checked": [
@@ -1201839,6 +1201979,7 @@
     3778350,
     3778380,
     3778410,
+    3778480,
     3778620,
     3778630,
     3778660,
@@ -1204795,6 +1204936,7 @@
     3914690,
     3914710,
     3914720,
+    3914750,
     3914780,
     3914860,
     3914910,
@@ -1211646,6 +1211788,7 @@
     4290160,
     4290170,
     4290220,
+    4290250,
     4290290,
     4290390,
     4290460,
@@ -1215081,6 +1215224,7 @@
     4724640,
     4724650,
     4724760,
+    4724980,
     4725000,
     4725090,
     4725400,
@@ -1215177,6 +1215321,7 @@
     4754330,
     4754740,
     4754770,
+    4754810,
     4755460,
     4755700,
     4755900,
@@ -1215321,6 +1215466,7 @@
     4798150,
     4798810,
     4798960,
+    4799010,
     4799080,
     4799110,
     4799150,
@@ -1215337,6 +1215483,7 @@
     4801590,
     4801610,
     4801870,
+    4802210,
     4802350,
     4802410,
     4803450,
@@ -1215915,6 +1216062,7 @@
     4897530,
     4897540,
     4897680,
+    4897700,
     4897770,
     4898140,
     4898150,
@@ -1215941,6 +1216089,7 @@
     4901870,
     4901910,
     4901950,
+    4901970,
     4901990,
     4902120,
     4902300,
@@ -1216049,6 +1216198,7 @@
     4920190,
     4920220,
     4920450,
+    4920530,
     4920590,
     4920820,
     4920880,
@@ -1216074,6 +1216224,7 @@
     4925330,
     4925480,
     4925710,
+    4925760,
     4926270,
     4927100,
     4927140,
@@ -1216121,6 +1216272,7 @@
     4943760,
     4944180,
     4944270,
+    4944570,
     4945580,
     4945600,
     4946280,
@@ -1216150,6 +1216302,7 @@
     4960690,
     4960770,
     4961210,
+    4961280,
     4961970,
     4962230,
     4962700,
@@ -1216163,6 +1216316,7 @@
     4971380,
     4971970,
     4975090,
-    4975370
+    4975370,
+    4980010
   ]
 }
