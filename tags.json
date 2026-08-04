@@ -1,6 +1,6 @@
 {
-  "generated_at": 1785868388,
-  "count": 125389,
+  "generated_at": 1785875459,
+  "count": 125397,
   "tags": {
     "10": [
       "Action",
@@ -1174498,6 +1174498,86 @@
     ],
     "4982420": [
       "Simulation"
+    ],
+    "4871670": [
+      "Visual Novel",
+      "Simulation",
+      "Romance",
+      "Adventure",
+      "Dating Sim",
+      "Choices Matter",
+      "Sexual Content",
+      "Multiple Endings"
+    ],
+    "4886420": [
+      "Idler",
+      "Collectathon",
+      "Hand-drawn",
+      "Casual",
+      "Incremental",
+      "Family Friendly",
+      "Education",
+      "2D"
+    ],
+    "4896230": [
+      "Casual",
+      "Puzzle",
+      "Arcade",
+      "2D",
+      "Colorful",
+      "Family Friendly",
+      "Score Attack",
+      "Indie"
+    ],
+    "4909910": [
+      "Idler",
+      "Incremental",
+      "Cute",
+      "Cozy",
+      "Relaxing",
+      "Early Access",
+      "Indie",
+      "RPG"
+    ],
+    "4917720": [
+      "Casual",
+      "Strategy",
+      "Board Game",
+      "Puzzle",
+      "Roguelike",
+      "3D Platformer",
+      "Sokoban",
+      "Roguelite"
+    ],
+    "4941910": [
+      "Idler",
+      "Casual",
+      "Simulation",
+      "Cats",
+      "Cozy",
+      "Farming Sim",
+      "Life Sim",
+      "Creature Collector"
+    ],
+    "4950910": [
+      "Action",
+      "Action Roguelike",
+      "2D Platformer",
+      "Bullet Hell",
+      "Combat",
+      "Choices Matter",
+      "2D",
+      "Stylized"
+    ],
+    "4954470": [
+      "Casual",
+      "Strategy",
+      "Board Game",
+      "Card Game",
+      "Tabletop",
+      "Turn-Based Strategy",
+      "Solitaire",
+      "Top-Down"
     ]
   },
   "store_checked": [
@@ -1215986,6 +1216066,7 @@
     4871260,
     4871370,
     4871640,
+    4871670,
     4871750,
     4871920,
     4872120,
@@ -1216077,6 +1216158,7 @@
     4885960,
     4886040,
     4886100,
+    4886420,
     4886540,
     4886760,
     4886870,
@@ -1216130,6 +1216212,7 @@
     4895990,
     4896100,
     4896210,
+    4896230,
     4896500,
     4896710,
     4897220,
@@ -1216205,6 +1216288,7 @@
     4909070,
     4909080,
     4909260,
+    4909910,
     4910140,
     4910220,
     4910280,
@@ -1216260,6 +1216344,7 @@
     4917090,
     4917280,
     4917650,
+    4917720,
     4917740,
     4917860,
     4918020,
@@ -1216342,6 +1216427,7 @@
     4941330,
     4941520,
     4941730,
+    4941910,
     4942110,
     4942350,
     4943310,
@@ -1216362,6 +1216448,7 @@
     4949810,
     4950070,
     4950290,
+    4950910,
     4951010,
     4951050,
     4951350,
@@ -1216370,6 +1216457,7 @@
     4952780,
     4954070,
     4954340,
+    4954470,
     4954590,
     4956850,
     4958760,
