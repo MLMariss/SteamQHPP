@@ -1,6 +1,6 @@
 {
-  "generated_at": 1785881082,
-  "count": 125417,
+  "generated_at": 1785901823,
+  "count": 125430,
   "tags": {
     "10": [
       "Action",
@@ -1174775,6 +1174775,136 @@
       "Strategy",
       "Sci-fi",
       "Indie"
+    ],
+    "2660230": [
+      "Adventure",
+      "Dialogue Heavy",
+      "RPG",
+      "Story Rich",
+      "3D",
+      "Puzzle",
+      "Mystery",
+      "Detective"
+    ],
+    "4393720": [
+      "Idler",
+      "Loot",
+      "RPG",
+      "Side Scroller",
+      "Split Screen",
+      "2.5D",
+      "Casual",
+      "Adventure"
+    ],
+    "4537870": [
+      "Casual",
+      "Dinosaurs",
+      "Immersive Sim",
+      "Family Friendly",
+      "Sandbox",
+      "First-Person",
+      "Adventure",
+      "Indie"
+    ],
+    "4753530": [
+      "Action",
+      "Cats",
+      "Casual",
+      "Party Game",
+      "Cute",
+      "Multiplayer",
+      "3D",
+      "Colorful"
+    ],
+    "4759340": [
+      "Exploration",
+      "RPG",
+      "Collectathon",
+      "Idler",
+      "PvE",
+      "Casual",
+      "Point & Click",
+      "Party-Based RPG"
+    ],
+    "4781430": [
+      "Singleplayer",
+      "Turn-Based Combat",
+      "Character Customization",
+      "PvE",
+      "RPG",
+      "Casual",
+      "Fantasy",
+      "Medieval"
+    ],
+    "4905550": [
+      "Action Roguelike",
+      "Bullet Heaven",
+      "RPG",
+      "Bullet Hell",
+      "Strategy",
+      "PvE",
+      "Arcade",
+      "Female Protagonist"
+    ],
+    "4918760": [
+      "Action",
+      "Precision Platformer",
+      "2D Platformer",
+      "Platformer",
+      "Physics",
+      "2D",
+      "Medieval",
+      "Free to Play"
+    ],
+    "4923090": [
+      "Simulation",
+      "Life Sim",
+      "Immersive Sim",
+      "Shop Keeper",
+      "3D",
+      "First-Person",
+      "Stylized",
+      "Capitalism"
+    ],
+    "4940290": [
+      "Casual",
+      "Nudity",
+      "Simulation",
+      "Anime",
+      "Indie",
+      "Sexual Content",
+      "Hentai",
+      "Early Access"
+    ],
+    "4944160": [
+      "Simulation",
+      "Software",
+      "Utilities",
+      "Point & Click",
+      "Life Sim",
+      "3D Platformer",
+      "Immersive Sim",
+      "3D"
+    ],
+    "4979560": [
+      "Adventure",
+      "Casual",
+      "Platformer",
+      "2D Platformer",
+      "Precision Platformer",
+      "2D",
+      "Pixel Graphics",
+      "Parkour"
+    ],
+    "4979790": [
+      "Puzzle",
+      "Casual",
+      "Simulation",
+      "Hentai",
+      "Anime",
+      "Romance",
+      "2D",
+      "Nudity"
     ]
   },
   "store_checked": [
@@ -1187087,6 +1187217,7 @@
     2659870,
     2660100,
     2660170,
+    2660230,
     2660240,
     2660300,
     2660330,
@@ -1213661,6 +1213792,7 @@
     4393260,
     4393300,
     4393540,
+    4393720,
     4393940,
     4393970,
     4393980,
@@ -1215164,6 +1215296,7 @@
     4536820,
     4537100,
     4537600,
+    4537870,
     4538060,
     4538660,
     4538830,
@@ -1215684,6 +1215817,7 @@
     4752780,
     4753280,
     4753430,
+    4753530,
     4753930,
     4753990,
     4754090,
@@ -1215699,6 +1215833,7 @@
     4757580,
     4758360,
     4759180,
+    4759340,
     4759860,
     4760710,
     4760890,
@@ -1215762,6 +1215897,7 @@
     4779010,
     4779520,
     4779680,
+    4781430,
     4781620,
     4781720,
     4781750,
@@ -1216486,6 +1216622,7 @@
     4904420,
     4905270,
     4905390,
+    4905550,
     4905680,
     4905930,
     4905950,
@@ -1216570,6 +1216707,7 @@
     4918290,
     4918690,
     4918720,
+    4918760,
     4918790,
     4918800,
     4919470,
@@ -1216589,6 +1216727,7 @@
     4922480,
     4922660,
     4922970,
+    4923090,
     4923160,
     4923400,
     4923520,
@@ -1216641,6 +1216780,7 @@
     4939160,
     4939610,
     4939980,
+    4940290,
     4941330,
     4941520,
     4941730,
@@ -1216650,6 +1216790,7 @@
     4943310,
     4943550,
     4943760,
+    4944160,
     4944180,
     4944270,
     4944570,
@@ -1216699,6 +1216840,8 @@
     4971970,
     4975090,
     4975370,
+    4979560,
+    4979790,
     4980010,
     4982420
   ]
