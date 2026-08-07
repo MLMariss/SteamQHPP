@@ -1,6 +1,6 @@
 {
-  "generated_at": 1786082749,
-  "count": 125668,
+  "generated_at": 1786089606,
+  "count": 125680,
   "tags": {
     "10": [
       "Action",
@@ -1177276,6 +1177276,123 @@
       "Fast-Paced",
       "Top-Down",
       "2D"
+    ],
+    "1071000": [
+      "Action",
+      "Adventure",
+      "Arcade",
+      "Collectathon",
+      "Immersive Sim",
+      "Side Scroller",
+      "2D",
+      "Colorful"
+    ],
+    "3382750": [
+      "Exploration",
+      "Immersive Sim",
+      "Nature",
+      "Underwater",
+      "Simulation",
+      "Submarine",
+      "Horror",
+      "Physics"
+    ],
+    "3423990": [
+      "Early Access",
+      "Snow",
+      "Survival",
+      "Atmospheric",
+      "Adventure",
+      "Post-apocalyptic",
+      "Exploration",
+      "Economy"
+    ],
+    "4159710": [
+      "Casual",
+      "Action",
+      "Driving",
+      "Destruction",
+      "3D",
+      "Arcade",
+      "Racing",
+      "Sandbox"
+    ],
+    "4428150": [
+      "Exploration",
+      "Puzzle",
+      "First-Person",
+      "3D",
+      "Horror",
+      "Psychological Horror",
+      "Linear",
+      "Demons"
+    ],
+    "4617480": [
+      "Strategy",
+      "Auto Battler",
+      "PvE",
+      "Roguelike",
+      "2D",
+      "Cyberpunk",
+      "Pixel Graphics",
+      "Indie"
+    ],
+    "4875250": [
+      "Strategy",
+      "Incremental",
+      "Casual",
+      "Tower Defense",
+      "PvE",
+      "2D",
+      "Relaxing",
+      "Family Friendly"
+    ],
+    "4894180": [
+      "Strategy",
+      "Roguelike",
+      "Roguelite",
+      "2D",
+      "Pixel Graphics",
+      "Stylized",
+      "Cats",
+      "Deckbuilding"
+    ],
+    "4898360": [
+      "Casual",
+      "Puzzle",
+      "Match 3",
+      "2D",
+      "Cartoon",
+      "Colorful",
+      "Cute",
+      "Cats"
+    ],
+    "4934680": [
+      "Casual",
+      "Match 3",
+      "Arcade",
+      "Detective",
+      "Singleplayer"
+    ],
+    "4988130": [
+      "Action",
+      "2D Platformer",
+      "Action-Adventure",
+      "Platformer",
+      "Side Scroller",
+      "Exploration",
+      "Pixel Graphics",
+      "Singleplayer"
+    ],
+    "4992270": [
+      "Casual",
+      "Adventure",
+      "Sandbox",
+      "Walking Simulator",
+      "3D Platformer",
+      "Time Management",
+      "Hidden Object",
+      "Third Person"
     ]
   },
   "store_checked": [
@@ -1178144,6 +1178261,7 @@
     1069900,
     1070760,
     1070940,
+    1071000,
     1071500,
     1071600,
     1071610,
@@ -1198299,6 +1198417,7 @@
     3382580,
     3382610,
     3382670,
+    3382750,
     3382880,
     3382890,
     3382900,
@@ -1198924,6 +1199043,7 @@
     3423650,
     3423840,
     3423860,
+    3423990,
     3424040,
     3424110,
     3424130,
@@ -1212384,6 +1212504,7 @@
     4159590,
     4159670,
     4159700,
+    4159710,
     4159730,
     4159900,
     4159910,
@@ -1216729,6 +1216850,7 @@
     4427680,
     4427760,
     4428090,
+    4428150,
     4428260,
     4428310,
     4428320,
@@ -1217990,6 +1218112,7 @@
     4617060,
     4617230,
     4617470,
+    4617480,
     4618250,
     4618290,
     4618590,
@@ -1218971,6 +1219094,7 @@
     4875040,
     4875060,
     4875090,
+    4875250,
     4875330,
     4875420,
     4875460,
@@ -1219087,6 +1219211,7 @@
     4893840,
     4893960,
     4894070,
+    4894180,
     4894210,
     4894220,
     4894580,
@@ -1219115,6 +1219240,7 @@
     4897880,
     4898140,
     4898150,
+    4898360,
     4898380,
     4898540,
     4898570,
@@ -1219327,6 +1219453,7 @@
     4934320,
     4934380,
     4934610,
+    4934680,
     4935510,
     4935790,
     4936120,
@@ -1219449,6 +1219576,8 @@
     4981740,
     4982420,
     4987040,
+    4988130,
+    4992270,
     5000020
   ]
 }
