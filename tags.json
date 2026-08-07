@@ -1,6 +1,6 @@
 {
-  "generated_at": 1786111014,
-  "count": 125710,
+  "generated_at": 1786116331,
+  "count": 125719,
   "tags": {
     "10": [
       "Action",
@@ -1177693,6 +1177693,95 @@
       "Economy",
       "Football (Soccer)",
       "Management"
+    ],
+    "1333910": [
+      "Casual",
+      "Puzzle",
+      "Hidden Object",
+      "Indie",
+      "Relaxing",
+      "Exploration",
+      "Singleplayer",
+      "3D"
+    ],
+    "2520240": [
+      "Action",
+      "Adventure",
+      "2D Fighter",
+      "Action-Adventure",
+      "Beat 'em up",
+      "Platformer",
+      "2D Platformer",
+      "Hack and Slash"
+    ],
+    "3165710": [
+      "Casual",
+      "Shooter",
+      "VR",
+      "3D",
+      "Western",
+      "Singleplayer",
+      "Early Access"
+    ],
+    "3232860": [
+      "Adventure",
+      "Horror",
+      "Indie",
+      "1980s",
+      "3D",
+      "Exploration",
+      "Singleplayer",
+      "First-Person"
+    ],
+    "3337840": [
+      "Bullet Hell",
+      "Action",
+      "Shoot 'Em Up",
+      "Dragons",
+      "Female Protagonist",
+      "Cute",
+      "Colorful",
+      "Arcade"
+    ],
+    "3362800": [
+      "Shoot 'Em Up",
+      "Bullet Hell",
+      "Action",
+      "Casual",
+      "Shooter",
+      "Arcade",
+      "2D",
+      "Mars"
+    ],
+    "3434720": [
+      "Casual",
+      "Hidden Object",
+      "Point & Click",
+      "Incremental",
+      "Collectathon",
+      "Creature Collector",
+      "Exploration",
+      "2D"
+    ],
+    "3599150": [
+      "Casual",
+      "Arcade",
+      "Puzzle",
+      "Match 3",
+      "Real Time Tactics",
+      "3D",
+      "Cartoony",
+      "Isometric"
+    ],
+    "3607810": [
+      "Auto Battler",
+      "Traditional Roguelike",
+      "Deckbuilding",
+      "Mechs",
+      "Cartoony",
+      "Strategy",
+      "Sci-fi",
+      "Turn-Based Strategy"
     ]
   },
   "store_checked": [
@@ -1188670,6 +1188759,7 @@
     2520030,
     2520110,
     2520190,
+    2520240,
     2520250,
     2520280,
     2520310,
@@ -1195868,6 +1195958,7 @@
     3165610,
     3165650,
     3165680,
+    3165710,
     3165830,
     3165880,
     3165890,
@@ -1196746,6 +1196837,7 @@
     3232660,
     3232710,
     3232800,
+    3232860,
     3232870,
     3233130,
     3233250,
@@ -1198051,6 +1198143,7 @@
     3337680,
     3337710,
     3337740,
+    3337840,
     3337920,
     3337930,
     3338000,
@@ -1198419,6 +1198512,7 @@
     3362670,
     3362750,
     3362780,
+    3362800,
     3362830,
     3362870,
     3362900,
@@ -1199550,6 +1199644,7 @@
     3434550,
     3434700,
     3434710,
+    3434720,
     3434740,
     3434940,
     3434950,
@@ -1202010,6 +1202105,7 @@
     3599040,
     3599050,
     3599070,
+    3599150,
     3599160,
     3599220,
     3599460,
@@ -1202168,6 +1202264,7 @@
     3607540,
     3607560,
     3607770,
+    3607810,
     3607850,
     3607990,
     3608000,
