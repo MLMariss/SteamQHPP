@@ -28,17 +28,17 @@ lost in paraphrase, with an English gloss beneath it.
 
 | # | Item | Area | Status |
 |---|---|---|---|
-| 1 | View switcher reads as noise at the top of the page | Header / layout | Pending review |
-| 2 | "Table view is desktop-only" is wrong on a 1028px desktop | Breakpoints | Pending review |
-| 3 | Hover affordance inconsistent across the view switcher | Tooltips | Pending review |
-| 4 | Gold card outline is unexplained | Grid view | Pending review |
-| 5 | Expanded card overlay is not what was expected | Grid view | Pending review |
-| 6 | Sort-direction control is a sentence, not an arrow | Sort UI | Pending review |
-| 7 | QTPD wordmark toggles filters instead of going "home" | Header / reset | Pending review |
-| 8 | Hover affordance inconsistent across grid cards | Grid view | Pending review |
-| 9 | Bare `%` figures have no visible meaning | Grid view | Pending review |
-| 10 | Card height jumps with longer titles | Grid view | Pending review |
-| 11 | Accidental text selection can't be cleared | Grid view | Pending review |
+| 1 | View switcher reads as noise at the top of the page | Header / layout | **Done** |
+| 2 | "Table view is desktop-only" is wrong on a 1028px desktop | Breakpoints | **Done** |
+| 3 | Hover affordance inconsistent across the view switcher | Tooltips | **Done** |
+| 4 | Gold card outline is unexplained | Grid view | **Done** |
+| 5 | Expanded card overlay is not what was expected | Grid view | **Done** |
+| 6 | Sort-direction control is a sentence, not an arrow | Sort UI | **Done** |
+| 7 | QTPD wordmark toggles filters instead of going "home" | Header / reset | **Done** |
+| 8 | Hover affordance inconsistent across grid cards | Grid view | **Done** |
+| 9 | Bare `%` figures have no visible meaning | Grid view | **Done** |
+| 10 | Card height jumps with longer titles | Grid view | **Done** |
+| 11 | Accidental text selection can't be cleared | Grid view | **Done** |
 | 12 | A fully-opened grid row collapses | Grid view | **Done** |
 | 13 | Opened cards revert after scrolling away and back | Grid view | **Done** |
 
@@ -64,7 +64,11 @@ words. Labels and `title=` tooltips do not fix this, because the confusion is ab
 
 **Where.** `index.html` — `#viewSwitch` in the header (~L1136–L1142).
 
-**Fix.** Pending review.
+**Fix.** `[Done]` — the switcher moved out of the top bar into a new `#resultBar` that sits
+directly above the results, prefixed with a `VIEW` label. It now reads in the place where it
+has a subject: the thing immediately under it is what it changes. CSV, Lucky and the share
+link stay in the top bar — those are actions, not layouts, so they don't gain anything from
+being next to the results.
 
 ---
 
@@ -86,7 +90,13 @@ same wording problem exists in the mirrored "Card view is mobile-only" toast.
 **Where.** `index.html` — toast text (~L3628–L3630), `isNarrow()` (~L2493), table
 `min-width` (~L410–L412).
 
-**Fix.** Pending review.
+**Fix.** `[Done]` — the message now names the real numbers instead of guessing at the device:
+*"The table needs a window at least 1375px wide — this one is 1028px. Cards below that width
+show the same data, one game per card."* The width is read live, so it always quotes the
+window actually in front of the reader. The mirrored card-view message got the same treatment.
+The threshold itself is unchanged — the table's columns really do need 1375px, and forcing it
+into 1028px would buy the correct message at the cost of sideways scrolling. The number is now
+a named constant (`TABLE_MIN_W`) rather than three separate hardcoded `1374`s.
 
 ---
 
@@ -104,16 +114,23 @@ same wording problem exists in the mirrored "Card view is mobile-only" toast.
 
 *"But these don't have one. So — yes or no?"*
 
-**Problem.** Buttons sitting side by side in one control group behave differently on hover:
-CSV gets the rich custom tooltip (styled panel, gold keyword, full sentence), while
-Table/Card/Grid rely on the browser's native `title=` bubble — slower to appear, plain, and
-visually unrelated. Two tooltip systems in a four-button row makes the row look
-half-finished and makes the user doubt which buttons are actually interactive.
+**Problem.** Not the tooltips — those are fine. The custom tip engine is delegated over every
+`[title]` element, so CSV and Table/Card/Grid get the identical styled bubble. What differs is
+the **button itself**: `.util-btn` (CSV, Lucky, share) has a `:hover` rule and `.seg button`
+(the view switcher) had none at all. So in a single row of controls, hovering one half lit up
+and hovering the other half did nothing — which is precisely "some have an action on hover and
+some don't", and it makes the dead-looking half read as not-interactive.
 
-**Where.** `index.html` — `#viewSwitch` buttons use `title=` (~L1138–L1139); the custom tip
-engine is the `TIP` block (~L3930–L3950).
+**Where.** `index.html` — `.seg button` had no `:hover` (~L143–L151) while `.util-btn:hover`
+exists (~L745); the shared tip engine is the `TIP` block (~L3930–L3950).
 
-**Fix.** Pending review.
+**Fix.** `[Done]` — `.seg button` had no `:hover` rule at all, while the `.util-btn` group
+beside it in the same row did; that, not the tooltips, is what made half the row look dead.
+Segmented buttons now take a hover background. Disabled ones are deliberately included: they
+are still clickable (clicking is how you get the explanation from item 2), so they have to look
+like they'll do something — their existing 38% opacity dims the hover to read as "there's
+something here, but not a choice right now". Only the pressed button is excluded, so
+"which one is selected" stays the strongest signal in the group.
 
 ---
 
@@ -140,7 +157,15 @@ grid has no path to the answer.
 **Where.** `index.html` — `.gcard.sale` / `.gcard.hi` CSS (~L803–L804), class assignment in
 `gridCardHTML()` (~L2536).
 
-**Fix.** Pending review.
+**Fix.** `[Done]` — the card edge now means exactly one thing: **on sale**. The top-third-QTPD
+mark moved off the edge and onto the QTPD value itself, which is the number it was always
+about — it renders as a gold pill around `QTPD 115`. Both marks gained real tooltips, and the
+grid now carries a permanent legend in `#resultBar` (`QTPD value score · review score · on
+sale`) so the answer is on screen rather than hidden behind a hover.
+
+The pill is drawn with an inset `box-shadow` rather than a `border` on purpose: a border adds
+1px of box model per side, which made top-third cards 2px taller than their neighbours and
+quietly reintroduced item 10. Caught by the height check, which is why it's a shadow.
 
 ---
 
@@ -160,7 +185,11 @@ Related to item 1: the switcher is being operated before its options mean anythi
 
 **Where.** `index.html` — `setView()` (~L2520), `body.layout-card` styles (~L942 onward).
 
-**Fix.** Pending review.
+**Fix.** `[Done]` — resolved with item 2 rather than separately. Digging into it, this wasn't
+a view the user had chosen: at 1028px the app had already coerced them into card layout, and
+the surprise was arriving somewhere they didn't pick. The width-aware message explains that,
+and the switcher's labels now say what each view is in full — Card reads *"the same data as
+the table, stacked one game per card. Used when the window is under 1375px."*
 
 ---
 
@@ -181,7 +210,11 @@ control needs no parsing at all.
 **Where.** `index.html` — sort popover action button (~L2794); the grid sort row has its own
 direction button (~L3589, ~L3600).
 
-**Fix.** Pending review.
+**Fix.** `[Done]` — replaced with two arrow buttons, `↑` and `↓`, one lit. The lit arrow is
+the current direction and the other one is what the click does, which is the ordinary shape of
+a direction control and needs no reading. Clicking the already-lit arrow is now a no-op rather
+than a flip — it's a two-state control, not a toggle, so pressing "descending" while already
+descending shouldn't reverse it.
 
 ---
 
@@ -218,7 +251,16 @@ remember what you had there in the first place."*
 **Where.** `index.html` — `#logoToggle` handler (~L3516), `#clear` handler (~L3520–L3537,
 no sort reset), `#clear` tooltip claim (~L1162).
 
-**Fix.** Pending review.
+**Fix.** `[Done]` — both halves fixed.
+
+1. The wordmark is now **back to the start**: it clears filters, search and sort, and scrolls
+   to the top, confirming with a short toast. The filter show/hide it used to do is unchanged
+   and still available on the "⌄ Show filters" handle directly below it, which is a control
+   that says what it does.
+2. `Reset all filters` now actually resets the sort (back to QTPD ↓) — it didn't, while its own
+   tooltip claimed it did. Both entry points share one `resetAll()` so they cannot drift apart
+   again, and it also clears any flipped-open grid cards, which are part of "how the page
+   started" too.
 
 ---
 
@@ -230,16 +272,22 @@ no sort reset), `#clear` tooltip claim (~L1162).
 
 *"Again, some have an action on hover and some don't."*
 
-**Problem.** Same class of complaint as item 3, now inside the grid: hovering some parts of
-a card produces a visible response and hovering others produces nothing. The card as a whole
-is clickable (`cursor:pointer`, `role="button"`), but only certain sub-elements — the rating
-`%`, the art — carry tooltips, so the hover response is patchy across a surface that is
-uniformly interactive. The user cannot form a rule for what is hoverable.
+**Problem.** Same complaint as item 3, and — like item 3 — it turned out to be a real defect
+rather than an impression. `.gcard:hover` sets a border colour, but `.gcard.sale` sets one too,
+and the two selectors have **equal specificity** (two classes each). `.sale` is written on the
+next line, so at equal specificity the later rule wins and a discounted card's border never
+changed on hover. Every card *looks* uniformly interactive, and the discounted ones silently
+weren't responding — exactly the "some do, some don't" that was reported, and not something a
+user could ever form a rule about, because the rule is "the ones that happen to be on sale".
 
-**Where.** `index.html` — `.gcard:hover` (~L802), per-element `title=` in `gridCardHTML()`
-(~L2542), grid click handler (~L3637–L3651).
+**Where.** `index.html` — `.gcard:hover` immediately followed by `.gcard.sale` (~L802–L803).
 
-**Fix.** Pending review.
+**Fix.** `[Done]` — this turned out to be a CSS specificity bug rather than a matter of taste.
+`.gcard:hover` and `.gcard.sale` have *equal* specificity, and `.sale` was written later, so it
+won: **every discounted card had no hover response at all**, which is exactly the "some do and
+some don't" that was reported. The hover rules now come after the `.sale` rule, and a sale card
+gets its own brighter gold on hover. Cards also gained a soft shadow on hover so the whole card
+responds as one object.
 
 ---
 
@@ -263,7 +311,13 @@ completion, neither of which is right, and there is nothing on screen to correct
 **Where.** `index.html` — `.grate` render in `gridCardHTML()` (~L2540–L2543), `.grate` CSS
 (~L831–L832).
 
-**Fix.** Pending review.
+**Fix.** `[Done]` — the `%` now carries a thumbs-up icon, so it reads as a review score at a
+glance and, unlike a tooltip, still works on touch. It's a CSS mask painted in `currentColor`,
+so it takes the same red→green rating colour as the number and costs no per-card markup. The
+tooltip was rewritten from a bare figure into a sentence (*"Steam review score — 90% of 15,917
+reviews are positive. Colour runs red (low) to green (high)"*), which also explains the colour
+coding — a second unexplained signal nobody had asked about yet. The `#resultBar` legend from
+item 4 covers the same ground permanently, on screen.
 
 ---
 
@@ -285,7 +339,13 @@ a ragged, shifting rhythm rather than a stable one.
 **Where.** `index.html` — `.gcard` / `.gart` / `.gcard .gmeta` / `.gname` (~L800–L834), grid
 container `.gridview` (~L793–L794).
 
-**Fix.** Pending review.
+**Fix.** `[Done]` — the title box now reserves both of its clamped lines whether or not the
+title needs them (`min-height:2.5em` on `.gname`), so a one-line title and a two-line title
+build identical cards. Every card in the grid is the same height and the row rhythm no longer
+shifts as you scroll.
+
+*Verified in Chromium:* across the first 120 cards, every card measures 188px. Before the fix
+they came in two heights.
 
 ---
 
@@ -309,7 +369,10 @@ anybody wants to copy, so the selection has no upside here.
 **Where.** `index.html` — grid click handler (~L3637–L3651); no `user-select` rule on
 `.gcard` (~L800).
 
-**Fix.** Pending review.
+**Fix.** `[Done]` — card chrome is now `user-select:none`. None of it (title, QTPD, `%`) is
+text anybody wants to copy, and once the selection can't happen the "can't clear it" problem
+goes with it. The details overlay opts back in with `user-select:text`, because a price is
+worth copying.
 
 ---
 

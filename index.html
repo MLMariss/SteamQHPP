@@ -16,6 +16,10 @@
     --teal:#5dd6a8; --green:#54c98a; --red:#ff7d7d;
     --sans:"IBM Plex Sans",system-ui,sans-serif;
     --mono:"IBM Plex Mono",ui-monospace,monospace;
+    /* Thumbs-up glyph, used as a CSS mask so it inherits whatever colour it sits on. Marks the
+       Steam review score on grid cards, which was previously a bare coloured "90%" whose meaning
+       existed only in a hover tooltip — invisible to a first-time user and absent on touch. */
+    --thumb-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M1 9h5v13H1z M8.5 9 13.6 1.2c1.6.2 2.6 1.5 2.3 3L15.3 8H21c1.4 0 2.4 1.2 2.1 2.5l-1.7 8.6c-.2 1.1-1.2 1.9-2.3 1.9H8.5z'/%3E%3C/svg%3E") center/contain no-repeat;
   }
   *{box-sizing:border-box}
   html,body{margin:0}
@@ -148,6 +152,15 @@
      (blue-ish) and only manually-adjusted controls light up gold. This supersedes the old blanket
      `.seg.metric [aria-pressed]` gold, which lit "Main" gold even when it was the untouched default. */
   .seg button[aria-pressed="true"].changed{background:var(--gold-soft); color:var(--gold)}
+  /* Segmented buttons had no :hover state at all, while the .util-btn group sitting beside them
+     in the same row did — so half the controls on one line answered the pointer and half looked
+     dead.
+     Disabled buttons are included on purpose: they are still clickable — clicking one is how you
+     get the explanation of why it isn't available — so they have to look like they'll do
+     something. Their .38 opacity dims the hover along with everything else, which reads as
+     "there's something here, but it isn't a choice right now". Only the pressed button is
+     excluded, so "which one is selected" stays the louder signal. */
+  .seg button:hover:not([aria-pressed="true"]){background:var(--panel-2); color:var(--text)}
   .seg button:focus-visible{outline:2px solid var(--blue); outline-offset:-2px}
 
   /* per-page size selector in the top bar */
@@ -302,7 +315,18 @@
   /* ---- table ---- */
   /* NOTE: no overflow:hidden here — it would clip the sticky <thead> to the card and stop
      it pinning to the viewport. Rounded corners still render via border-radius + border. */
+  /* Results bar — sits between the filters and the results, and belongs to the results. */
+  .resultbar{display:flex; align-items:center; gap:10px 12px; flex-wrap:wrap; margin-top:14px}
+  .rb-lbl{font-family:var(--mono); font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:var(--muted-2)}
+  /* Legend for the grid's two unlabelled card marks. Grid-only: the table labels its own columns. */
+  .rb-legend{display:none; align-items:center; gap:14px; margin-left:auto; flex-wrap:wrap}
+  body.grid-view .rb-legend{display:flex}
+  .rb-key{display:inline-flex; align-items:center; gap:5px; font-size:12px; color:var(--muted-2); cursor:help}
+  .rb-key .k-q{font-family:var(--mono); font-size:11.5px; color:var(--gold); font-weight:600}
+  .rb-key .k-rev{width:12px; height:12px; background:var(--teal); -webkit-mask:var(--thumb-mask); mask:var(--thumb-mask)}
+  .rb-key .k-sale{width:13px; height:11px; border:1px solid var(--gold-deep); border-radius:3px}
   .tablecard{background:linear-gradient(180deg,#1a2336,#151d2d); border:1px solid var(--line); border-radius:14px; margin-top:12px}
+  .resultbar + .tablecard{margin-top:9px}
   /* Fluid table (auto layout). Columns size between a per-column min (small-laptop floor,
      keeps every cell legible) and a per-column max (breathing ceiling). The slack concentrates
      on Game and Tags (the content-heavy columns); the slim numeric/sort columns stay narrow.
@@ -781,6 +805,13 @@
   .pop-go{flex:1; background:var(--gold-soft); border:1px solid var(--gold-deep); color:var(--gold);
         font-family:var(--mono); font-size:13px; padding:8px; border-radius:8px; cursor:pointer}
   .pop-go:hover{filter:brightness(1.12)}
+  /* Sort direction: a plain two-arrow toggle, the lit one being the current direction. */
+  .pop-dir{gap:6px}
+  .pop-dirb{flex:1; background:var(--panel); border:1px solid var(--line); color:var(--muted);
+        font-family:var(--mono); font-size:15px; line-height:1; padding:9px 0; border-radius:8px; cursor:pointer}
+  .pop-dirb:hover{color:var(--text); border-color:var(--muted-2)}
+  .pop-dirb.on{background:var(--gold-soft); border-color:var(--gold-deep); color:var(--gold)}
+  .pop-dirb:focus-visible{outline:2px solid var(--blue); outline-offset:2px}
   .pop-checks{display:flex; flex-direction:column; gap:2px; max-height:280px; overflow:auto}
   label.pop-check{display:flex; align-items:center; gap:9px; padding:5px 3px; cursor:pointer;
         color:var(--muted); font-family:var(--mono); font-size:13px}
@@ -797,11 +828,25 @@
      darker info panel: a stats line (QTPD left · best-available rating right) over the title.
      Card height = art + panel — no fixed height, but every card in a row shares the column width
      so the row stays even. Tapping flips to a details overlay (price / length / Steam link). */
+  /* user-select:none — the card is a click target, so double-clicks land on it constantly and
+     used to leave text highlighted with no way to clear it: every click inside the grid is taken
+     by the card handler, so the usual "click empty space to deselect" gesture just flipped cards
+     instead. None of this text is content anyone wants to copy. The details overlay opts back in
+     below, because a price is worth copying. */
   .gcard{position:relative; border-radius:10px; overflow:hidden; border:1px solid var(--line);
-        background:#0b0f18; cursor:pointer; display:flex; flex-direction:column}
-  .gcard:hover{border-color:var(--muted-2)}
+        background:#0b0f18; cursor:pointer; display:flex; flex-direction:column;
+        -webkit-user-select:none; user-select:none}
+  .gcard .ginfo{-webkit-user-select:text; user-select:text}
+  /* The gold card edge now means exactly ONE thing: on sale. It used to mean two — a gold border
+     for a discount AND a near-identical gold ring for "QTPD in the top third of these results" —
+     with nothing to tell them apart and no explanation of either, so a grid of mixed cards was
+     unreadable. The top-third mark moved onto the QTPD value itself (.gcard.hi .gq), which is the
+     number it is actually about, and the sale edge is spelled out in the #resultBar legend.
+     Hover rules come AFTER .sale deliberately: at equal specificity the later rule wins, and the
+     old order meant a discounted card silently had no hover response at all. */
   .gcard.sale{border-color:var(--gold-deep)}
-  .gcard.hi{box-shadow:0 0 0 1px var(--gold-deep)}
+  .gcard:hover{border-color:var(--muted-2); box-shadow:0 2px 14px #0006}
+  .gcard.sale:hover{border-color:var(--gold)}
   .gart{position:relative; flex:none; width:100%; aspect-ratio:460/215; overflow:hidden; background:#0b0f18}
   .gcard .gcap{width:100%; height:100%; object-fit:cover; display:block}
   .gcard.adult .gcap{filter:blur(11px); transform:scale(1.06); transition:filter .18s ease}
@@ -822,11 +867,27 @@
   .gcard .gmeta{flex:none; background:#080b12; border-top:1px solid var(--line); padding:7px 10px 8px;
         display:flex; flex-direction:column; gap:3px}
   .gmeta-top{display:flex; align-items:baseline; justify-content:space-between; gap:8px}
-  .gq{font-family:var(--mono); font-size:13px; font-weight:600; color:var(--gold); white-space:nowrap}
+  .gq{align-self:flex-start; font-family:var(--mono); font-size:13px; font-weight:600; color:var(--gold); white-space:nowrap}
   .gq.na{color:var(--muted-2); font-weight:400}
-  .grate{font-family:var(--mono); font-size:13px; font-weight:600; white-space:nowrap}
+  /* Top third of the current results by QTPD — the mark that used to be a gold ring around the
+     whole card, now attached to the value it describes.
+     An inset box-shadow, NOT a border: a border is 1px of box model on each side, which made
+     top-third cards 2px taller than the rest and reintroduced the ragged-row problem the .gname
+     min-height above exists to fix. A shadow paints the same ring and costs no layout. */
+  .gcard.hi .gq{background:var(--gold-soft); box-shadow:inset 0 0 0 1px var(--gold-deep); border-radius:6px; padding:0 6px; margin-left:-1px}
+  /* ::before is a thumbs-up mask in currentColor, so the icon takes the same red→green rating
+     colour as the number and needs no per-card markup. Hidden when there's no score to mark. */
+  .grate{display:inline-flex; align-items:center; gap:4px; font-family:var(--mono); font-size:13px; font-weight:600; white-space:nowrap}
+  .grate::before{content:""; width:11px; height:11px; flex:none; background:currentColor;
+        -webkit-mask:var(--thumb-mask); mask:var(--thumb-mask)}
   .grate.na{color:var(--muted-2); font-weight:400}
+  .grate.na::before{display:none}
+  /* min-height reserves both clamped lines whether or not the title needs them. Without it a
+     one-line title and a two-line title build different-height cards, and because grid rows
+     stretch to their tallest item a single long title re-heights its whole row — the grid
+     visibly jolted as you scrolled through it. */
   .gname{flex:1; min-width:0; font-family:var(--sans); font-weight:600; font-size:13.5px; color:#fff; line-height:1.25;
+        min-height:2.5em;
         display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden}
   .gmeta-top .grate{flex:none}   /* rating stays put on the right as the title truncates */
   /* Details overlay — covers the whole card; overflow-y:auto keeps actions reachable on short cards. */
@@ -1106,7 +1167,7 @@ try{
   <div class="barwrap">
     <div class="bar-main">
       <div class="brand">
-        <button class="logo" id="logoToggle" type="button" title="Show / hide filters" aria-label="Toggle filters">Q<b>T</b>PD</button>
+        <button class="logo" id="logoToggle" type="button" title="Back to the start — clear every filter, the search box and the sort, and return to the top of the list." aria-label="Back to the start">Q<b>T</b>PD</button>
         <div class="tagline">quality time per dollar</div>
       </div>
       <label class="search" id="searchBox" title="Search — type any part of a game's title to filter the list live. Matches anywhere in the name, case-insensitive.">
@@ -1140,12 +1201,11 @@ try{
         <button data-size="500">500</button>
         <button data-size="2000">2000</button>
       </div>
+      <!-- The view switcher used to sit here, first in the tools cluster. It moved down to
+           #resultBar, immediately above the results it governs — read cold at the top of the
+           page, "Table / Card / Grid" are three unexplained words answering a question the
+           user hasn't asked yet. CSV and the rest stay: they're actions, not layouts. -->
       <div class="bar-tools">
-        <div class="seg viewseg" id="viewSwitch" role="group" aria-label="View mode" title="Switch how results are laid out">
-          <button data-view="table" aria-pressed="true"  title="Detailed table (desktop)">Table</button>
-          <button data-view="card"  aria-pressed="false" title="Stacked spec-sheet cards">Card</button>
-          <button data-view="grid"  aria-pressed="false" title="Cool grid — Steam box art with a QTPD badge">Grid</button>
-        </div>
         <button class="util-btn" id="randomBtn" title="Lucky — jump to a random game from the current results.">Lucky</button>
         <button class="util-btn" id="exportBtn" title="CSV — export the current results to a spreadsheet (pick the columns).">CSV</button>
         <button class="util-btn" id="shareBtn" title="Copy a shareable link to this filtered view" aria-label="Copy link">🔗</button>
@@ -1166,7 +1226,7 @@ try{
           <button class="toggle wish" id="wishOnly" aria-pressed="false" style="display:none">Wishlist only</button>
           <button class="wishclear" id="wishClear" style="display:none">✕ Clear</button>
         </div>
-        <button class="linkbtn" id="clear" style="margin-left:auto" title="Reset all filters — clear every filter, the search box, and the sort back to their defaults.">Reset all filters</button>
+        <button class="linkbtn" id="clear" style="margin-left:auto" title="Reset all filters — clear every filter, the search box, and the sort back to their defaults. Same as clicking the QTPD wordmark.">Reset all filters</button>
       </div>
 
       <!-- L1: accordion filter sections. Each folds independently; open/closed persists in
@@ -1411,6 +1471,23 @@ try{
 </div>
 
 <div class="wrap body">
+  <!-- Results bar: the view switcher, sitting on top of the thing it switches, plus a legend
+       for the grid's two unlabelled signals (the % and the gold edge). Both were reported as
+       "no idea what this is" — the switcher because it had no context, the card marks because
+       their only explanation lived in a hover tooltip. -->
+  <div class="resultbar" id="resultBar">
+    <span class="rb-lbl">View</span>
+    <div class="seg viewseg" id="viewSwitch" role="group" aria-label="View mode">
+      <button data-view="table" aria-pressed="true"  title="Table — every column, one row per game. Needs a window at least 1375px wide.">Table</button>
+      <button data-view="card"  aria-pressed="false" title="Cards — the same data as the table, stacked one game per card. Used when the window is under 1375px.">Card</button>
+      <button data-view="grid"  aria-pressed="false" title="Grid — Steam box art with the QTPD score and review score on each card. Click a card for price and length.">Grid</button>
+    </div>
+    <div class="rb-legend" aria-hidden="true">
+      <span class="rb-key" title="QTPD — Quality Time Per Dollar, the headline metric. Higher means more game-hours of value per dollar."><b class="k-q">QTPD</b> value score</span>
+      <span class="rb-key" title="Steam review score — the share of all reviews that are positive. Colour runs red (low) to green (high)."><i class="k-rev"></i> review score</span>
+      <span class="rb-key" title="A gold card edge marks a game that is discounted right now. The badge on the art gives the size of the cut."><i class="k-sale"></i> on sale</span>
+    </div>
+  </div>
   <div class="tablecard">
     <div class="tablescroll">
       <table>
@@ -1461,7 +1538,7 @@ try{
 </div>
 
 <button class="totop" id="toTop" type="button"
-        title="Back to the top — search, filters and the view switcher live up there"
+        title="Back to the top — search and filters live up there"
         aria-label="Back to top"><span class="tt-arrow" aria-hidden="true">↑</span>top</button>
 <div class="toast-host" id="toastHost"></div>
 <!-- shared popover host: L2 summary editors + L4 CSV column-picker -->
@@ -2502,7 +2579,14 @@ const fmtQval = v => v == null ? "—" : v >= 100 ? v.toFixed(0) : v >= 10 ? v.t
 
 // ── L3 / L5 — view switcher + cool box-art grid ─────────────────────────────────────────
 const VIEWS = ["table", "card", "grid"];
-const isNarrow = () => window.matchMedia("(max-width:1374px)").matches;
+// The one number behind "is this window wide enough for the table": the table's columns need
+// 1375px. Named because it is quoted at the user in the can't-switch toast — the message used to
+// say "desktop-only", which is wrong on any desktop window narrower than this.
+// (The pre-paint boot script near the top of <body> hardcodes the same 1374px, because it has to
+// run before this script exists. Change one, change the other.)
+const TABLE_MIN_W = 1375;
+const NARROW_MQ = `(max-width:${TABLE_MIN_W - 1}px)`;
+const isNarrow = () => window.matchMedia(NARROW_MQ).matches;
 // The "detailed" view is a real table on desktop and stacked cards on mobile — the same view,
 // relabelled per device. So `layout-card` is purely viewport-driven (any non-grid view on a
 // narrow screen), and the Table/Card buttons only differ in which one is enabled/pressed for the
@@ -2545,17 +2629,27 @@ function setView(v){
 function gridCardHTML(g){
   const q = colValue(g);
   const onSale = g.discount_pct > 0;
+  const hi = q != null && q >= state.qDomain * 0.66;      // top third of the current results by QTPD
   // `open` is re-applied from state, not carried by the element: the card this replaces may
   // have been opened by the user before a re-render threw it away (see state.openCards).
-  const cls = "gcard" + (isAdult(g) ? " adult" : "") + (onSale ? " sale" : "") + ((q != null && q >= state.qDomain * 0.66) ? " hi" : "")
+  const cls = "gcard" + (isAdult(g) ? " adult" : "") + (onSale ? " sale" : "") + (hi ? " hi" : "")
             + (state.openCards.has(String(g.appid)) ? " open" : "");   // String: the set is fed from data-gappid, which is always a string
-  const disc = onSale ? `<span class="gdisc">-${g.discount_pct}%</span>` : "";
+  const disc = onSale
+    ? `<span class="gdisc" title="On sale — ${g.discount_pct}% off right now. Discounted games also carry the gold card edge.">-${g.discount_pct}%</span>`
+    : "";
   const qLbl = freeMode() ? "FREE" : "QTPD";
-  const qHtml = q != null ? `<span class="gq">${qLbl} ${fmtQval(q)}</span>` : `<span class="gq na">${qLbl} —</span>`;
+  // Every mark on the card carries its own explanation: the score, what "high" means, and the
+  // review %. None of it was labelled before — the card showed two bare numbers and a coloured
+  // edge, and a first-time reader had no way in.
+  const qTip = `${qLbl} — Quality Time Per Dollar, the headline metric. Higher means more game-hours of value per dollar.`
+             + (hi ? " This one is in the top third of the current results." : "");
+  const qHtml = q != null
+    ? `<span class="gq" title="${esc(qTip)}">${qLbl} ${fmtQval(q)}</span>`
+    : `<span class="gq na" title="${esc(qLbl)} — not available for this game (no price or no length data).">${qLbl} —</span>`;
   // Rating = Steam all-time review score, plain number + % (no weighted/recent source letters).
   const rateHtml = g.rating_pct != null
-    ? `<span class="grate" style="color:${ratingColor(g.rating_pct)}" title="Steam review score ${g.rating_pct}%${g.review_count ? " · " + g.review_count.toLocaleString() + " reviews" : ""}">${g.rating_pct}%</span>`
-    : `<span class="grate na" title="No reviews yet">—</span>`;
+    ? `<span class="grate" style="color:${ratingColor(g.rating_pct)}" title="Steam review score — ${g.rating_pct}% of ${g.review_count ? g.review_count.toLocaleString() + " reviews are" : "reviews are"} positive. Colour runs red (low) to green (high).">${g.rating_pct}%</span>`
+    : `<span class="grate na" title="Steam review score — none yet for this game.">—</span>`;
   let priceTxt;
   const pfx = g.price_src === "package" ? "from " : "";
   if(g.is_free) priceTxt = "Free";
@@ -2815,14 +2909,28 @@ function buildSortPopover(anchor){
     Object.entries(SORT_LABELS).forEach(([k, lbl]) => {
       html += `<button class="pop-opt${state.sortKey === k ? " on" : ""}" data-sortk="${k}">${esc(lbl)}</button>`;
     });
-    html += `</div><div class="pop-actions"><button class="pop-go" data-sortdir="1">${state.sortDir < 0 ? "↓ High → Low" : "↑ Low → High"} — flip</button></div>`;
+    // Two arrows, one pressed — the ordinary way a direction control looks. This was a single
+    // button reading "↓ High → Low — flip", which packs the current state and the action into one
+    // label and leaves the reader to work out which half is which. A two-state control says both
+    // at once and needs no reading: the lit arrow is now, the other one is the click.
+    html += `</div><div class="pop-actions pop-dir" role="group" aria-label="Sort direction">
+      <button class="pop-dirb${state.sortDir > 0 ? " on" : ""}" data-sortdir="1" aria-pressed="${state.sortDir > 0}"
+              title="Ascending — low to high">↑</button>
+      <button class="pop-dirb${state.sortDir < 0 ? " on" : ""}" data-sortdir="-1" aria-pressed="${state.sortDir < 0}"
+              title="Descending — high to low">↓</button>
+    </div>`;
     pop.innerHTML = html;
   };
   renderContent();
   pop.onclick = e => {
     const k = e.target.closest("[data-sortk]");
     if(k){ if(state.sortKey !== k.dataset.sortk){ setSort(k.dataset.sortk); renderContent(); } return; }
-    if(e.target.closest("[data-sortdir]")){ state.sortDir *= -1; syncSortArrows(); render(); syncURL(); renderContent(); }
+    const d = e.target.closest("[data-sortdir]");
+    if(d){
+      const dir = +d.dataset.sortdir;
+      if(dir === state.sortDir) return;            // it's a two-state control now, not a flip
+      state.sortDir = dir; syncSortArrows(); render(); syncURL(); renderContent();
+    }
   };
   showPopover(anchor);
 }
@@ -3536,12 +3644,22 @@ function init(data){
   $("#collapseBtn").addEventListener("click", () => {
     setFiltersCompact(!$("#topbar").classList.contains("compact"));
   });
-  // Logo doubles as a filter toggle — click the "QTPD" wordmark to open/close the filter nav.
+  // The wordmark is "take me back to the start" — the meaning a site logo already carries
+  // everywhere else, and the one thing a lost user reaches for. It used to toggle the filter nav
+  // instead, which is a fine control bound to the worst possible element; that job belongs to the
+  // "⌄ Show filters" handle right below it, which does exactly that and says so.
   $("#logoToggle").addEventListener("click", () => {
-    setFiltersCompact(!$("#topbar").classList.contains("compact"));
+    resetAll();
+    window.scrollTo({top:0, behavior:"smooth"});
+    toast("Back to the start — filters, search and sort are back to their defaults.", "", 3500);
   });
 
-  $("#clear").addEventListener("click", () => {
+  $("#clear").addEventListener("click", resetAll);
+
+  // Everything back to how the page loads. Sort is part of "everything": it was left out, so a
+  // user who had changed the sort had no way back to the default except remembering what it had
+  // been — and the Reset button's own tooltip claimed it reset the sort, which it did not.
+  function resetAll(){
     state.q=""; state.tagsInc.clear(); state.tagsExc.clear(); state.tagMode="and"; state.priceClass=new Set(["full","sale","free"]);
     document.querySelectorAll("[data-tagmode]").forEach(o => o.setAttribute("aria-pressed", o.dataset.tagmode==="and"));
     state.minScore=0; state.revBands=new Set([1,2,3,4]); state.minPrice=null; state.maxPrice=null; state.wishOnly=false;
@@ -3557,8 +3675,10 @@ function init(data){
     document.querySelectorAll("[data-upd]").forEach(o => o.setAttribute("aria-pressed", o.dataset.upd==="any"));
     state.flags={ ea:"any", eula:"any", fse:"any", vrOnly:"any", ai:"any", ctrl:"any", deck:"any", adultF:"any" };
     syncFlagsUI();
+    state.sortKey="qtpd"; state.sortDir=-1; syncSortArrows();   // the default sort, the one the page loads with
+    state.openCards.clear();                                    // nothing was flipped open at the start either
     update();
-  });
+  }
 
   document.querySelectorAll("thead .sortable").forEach(th =>
     th.addEventListener("click", (e) => { e.stopPropagation(); setSort(th.dataset.sort); }));
@@ -3649,14 +3769,19 @@ function init(data){
   // L3/L5: view switcher + keep layout class in sync as the viewport crosses the table floor.
   document.querySelectorAll("#viewSwitch [data-view]").forEach(b => b.addEventListener("click", () => {
     if(b.classList.contains("disabled")){
+      // The gate is WIDTH, not device: the table's columns need 1375px and below that the same
+      // data is stacked into cards. Saying "desktop-only" to somebody sitting at a 1028px desktop
+      // window reads as a broken app rather than a layout limit, so the message names the real
+      // numbers — theirs included — instead of guessing at what they're sitting in front of.
+      const w = Math.round(window.innerWidth);
       toast(b.dataset.view === "table"
-        ? "Table view is desktop-only — mobile shows the same data as cards."
-        : "Card view is mobile-only — desktop shows the full table.", "", 5000);
+        ? `The table needs a window at least ${TABLE_MIN_W}px wide — this one is ${w}px. Cards below that width show the same data, one game per card.`
+        : `Cards are for windows narrower than ${TABLE_MIN_W}px — this one is ${w}px, wide enough for the full table.`, "", 6000);
       return;
     }
     setView(b.dataset.view);
   }));
-  window.matchMedia("(max-width:1374px)").addEventListener("change", applyLayout);
+  window.matchMedia(NARROW_MQ).addEventListener("change", applyLayout);
   // Grid card interactions: tap a card to expand its info; Steam link + Close handled inline.
   $("#gridview").addEventListener("click", e => {
     const card = e.target.closest(".gcard"); if(!card) return;
