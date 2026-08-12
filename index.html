@@ -833,7 +833,14 @@
   .ginfo{position:absolute; inset:0; background:#0e1320f2; display:none; flex-direction:column; padding:11px;
         gap:5px; font-family:var(--mono); overflow-y:auto}
   .gcard.open{cursor:default}
-  .gcard.open .gart,.gcard.open .gmeta{display:none}
+  /* Hidden with visibility, NOT display:none. `.ginfo` is position:absolute, so it adds zero
+     height — display:none'ing the art and the panel leaves an open card with nothing in flow
+     and it collapses to the overlay's own content height. That stays invisible while any card
+     in the row is still closed (grid rows size to their tallest item, and the closed card holds
+     the row open), and breaks the moment every card in a row is opened. visibility:hidden keeps
+     both boxes in flow at full size, so an open card is exactly as tall as a closed one and
+     open/close never moves the layout. */
+  .gcard.open .gart,.gcard.open .gmeta{visibility:hidden}
   .gcard.open .ginfo{display:flex}
   .gi-title{font-family:var(--sans); font-weight:600; font-size:13.5px; color:var(--title); line-height:1.2;
         display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden}
@@ -1516,6 +1523,11 @@ const state = { data:null, q:"", tagQuery:"", tagsInc:new Set(), tagsExc:new Set
                 trendSet:new Set(["up","flat","down"]), updatedWithin:"any",
                 qMinVal:0, qMaxVal:0, qMaxUnbounded:true, qDomain:1, qRangeTouched:false,
                 hidden:new Set(),
+                // Grid cards flipped to their details overlay, by appid. Open/closed lived only
+                // as a class on the card element, and render() replaces #gridview wholesale —
+                // so every scroll that tripped the infinite-scroll observer silently re-closed
+                // everything the user had opened. Holding it in state survives the rebuild.
+                openCards:new Set(),
                 pageSize:100, pagesShown:1,
                 wishlist:null, wishOnly:false, sortKey:"qtpd", sortDir:-1, ratingSource:"recent", hltbQuality:"real", ptMetric:"up", fullCounts:{},
                 view:"table", tagLinger:new Map(),   // tagLinger: tag -> clearedAt (ms) for chips fading out after a cycle-to-neutral
@@ -2533,7 +2545,10 @@ function setView(v){
 function gridCardHTML(g){
   const q = colValue(g);
   const onSale = g.discount_pct > 0;
-  const cls = "gcard" + (isAdult(g) ? " adult" : "") + (onSale ? " sale" : "") + ((q != null && q >= state.qDomain * 0.66) ? " hi" : "");
+  // `open` is re-applied from state, not carried by the element: the card this replaces may
+  // have been opened by the user before a re-render threw it away (see state.openCards).
+  const cls = "gcard" + (isAdult(g) ? " adult" : "") + (onSale ? " sale" : "") + ((q != null && q >= state.qDomain * 0.66) ? " hi" : "")
+            + (state.openCards.has(String(g.appid)) ? " open" : "");   // String: the set is fed from data-gappid, which is always a string
   const disc = onSale ? `<span class="gdisc">-${g.discount_pct}%</span>` : "";
   const qLbl = freeMode() ? "FREE" : "QTPD";
   const qHtml = q != null ? `<span class="gq">${qLbl} ${fmtQval(q)}</span>` : `<span class="gq na">${qLbl} —</span>`;
@@ -2569,6 +2584,15 @@ function gridCardHTML(g){
       </div>
     </div>
   </div>`;
+}
+
+// Open/close one grid card. The class drives the CSS; the state Set is what survives the next
+// render() — never toggle the class directly, or the card reverts on the next rebuild.
+function setCardOpen(card, open){
+  card.classList.toggle("open", open);
+  const id = card.dataset.gappid;
+  if(!id) return;
+  if(open) state.openCards.add(id); else state.openCards.delete(id);
 }
 
 // ── L1 — accordion filter sections ──────────────────────────────────────────────────────
@@ -3646,11 +3670,13 @@ function init(data){
       adultSetStage(card, adultStage(card) === 1 ? 2 : 3);
       return;
     }
-    if(e.target.closest("[data-gclose]")){ card.classList.remove("open"); return; }
-    card.classList.toggle("open");
+    if(e.target.closest("[data-gclose]")){ setCardOpen(card, false); return; }
+    setCardOpen(card, !card.classList.contains("open"));
   });
   $("#gridview").addEventListener("keydown", e => {
-    if((e.key === "Enter" || e.key === " ") && e.target.classList.contains("gcard")){ e.preventDefault(); e.target.classList.toggle("open"); }
+    if((e.key === "Enter" || e.key === " ") && e.target.classList.contains("gcard")){
+      e.preventDefault(); setCardOpen(e.target, !e.target.classList.contains("open"));
+    }
   });
   // L1: accordion sections toggle open/closed (persisted). Two fold targets: the header
   // column (caret + title + count), and any dead space in the section's own row — the wide

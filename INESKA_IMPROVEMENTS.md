@@ -39,8 +39,8 @@ lost in paraphrase, with an English gloss beneath it.
 | 9 | Bare `%` figures have no visible meaning | Grid view | Pending review |
 | 10 | Card height jumps with longer titles | Grid view | Pending review |
 | 11 | Accidental text selection can't be cleared | Grid view | Pending review |
-| 12 | A fully-opened grid row collapses | Grid view | Pending review |
-| 13 | Opened cards revert after scrolling away and back | Grid view | Pending review |
+| 12 | A fully-opened grid row collapses | Grid view | **Done** |
+| 13 | Opened cards revert after scrolling away and back | Grid view | **Done** |
 
 ---
 
@@ -331,7 +331,13 @@ shrinks to the height of the `.ginfo` content alone, and the layout visibly brea
 
 **Where.** `index.html` — `.gcard.open` rules (~L835–L837), `.ginfo` (~L833–L834).
 
-**Fix.** Pending review.
+**Fix.** `[Done]` — `.gcard.open .gart, .gcard.open .gmeta` now hide with `visibility:hidden`
+instead of `display:none`. Both boxes stay in flow at full size, so an open card is exactly as
+tall as a closed one and opening or closing never moves the layout — the row cannot collapse
+because there is always something holding its height, whether or not any card is still closed.
+
+*Verified in Chromium at 1600px:* opening all six cards of a row left every height at 186px.
+Before the fix the same row went 186px → 2px.
 
 ---
 
@@ -356,4 +362,18 @@ be restored from.
 **Where.** `index.html` — `render()` grid branch (~L1978), `ensurePageObserver()`
 (~L2194–L2210), open toggle (~L3650, ~L3653).
 
-**Fix.** Pending review.
+**Fix.** `[Done]` — open/closed moved out of the DOM and into `state.openCards`, a Set of
+appids. `gridCardHTML()` re-applies the `open` class from that Set on every build, so a card
+comes back open no matter how many times the grid is thrown away and rebuilt. Both toggles
+(click and keyboard) and the Close button now go through one `setCardOpen(card, open)` helper
+that writes the class *and* the Set together, so the two can't drift apart. This also covers
+re-renders from filter, sort and search changes, which dropped the state for the same reason.
+
+*Verified in Chromium:* six cards opened, scrolled down until pagination had grown the grid
+from 100 to 1300 cards, scrolled back — all six still open. Before the fix all six had
+reverted.
+
+**Known sibling, not fixed here.** The 18+ art reveal (`.gcard.adult.revealed`) is stored the
+same DOM-only way and is lost on exactly the same re-render — a revealed card re-blurs after
+scrolling. Same cause, same shape of fix (a Set of revealed appids); left out because it is a
+separate report. Raise it and it's a small change.
