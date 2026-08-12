@@ -90,13 +90,46 @@ same wording problem exists in the mirrored "Card view is mobile-only" toast.
 **Where.** `index.html` — toast text (~L3628–L3630), `isNarrow()` (~L2493), table
 `min-width` (~L410–L412).
 
-**Fix.** `[Done]` — the message now names the real numbers instead of guessing at the device:
-*"The table needs a window at least 1375px wide — this one is 1028px. Cards below that width
-show the same data, one game per card."* The width is read live, so it always quotes the
-window actually in front of the reader. The mirrored card-view message got the same treatment.
-The threshold itself is unchanged — the table's columns really do need 1375px, and forcing it
-into 1028px would buy the correct message at the cost of sideways scrolling. The number is now
-a named constant (`TABLE_MIN_W`) rather than three separate hardcoded `1374`s.
+**Fix.** `[Done]` — in two passes. The first only fixed the *wording*, and left the threshold at
+1374px on the assumption that it was correct. It wasn't, and the second pass fixed the real
+problem — see the measurements below.
+
+**Pass 1 — the message.** It now names real numbers instead of guessing at the device: *"The
+table needs a window at least 1280px wide — this one is 1028px. Cards below that width show the
+same data, one game per card."* The width is read live, so it always quotes the window actually
+in front of the reader. The mirrored card-view message got the same treatment.
+
+**Pass 2 — the threshold, which was simply wrong.** Measured in Chromium rather than reasoned
+about:
+
+| Window | Table width needed | Available | Verdict |
+|---|---|---|---|
+| 1440px | 1324px floor | 1398px | fits, room to spare |
+| 1366px | 1324px floor | 1326px | **fits** — was being sent to cards anyway |
+| 1340px | 1324px floor | 1300px | overflows by 24px |
+| 1280px | 1324px floor | 1242px | overflows by 82px |
+| 1280px | 1218px *tags folded* | 1242px | **fits**, 24px spare |
+
+So the old 1374px cliff was wrong in both directions: it denied a table to 1366px windows that
+fit one comfortably, and it never offered one to 1280px windows that could have had it. The
+stale code comments claiming the card layout took over "at ≤1290px" were a leftover from an
+earlier threshold and disagreed with the 1374px the code actually used.
+
+There are now **two** measured widths instead of one guessed one:
+
+- `TAGS_OPEN_MIN_W` (1366) — the narrowest window fitting the table with every column open.
+- `TABLE_MIN_W` (1280) — the narrowest window that gets a table at all.
+
+Between them the Tags column folds to its strip automatically, which drops the floor from 1324px
+to 1218px and makes the whole table fit at 1280px with room over. That reuses a mode the table
+already had rather than inventing a cramped one — the first attempt tightened every column floor
+instead, and at 1280px that put every column on its floor at once and clipped the *headers*
+("WEIGHTED" rendering as "IGHTED"). The folded-tags table at 1280px clips exactly the same four
+headers that already clip at 1366px, and nothing more.
+
+Folding is driven only by crossing the breakpoint, never by the general layout pass, so it can't
+silently re-fold a column the user has just expanded by hand. Expanding Tags at 1280px still
+works and still scrolls sideways — the user's call, as before.
 
 ---
 
