@@ -1,5 +1,5 @@
 {
-  "generated_at": 1786632514,
+  "generated_at": 1786632552,
   "country": "US",
   "count": 107814,
   "prices": {
@@ -710408,7 +710408,7 @@
       "price_initial": 2.99,
       "price_final": 2.09,
       "discount_pct": 30,
-      "discount_end": null,
+      "discount_end": 1786986000,
       "scraped_at": 1786629749
     },
     "4310100": {
@@ -710450,7 +710450,7 @@
       "price_initial": 14.99,
       "price_final": 11.99,
       "discount_pct": 20,
-      "discount_end": null,
+      "discount_end": 1786813200,
       "scraped_at": 1786629749
     },
     "4310620": {
@@ -710471,21 +710471,21 @@
       "price_initial": 1.99,
       "price_final": 1.39,
       "discount_pct": 30,
-      "discount_end": null,
+      "discount_end": 1786640400,
       "scraped_at": 1786629749
     },
     "4310700": {
       "price_initial": 1.99,
       "price_final": 1.29,
       "discount_pct": 35,
-      "discount_end": null,
+      "discount_end": 1786640400,
       "scraped_at": 1786629749
     },
     "4310710": {
       "price_initial": 1.99,
       "price_final": 1.39,
       "discount_pct": 30,
-      "discount_end": null,
+      "discount_end": 1786640400,
       "scraped_at": 1786629749
     },
     "4310730": {
@@ -710975,7 +710975,7 @@
       "price_initial": 9.99,
       "price_final": 7.49,
       "discount_pct": 25,
-      "discount_end": null,
+      "discount_end": 1786640435,
       "scraped_at": 1786629749
     },
     "4315560": {
@@ -710989,7 +710989,7 @@
       "price_initial": 1.99,
       "price_final": 1.39,
       "discount_pct": 30,
-      "discount_end": null,
+      "discount_end": 1786813200,
       "scraped_at": 1786629749
     },
     "4315650": {
@@ -711080,7 +711080,7 @@
       "price_initial": 4.99,
       "price_final": 3.99,
       "discount_pct": 20,
-      "discount_end": null,
+      "discount_end": 1786726829,
       "scraped_at": 1786629749
     },
     "4316420": {
@@ -711213,7 +711213,7 @@
       "price_initial": 24.99,
       "price_final": 17.49,
       "discount_pct": 30,
-      "discount_end": null,
+      "discount_end": 1787324400,
       "scraped_at": 1786629749
     },
     "4317850": {
@@ -711388,7 +711388,7 @@
       "price_initial": 14.99,
       "price_final": 5.24,
       "discount_pct": 65,
-      "discount_end": null,
+      "discount_end": 1786640400,
       "scraped_at": 1786629749
     },
     "4319930": {
@@ -711479,14 +711479,14 @@
       "price_initial": 7.99,
       "price_final": 7.19,
       "discount_pct": 10,
-      "discount_end": null,
+      "discount_end": 1786640432,
       "scraped_at": 1786629749
     },
     "4320570": {
       "price_initial": 4.99,
       "price_final": 3.74,
       "discount_pct": 25,
-      "discount_end": null,
+      "discount_end": 1787418000,
       "scraped_at": 1786629749
     },
     "4320600": {
@@ -711521,7 +711521,7 @@
       "price_initial": 23.99,
       "price_final": 16.79,
       "discount_pct": 30,
-      "discount_end": null,
+      "discount_end": 1787331600,
       "scraped_at": 1786629749
     },
     "4321130": {
@@ -711549,7 +711549,7 @@
       "price_initial": 1.99,
       "price_final": 1.19,
       "discount_pct": 40,
-      "discount_end": null,
+      "discount_end": 1786726837,
       "scraped_at": 1786629749
     },
     "4321330": {
@@ -711563,7 +711563,7 @@
       "price_initial": 9.99,
       "price_final": 8.49,
       "discount_pct": 15,
-      "discount_end": null,
+      "discount_end": 1787158837,
       "scraped_at": 1786629749
     },
     "4321440": {
@@ -711766,7 +711766,7 @@
       "price_initial": 3.99,
       "price_final": 2.79,
       "discount_pct": 30,
-      "discount_end": null,
+      "discount_end": 1786813200,
       "scraped_at": 1786629749
     },
     "4324380": {
@@ -711794,7 +711794,7 @@
       "price_initial": 1.99,
       "price_final": 1.09,
       "discount_pct": 45,
-      "discount_end": null,
+      "discount_end": 1786640400,
       "scraped_at": 1786629749
     },
     "4324600": {
@@ -711808,7 +711808,7 @@
       "price_initial": 1.99,
       "price_final": 1.29,
       "discount_pct": 35,
-      "discount_end": null,
+      "discount_end": 1786640400,
       "scraped_at": 1786629749
     },
     "4324620": {
@@ -711822,7 +711822,7 @@
       "price_initial": 1.99,
       "price_final": 1.29,
       "discount_pct": 35,
-      "discount_end": null,
+      "discount_end": 1786640400,
       "scraped_at": 1786629749
     },
     "4324670": {
@@ -711969,7 +711969,7 @@
       "price_initial": 1.99,
       "price_final": 1.59,
       "discount_pct": 20,
-      "discount_end": null,
+      "discount_end": 1786640400,
       "scraped_at": 1786629749
     },
     "4326540": {
@@ -712053,7 +712053,7 @@
       "price_initial": 2.99,
       "price_final": 2.09,
       "discount_pct": 30,
-      "discount_end": null,
+      "discount_end": 1786986000,
       "scraped_at": 1786629749
     },
     "4327530": {
@@ -712116,7 +712116,7 @@
       "price_initial": 9.99,
       "price_final": 4.99,
       "discount_pct": 50,
-      "discount_end": null,
+      "discount_end": 1786986000,
       "scraped_at": 1786629749
     },
     "4328370": {
@@ -712144,14 +712144,14 @@
       "price_initial": 6.99,
       "price_final": 5.24,
       "discount_pct": 25,
-      "discount_end": null,
+      "discount_end": 1786986000,
       "scraped_at": 1786629749
     },
     "4328680": {
       "price_initial": 11.99,
       "price_final": 9.59,
       "discount_pct": 20,
-      "discount_end": null,
+      "discount_end": 1787587200,
       "scraped_at": 1786629749
     },
     "4328690": {
@@ -712165,7 +712165,7 @@
       "price_initial": 4.99,
       "price_final": 1.49,
       "discount_pct": 70,
-      "discount_end": null,
+      "discount_end": 1787659200,
       "scraped_at": 1786629749
     },
     "4328900": {
@@ -712249,7 +712249,7 @@
       "price_initial": 6.99,
       "price_final": 4.89,
       "discount_pct": 30,
-      "discount_end": null,
+      "discount_end": 1787072400,
       "scraped_at": 1786629749
     },
     "4330410": {
@@ -712305,7 +712305,7 @@
       "price_initial": 3.99,
       "price_final": 3.19,
       "discount_pct": 20,
-      "discount_end": null,
+      "discount_end": 1786726830,
       "scraped_at": 1786629749
     },
     "4330830": {
@@ -712340,7 +712340,7 @@
       "price_initial": 4.99,
       "price_final": 3.99,
       "discount_pct": 20,
-      "discount_end": null,
+      "discount_end": 1786726820,
       "scraped_at": 1786629749
     },
     "4331210": {
@@ -712403,7 +712403,7 @@
       "price_initial": 14.99,
       "price_final": 11.99,
       "discount_pct": 20,
-      "discount_end": null,
+      "discount_end": 1787677218,
       "scraped_at": 1786629749
     },
     "4332460": {
@@ -712585,7 +712585,7 @@
       "price_initial": 5.0,
       "price_final": 4.2,
       "discount_pct": 16,
-      "discount_end": null,
+      "discount_end": 1786726818,
       "scraped_at": 1786629749
     },
     "4333930": {
@@ -712648,7 +712648,7 @@
       "price_initial": 0.99,
       "price_final": 0.79,
       "discount_pct": 20,
-      "discount_end": null,
+      "discount_end": 1786640410,
       "scraped_at": 1786629749
     },
     "4334550": {
@@ -712683,7 +712683,7 @@
       "price_initial": 6.6,
       "price_final": 5.28,
       "discount_pct": 20,
-      "discount_end": null,
+      "discount_end": 1787241600,
       "scraped_at": 1786629749
     },
     "4335290": {
@@ -712711,7 +712711,7 @@
       "price_initial": 7.99,
       "price_final": 6.79,
       "discount_pct": 15,
-      "discount_end": null,
+      "discount_end": 1786640400,
       "scraped_at": 1786629749
     },
     "4335540": {
@@ -712823,7 +712823,7 @@
       "price_initial": 4.99,
       "price_final": 3.74,
       "discount_pct": 25,
-      "discount_end": null,
+      "discount_end": 1786899600,
       "scraped_at": 1786629749
     },
     "4336930": {
@@ -712984,7 +712984,7 @@
       "price_initial": 9.99,
       "price_final": 8.99,
       "discount_pct": 10,
-      "discount_end": null,
+      "discount_end": 1786986000,
       "scraped_at": 1786629749
     },
     "4338470": {
@@ -713040,7 +713040,7 @@
       "price_initial": 13.99,
       "price_final": 10.49,
       "discount_pct": 25,
-      "discount_end": null,
+      "discount_end": 1787418000,
       "scraped_at": 1786629749
     },
     "4339340": {
@@ -713131,7 +713131,7 @@
       "price_initial": 4.99,
       "price_final": 2.99,
       "discount_pct": 40,
-      "discount_end": null,
+      "discount_end": 1787158800,
       "scraped_at": 1786629749
     },
     "4340600": {
@@ -713222,7 +713222,7 @@
       "price_initial": 1.99,
       "price_final": 1.19,
       "discount_pct": 40,
-      "discount_end": null,
+      "discount_end": 1786726837,
       "scraped_at": 1786629749
     },
     "4341560": {
@@ -713278,7 +713278,7 @@
       "price_initial": 7.99,
       "price_final": 7.19,
       "discount_pct": 10,
-      "discount_end": null,
+      "discount_end": 1787072410,
       "scraped_at": 1786629749
     },
     "4342060": {
@@ -713292,7 +713292,7 @@
       "price_initial": 1.99,
       "price_final": 0.69,
       "discount_pct": 65,
-      "discount_end": null,
+      "discount_end": 1786986000,
       "scraped_at": 1786629749
     },
     "4342080": {
@@ -713460,7 +713460,7 @@
       "price_initial": 6.99,
       "price_final": 5.24,
       "discount_pct": 25,
-      "discount_end": null,
+      "discount_end": 1787072400,
       "scraped_at": 1786629749
     },
     "4345100": {
@@ -713677,7 +713677,7 @@
       "price_initial": 19.99,
       "price_final": 5.99,
       "discount_pct": 70,
-      "discount_end": null,
+      "discount_end": 1786640400,
       "scraped_at": 1786629749
     },
     "4347410": {
@@ -713873,7 +713873,7 @@
       "price_initial": 0.99,
       "price_final": 0.59,
       "discount_pct": 40,
-      "discount_end": null,
+      "discount_end": 1787245200,
       "scraped_at": 1786629749
     },
     "4350360": {
@@ -713894,7 +713894,7 @@
       "price_initial": 0.99,
       "price_final": 0.69,
       "discount_pct": 30,
-      "discount_end": null,
+      "discount_end": 1787158800,
       "scraped_at": 1786629749
     },
     "4350880": {
@@ -714209,14 +714209,14 @@
       "price_initial": 10.0,
       "price_final": 8.0,
       "discount_pct": 20,
-      "discount_end": null,
+      "discount_end": 1787763640,
       "scraped_at": 1786629749
     },
     "4355080": {
       "price_initial": 9.99,
       "price_final": 8.99,
       "discount_pct": 10,
-      "discount_end": null,
+      "discount_end": 1787763632,
       "scraped_at": 1786629749
     },
     "4355090": {
@@ -714251,7 +714251,7 @@
       "price_initial": 15.99,
       "price_final": 9.59,
       "discount_pct": 40,
-      "discount_end": null,
+      "discount_end": 1787245238,
       "scraped_at": 1786629749
     },
     "4355850": {
@@ -714293,7 +714293,7 @@
       "price_initial": 14.99,
       "price_final": 9.74,
       "discount_pct": 35,
-      "discount_end": null,
+      "discount_end": 1787504400,
       "scraped_at": 1786629749
     },
     "4356240": {
@@ -714314,14 +714314,14 @@
       "price_initial": 5.99,
       "price_final": 4.79,
       "discount_pct": 20,
-      "discount_end": null,
+      "discount_end": 1787763603,
       "scraped_at": 1786629749
     },
     "4356420": {
       "price_initial": 4.99,
       "price_final": 3.49,
       "discount_pct": 30,
-      "discount_end": null,
+      "discount_end": 1786986000,
       "scraped_at": 1786629749
     },
     "4356500": {
@@ -714405,7 +714405,7 @@
       "price_initial": 4.99,
       "price_final": 4.49,
       "discount_pct": 10,
-      "discount_end": null,
+      "discount_end": 1786726810,
       "scraped_at": 1786629749
     },
     "4357150": {
@@ -714419,7 +714419,7 @@
       "price_initial": 4.99,
       "price_final": 4.24,
       "discount_pct": 15,
-      "discount_end": null,
+      "discount_end": 1786986000,
       "scraped_at": 1786629749
     },
     "4357340": {
@@ -714433,7 +714433,7 @@
       "price_initial": 0.99,
       "price_final": 0.79,
       "discount_pct": 20,
-      "discount_end": null,
+      "discount_end": 1787245200,
       "scraped_at": 1786629749
     },
     "4357410": {
@@ -714447,7 +714447,7 @@
       "price_initial": 3.99,
       "price_final": 2.79,
       "discount_pct": 30,
-      "discount_end": null,
+      "discount_end": 1787324400,
       "scraped_at": 1786629749
     },
     "4357790": {
@@ -714538,7 +714538,7 @@
       "price_initial": 6.99,
       "price_final": 6.29,
       "discount_pct": 10,
-      "discount_end": null,
+      "discount_end": 1786640410,
       "scraped_at": 1786629749
     },
     "4358670": {
@@ -714685,7 +714685,7 @@
       "price_initial": 6.99,
       "price_final": 4.89,
       "discount_pct": 30,
-      "discount_end": null,
+      "discount_end": 1787331633,
       "scraped_at": 1786629749
     },
     "4360180": {
@@ -714846,7 +714846,7 @@
       "price_initial": 9.99,
       "price_final": 7.99,
       "discount_pct": 20,
-      "discount_end": null,
+      "discount_end": 1786964400,
       "scraped_at": 1786629749
     },
     "4362180": {
@@ -714965,7 +714965,7 @@
       "price_initial": 7.99,
       "price_final": 6.79,
       "discount_pct": 15,
-      "discount_end": null,
+      "discount_end": 1787590852,
       "scraped_at": 1786629749
     },
     "4363260": {
@@ -715196,7 +715196,7 @@
       "price_initial": 7.99,
       "price_final": 6.39,
       "discount_pct": 20,
-      "discount_end": null,
+      "discount_end": 1786813200,
       "scraped_at": 1786629749
     },
     "4366150": {
@@ -715210,14 +715210,14 @@
       "price_initial": 14.99,
       "price_final": 10.04,
       "discount_pct": 33,
-      "discount_end": null,
+      "discount_end": 1786640400,
       "scraped_at": 1786629749
     },
     "4366260": {
       "price_initial": 3.99,
       "price_final": 2.67,
       "discount_pct": 33,
-      "discount_end": null,
+      "discount_end": 1786640400,
       "scraped_at": 1786629749
     },
     "4366330": {
@@ -715280,7 +715280,7 @@
       "price_initial": 10.99,
       "price_final": 6.59,
       "discount_pct": 40,
-      "discount_end": null,
+      "discount_end": 1787418027,
       "scraped_at": 1786629749
     },
     "4367200": {
@@ -715448,7 +715448,7 @@
       "price_initial": 3.99,
       "price_final": 3.39,
       "discount_pct": 15,
-      "discount_end": null,
+      "discount_end": 1786986026,
       "scraped_at": 1786629749
     },
     "4369430": {
@@ -715539,7 +715539,7 @@
       "price_initial": 11.99,
       "price_final": 9.59,
       "discount_pct": 20,
-      "discount_end": null,
+      "discount_end": 1787763658,
       "scraped_at": 1786629749
     },
     "4370720": {
@@ -715749,7 +715749,7 @@
       "price_initial": 0.99,
       "price_final": 0.49,
       "discount_pct": 51,
-      "discount_end": null,
+      "discount_end": 1787245200,
       "scraped_at": 1786629749
     },
     "4373940": {
@@ -715987,7 +715987,7 @@
       "price_initial": 6.99,
       "price_final": 5.94,
       "discount_pct": 15,
-      "discount_end": null,
+      "discount_end": 1786946400,
       "scraped_at": 1786629749
     },
     "4378010": {
@@ -716141,7 +716141,7 @@
       "price_initial": 0.99,
       "price_final": 0.49,
       "discount_pct": 51,
-      "discount_end": null,
+      "discount_end": 1786986000,
       "scraped_at": 1786629749
     },
     "4379740": {
@@ -716190,7 +716190,7 @@
       "price_initial": 8.99,
       "price_final": 4.49,
       "discount_pct": 50,
-      "discount_end": null,
+      "discount_end": 1786816860,
       "scraped_at": 1786629749
     },
     "4380000": {
@@ -716211,7 +716211,7 @@
       "price_initial": 14.99,
       "price_final": 12.74,
       "discount_pct": 15,
-      "discount_end": null,
+      "discount_end": 1787158800,
       "scraped_at": 1786629749
     },
     "4380150": {
@@ -716239,7 +716239,7 @@
       "price_initial": 6.99,
       "price_final": 6.29,
       "discount_pct": 10,
-      "discount_end": null,
+      "discount_end": 1786813200,
       "scraped_at": 1786629749
     },
     "4380750": {
@@ -716253,7 +716253,7 @@
       "price_initial": 3.99,
       "price_final": 3.59,
       "discount_pct": 10,
-      "discount_end": null,
+      "discount_end": 1787763621,
       "scraped_at": 1786629749
     },
     "4380780": {
@@ -716281,7 +716281,7 @@
       "price_initial": 4.99,
       "price_final": 4.24,
       "discount_pct": 15,
-      "discount_end": null,
+      "discount_end": 1787418027,
       "scraped_at": 1786629749
     },
     "4381200": {
@@ -716337,7 +716337,7 @@
       "price_initial": 6.99,
       "price_final": 2.79,
       "discount_pct": 60,
-      "discount_end": null,
+      "discount_end": 1787029200,
       "scraped_at": 1786629749
     },
     "4381460": {
@@ -716449,14 +716449,14 @@
       "price_initial": 11.99,
       "price_final": 9.35,
       "discount_pct": 22,
-      "discount_end": null,
+      "discount_end": 1787158800,
       "scraped_at": 1786629749
     },
     "4382860": {
       "price_initial": 5.99,
       "price_final": 3.59,
       "discount_pct": 40,
-      "discount_end": null,
+      "discount_end": 1787072415,
       "scraped_at": 1786629749
     },
     "4382900": {
@@ -716470,21 +716470,21 @@
       "price_initial": 1.99,
       "price_final": 1.49,
       "discount_pct": 25,
-      "discount_end": null,
+      "discount_end": 1786640400,
       "scraped_at": 1786629749
     },
     "4383060": {
       "price_initial": 1.99,
       "price_final": 1.49,
       "discount_pct": 25,
-      "discount_end": null,
+      "discount_end": 1786640400,
       "scraped_at": 1786629749
     },
     "4383070": {
       "price_initial": 1.99,
       "price_final": 1.49,
       "discount_pct": 25,
-      "discount_end": null,
+      "discount_end": 1786640400,
       "scraped_at": 1786629749
     },
     "4383080": {
@@ -716526,14 +716526,14 @@
       "price_initial": 4.99,
       "price_final": 3.99,
       "discount_pct": 20,
-      "discount_end": null,
+      "discount_end": 1786640400,
       "scraped_at": 1786629749
     },
     "4383700": {
       "price_initial": 8.99,
       "price_final": 7.64,
       "discount_pct": 15,
-      "discount_end": null,
+      "discount_end": 1787158800,
       "scraped_at": 1786629749
     },
     "4383810": {
@@ -716652,7 +716652,7 @@
       "price_initial": 5.99,
       "price_final": 3.29,
       "discount_pct": 45,
-      "discount_end": null,
+      "discount_end": 1787072400,
       "scraped_at": 1786629749
     },
     "4384760": {
@@ -716715,7 +716715,7 @@
       "price_initial": 4.99,
       "price_final": 4.24,
       "discount_pct": 15,
-      "discount_end": null,
+      "discount_end": 1786640426,
       "scraped_at": 1786629749
     },
     "4385520": {
@@ -716764,7 +716764,7 @@
       "price_initial": 2.99,
       "price_final": 2.39,
       "discount_pct": 20,
-      "discount_end": null,
+      "discount_end": 1786726800,
       "scraped_at": 1786629749
     },
     "4385690": {
@@ -716883,7 +716883,7 @@
       "price_initial": 5.99,
       "price_final": 4.79,
       "discount_pct": 20,
-      "discount_end": null,
+      "discount_end": 1786986008,
       "scraped_at": 1786629749
     },
     "4386620": {
@@ -716981,7 +716981,7 @@
       "price_initial": 3.99,
       "price_final": 1.59,
       "discount_pct": 60,
-      "discount_end": null,
+      "discount_end": 1787245200,
       "scraped_at": 1786629749
     },
     "4388130": {
@@ -717023,7 +717023,7 @@
       "price_initial": 3.99,
       "price_final": 3.39,
       "discount_pct": 15,
-      "discount_end": null,
+      "discount_end": 1787158800,
       "scraped_at": 1786629749
     },
     "4388440": {
@@ -717044,7 +717044,7 @@
       "price_initial": 7.99,
       "price_final": 0.87,
       "discount_pct": 89,
-      "discount_end": null,
+      "discount_end": 1786700663,
       "scraped_at": 1786629749
     },
     "4388810": {
@@ -717163,7 +717163,7 @@
       "price_initial": 4.99,
       "price_final": 3.99,
       "discount_pct": 20,
-      "discount_end": null,
+      "discount_end": 1786640435,
       "scraped_at": 1786629749
     },
     "4389840": {
@@ -717380,7 +717380,7 @@
       "price_initial": 9.99,
       "price_final": 7.99,
       "discount_pct": 20,
-      "discount_end": null,
+      "discount_end": 1786899617,
       "scraped_at": 1786629749
     },
     "4393110": {
@@ -717527,7 +717527,7 @@
       "price_initial": 3.99,
       "price_final": 2.79,
       "discount_pct": 30,
-      "discount_end": null,
+      "discount_end": 1786986000,
       "scraped_at": 1786629749
     },
     "4395270": {
@@ -717877,7 +717877,7 @@
       "price_initial": 2.99,
       "price_final": 1.49,
       "discount_pct": 50,
-      "discount_end": null,
+      "discount_end": 1787677200,
       "scraped_at": 1786629749
     },
     "4399260": {
@@ -717912,14 +717912,14 @@
       "price_initial": 4.99,
       "price_final": 3.99,
       "discount_pct": 20,
-      "discount_end": null,
+      "discount_end": 1787331639,
       "scraped_at": 1786629749
     },
     "4399950": {
       "price_initial": 3.99,
       "price_final": 0.75,
       "discount_pct": 81,
-      "discount_end": null,
+      "discount_end": 1787158800,
       "scraped_at": 1786629749
     },
     "4400070": {
@@ -718038,7 +718038,7 @@
       "price_initial": 2.99,
       "price_final": 1.94,
       "discount_pct": 35,
-      "discount_end": null,
+      "discount_end": 1786986000,
       "scraped_at": 1786629749
     },
     "4401050": {
@@ -718136,7 +718136,7 @@
       "price_initial": 3.99,
       "price_final": 3.19,
       "discount_pct": 20,
-      "discount_end": null,
+      "discount_end": 1787504400,
       "scraped_at": 1786629749
     },
     "4402180": {
@@ -718206,7 +718206,7 @@
       "price_initial": 5.99,
       "price_final": 2.39,
       "discount_pct": 60,
-      "discount_end": null,
+      "discount_end": 1787763600,
       "scraped_at": 1786629749
     },
     "4402810": {
@@ -718255,7 +718255,7 @@
       "price_initial": 9.99,
       "price_final": 8.99,
       "discount_pct": 10,
-      "discount_end": null,
+      "discount_end": 1786986046,
       "scraped_at": 1786629749
     },
     "4403270": {
@@ -718451,7 +718451,7 @@
       "price_initial": 4.99,
       "price_final": 2.99,
       "discount_pct": 40,
-      "discount_end": null,
+      "discount_end": 1786726841,
       "scraped_at": 1786629749
     },
     "4405170": {
@@ -718507,7 +718507,7 @@
       "price_initial": 13.99,
       "price_final": 12.59,
       "discount_pct": 10,
-      "discount_end": null,
+      "discount_end": 1786640407,
       "scraped_at": 1786629749
     },
     "4405960": {
@@ -718689,7 +718689,7 @@
       "price_initial": 0.99,
       "price_final": 0.79,
       "discount_pct": 20,
-      "discount_end": null,
+      "discount_end": 1786726852,
       "scraped_at": 1786629749
     },
     "4408790": {
@@ -718731,7 +718731,7 @@
       "price_initial": 3.99,
       "price_final": 2.79,
       "discount_pct": 30,
-      "discount_end": null,
+      "discount_end": 1787590821,
       "scraped_at": 1786629749
     },
     "4409350": {
@@ -718920,21 +718920,21 @@
       "price_initial": 0.99,
       "price_final": 0.74,
       "discount_pct": 25,
-      "discount_end": null,
+      "discount_end": 1786640400,
       "scraped_at": 1786629749
     },
     "4411400": {
       "price_initial": 0.99,
       "price_final": 0.74,
       "discount_pct": 25,
-      "discount_end": null,
+      "discount_end": 1786640400,
       "scraped_at": 1786629749
     },
     "4411600": {
       "price_initial": 5.99,
       "price_final": 4.79,
       "discount_pct": 20,
-      "discount_end": null,
+      "discount_end": 1786986000,
       "scraped_at": 1786629749
     },
     "4411610": {
@@ -718948,7 +718948,7 @@
       "price_initial": 0.99,
       "price_final": 0.49,
       "discount_pct": 51,
-      "discount_end": null,
+      "discount_end": 1786640402,
       "scraped_at": 1786629749
     },
     "4411770": {
@@ -718969,7 +718969,7 @@
       "price_initial": 10.49,
       "price_final": 8.39,
       "discount_pct": 20,
-      "discount_end": null,
+      "discount_end": 1787245259,
       "scraped_at": 1786629749
     },
     "4412010": {
@@ -719039,7 +719039,7 @@
       "price_initial": 3.99,
       "price_final": 3.39,
       "discount_pct": 15,
-      "discount_end": null,
+      "discount_end": 1787590800,
       "scraped_at": 1786629749
     },
     "4412940": {
@@ -719067,7 +719067,7 @@
       "price_initial": 0.99,
       "price_final": 0.84,
       "discount_pct": 15,
-      "discount_end": null,
+      "discount_end": 1786640410,
       "scraped_at": 1786629749
     },
     "4413120": {
@@ -719102,7 +719102,7 @@
       "price_initial": 7.99,
       "price_final": 6.39,
       "discount_pct": 20,
-      "discount_end": null,
+      "discount_end": 1787158855,
       "scraped_at": 1786629749
     },
     "4413480": {
@@ -719179,7 +719179,7 @@
       "price_initial": 14.99,
       "price_final": 8.99,
       "discount_pct": 40,
-      "discount_end": null,
+      "discount_end": 1786813204,
       "scraped_at": 1786629749
     },
     "4414400": {
@@ -719256,7 +719256,7 @@
       "price_initial": 11.99,
       "price_final": 10.79,
       "discount_pct": 10,
-      "discount_end": null,
+      "discount_end": 1786899627,
       "scraped_at": 1786629749
     },
     "4414900": {
@@ -719515,7 +719515,7 @@
       "price_initial": 4.99,
       "price_final": 3.09,
       "discount_pct": 38,
-      "discount_end": null,
+      "discount_end": 1787504439,
       "scraped_at": 1786629749
     },
     "4418640": {
@@ -719613,7 +719613,7 @@
       "price_initial": 9.99,
       "price_final": 8.99,
       "discount_pct": 10,
-      "discount_end": null,
+      "discount_end": 1787158800,
       "scraped_at": 1786629749
     },
     "4420290": {
@@ -719634,14 +719634,14 @@
       "price_initial": 4.99,
       "price_final": 2.74,
       "discount_pct": 45,
-      "discount_end": null,
+      "discount_end": 1787072400,
       "scraped_at": 1786629749
     },
     "4420440": {
       "price_initial": 11.99,
       "price_final": 10.79,
       "discount_pct": 10,
-      "discount_end": null,
+      "discount_end": 1786640449,
       "scraped_at": 1786629749
     },
     "4420490": {
@@ -719907,7 +719907,7 @@
       "price_initial": 17.99,
       "price_final": 16.19,
       "discount_pct": 10,
-      "discount_end": null,
+      "discount_end": 1786726803,
       "scraped_at": 1786629749
     },
     "4423850": {
@@ -719977,7 +719977,7 @@
       "price_initial": 14.99,
       "price_final": 12.74,
       "discount_pct": 15,
-      "discount_end": null,
+      "discount_end": 1787245200,
       "scraped_at": 1786629749
     },
     "4424880": {
@@ -720012,7 +720012,7 @@
       "price_initial": 1.99,
       "price_final": 1.57,
       "discount_pct": 21,
-      "discount_end": null,
+      "discount_end": 1786726800,
       "scraped_at": 1786629749
     },
     "4425500": {
@@ -720180,7 +720180,7 @@
       "price_initial": 5.99,
       "price_final": 5.09,
       "discount_pct": 15,
-      "discount_end": null,
+      "discount_end": 1786986041,
       "scraped_at": 1786629749
     },
     "4427300": {
@@ -720327,7 +720327,7 @@
       "price_initial": 11.99,
       "price_final": 9.59,
       "discount_pct": 20,
-      "discount_end": null,
+      "discount_end": 1787418041,
       "scraped_at": 1786629749
     },
     "4429210": {
@@ -720341,7 +720341,7 @@
       "price_initial": 1.99,
       "price_final": 0.69,
       "discount_pct": 65,
-      "discount_end": null,
+      "discount_end": 1787245200,
       "scraped_at": 1786629749
     },
     "4429310": {
@@ -720516,7 +720516,7 @@
       "price_initial": 0.99,
       "price_final": 0.89,
       "discount_pct": 10,
-      "discount_end": null,
+      "discount_end": 1786640408,
       "scraped_at": 1786629749
     },
     "4431240": {
@@ -720747,7 +720747,7 @@
       "price_initial": 5.99,
       "price_final": 3.59,
       "discount_pct": 40,
-      "discount_end": null,
+      "discount_end": 1787590821,
       "scraped_at": 1786629749
     },
     "4434520": {
@@ -720789,7 +720789,7 @@
       "price_initial": 7.99,
       "price_final": 6.79,
       "discount_pct": 15,
-      "discount_end": null,
+      "discount_end": 1787245221,
       "scraped_at": 1786629749
     },
     "4435110": {
@@ -720824,7 +720824,7 @@
       "price_initial": 13.99,
       "price_final": 4.19,
       "discount_pct": 70,
-      "discount_end": null,
+      "discount_end": 1787158800,
       "scraped_at": 1786629749
     },
     "4435470": {
@@ -721181,7 +721181,7 @@
       "price_initial": 1.99,
       "price_final": 0.65,
       "discount_pct": 67,
-      "discount_end": null,
+      "discount_end": 1786986000,
       "scraped_at": 1786629749
     },
     "4439870": {
@@ -721384,7 +721384,7 @@
       "price_initial": 3.99,
       "price_final": 3.39,
       "discount_pct": 15,
-      "discount_end": null,
+      "discount_end": 1787590825,
       "scraped_at": 1786629749
     },
     "4443390": {
@@ -721419,7 +721419,7 @@
       "price_initial": 11.99,
       "price_final": 10.19,
       "discount_pct": 15,
-      "discount_end": null,
+      "discount_end": 1786986000,
       "scraped_at": 1786629749
     },
     "4443720": {
@@ -721454,7 +721454,7 @@
       "price_initial": 1.99,
       "price_final": 1.19,
       "discount_pct": 40,
-      "discount_end": null,
+      "discount_end": 1786899600,
       "scraped_at": 1786629749
     },
     "4444130": {
@@ -721468,7 +721468,7 @@
       "price_initial": 1.99,
       "price_final": 0.99,
       "discount_pct": 50,
-      "discount_end": null,
+      "discount_end": 1786986000,
       "scraped_at": 1786629749
     },
     "4444250": {
@@ -721496,7 +721496,7 @@
       "price_initial": 11.99,
       "price_final": 8.99,
       "discount_pct": 25,
-      "discount_end": null,
+      "discount_end": 1786726848,
       "scraped_at": 1786629749
     },
     "4444820": {
@@ -721538,14 +721538,14 @@
       "price_initial": 4.99,
       "price_final": 3.99,
       "discount_pct": 20,
-      "discount_end": null,
+      "discount_end": 1786986000,
       "scraped_at": 1786629749
     },
     "4445360": {
       "price_initial": 4.99,
       "price_final": 3.99,
       "discount_pct": 20,
-      "discount_end": null,
+      "discount_end": 1786986000,
       "scraped_at": 1786629749
     },
     "4445960": {
@@ -721573,7 +721573,7 @@
       "price_initial": 8.99,
       "price_final": 4.49,
       "discount_pct": 50,
-      "discount_end": null,
+      "discount_end": 1786986000,
       "scraped_at": 1786629749
     },
     "4446400": {
@@ -721692,7 +721692,7 @@
       "price_initial": 3.49,
       "price_final": 2.09,
       "discount_pct": 40,
-      "discount_end": null,
+      "discount_end": 1787245200,
       "scraped_at": 1786629749
     },
     "4448040": {
@@ -721748,7 +721748,7 @@
       "price_initial": 3.99,
       "price_final": 3.19,
       "discount_pct": 20,
-      "discount_end": null,
+      "discount_end": 1786986000,
       "scraped_at": 1786629749
     },
     "4448890": {
@@ -721818,7 +721818,7 @@
       "price_initial": 14.99,
       "price_final": 12.74,
       "discount_pct": 15,
-      "discount_end": null,
+      "discount_end": 1786726802,
       "scraped_at": 1786629749
     },
     "4449460": {
@@ -721944,7 +721944,7 @@
       "price_initial": 9.99,
       "price_final": 8.99,
       "discount_pct": 10,
-      "discount_end": null,
+      "discount_end": 1787331620,
       "scraped_at": 1786629749
     },
     "4450640": {
@@ -722231,7 +722231,7 @@
       "price_initial": 6.99,
       "price_final": 4.54,
       "discount_pct": 35,
-      "discount_end": null,
+      "discount_end": 1787122800,
       "scraped_at": 1786629749
     },
     "4453560": {
@@ -722287,7 +722287,7 @@
       "price_initial": 10.99,
       "price_final": 9.34,
       "discount_pct": 15,
-      "discount_end": null,
+      "discount_end": 1787418002,
       "scraped_at": 1786629749
     },
     "4454160": {
@@ -722385,7 +722385,7 @@
       "price_initial": 7.99,
       "price_final": 3.99,
       "discount_pct": 50,
-      "discount_end": null,
+      "discount_end": 1786726800,
       "scraped_at": 1786629749
     },
     "4455640": {
@@ -722525,7 +722525,7 @@
       "price_initial": 4.99,
       "price_final": 1.99,
       "discount_pct": 60,
-      "discount_end": null,
+      "discount_end": 1787763600,
       "scraped_at": 1786629749
     },
     "4456600": {
@@ -722539,7 +722539,7 @@
       "price_initial": 5.49,
       "price_final": 4.94,
       "discount_pct": 10,
-      "discount_end": null,
+      "discount_end": 1786986000,
       "scraped_at": 1786629749
     },
     "4456730": {
@@ -722574,7 +722574,7 @@
       "price_initial": 4.99,
       "price_final": 4.24,
       "discount_pct": 15,
-      "discount_end": null,
+      "discount_end": 1786640404,
       "scraped_at": 1786629749
     },
     "4457010": {
@@ -722595,7 +722595,7 @@
       "price_initial": 9.99,
       "price_final": 8.99,
       "discount_pct": 10,
-      "discount_end": null,
+      "discount_end": 1786813218,
       "scraped_at": 1786629749
     },
     "4457060": {
@@ -722630,7 +722630,7 @@
       "price_initial": 7.99,
       "price_final": 7.19,
       "discount_pct": 10,
-      "discount_end": null,
+      "discount_end": 1786986002,
       "scraped_at": 1786629749
     },
     "4457480": {
@@ -722665,7 +722665,7 @@
       "price_initial": 0.99,
       "price_final": 0.49,
       "discount_pct": 51,
-      "discount_end": null,
+      "discount_end": 1787677200,
       "scraped_at": 1786629749
     },
     "4457950": {
@@ -722742,7 +722742,7 @@
       "price_initial": 14.99,
       "price_final": 11.99,
       "discount_pct": 20,
-      "discount_end": null,
+      "discount_end": 1786640407,
       "scraped_at": 1786629749
     },
     "4458750": {
@@ -722763,7 +722763,7 @@
       "price_initial": 5.99,
       "price_final": 4.19,
       "discount_pct": 30,
-      "discount_end": null,
+      "discount_end": 1786986000,
       "scraped_at": 1786629749
     },
     "4458930": {
@@ -722917,14 +722917,14 @@
       "price_initial": 4.99,
       "price_final": 1.74,
       "discount_pct": 65,
-      "discount_end": null,
+      "discount_end": 1787245200,
       "scraped_at": 1786629749
     },
     "4460550": {
       "price_initial": 2.99,
       "price_final": 2.39,
       "discount_pct": 20,
-      "discount_end": null,
+      "discount_end": 1786798320,
       "scraped_at": 1786629749
     },
     "4461190": {
@@ -722959,7 +722959,7 @@
       "price_initial": 4.99,
       "price_final": 3.74,
       "discount_pct": 25,
-      "discount_end": null,
+      "discount_end": 1786986000,
       "scraped_at": 1786629749
     },
     "4461420": {
@@ -723001,7 +723001,7 @@
       "price_initial": 4.99,
       "price_final": 4.49,
       "discount_pct": 10,
-      "discount_end": null,
+      "discount_end": 1787072456,
       "scraped_at": 1786629749
     },
     "4461800": {
@@ -723176,14 +723176,14 @@
       "price_initial": 1.99,
       "price_final": 0.59,
       "discount_pct": 70,
-      "discount_end": null,
+      "discount_end": 1787158800,
       "scraped_at": 1786629749
     },
     "4463680": {
       "price_initial": 8.99,
       "price_final": 8.09,
       "discount_pct": 10,
-      "discount_end": null,
+      "discount_end": 1787158809,
       "scraped_at": 1786629749
     },
     "4463700": {
@@ -723232,7 +723232,7 @@
       "price_initial": 3.99,
       "price_final": 3.59,
       "discount_pct": 10,
-      "discount_end": null,
+      "discount_end": 1786813200,
       "scraped_at": 1786629749
     },
     "4464540": {
@@ -723358,7 +723358,7 @@
       "price_initial": 11.99,
       "price_final": 9.59,
       "discount_pct": 20,
-      "discount_end": null,
+      "discount_end": 1787245204,
       "scraped_at": 1786629749
     },
     "4466100": {
@@ -723421,7 +723421,7 @@
       "price_initial": 14.99,
       "price_final": 11.99,
       "discount_pct": 20,
-      "discount_end": null,
+      "discount_end": 1786899600,
       "scraped_at": 1786629749
     },
     "4466690": {
@@ -723554,7 +723554,7 @@
       "price_initial": 9.99,
       "price_final": 8.99,
       "discount_pct": 10,
-      "discount_end": null,
+      "discount_end": 1787677211,
       "scraped_at": 1786629749
     },
     "4468350": {
@@ -723827,7 +723827,7 @@
       "price_initial": 2.99,
       "price_final": 2.69,
       "discount_pct": 10,
-      "discount_end": null,
+      "discount_end": 1787072456,
       "scraped_at": 1786629749
     },
     "4476130": {
@@ -723890,7 +723890,7 @@
       "price_initial": 5.99,
       "price_final": 5.39,
       "discount_pct": 10,
-      "discount_end": null,
+      "discount_end": 1786986000,
       "scraped_at": 1786629749
     },
     "4478560": {
@@ -723953,7 +723953,7 @@
       "price_initial": 2.99,
       "price_final": 2.39,
       "discount_pct": 20,
-      "discount_end": null,
+      "discount_end": 1786726800,
       "scraped_at": 1786629749
     },
     "4478810": {
@@ -724009,7 +724009,7 @@
       "price_initial": 4.99,
       "price_final": 3.99,
       "discount_pct": 20,
-      "discount_end": null,
+      "discount_end": 1786986000,
       "scraped_at": 1786629749
     },
     "4480190": {
@@ -724429,7 +724429,7 @@
       "price_initial": 4.99,
       "price_final": 3.99,
       "discount_pct": 20,
-      "discount_end": null,
+      "discount_end": 1786986000,
       "scraped_at": 1786629749
     },
     "4485160": {
@@ -724492,14 +724492,14 @@
       "price_initial": 3.99,
       "price_final": 3.59,
       "discount_pct": 10,
-      "discount_end": null,
+      "discount_end": 1787158837,
       "scraped_at": 1786629749
     },
     "4485870": {
       "price_initial": 6.96,
       "price_final": 3.34,
       "discount_pct": 52,
-      "discount_end": null,
+      "discount_end": 1787072400,
       "scraped_at": 1786629749
     },
     "4485920": {
@@ -724562,7 +724562,7 @@
       "price_initial": 3.99,
       "price_final": 2.79,
       "discount_pct": 30,
-      "discount_end": null,
+      "discount_end": 1787245200,
       "scraped_at": 1786629749
     },
     "4486310": {
@@ -724688,7 +724688,7 @@
       "price_initial": 2.0,
       "price_final": 1.8,
       "discount_pct": 10,
-      "discount_end": null,
+      "discount_end": 1786986033,
       "scraped_at": 1786629749
     },
     "4487540": {
@@ -724730,7 +724730,7 @@
       "price_initial": 7.99,
       "price_final": 4.95,
       "discount_pct": 38,
-      "discount_end": null,
+      "discount_end": 1787590800,
       "scraped_at": 1786629749
     },
     "4488490": {
@@ -724800,7 +724800,7 @@
       "price_initial": 4.99,
       "price_final": 3.99,
       "discount_pct": 20,
-      "discount_end": null,
+      "discount_end": 1786726800,
       "scraped_at": 1786629749
     },
     "4489360": {
@@ -724954,7 +724954,7 @@
       "price_initial": 5.99,
       "price_final": 2.39,
       "discount_pct": 60,
-      "discount_end": null,
+      "discount_end": 1787763600,
       "scraped_at": 1786629749
     },
     "4490910": {
@@ -725024,7 +725024,7 @@
       "price_initial": 3.99,
       "price_final": 3.39,
       "discount_pct": 15,
-      "discount_end": null,
+      "discount_end": 1787590800,
       "scraped_at": 1786629749
     },
     "4492190": {
@@ -725206,14 +725206,14 @@
       "price_initial": 3.99,
       "price_final": 2.99,
       "discount_pct": 25,
-      "discount_end": null,
+      "discount_end": 1787504457,
       "scraped_at": 1786629749
     },
     "4498230": {
       "price_initial": 7.99,
       "price_final": 4.39,
       "discount_pct": 45,
-      "discount_end": null,
+      "discount_end": 1787497200,
       "scraped_at": 1786629749
     },
     "4498250": {
@@ -725227,7 +725227,7 @@
       "price_initial": 4.99,
       "price_final": 2.49,
       "discount_pct": 50,
-      "discount_end": null,
+      "discount_end": 1787497200,
       "scraped_at": 1786629749
     },
     "4498620": {
@@ -725346,7 +725346,7 @@
       "price_initial": 2.99,
       "price_final": 2.54,
       "discount_pct": 15,
-      "discount_end": null,
+      "discount_end": 1786755600,
       "scraped_at": 1786629749
     },
     "4500240": {
@@ -725395,7 +725395,7 @@
       "price_initial": 2.99,
       "price_final": 2.39,
       "discount_pct": 20,
-      "discount_end": null,
+      "discount_end": 1786986000,
       "scraped_at": 1786629749
     },
     "4500540": {
@@ -725563,7 +725563,7 @@
       "price_initial": 9.99,
       "price_final": 8.99,
       "discount_pct": 10,
-      "discount_end": null,
+      "discount_end": 1786640400,
       "scraped_at": 1786629749
     },
     "4502770": {
@@ -725577,7 +725577,7 @@
       "price_initial": 3.5,
       "price_final": 1.92,
       "discount_pct": 45,
-      "discount_end": null,
+      "discount_end": 1787331660,
       "scraped_at": 1786629749
     },
     "4503090": {
@@ -725605,7 +725605,7 @@
       "price_initial": 0.99,
       "price_final": 0.84,
       "discount_pct": 15,
-      "discount_end": null,
+      "discount_end": 1786986034,
       "scraped_at": 1786629749
     },
     "4503300": {
@@ -725647,7 +725647,7 @@
       "price_initial": 3.99,
       "price_final": 3.19,
       "discount_pct": 20,
-      "discount_end": null,
+      "discount_end": 1786899600,
       "scraped_at": 1786629749
     },
     "4503690": {
@@ -725738,7 +725738,7 @@
       "price_initial": 4.99,
       "price_final": 2.49,
       "discount_pct": 50,
-      "discount_end": null,
+      "discount_end": 1786896000,
       "scraped_at": 1786629749
     },
     "4504560": {
@@ -725836,7 +725836,7 @@
       "price_initial": 5.99,
       "price_final": 4.79,
       "discount_pct": 20,
-      "discount_end": null,
+      "discount_end": 1786986000,
       "scraped_at": 1786629749
     },
     "4505460": {
@@ -725871,7 +725871,7 @@
       "price_initial": 4.99,
       "price_final": 3.99,
       "discount_pct": 20,
-      "discount_end": null,
+      "discount_end": 1786726816,
       "scraped_at": 1786629749
     },
     "4505860": {
@@ -725997,7 +725997,7 @@
       "price_initial": 7.99,
       "price_final": 4.95,
       "discount_pct": 38,
-      "discount_end": null,
+      "discount_end": 1787677217,
       "scraped_at": 1786629749
     },
     "4507900": {
@@ -726011,21 +726011,21 @@
       "price_initial": 5.99,
       "price_final": 2.39,
       "discount_pct": 60,
-      "discount_end": null,
+      "discount_end": 1787763600,
       "scraped_at": 1786629749
     },
     "4507970": {
       "price_initial": 0.99,
       "price_final": 0.84,
       "discount_pct": 15,
-      "discount_end": null,
+      "discount_end": 1786640410,
       "scraped_at": 1786629749
     },
     "4508020": {
       "price_initial": 7.99,
       "price_final": 7.19,
       "discount_pct": 10,
-      "discount_end": null,
+      "discount_end": 1787230800,
       "scraped_at": 1786629749
     },
     "4508060": {
@@ -726123,7 +726123,7 @@
       "price_initial": 7.99,
       "price_final": 5.99,
       "discount_pct": 25,
-      "discount_end": null,
+      "discount_end": 1786640435,
       "scraped_at": 1786629749
     },
     "4508850": {
@@ -726186,14 +726186,14 @@
       "price_initial": 3.99,
       "price_final": 2.79,
       "discount_pct": 30,
-      "discount_end": null,
+      "discount_end": 1786986000,
       "scraped_at": 1786629749
     },
     "4510560": {
       "price_initial": 3.99,
       "price_final": 2.79,
       "discount_pct": 30,
-      "discount_end": null,
+      "discount_end": 1786986000,
       "scraped_at": 1786629749
     },
     "4510580": {
@@ -726235,7 +726235,7 @@
       "price_initial": 2.99,
       "price_final": 0.74,
       "discount_pct": 75,
-      "discount_end": null,
+      "discount_end": 1787122800,
       "scraped_at": 1786629749
     },
     "4511130": {
@@ -726354,7 +726354,7 @@
       "price_initial": 5.99,
       "price_final": 4.79,
       "discount_pct": 20,
-      "discount_end": null,
+      "discount_end": 1787072445,
       "scraped_at": 1786629749
     },
     "4512190": {
@@ -726424,7 +726424,7 @@
       "price_initial": 5.99,
       "price_final": 4.79,
       "discount_pct": 20,
-      "discount_end": null,
+      "discount_end": 1787677218,
       "scraped_at": 1786629749
     },
     "4513010": {
@@ -726487,7 +726487,7 @@
       "price_initial": 2.99,
       "price_final": 2.24,
       "discount_pct": 25,
-      "discount_end": null,
+      "discount_end": 1787590800,
       "scraped_at": 1786629749
     },
     "4513420": {
@@ -726543,7 +726543,7 @@
       "price_initial": 1.99,
       "price_final": 1.39,
       "discount_pct": 30,
-      "discount_end": null,
+      "discount_end": 1787331611,
       "scraped_at": 1786629749
     },
     "4513900": {
@@ -726571,7 +726571,7 @@
       "price_initial": 12.99,
       "price_final": 11.69,
       "discount_pct": 10,
-      "discount_end": null,
+      "discount_end": 1786640417,
       "scraped_at": 1786629749
     },
     "4514270": {
@@ -726690,7 +726690,7 @@
       "price_initial": 10.0,
       "price_final": 5.0,
       "discount_pct": 50,
-      "discount_end": null,
+      "discount_end": 1786640400,
       "scraped_at": 1786629749
     },
     "4516150": {
@@ -726704,7 +726704,7 @@
       "price_initial": 1.99,
       "price_final": 1.49,
       "discount_pct": 25,
-      "discount_end": null,
+      "discount_end": 1786640400,
       "scraped_at": 1786629749
     },
     "4516220": {
@@ -726767,14 +726767,14 @@
       "price_initial": 5.99,
       "price_final": 5.09,
       "discount_pct": 15,
-      "discount_end": null,
+      "discount_end": 1787331606,
       "scraped_at": 1786629749
     },
     "4516940": {
       "price_initial": 1.99,
       "price_final": 1.33,
       "discount_pct": 33,
-      "discount_end": null,
+      "discount_end": 1786640400,
       "scraped_at": 1786629749
     },
     "4517120": {
@@ -726886,7 +726886,7 @@
       "price_initial": 2.99,
       "price_final": 1.97,
       "discount_pct": 34,
-      "discount_end": null,
+      "discount_end": 1787245200,
       "scraped_at": 1786629749
     },
     "4518230": {
@@ -726921,7 +726921,7 @@
       "price_initial": 2.99,
       "price_final": 0.83,
       "discount_pct": 72,
-      "discount_end": null,
+      "discount_end": 1786813200,
       "scraped_at": 1786629749
     },
     "4519210": {
@@ -726956,7 +726956,7 @@
       "price_initial": 2.99,
       "price_final": 1.79,
       "discount_pct": 40,
-      "discount_end": null,
+      "discount_end": 1786986000,
       "scraped_at": 1786629749
     },
     "4519530": {
@@ -726991,14 +726991,14 @@
       "price_initial": 4.99,
       "price_final": 4.24,
       "discount_pct": 15,
-      "discount_end": null,
+      "discount_end": 1787590800,
       "scraped_at": 1786629749
     },
     "4519820": {
       "price_initial": 2.99,
       "price_final": 2.69,
       "discount_pct": 10,
-      "discount_end": null,
+      "discount_end": 1787763625,
       "scraped_at": 1786629749
     },
     "4519880": {
@@ -727026,7 +727026,7 @@
       "price_initial": 0.99,
       "price_final": 0.49,
       "discount_pct": 51,
-      "discount_end": null,
+      "discount_end": 1787504400,
       "scraped_at": 1786629749
     },
     "4520550": {
@@ -727138,7 +727138,7 @@
       "price_initial": 9.99,
       "price_final": 5.99,
       "discount_pct": 40,
-      "discount_end": null,
+      "discount_end": 1787677200,
       "scraped_at": 1786629749
     },
     "4522110": {
@@ -727383,14 +727383,14 @@
       "price_initial": 2.99,
       "price_final": 2.39,
       "discount_pct": 20,
-      "discount_end": null,
+      "discount_end": 1786640404,
       "scraped_at": 1786629749
     },
     "4524460": {
       "price_initial": 4.99,
       "price_final": 2.49,
       "discount_pct": 50,
-      "discount_end": null,
+      "discount_end": 1786986000,
       "scraped_at": 1786629749
     },
     "4524510": {
@@ -727495,7 +727495,7 @@
       "price_initial": 12.99,
       "price_final": 11.69,
       "discount_pct": 10,
-      "discount_end": null,
+      "discount_end": 1787590846,
       "scraped_at": 1786629749
     },
     "4525840": {
@@ -727558,7 +727558,7 @@
       "price_initial": 5.0,
       "price_final": 4.5,
       "discount_pct": 10,
-      "discount_end": null,
+      "discount_end": 1787245200,
       "scraped_at": 1786629749
     },
     "4526410": {
@@ -727572,7 +727572,7 @@
       "price_initial": 5.0,
       "price_final": 3.9,
       "discount_pct": 22,
-      "discount_end": null,
+      "discount_end": 1786726843,
       "scraped_at": 1786629749
     },
     "4526620": {
@@ -727712,7 +727712,7 @@
       "price_initial": 6.99,
       "price_final": 4.89,
       "discount_pct": 30,
-      "discount_end": null,
+      "discount_end": 1786640400,
       "scraped_at": 1786629749
     },
     "4527970": {
@@ -727747,7 +727747,7 @@
       "price_initial": 9.99,
       "price_final": 7.99,
       "discount_pct": 20,
-      "discount_end": null,
+      "discount_end": 1786640430,
       "scraped_at": 1786629749
     },
     "4528300": {
@@ -727873,7 +727873,7 @@
       "price_initial": 9.99,
       "price_final": 7.49,
       "discount_pct": 25,
-      "discount_end": null,
+      "discount_end": 1786813200,
       "scraped_at": 1786629749
     },
     "4529520": {
@@ -727887,7 +727887,7 @@
       "price_initial": 4.99,
       "price_final": 2.99,
       "discount_pct": 40,
-      "discount_end": null,
+      "discount_end": 1786640400,
       "scraped_at": 1786629749
     },
     "4529600": {
@@ -727908,7 +727908,7 @@
       "price_initial": 7.99,
       "price_final": 6.39,
       "discount_pct": 20,
-      "discount_end": null,
+      "discount_end": 1786640431,
       "scraped_at": 1786629749
     },
     "4529720": {
@@ -728069,7 +728069,7 @@
       "price_initial": 8.99,
       "price_final": 7.19,
       "discount_pct": 20,
-      "discount_end": null,
+      "discount_end": 1786986000,
       "scraped_at": 1786629749
     },
     "4531590": {
@@ -728146,7 +728146,7 @@
       "price_initial": 5.99,
       "price_final": 2.09,
       "discount_pct": 65,
-      "discount_end": null,
+      "discount_end": 1787590800,
       "scraped_at": 1786629749
     },
     "4532480": {
@@ -728272,7 +728272,7 @@
       "price_initial": 14.99,
       "price_final": 9.29,
       "discount_pct": 38,
-      "discount_end": null,
+      "discount_end": 1786813204,
       "scraped_at": 1786629749
     },
     "4533740": {
@@ -728286,7 +728286,7 @@
       "price_initial": 4.99,
       "price_final": 2.49,
       "discount_pct": 50,
-      "discount_end": null,
+      "discount_end": 1786726800,
       "scraped_at": 1786629749
     },
     "4533800": {
@@ -728461,7 +728461,7 @@
       "price_initial": 1.99,
       "price_final": 1.79,
       "discount_pct": 10,
-      "discount_end": null,
+      "discount_end": 1787072426,
       "scraped_at": 1786629749
     },
     "4536100": {
@@ -728608,7 +728608,7 @@
       "price_initial": 5.99,
       "price_final": 5.39,
       "discount_pct": 10,
-      "discount_end": null,
+      "discount_end": 1786899645,
       "scraped_at": 1786629749
     },
     "4537430": {
@@ -728643,14 +728643,14 @@
       "price_initial": 4.99,
       "price_final": 3.49,
       "discount_pct": 30,
-      "discount_end": null,
+      "discount_end": 1787418000,
       "scraped_at": 1786629749
     },
     "4537710": {
       "price_initial": 0.99,
       "price_final": 0.74,
       "discount_pct": 25,
-      "discount_end": null,
+      "discount_end": 1786640400,
       "scraped_at": 1786629749
     },
     "4537740": {
@@ -728685,7 +728685,7 @@
       "price_initial": 9.99,
       "price_final": 5.99,
       "discount_pct": 40,
-      "discount_end": null,
+      "discount_end": 1786899600,
       "scraped_at": 1786629749
     },
     "4538060": {
@@ -728818,7 +728818,7 @@
       "price_initial": 0.99,
       "price_final": 0.79,
       "discount_pct": 20,
-      "discount_end": null,
+      "discount_end": 1786986000,
       "scraped_at": 1786629749
     },
     "4539810": {
@@ -728846,7 +728846,7 @@
       "price_initial": 9.99,
       "price_final": 8.99,
       "discount_pct": 10,
-      "discount_end": null,
+      "discount_end": 1787590803,
       "scraped_at": 1786629749
     },
     "4539970": {
@@ -728930,7 +728930,7 @@
       "price_initial": 9.99,
       "price_final": 8.99,
       "discount_pct": 10,
-      "discount_end": null,
+      "discount_end": 1786640400,
       "scraped_at": 1786629749
     },
     "4540910": {
@@ -729161,7 +729161,7 @@
       "price_initial": 11.99,
       "price_final": 10.19,
       "discount_pct": 15,
-      "discount_end": null,
+      "discount_end": 1787590848,
       "scraped_at": 1786629749
     },
     "4542990": {
@@ -729189,7 +729189,7 @@
       "price_initial": 5.99,
       "price_final": 5.09,
       "discount_pct": 15,
-      "discount_end": null,
+      "discount_end": 1786640438,
       "scraped_at": 1786629749
     },
     "4543090": {
@@ -729203,7 +729203,7 @@
       "price_initial": 7.99,
       "price_final": 7.03,
       "discount_pct": 12,
-      "discount_end": null,
+      "discount_end": 1787677200,
       "scraped_at": 1786629749
     },
     "4543470": {
@@ -729427,7 +729427,7 @@
       "price_initial": 2.99,
       "price_final": 2.09,
       "discount_pct": 30,
-      "discount_end": null,
+      "discount_end": 1786752000,
       "scraped_at": 1786629749
     },
     "4546130": {
@@ -729483,7 +729483,7 @@
       "price_initial": 4.99,
       "price_final": 4.24,
       "discount_pct": 15,
-      "discount_end": null,
+      "discount_end": 1787158806,
       "scraped_at": 1786629749
     },
     "4546490": {
@@ -729560,7 +729560,7 @@
       "price_initial": 2.99,
       "price_final": 1.94,
       "discount_pct": 35,
-      "discount_end": null,
+      "discount_end": 1786813200,
       "scraped_at": 1786629749
     },
     "4547440": {
@@ -729595,14 +729595,14 @@
       "price_initial": 9.99,
       "price_final": 7.99,
       "discount_pct": 20,
-      "discount_end": null,
+      "discount_end": 1787072400,
       "scraped_at": 1786629749
     },
     "4548050": {
       "price_initial": 19.99,
       "price_final": 16.99,
       "discount_pct": 15,
-      "discount_end": null,
+      "discount_end": 1787677246,
       "scraped_at": 1786629749
     },
     "4548070": {
@@ -729658,7 +729658,7 @@
       "price_initial": 5.99,
       "price_final": 4.49,
       "discount_pct": 25,
-      "discount_end": null,
+      "discount_end": 1786899646,
       "scraped_at": 1786629749
     },
     "4548550": {
@@ -729714,7 +729714,7 @@
       "price_initial": 2.49,
       "price_final": 2.11,
       "discount_pct": 15,
-      "discount_end": null,
+      "discount_end": 1787245200,
       "scraped_at": 1786629749
     },
     "4549610": {
@@ -729791,7 +729791,7 @@
       "price_initial": 4.99,
       "price_final": 3.99,
       "discount_pct": 20,
-      "discount_end": null,
+      "discount_end": 1787310000,
       "scraped_at": 1786629749
     },
     "4550150": {
@@ -729812,14 +729812,14 @@
       "price_initial": 9.99,
       "price_final": 5.99,
       "discount_pct": 40,
-      "discount_end": null,
+      "discount_end": 1787245245,
       "scraped_at": 1786629749
     },
     "4550370": {
       "price_initial": 3.99,
       "price_final": 3.39,
       "discount_pct": 15,
-      "discount_end": null,
+      "discount_end": 1786809600,
       "scraped_at": 1786629749
     },
     "4550450": {
@@ -729833,7 +729833,7 @@
       "price_initial": 10.99,
       "price_final": 8.79,
       "discount_pct": 20,
-      "discount_end": null,
+      "discount_end": 1787072400,
       "scraped_at": 1786629749
     },
     "4550590": {
@@ -729917,7 +729917,7 @@
       "price_initial": 6.99,
       "price_final": 4.96,
       "discount_pct": 29,
-      "discount_end": null,
+      "discount_end": 1787158800,
       "scraped_at": 1786629749
     },
     "4552250": {
@@ -729994,7 +729994,7 @@
       "price_initial": 9.99,
       "price_final": 7.99,
       "discount_pct": 20,
-      "discount_end": null,
+      "discount_end": 1787590800,
       "scraped_at": 1786629749
     },
     "4553220": {
@@ -730008,7 +730008,7 @@
       "price_initial": 3.99,
       "price_final": 3.19,
       "discount_pct": 20,
-      "discount_end": null,
+      "discount_end": 1786813200,
       "scraped_at": 1786629749
     },
     "4553360": {
@@ -730029,7 +730029,7 @@
       "price_initial": 7.99,
       "price_final": 6.79,
       "discount_pct": 15,
-      "discount_end": null,
+      "discount_end": 1786986000,
       "scraped_at": 1786629749
     },
     "4553770": {
@@ -730064,7 +730064,7 @@
       "price_initial": 4.99,
       "price_final": 0.99,
       "discount_pct": 80,
-      "discount_end": null,
+      "discount_end": 1787677200,
       "scraped_at": 1786629749
     },
     "4554050": {
@@ -730302,7 +730302,7 @@
       "price_initial": 9.99,
       "price_final": 4.99,
       "discount_pct": 50,
-      "discount_end": null,
+      "discount_end": 1787072400,
       "scraped_at": 1786629749
     },
     "4556620": {
@@ -730372,7 +730372,7 @@
       "price_initial": 4.39,
       "price_final": 3.95,
       "discount_pct": 10,
-      "discount_end": null,
+      "discount_end": 1786726811,
       "scraped_at": 1786629749
     },
     "4557100": {
@@ -730407,7 +730407,7 @@
       "price_initial": 10.99,
       "price_final": 9.34,
       "discount_pct": 15,
-      "discount_end": null,
+      "discount_end": 1786986000,
       "scraped_at": 1786629749
     },
     "4557510": {
@@ -730484,7 +730484,7 @@
       "price_initial": 1.99,
       "price_final": 1.49,
       "discount_pct": 25,
-      "discount_end": null,
+      "discount_end": 1787320800,
       "scraped_at": 1786629749
     },
     "4558620": {
@@ -730512,7 +730512,7 @@
       "price_initial": 4.99,
       "price_final": 2.99,
       "discount_pct": 40,
-      "discount_end": null,
+      "discount_end": 1786964400,
       "scraped_at": 1786629749
     },
     "4558880": {
@@ -730743,7 +730743,7 @@
       "price_initial": 12.99,
       "price_final": 9.74,
       "discount_pct": 25,
-      "discount_end": null,
+      "discount_end": 1786640413,
       "scraped_at": 1786629749
     },
     "4562630": {
@@ -730827,7 +730827,7 @@
       "price_initial": 7.99,
       "price_final": 7.19,
       "discount_pct": 10,
-      "discount_end": null,
+      "discount_end": 1786726800,
       "scraped_at": 1786629749
     },
     "4563880": {
@@ -730848,14 +730848,14 @@
       "price_initial": 1.99,
       "price_final": 1.17,
       "discount_pct": 41,
-      "discount_end": null,
+      "discount_end": 1786899644,
       "scraped_at": 1786629749
     },
     "4564230": {
       "price_initial": 4.99,
       "price_final": 4.49,
       "discount_pct": 10,
-      "discount_end": null,
+      "discount_end": 1786726841,
       "scraped_at": 1786629749
     },
     "4564280": {
@@ -730869,7 +730869,7 @@
       "price_initial": 0.99,
       "price_final": 0.89,
       "discount_pct": 10,
-      "discount_end": null,
+      "discount_end": 1786917000,
       "scraped_at": 1786629749
     },
     "4564500": {
@@ -730918,14 +730918,14 @@
       "price_initial": 14.99,
       "price_final": 10.49,
       "discount_pct": 30,
-      "discount_end": null,
+      "discount_end": 1787331600,
       "scraped_at": 1786629749
     },
     "4564820": {
       "price_initial": 12.34,
       "price_final": 9.87,
       "discount_pct": 20,
-      "discount_end": null,
+      "discount_end": 1787245200,
       "scraped_at": 1786629749
     },
     "4564900": {
@@ -730946,7 +730946,7 @@
       "price_initial": 6.99,
       "price_final": 5.94,
       "discount_pct": 15,
-      "discount_end": null,
+      "discount_end": 1786726800,
       "scraped_at": 1786629749
     },
     "4565280": {
@@ -730988,7 +730988,7 @@
       "price_initial": 2.99,
       "price_final": 2.54,
       "discount_pct": 15,
-      "discount_end": null,
+      "discount_end": 1787158842,
       "scraped_at": 1786629749
     },
     "4565560": {
@@ -731093,7 +731093,7 @@
       "price_initial": 6.99,
       "price_final": 5.94,
       "discount_pct": 15,
-      "discount_end": null,
+      "discount_end": 1787504400,
       "scraped_at": 1786629749
     },
     "4566370": {
@@ -731163,7 +731163,7 @@
       "price_initial": 8.99,
       "price_final": 2.69,
       "discount_pct": 70,
-      "discount_end": null,
+      "discount_end": 1787245200,
       "scraped_at": 1786629749
     },
     "4566830": {
@@ -731254,7 +731254,7 @@
       "price_initial": 4.99,
       "price_final": 3.74,
       "discount_pct": 25,
-      "discount_end": null,
+      "discount_end": 1787763627,
       "scraped_at": 1786629749
     },
     "4567530": {
@@ -731548,7 +731548,7 @@
       "price_initial": 7.99,
       "price_final": 7.19,
       "discount_pct": 10,
-      "discount_end": null,
+      "discount_end": 1786640412,
       "scraped_at": 1786629749
     },
     "4571100": {
@@ -731772,7 +731772,7 @@
       "price_initial": 11.99,
       "price_final": 9.59,
       "discount_pct": 20,
-      "discount_end": null,
+      "discount_end": 1787072429,
       "scraped_at": 1786629749
     },
     "4574350": {
@@ -731793,7 +731793,7 @@
       "price_initial": 3.99,
       "price_final": 3.39,
       "discount_pct": 15,
-      "discount_end": null,
+      "discount_end": 1787590832,
       "scraped_at": 1786629749
     },
     "4575020": {
@@ -731898,7 +731898,7 @@
       "price_initial": 6.99,
       "price_final": 6.29,
       "discount_pct": 10,
-      "discount_end": null,
+      "discount_end": 1786899621,
       "scraped_at": 1786629749
     },
     "4575800": {
@@ -731954,7 +731954,7 @@
       "price_initial": 14.99,
       "price_final": 5.99,
       "discount_pct": 60,
-      "discount_end": null,
+      "discount_end": 1786640400,
       "scraped_at": 1786629749
     },
     "4576300": {
@@ -732122,7 +732122,7 @@
       "price_initial": 8.99,
       "price_final": 7.19,
       "discount_pct": 20,
-      "discount_end": null,
+      "discount_end": 1786986000,
       "scraped_at": 1786629749
     },
     "4578840": {
@@ -732514,14 +732514,14 @@
       "price_initial": 2.99,
       "price_final": 2.39,
       "discount_pct": 20,
-      "discount_end": null,
+      "discount_end": 1787331600,
       "scraped_at": 1786629749
     },
     "4582980": {
       "price_initial": 6.99,
       "price_final": 5.24,
       "discount_pct": 25,
-      "discount_end": null,
+      "discount_end": 1787072444,
       "scraped_at": 1786629749
     },
     "4583080": {
@@ -732535,14 +732535,14 @@
       "price_initial": 1.99,
       "price_final": 1.59,
       "discount_pct": 20,
-      "discount_end": null,
+      "discount_end": 1786986000,
       "scraped_at": 1786629749
     },
     "4583110": {
       "price_initial": 1.99,
       "price_final": 1.59,
       "discount_pct": 20,
-      "discount_end": null,
+      "discount_end": 1786986000,
       "scraped_at": 1786629749
     },
     "4583130": {
@@ -732654,7 +732654,7 @@
       "price_initial": 1.99,
       "price_final": 0.99,
       "discount_pct": 50,
-      "discount_end": null,
+      "discount_end": 1786986000,
       "scraped_at": 1786629749
     },
     "4584510": {
@@ -732682,7 +732682,7 @@
       "price_initial": 3.99,
       "price_final": 2.99,
       "discount_pct": 25,
-      "discount_end": null,
+      "discount_end": 1787677253,
       "scraped_at": 1786629749
     },
     "4585250": {
@@ -732703,7 +732703,7 @@
       "price_initial": 2.99,
       "price_final": 2.69,
       "discount_pct": 10,
-      "discount_end": null,
+      "discount_end": 1786986049,
       "scraped_at": 1786629749
     },
     "4585360": {
@@ -732787,14 +732787,14 @@
       "price_initial": 4.99,
       "price_final": 3.34,
       "discount_pct": 33,
-      "discount_end": null,
+      "discount_end": 1786986000,
       "scraped_at": 1786629749
     },
     "4586320": {
       "price_initial": 19.0,
       "price_final": 2.28,
       "discount_pct": 88,
-      "discount_end": null,
+      "discount_end": 1786986000,
       "scraped_at": 1786629749
     },
     "4586620": {
@@ -732843,7 +732843,7 @@
       "price_initial": 4.99,
       "price_final": 1.49,
       "discount_pct": 70,
-      "discount_end": null,
+      "discount_end": 1786640400,
       "scraped_at": 1786629749
     },
     "4587550": {
@@ -732892,7 +732892,7 @@
       "price_initial": 3.99,
       "price_final": 3.59,
       "discount_pct": 10,
-      "discount_end": null,
+      "discount_end": 1786986033,
       "scraped_at": 1786629749
     },
     "4587910": {
@@ -733032,7 +733032,7 @@
       "price_initial": 4.99,
       "price_final": 1.69,
       "discount_pct": 66,
-      "discount_end": null,
+      "discount_end": 1786986000,
       "scraped_at": 1786629749
     },
     "4589890": {
@@ -733053,7 +733053,7 @@
       "price_initial": 0.99,
       "price_final": 0.49,
       "discount_pct": 51,
-      "discount_end": null,
+      "discount_end": 1787504400,
       "scraped_at": 1786629749
     },
     "4590260": {
@@ -733074,7 +733074,7 @@
       "price_initial": 3.99,
       "price_final": 3.19,
       "discount_pct": 20,
-      "discount_end": null,
+      "discount_end": 1786986000,
       "scraped_at": 1786629749
     },
     "4590610": {
@@ -733088,7 +733088,7 @@
       "price_initial": 39.95,
       "price_final": 29.96,
       "discount_pct": 25,
-      "discount_end": null,
+      "discount_end": 1786964400,
       "scraped_at": 1786629749
     },
     "4590790": {
@@ -733116,7 +733116,7 @@
       "price_initial": 4.0,
       "price_final": 2.8,
       "discount_pct": 30,
-      "discount_end": null,
+      "discount_end": 1786986000,
       "scraped_at": 1786629749
     },
     "4590990": {
@@ -733284,7 +733284,7 @@
       "price_initial": 14.99,
       "price_final": 7.49,
       "discount_pct": 50,
-      "discount_end": null,
+      "discount_end": 1787400540,
       "scraped_at": 1786629749
     },
     "4593180": {
@@ -733347,7 +733347,7 @@
       "price_initial": 3.99,
       "price_final": 3.39,
       "discount_pct": 15,
-      "discount_end": null,
+      "discount_end": 1787590800,
       "scraped_at": 1786629749
     },
     "4593750": {
@@ -733403,7 +733403,7 @@
       "price_initial": 11.99,
       "price_final": 7.79,
       "discount_pct": 35,
-      "discount_end": null,
+      "discount_end": 1787418000,
       "scraped_at": 1786629749
     },
     "4594500": {
@@ -733459,7 +733459,7 @@
       "price_initial": 5.99,
       "price_final": 4.79,
       "discount_pct": 20,
-      "discount_end": null,
+      "discount_end": 1786726838,
       "scraped_at": 1786629749
     },
     "4595540": {
@@ -733494,7 +733494,7 @@
       "price_initial": 3.99,
       "price_final": 2.99,
       "discount_pct": 25,
-      "discount_end": null,
+      "discount_end": 1787072400,
       "scraped_at": 1786629749
     },
     "4595710": {
@@ -733550,7 +733550,7 @@
       "price_initial": 14.99,
       "price_final": 10.04,
       "discount_pct": 33,
-      "discount_end": null,
+      "discount_end": 1787245223,
       "scraped_at": 1786629749
     },
     "4596480": {
@@ -733606,7 +733606,7 @@
       "price_initial": 4.99,
       "price_final": 2.49,
       "discount_pct": 50,
-      "discount_end": null,
+      "discount_end": 1787065200,
       "scraped_at": 1786629749
     },
     "4596860": {
@@ -733662,7 +733662,7 @@
       "price_initial": 5.0,
       "price_final": 4.0,
       "discount_pct": 20,
-      "discount_end": null,
+      "discount_end": 1786986018,
       "scraped_at": 1786629749
     },
     "4597310": {
@@ -733718,7 +733718,7 @@
       "price_initial": 2.99,
       "price_final": 2.09,
       "discount_pct": 30,
-      "discount_end": null,
+      "discount_end": 1786899600,
       "scraped_at": 1786629749
     },
     "4597670": {
@@ -733760,7 +733760,7 @@
       "price_initial": 4.99,
       "price_final": 4.24,
       "discount_pct": 15,
-      "discount_end": null,
+      "discount_end": 1787158818,
       "scraped_at": 1786629749
     },
     "4598300": {
@@ -733816,7 +733816,7 @@
       "price_initial": 16.49,
       "price_final": 13.19,
       "discount_pct": 20,
-      "discount_end": null,
+      "discount_end": 1787158800,
       "scraped_at": 1786629749
     },
     "4599370": {
@@ -733942,7 +733942,7 @@
       "price_initial": 5.99,
       "price_final": 4.79,
       "discount_pct": 20,
-      "discount_end": null,
+      "discount_end": 1787158800,
       "scraped_at": 1786629749
     },
     "4600690": {
@@ -734166,7 +734166,7 @@
       "price_initial": 0.99,
       "price_final": 0.79,
       "discount_pct": 20,
-      "discount_end": null,
+      "discount_end": 1786726852,
       "scraped_at": 1786629749
     },
     "4603600": {
@@ -734474,7 +734474,7 @@
       "price_initial": 9.99,
       "price_final": 5.99,
       "discount_pct": 40,
-      "discount_end": null,
+      "discount_end": 1786813207,
       "scraped_at": 1786629749
     },
     "4607700": {
@@ -734600,7 +734600,7 @@
       "price_initial": 6.0,
       "price_final": 5.4,
       "discount_pct": 10,
-      "discount_end": null,
+      "discount_end": 1786640456,
       "scraped_at": 1786629749
     },
     "4610000": {
@@ -734670,14 +734670,14 @@
       "price_initial": 2.99,
       "price_final": 2.09,
       "discount_pct": 30,
-      "discount_end": null,
+      "discount_end": 1787418000,
       "scraped_at": 1786629749
     },
     "4610760": {
       "price_initial": 7.99,
       "price_final": 3.99,
       "discount_pct": 50,
-      "discount_end": null,
+      "discount_end": 1786986000,
       "scraped_at": 1786629749
     },
     "4610780": {
@@ -734754,7 +734754,7 @@
       "price_initial": 13.99,
       "price_final": 10.49,
       "discount_pct": 25,
-      "discount_end": null,
+      "discount_end": 1786975200,
       "scraped_at": 1786629749
     },
     "4611470": {
@@ -734831,7 +734831,7 @@
       "price_initial": 6.99,
       "price_final": 5.24,
       "discount_pct": 25,
-      "discount_end": null,
+      "discount_end": 1787418000,
       "scraped_at": 1786629749
     },
     "4612870": {
@@ -734929,7 +734929,7 @@
       "price_initial": 6.99,
       "price_final": 5.03,
       "discount_pct": 28,
-      "discount_end": null,
+      "discount_end": 1786723200,
       "scraped_at": 1786629749
     },
     "4614290": {
@@ -734964,7 +734964,7 @@
       "price_initial": 8.99,
       "price_final": 8.09,
       "discount_pct": 10,
-      "discount_end": null,
+      "discount_end": 1787158825,
       "scraped_at": 1786629749
     },
     "4614780": {
@@ -734999,7 +734999,7 @@
       "price_initial": 7.99,
       "price_final": 3.99,
       "discount_pct": 50,
-      "discount_end": null,
+      "discount_end": 1786986000,
       "scraped_at": 1786629749
     },
     "4614930": {
@@ -735209,7 +735209,7 @@
       "price_initial": 6.99,
       "price_final": 6.29,
       "discount_pct": 10,
-      "discount_end": null,
+      "discount_end": 1786726817,
       "scraped_at": 1786629749
     },
     "4617640": {
@@ -735230,14 +735230,14 @@
       "price_initial": 1.99,
       "price_final": 0.69,
       "discount_pct": 65,
-      "discount_end": null,
+      "discount_end": 1786986000,
       "scraped_at": 1786629749
     },
     "4618090": {
       "price_initial": 1.99,
       "price_final": 0.79,
       "discount_pct": 60,
-      "discount_end": null,
+      "discount_end": 1787590800,
       "scraped_at": 1786629749
     },
     "4618160": {
@@ -735251,7 +735251,7 @@
       "price_initial": 7.99,
       "price_final": 5.99,
       "discount_pct": 25,
-      "discount_end": null,
+      "discount_end": 1786899600,
       "scraped_at": 1786629749
     },
     "4618290": {
@@ -735349,7 +735349,7 @@
       "price_initial": 2.99,
       "price_final": 2.09,
       "discount_pct": 30,
-      "discount_end": null,
+      "discount_end": 1786726800,
       "scraped_at": 1786629749
     },
     "4619420": {
@@ -735377,7 +735377,7 @@
       "price_initial": 5.99,
       "price_final": 4.79,
       "discount_pct": 20,
-      "discount_end": null,
+      "discount_end": 1786892400,
       "scraped_at": 1786629749
     },
     "4619950": {
@@ -735433,7 +735433,7 @@
       "price_initial": 12.99,
       "price_final": 11.69,
       "discount_pct": 10,
-      "discount_end": null,
+      "discount_end": 1786726819,
       "scraped_at": 1786629749
     },
     "4620810": {
@@ -735482,7 +735482,7 @@
       "price_initial": 4.49,
       "price_final": 3.14,
       "discount_pct": 30,
-      "discount_end": null,
+      "discount_end": 1786813205,
       "scraped_at": 1786629749
     },
     "4621450": {
@@ -735573,7 +735573,7 @@
       "price_initial": 1.99,
       "price_final": 1.79,
       "discount_pct": 10,
-      "discount_end": null,
+      "discount_end": 1787590800,
       "scraped_at": 1786629749
     },
     "4622180": {
@@ -735720,7 +735720,7 @@
       "price_initial": 6.99,
       "price_final": 4.89,
       "discount_pct": 30,
-      "discount_end": null,
+      "discount_end": 1786813200,
       "scraped_at": 1786629749
     },
     "4624560": {
@@ -735832,7 +735832,7 @@
       "price_initial": 12.99,
       "price_final": 9.87,
       "discount_pct": 24,
-      "discount_end": null,
+      "discount_end": 1787072414,
       "scraped_at": 1786629749
     },
     "4626350": {
@@ -735860,7 +735860,7 @@
       "price_initial": 1.99,
       "price_final": 0.99,
       "discount_pct": 50,
-      "discount_end": null,
+      "discount_end": 1787418000,
       "scraped_at": 1786629749
     },
     "4626550": {
@@ -735930,7 +735930,7 @@
       "price_initial": 1.99,
       "price_final": 1.23,
       "discount_pct": 38,
-      "discount_end": null,
+      "discount_end": 1786899644,
       "scraped_at": 1786629749
     },
     "4627630": {
@@ -735951,7 +735951,7 @@
       "price_initial": 0.99,
       "price_final": 0.49,
       "discount_pct": 51,
-      "discount_end": null,
+      "discount_end": 1786986000,
       "scraped_at": 1786629749
     },
     "4627720": {
@@ -736056,7 +736056,7 @@
       "price_initial": 0.99,
       "price_final": 0.84,
       "discount_pct": 15,
-      "discount_end": null,
+      "discount_end": 1786986000,
       "scraped_at": 1786629749
     },
     "4629400": {
@@ -736098,7 +736098,7 @@
       "price_initial": 12.99,
       "price_final": 10.0,
       "discount_pct": 23,
-      "discount_end": null,
+      "discount_end": 1786640436,
       "scraped_at": 1786629749
     },
     "4629780": {
@@ -736252,7 +736252,7 @@
       "price_initial": 3.99,
       "price_final": 3.19,
       "discount_pct": 20,
-      "discount_end": null,
+      "discount_end": 1787418000,
       "scraped_at": 1786629749
     },
     "4631250": {
@@ -736280,7 +736280,7 @@
       "price_initial": 7.99,
       "price_final": 7.19,
       "discount_pct": 10,
-      "discount_end": null,
+      "discount_end": 1786986014,
       "scraped_at": 1786629749
     },
     "4631800": {
@@ -736350,7 +736350,7 @@
       "price_initial": 2.99,
       "price_final": 1.79,
       "discount_pct": 40,
-      "discount_end": null,
+      "discount_end": 1787418000,
       "scraped_at": 1786629749
     },
     "4633000": {
@@ -736364,7 +736364,7 @@
       "price_initial": 4.99,
       "price_final": 2.49,
       "discount_pct": 50,
-      "discount_end": null,
+      "discount_end": 1787331600,
       "scraped_at": 1786629749
     },
     "4633020": {
@@ -736385,7 +736385,7 @@
       "price_initial": 2.99,
       "price_final": 1.19,
       "discount_pct": 60,
-      "discount_end": null,
+      "discount_end": 1787040000,
       "scraped_at": 1786629749
     },
     "4633230": {
@@ -736518,7 +736518,7 @@
       "price_initial": 9.99,
       "price_final": 7.99,
       "discount_pct": 20,
-      "discount_end": null,
+      "discount_end": 1786726800,
       "scraped_at": 1786629749
     },
     "4634810": {
@@ -736567,7 +736567,7 @@
       "price_initial": 9.99,
       "price_final": 5.99,
       "discount_pct": 40,
-      "discount_end": null,
+      "discount_end": 1787763634,
       "scraped_at": 1786629749
     },
     "4635540": {
@@ -736602,7 +736602,7 @@
       "price_initial": 3.99,
       "price_final": 2.59,
       "discount_pct": 35,
-      "discount_end": null,
+      "discount_end": 1787158800,
       "scraped_at": 1786629749
     },
     "4636080": {
@@ -736651,7 +736651,7 @@
       "price_initial": 4.99,
       "price_final": 2.99,
       "discount_pct": 40,
-      "discount_end": null,
+      "discount_end": 1786640400,
       "scraped_at": 1786629749
     },
     "4636720": {
@@ -736686,7 +736686,7 @@
       "price_initial": 4.99,
       "price_final": 3.99,
       "discount_pct": 20,
-      "discount_end": null,
+      "discount_end": 1787590820,
       "scraped_at": 1786629749
     },
     "4637070": {
@@ -736777,14 +736777,14 @@
       "price_initial": 3.99,
       "price_final": 3.39,
       "discount_pct": 15,
-      "discount_end": null,
+      "discount_end": 1786640414,
       "scraped_at": 1786629749
     },
     "4638460": {
       "price_initial": 9.79,
       "price_final": 6.46,
       "discount_pct": 34,
-      "discount_end": null,
+      "discount_end": 1787158800,
       "scraped_at": 1786629749
     },
     "4638580": {
@@ -736833,7 +736833,7 @@
       "price_initial": 6.99,
       "price_final": 5.94,
       "discount_pct": 15,
-      "discount_end": null,
+      "discount_end": 1787677246,
       "scraped_at": 1786629749
     },
     "4639110": {
@@ -736896,7 +736896,7 @@
       "price_initial": 2.99,
       "price_final": 2.0,
       "discount_pct": 33,
-      "discount_end": null,
+      "discount_end": 1786633200,
       "scraped_at": 1786629749
     },
     "4640540": {
@@ -736917,7 +736917,7 @@
       "price_initial": 5.87,
       "price_final": 4.1,
       "discount_pct": 30,
-      "discount_end": null,
+      "discount_end": 1787072400,
       "scraped_at": 1786629749
     },
     "4641100": {
@@ -737050,7 +737050,7 @@
       "price_initial": 4.99,
       "price_final": 3.99,
       "discount_pct": 20,
-      "discount_end": null,
+      "discount_end": 1787590808,
       "scraped_at": 1786629749
     },
     "4643160": {
@@ -737232,7 +737232,7 @@
       "price_initial": 5.99,
       "price_final": 4.79,
       "discount_pct": 20,
-      "discount_end": null,
+      "discount_end": 1786986000,
       "scraped_at": 1786629749
     },
     "4645430": {
@@ -737260,7 +737260,7 @@
       "price_initial": 0.99,
       "price_final": 0.89,
       "discount_pct": 10,
-      "discount_end": null,
+      "discount_end": 1786640410,
       "scraped_at": 1786629749
     },
     "4645730": {
@@ -737358,7 +737358,7 @@
       "price_initial": 2.99,
       "price_final": 2.69,
       "discount_pct": 10,
-      "discount_end": null,
+      "discount_end": 1786726843,
       "scraped_at": 1786629749
     },
     "4646790": {
@@ -737407,7 +737407,7 @@
       "price_initial": 2.99,
       "price_final": 2.39,
       "discount_pct": 20,
-      "discount_end": null,
+      "discount_end": 1786986016,
       "scraped_at": 1786629749
     },
     "4650560": {
@@ -737491,7 +737491,7 @@
       "price_initial": 3.99,
       "price_final": 2.99,
       "discount_pct": 25,
-      "discount_end": null,
+      "discount_end": 1786726800,
       "scraped_at": 1786629749
     },
     "4651320": {
@@ -737519,7 +737519,7 @@
       "price_initial": 9.99,
       "price_final": 3.99,
       "discount_pct": 60,
-      "discount_end": null,
+      "discount_end": 1787677200,
       "scraped_at": 1786629749
     },
     "4651870": {
@@ -737610,7 +737610,7 @@
       "price_initial": 9.99,
       "price_final": 7.99,
       "discount_pct": 20,
-      "discount_end": null,
+      "discount_end": 1786813200,
       "scraped_at": 1786629749
     },
     "4653570": {
@@ -737652,7 +737652,7 @@
       "price_initial": 4.99,
       "price_final": 4.49,
       "discount_pct": 10,
-      "discount_end": null,
+      "discount_end": 1787490000,
       "scraped_at": 1786629749
     },
     "4653950": {
@@ -737680,7 +737680,7 @@
       "price_initial": 9.99,
       "price_final": 4.99,
       "discount_pct": 50,
-      "discount_end": null,
+      "discount_end": 1786791600,
       "scraped_at": 1786629749
     },
     "4654140": {
@@ -737841,7 +737841,7 @@
       "price_initial": 3.99,
       "price_final": 0.67,
       "discount_pct": 83,
-      "discount_end": null,
+      "discount_end": 1786986000,
       "scraped_at": 1786629749
     },
     "4656180": {
@@ -737974,7 +737974,7 @@
       "price_initial": 14.99,
       "price_final": 9.29,
       "discount_pct": 38,
-      "discount_end": null,
+      "discount_end": 1787331600,
       "scraped_at": 1786629749
     },
     "4657900": {
@@ -738037,7 +738037,7 @@
       "price_initial": 4.99,
       "price_final": 1.24,
       "discount_pct": 75,
-      "discount_end": null,
+      "discount_end": 1786986000,
       "scraped_at": 1786629749
     },
     "4659280": {
@@ -738058,7 +738058,7 @@
       "price_initial": 4.99,
       "price_final": 1.99,
       "discount_pct": 60,
-      "discount_end": null,
+      "discount_end": 1787418000,
       "scraped_at": 1786629749
     },
     "4659450": {
@@ -738086,7 +738086,7 @@
       "price_initial": 1.99,
       "price_final": 1.19,
       "discount_pct": 40,
-      "discount_end": null,
+      "discount_end": 1787504400,
       "scraped_at": 1786629749
     },
     "4659900": {
@@ -738163,7 +738163,7 @@
       "price_initial": 4.99,
       "price_final": 2.49,
       "discount_pct": 50,
-      "discount_end": null,
+      "discount_end": 1786899600,
       "scraped_at": 1786629749
     },
     "4661210": {
@@ -738226,7 +738226,7 @@
       "price_initial": 5.99,
       "price_final": 4.79,
       "discount_pct": 20,
-      "discount_end": null,
+      "discount_end": 1787763658,
       "scraped_at": 1786629749
     },
     "4662130": {
@@ -738303,7 +738303,7 @@
       "price_initial": 4.99,
       "price_final": 3.99,
       "discount_pct": 20,
-      "discount_end": null,
+      "discount_end": 1787331616,
       "scraped_at": 1786629749
     },
     "4663320": {
@@ -738373,7 +738373,7 @@
       "price_initial": 4.99,
       "price_final": 2.99,
       "discount_pct": 40,
-      "discount_end": null,
+      "discount_end": 1786770000,
       "scraped_at": 1786629749
     },
     "4664370": {
@@ -738408,7 +738408,7 @@
       "price_initial": 4.99,
       "price_final": 3.99,
       "discount_pct": 20,
-      "discount_end": null,
+      "discount_end": 1787763658,
       "scraped_at": 1786629749
     },
     "4664920": {
@@ -738443,7 +738443,7 @@
       "price_initial": 1.99,
       "price_final": 1.19,
       "discount_pct": 40,
-      "discount_end": null,
+      "discount_end": 1786726800,
       "scraped_at": 1786629749
     },
     "4665550": {
@@ -738478,7 +738478,7 @@
       "price_initial": 2.99,
       "price_final": 2.69,
       "discount_pct": 10,
-      "discount_end": null,
+      "discount_end": 1786640400,
       "scraped_at": 1786629749
     },
     "4666250": {
@@ -738569,7 +738569,7 @@
       "price_initial": 2.99,
       "price_final": 2.0,
       "discount_pct": 33,
-      "discount_end": null,
+      "discount_end": 1786813200,
       "scraped_at": 1786629749
     },
     "4667980": {
@@ -738590,7 +738590,7 @@
       "price_initial": 4.99,
       "price_final": 4.24,
       "discount_pct": 15,
-      "discount_end": null,
+      "discount_end": 1786726800,
       "scraped_at": 1786629749
     },
     "4668220": {
@@ -738604,7 +738604,7 @@
       "price_initial": 3.99,
       "price_final": 2.79,
       "discount_pct": 30,
-      "discount_end": null,
+      "discount_end": 1787101200,
       "scraped_at": 1786629749
     },
     "4668390": {
@@ -738632,7 +738632,7 @@
       "price_initial": 2.99,
       "price_final": 1.94,
       "discount_pct": 35,
-      "discount_end": null,
+      "discount_end": 1786986000,
       "scraped_at": 1786629749
     },
     "4668590": {
@@ -738674,7 +738674,7 @@
       "price_initial": 5.99,
       "price_final": 0.59,
       "discount_pct": 90,
-      "discount_end": null,
+      "discount_end": 1786899600,
       "scraped_at": 1786629749
     },
     "4669230": {
@@ -738695,7 +738695,7 @@
       "price_initial": 3.99,
       "price_final": 3.39,
       "discount_pct": 15,
-      "discount_end": null,
+      "discount_end": 1786986000,
       "scraped_at": 1786629749
     },
     "4669420": {
@@ -738996,7 +738996,7 @@
       "price_initial": 11.99,
       "price_final": 7.19,
       "discount_pct": 40,
-      "discount_end": null,
+      "discount_end": 1787331617,
       "scraped_at": 1786629749
     },
     "4675970": {
@@ -739087,7 +739087,7 @@
       "price_initial": 0.99,
       "price_final": 0.89,
       "discount_pct": 10,
-      "discount_end": null,
+      "discount_end": 1786640410,
       "scraped_at": 1786629749
     },
     "4677090": {
@@ -739115,7 +739115,7 @@
       "price_initial": 7.99,
       "price_final": 6.39,
       "discount_pct": 20,
-      "discount_end": null,
+      "discount_end": 1787763600,
       "scraped_at": 1786629749
     },
     "4677360": {
@@ -739234,7 +739234,7 @@
       "price_initial": 4.99,
       "price_final": 3.99,
       "discount_pct": 20,
-      "discount_end": null,
+      "discount_end": 1786726800,
       "scraped_at": 1786629749
     },
     "4680930": {
@@ -739395,7 +739395,7 @@
       "price_initial": 6.99,
       "price_final": 4.96,
       "discount_pct": 29,
-      "discount_end": null,
+      "discount_end": 1787158800,
       "scraped_at": 1786629749
     },
     "4683460": {
@@ -739423,7 +739423,7 @@
       "price_initial": 29.99,
       "price_final": 8.99,
       "discount_pct": 70,
-      "discount_end": null,
+      "discount_end": 1787329986,
       "scraped_at": 1786629749
     },
     "4684040": {
@@ -739493,7 +739493,7 @@
       "price_initial": 24.99,
       "price_final": 18.74,
       "discount_pct": 25,
-      "discount_end": null,
+      "discount_end": 1787331600,
       "scraped_at": 1786629749
     },
     "4685570": {
@@ -739521,7 +739521,7 @@
       "price_initial": 6.99,
       "price_final": 4.89,
       "discount_pct": 30,
-      "discount_end": null,
+      "discount_end": 1787072444,
       "scraped_at": 1786629749
     },
     "4686000": {
@@ -739794,7 +739794,7 @@
       "price_initial": 5.99,
       "price_final": 4.79,
       "discount_pct": 20,
-      "discount_end": null,
+      "discount_end": 1786726800,
       "scraped_at": 1786629749
     },
     "4691130": {
@@ -739969,7 +739969,7 @@
       "price_initial": 2.99,
       "price_final": 2.39,
       "discount_pct": 20,
-      "discount_end": null,
+      "discount_end": 1786986000,
       "scraped_at": 1786629749
     },
     "4693570": {
@@ -740305,7 +740305,7 @@
       "price_initial": 5.99,
       "price_final": 3.59,
       "discount_pct": 40,
-      "discount_end": null,
+      "discount_end": 1787418000,
       "scraped_at": 1786629749
     },
     "4697290": {
@@ -740361,7 +740361,7 @@
       "price_initial": 4.99,
       "price_final": 1.99,
       "discount_pct": 60,
-      "discount_end": null,
+      "discount_end": 1787158800,
       "scraped_at": 1786629749
     },
     "4698200": {
@@ -740389,7 +740389,7 @@
       "price_initial": 3.99,
       "price_final": 2.99,
       "discount_pct": 25,
-      "discount_end": null,
+      "discount_end": 1786986000,
       "scraped_at": 1786629749
     },
     "4698440": {
@@ -740417,14 +740417,14 @@
       "price_initial": 5.99,
       "price_final": 4.79,
       "discount_pct": 20,
-      "discount_end": null,
+      "discount_end": 1786726800,
       "scraped_at": 1786629749
     },
     "4698720": {
       "price_initial": 6.99,
       "price_final": 4.19,
       "discount_pct": 40,
-      "discount_end": null,
+      "discount_end": 1786986000,
       "scraped_at": 1786629749
     },
     "4698780": {
@@ -740501,7 +740501,7 @@
       "price_initial": 2.99,
       "price_final": 2.06,
       "discount_pct": 31,
-      "discount_end": null,
+      "discount_end": 1786899644,
       "scraped_at": 1786629749
     },
     "4699430": {
@@ -740592,7 +740592,7 @@
       "price_initial": 0.99,
       "price_final": 0.79,
       "discount_pct": 20,
-      "discount_end": null,
+      "discount_end": 1786986000,
       "scraped_at": 1786629749
     },
     "4700970": {
@@ -740739,7 +740739,7 @@
       "price_initial": 2.99,
       "price_final": 2.69,
       "discount_pct": 10,
-      "discount_end": null,
+      "discount_end": 1787072400,
       "scraped_at": 1786629749
     },
     "4703350": {
@@ -740767,7 +740767,7 @@
       "price_initial": 4.99,
       "price_final": 3.74,
       "discount_pct": 25,
-      "discount_end": null,
+      "discount_end": 1787040000,
       "scraped_at": 1786629749
     },
     "4703660": {
@@ -740802,7 +740802,7 @@
       "price_initial": 4.99,
       "price_final": 4.49,
       "discount_pct": 10,
-      "discount_end": null,
+      "discount_end": 1787158824,
       "scraped_at": 1786629749
     },
     "4704020": {
@@ -740858,7 +740858,7 @@
       "price_initial": 0.99,
       "price_final": 0.49,
       "discount_pct": 51,
-      "discount_end": null,
+      "discount_end": 1786899600,
       "scraped_at": 1786629749
     },
     "4704480": {
@@ -740949,7 +740949,7 @@
       "price_initial": 9.99,
       "price_final": 8.49,
       "discount_pct": 15,
-      "discount_end": null,
+      "discount_end": 1786986023,
       "scraped_at": 1786629749
     },
     "4705520": {
@@ -740977,14 +740977,14 @@
       "price_initial": 6.99,
       "price_final": 4.54,
       "discount_pct": 35,
-      "discount_end": null,
+      "discount_end": 1787331600,
       "scraped_at": 1786629749
     },
     "4705650": {
       "price_initial": 17.99,
       "price_final": 14.39,
       "discount_pct": 20,
-      "discount_end": null,
+      "discount_end": 1787158818,
       "scraped_at": 1786629749
     },
     "4705700": {
@@ -741089,7 +741089,7 @@
       "price_initial": 1.5,
       "price_final": 0.75,
       "discount_pct": 50,
-      "discount_end": null,
+      "discount_end": 1787151600,
       "scraped_at": 1786629749
     },
     "4707410": {
@@ -741152,7 +741152,7 @@
       "price_initial": 3.99,
       "price_final": 2.99,
       "discount_pct": 25,
-      "discount_end": null,
+      "discount_end": 1786640430,
       "scraped_at": 1786629749
     },
     "4708080": {
@@ -741194,7 +741194,7 @@
       "price_initial": 2.99,
       "price_final": 1.49,
       "discount_pct": 50,
-      "discount_end": null,
+      "discount_end": 1786726800,
       "scraped_at": 1786629749
     },
     "4708620": {
@@ -741208,7 +741208,7 @@
       "price_initial": 1.99,
       "price_final": 0.99,
       "discount_pct": 50,
-      "discount_end": null,
+      "discount_end": 1786726800,
       "scraped_at": 1786629749
     },
     "4708860": {
@@ -741243,7 +741243,7 @@
       "price_initial": 2.99,
       "price_final": 2.0,
       "discount_pct": 33,
-      "discount_end": null,
+      "discount_end": 1786899600,
       "scraped_at": 1786629749
     },
     "4709580": {
@@ -741348,7 +741348,7 @@
       "price_initial": 0.99,
       "price_final": 0.59,
       "discount_pct": 40,
-      "discount_end": null,
+      "discount_end": 1786726801,
       "scraped_at": 1786629749
     },
     "4710580": {
@@ -741425,7 +741425,7 @@
       "price_initial": 2.99,
       "price_final": 0.83,
       "discount_pct": 72,
-      "discount_end": null,
+      "discount_end": 1787158800,
       "scraped_at": 1786629749
     },
     "4711390": {
@@ -741453,14 +741453,14 @@
       "price_initial": 6.99,
       "price_final": 3.49,
       "discount_pct": 50,
-      "discount_end": null,
+      "discount_end": 1786899600,
       "scraped_at": 1786629749
     },
     "4711990": {
       "price_initial": 6.0,
       "price_final": 1.5,
       "discount_pct": 75,
-      "discount_end": null,
+      "discount_end": 1787158800,
       "scraped_at": 1786629749
     },
     "4712070": {
@@ -741474,7 +741474,7 @@
       "price_initial": 9.99,
       "price_final": 7.99,
       "discount_pct": 20,
-      "discount_end": null,
+      "discount_end": 1787158800,
       "scraped_at": 1786629749
     },
     "4712300": {
@@ -741488,7 +741488,7 @@
       "price_initial": 9.99,
       "price_final": 8.99,
       "discount_pct": 10,
-      "discount_end": null,
+      "discount_end": 1786899600,
       "scraped_at": 1786629749
     },
     "4712460": {
@@ -741502,14 +741502,14 @@
       "price_initial": 14.99,
       "price_final": 13.19,
       "discount_pct": 12,
-      "discount_end": null,
+      "discount_end": 1787072405,
       "scraped_at": 1786629749
     },
     "4712510": {
       "price_initial": 2.99,
       "price_final": 2.06,
       "discount_pct": 31,
-      "discount_end": null,
+      "discount_end": 1786899644,
       "scraped_at": 1786629749
     },
     "4712560": {
@@ -741523,7 +741523,7 @@
       "price_initial": 4.99,
       "price_final": 1.99,
       "discount_pct": 60,
-      "discount_end": null,
+      "discount_end": 1787245200,
       "scraped_at": 1786629749
     },
     "4712720": {
@@ -741537,7 +741537,7 @@
       "price_initial": 5.99,
       "price_final": 4.79,
       "discount_pct": 20,
-      "discount_end": null,
+      "discount_end": 1786986000,
       "scraped_at": 1786629749
     },
     "4712900": {
@@ -741565,7 +741565,7 @@
       "price_initial": 7.99,
       "price_final": 6.39,
       "discount_pct": 20,
-      "discount_end": null,
+      "discount_end": 1786726851,
       "scraped_at": 1786629749
     },
     "4714260": {
@@ -741670,7 +741670,7 @@
       "price_initial": 2.49,
       "price_final": 1.24,
       "discount_pct": 50,
-      "discount_end": null,
+      "discount_end": 1787245200,
       "scraped_at": 1786629749
     },
     "4716620": {
@@ -741705,7 +741705,7 @@
       "price_initial": 6.99,
       "price_final": 4.19,
       "discount_pct": 40,
-      "discount_end": null,
+      "discount_end": 1787504400,
       "scraped_at": 1786629749
     },
     "4717430": {
@@ -741733,7 +741733,7 @@
       "price_initial": 9.99,
       "price_final": 7.99,
       "discount_pct": 20,
-      "discount_end": null,
+      "discount_end": 1786986000,
       "scraped_at": 1786629749
     },
     "4717690": {
@@ -741775,7 +741775,7 @@
       "price_initial": 4.99,
       "price_final": 2.99,
       "discount_pct": 40,
-      "discount_end": null,
+      "discount_end": 1787331600,
       "scraped_at": 1786629749
     },
     "4718440": {
@@ -741796,7 +741796,7 @@
       "price_initial": 0.99,
       "price_final": 0.49,
       "discount_pct": 51,
-      "discount_end": null,
+      "discount_end": 1786640402,
       "scraped_at": 1786629749
     },
     "4718830": {
@@ -741929,14 +741929,14 @@
       "price_initial": 1.99,
       "price_final": 1.19,
       "discount_pct": 40,
-      "discount_end": null,
+      "discount_end": 1787590800,
       "scraped_at": 1786629749
     },
     "4720850": {
       "price_initial": 1.99,
       "price_final": 1.19,
       "discount_pct": 40,
-      "discount_end": null,
+      "discount_end": 1786640454,
       "scraped_at": 1786629749
     },
     "4720860": {
@@ -741957,7 +741957,7 @@
       "price_initial": 1.99,
       "price_final": 0.79,
       "discount_pct": 60,
-      "discount_end": null,
+      "discount_end": 1786813200,
       "scraped_at": 1786629749
     },
     "4721080": {
@@ -742153,7 +742153,7 @@
       "price_initial": 1.99,
       "price_final": 0.69,
       "discount_pct": 65,
-      "discount_end": null,
+      "discount_end": 1786986000,
       "scraped_at": 1786629749
     },
     "4725980": {
@@ -742391,7 +742391,7 @@
       "price_initial": 2.99,
       "price_final": 2.09,
       "discount_pct": 30,
-      "discount_end": null,
+      "discount_end": 1787677253,
       "scraped_at": 1786629749
     },
     "4729300": {
@@ -742426,7 +742426,7 @@
       "price_initial": 6.99,
       "price_final": 3.49,
       "discount_pct": 50,
-      "discount_end": null,
+      "discount_end": 1786986000,
       "scraped_at": 1786629749
     },
     "4729520": {
@@ -742524,7 +742524,7 @@
       "price_initial": 7.99,
       "price_final": 5.35,
       "discount_pct": 33,
-      "discount_end": null,
+      "discount_end": 1787331600,
       "scraped_at": 1786629749
     },
     "4731050": {
@@ -742538,7 +742538,7 @@
       "price_initial": 2.99,
       "price_final": 2.06,
       "discount_pct": 31,
-      "discount_end": null,
+      "discount_end": 1786899644,
       "scraped_at": 1786629749
     },
     "4731130": {
@@ -742685,7 +742685,7 @@
       "price_initial": 4.99,
       "price_final": 3.99,
       "discount_pct": 20,
-      "discount_end": null,
+      "discount_end": 1786813215,
       "scraped_at": 1786629749
     },
     "4733420": {
@@ -742762,7 +742762,7 @@
       "price_initial": 4.79,
       "price_final": 3.83,
       "discount_pct": 20,
-      "discount_end": null,
+      "discount_end": 1786640400,
       "scraped_at": 1786629749
     },
     "4733960": {
@@ -742825,7 +742825,7 @@
       "price_initial": 3.99,
       "price_final": 2.39,
       "discount_pct": 40,
-      "discount_end": null,
+      "discount_end": 1786986000,
       "scraped_at": 1786629749
     },
     "4734490": {
@@ -742853,7 +742853,7 @@
       "price_initial": 2.49,
       "price_final": 1.74,
       "discount_pct": 30,
-      "discount_end": null,
+      "discount_end": 1786726834,
       "scraped_at": 1786629749
     },
     "4734790": {
@@ -742902,7 +742902,7 @@
       "price_initial": 6.99,
       "price_final": 6.29,
       "discount_pct": 10,
-      "discount_end": null,
+      "discount_end": 1787677256,
       "scraped_at": 1786629749
     },
     "4735710": {
@@ -743098,7 +743098,7 @@
       "price_initial": 6.99,
       "price_final": 6.29,
       "discount_pct": 10,
-      "discount_end": null,
+      "discount_end": 1786986000,
       "scraped_at": 1786629749
     },
     "4739020": {
@@ -743217,7 +743217,7 @@
       "price_initial": 5.99,
       "price_final": 5.09,
       "discount_pct": 15,
-      "discount_end": null,
+      "discount_end": 1787331639,
       "scraped_at": 1786629749
     },
     "4741850": {
@@ -743280,7 +743280,7 @@
       "price_initial": 2.99,
       "price_final": 2.54,
       "discount_pct": 15,
-      "discount_end": null,
+      "discount_end": 1786986008,
       "scraped_at": 1786629749
     },
     "4743320": {
@@ -743378,7 +743378,7 @@
       "price_initial": 12.79,
       "price_final": 9.2,
       "discount_pct": 28,
-      "discount_end": null,
+      "discount_end": 1787158800,
       "scraped_at": 1786629749
     },
     "4745310": {
@@ -743392,7 +743392,7 @@
       "price_initial": 9.99,
       "price_final": 5.99,
       "discount_pct": 40,
-      "discount_end": null,
+      "discount_end": 1787072400,
       "scraped_at": 1786629749
     },
     "4745430": {
@@ -743434,7 +743434,7 @@
       "price_initial": 5.99,
       "price_final": 4.79,
       "discount_pct": 20,
-      "discount_end": null,
+      "discount_end": 1787158853,
       "scraped_at": 1786629749
     },
     "4745770": {
@@ -743469,14 +743469,14 @@
       "price_initial": 4.99,
       "price_final": 4.49,
       "discount_pct": 10,
-      "discount_end": null,
+      "discount_end": 1786640449,
       "scraped_at": 1786629749
     },
     "4746070": {
       "price_initial": 10.0,
       "price_final": 7.0,
       "discount_pct": 30,
-      "discount_end": null,
+      "discount_end": 1787245200,
       "scraped_at": 1786629749
     },
     "4746090": {
@@ -743553,7 +743553,7 @@
       "price_initial": 2.99,
       "price_final": 2.39,
       "discount_pct": 20,
-      "discount_end": null,
+      "discount_end": 1786667820,
       "scraped_at": 1786629749
     },
     "4747210": {
@@ -743581,7 +743581,7 @@
       "price_initial": 7.99,
       "price_final": 4.79,
       "discount_pct": 40,
-      "discount_end": null,
+      "discount_end": 1787245254,
       "scraped_at": 1786629749
     },
     "4747800": {
@@ -743658,7 +743658,7 @@
       "price_initial": 7.99,
       "price_final": 6.79,
       "discount_pct": 15,
-      "discount_end": null,
+      "discount_end": 1786726806,
       "scraped_at": 1786629749
     },
     "4748490": {
@@ -743721,7 +743721,7 @@
       "price_initial": 0.99,
       "price_final": 0.49,
       "discount_pct": 51,
-      "discount_end": null,
+      "discount_end": 1787504400,
       "scraped_at": 1786629749
     },
     "4749180": {
@@ -743833,7 +743833,7 @@
       "price_initial": 10.99,
       "price_final": 1.09,
       "discount_pct": 90,
-      "discount_end": null,
+      "discount_end": 1786726841,
       "scraped_at": 1786629749
     },
     "4751340": {
@@ -743931,7 +743931,7 @@
       "price_initial": 4.99,
       "price_final": 3.49,
       "discount_pct": 30,
-      "discount_end": null,
+      "discount_end": 1787274000,
       "scraped_at": 1786629749
     },
     "4752860": {
@@ -743980,7 +743980,7 @@
       "price_initial": 4.99,
       "price_final": 4.24,
       "discount_pct": 15,
-      "discount_end": null,
+      "discount_end": 1786986053,
       "scraped_at": 1786629749
     },
     "4753420": {
@@ -744008,7 +744008,7 @@
       "price_initial": 2.99,
       "price_final": 2.09,
       "discount_pct": 30,
-      "discount_end": null,
+      "discount_end": 1787072420,
       "scraped_at": 1786629749
     },
     "4753590": {
@@ -744078,7 +744078,7 @@
       "price_initial": 8.99,
       "price_final": 5.39,
       "discount_pct": 40,
-      "discount_end": null,
+      "discount_end": 1786640440,
       "scraped_at": 1786629749
     },
     "4754650": {
@@ -744239,7 +744239,7 @@
       "price_initial": 3.99,
       "price_final": 3.59,
       "discount_pct": 10,
-      "discount_end": null,
+      "discount_end": 1786640456,
       "scraped_at": 1786629749
     },
     "4757460": {
@@ -744288,7 +744288,7 @@
       "price_initial": 1.99,
       "price_final": 1.19,
       "discount_pct": 40,
-      "discount_end": null,
+      "discount_end": 1787245200,
       "scraped_at": 1786629749
     },
     "4758660": {
@@ -744351,7 +744351,7 @@
       "price_initial": 1.99,
       "price_final": 1.79,
       "discount_pct": 10,
-      "discount_end": null,
+      "discount_end": 1787158832,
       "scraped_at": 1786629749
     },
     "4760490": {
@@ -744365,7 +744365,7 @@
       "price_initial": 3.99,
       "price_final": 3.19,
       "discount_pct": 20,
-      "discount_end": null,
+      "discount_end": 1786986000,
       "scraped_at": 1786629749
     },
     "4760830": {
@@ -744386,7 +744386,7 @@
       "price_initial": 3.99,
       "price_final": 2.95,
       "discount_pct": 26,
-      "discount_end": null,
+      "discount_end": 1787158852,
       "scraped_at": 1786629749
     },
     "4761300": {
@@ -744540,7 +744540,7 @@
       "price_initial": 2.49,
       "price_final": 2.24,
       "discount_pct": 10,
-      "discount_end": null,
+      "discount_end": 1787245255,
       "scraped_at": 1786629749
     },
     "4763100": {
@@ -744561,7 +744561,7 @@
       "price_initial": 8.0,
       "price_final": 6.0,
       "discount_pct": 25,
-      "discount_end": null,
+      "discount_end": 1786873303,
       "scraped_at": 1786629749
     },
     "4763530": {
@@ -744624,7 +744624,7 @@
       "price_initial": 1.49,
       "price_final": 1.19,
       "discount_pct": 20,
-      "discount_end": null,
+      "discount_end": 1786726800,
       "scraped_at": 1786629749
     },
     "4764300": {
@@ -744645,7 +744645,7 @@
       "price_initial": 14.99,
       "price_final": 9.74,
       "discount_pct": 35,
-      "discount_end": null,
+      "discount_end": 1787331648,
       "scraped_at": 1786629749
     },
     "4764570": {
@@ -744673,7 +744673,7 @@
       "price_initial": 4.99,
       "price_final": 3.99,
       "discount_pct": 20,
-      "discount_end": null,
+      "discount_end": 1787418000,
       "scraped_at": 1786629749
     },
     "4765120": {
@@ -744694,7 +744694,7 @@
       "price_initial": 0.99,
       "price_final": 0.79,
       "discount_pct": 20,
-      "discount_end": null,
+      "discount_end": 1787245244,
       "scraped_at": 1786629749
     },
     "4765440": {
@@ -744743,7 +744743,7 @@
       "price_initial": 4.99,
       "price_final": 3.49,
       "discount_pct": 30,
-      "discount_end": null,
+      "discount_end": 1786640400,
       "scraped_at": 1786629749
     },
     "4766230": {
@@ -744806,7 +744806,7 @@
       "price_initial": 4.99,
       "price_final": 3.99,
       "discount_pct": 20,
-      "discount_end": null,
+      "discount_end": 1787241600,
       "scraped_at": 1786629749
     },
     "4767030": {
@@ -744834,14 +744834,14 @@
       "price_initial": 2.99,
       "price_final": 2.24,
       "discount_pct": 25,
-      "discount_end": null,
+      "discount_end": 1787504400,
       "scraped_at": 1786629749
     },
     "4768210": {
       "price_initial": 2.99,
       "price_final": 2.39,
       "discount_pct": 20,
-      "discount_end": null,
+      "discount_end": 1786640458,
       "scraped_at": 1786629749
     },
     "4768400": {
@@ -744918,14 +744918,14 @@
       "price_initial": 4.99,
       "price_final": 2.99,
       "discount_pct": 40,
-      "discount_end": null,
+      "discount_end": 1787245200,
       "scraped_at": 1786629749
     },
     "4769580": {
       "price_initial": 0.99,
       "price_final": 0.79,
       "discount_pct": 20,
-      "discount_end": null,
+      "discount_end": 1786986000,
       "scraped_at": 1786629749
     },
     "4769620": {
@@ -745051,7 +745051,7 @@
       "price_initial": 5.99,
       "price_final": 4.97,
       "discount_pct": 17,
-      "discount_end": null,
+      "discount_end": 1786640451,
       "scraped_at": 1786629749
     },
     "4772030": {
@@ -745149,7 +745149,7 @@
       "price_initial": 3.99,
       "price_final": 3.59,
       "discount_pct": 10,
-      "discount_end": null,
+      "discount_end": 1787418000,
       "scraped_at": 1786629749
     },
     "4773850": {
@@ -745240,7 +745240,7 @@
       "price_initial": 9.99,
       "price_final": 7.99,
       "discount_pct": 20,
-      "discount_end": null,
+      "discount_end": 1786986025,
       "scraped_at": 1786629749
     },
     "4774990": {
@@ -745268,7 +745268,7 @@
       "price_initial": 0.99,
       "price_final": 0.74,
       "discount_pct": 25,
-      "discount_end": null,
+      "discount_end": 1786986000,
       "scraped_at": 1786629749
     },
     "4775190": {
@@ -745429,7 +745429,7 @@
       "price_initial": 19.99,
       "price_final": 9.99,
       "discount_pct": 50,
-      "discount_end": null,
+      "discount_end": 1786899600,
       "scraped_at": 1786629749
     },
     "4778810": {
@@ -745646,7 +745646,7 @@
       "price_initial": 4.99,
       "price_final": 4.49,
       "discount_pct": 10,
-      "discount_end": null,
+      "discount_end": 1786986033,
       "scraped_at": 1786629749
     },
     "4782800": {
@@ -745765,7 +745765,7 @@
       "price_initial": 0.99,
       "price_final": 0.79,
       "discount_pct": 20,
-      "discount_end": null,
+      "discount_end": 1787590828,
       "scraped_at": 1786629749
     },
     "4784360": {
@@ -745793,7 +745793,7 @@
       "price_initial": 2.99,
       "price_final": 2.06,
       "discount_pct": 31,
-      "discount_end": null,
+      "discount_end": 1786899644,
       "scraped_at": 1786629749
     },
     "4785040": {
@@ -745835,7 +745835,7 @@
       "price_initial": 3.99,
       "price_final": 2.79,
       "discount_pct": 30,
-      "discount_end": null,
+      "discount_end": 1787418000,
       "scraped_at": 1786629749
     },
     "4785600": {
@@ -745919,7 +745919,7 @@
       "price_initial": 0.99,
       "price_final": 0.59,
       "discount_pct": 40,
-      "discount_end": null,
+      "discount_end": 1787158800,
       "scraped_at": 1786629749
     },
     "4787030": {
@@ -745940,14 +745940,14 @@
       "price_initial": 14.99,
       "price_final": 7.49,
       "discount_pct": 50,
-      "discount_end": null,
+      "discount_end": 1786640400,
       "scraped_at": 1786629749
     },
     "4787290": {
       "price_initial": 12.99,
       "price_final": 7.79,
       "discount_pct": 40,
-      "discount_end": null,
+      "discount_end": 1787072400,
       "scraped_at": 1786629749
     },
     "4787340": {
@@ -745982,7 +745982,7 @@
       "price_initial": 1.25,
       "price_final": 0.75,
       "discount_pct": 40,
-      "discount_end": null,
+      "discount_end": 1787565600,
       "scraped_at": 1786629749
     },
     "4787680": {
@@ -746059,7 +746059,7 @@
       "price_initial": 29.99,
       "price_final": 26.99,
       "discount_pct": 10,
-      "discount_end": null,
+      "discount_end": 1786640401,
       "scraped_at": 1786629749
     },
     "4788710": {
@@ -746094,7 +746094,7 @@
       "price_initial": 2.99,
       "price_final": 1.94,
       "discount_pct": 35,
-      "discount_end": null,
+      "discount_end": 1786986000,
       "scraped_at": 1786629749
     },
     "4789650": {
@@ -746129,7 +746129,7 @@
       "price_initial": 0.99,
       "price_final": 0.69,
       "discount_pct": 30,
-      "discount_end": null,
+      "discount_end": 1786813235,
       "scraped_at": 1786629749
     },
     "4790340": {
@@ -746178,7 +746178,7 @@
       "price_initial": 1.0,
       "price_final": 0.9,
       "discount_pct": 10,
-      "discount_end": null,
+      "discount_end": 1786986000,
       "scraped_at": 1786629749
     },
     "4790650": {
@@ -746325,7 +746325,7 @@
       "price_initial": 5.99,
       "price_final": 5.39,
       "discount_pct": 10,
-      "discount_end": null,
+      "discount_end": 1787331632,
       "scraped_at": 1786629749
     },
     "4792980": {
@@ -746388,7 +746388,7 @@
       "price_initial": 2.33,
       "price_final": 1.16,
       "discount_pct": 50,
-      "discount_end": null,
+      "discount_end": 1786644000,
       "scraped_at": 1786629749
     },
     "4794570": {
@@ -746486,7 +746486,7 @@
       "price_initial": 1.99,
       "price_final": 0.99,
       "discount_pct": 50,
-      "discount_end": null,
+      "discount_end": 1787364000,
       "scraped_at": 1786629749
     },
     "4797290": {
@@ -746514,7 +746514,7 @@
       "price_initial": 4.99,
       "price_final": 2.99,
       "discount_pct": 40,
-      "discount_end": null,
+      "discount_end": 1787763600,
       "scraped_at": 1786629749
     },
     "4797730": {
@@ -746535,7 +746535,7 @@
       "price_initial": 6.99,
       "price_final": 5.59,
       "discount_pct": 20,
-      "discount_end": null,
+      "discount_end": 1786929472,
       "scraped_at": 1786629749
     },
     "4797840": {
@@ -746549,7 +746549,7 @@
       "price_initial": 7.99,
       "price_final": 7.19,
       "discount_pct": 10,
-      "discount_end": null,
+      "discount_end": 1786986000,
       "scraped_at": 1786629749
     },
     "4797930": {
@@ -746661,7 +746661,7 @@
       "price_initial": 7.99,
       "price_final": 7.19,
       "discount_pct": 10,
-      "discount_end": null,
+      "discount_end": 1786640442,
       "scraped_at": 1786629749
     },
     "4799310": {
@@ -746675,7 +746675,7 @@
       "price_initial": 1.99,
       "price_final": 1.59,
       "discount_pct": 20,
-      "discount_end": null,
+      "discount_end": 1786726848,
       "scraped_at": 1786629749
     },
     "4799470": {
@@ -746745,7 +746745,7 @@
       "price_initial": 4.99,
       "price_final": 3.99,
       "discount_pct": 20,
-      "discount_end": null,
+      "discount_end": 1787068800,
       "scraped_at": 1786629749
     },
     "4800620": {
@@ -746780,7 +746780,7 @@
       "price_initial": 2.99,
       "price_final": 2.39,
       "discount_pct": 20,
-      "discount_end": null,
+      "discount_end": 1786813200,
       "scraped_at": 1786629749
     },
     "4801330": {
@@ -746794,14 +746794,14 @@
       "price_initial": 5.99,
       "price_final": 4.79,
       "discount_pct": 20,
-      "discount_end": null,
+      "discount_end": 1786986035,
       "scraped_at": 1786629749
     },
     "4801580": {
       "price_initial": 0.99,
       "price_final": 0.59,
       "discount_pct": 40,
-      "discount_end": null,
+      "discount_end": 1787331602,
       "scraped_at": 1786629749
     },
     "4801590": {
@@ -746815,7 +746815,7 @@
       "price_initial": 0.99,
       "price_final": 0.59,
       "discount_pct": 40,
-      "discount_end": null,
+      "discount_end": 1786726814,
       "scraped_at": 1786629749
     },
     "4801740": {
@@ -746843,7 +746843,7 @@
       "price_initial": 0.99,
       "price_final": 0.69,
       "discount_pct": 30,
-      "discount_end": null,
+      "discount_end": 1786726857,
       "scraped_at": 1786629749
     },
     "4802350": {
@@ -746857,7 +746857,7 @@
       "price_initial": 4.99,
       "price_final": 3.74,
       "discount_pct": 25,
-      "discount_end": null,
+      "discount_end": 1786899624,
       "scraped_at": 1786629749
     },
     "4803450": {
@@ -746871,14 +746871,14 @@
       "price_initial": 0.99,
       "price_final": 0.49,
       "discount_pct": 51,
-      "discount_end": null,
+      "discount_end": 1786813200,
       "scraped_at": 1786629749
     },
     "4803600": {
       "price_initial": 3.99,
       "price_final": 3.59,
       "discount_pct": 10,
-      "discount_end": null,
+      "discount_end": 1787065200,
       "scraped_at": 1786629749
     },
     "4803630": {
@@ -746906,7 +746906,7 @@
       "price_initial": 2.99,
       "price_final": 2.54,
       "discount_pct": 15,
-      "discount_end": null,
+      "discount_end": 1787158804,
       "scraped_at": 1786629749
     },
     "4803850": {
@@ -746955,7 +746955,7 @@
       "price_initial": 5.0,
       "price_final": 4.0,
       "discount_pct": 20,
-      "discount_end": null,
+      "discount_end": 1786986000,
       "scraped_at": 1786629749
     },
     "4804650": {
@@ -747018,14 +747018,14 @@
       "price_initial": 0.99,
       "price_final": 0.49,
       "discount_pct": 51,
-      "discount_end": null,
+      "discount_end": 1786986000,
       "scraped_at": 1786629749
     },
     "4805330": {
       "price_initial": 0.99,
       "price_final": 0.49,
       "discount_pct": 51,
-      "discount_end": null,
+      "discount_end": 1786813200,
       "scraped_at": 1786629749
     },
     "4805520": {
@@ -747039,7 +747039,7 @@
       "price_initial": 7.0,
       "price_final": 4.2,
       "discount_pct": 40,
-      "discount_end": null,
+      "discount_end": 1786813222,
       "scraped_at": 1786629749
     },
     "4805750": {
@@ -747067,7 +747067,7 @@
       "price_initial": 5.99,
       "price_final": 4.19,
       "discount_pct": 30,
-      "discount_end": null,
+      "discount_end": 1787155200,
       "scraped_at": 1786629749
     },
     "4806100": {
@@ -747158,7 +747158,7 @@
       "price_initial": 19.99,
       "price_final": 6.59,
       "discount_pct": 67,
-      "discount_end": null,
+      "discount_end": 1786986000,
       "scraped_at": 1786629749
     },
     "4808730": {
@@ -747186,7 +747186,7 @@
       "price_initial": 2.99,
       "price_final": 2.09,
       "discount_pct": 30,
-      "discount_end": null,
+      "discount_end": 1787763652,
       "scraped_at": 1786629749
     },
     "4808790": {
@@ -747298,14 +747298,14 @@
       "price_initial": 4.99,
       "price_final": 2.99,
       "discount_pct": 40,
-      "discount_end": null,
+      "discount_end": 1786640434,
       "scraped_at": 1786629749
     },
     "4809810": {
       "price_initial": 7.99,
       "price_final": 6.39,
       "discount_pct": 20,
-      "discount_end": null,
+      "discount_end": 1786986000,
       "scraped_at": 1786629749
     },
     "4809860": {
@@ -747354,7 +747354,7 @@
       "price_initial": 1.99,
       "price_final": 0.79,
       "discount_pct": 60,
-      "discount_end": null,
+      "discount_end": 1786907735,
       "scraped_at": 1786629749
     },
     "4811910": {
@@ -747424,7 +747424,7 @@
       "price_initial": 6.66,
       "price_final": 4.46,
       "discount_pct": 33,
-      "discount_end": null,
+      "discount_end": 1786986012,
       "scraped_at": 1786629749
     },
     "4812940": {
@@ -747466,7 +747466,7 @@
       "price_initial": 2.99,
       "price_final": 1.79,
       "discount_pct": 40,
-      "discount_end": null,
+      "discount_end": 1787158854,
       "scraped_at": 1786629749
     },
     "4813570": {
@@ -747550,7 +747550,7 @@
       "price_initial": 2.99,
       "price_final": 2.39,
       "discount_pct": 20,
-      "discount_end": null,
+      "discount_end": 1787072457,
       "scraped_at": 1786629749
     },
     "4815350": {
@@ -747599,7 +747599,7 @@
       "price_initial": 18.93,
       "price_final": 17.03,
       "discount_pct": 10,
-      "discount_end": null,
+      "discount_end": 1787245253,
       "scraped_at": 1786629749
     },
     "4816030": {
@@ -747613,7 +747613,7 @@
       "price_initial": 7.99,
       "price_final": 5.19,
       "discount_pct": 35,
-      "discount_end": null,
+      "discount_end": 1786899648,
       "scraped_at": 1786629749
     },
     "4816620": {
@@ -747641,7 +747641,7 @@
       "price_initial": 2.99,
       "price_final": 2.09,
       "discount_pct": 30,
-      "discount_end": null,
+      "discount_end": 1787670000,
       "scraped_at": 1786629749
     },
     "4817060": {
@@ -747655,14 +747655,14 @@
       "price_initial": 3.99,
       "price_final": 1.99,
       "discount_pct": 50,
-      "discount_end": null,
+      "discount_end": 1787418000,
       "scraped_at": 1786629749
     },
     "4817240": {
       "price_initial": 7.99,
       "price_final": 6.39,
       "discount_pct": 20,
-      "discount_end": null,
+      "discount_end": 1787072427,
       "scraped_at": 1786629749
     },
     "4817390": {
@@ -747690,7 +747690,7 @@
       "price_initial": 2.99,
       "price_final": 2.39,
       "discount_pct": 20,
-      "discount_end": null,
+      "discount_end": 1786986000,
       "scraped_at": 1786629749
     },
     "4818180": {
@@ -747704,7 +747704,7 @@
       "price_initial": 19.99,
       "price_final": 9.99,
       "discount_pct": 50,
-      "discount_end": null,
+      "discount_end": 1786899600,
       "scraped_at": 1786629749
     },
     "4818250": {
@@ -747746,14 +747746,14 @@
       "price_initial": 4.99,
       "price_final": 3.34,
       "discount_pct": 33,
-      "discount_end": null,
+      "discount_end": 1786813216,
       "scraped_at": 1786629749
     },
     "4818790": {
       "price_initial": 6.99,
       "price_final": 3.49,
       "discount_pct": 50,
-      "discount_end": null,
+      "discount_end": 1787677200,
       "scraped_at": 1786629749
     },
     "4819080": {
@@ -747781,7 +747781,7 @@
       "price_initial": 5.99,
       "price_final": 5.39,
       "discount_pct": 10,
-      "discount_end": null,
+      "discount_end": 1786640410,
       "scraped_at": 1786629749
     },
     "4819410": {
@@ -747879,7 +747879,7 @@
       "price_initial": 0.99,
       "price_final": 0.59,
       "discount_pct": 40,
-      "discount_end": null,
+      "discount_end": 1787154720,
       "scraped_at": 1786629749
     },
     "4820990": {
@@ -747949,7 +747949,7 @@
       "price_initial": 2.99,
       "price_final": 2.69,
       "discount_pct": 10,
-      "discount_end": null,
+      "discount_end": 1787072433,
       "scraped_at": 1786629749
     },
     "4821920": {
@@ -748166,7 +748166,7 @@
       "price_initial": 3.99,
       "price_final": 2.79,
       "discount_pct": 30,
-      "discount_end": null,
+      "discount_end": 1787001300,
       "scraped_at": 1786629749
     },
     "4825080": {
@@ -748187,14 +748187,14 @@
       "price_initial": 5.99,
       "price_final": 4.79,
       "discount_pct": 20,
-      "discount_end": null,
+      "discount_end": 1787245200,
       "scraped_at": 1786629749
     },
     "4825420": {
       "price_initial": 10.99,
       "price_final": 8.79,
       "discount_pct": 20,
-      "discount_end": null,
+      "discount_end": 1787763624,
       "scraped_at": 1786629749
     },
     "4825470": {
@@ -748222,7 +748222,7 @@
       "price_initial": 2.99,
       "price_final": 2.39,
       "discount_pct": 20,
-      "discount_end": null,
+      "discount_end": 1786945331,
       "scraped_at": 1786629749
     },
     "4825620": {
@@ -748369,7 +748369,7 @@
       "price_initial": 0.99,
       "price_final": 0.59,
       "discount_pct": 40,
-      "discount_end": null,
+      "discount_end": 1786899615,
       "scraped_at": 1786629749
     },
     "4828640": {
@@ -748397,7 +748397,7 @@
       "price_initial": 6.99,
       "price_final": 4.19,
       "discount_pct": 40,
-      "discount_end": null,
+      "discount_end": 1786813247,
       "scraped_at": 1786629749
     },
     "4828770": {
@@ -748516,7 +748516,7 @@
       "price_initial": 12.99,
       "price_final": 7.79,
       "discount_pct": 40,
-      "discount_end": null,
+      "discount_end": 1787590819,
       "scraped_at": 1786629749
     },
     "4830350": {
@@ -748544,7 +748544,7 @@
       "price_initial": 4.99,
       "price_final": 4.24,
       "discount_pct": 15,
-      "discount_end": null,
+      "discount_end": 1786640409,
       "scraped_at": 1786629749
     },
     "4830580": {
@@ -748600,7 +748600,7 @@
       "price_initial": 4.99,
       "price_final": 3.99,
       "discount_pct": 20,
-      "discount_end": null,
+      "discount_end": 1786986000,
       "scraped_at": 1786629749
     },
     "4831170": {
@@ -748670,7 +748670,7 @@
       "price_initial": 8.99,
       "price_final": 7.64,
       "discount_pct": 15,
-      "discount_end": null,
+      "discount_end": 1787158843,
       "scraped_at": 1786629749
     },
     "4831750": {
@@ -748691,7 +748691,7 @@
       "price_initial": 3.99,
       "price_final": 2.99,
       "discount_pct": 25,
-      "discount_end": null,
+      "discount_end": 1787158825,
       "scraped_at": 1786629749
     },
     "4832060": {
@@ -748740,7 +748740,7 @@
       "price_initial": 3.99,
       "price_final": 2.79,
       "discount_pct": 30,
-      "discount_end": null,
+      "discount_end": 1787158845,
       "scraped_at": 1786629749
     },
     "4832460": {
@@ -748901,7 +748901,7 @@
       "price_initial": 14.99,
       "price_final": 10.04,
       "discount_pct": 33,
-      "discount_end": null,
+      "discount_end": 1787245245,
       "scraped_at": 1786629749
     },
     "4834710": {
@@ -748936,7 +748936,7 @@
       "price_initial": 2.99,
       "price_final": 2.39,
       "discount_pct": 20,
-      "discount_end": null,
+      "discount_end": 1787331612,
       "scraped_at": 1786629749
     },
     "4835520": {
@@ -748971,7 +748971,7 @@
       "price_initial": 4.5,
       "price_final": 2.7,
       "discount_pct": 40,
-      "discount_end": null,
+      "discount_end": 1787158800,
       "scraped_at": 1786629749
     },
     "4836170": {
@@ -749048,7 +749048,7 @@
       "price_initial": 5.99,
       "price_final": 5.09,
       "discount_pct": 15,
-      "discount_end": null,
+      "discount_end": 1786726853,
       "scraped_at": 1786629749
     },
     "4838630": {
@@ -749069,7 +749069,7 @@
       "price_initial": 3.99,
       "price_final": 3.59,
       "discount_pct": 10,
-      "discount_end": null,
+      "discount_end": 1787763650,
       "scraped_at": 1786629749
     },
     "4838900": {
@@ -749146,7 +749146,7 @@
       "price_initial": 4.99,
       "price_final": 1.99,
       "discount_pct": 60,
-      "discount_end": null,
+      "discount_end": 1787270700,
       "scraped_at": 1786629749
     },
     "4840300": {
@@ -749251,7 +749251,7 @@
       "price_initial": 12.99,
       "price_final": 10.39,
       "discount_pct": 20,
-      "discount_end": null,
+      "discount_end": 1786986000,
       "scraped_at": 1786629749
     },
     "4842400": {
@@ -749286,7 +749286,7 @@
       "price_initial": 3.99,
       "price_final": 2.39,
       "discount_pct": 40,
-      "discount_end": null,
+      "discount_end": 1786899611,
       "scraped_at": 1786629749
     },
     "4842810": {
@@ -749328,7 +749328,7 @@
       "price_initial": 2.99,
       "price_final": 1.79,
       "discount_pct": 40,
-      "discount_end": null,
+      "discount_end": 1787245245,
       "scraped_at": 1786629749
     },
     "4843380": {
@@ -749552,7 +749552,7 @@
       "price_initial": 9.99,
       "price_final": 5.99,
       "discount_pct": 40,
-      "discount_end": null,
+      "discount_end": 1787245234,
       "scraped_at": 1786629749
     },
     "4848170": {
@@ -749608,7 +749608,7 @@
       "price_initial": 11.99,
       "price_final": 8.03,
       "discount_pct": 33,
-      "discount_end": null,
+      "discount_end": 1786640446,
       "scraped_at": 1786629749
     },
     "4849300": {
@@ -749643,14 +749643,14 @@
       "price_initial": 21.99,
       "price_final": 17.59,
       "discount_pct": 20,
-      "discount_end": null,
+      "discount_end": 1786986004,
       "scraped_at": 1786629749
     },
     "4850850": {
       "price_initial": 4.99,
       "price_final": 2.49,
       "discount_pct": 50,
-      "discount_end": null,
+      "discount_end": 1787590800,
       "scraped_at": 1786629749
     },
     "4851140": {
@@ -749678,7 +749678,7 @@
       "price_initial": 2.99,
       "price_final": 2.69,
       "discount_pct": 10,
-      "discount_end": null,
+      "discount_end": 1786726810,
       "scraped_at": 1786629749
     },
     "4851600": {
@@ -749713,7 +749713,7 @@
       "price_initial": 3.99,
       "price_final": 3.39,
       "discount_pct": 15,
-      "discount_end": null,
+      "discount_end": 1787072432,
       "scraped_at": 1786629749
     },
     "4851930": {
@@ -749741,7 +749741,7 @@
       "price_initial": 6.99,
       "price_final": 4.19,
       "discount_pct": 40,
-      "discount_end": null,
+      "discount_end": 1787590841,
       "scraped_at": 1786629749
     },
     "4852680": {
@@ -749783,7 +749783,7 @@
       "price_initial": 0.99,
       "price_final": 0.69,
       "discount_pct": 30,
-      "discount_end": null,
+      "discount_end": 1786899616,
       "scraped_at": 1786629749
     },
     "4853490": {
@@ -749909,7 +749909,7 @@
       "price_initial": 3.99,
       "price_final": 2.79,
       "discount_pct": 30,
-      "discount_end": null,
+      "discount_end": 1786859075,
       "scraped_at": 1786629749
     },
     "4855760": {
@@ -749958,14 +749958,14 @@
       "price_initial": 0.99,
       "price_final": 0.64,
       "discount_pct": 35,
-      "discount_end": null,
+      "discount_end": 1786640402,
       "scraped_at": 1786629749
     },
     "4856460": {
       "price_initial": 6.99,
       "price_final": 6.29,
       "discount_pct": 10,
-      "discount_end": null,
+      "discount_end": 1786813200,
       "scraped_at": 1786629749
     },
     "4856470": {
@@ -750203,14 +750203,14 @@
       "price_initial": 4.0,
       "price_final": 3.6,
       "discount_pct": 10,
-      "discount_end": null,
+      "discount_end": 1786899600,
       "scraped_at": 1786629749
     },
     "4860620": {
       "price_initial": 1.99,
       "price_final": 1.79,
       "discount_pct": 10,
-      "discount_end": null,
+      "discount_end": 1787245220,
       "scraped_at": 1786629749
     },
     "4860730": {
@@ -750259,7 +750259,7 @@
       "price_initial": 12.99,
       "price_final": 9.87,
       "discount_pct": 24,
-      "discount_end": null,
+      "discount_end": 1787158837,
       "scraped_at": 1786629749
     },
     "4861740": {
@@ -750294,7 +750294,7 @@
       "price_initial": 7.99,
       "price_final": 4.79,
       "discount_pct": 40,
-      "discount_end": null,
+      "discount_end": 1786986000,
       "scraped_at": 1786629749
     },
     "4862740": {
@@ -750315,7 +750315,7 @@
       "price_initial": 0.99,
       "price_final": 0.59,
       "discount_pct": 40,
-      "discount_end": null,
+      "discount_end": 1787154720,
       "scraped_at": 1786629749
     },
     "4862920": {
@@ -750336,7 +750336,7 @@
       "price_initial": 4.99,
       "price_final": 3.49,
       "discount_pct": 30,
-      "discount_end": null,
+      "discount_end": 1786813214,
       "scraped_at": 1786629749
     },
     "4863520": {
@@ -750490,7 +750490,7 @@
       "price_initial": 12.99,
       "price_final": 11.69,
       "discount_pct": 10,
-      "discount_end": null,
+      "discount_end": 1786813217,
       "scraped_at": 1786629749
     },
     "4866810": {
@@ -750504,7 +750504,7 @@
       "price_initial": 6.99,
       "price_final": 5.94,
       "discount_pct": 15,
-      "discount_end": null,
+      "discount_end": 1786640422,
       "scraped_at": 1786629749
     },
     "4867060": {
@@ -750630,7 +750630,7 @@
       "price_initial": 6.99,
       "price_final": 2.79,
       "discount_pct": 60,
-      "discount_end": null,
+      "discount_end": 1786986000,
       "scraped_at": 1786629749
     },
     "4869410": {
@@ -750714,7 +750714,7 @@
       "price_initial": 6.99,
       "price_final": 4.19,
       "discount_pct": 40,
-      "discount_end": null,
+      "discount_end": 1787072441,
       "scraped_at": 1786629749
     },
     "4871750": {
@@ -750847,14 +750847,14 @@
       "price_initial": 3.99,
       "price_final": 3.39,
       "discount_pct": 15,
-      "discount_end": null,
+      "discount_end": 1787072432,
       "scraped_at": 1786629749
     },
     "4873610": {
       "price_initial": 3.99,
       "price_final": 3.39,
       "discount_pct": 15,
-      "discount_end": null,
+      "discount_end": 1787072432,
       "scraped_at": 1786629749
     },
     "4873910": {
@@ -750896,7 +750896,7 @@
       "price_initial": 8.99,
       "price_final": 7.64,
       "discount_pct": 15,
-      "discount_end": null,
+      "discount_end": 1787763636,
       "scraped_at": 1786629749
     },
     "4874860": {
@@ -750917,7 +750917,7 @@
       "price_initial": 4.99,
       "price_final": 3.49,
       "discount_pct": 30,
-      "discount_end": null,
+      "discount_end": 1786640421,
       "scraped_at": 1786629749
     },
     "4875150": {
@@ -750931,7 +750931,7 @@
       "price_initial": 2.99,
       "price_final": 2.39,
       "discount_pct": 20,
-      "discount_end": null,
+      "discount_end": 1787245225,
       "scraped_at": 1786629749
     },
     "4875330": {
@@ -750945,7 +750945,7 @@
       "price_initial": 1.5,
       "price_final": 1.2,
       "discount_pct": 20,
-      "discount_end": null,
+      "discount_end": 1786813222,
       "scraped_at": 1786629749
     },
     "4875460": {
@@ -750959,7 +750959,7 @@
       "price_initial": 6.99,
       "price_final": 4.19,
       "discount_pct": 40,
-      "discount_end": null,
+      "discount_end": 1787331603,
       "scraped_at": 1786629749
     },
     "4875650": {
@@ -750994,7 +750994,7 @@
       "price_initial": 9.99,
       "price_final": 5.99,
       "discount_pct": 40,
-      "discount_end": null,
+      "discount_end": 1787418007,
       "scraped_at": 1786629749
     },
     "4876280": {
@@ -751099,7 +751099,7 @@
       "price_initial": 2.99,
       "price_final": 2.39,
       "discount_pct": 20,
-      "discount_end": null,
+      "discount_end": 1786726845,
       "scraped_at": 1786629749
     },
     "4877590": {
@@ -751141,7 +751141,7 @@
       "price_initial": 1.99,
       "price_final": 1.37,
       "discount_pct": 31,
-      "discount_end": null,
+      "discount_end": 1786640438,
       "scraped_at": 1786629749
     },
     "4878870": {
@@ -751162,7 +751162,7 @@
       "price_initial": 9.99,
       "price_final": 5.99,
       "discount_pct": 40,
-      "discount_end": null,
+      "discount_end": 1786640438,
       "scraped_at": 1786629749
     },
     "4879510": {
@@ -751211,7 +751211,7 @@
       "price_initial": 4.99,
       "price_final": 4.49,
       "discount_pct": 10,
-      "discount_end": null,
+      "discount_end": 1786726842,
       "scraped_at": 1786629749
     },
     "4880470": {
@@ -751239,7 +751239,7 @@
       "price_initial": 7.99,
       "price_final": 6.39,
       "discount_pct": 20,
-      "discount_end": null,
+      "discount_end": 1786899618,
       "scraped_at": 1786629749
     },
     "4880890": {
@@ -751309,7 +751309,7 @@
       "price_initial": 14.99,
       "price_final": 10.49,
       "discount_pct": 30,
-      "discount_end": null,
+      "discount_end": 1787245241,
       "scraped_at": 1786629749
     },
     "4882970": {
@@ -751337,7 +751337,7 @@
       "price_initial": 7.99,
       "price_final": 7.19,
       "discount_pct": 10,
-      "discount_end": null,
+      "discount_end": 1787158822,
       "scraped_at": 1786629749
     },
     "4883670": {
@@ -751407,7 +751407,7 @@
       "price_initial": 5.99,
       "price_final": 5.39,
       "discount_pct": 10,
-      "discount_end": null,
+      "discount_end": 1787158853,
       "scraped_at": 1786629749
     },
     "4885960": {
@@ -751442,7 +751442,7 @@
       "price_initial": 2.99,
       "price_final": 2.69,
       "discount_pct": 10,
-      "discount_end": null,
+      "discount_end": 1787072409,
       "scraped_at": 1786629749
     },
     "4886470": {
@@ -751505,21 +751505,21 @@
       "price_initial": 4.99,
       "price_final": 3.94,
       "discount_pct": 21,
-      "discount_end": null,
+      "discount_end": 1786726845,
       "scraped_at": 1786629749
     },
     "4888240": {
       "price_initial": 4.99,
       "price_final": 3.99,
       "discount_pct": 20,
-      "discount_end": null,
+      "discount_end": 1786986043,
       "scraped_at": 1786629749
     },
     "4888520": {
       "price_initial": 9.99,
       "price_final": 7.49,
       "discount_pct": 25,
-      "discount_end": null,
+      "discount_end": 1786813254,
       "scraped_at": 1786629749
     },
     "4888600": {
@@ -751582,7 +751582,7 @@
       "price_initial": 8.99,
       "price_final": 8.09,
       "discount_pct": 10,
-      "discount_end": null,
+      "discount_end": 1787245224,
       "scraped_at": 1786629749
     },
     "4890280": {
@@ -751722,7 +751722,7 @@
       "price_initial": 7.99,
       "price_final": 7.19,
       "discount_pct": 10,
-      "discount_end": null,
+      "discount_end": 1786726831,
       "scraped_at": 1786629749
     },
     "4894210": {
@@ -751750,7 +751750,7 @@
       "price_initial": 11.99,
       "price_final": 8.99,
       "discount_pct": 25,
-      "discount_end": null,
+      "discount_end": 1786726852,
       "scraped_at": 1786629749
     },
     "4894950": {
@@ -751792,7 +751792,7 @@
       "price_initial": 4.99,
       "price_final": 4.49,
       "discount_pct": 10,
-      "discount_end": null,
+      "discount_end": 1787072437,
       "scraped_at": 1786629749
     },
     "4895750": {
@@ -751806,7 +751806,7 @@
       "price_initial": 4.99,
       "price_final": 3.49,
       "discount_pct": 30,
-      "discount_end": null,
+      "discount_end": 1786986008,
       "scraped_at": 1786629749
     },
     "4895990": {
@@ -751855,7 +751855,7 @@
       "price_initial": 12.99,
       "price_final": 7.79,
       "discount_pct": 40,
-      "discount_end": null,
+      "discount_end": 1786726826,
       "scraped_at": 1786629749
     },
     "4897220": {
@@ -752142,7 +752142,7 @@
       "price_initial": 4.99,
       "price_final": 3.99,
       "discount_pct": 20,
-      "discount_end": null,
+      "discount_end": 1787072405,
       "scraped_at": 1786629749
     },
     "4903080": {
@@ -752177,7 +752177,7 @@
       "price_initial": 3.99,
       "price_final": 2.99,
       "discount_pct": 25,
-      "discount_end": null,
+      "discount_end": 1787677248,
       "scraped_at": 1786629749
     },
     "4903910": {
@@ -752226,7 +752226,7 @@
       "price_initial": 14.99,
       "price_final": 13.49,
       "discount_pct": 10,
-      "discount_end": null,
+      "discount_end": 1786640408,
       "scraped_at": 1786629749
     },
     "4905270": {
@@ -752261,14 +752261,14 @@
       "price_initial": 7.99,
       "price_final": 4.79,
       "discount_pct": 40,
-      "discount_end": null,
+      "discount_end": 1786640446,
       "scraped_at": 1786629749
     },
     "4906500": {
       "price_initial": 8.99,
       "price_final": 8.0,
       "discount_pct": 11,
-      "discount_end": null,
+      "discount_end": 1786640402,
       "scraped_at": 1786629749
     },
     "4906520": {
@@ -752289,7 +752289,7 @@
       "price_initial": 4.75,
       "price_final": 4.03,
       "discount_pct": 15,
-      "discount_end": null,
+      "discount_end": 1787245232,
       "scraped_at": 1786629749
     },
     "4906860": {
@@ -752310,14 +752310,14 @@
       "price_initial": 9.99,
       "price_final": 7.49,
       "discount_pct": 25,
-      "discount_end": null,
+      "discount_end": 1786726837,
       "scraped_at": 1786629749
     },
     "4907960": {
       "price_initial": 4.9,
       "price_final": 3.92,
       "discount_pct": 20,
-      "discount_end": null,
+      "discount_end": 1787158828,
       "scraped_at": 1786629749
     },
     "4907970": {
@@ -752352,7 +752352,7 @@
       "price_initial": 4.99,
       "price_final": 4.49,
       "discount_pct": 10,
-      "discount_end": null,
+      "discount_end": 1786986022,
       "scraped_at": 1786629749
     },
     "4908570": {
@@ -752471,7 +752471,7 @@
       "price_initial": 3.99,
       "price_final": 3.19,
       "discount_pct": 20,
-      "discount_end": null,
+      "discount_end": 1787763615,
       "scraped_at": 1786629749
     },
     "4911090": {
@@ -752485,7 +752485,7 @@
       "price_initial": 9.99,
       "price_final": 8.49,
       "discount_pct": 15,
-      "discount_end": null,
+      "discount_end": 1786726837,
       "scraped_at": 1786629749
     },
     "4911330": {
@@ -752506,7 +752506,7 @@
       "price_initial": 4.99,
       "price_final": 3.99,
       "discount_pct": 20,
-      "discount_end": null,
+      "discount_end": 1787590813,
       "scraped_at": 1786629749
     },
     "4912570": {
@@ -752562,7 +752562,7 @@
       "price_initial": 3.99,
       "price_final": 3.19,
       "discount_pct": 20,
-      "discount_end": null,
+      "discount_end": 1786899630,
       "scraped_at": 1786629749
     },
     "4913930": {
@@ -752576,7 +752576,7 @@
       "price_initial": 4.99,
       "price_final": 3.49,
       "discount_pct": 30,
-      "discount_end": null,
+      "discount_end": 1787504407,
       "scraped_at": 1786629749
     },
     "4914460": {
@@ -752597,7 +752597,7 @@
       "price_initial": 4.99,
       "price_final": 4.49,
       "discount_pct": 10,
-      "discount_end": null,
+      "discount_end": 1787158856,
       "scraped_at": 1786629749
     },
     "4914640": {
@@ -752618,7 +752618,7 @@
       "price_initial": 4.99,
       "price_final": 3.99,
       "discount_pct": 20,
-      "discount_end": null,
+      "discount_end": 1787331657,
       "scraped_at": 1786629749
     },
     "4914890": {
@@ -752632,7 +752632,7 @@
       "price_initial": 8.99,
       "price_final": 8.09,
       "discount_pct": 10,
-      "discount_end": null,
+      "discount_end": 1787763647,
       "scraped_at": 1786629749
     },
     "4915140": {
@@ -752723,7 +752723,7 @@
       "price_initial": 6.99,
       "price_final": 5.59,
       "discount_pct": 20,
-      "discount_end": null,
+      "discount_end": 1786640414,
       "scraped_at": 1786629749
     },
     "4916780": {
@@ -752744,7 +752744,7 @@
       "price_initial": 16.99,
       "price_final": 10.19,
       "discount_pct": 40,
-      "discount_end": null,
+      "discount_end": 1787072422,
       "scraped_at": 1786629749
     },
     "4917030": {
@@ -752779,7 +752779,7 @@
       "price_initial": 1.99,
       "price_final": 1.69,
       "discount_pct": 15,
-      "discount_end": null,
+      "discount_end": 1787158858,
       "scraped_at": 1786629749
     },
     "4917720": {
@@ -752870,7 +752870,7 @@
       "price_initial": 9.99,
       "price_final": 5.99,
       "discount_pct": 40,
-      "discount_end": null,
+      "discount_end": 1786726826,
       "scraped_at": 1786629749
     },
     "4918900": {
@@ -752884,14 +752884,14 @@
       "price_initial": 5.99,
       "price_final": 4.19,
       "discount_pct": 30,
-      "discount_end": null,
+      "discount_end": 1787072450,
       "scraped_at": 1786629749
     },
     "4919310": {
       "price_initial": 2.99,
       "price_final": 2.39,
       "discount_pct": 20,
-      "discount_end": null,
+      "discount_end": 1787245215,
       "scraped_at": 1786629749
     },
     "4919470": {
@@ -752905,14 +752905,14 @@
       "price_initial": 2.99,
       "price_final": 2.39,
       "discount_pct": 20,
-      "discount_end": null,
+      "discount_end": 1787072402,
       "scraped_at": 1786629749
     },
     "4919580": {
       "price_initial": 1.69,
       "price_final": 1.01,
       "discount_pct": 40,
-      "discount_end": null,
+      "discount_end": 1786726819,
       "scraped_at": 1786629749
     },
     "4920190": {
@@ -752947,7 +752947,7 @@
       "price_initial": 9.99,
       "price_final": 8.99,
       "discount_pct": 10,
-      "discount_end": null,
+      "discount_end": 1786986008,
       "scraped_at": 1786629749
     },
     "4920820": {
@@ -752996,7 +752996,7 @@
       "price_initial": 4.99,
       "price_final": 3.99,
       "discount_pct": 20,
-      "discount_end": null,
+      "discount_end": 1787158853,
       "scraped_at": 1786629749
     },
     "4922660": {
@@ -753017,14 +753017,14 @@
       "price_initial": 14.99,
       "price_final": 8.99,
       "discount_pct": 40,
-      "discount_end": null,
+      "discount_end": 1787072404,
       "scraped_at": 1786629749
     },
     "4923140": {
       "price_initial": 7.99,
       "price_final": 5.19,
       "discount_pct": 35,
-      "discount_end": null,
+      "discount_end": 1786726833,
       "scraped_at": 1786629749
     },
     "4923160": {
@@ -753080,7 +753080,7 @@
       "price_initial": 6.99,
       "price_final": 5.94,
       "discount_pct": 15,
-      "discount_end": null,
+      "discount_end": 1786986047,
       "scraped_at": 1786629749
     },
     "4924130": {
@@ -753101,7 +753101,7 @@
       "price_initial": 14.99,
       "price_final": 12.74,
       "discount_pct": 15,
-      "discount_end": null,
+      "discount_end": 1786640407,
       "scraped_at": 1786629749
     },
     "4924810": {
@@ -753143,7 +753143,7 @@
       "price_initial": 5.99,
       "price_final": 5.09,
       "discount_pct": 15,
-      "discount_end": null,
+      "discount_end": 1787158813,
       "scraped_at": 1786629749
     },
     "4927100": {
@@ -753185,14 +753185,14 @@
       "price_initial": 2.99,
       "price_final": 2.39,
       "discount_pct": 20,
-      "discount_end": null,
+      "discount_end": 1786899642,
       "scraped_at": 1786629749
     },
     "4929020": {
       "price_initial": 4.99,
       "price_final": 4.24,
       "discount_pct": 15,
-      "discount_end": null,
+      "discount_end": 1786986021,
       "scraped_at": 1786629749
     },
     "4929300": {
@@ -753206,14 +753206,14 @@
       "price_initial": 4.99,
       "price_final": 4.49,
       "discount_pct": 10,
-      "discount_end": null,
+      "discount_end": 1786726838,
       "scraped_at": 1786629749
     },
     "4929930": {
       "price_initial": 1.99,
       "price_final": 1.59,
       "discount_pct": 20,
-      "discount_end": null,
+      "discount_end": 1787850048,
       "scraped_at": 1786629749
     },
     "4929970": {
@@ -753227,7 +753227,7 @@
       "price_initial": 1.99,
       "price_final": 1.59,
       "discount_pct": 20,
-      "discount_end": null,
+      "discount_end": 1787158831,
       "scraped_at": 1786629749
     },
     "4930620": {
@@ -753269,7 +753269,7 @@
       "price_initial": 2.99,
       "price_final": 1.79,
       "discount_pct": 40,
-      "discount_end": null,
+      "discount_end": 1787331659,
       "scraped_at": 1786629749
     },
     "4931410": {
@@ -753290,14 +753290,14 @@
       "price_initial": 4.99,
       "price_final": 4.49,
       "discount_pct": 10,
-      "discount_end": null,
+      "discount_end": 1786726841,
       "scraped_at": 1786629749
     },
     "4931920": {
       "price_initial": 7.99,
       "price_final": 5.19,
       "discount_pct": 35,
-      "discount_end": null,
+      "discount_end": 1786640434,
       "scraped_at": 1786629749
     },
     "4932040": {
@@ -753318,14 +753318,14 @@
       "price_initial": 5.99,
       "price_final": 5.09,
       "discount_pct": 15,
-      "discount_end": null,
+      "discount_end": 1786899615,
       "scraped_at": 1786629749
     },
     "4932420": {
       "price_initial": 4.99,
       "price_final": 3.99,
       "discount_pct": 20,
-      "discount_end": null,
+      "discount_end": 1786640416,
       "scraped_at": 1786629749
     },
     "4932470": {
@@ -753346,21 +753346,21 @@
       "price_initial": 0.99,
       "price_final": 0.79,
       "discount_pct": 20,
-      "discount_end": null,
+      "discount_end": 1786726852,
       "scraped_at": 1786629749
     },
     "4933690": {
       "price_initial": 6.99,
       "price_final": 5.94,
       "discount_pct": 15,
-      "discount_end": null,
+      "discount_end": 1786986025,
       "scraped_at": 1786629749
     },
     "4934040": {
       "price_initial": 0.99,
       "price_final": 0.69,
       "discount_pct": 30,
-      "discount_end": null,
+      "discount_end": 1786640402,
       "scraped_at": 1786629749
     },
     "4934320": {
@@ -753388,21 +753388,21 @@
       "price_initial": 9.99,
       "price_final": 5.99,
       "discount_pct": 40,
-      "discount_end": null,
+      "discount_end": 1787245221,
       "scraped_at": 1786629749
     },
     "4935010": {
       "price_initial": 2.99,
       "price_final": 2.0,
       "discount_pct": 33,
-      "discount_end": null,
+      "discount_end": 1786726817,
       "scraped_at": 1786629749
     },
     "4935510": {
       "price_initial": 4.99,
       "price_final": 4.49,
       "discount_pct": 10,
-      "discount_end": null,
+      "discount_end": 1786640444,
       "scraped_at": 1786629749
     },
     "4935790": {
@@ -753444,7 +753444,7 @@
       "price_initial": 1.99,
       "price_final": 1.19,
       "discount_pct": 40,
-      "discount_end": null,
+      "discount_end": 1787504400,
       "scraped_at": 1786629749
     },
     "4937100": {
@@ -753514,7 +753514,7 @@
       "price_initial": 3.49,
       "price_final": 2.96,
       "discount_pct": 15,
-      "discount_end": null,
+      "discount_end": 1787763620,
       "scraped_at": 1786629749
     },
     "4939240": {
@@ -753535,7 +753535,7 @@
       "price_initial": 2.99,
       "price_final": 2.0,
       "discount_pct": 33,
-      "discount_end": null,
+      "discount_end": 1787072411,
       "scraped_at": 1786629749
     },
     "4939610": {
@@ -753549,21 +753549,21 @@
       "price_initial": 1.99,
       "price_final": 1.59,
       "discount_pct": 20,
-      "discount_end": null,
+      "discount_end": 1786986000,
       "scraped_at": 1786629749
     },
     "4939850": {
       "price_initial": 7.99,
       "price_final": 6.39,
       "discount_pct": 20,
-      "discount_end": null,
+      "discount_end": 1787418026,
       "scraped_at": 1786629749
     },
     "4939950": {
       "price_initial": 0.99,
       "price_final": 0.49,
       "discount_pct": 51,
-      "discount_end": null,
+      "discount_end": 1787677251,
       "scraped_at": 1786629749
     },
     "4939980": {
@@ -753577,21 +753577,21 @@
       "price_initial": 2.99,
       "price_final": 2.09,
       "discount_pct": 30,
-      "discount_end": null,
+      "discount_end": 1786899644,
       "scraped_at": 1786629749
     },
     "4940330": {
       "price_initial": 14.99,
       "price_final": 13.49,
       "discount_pct": 10,
-      "discount_end": null,
+      "discount_end": 1787158820,
       "scraped_at": 1786629749
     },
     "4940640": {
       "price_initial": 2.99,
       "price_final": 2.69,
       "discount_pct": 10,
-      "discount_end": null,
+      "discount_end": 1786726845,
       "scraped_at": 1786629749
     },
     "4941330": {
@@ -753619,7 +753619,7 @@
       "price_initial": 4.99,
       "price_final": 2.99,
       "discount_pct": 40,
-      "discount_end": null,
+      "discount_end": 1786986025,
       "scraped_at": 1786629749
     },
     "4942230": {
@@ -753654,21 +753654,21 @@
       "price_initial": 6.38,
       "price_final": 5.74,
       "discount_pct": 10,
-      "discount_end": null,
+      "discount_end": 1786726822,
       "scraped_at": 1786629749
     },
     "4943170": {
       "price_initial": 9.99,
       "price_final": 5.99,
       "discount_pct": 40,
-      "discount_end": null,
+      "discount_end": 1787418007,
       "scraped_at": 1786629749
     },
     "4943290": {
       "price_initial": 9.99,
       "price_final": 8.99,
       "discount_pct": 10,
-      "discount_end": null,
+      "discount_end": 1787763604,
       "scraped_at": 1786629749
     },
     "4943310": {
@@ -753682,14 +753682,14 @@
       "price_initial": 6.99,
       "price_final": 5.59,
       "discount_pct": 20,
-      "discount_end": null,
+      "discount_end": 1787158853,
       "scraped_at": 1786629749
     },
     "4943410": {
       "price_initial": 5.99,
       "price_final": 4.79,
       "discount_pct": 20,
-      "discount_end": null,
+      "discount_end": 1787158853,
       "scraped_at": 1786629749
     },
     "4943550": {
@@ -753710,7 +753710,7 @@
       "price_initial": 1.99,
       "price_final": 1.19,
       "discount_pct": 40,
-      "discount_end": null,
+      "discount_end": 1787158801,
       "scraped_at": 1786629749
     },
     "4944180": {
@@ -753738,7 +753738,7 @@
       "price_initial": 0.99,
       "price_final": 0.49,
       "discount_pct": 51,
-      "discount_end": null,
+      "discount_end": 1786986043,
       "scraped_at": 1786629749
     },
     "4945600": {
@@ -753752,7 +753752,7 @@
       "price_initial": 5.0,
       "price_final": 3.5,
       "discount_pct": 30,
-      "discount_end": null,
+      "discount_end": 1787590856,
       "scraped_at": 1786629749
     },
     "4946280": {
@@ -753766,7 +753766,7 @@
       "price_initial": 12.99,
       "price_final": 11.04,
       "discount_pct": 15,
-      "discount_end": null,
+      "discount_end": 1786726807,
       "scraped_at": 1786629749
     },
     "4946470": {
@@ -753801,7 +753801,7 @@
       "price_initial": 0.99,
       "price_final": 0.59,
       "discount_pct": 40,
-      "discount_end": null,
+      "discount_end": 1787677254,
       "scraped_at": 1786629749
     },
     "4946980": {
@@ -753822,7 +753822,7 @@
       "price_initial": 2.99,
       "price_final": 1.79,
       "discount_pct": 40,
-      "discount_end": null,
+      "discount_end": 1786726802,
       "scraped_at": 1786629749
     },
     "4948410": {
@@ -753843,7 +753843,7 @@
       "price_initial": 4.99,
       "price_final": 3.34,
       "discount_pct": 33,
-      "discount_end": null,
+      "discount_end": 1787158858,
       "scraped_at": 1786629749
     },
     "4949010": {
@@ -753857,28 +753857,28 @@
       "price_initial": 3.59,
       "price_final": 3.05,
       "discount_pct": 15,
-      "discount_end": null,
+      "discount_end": 1787677232,
       "scraped_at": 1786629749
     },
     "4949810": {
       "price_initial": 0.99,
       "price_final": 0.59,
       "discount_pct": 40,
-      "discount_end": null,
+      "discount_end": 1786813241,
       "scraped_at": 1786629749
     },
     "4949820": {
       "price_initial": 0.99,
       "price_final": 0.59,
       "discount_pct": 40,
-      "discount_end": null,
+      "discount_end": 1787158804,
       "scraped_at": 1786629749
     },
     "4949830": {
       "price_initial": 0.99,
       "price_final": 0.59,
       "discount_pct": 40,
-      "discount_end": null,
+      "discount_end": 1787677243,
       "scraped_at": 1786629749
     },
     "4950070": {
@@ -753892,14 +753892,14 @@
       "price_initial": 3.99,
       "price_final": 2.99,
       "discount_pct": 25,
-      "discount_end": null,
+      "discount_end": 1787763600,
       "scraped_at": 1786629749
     },
     "4950880": {
       "price_initial": 12.99,
       "price_final": 9.87,
       "discount_pct": 24,
-      "discount_end": null,
+      "discount_end": 1787245224,
       "scraped_at": 1786629749
     },
     "4950910": {
@@ -753920,7 +753920,7 @@
       "price_initial": 4.99,
       "price_final": 4.24,
       "discount_pct": 15,
-      "discount_end": null,
+      "discount_end": 1786726809,
       "scraped_at": 1786629749
     },
     "4951350": {
@@ -753934,14 +753934,14 @@
       "price_initial": 2.99,
       "price_final": 2.54,
       "discount_pct": 15,
-      "discount_end": null,
+      "discount_end": 1786986042,
       "scraped_at": 1786629749
     },
     "4951480": {
       "price_initial": 4.99,
       "price_final": 3.99,
       "discount_pct": 20,
-      "discount_end": null,
+      "discount_end": 1787331612,
       "scraped_at": 1786629749
     },
     "4951600": {
@@ -753955,14 +753955,14 @@
       "price_initial": 4.99,
       "price_final": 3.99,
       "discount_pct": 20,
-      "discount_end": null,
+      "discount_end": 1786986038,
       "scraped_at": 1786629749
     },
     "4951900": {
       "price_initial": 9.99,
       "price_final": 8.99,
       "discount_pct": 10,
-      "discount_end": null,
+      "discount_end": 1787504447,
       "scraped_at": 1786629749
     },
     "4952430": {
@@ -753983,63 +753983,63 @@
       "price_initial": 9.99,
       "price_final": 5.99,
       "discount_pct": 40,
-      "discount_end": null,
+      "discount_end": 1786986011,
       "scraped_at": 1786629749
     },
     "4953010": {
       "price_initial": 4.99,
       "price_final": 3.99,
       "discount_pct": 20,
-      "discount_end": null,
+      "discount_end": 1786640416,
       "scraped_at": 1786629749
     },
     "4953610": {
       "price_initial": 6.99,
       "price_final": 6.29,
       "discount_pct": 10,
-      "discount_end": null,
+      "discount_end": 1787072420,
       "scraped_at": 1786629749
     },
     "4953630": {
       "price_initial": 4.99,
       "price_final": 4.49,
       "discount_pct": 10,
-      "discount_end": null,
+      "discount_end": 1786640436,
       "scraped_at": 1786629749
     },
     "4953710": {
       "price_initial": 4.99,
       "price_final": 3.99,
       "discount_pct": 20,
-      "discount_end": null,
+      "discount_end": 1787158805,
       "scraped_at": 1786629749
     },
     "4953830": {
       "price_initial": 2.99,
       "price_final": 1.79,
       "discount_pct": 40,
-      "discount_end": null,
+      "discount_end": 1786899611,
       "scraped_at": 1786629749
     },
     "4953950": {
       "price_initial": 9.99,
       "price_final": 8.49,
       "discount_pct": 15,
-      "discount_end": null,
+      "discount_end": 1786986012,
       "scraped_at": 1786629749
     },
     "4953970": {
       "price_initial": 8.99,
       "price_final": 8.09,
       "discount_pct": 10,
-      "discount_end": null,
+      "discount_end": 1787850056,
       "scraped_at": 1786629749
     },
     "4954070": {
       "price_initial": 4.99,
       "price_final": 3.99,
       "discount_pct": 20,
-      "discount_end": null,
+      "discount_end": 1786899600,
       "scraped_at": 1786629749
     },
     "4954470": {
@@ -754067,35 +754067,35 @@
       "price_initial": 0.99,
       "price_final": 0.71,
       "discount_pct": 28,
-      "discount_end": null,
+      "discount_end": 1786726842,
       "scraped_at": 1786629749
     },
     "4954790": {
       "price_initial": 8.9,
       "price_final": 6.67,
       "discount_pct": 25,
-      "discount_end": null,
+      "discount_end": 1787763612,
       "scraped_at": 1786629749
     },
     "4955680": {
       "price_initial": 4.99,
       "price_final": 2.99,
       "discount_pct": 40,
-      "discount_end": null,
+      "discount_end": 1787158833,
       "scraped_at": 1786629749
     },
     "4956640": {
       "price_initial": 12.99,
       "price_final": 7.79,
       "discount_pct": 40,
-      "discount_end": null,
+      "discount_end": 1787677246,
       "scraped_at": 1786629749
     },
     "4956790": {
       "price_initial": 10.99,
       "price_final": 9.89,
       "discount_pct": 10,
-      "discount_end": null,
+      "discount_end": 1786899603,
       "scraped_at": 1786629749
     },
     "4956850": {
@@ -754116,21 +754116,21 @@
       "price_initial": 4.99,
       "price_final": 4.24,
       "discount_pct": 15,
-      "discount_end": null,
+      "discount_end": 1786726819,
       "scraped_at": 1786629749
     },
     "4957170": {
       "price_initial": 3.99,
       "price_final": 2.39,
       "discount_pct": 40,
-      "discount_end": null,
+      "discount_end": 1786640432,
       "scraped_at": 1786629749
     },
     "4957430": {
       "price_initial": 3.99,
       "price_final": 2.99,
       "discount_pct": 25,
-      "discount_end": null,
+      "discount_end": 1787072438,
       "scraped_at": 1786629749
     },
     "4957730": {
@@ -754165,7 +754165,7 @@
       "price_initial": 0.99,
       "price_final": 0.79,
       "discount_pct": 20,
-      "discount_end": null,
+      "discount_end": 1787763607,
       "scraped_at": 1786629749
     },
     "4958760": {
@@ -754186,7 +754186,7 @@
       "price_initial": 0.99,
       "price_final": 0.84,
       "discount_pct": 15,
-      "discount_end": null,
+      "discount_end": 1787331603,
       "scraped_at": 1786629749
     },
     "4959500": {
@@ -754221,7 +754221,7 @@
       "price_initial": 7.99,
       "price_final": 5.99,
       "discount_pct": 25,
-      "discount_end": null,
+      "discount_end": 1787158856,
       "scraped_at": 1786629749
     },
     "4960460": {
@@ -754235,7 +754235,7 @@
       "price_initial": 7.99,
       "price_final": 7.19,
       "discount_pct": 10,
-      "discount_end": null,
+      "discount_end": 1787072429,
       "scraped_at": 1786629749
     },
     "4960690": {
@@ -754256,28 +754256,28 @@
       "price_initial": 5.0,
       "price_final": 4.5,
       "discount_pct": 10,
-      "discount_end": null,
+      "discount_end": 1787158852,
       "scraped_at": 1786629749
     },
     "4961210": {
       "price_initial": 0.99,
       "price_final": 0.69,
       "discount_pct": 30,
-      "discount_end": null,
+      "discount_end": 1786726857,
       "scraped_at": 1786629749
     },
     "4961730": {
       "price_initial": 12.99,
       "price_final": 11.69,
       "discount_pct": 10,
-      "discount_end": null,
+      "discount_end": 1787418018,
       "scraped_at": 1786629749
     },
     "4961970": {
       "price_initial": 7.99,
       "price_final": 6.39,
       "discount_pct": 20,
-      "discount_end": null,
+      "discount_end": 1786813255,
       "scraped_at": 1786629749
     },
     "4962090": {
@@ -754291,7 +754291,7 @@
       "price_initial": 1.99,
       "price_final": 1.19,
       "discount_pct": 40,
-      "discount_end": null,
+      "discount_end": 1786726849,
       "scraped_at": 1786629749
     },
     "4962310": {
@@ -754305,21 +754305,21 @@
       "price_initial": 7.99,
       "price_final": 6.39,
       "discount_pct": 20,
-      "discount_end": null,
+      "discount_end": 1786726819,
       "scraped_at": 1786629749
     },
     "4962770": {
       "price_initial": 7.99,
       "price_final": 7.19,
       "discount_pct": 10,
-      "discount_end": null,
+      "discount_end": 1787072456,
       "scraped_at": 1786629749
     },
     "4963360": {
       "price_initial": 6.99,
       "price_final": 5.24,
       "discount_pct": 25,
-      "discount_end": null,
+      "discount_end": 1787245210,
       "scraped_at": 1786629749
     },
     "4963500": {
@@ -754333,7 +754333,7 @@
       "price_initial": 4.99,
       "price_final": 3.24,
       "discount_pct": 35,
-      "discount_end": null,
+      "discount_end": 1787245229,
       "scraped_at": 1786629749
     },
     "4964080": {
@@ -754347,21 +754347,21 @@
       "price_initial": 1.99,
       "price_final": 1.79,
       "discount_pct": 10,
-      "discount_end": null,
+      "discount_end": 1786640419,
       "scraped_at": 1786629749
     },
     "4965770": {
       "price_initial": 0.99,
       "price_final": 0.59,
       "discount_pct": 40,
-      "discount_end": null,
+      "discount_end": 1787158842,
       "scraped_at": 1786629749
     },
     "4966660": {
       "price_initial": 4.99,
       "price_final": 3.99,
       "discount_pct": 20,
-      "discount_end": null,
+      "discount_end": 1786726822,
       "scraped_at": 1786629749
     },
     "4966740": {
@@ -754375,14 +754375,14 @@
       "price_initial": 2.99,
       "price_final": 2.54,
       "discount_pct": 15,
-      "discount_end": null,
+      "discount_end": 1787245243,
       "scraped_at": 1786629749
     },
     "4966860": {
       "price_initial": 0.99,
       "price_final": 0.69,
       "discount_pct": 30,
-      "discount_end": null,
+      "discount_end": 1786813211,
       "scraped_at": 1786629749
     },
     "4966880": {
@@ -754396,14 +754396,14 @@
       "price_initial": 6.99,
       "price_final": 6.29,
       "discount_pct": 10,
-      "discount_end": null,
+      "discount_end": 1786986052,
       "scraped_at": 1786629749
     },
     "4967010": {
       "price_initial": 18.85,
       "price_final": 15.08,
       "discount_pct": 20,
-      "discount_end": null,
+      "discount_end": 1787850004,
       "scraped_at": 1786629749
     },
     "4967040": {
@@ -754438,63 +754438,63 @@
       "price_initial": 4.99,
       "price_final": 4.49,
       "discount_pct": 10,
-      "discount_end": null,
+      "discount_end": 1787158801,
       "scraped_at": 1786629749
     },
     "4967530": {
       "price_initial": 0.99,
       "price_final": 0.84,
       "discount_pct": 15,
-      "discount_end": null,
+      "discount_end": 1786640437,
       "scraped_at": 1786629749
     },
     "4968220": {
       "price_initial": 3.99,
       "price_final": 3.59,
       "discount_pct": 10,
-      "discount_end": null,
+      "discount_end": 1786813232,
       "scraped_at": 1786629749
     },
     "4968440": {
       "price_initial": 1.99,
       "price_final": 1.19,
       "discount_pct": 40,
-      "discount_end": null,
+      "discount_end": 1786813200,
       "scraped_at": 1786629749
     },
     "4968450": {
       "price_initial": 2.99,
       "price_final": 2.69,
       "discount_pct": 10,
-      "discount_end": null,
+      "discount_end": 1786726845,
       "scraped_at": 1786629749
     },
     "4968810": {
       "price_initial": 6.99,
       "price_final": 5.94,
       "discount_pct": 15,
-      "discount_end": null,
+      "discount_end": 1787072434,
       "scraped_at": 1786629749
     },
     "4969340": {
       "price_initial": 2.99,
       "price_final": 2.39,
       "discount_pct": 20,
-      "discount_end": null,
+      "discount_end": 1787331643,
       "scraped_at": 1786629749
     },
     "4969570": {
       "price_initial": 2.99,
       "price_final": 2.24,
       "discount_pct": 25,
-      "discount_end": null,
+      "discount_end": 1787072410,
       "scraped_at": 1786629749
     },
     "4969580": {
       "price_initial": 1.99,
       "price_final": 1.19,
       "discount_pct": 40,
-      "discount_end": null,
+      "discount_end": 1786986022,
       "scraped_at": 1786629749
     },
     "4970250": {
@@ -754508,14 +754508,14 @@
       "price_initial": 5.99,
       "price_final": 5.09,
       "discount_pct": 15,
-      "discount_end": null,
+      "discount_end": 1787158853,
       "scraped_at": 1786629749
     },
     "4970840": {
       "price_initial": 1.99,
       "price_final": 1.69,
       "discount_pct": 15,
-      "discount_end": null,
+      "discount_end": 1787763605,
       "scraped_at": 1786629749
     },
     "4971380": {
@@ -754536,7 +754536,7 @@
       "price_initial": 49.99,
       "price_final": 29.99,
       "discount_pct": 40,
-      "discount_end": null,
+      "discount_end": 1786640438,
       "scraped_at": 1786629749
     },
     "4972270": {
@@ -754557,7 +754557,7 @@
       "price_initial": 4.99,
       "price_final": 4.24,
       "discount_pct": 15,
-      "discount_end": null,
+      "discount_end": 1786986034,
       "scraped_at": 1786629749
     },
     "4973450": {
@@ -754571,7 +754571,7 @@
       "price_initial": 4.99,
       "price_final": 4.49,
       "discount_pct": 10,
-      "discount_end": null,
+      "discount_end": 1787072400,
       "scraped_at": 1786629749
     },
     "4974830": {
@@ -754606,28 +754606,28 @@
       "price_initial": 0.99,
       "price_final": 0.59,
       "discount_pct": 40,
-      "discount_end": null,
+      "discount_end": 1787072439,
       "scraped_at": 1786629749
     },
     "4976450": {
       "price_initial": 5.99,
       "price_final": 5.39,
       "discount_pct": 10,
-      "discount_end": null,
+      "discount_end": 1787245238,
       "scraped_at": 1786629749
     },
     "4976460": {
       "price_initial": 3.99,
       "price_final": 2.79,
       "discount_pct": 30,
-      "discount_end": null,
+      "discount_end": 1786986045,
       "scraped_at": 1786629749
     },
     "4978360": {
       "price_initial": 1.99,
       "price_final": 1.19,
       "discount_pct": 40,
-      "discount_end": null,
+      "discount_end": 1786813200,
       "scraped_at": 1786629749
     },
     "4979190": {
@@ -754648,35 +754648,35 @@
       "price_initial": 2.99,
       "price_final": 2.09,
       "discount_pct": 30,
-      "discount_end": null,
+      "discount_end": 1786899644,
       "scraped_at": 1786629749
     },
     "4980380": {
       "price_initial": 4.0,
       "price_final": 3.6,
       "discount_pct": 10,
-      "discount_end": null,
+      "discount_end": 1787158834,
       "scraped_at": 1786629749
     },
     "4980680": {
       "price_initial": 1.99,
       "price_final": 1.69,
       "discount_pct": 15,
-      "discount_end": null,
+      "discount_end": 1786813211,
       "scraped_at": 1786629749
     },
     "4980850": {
       "price_initial": 2.99,
       "price_final": 2.39,
       "discount_pct": 20,
-      "discount_end": null,
+      "discount_end": 1786640443,
       "scraped_at": 1786629749
     },
     "4981140": {
       "price_initial": 0.99,
       "price_final": 0.89,
       "discount_pct": 10,
-      "discount_end": null,
+      "discount_end": 1786640423,
       "scraped_at": 1786629749
     },
     "4981280": {
@@ -754690,14 +754690,14 @@
       "price_initial": 0.99,
       "price_final": 0.79,
       "discount_pct": 20,
-      "discount_end": null,
+      "discount_end": 1786986000,
       "scraped_at": 1786629749
     },
     "4982020": {
       "price_initial": 0.99,
       "price_final": 0.89,
       "discount_pct": 10,
-      "discount_end": null,
+      "discount_end": 1786726826,
       "scraped_at": 1786629749
     },
     "4982420": {
@@ -754711,112 +754711,112 @@
       "price_initial": 5.99,
       "price_final": 5.39,
       "discount_pct": 10,
-      "discount_end": null,
+      "discount_end": 1786726859,
       "scraped_at": 1786629749
     },
     "4984730": {
       "price_initial": 7.99,
       "price_final": 6.39,
       "discount_pct": 20,
-      "discount_end": null,
+      "discount_end": 1787158821,
       "scraped_at": 1786629749
     },
     "4985000": {
       "price_initial": 4.99,
       "price_final": 4.49,
       "discount_pct": 10,
-      "discount_end": null,
+      "discount_end": 1786726837,
       "scraped_at": 1786629749
     },
     "4985140": {
       "price_initial": 14.99,
       "price_final": 13.49,
       "discount_pct": 10,
-      "discount_end": null,
+      "discount_end": 1786640437,
       "scraped_at": 1786629749
     },
     "4985210": {
       "price_initial": 5.49,
       "price_final": 4.94,
       "discount_pct": 10,
-      "discount_end": null,
+      "discount_end": 1787763603,
       "scraped_at": 1786629749
     },
     "4986120": {
       "price_initial": 3.99,
       "price_final": 3.59,
       "discount_pct": 10,
-      "discount_end": null,
+      "discount_end": 1787677214,
       "scraped_at": 1786629749
     },
     "4986290": {
       "price_initial": 8.99,
       "price_final": 8.09,
       "discount_pct": 10,
-      "discount_end": null,
+      "discount_end": 1787158858,
       "scraped_at": 1786629749
     },
     "4987040": {
       "price_initial": 4.99,
       "price_final": 2.99,
       "discount_pct": 40,
-      "discount_end": null,
+      "discount_end": 1786640452,
       "scraped_at": 1786629749
     },
     "4987650": {
       "price_initial": 5.99,
       "price_final": 5.39,
       "discount_pct": 10,
-      "discount_end": null,
+      "discount_end": 1787763620,
       "scraped_at": 1786629749
     },
     "4988130": {
       "price_initial": 12.99,
       "price_final": 11.69,
       "discount_pct": 10,
-      "discount_end": null,
+      "discount_end": 1787331618,
       "scraped_at": 1786629749
     },
     "4988320": {
       "price_initial": 7.99,
       "price_final": 5.99,
       "discount_pct": 25,
-      "discount_end": null,
+      "discount_end": 1787850041,
       "scraped_at": 1786629749
     },
     "4988340": {
       "price_initial": 4.99,
       "price_final": 4.49,
       "discount_pct": 10,
-      "discount_end": null,
+      "discount_end": 1786986059,
       "scraped_at": 1786629749
     },
     "4988530": {
       "price_initial": 5.99,
       "price_final": 4.79,
       "discount_pct": 20,
-      "discount_end": null,
+      "discount_end": 1787331649,
       "scraped_at": 1786629749
     },
     "4988690": {
       "price_initial": 9.99,
       "price_final": 5.99,
       "discount_pct": 40,
-      "discount_end": null,
+      "discount_end": 1787590840,
       "scraped_at": 1786629749
     },
     "4989790": {
       "price_initial": 2.99,
       "price_final": 2.39,
       "discount_pct": 20,
-      "discount_end": null,
+      "discount_end": 1787245235,
       "scraped_at": 1786629749
     },
     "4990600": {
       "price_initial": 5.99,
       "price_final": 5.39,
       "discount_pct": 10,
-      "discount_end": null,
+      "discount_end": 1787504413,
       "scraped_at": 1786629749
     },
     "4990660": {
@@ -754830,49 +754830,49 @@
       "price_initial": 2.99,
       "price_final": 1.79,
       "discount_pct": 40,
-      "discount_end": null,
+      "discount_end": 1787331633,
       "scraped_at": 1786629749
     },
     "4992270": {
       "price_initial": 0.99,
       "price_final": 0.59,
       "discount_pct": 40,
-      "discount_end": null,
+      "discount_end": 1787331651,
       "scraped_at": 1786629749
     },
     "4992400": {
       "price_initial": 1.99,
       "price_final": 1.73,
       "discount_pct": 13,
-      "discount_end": null,
+      "discount_end": 1786726829,
       "scraped_at": 1786629749
     },
     "4992700": {
       "price_initial": 2.99,
       "price_final": 2.69,
       "discount_pct": 10,
-      "discount_end": null,
+      "discount_end": 1787158812,
       "scraped_at": 1786629749
     },
     "4993050": {
       "price_initial": 4.99,
       "price_final": 3.99,
       "discount_pct": 20,
-      "discount_end": null,
+      "discount_end": 1787331632,
       "scraped_at": 1786629749
     },
     "4993410": {
       "price_initial": 4.99,
       "price_final": 2.99,
       "discount_pct": 40,
-      "discount_end": null,
+      "discount_end": 1787072445,
       "scraped_at": 1786629749
     },
     "4995840": {
       "price_initial": 1.99,
       "price_final": 1.79,
       "discount_pct": 10,
-      "discount_end": null,
+      "discount_end": 1787331622,
       "scraped_at": 1786629749
     },
     "4996340": {
@@ -754886,7 +754886,7 @@
       "price_initial": 1.99,
       "price_final": 1.19,
       "discount_pct": 40,
-      "discount_end": null,
+      "discount_end": 1786813200,
       "scraped_at": 1786629749
     },
     "5000020": {
@@ -754900,7 +754900,7 @@
       "price_initial": 1.99,
       "price_final": 1.79,
       "discount_pct": 10,
-      "discount_end": null,
+      "discount_end": 1787677206,
       "scraped_at": 1786629749
     },
     "5001100": {
@@ -754914,28 +754914,28 @@
       "price_initial": 6.99,
       "price_final": 6.29,
       "discount_pct": 10,
-      "discount_end": null,
+      "discount_end": 1787072404,
       "scraped_at": 1786629749
     },
     "5006820": {
       "price_initial": 4.99,
       "price_final": 3.99,
       "discount_pct": 20,
-      "discount_end": null,
+      "discount_end": 1787331612,
       "scraped_at": 1786629749
     },
     "5007880": {
       "price_initial": 4.2,
       "price_final": 3.57,
       "discount_pct": 15,
-      "discount_end": null,
+      "discount_end": 1787850050,
       "scraped_at": 1786629749
     },
     "5009510": {
       "price_initial": 6.99,
       "price_final": 5.59,
       "discount_pct": 20,
-      "discount_end": null,
+      "discount_end": 1787850017,
       "scraped_at": 1786629749
     },
     "5010100": {
@@ -754949,14 +754949,14 @@
       "price_initial": 1.99,
       "price_final": 1.39,
       "discount_pct": 30,
-      "discount_end": null,
+      "discount_end": 1787245242,
       "scraped_at": 1786629749
     },
     "5014300": {
       "price_initial": 2.99,
       "price_final": 1.79,
       "discount_pct": 40,
-      "discount_end": null,
+      "discount_end": 1787850050,
       "scraped_at": 1786629749
     }
   }
