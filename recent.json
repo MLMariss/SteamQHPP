@@ -1,5 +1,5 @@
 {
-  "generated_at": 1786665135,
+  "generated_at": 1786665740,
   "window_days": 30,
   "count": 126244,
   "recent": {
@@ -14,9 +14,9 @@
       "recent_scraped_at": 1786664820
     },
     "4785570": {
-      "recent_pct": null,
-      "recent_count": 0,
-      "recent_scraped_at": 1786318270
+      "recent_pct": 85,
+      "recent_count": 20,
+      "recent_scraped_at": 1786665723
     },
     "4779560": {
       "recent_pct": 70,
@@ -29,14 +29,14 @@
       "recent_scraped_at": 1786664654
     },
     "4768400": {
-      "recent_pct": 18,
-      "recent_count": 22,
-      "recent_scraped_at": 1786317900
+      "recent_pct": 10,
+      "recent_count": 20,
+      "recent_scraped_at": 1786665361
     },
     "4757300": {
       "recent_pct": 91,
       "recent_count": 32,
-      "recent_scraped_at": 1786317365
+      "recent_scraped_at": 1786665284
     },
     "4754800": {
       "recent_pct": null,
@@ -44,14 +44,14 @@
       "recent_scraped_at": 1785263031
     },
     "4754260": {
-      "recent_pct": 74,
-      "recent_count": 19,
-      "recent_scraped_at": 1786318271
+      "recent_pct": 76,
+      "recent_count": 17,
+      "recent_scraped_at": 1786665724
     },
     "4753590": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786318157
+      "recent_scraped_at": 1786665611
     },
     "4746070": {
       "recent_pct": 83,
@@ -104,9 +104,9 @@
       "recent_scraped_at": 1786664636
     },
     "4699110": {
-      "recent_pct": 89,
-      "recent_count": 37,
-      "recent_scraped_at": 1786318055
+      "recent_pct": 97,
+      "recent_count": 32,
+      "recent_scraped_at": 1786665508
     },
     "4687470": {
       "recent_pct": 96,
@@ -119,9 +119,9 @@
       "recent_scraped_at": 1785263046
     },
     "4683710": {
-      "recent_pct": 50,
-      "recent_count": 32,
-      "recent_scraped_at": 1786317957
+      "recent_pct": 38,
+      "recent_count": 29,
+      "recent_scraped_at": 1786665415
     },
     "4681880": {
       "recent_pct": 96,
@@ -134,9 +134,9 @@
       "recent_scraped_at": 1786664698
     },
     "4673140": {
-      "recent_pct": 92,
-      "recent_count": 24,
-      "recent_scraped_at": 1786317877
+      "recent_pct": 91,
+      "recent_count": 23,
+      "recent_scraped_at": 1786665248
     },
     "4671700": {
       "recent_pct": null,
@@ -204,9 +204,9 @@
       "recent_scraped_at": 1785263057
     },
     "4631110": {
-      "recent_pct": 64,
-      "recent_count": 11,
-      "recent_scraped_at": 1786317962
+      "recent_pct": 60,
+      "recent_count": 10,
+      "recent_scraped_at": 1786665420
     },
     "4630570": {
       "recent_pct": 96,
@@ -286,17 +286,17 @@
     "4573210": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786317780
+      "recent_scraped_at": 1786665147
     },
     "4573080": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786317727
+      "recent_scraped_at": 1786665333
     },
     "4565430": {
-      "recent_pct": 92,
-      "recent_count": 12,
-      "recent_scraped_at": 1786318268
+      "recent_pct": 90,
+      "recent_count": 10,
+      "recent_scraped_at": 1786665721
     },
     "4564320": {
       "recent_pct": 82,
@@ -1156,7 +1156,7 @@
     "4871930": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786318159
+      "recent_scraped_at": 1786665613
     },
     "4871650": {
       "recent_pct": null,
@@ -1491,7 +1491,7 @@
     "4833100": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786318057
+      "recent_scraped_at": 1786665510
     },
     "4832800": {
       "recent_pct": null,
@@ -1726,7 +1726,7 @@
     "4821000": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786318160
+      "recent_scraped_at": 1786665615
     },
     "4820990": {
       "recent_pct": null,
@@ -1736,7 +1736,7 @@
     "4820980": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786317863
+      "recent_scraped_at": 1786665233
     },
     "4820830": {
       "recent_pct": null,
@@ -1744,14 +1744,14 @@
       "recent_scraped_at": 1785263323
     },
     "4820610": {
-      "recent_pct": 54,
-      "recent_count": 26,
-      "recent_scraped_at": 1786318162
+      "recent_pct": 63,
+      "recent_count": 27,
+      "recent_scraped_at": 1786665616
     },
     "4820520": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786318273
+      "recent_scraped_at": 1786665726
     },
     "4820420": {
       "recent_pct": null,
@@ -2016,7 +2016,7 @@
     "4808170": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786317904
+      "recent_scraped_at": 1786665364
     },
     "4808100": {
       "recent_pct": null,
@@ -2026,7 +2026,7 @@
     "4807600": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786318060
+      "recent_scraped_at": 1786665513
     },
     "4807060": {
       "recent_pct": null,
@@ -2081,7 +2081,7 @@
     "4804670": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786317445
+      "recent_scraped_at": 1786665292
     },
     "4804640": {
       "recent_pct": null,
@@ -2136,7 +2136,7 @@
     "4801330": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786317448
+      "recent_scraped_at": 1786665294
     },
     "4801080": {
       "recent_pct": null,
@@ -2221,7 +2221,7 @@
     "4798330": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786318163
+      "recent_scraped_at": 1786665618
     },
     "4798320": {
       "recent_pct": null,
@@ -2246,7 +2246,7 @@
     "4798010": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786317404
+      "recent_scraped_at": 1786665289
     },
     "4797950": {
       "recent_pct": null,
@@ -2306,7 +2306,7 @@
     "4796850": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786318274
+      "recent_scraped_at": 1786665728
     },
     "4795560": {
       "recent_pct": null,
@@ -2326,7 +2326,7 @@
     "4794930": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786317906
+      "recent_scraped_at": 1786665366
     },
     "4794880": {
       "recent_pct": null,
@@ -2376,7 +2376,7 @@
     "4792210": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786317866
+      "recent_scraped_at": 1786665237
     },
     "4792140": {
       "recent_pct": null,
@@ -2396,12 +2396,12 @@
     "4791730": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786318276
+      "recent_scraped_at": 1786665729
     },
     "4791710": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786318165
+      "recent_scraped_at": 1786665619
     },
     "4791430": {
       "recent_pct": null,
@@ -2421,12 +2421,12 @@
     "4791100": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786318277
+      "recent_scraped_at": 1786665731
     },
     "4790960": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786318279
+      "recent_scraped_at": 1786665732
     },
     "4790940": {
       "recent_pct": null,
@@ -2441,7 +2441,7 @@
     "4790830": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786317838
+      "recent_scraped_at": 1786665206
     },
     "4790620": {
       "recent_pct": null,
@@ -2456,7 +2456,7 @@
     "4789900": {
       "recent_pct": 92,
       "recent_count": 12,
-      "recent_scraped_at": 1786318281
+      "recent_scraped_at": 1786665734
     },
     "4789880": {
       "recent_pct": null,
@@ -2481,12 +2481,12 @@
     "4789260": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786318166
+      "recent_scraped_at": 1786665621
     },
     "4788930": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786317456
+      "recent_scraped_at": 1786665295
     },
     "4788840": {
       "recent_pct": null,
@@ -2526,7 +2526,7 @@
     "4788390": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786318021
+      "recent_scraped_at": 1786665476
     },
     "4787850": {
       "recent_pct": null,
@@ -2606,7 +2606,7 @@
     "4785050": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786318024
+      "recent_scraped_at": 1786665478
     },
     "4784980": {
       "recent_pct": null,
@@ -2706,7 +2706,7 @@
     "4781730": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786318282
+      "recent_scraped_at": 1786665736
     },
     "4781550": {
       "recent_pct": null,
@@ -2751,7 +2751,7 @@
     "4780470": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786318168
+      "recent_scraped_at": 1786665622
     },
     "4780340": {
       "recent_pct": null,
@@ -2806,7 +2806,7 @@
     "4778860": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786318284
+      "recent_scraped_at": 1786665737
     },
     "4778750": {
       "recent_pct": null,
@@ -2916,7 +2916,7 @@
     "4775070": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786318169
+      "recent_scraped_at": 1786665624
     },
     "4775040": {
       "recent_pct": null,
@@ -2941,7 +2941,7 @@
     "4774600": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786318171
+      "recent_scraped_at": 1786665626
     },
     "4774270": {
       "recent_pct": null,
@@ -3026,7 +3026,7 @@
     "4771720": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786317965
+      "recent_scraped_at": 1786665421
     },
     "4771600": {
       "recent_pct": null,
@@ -3051,7 +3051,7 @@
     "4770850": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786318285
+      "recent_scraped_at": 1786665739
     },
     "4770830": {
       "recent_pct": null,
@@ -3196,7 +3196,7 @@
     "4766600": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786318062
+      "recent_scraped_at": 1786665514
     },
     "4766570": {
       "recent_pct": null,
@@ -3216,7 +3216,7 @@
     "4766300": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786317478
+      "recent_scraped_at": 1786665297
     },
     "4766160": {
       "recent_pct": null,
@@ -3231,7 +3231,7 @@
     "4765580": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786317481
+      "recent_scraped_at": 1786665298
     },
     "4765520": {
       "recent_pct": null,
@@ -3286,12 +3286,12 @@
     "4764300": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786318173
+      "recent_scraped_at": 1786665627
     },
     "4764100": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786318174
+      "recent_scraped_at": 1786665270
     },
     "4764090": {
       "recent_pct": null,
@@ -3431,7 +3431,7 @@
     "4761870": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786317883
+      "recent_scraped_at": 1786665254
     },
     "4761810": {
       "recent_pct": null,
@@ -3446,7 +3446,7 @@
     "4761510": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786318287
+      "recent_scraped_at": 1786665740
     },
     "4761480": {
       "recent_pct": null,
@@ -3456,7 +3456,7 @@
     "4761270": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786317884
+      "recent_scraped_at": 1786665256
     },
     "4761170": {
       "recent_pct": null,
@@ -3471,7 +3471,7 @@
     "4760830": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786317894
+      "recent_scraped_at": 1786665355
     },
     "4760660": {
       "recent_pct": null,
@@ -3501,7 +3501,7 @@
     "4760040": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786318176
+      "recent_scraped_at": 1786665629
     },
     "4759410": {
       "recent_pct": null,
@@ -3509,9 +3509,9 @@
       "recent_scraped_at": 1785263702
     },
     "4759400": {
-      "recent_pct": 70,
-      "recent_count": 10,
-      "recent_scraped_at": 1786317967
+      "recent_pct": null,
+      "recent_count": 0,
+      "recent_scraped_at": 1786665423
     },
     "4758700": {
       "recent_pct": null,
@@ -3586,12 +3586,12 @@
     "4756900": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786318063
+      "recent_scraped_at": 1786665516
     },
     "4756670": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786318065
+      "recent_scraped_at": 1786665517
     },
     "4756570": {
       "recent_pct": null,
@@ -3601,7 +3601,7 @@
     "4756480": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786318066
+      "recent_scraped_at": 1786665519
     },
     "4756390": {
       "recent_pct": null,
@@ -3681,7 +3681,7 @@
     "4754140": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786318177
+      "recent_scraped_at": 1786665630
     },
     "4754040": {
       "recent_pct": null,
@@ -3691,7 +3691,7 @@
     "4754000": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786317872
+      "recent_scraped_at": 1786665243
     },
     "4753450": {
       "recent_pct": null,
@@ -3821,7 +3821,7 @@
     "4749820": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786318179
+      "recent_scraped_at": 1786665632
     },
     "4749520": {
       "recent_pct": null,
@@ -3941,7 +3941,7 @@
     "4747110": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786317968
+      "recent_scraped_at": 1786665424
     },
     "4747090": {
       "recent_pct": null,
@@ -4016,12 +4016,12 @@
     "4745530": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786318180
+      "recent_scraped_at": 1786665634
     },
     "4745450": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786317970
+      "recent_scraped_at": 1786665426
     },
     "4745430": {
       "recent_pct": null,
@@ -4211,7 +4211,7 @@
     "4738650": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786317502
+      "recent_scraped_at": 1786665300
     },
     "4738630": {
       "recent_pct": null,
@@ -4221,7 +4221,7 @@
     "4738550": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786317908
+      "recent_scraped_at": 1786665367
     },
     "4738540": {
       "recent_pct": null,
@@ -4236,7 +4236,7 @@
     "4738400": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786317971
+      "recent_scraped_at": 1786665427
     },
     "4738350": {
       "recent_pct": null,
@@ -4246,7 +4246,7 @@
     "4738170": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786318182
+      "recent_scraped_at": 1786665635
     },
     "4738140": {
       "recent_pct": null,
@@ -4259,9 +4259,9 @@
       "recent_scraped_at": 1786362462
     },
     "4738020": {
-      "recent_pct": 87,
-      "recent_count": 15,
-      "recent_scraped_at": 1786318183
+      "recent_pct": 91,
+      "recent_count": 11,
+      "recent_scraped_at": 1786665637
     },
     "4737990": {
       "recent_pct": null,
@@ -4356,12 +4356,12 @@
     "4735710": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786317855
+      "recent_scraped_at": 1786665225
     },
     "4735560": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786317973
+      "recent_scraped_at": 1786665429
     },
     "4735530": {
       "recent_pct": null,
@@ -4391,17 +4391,17 @@
     "4734620": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786318068
+      "recent_scraped_at": 1786665521
     },
     "4734610": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786318026
+      "recent_scraped_at": 1786665479
     },
     "4734560": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786317940
+      "recent_scraped_at": 1786665397
     },
     "4734490": {
       "recent_pct": null,
@@ -4411,7 +4411,7 @@
     "4734410": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786318069
+      "recent_scraped_at": 1786665522
     },
     "4734400": {
       "recent_pct": null,
@@ -4426,7 +4426,7 @@
     "4734250": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786317878
+      "recent_scraped_at": 1786665249
     },
     "4734220": {
       "recent_pct": null,
@@ -4521,7 +4521,7 @@
     "4732700": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786317821
+      "recent_scraped_at": 1786665192
     },
     "4732680": {
       "recent_pct": null,
@@ -4561,7 +4561,7 @@
     "4731630": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786317775
+      "recent_scraped_at": 1786665142
     },
     "4731610": {
       "recent_pct": null,
@@ -4626,7 +4626,7 @@
     "4730360": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786318393
+      "recent_scraped_at": 1786665275
     },
     "4730330": {
       "recent_pct": null,
@@ -4676,7 +4676,7 @@
     "4729520": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786317975
+      "recent_scraped_at": 1786665431
     },
     "4729510": {
       "recent_pct": null,
@@ -4876,7 +4876,7 @@
     "4725830": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786317507
+      "recent_scraped_at": 1786665302
     },
     "4725620": {
       "recent_pct": null,
@@ -4931,12 +4931,12 @@
     "4725020": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786318071
+      "recent_scraped_at": 1786665524
     },
     "4724900": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786317909
+      "recent_scraped_at": 1786665369
     },
     "4724800": {
       "recent_pct": null,
@@ -4961,7 +4961,7 @@
     "4724240": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786318143
+      "recent_scraped_at": 1786665597
     },
     "4724050": {
       "recent_pct": null,
@@ -4976,7 +4976,7 @@
     "4721080": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786318185
+      "recent_scraped_at": 1786665638
     },
     "4721000": {
       "recent_pct": null,
@@ -5141,7 +5141,7 @@
     "4717350": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786317852
+      "recent_scraped_at": 1786665221
     },
     "4717260": {
       "recent_pct": null,
@@ -5216,7 +5216,7 @@
     "4714640": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786317853
+      "recent_scraped_at": 1786665223
     },
     "4714620": {
       "recent_pct": null,
@@ -5271,7 +5271,7 @@
     "4712740": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786317873
+      "recent_scraped_at": 1786665245
     },
     "4712680": {
       "recent_pct": null,
@@ -5301,7 +5301,7 @@
     "4712350": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786317730
+      "recent_scraped_at": 1786665334
     },
     "4712300": {
       "recent_pct": null,
@@ -5316,7 +5316,7 @@
     "4711890": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786318141
+      "recent_scraped_at": 1786665596
     },
     "4711870": {
       "recent_pct": null,
@@ -5346,7 +5346,7 @@
     "4711050": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786318267
+      "recent_scraped_at": 1786665720
     },
     "4710730": {
       "recent_pct": null,
@@ -5376,7 +5376,7 @@
     "4710580": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786317516
+      "recent_scraped_at": 1786665303
     },
     "4710550": {
       "recent_pct": null,
@@ -5391,12 +5391,12 @@
     "4710460": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786317976
+      "recent_scraped_at": 1786665432
     },
     "4710400": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786318265
+      "recent_scraped_at": 1786665718
     },
     "4710390": {
       "recent_pct": null,
@@ -5416,7 +5416,7 @@
     "4710210": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786318073
+      "recent_scraped_at": 1786665525
     },
     "4710140": {
       "recent_pct": null,
@@ -5456,7 +5456,7 @@
     "4709610": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786317945
+      "recent_scraped_at": 1786665402
     },
     "4709580": {
       "recent_pct": null,
@@ -5496,12 +5496,12 @@
     "4708620": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786318187
+      "recent_scraped_at": 1786665640
     },
     "4708590": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786317943
+      "recent_scraped_at": 1786665400
     },
     "4708470": {
       "recent_pct": null,
@@ -5611,7 +5611,7 @@
     "4705730": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786318137
+      "recent_scraped_at": 1786665591
     },
     "4705700": {
       "recent_pct": null,
@@ -5866,7 +5866,7 @@
     "4701630": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786317524
+      "recent_scraped_at": 1786665305
     },
     "4701600": {
       "recent_pct": null,
@@ -5986,7 +5986,7 @@
     "4699200": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786317526
+      "recent_scraped_at": 1786665306
     },
     "4699180": {
       "recent_pct": null,
@@ -5996,7 +5996,7 @@
     "4699040": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786317978
+      "recent_scraped_at": 1786665434
     },
     "4699010": {
       "recent_pct": null,
@@ -6026,7 +6026,7 @@
     "4698720": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786317979
+      "recent_scraped_at": 1786665264
     },
     "4698660": {
       "recent_pct": null,
@@ -6116,7 +6116,7 @@
     "4697060": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786318030
+      "recent_scraped_at": 1786665482
     },
     "4697030": {
       "recent_pct": null,
@@ -6126,7 +6126,7 @@
     "4696950": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786318134
+      "recent_scraped_at": 1786665588
     },
     "4696900": {
       "recent_pct": null,
@@ -6141,7 +6141,7 @@
     "4696820": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786317836
+      "recent_scraped_at": 1786665204
     },
     "4696780": {
       "recent_pct": null,
@@ -6206,7 +6206,7 @@
     "4696030": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786318188
+      "recent_scraped_at": 1786665642
     },
     "4695930": {
       "recent_pct": null,
@@ -6256,7 +6256,7 @@
     "4694850": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786317981
+      "recent_scraped_at": 1786665436
     },
     "4694800": {
       "recent_pct": null,
@@ -6276,7 +6276,7 @@
     "4694670": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786318190
+      "recent_scraped_at": 1786665643
     },
     "4694610": {
       "recent_pct": null,
@@ -6311,7 +6311,7 @@
     "4694100": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786317982
+      "recent_scraped_at": 1786665437
     },
     "4694070": {
       "recent_pct": null,
@@ -6326,7 +6326,7 @@
     "4693720": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786318191
+      "recent_scraped_at": 1786665645
     },
     "4693570": {
       "recent_pct": null,
@@ -6371,7 +6371,7 @@
     "4693030": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786317911
+      "recent_scraped_at": 1786665371
     },
     "4693010": {
       "recent_pct": null,
@@ -6439,9 +6439,9 @@
       "recent_scraped_at": 1785264311
     },
     "4691990": {
-      "recent_pct": 92,
-      "recent_count": 36,
-      "recent_scraped_at": 1786318193
+      "recent_pct": 90,
+      "recent_count": 49,
+      "recent_scraped_at": 1786665646
     },
     "4691760": {
       "recent_pct": null,
@@ -6481,7 +6481,7 @@
     "4691080": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786317984
+      "recent_scraped_at": 1786665439
     },
     "4690380": {
       "recent_pct": null,
@@ -6526,7 +6526,7 @@
     "4689480": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786317886
+      "recent_scraped_at": 1786665257
     },
     "4689450": {
       "recent_pct": null,
@@ -6591,12 +6591,12 @@
     "4688470": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786317777
+      "recent_scraped_at": 1786665144
     },
     "4688240": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786318238
+      "recent_scraped_at": 1786665692
     },
     "4688090": {
       "recent_pct": null,
@@ -6666,7 +6666,7 @@
     "4686320": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786317782
+      "recent_scraped_at": 1786665342
     },
     "4686310": {
       "recent_pct": null,
@@ -6691,7 +6691,7 @@
     "4685790": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786318399
+      "recent_scraped_at": 1786665276
     },
     "4685460": {
       "recent_pct": null,
@@ -6749,9 +6749,9 @@
       "recent_scraped_at": 1785264375
     },
     "4683750": {
-      "recent_pct": 67,
-      "recent_count": 15,
-      "recent_scraped_at": 1786317630
+      "recent_pct": 70,
+      "recent_count": 10,
+      "recent_scraped_at": 1786665320
     },
     "4683530": {
       "recent_pct": null,
@@ -6761,7 +6761,7 @@
     "4683470": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786317985
+      "recent_scraped_at": 1786665440
     },
     "4683460": {
       "recent_pct": null,
@@ -6816,7 +6816,7 @@
     "4682130": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786317939
+      "recent_scraped_at": 1786665396
     },
     "4681970": {
       "recent_pct": null,
@@ -6856,7 +6856,7 @@
     "4681310": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786318194
+      "recent_scraped_at": 1786665648
     },
     "4681280": {
       "recent_pct": null,
@@ -6871,7 +6871,7 @@
     "4681200": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786318019
+      "recent_scraped_at": 1786665474
     },
     "4681020": {
       "recent_pct": null,
@@ -6881,12 +6881,12 @@
     "4680960": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786318074
+      "recent_scraped_at": 1786665527
     },
     "4680510": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786317783
+      "recent_scraped_at": 1786665149
     },
     "4679770": {
       "recent_pct": null,
@@ -6921,7 +6921,7 @@
     "4678330": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786318196
+      "recent_scraped_at": 1786665649
     },
     "4678280": {
       "recent_pct": null,
@@ -6964,9 +6964,9 @@
       "recent_scraped_at": 1785264413
     },
     "4677310": {
-      "recent_pct": 68,
-      "recent_count": 37,
-      "recent_scraped_at": 1786318198
+      "recent_pct": 69,
+      "recent_count": 26,
+      "recent_scraped_at": 1786665651
     },
     "4677270": {
       "recent_pct": null,
@@ -6976,7 +6976,7 @@
     "4677180": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786318032
+      "recent_scraped_at": 1786665484
     },
     "4677100": {
       "recent_pct": null,
@@ -7011,7 +7011,7 @@
     "4676900": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786317544
+      "recent_scraped_at": 1786665308
     },
     "4676790": {
       "recent_pct": null,
@@ -7066,7 +7066,7 @@
     "4675480": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786317987
+      "recent_scraped_at": 1786665442
     },
     "4675130": {
       "recent_pct": null,
@@ -7096,7 +7096,7 @@
     "4674550": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786318076
+      "recent_scraped_at": 1786665529
     },
     "4674310": {
       "recent_pct": null,
@@ -7211,7 +7211,7 @@
     "4672520": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786317988
+      "recent_scraped_at": 1786665443
     },
     "4672470": {
       "recent_pct": null,
@@ -7301,7 +7301,7 @@
     "4670670": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786318077
+      "recent_scraped_at": 1786665530
     },
     "4669900": {
       "recent_pct": null,
@@ -7471,7 +7471,7 @@
     "4665830": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786318199
+      "recent_scraped_at": 1786665653
     },
     "4665490": {
       "recent_pct": null,
@@ -7626,7 +7626,7 @@
     "4662380": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786318023
+      "recent_scraped_at": 1786665267
     },
     "4662130": {
       "recent_pct": null,
@@ -7661,7 +7661,7 @@
     "4661350": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786318033
+      "recent_scraped_at": 1786665486
     },
     "4661220": {
       "recent_pct": null,
@@ -7686,7 +7686,7 @@
     "4660760": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786317990
+      "recent_scraped_at": 1786665445
     },
     "4660730": {
       "recent_pct": null,
@@ -7746,7 +7746,7 @@
     "4659650": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786318079
+      "recent_scraped_at": 1786665532
     },
     "4659600": {
       "recent_pct": null,
@@ -7946,7 +7946,7 @@
     "4655090": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786317991
+      "recent_scraped_at": 1786665447
     },
     "4655050": {
       "recent_pct": null,
@@ -7986,7 +7986,7 @@
     "4654510": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786318201
+      "recent_scraped_at": 1786665654
     },
     "4654260": {
       "recent_pct": null,
@@ -8006,12 +8006,12 @@
     "4654140": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786318080
+      "recent_scraped_at": 1786665533
     },
     "4654060": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786318202
+      "recent_scraped_at": 1786665656
     },
     "4654030": {
       "recent_pct": null,
@@ -8026,7 +8026,7 @@
     "4653920": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786317844
+      "recent_scraped_at": 1786665213
     },
     "4653750": {
       "recent_pct": null,
@@ -8064,9 +8064,9 @@
       "recent_scraped_at": 1786362724
     },
     "4653340": {
-      "recent_pct": 100,
-      "recent_count": 10,
-      "recent_scraped_at": 1786318115
+      "recent_pct": null,
+      "recent_count": 0,
+      "recent_scraped_at": 1786665568
     },
     "4653330": {
       "recent_pct": null,
@@ -8246,7 +8246,7 @@
     "4646050": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786318204
+      "recent_scraped_at": 1786665657
     },
     "4646020": {
       "recent_pct": null,
@@ -8266,7 +8266,7 @@
     "4645570": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786318145
+      "recent_scraped_at": 1786665599
     },
     "4645490": {
       "recent_pct": null,
@@ -8281,7 +8281,7 @@
     "4645330": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786317828
+      "recent_scraped_at": 1786665194
     },
     "4645130": {
       "recent_pct": null,
@@ -8316,7 +8316,7 @@
     "4644600": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786318135
+      "recent_scraped_at": 1786665589
     },
     "4644190": {
       "recent_pct": null,
@@ -8426,7 +8426,7 @@
     "4642610": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786318035
+      "recent_scraped_at": 1786665487
     },
     "4642550": {
       "recent_pct": null,
@@ -8486,7 +8486,7 @@
     "4641100": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786317760
+      "recent_scraped_at": 1786665339
     },
     "4640620": {
       "recent_pct": null,
@@ -8544,9 +8544,9 @@
       "recent_scraped_at": 1785264741
     },
     "4639520": {
-      "recent_pct": 100,
-      "recent_count": 42,
-      "recent_scraped_at": 1786317912
+      "recent_pct": 97,
+      "recent_count": 39,
+      "recent_scraped_at": 1786665372
     },
     "4639370": {
       "recent_pct": null,
@@ -8636,7 +8636,7 @@
     "4637960": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786317568
+      "recent_scraped_at": 1786665309
     },
     "4637810": {
       "recent_pct": null,
@@ -8646,7 +8646,7 @@
     "4637650": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786318138
+      "recent_scraped_at": 1786665593
     },
     "4637550": {
       "recent_pct": null,
@@ -8711,7 +8711,7 @@
     "4636460": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786317785
+      "recent_scraped_at": 1786665151
     },
     "4636390": {
       "recent_pct": null,
@@ -8781,7 +8781,7 @@
     "4634810": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786318205
+      "recent_scraped_at": 1786665659
     },
     "4634590": {
       "recent_pct": null,
@@ -8801,7 +8801,7 @@
     "4634140": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786318037
+      "recent_scraped_at": 1786665489
     },
     "4634090": {
       "recent_pct": null,
@@ -8961,7 +8961,7 @@
     "4630530": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786317914
+      "recent_scraped_at": 1786665260
     },
     "4630400": {
       "recent_pct": null,
@@ -9026,7 +9026,7 @@
     "4629630": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786318207
+      "recent_scraped_at": 1786665661
     },
     "4629610": {
       "recent_pct": null,
@@ -9076,7 +9076,7 @@
     "4628440": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786317856
+      "recent_scraped_at": 1786665227
     },
     "4628310": {
       "recent_pct": null,
@@ -9121,7 +9121,7 @@
     "4627510": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786318415
+      "recent_scraped_at": 1786665278
     },
     "4627420": {
       "recent_pct": null,
@@ -9131,7 +9131,7 @@
     "4627340": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786317867
+      "recent_scraped_at": 1786665238
     },
     "4627300": {
       "recent_pct": null,
@@ -9141,12 +9141,12 @@
     "4627270": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786317946
+      "recent_scraped_at": 1786665404
     },
     "4626730": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786317786
+      "recent_scraped_at": 1786665153
     },
     "4626700": {
       "recent_pct": null,
@@ -9191,7 +9191,7 @@
     "4625990": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786318209
+      "recent_scraped_at": 1786665662
     },
     "4625970": {
       "recent_pct": null,
@@ -9226,7 +9226,7 @@
     "4625470": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786318210
+      "recent_scraped_at": 1786665664
     },
     "4625340": {
       "recent_pct": null,
@@ -9301,7 +9301,7 @@
     "4624020": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786318212
+      "recent_scraped_at": 1786665665
     },
     "4623920": {
       "recent_pct": null,
@@ -9321,7 +9321,7 @@
     "4623620": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786317993
+      "recent_scraped_at": 1786665448
     },
     "4623360": {
       "recent_pct": null,
@@ -9436,7 +9436,7 @@
     "4621210": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786317858
+      "recent_scraped_at": 1786665228
     },
     "4621050": {
       "recent_pct": null,
@@ -9461,7 +9461,7 @@
     "4620720": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786317937
+      "recent_scraped_at": 1786665394
     },
     "4620480": {
       "recent_pct": null,
@@ -9646,7 +9646,7 @@
     "4617040": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786317788
+      "recent_scraped_at": 1786665155
     },
     "4616930": {
       "recent_pct": null,
@@ -9696,7 +9696,7 @@
     "4616180": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786318038
+      "recent_scraped_at": 1786665491
     },
     "4615930": {
       "recent_pct": null,
@@ -9776,7 +9776,7 @@
     "4614780": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786318082
+      "recent_scraped_at": 1786665535
     },
     "4614650": {
       "recent_pct": null,
@@ -9869,9 +9869,9 @@
       "recent_scraped_at": 1786494569
     },
     "4612480": {
-      "recent_pct": 97,
-      "recent_count": 29,
-      "recent_scraped_at": 1786318083
+      "recent_pct": 100,
+      "recent_count": 25,
+      "recent_scraped_at": 1786665536
     },
     "4612060": {
       "recent_pct": null,
@@ -9896,7 +9896,7 @@
     "4611400": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786317590
+      "recent_scraped_at": 1786665311
     },
     "4611380": {
       "recent_pct": null,
@@ -9936,7 +9936,7 @@
     "4611070": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786317778
+      "recent_scraped_at": 1786665145
     },
     "4611050": {
       "recent_pct": null,
@@ -9966,7 +9966,7 @@
     "4610760": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786318213
+      "recent_scraped_at": 1786665667
     },
     "4610730": {
       "recent_pct": null,
@@ -10031,7 +10031,7 @@
     "4610000": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786318085
+      "recent_scraped_at": 1786665538
     },
     "4609830": {
       "recent_pct": null,
@@ -10071,7 +10071,7 @@
     "4608690": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786317839
+      "recent_scraped_at": 1786665207
     },
     "4608460": {
       "recent_pct": null,
@@ -10141,7 +10141,7 @@
     "4607190": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786317875
+      "recent_scraped_at": 1786665246
     },
     "4607110": {
       "recent_pct": null,
@@ -10161,7 +10161,7 @@
     "4606900": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786317920
+      "recent_scraped_at": 1786665379
     },
     "4606740": {
       "recent_pct": null,
@@ -10171,7 +10171,7 @@
     "4606730": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786317998
+      "recent_scraped_at": 1786665453
     },
     "4606620": {
       "recent_pct": 92,
@@ -10206,7 +10206,7 @@
     "4606220": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786318087
+      "recent_scraped_at": 1786665540
     },
     "4606090": {
       "recent_pct": null,
@@ -10266,7 +10266,7 @@
     "4604750": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786317790
+      "recent_scraped_at": 1786665158
     },
     "4604570": {
       "recent_pct": null,
@@ -10391,7 +10391,7 @@
     "4602730": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786317995
+      "recent_scraped_at": 1786665450
     },
     "4602670": {
       "recent_pct": null,
@@ -10451,7 +10451,7 @@
     "4601460": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786317791
+      "recent_scraped_at": 1786665344
     },
     "4601440": {
       "recent_pct": null,
@@ -10471,7 +10471,7 @@
     "4601230": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786318088
+      "recent_scraped_at": 1786665541
     },
     "4600980": {
       "recent_pct": null,
@@ -10521,7 +10521,7 @@
     "4600140": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786318215
+      "recent_scraped_at": 1786665669
     },
     "4599920": {
       "recent_pct": null,
@@ -10606,7 +10606,7 @@
     "4598620": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786317859
+      "recent_scraped_at": 1786665230
     },
     "4598570": {
       "recent_pct": null,
@@ -10881,7 +10881,7 @@
     "4594440": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786317604
+      "recent_scraped_at": 1786665313
     },
     "4594420": {
       "recent_pct": null,
@@ -10931,7 +10931,7 @@
     "4593770": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786317793
+      "recent_scraped_at": 1786665345
     },
     "4593750": {
       "recent_pct": null,
@@ -10941,7 +10941,7 @@
     "4593710": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786317607
+      "recent_scraped_at": 1786665314
     },
     "4593650": {
       "recent_pct": null,
@@ -11001,7 +11001,7 @@
     "4593000": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786318090
+      "recent_scraped_at": 1786665543
     },
     "4592990": {
       "recent_pct": null,
@@ -11071,7 +11071,7 @@
     "4591400": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786318040
+      "recent_scraped_at": 1786665492
     },
     "4591390": {
       "recent_pct": null,
@@ -11261,7 +11261,7 @@
     "4587790": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786318041
+      "recent_scraped_at": 1786665494
     },
     "4587780": {
       "recent_pct": null,
@@ -11306,7 +11306,7 @@
     "4587010": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786317610
+      "recent_scraped_at": 1786665316
     },
     "4586780": {
       "recent_pct": null,
@@ -11371,7 +11371,7 @@
     "4585830": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786317861
+      "recent_scraped_at": 1786665232
     },
     "4585800": {
       "recent_pct": null,
@@ -11404,9 +11404,9 @@
       "recent_scraped_at": 1785265254
     },
     "4584940": {
-      "recent_pct": 85,
-      "recent_count": 46,
-      "recent_scraped_at": 1786318216
+      "recent_pct": 87,
+      "recent_count": 53,
+      "recent_scraped_at": 1786665670
     },
     "4584830": {
       "recent_pct": null,
@@ -11446,7 +11446,7 @@
     "4584300": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786317915
+      "recent_scraped_at": 1786665374
     },
     "4584120": {
       "recent_pct": null,
@@ -11486,7 +11486,7 @@
     "4583560": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786317794
+      "recent_scraped_at": 1786665160
     },
     "4583440": {
       "recent_pct": null,
@@ -11501,7 +11501,7 @@
     "4583130": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786317615
+      "recent_scraped_at": 1786665317
     },
     "4583110": {
       "recent_pct": null,
@@ -11541,12 +11541,12 @@
     "4582600": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786318091
+      "recent_scraped_at": 1786665544
     },
     "4582580": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786317796
+      "recent_scraped_at": 1786665162
     },
     "4582530": {
       "recent_pct": null,
@@ -11661,7 +11661,7 @@
     "4580920": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786318218
+      "recent_scraped_at": 1786665672
     },
     "4580870": {
       "recent_pct": null,
@@ -11701,7 +11701,7 @@
     "4580380": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786317880
+      "recent_scraped_at": 1786665251
     },
     "4580350": {
       "recent_pct": null,
@@ -11766,7 +11766,7 @@
     "4579650": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786317917
+      "recent_scraped_at": 1786665375
     },
     "4579500": {
       "recent_pct": null,
@@ -11841,7 +11841,7 @@
     "4578130": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786318093
+      "recent_scraped_at": 1786665546
     },
     "4578060": {
       "recent_pct": null,
@@ -11916,7 +11916,7 @@
     "4576390": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786318094
+      "recent_scraped_at": 1786665547
     },
     "4576310": {
       "recent_pct": null,
@@ -11956,7 +11956,7 @@
     "4575880": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786318096
+      "recent_scraped_at": 1786665549
     },
     "4575800": {
       "recent_pct": null,
@@ -11976,7 +11976,7 @@
     "4575650": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786317797
+      "recent_scraped_at": 1786665347
     },
     "4575580": {
       "recent_pct": null,
@@ -12016,7 +12016,7 @@
     "4575220": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786317996
+      "recent_scraped_at": 1786665451
     },
     "4575200": {
       "recent_pct": null,
@@ -12126,7 +12126,7 @@
     "4573380": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786317918
+      "recent_scraped_at": 1786665377
     },
     "4573170": {
       "recent_pct": null,
@@ -12176,7 +12176,7 @@
     "4572190": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786317621
+      "recent_scraped_at": 1786665319
     },
     "4572110": {
       "recent_pct": null,
@@ -12331,7 +12331,7 @@
     "4568780": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786318027
+      "recent_scraped_at": 1786665268
     },
     "4568770": {
       "recent_pct": null,
@@ -12366,7 +12366,7 @@
     "4568350": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786318146
+      "recent_scraped_at": 1786665600
     },
     "4568300": {
       "recent_pct": null,
@@ -12386,7 +12386,7 @@
     "4568130": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786318098
+      "recent_scraped_at": 1786665551
     },
     "4568110": {
       "recent_pct": null,
@@ -12426,12 +12426,12 @@
     "4567480": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786318029
+      "recent_scraped_at": 1786665481
     },
     "4567300": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786317632
+      "recent_scraped_at": 1786665322
     },
     "4567280": {
       "recent_pct": null,
@@ -12651,7 +12651,7 @@
     "4564790": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786318220
+      "recent_scraped_at": 1786665673
     },
     "4564770": {
       "recent_pct": null,
@@ -12701,7 +12701,7 @@
     "4563960": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786318450
+      "recent_scraped_at": 1786665279
     },
     "4563950": {
       "recent_pct": null,
@@ -12791,7 +12791,7 @@
     "4555100": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786318005
+      "recent_scraped_at": 1786665265
     },
     "4551040": {
       "recent_pct": 90,
@@ -12811,7 +12811,7 @@
     "4530880": {
       "recent_pct": 95,
       "recent_count": 19,
-      "recent_scraped_at": 1786317929
+      "recent_scraped_at": 1786665262
     },
     "4522520": {
       "recent_pct": 67,
@@ -12831,7 +12831,7 @@
     "4511140": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786318116
+      "recent_scraped_at": 1786665570
     },
     "4510830": {
       "recent_pct": 70,
@@ -12846,7 +12846,7 @@
     "4501310": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786318118
+      "recent_scraped_at": 1786665571
     },
     "4500270": {
       "recent_pct": 73,
@@ -12859,9 +12859,9 @@
       "recent_scraped_at": 1786664638
     },
     "4491360": {
-      "recent_pct": 83,
-      "recent_count": 41,
-      "recent_scraped_at": 1786318154
+      "recent_pct": 82,
+      "recent_count": 38,
+      "recent_scraped_at": 1786665608
     },
     "4487840": {
       "recent_pct": 84,
@@ -12954,9 +12954,9 @@
       "recent_scraped_at": 1784535462
     },
     "4489770": {
-      "recent_pct": 97,
-      "recent_count": 30,
-      "recent_scraped_at": 1786317892
+      "recent_pct": 93,
+      "recent_count": 29,
+      "recent_scraped_at": 1786665353
     },
     "4486610": {
       "recent_pct": null,
@@ -12991,17 +12991,17 @@
     "4826900": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786317845
+      "recent_scraped_at": 1786665215
     },
     "4822760": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786318119
+      "recent_scraped_at": 1786665573
     },
     "4789820": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786317647
+      "recent_scraped_at": 1786665327
     },
     "4561590": {
       "recent_pct": null,
@@ -13051,7 +13051,7 @@
     "4556670": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786317807
+      "recent_scraped_at": 1786665174
     },
     "4556000": {
       "recent_pct": null,
@@ -13071,12 +13071,12 @@
     "4555090": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786318148
+      "recent_scraped_at": 1786665602
     },
     "4554610": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786318007
+      "recent_scraped_at": 1786665461
     },
     "4554420": {
       "recent_pct": null,
@@ -13096,17 +13096,17 @@
     "4553310": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786318009
+      "recent_scraped_at": 1786665462
     },
     "4552860": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786318240
+      "recent_scraped_at": 1786665694
     },
     "4551530": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786318242
+      "recent_scraped_at": 1786665696
     },
     "4551370": {
       "recent_pct": null,
@@ -13121,7 +13121,7 @@
     "4549590": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786318121
+      "recent_scraped_at": 1786665575
     },
     "4549080": {
       "recent_pct": null,
@@ -13131,12 +13131,12 @@
     "4548550": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786318010
+      "recent_scraped_at": 1786665465
     },
     "4547570": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786318243
+      "recent_scraped_at": 1786665697
     },
     "4547440": {
       "recent_pct": null,
@@ -13156,7 +13156,7 @@
     "4546750": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786317950
+      "recent_scraped_at": 1786665407
     },
     "4546730": {
       "recent_pct": null,
@@ -13166,7 +13166,7 @@
     "4546490": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786318123
+      "recent_scraped_at": 1786665577
     },
     "4546400": {
       "recent_pct": null,
@@ -13181,7 +13181,7 @@
     "4545380": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786318043
+      "recent_scraped_at": 1786665495
     },
     "4545200": {
       "recent_pct": null,
@@ -13196,17 +13196,17 @@
     "4544480": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786318140
+      "recent_scraped_at": 1786665594
     },
     "4544110": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786317942
+      "recent_scraped_at": 1786665399
     },
     "4543470": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786318245
+      "recent_scraped_at": 1786665699
     },
     "4542150": {
       "recent_pct": null,
@@ -13231,12 +13231,12 @@
     "4539810": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786317888
+      "recent_scraped_at": 1786665259
     },
     "4539680": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786318012
+      "recent_scraped_at": 1786665466
     },
     "4539270": {
       "recent_pct": null,
@@ -13271,12 +13271,12 @@
     "4536040": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786318246
+      "recent_scraped_at": 1786665700
     },
     "4535970": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786318013
+      "recent_scraped_at": 1786665468
     },
     "4535600": {
       "recent_pct": null,
@@ -13286,7 +13286,7 @@
     "4535410": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786318248
+      "recent_scraped_at": 1786665702
     },
     "4535380": {
       "recent_pct": null,
@@ -13296,7 +13296,7 @@
     "4534470": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786318249
+      "recent_scraped_at": 1786665704
     },
     "4533290": {
       "recent_pct": null,
@@ -13321,17 +13321,17 @@
     "4531420": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786317662
+      "recent_scraped_at": 1786665328
     },
     "4531140": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786317951
+      "recent_scraped_at": 1786665408
     },
     "4530640": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786318251
+      "recent_scraped_at": 1786665705
     },
     "4530610": {
       "recent_pct": null,
@@ -13356,7 +13356,7 @@
     "4528970": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786317830
+      "recent_scraped_at": 1786665196
     },
     "4528830": {
       "recent_pct": null,
@@ -13381,7 +13381,7 @@
     "4527100": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786318132
+      "recent_scraped_at": 1786665586
     },
     "4526410": {
       "recent_pct": null,
@@ -13401,7 +13401,7 @@
     "4525350": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786317869
+      "recent_scraped_at": 1786665240
     },
     "4523770": {
       "recent_pct": null,
@@ -13421,7 +13421,7 @@
     "4522140": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786317841
+      "recent_scraped_at": 1786665209
     },
     "4521680": {
       "recent_pct": 100,
@@ -13431,12 +13431,12 @@
     "4521480": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786318015
+      "recent_scraped_at": 1786665469
     },
     "4521010": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786317881
+      "recent_scraped_at": 1786665253
     },
     "4520940": {
       "recent_pct": null,
@@ -13446,12 +13446,12 @@
     "4519530": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786317750
+      "recent_scraped_at": 1786665338
     },
     "4519460": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786318016
+      "recent_scraped_at": 1786665471
     },
     "4518320": {
       "recent_pct": null,
@@ -13466,7 +13466,7 @@
     "4516940": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786317833
+      "recent_scraped_at": 1786665200
     },
     "4516860": {
       "recent_pct": null,
@@ -13491,17 +13491,17 @@
     "4515430": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786318124
+      "recent_scraped_at": 1786665578
     },
     "4515420": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786318126
+      "recent_scraped_at": 1786665580
     },
     "4515400": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786318127
+      "recent_scraped_at": 1786665581
     },
     "4515200": {
       "recent_pct": null,
@@ -13511,7 +13511,7 @@
     "4514650": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786318252
+      "recent_scraped_at": 1786665707
     },
     "4514150": {
       "recent_pct": null,
@@ -13521,12 +13521,12 @@
     "4514100": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786318356
+      "recent_scraped_at": 1786665273
     },
     "4513700": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786317802
+      "recent_scraped_at": 1786665168
     },
     "4513600": {
       "recent_pct": null,
@@ -13546,7 +13546,7 @@
     "4511980": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786317931
+      "recent_scraped_at": 1786665388
     },
     "4511710": {
       "recent_pct": null,
@@ -13581,7 +13581,7 @@
     "4505290": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786318129
+      "recent_scraped_at": 1786665583
     },
     "4504930": {
       "recent_pct": null,
@@ -13591,7 +13591,7 @@
     "4504890": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786318130
+      "recent_scraped_at": 1786665585
     },
     "4504810": {
       "recent_pct": null,
@@ -13606,12 +13606,12 @@
     "4504390": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786317800
+      "recent_scraped_at": 1786665166
     },
     "4503960": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786317834
+      "recent_scraped_at": 1786665202
     },
     "4503690": {
       "recent_pct": null,
@@ -13626,12 +13626,12 @@
     "4503530": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786318254
+      "recent_scraped_at": 1786665708
     },
     "4502770": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786317849
+      "recent_scraped_at": 1786665218
     },
     "4502020": {
       "recent_pct": null,
@@ -13641,7 +13641,7 @@
     "4501360": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786318256
+      "recent_scraped_at": 1786665710
     },
     "4500970": {
       "recent_pct": null,
@@ -13656,12 +13656,12 @@
     "4500770": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786317932
+      "recent_scraped_at": 1786665389
     },
     "4500370": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786317804
+      "recent_scraped_at": 1786665170
     },
     "4500150": {
       "recent_pct": null,
@@ -13696,22 +13696,22 @@
     "4497170": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786318257
+      "recent_scraped_at": 1786665272
     },
     "4496690": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786318259
+      "recent_scraped_at": 1786665712
     },
     "4495180": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786318260
+      "recent_scraped_at": 1786665713
     },
     "4494770": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786318262
+      "recent_scraped_at": 1786665715
     },
     "4490870": {
       "recent_pct": null,
@@ -13726,7 +13726,7 @@
     "4490010": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786317934
+      "recent_scraped_at": 1786665391
     },
     "4489800": {
       "recent_pct": null,
@@ -13736,7 +13736,7 @@
     "4489580": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786318044
+      "recent_scraped_at": 1786665497
     },
     "4489310": {
       "recent_pct": null,
@@ -13746,7 +13746,7 @@
     "4488930": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786317842
+      "recent_scraped_at": 1786665211
     },
     "4488180": {
       "recent_pct": null,
@@ -13761,7 +13761,7 @@
     "4487310": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786317691
+      "recent_scraped_at": 1786665330
     },
     "4485760": {
       "recent_pct": null,
@@ -13771,7 +13771,7 @@
     "4485690": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786317805
+      "recent_scraped_at": 1786665172
     },
     "4484800": {
       "recent_pct": null,
@@ -13781,12 +13781,12 @@
     "4484100": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786318046
+      "recent_scraped_at": 1786665498
     },
     "4483200": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786317953
+      "recent_scraped_at": 1786665410
     },
     "4483140": {
       "recent_pct": null,
@@ -13794,9 +13794,9 @@
       "recent_scraped_at": 1786362411
     },
     "4482480": {
-      "recent_pct": null,
-      "recent_count": 0,
-      "recent_scraped_at": 1786317847
+      "recent_pct": 73,
+      "recent_count": 11,
+      "recent_scraped_at": 1786665216
     },
     "4481440": {
       "recent_pct": null,
@@ -13811,7 +13811,7 @@
     "4480310": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786317935
+      "recent_scraped_at": 1786665393
     },
     "4479000": {
       "recent_pct": null,
@@ -13841,7 +13841,7 @@
     "4475250": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786318263
+      "recent_scraped_at": 1786665716
     },
     "4468680": {
       "recent_pct": null,
@@ -14066,7 +14066,7 @@
     "4558620": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786318149
+      "recent_scraped_at": 1786665604
     },
     "4558500": {
       "recent_pct": null,
@@ -14196,7 +14196,7 @@
     "4546950": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786317808
+      "recent_scraped_at": 1786665176
     },
     "4546930": {
       "recent_pct": null,
@@ -14221,7 +14221,7 @@
     "4546240": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786318151
+      "recent_scraped_at": 1786665605
     },
     "4546130": {
       "recent_pct": null,
@@ -14251,7 +14251,7 @@
     "4545120": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786317810
+      "recent_scraped_at": 1786665178
     },
     "4544780": {
       "recent_pct": null,
@@ -14331,17 +14331,17 @@
     "4540160": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786317811
+      "recent_scraped_at": 1786665180
     },
     "4538780": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786317813
+      "recent_scraped_at": 1786665182
     },
     "4538450": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786317815
+      "recent_scraped_at": 1786665185
     },
     "4537970": {
       "recent_pct": null,
@@ -14351,7 +14351,7 @@
     "4537940": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786317954
+      "recent_scraped_at": 1786665412
     },
     "4537780": {
       "recent_pct": null,
@@ -14386,7 +14386,7 @@
     "4536870": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786317816
+      "recent_scraped_at": 1786665187
     },
     "4536220": {
       "recent_pct": null,
@@ -14421,7 +14421,7 @@
     "4534350": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786317818
+      "recent_scraped_at": 1786665190
     },
     "4533810": {
       "recent_pct": null,
@@ -14516,12 +14516,12 @@
     "4527900": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786318048
+      "recent_scraped_at": 1786665500
     },
     "4527890": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786318049
+      "recent_scraped_at": 1786665502
     },
     "4527390": {
       "recent_pct": null,
@@ -14886,7 +14886,7 @@
     "4491220": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786317819
+      "recent_scraped_at": 1786665349
     },
     "4490050": {
       "recent_pct": null,
@@ -14971,7 +14971,7 @@
     "4483800": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786318051
+      "recent_scraped_at": 1786665503
     },
     "4483310": {
       "recent_pct": null,
@@ -15211,7 +15211,7 @@
     "4832200": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786318018
+      "recent_scraped_at": 1786665473
     },
     "4818310": {
       "recent_pct": null,
@@ -30381,7 +30381,7 @@
     "4280710": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786318156
+      "recent_scraped_at": 1786665610
     },
     "4280230": {
       "recent_pct": null,
@@ -40316,7 +40316,7 @@
     "3981950": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786317959
+      "recent_scraped_at": 1786665416
     },
     "3981670": {
       "recent_pct": null,
@@ -41201,7 +41201,7 @@
     "3833930": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786318059
+      "recent_scraped_at": 1786665511
     },
     "3833800": {
       "recent_pct": null,
@@ -74791,7 +74791,7 @@
     "3955620": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786317402
+      "recent_scraped_at": 1786665287
     },
     "3955460": {
       "recent_pct": null,
@@ -78216,7 +78216,7 @@
     "3878820": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786317394
+      "recent_scraped_at": 1786665286
     },
     "3878730": {
       "recent_pct": null,
@@ -96934,9 +96934,9 @@
       "recent_scraped_at": 1785459365
     },
     "3516180": {
-      "recent_pct": 69,
-      "recent_count": 16,
-      "recent_scraped_at": 1786317895
+      "recent_pct": 67,
+      "recent_count": 18,
+      "recent_scraped_at": 1786665356
     },
     "3515550": {
       "recent_pct": null,
@@ -100506,7 +100506,7 @@
     "3538250": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786317903
+      "recent_scraped_at": 1786665363
     },
     "3536660": {
       "recent_pct": null,
@@ -102556,7 +102556,7 @@
     "3590590": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786317897
+      "recent_scraped_at": 1786665358
     },
     "3590540": {
       "recent_pct": null,
@@ -153031,7 +153031,7 @@
     "3228230": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786317925
+      "recent_scraped_at": 1786665383
     },
     "3227950": {
       "recent_pct": null,
@@ -161381,7 +161381,7 @@
     "3183790": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786317898
+      "recent_scraped_at": 1786665360
     },
     "3183660": {
       "recent_pct": null,
@@ -208651,7 +208651,7 @@
     "2774940": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786317870
+      "recent_scraped_at": 1786665241
     },
     "2774650": {
       "recent_pct": null,
@@ -236221,7 +236221,7 @@
     "2475790": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786317405
+      "recent_scraped_at": 1786665290
     },
     "2475780": {
       "recent_pct": null,
@@ -241476,7 +241476,7 @@
     "2444660": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786318152
+      "recent_scraped_at": 1786665607
     },
     "2444540": {
       "recent_pct": null,
@@ -244651,7 +244651,7 @@
     "2574300": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786317926
+      "recent_scraped_at": 1786665385
     },
     "2574270": {
       "recent_pct": null,
@@ -263669,9 +263669,9 @@
       "recent_scraped_at": 1784419438
     },
     "2200780": {
-      "recent_pct": 92,
-      "recent_count": 92,
-      "recent_scraped_at": 1784051432
+      "recent_pct": 89,
+      "recent_count": 120,
+      "recent_scraped_at": 1786665281
     },
     "2199750": {
       "recent_pct": null,
@@ -274116,7 +274116,7 @@
     "2105660": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786317928
+      "recent_scraped_at": 1786665386
     },
     "2104990": {
       "recent_pct": null,
@@ -305346,7 +305346,7 @@
     "1987260": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786317956
+      "recent_scraped_at": 1786665413
     },
     "1986990": {
       "recent_pct": null,
@@ -305411,7 +305411,7 @@
     "1976660": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786317864
+      "recent_scraped_at": 1786665235
     },
     "1976520": {
       "recent_pct": null,
@@ -362724,9 +362724,9 @@
       "recent_scraped_at": 1785655762
     },
     "1603180": {
-      "recent_pct": 92,
-      "recent_count": 25,
-      "recent_scraped_at": 1786318052
+      "recent_pct": 83,
+      "recent_count": 29,
+      "recent_scraped_at": 1786665505
     },
     "1602330": {
       "recent_pct": null,
@@ -470961,7 +470961,7 @@
     "978280": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786317960
+      "recent_scraped_at": 1786665418
     },
     "1132230": {
       "recent_pct": null,
@@ -488211,7 +488211,7 @@
     "961010": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786318221
+      "recent_scraped_at": 1786665675
     },
     "960170": {
       "recent_pct": 87,
@@ -488229,9 +488229,9 @@
       "recent_scraped_at": 1786664663
     },
     "952040": {
-      "recent_pct": 91,
-      "recent_count": 22,
-      "recent_scraped_at": 1786318223
+      "recent_pct": 83,
+      "recent_count": 24,
+      "recent_scraped_at": 1786665677
     },
     "946880": {
       "recent_pct": null,
@@ -488246,7 +488246,7 @@
     "945770": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786318099
+      "recent_scraped_at": 1786665552
     },
     "945360": {
       "recent_pct": 92,
@@ -488256,7 +488256,7 @@
     "941850": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786318224
+      "recent_scraped_at": 1786665678
     },
     "941460": {
       "recent_pct": 73,
@@ -488271,22 +488271,22 @@
     "935570": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786318226
+      "recent_scraped_at": 1786665680
     },
     "934180": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786318101
+      "recent_scraped_at": 1786665554
     },
     "919360": {
-      "recent_pct": 60,
-      "recent_count": 15,
-      "recent_scraped_at": 1786318227
+      "recent_pct": 50,
+      "recent_count": 12,
+      "recent_scraped_at": 1786665681
     },
     "913600": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786318102
+      "recent_scraped_at": 1786665555
     },
     "908060": {
       "recent_pct": null,
@@ -488311,17 +488311,17 @@
     "883860": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786318104
+      "recent_scraped_at": 1786665557
     },
     "880130": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786318105
+      "recent_scraped_at": 1786665559
     },
     "879050": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786318229
+      "recent_scraped_at": 1786665683
     },
     "873890": {
       "recent_pct": null,
@@ -488331,17 +488331,17 @@
     "871940": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786318231
+      "recent_scraped_at": 1786665684
     },
     "866020": {
-      "recent_pct": 27,
-      "recent_count": 48,
-      "recent_scraped_at": 1786317311
+      "recent_pct": 29,
+      "recent_count": 45,
+      "recent_scraped_at": 1786665282
     },
     "863500": {
-      "recent_pct": 93,
-      "recent_count": 14,
-      "recent_scraped_at": 1786318107
+      "recent_pct": 92,
+      "recent_count": 13,
+      "recent_scraped_at": 1786665560
     },
     "860020": {
       "recent_pct": null,
@@ -488359,9 +488359,9 @@
       "recent_scraped_at": 1786362520
     },
     "853770": {
-      "recent_pct": 83,
-      "recent_count": 12,
-      "recent_scraped_at": 1786318232
+      "recent_pct": 80,
+      "recent_count": 15,
+      "recent_scraped_at": 1786665686
     },
     "851530": {
       "recent_pct": null,
@@ -488374,9 +488374,9 @@
       "recent_scraped_at": 1786318456
     },
     "846110": {
-      "recent_pct": 86,
-      "recent_count": 22,
-      "recent_scraped_at": 1786318108
+      "recent_pct": 87,
+      "recent_count": 23,
+      "recent_scraped_at": 1786665562
     },
     "844870": {
       "recent_pct": 60,
@@ -488394,9 +488394,9 @@
       "recent_scraped_at": 1786664652
     },
     "839770": {
-      "recent_pct": 69,
+      "recent_pct": 62,
       "recent_count": 39,
-      "recent_scraped_at": 1786318054
+      "recent_scraped_at": 1786665506
     },
     "838410": {
       "recent_pct": null,
@@ -488416,7 +488416,7 @@
     "814530": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786317999
+      "recent_scraped_at": 1786665455
     },
     "812840": {
       "recent_pct": null,
@@ -488431,7 +488431,7 @@
     "809730": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786318234
+      "recent_scraped_at": 1786665688
     },
     "801550": {
       "recent_pct": 76,
@@ -488439,9 +488439,9 @@
       "recent_scraped_at": 1786664644
     },
     "794860": {
-      "recent_pct": 70,
-      "recent_count": 10,
-      "recent_scraped_at": 1786318110
+      "recent_pct": 75,
+      "recent_count": 12,
+      "recent_scraped_at": 1786665563
     },
     "794600": {
       "recent_pct": 91,
@@ -488486,7 +488486,7 @@
     "942200": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786318001
+      "recent_scraped_at": 1786665456
     },
     "935580": {
       "recent_pct": 100,
@@ -488511,7 +488511,7 @@
     "921490": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786317799
+      "recent_scraped_at": 1786665164
     },
     "917950": {
       "recent_pct": 62,
@@ -488566,7 +488566,7 @@
     "896010": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786317948
+      "recent_scraped_at": 1786665405
     },
     "895140": {
       "recent_pct": null,
@@ -488661,12 +488661,12 @@
     "4291890": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786318002
+      "recent_scraped_at": 1786665458
     },
     "968530": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786317774
+      "recent_scraped_at": 1786665341
     },
     "934920": {
       "recent_pct": null,
@@ -488681,12 +488681,12 @@
     "931180": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786317744
+      "recent_scraped_at": 1786665336
     },
     "929800": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786317831
+      "recent_scraped_at": 1786665198
     },
     "910990": {
       "recent_pct": null,
@@ -488696,22 +488696,22 @@
     "895760": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786318235
+      "recent_scraped_at": 1786665689
     },
     "863290": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786318237
+      "recent_scraped_at": 1786665691
     },
     "859380": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786318112
+      "recent_scraped_at": 1786665565
     },
     "814330": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786318113
+      "recent_scraped_at": 1786665567
     },
     "801010": {
       "recent_pct": null,
@@ -492024,9 +492024,9 @@
       "recent_scraped_at": 1785751327
     },
     "921390": {
-      "recent_pct": 62,
-      "recent_count": 13,
-      "recent_scraped_at": 1786317891
+      "recent_pct": 64,
+      "recent_count": 11,
+      "recent_scraped_at": 1786665352
     },
     "921070": {
       "recent_pct": null,
@@ -492461,7 +492461,7 @@
     "912840": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786318004
+      "recent_scraped_at": 1786665459
     },
     "912570": {
       "recent_pct": null,
@@ -614456,7 +614456,7 @@
     "4633320": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786317922
+      "recent_scraped_at": 1786665380
     },
     "4101270": {
       "recent_pct": null,
@@ -614546,12 +614546,12 @@
     "4373150": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786317923
+      "recent_scraped_at": 1786665382
     },
     "4282880": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786317634
+      "recent_scraped_at": 1786665324
     },
     "3996680": {
       "recent_pct": null,
@@ -614561,7 +614561,7 @@
     "3990210": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786317635
+      "recent_scraped_at": 1786665325
     },
     "3914980": {
       "recent_pct": null,
@@ -614591,7 +614591,7 @@
     "4848340": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786317710
+      "recent_scraped_at": 1786665331
     },
     "4798960": {
       "recent_pct": null,
@@ -621876,7 +621876,7 @@
     "4545780": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786317850
+      "recent_scraped_at": 1786665220
     },
     "4298490": {
       "recent_pct": null,
@@ -627321,7 +627321,7 @@
     "4388420": {
       "recent_pct": null,
       "recent_count": 0,
-      "recent_scraped_at": 1786317889
+      "recent_scraped_at": 1786665350
     },
     "4981740": {
       "recent_pct": null,
