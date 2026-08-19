@@ -104,15 +104,24 @@ MISS_TTL_DAYS = int(os.environ.get("QTPD_TRAILER_MISS_TTL", "30"))
 CDN_HOST = os.environ.get("QTPD_TRAILER_CDN", "https://video.akamai.steamstatic.com/")
 DEFAULT_PREFIX = "steam/apps/"          # used only if no response carried a format string
 
-# Probed in order by probe_hosts() under QTPD_DUMP_TRAILERS=1. Kept as a list so the
-# next schema surprise is a data question answered from a runner, not a guess.
+# Probed as a HOST x ROOT matrix by probe_hosts() under QTPD_DUMP_TRAILERS=1. The first
+# probe tried hosts only and every combination 404'd, because the format's "steam/apps/"
+# prefix is not the whole path: the site's own modern art already lives under a
+# `store_item_assets/` root (index.html ASSET_CDN =
+# shared.akamai.steamstatic.com/store_item_assets/steam/apps), which is exactly that
+# prefix with a root in front. Kept as lists so the next surprise stays a data question
+# answered from a runner rather than another guess.
 CANDIDATE_HOSTS = [
+    "https://shared.akamai.steamstatic.com/",
+    "https://shared.cloudflare.steamstatic.com/",
+    "https://shared.fastly.steamstatic.com/",
     "https://video.akamai.steamstatic.com/",
     "https://video.cloudflare.steamstatic.com/",
+    "https://video.fastly.steamstatic.com/",
     "https://cdn.akamai.steamstatic.com/",
     "https://cdn.cloudflare.steamstatic.com/",
-    "https://shared.akamai.steamstatic.com/",
 ]
+CANDIDATE_ROOTS = ["store_item_assets/", "", "store_trailers/"]
 
 VIDEO_EXTS = (".webm", ".mp4")
 IN_ACTIONS = os.environ.get("GITHUB_ACTIONS") == "true"
@@ -274,20 +283,35 @@ def extract_trailer(item):
 
 
 def probe_hosts(prefix, filename):
-    """HEAD one real trailer file against every CANDIDATE_HOST and log the status.
+    """HEAD one real trailer file across the HOST x ROOT matrix and log every status.
 
-    Only runs under QTPD_DUMP_TRAILERS=1. The point is to settle CDN_HOST with
-    evidence from a runner that can reach Steam, rather than guessing from a
-    sandbox where the whole domain is blocked.
+    Only runs under QTPD_DUMP_TRAILERS=1. The point is to settle the base with
+    evidence from a runner that can reach Steam, rather than guessing from a sandbox
+    where the whole domain is blocked. Any 200 is printed again at the end as the
+    value to paste into QTPD_TRAILER_CDN / CDN_HOST.
     """
-    log("=== CDN host probe ===")
-    for host in CANDIDATE_HOSTS:
-        url = host + (prefix or DEFAULT_PREFIX) + filename
-        try:
-            r = SESSION.head(url, timeout=20, allow_redirects=True)
-            log(f"  {r.status_code}  {r.headers.get('content-type','?'):<16} {url}")
-        except requests.RequestException as e:
-            log(f"  ERR  {url}  ({e})")
+    log("=== CDN base probe (host x root) ===")
+    hits = []
+    for root in CANDIDATE_ROOTS:
+        for host in CANDIDATE_HOSTS:
+            base = host + root
+            url = base + (prefix or DEFAULT_PREFIX) + filename
+            try:
+                r = SESSION.head(url, timeout=20, allow_redirects=True)
+                ctype = r.headers.get("content-type", "?")
+                log(f"  {r.status_code}  {ctype:<18} {url}")
+                # A real video, not an HTML error page dressed as a 200.
+                if r.status_code == 200 and "video" in ctype:
+                    hits.append(base)
+            except requests.RequestException as e:
+                log(f"  ERR  {url}  ({e})")
+    log("=== result ===")
+    if hits:
+        for b in hits:
+            log(f"  WORKS -> CDN_HOST={b}")
+    else:
+        log("  nothing served a video. The path shape itself is wrong — re-read a "
+            "store page's own <video> src before guessing again.")
 
 
 # --------------------------------------------------------------------------- #

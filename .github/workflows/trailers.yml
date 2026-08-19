@@ -37,7 +37,11 @@ jobs:
           # Writing to main stays safe: git_checkpoint refuses to push from a non-main
           # checkout, so a branch run can only ever be a dry run.
           ref: ${{ github.ref_name }}
-          fetch-depth: 0
+          # A dump run reads nothing from git history and commits nothing, so it takes a
+          # shallow clone: full history on this repo costs ~16 MINUTES of checkout (the
+          # tags job measures 15m59s), which is the entire cost of a schema-check
+          # iteration. Real runs still need depth 0 for the rebase-onto-main checkpoint.
+          fetch-depth: ${{ inputs.dump && 1 || 0 }}
 
       - uses: actions/setup-python@v6
         with:
