@@ -30,7 +30,13 @@ jobs:
     steps:
       - uses: actions/checkout@v5
         with:
-          ref: main
+          # The REF THAT TRIGGERED the run, not a hardcoded "main". On the schedule that
+          # resolves to main exactly as before; on a manual dispatch from a branch it
+          # actually runs that branch's code. With `ref: main` hardcoded, dispatching a
+          # schema-check from a fix branch silently re-ran the code being fixed.
+          # Writing to main stays safe: git_checkpoint refuses to push from a non-main
+          # checkout, so a branch run can only ever be a dry run.
+          ref: ${{ github.ref_name }}
           fetch-depth: 0
 
       - uses: actions/setup-python@v6

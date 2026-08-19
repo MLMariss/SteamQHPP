@@ -389,8 +389,23 @@ def save_state(misses, swept_at):
         ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
 
 
+def _on_main():
+    """True when the checkout really is main.
+
+    Guard for the workflow's `ref: ${{ github.ref_name }}` checkout: a manual dispatch
+    from a fix branch must never be able to push that branch's code onto main via the
+    `HEAD:main` checkpoint below. A branch run is therefore always a dry run.
+    """
+    r = subprocess.run(["git", "rev-parse", "--abbrev-ref", "HEAD"],
+                       capture_output=True, text=True)
+    return r.returncode == 0 and r.stdout.strip() == "main"
+
+
 def git_checkpoint(msg):
     if not IN_ACTIONS:
+        return
+    if not _on_main():
+        log(f"  [dry run: not on main] would have committed: {msg}")
         return
     try:
         subprocess.run(["git", "add", "trailers.json", "trailers_state.json"], check=False)
