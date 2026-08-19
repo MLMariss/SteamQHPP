@@ -1506,13 +1506,22 @@ try{
     </div>
     <!-- Hover preview switch. Lives here with the other DISPLAY preferences (not in the
          filter panel, which is about which games you see). It exists because the preview
-         downloads a ~480p video per hover: cheap on a desktop connection, rude on a
-         metered one, so it has to be switchable and the choice has to stick. Default on;
-         forced off, ignoring the saved value, when the OS asks for reduced motion. -->
+         downloads a video per hover: cheap on a desktop connection, rude on a metered one,
+         so it has to be switchable and the choice has to stick. Default Video; forced to
+         Still, ignoring the saved value, when the OS asks for reduced motion.
+
+         TWO EXPLICIT OPTIONS, not one toggle button. The first version was a lone "Video"
+         button that defaulted to ON — so the instinctive click, by someone who wanted
+         video, silently turned it OFF, and localStorage made that stick across reloads
+         with no hint as to why hovering had stopped working. A pressed-vs-unpressed tint
+         is far too subtle to carry that meaning. Mirroring the VIEW switcher makes the
+         current state unmissable and every click additive. -->
     <span class="rb-lbl">Preview</span>
-    <div class="seg viewseg" role="group" aria-label="Hover video preview">
-      <button id="trailerToggle" aria-pressed="true"
-              title="Play the game's Steam preview clip when you hover its thumbnail, instead of just enlarging the still. This is the same short silent loop Steam plays on its own store capsules — a few hundred KB, loaded only for the game you actually hover. Turn off to keep the enlarged still only.">Video</button>
+    <div class="seg viewseg" id="trailerSwitch" role="group" aria-label="Thumbnail hover preview">
+      <button data-preview="still" aria-pressed="false"
+              title="Hover shows the enlarged store art only. No video is downloaded.">Still</button>
+      <button data-preview="video" aria-pressed="true"
+              title="Hover plays the game's Steam preview clip — the same short silent loop Steam runs on its own store capsules. A few hundred KB, loaded only for the game you actually hover.">Video</button>
     </div>
     <div class="rb-legend" aria-hidden="true">
       <span class="rb-key" title="QTPD — Quality Time Per Dollar, the headline metric. Higher means more game-hours of value per dollar."><b class="k-q">QTPD</b> value score</span>
@@ -3852,18 +3861,25 @@ function init(data){
   // OS asks for reduced motion the previews stay off and the control says so rather than
   // claiming to be on and then doing nothing.
   (function(){
-    const btn = document.getElementById("trailerToggle"); if(!btn) return;
+    const sw = document.getElementById("trailerSwitch"); if(!sw) return;
+    const btns = [...sw.querySelectorAll("[data-preview]")];
     const sync = () => {
       const on = trailersOn();
-      btn.setAttribute("aria-pressed", String(on));
+      btns.forEach(b => b.setAttribute("aria-pressed",
+                                       String((b.dataset.preview === "video") === on)));
       if(REDUCED_MOTION){
-        btn.classList.add("disabled");
-        btn.title = "Hover video previews are off because your system is set to reduce motion.";
+        // Reduced motion wins over the saved choice, so say why rather than leaving a
+        // dead control that silently ignores clicks.
+        btns.forEach(b => {
+          b.classList.add("disabled");
+          b.title = "Hover previews are held on Still because your system is set to reduce motion.";
+        });
       }
     };
-    btn.addEventListener("click", () => {
-      if(REDUCED_MOTION) return;
-      const on = !trailersOn();
+    sw.addEventListener("click", e => {
+      const b = e.target.closest("[data-preview]");
+      if(!b || REDUCED_MOTION) return;
+      const on = b.dataset.preview === "video";
       try{ localStorage.setItem("qtpd.trailers", on ? "1" : "0"); }catch(e){}
       if(!on) stopTrailer();          // kill anything playing the moment it's switched off
       sync();
