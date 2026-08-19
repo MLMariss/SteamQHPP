@@ -202,21 +202,25 @@ def _playable(entries):
 
 
 def _highlights(trailers):
-    """The trailer entries for one item, primary first.
+    """Every trailer entry for one item, best-first.
 
-    `highlights` is the store's own ordering (what the page shows first), with
-    `other_trailers` as the fallback for apps that have only those. Any other
-    list-of-dicts under `trailers` is accepted last so a rename degrades to
-    something rather than nothing.
+    `highlights` is the store's own ordering (what the page shows first) and comes
+    first; `other_trailers` is APPENDED rather than used as an either/or fallback, so
+    an app whose highlights carry no playable asset can still fall through to one that
+    does. Any other list-of-dicts under `trailers` is accepted last, so a key rename
+    degrades to something rather than nothing.
     """
     if isinstance(trailers, list):
         return [t for t in trailers if isinstance(t, dict)]
     if not isinstance(trailers, dict):
         return []
+    out = []
     for key in ("highlights", "other_trailers"):
         v = trailers.get(key)
-        if isinstance(v, list) and any(isinstance(t, dict) for t in v):
-            return [t for t in v if isinstance(t, dict)]
+        if isinstance(v, list):
+            out += [t for t in v if isinstance(t, dict)]
+    if out:
+        return out
     for v in trailers.values():
         if isinstance(v, list) and any(isinstance(t, dict) for t in v):
             return [t for t in v if isinstance(t, dict)]
@@ -365,6 +369,17 @@ def load_json(path, default):
         return default
 
 
+def absolute_base(prefix):
+    """CDN_HOST joined to the learned prefix — unless the prefix is ALREADY absolute.
+
+    Valve's format string is relative today ("steam/apps/${FILENAME}"), but it used to
+    be a full URL, and a revert would otherwise yield
+    "https://cdn.../https://video.../..." — a silently broken base on every row.
+    """
+    p = prefix or DEFAULT_PREFIX
+    return p if p.startswith("http") else CDN_HOST + p
+
+
 def save_trailers(hits, prefix, adaptive_count):
     # Compact separators, not indent=2: this file is machine-generated, browser-facing,
     # and ~100k rows deep — pretty-printing it would roughly triple the bytes on the
@@ -374,7 +389,7 @@ def save_trailers(hits, prefix, adaptive_count):
     # and nothing else needs to know how it was assembled.
     TRAILERS_FILE.write_text(json.dumps(
         {"format": "trailers_v2", "generated_at": int(time.time()),
-         "base": CDN_HOST + (prefix or DEFAULT_PREFIX), "count": len(hits),
+         "base": absolute_base(prefix), "count": len(hits),
          # Informational: how many apps also expose DASH/HLS manifests, i.e. how much
          # is on the table if a streaming player is ever worth the weight.
          "adaptive_available": adaptive_count,
