@@ -62,17 +62,21 @@ one checkpoint's worth of work.
    │        └─ pics_merge.py ─────────► pics.json        │        └──────────────────┘
    │ trailers.py ─────────────► trailers.json            │
    │                            + trailers_state.json    │
+   │ shots.py ────────────────► shots/shard_NN.json      │
+   │                            + shots_state.json       │
    │ coverage.py ─────────────► COVERAGE.md              │
    │ shard_health.py ─────────► SHARDS.md                │  (generated docs, not read
    └────────────────────────────────────────────────────┘   by the frontend)
 ```
 
 All scraping is server-side; the browser only reads JSON and (optionally) calls the Worker.
-The frontend fetches **13 files**: the eight data layers above (`games`, `prices`, `hltb`,
-`tags`, `recent`, `playtime`, `ratings`, `updates`), the merged `pics.json`, `trailers.json`
-(§2.1), and the three static decode maps in `lookups/` (`tags.json`, `genres.json`,
-`categories.json`, §9.6). `catalog.json`, `trailers_state.json`, the `*_raw/` shard sets,
-`pics/`, and the two generated `.md` files are never served to the browser.
+The frontend fetches **13 files at load**: the eight data layers above (`games`, `prices`,
+`hltb`, `tags`, `recent`, `playtime`, `ratings`, `updates`), the merged `pics.json`,
+`trailers.json` (§2.1), and the three static decode maps in `lookups/` (`tags.json`,
+`genres.json`, `categories.json`, §9.6). `shots/` (§2.2) is the one layer fetched **lazily**
+— one shard per hovered game, never at load. `catalog.json`, `trailers_state.json`,
+`shots_state.json`, the `*_raw/` shard sets, `pics/`, and the two generated `.md` files are
+never served to the browser.
 
 ### 2.1 The trailer layer (`trailers.py` → `trailers.json`)
 
@@ -132,10 +136,107 @@ Adaptive-only apps count as misses — they have a trailer we can't play. The fi
 walks the catalog **most-reviewed first**, so the games anyone actually hovers get covered
 in the opening minutes rather than at the end of the sweep.
 
-**Frontend.** The clip plays in the enlarged hover popup after a 350 ms dwell, muted and
-looping, cross-faded in only once the browser reports `playing`. The layer is purely
-additive — absent, still filling, or switched off via the **Preview: Video** control, the
-popup shows the enlarged still exactly as it did before.
+**Frontend.** The clip plays in the enlarged hover popup after a 350 ms dwell, muted,
+cross-faded in only once the browser reports `playing`. It no longer loops forever: when it
+ends it **hands over to the rotating screenshots** (§2.2), and only restarts itself where a
+game has no stills to hand over to. The layer is purely additive — absent, still filling, or
+switched off via the **Preview: Video** control, the popup shows the enlarged still exactly
+as it did before.
+
+
+### 2.2 The screenshot layer (`shots.py` → `shots/shard_NN.json`)
+
+**Why it exists.** §2.1's preview answers "what does this game look like in motion" with
+Valve's ~6s microtrailer — and for a great many games that clip is a logo sting with no
+gameplay in it at all. Worse, **4,597 games (3.6% of the catalog) have no playable video
+whatsoever**; on those the panel was an enlarged piece of key art and nothing more. Store
+screenshots close both gaps: they play *after* the clip, and they *are* the preview where
+there is no clip.
+
+Like trailers, they cannot be derived. A screenshot is addressed by a content hash
+(`ss_<sha1>.jpg`) that nothing about the appid predicts, which is exactly what index.html's
+T6 fallback chain records — *"no screenshot step — screenshot URLs aren't derivable from
+appid"*. So: one more file, one more job.
+
+**Why not the PICS field we already have.** PICS carries `store_screenshot` and
+`pics_refresh.py` already fetches it, so it looks free. Measured across all 64 `pics_raw`
+shards, it is unusable: present for **14,975 of 126,742 apps (11.8%)**, and it is one image
+rather than a set. Valve stopped populating it — 61–63% of 2016–2018 releases carry it,
+29% of 2019, 0.8% of 2020, ~0.0% of 2023 onward — and it is *inversely* correlated with
+popularity, with only **3 of the top 500 most-reviewed games (0.6%)** carrying one, because
+the maintained, `store_item_assets`-migrated store pages are precisely the ones that
+dropped it. It is a legacy field, dead for anything current.
+
+**Why one job and not two.** The `appdetails` blob `scraper.py` already fetches per game
+(`scraper.py:588`) contains a `screenshots` array that is currently discarded, and the
+scraper walks the whole catalog every ~50 days (measured: p50 re-scrape age 42d, max 54d),
+so harvesting it there would have been free and would have covered new releases within ~6h
+instead of ~24h. It was **rejected on §1 grounds**: it would make two jobs write one data
+layer, and one-writer-per-file is what lets every scheduled job push concurrently without
+coordination. The trade bought ~18h of freshness on ~100 games/day at the cost of the
+invariant, which is not a trade worth making — `select_work` already queues never-checked
+appids first on every daily run, so new games are covered by this job alone.
+
+**Source.** `IStoreBrowseService/GetItems/v1` with `data_request.include_screenshots` — the
+same batched endpoint as §2.1 and `price_and_sale.py`, 50 appids per call, ~2.5k calls ≈ 50
+minutes for a full sweep. Catalog order is **most-reviewed first**, so the games anyone
+actually hovers are covered in the opening minutes.
+
+**Expected coverage, and what is not yet verified.** Screenshots are effectively mandatory:
+Valve requires a minimum of five to publish a store page, where a trailer is optional and
+`trailers.json` still resolved 96.4% of the catalog. This layer should therefore land at or
+above that. **That is an inference from Valve's submission rules, not a measurement** —
+unlike §2.1, whose surprises were caught by a dump run, the response shape here has never
+been seen from a runner that can reach Steam. Two specific unknowns remain open until
+`QTPD_DUMP_SHOTS=1` (workflow input `dump`) is run:
+
+1. **The key path.** Expected `screenshots.all_ages_screenshots[] = {filename, ordinal}`.
+   `extract_shots` therefore hardcodes nothing: it tries the named key, then any other
+   list-of-dicts under `screenshots` whose key does not look mature, and pulls
+   `filename`/`path_thumbnail`/`path_full`/`path`/`url`-shaped values out of whatever it
+   finds — normalising full URLs, `?t=` cache-busters and leading slashes away.
+2. **The serving host.** Expected under the same `store_item_assets/` root the frontend
+   already uses for modern header art, with an `<appid>/` path segment.
+   `probe_shot_hosts()` HEADs a real filename across a host × root matrix and requires an
+   `image/*` content-type, so an HTML error page served as 200 cannot pass — the same
+   method that took §2.1 two rounds to settle. **Run the dump before trusting a row this
+   parser writes.**
+
+**Adult content.** Only `all_ages_screenshots` is stored. Valve splits mature stills into
+`mature_content_screenshots`, and a game can carry those *without* tripping the frontend's
+PICS-based 18+ gate (`pics_summarize` `adult` = content_desc 3/4) — in which case the
+rotation would show ungated mature images on a thumbnail that was never blurred. Storing
+only the all-ages set makes that impossible by construction; a game offering nothing else
+is recorded as a miss, and the run log counts those separately from genuine empties.
+
+**Files, and why this one is sharded.** `shots/shard_NN.json` (served, `shots_v1`, 64
+shards by `appid % 64`) holds hits only — `{appid: [filename, ...]}`, capped at
+`QTPD_SHOTS_PER_GAME` (default **4**) in Valve's own `ordinal` order, which is the
+developer's pick of what represents the game best. Each shard carries its own absolute
+`base`, so a host migration stays a data change. This is the one layer that departs from
+§2.1's single flat file: a trailer is one short filename list per game and the whole map is
+small enough to ship at load, whereas screenshots are ~4 hashes per game (~25 MB across the
+catalog) and **only the row you actually hover ever needs them**. Shipping that eagerly
+would add ~10% to a page that already pulls ~240 MB of JSON, to serve hovers that mostly
+never happen. Checkpoints rewrite **only the shards touched since the last save**, so a few
+hundred new rows produce a small diff rather than a 25 MB one on a repo Pages serves live.
+`shots_state.json` (**not** served) is the queue's memory, `{misses: {appid: ts}}`, retried
+after `QTPD_SHOTS_MISS_TTL` days because a freshly-listed game gains screenshots later.
+
+**Frontend.** One control governs every kind of panel motion: the existing **Preview:
+Video** toggle (and the `prefers-reduced-motion` override inside `trailersOn()`) suppresses
+the rotation too — a cross-fading slideshow is motion, and turning video off must not leave
+the panel animating. Where a game has a clip, the clip plays once and then hands over;
+where it has none, the stills start after the same 350 ms dwell, so dragging the pointer
+down the table still costs nothing. Frames cross-fade at 1.8 s through **two stacked `<img>`
+layers** — a single element would swap instantly, and fading one element out and back in
+would flash the header art between every pair — with dot pips showing position in the set.
+Nothing is prefetched: the next frame is requested only when the current one is displayed,
+for the same reason the trailer waits for a dwell. Screenshots are true 16:9 and so fill the
+512×288 panel with no crop, unlike the ~2.14:1 header art. The rotating stills sit inside
+the same `.pop` the 18+ blur already targets, so the adult gate covers them automatically.
+The layer is purely additive: before the first run, on a shard 404, or on a game with no
+stills, the panel behaves exactly as it did before.
 
 ---
 

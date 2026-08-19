@@ -1,0 +1,69 @@
+name: 2.9 Store screenshots -> shots/
+
+on:
+  workflow_dispatch:        # run manually from the Actions tab
+    inputs:
+      dump:
+        description: "Dump the raw GetItems screenshots blob + probe CDN hosts, then exit (no writes)"
+        type: boolean
+        default: false
+  schedule:
+    # Screenshot hashes are effectively permanent — once a game's filenames are known they
+    # never need re-fetching — so this is a backlog-drain job, not a refresh loop. After
+    # the first pass clears the catalog it only picks up newly-released games plus misses
+    # aged past QTPD_SHOTS_MISS_TTL, which is a hundred-odd appids a day: minutes of work.
+    # That daily pickup is also what keeps NEW GAMES covered without a second writer (see
+    # select_work) — the alternative, harvesting screenshots from the appdetails blob
+    # scraper.py already fetches, would have made two jobs write one layer and broken the
+    # one-writer-per-file rule for ~18h of freshness. Daily at :47 on hour 5, which only
+    # trailers (:13) uses, so it never contends for the API budget.
+    - cron: "47 5 * * *"
+
+permissions:
+  contents: write           # commits shots/ + shots_state.json as it runs
+
+concurrency:
+  group: steam-shots        # never overlap screenshot runs
+  cancel-in-progress: false
+
+jobs:
+  shots:
+    runs-on: ubuntu-latest
+    timeout-minutes: 115     # RUN_MINUTES=100 + headroom
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          # The REF THAT TRIGGERED the run, not a hardcoded "main". On the schedule that
+          # resolves to main exactly as before; on a manual dispatch from a branch it
+          # actually runs that branch's code. Writing to main stays safe: git_checkpoint
+          # refuses to push from a non-main checkout, so a branch run can only ever be a
+          # dry run.
+          ref: ${{ github.ref_name }}
+          # A dump run reads nothing from git history and commits nothing, so it takes a
+          # shallow clone: full history on this repo costs ~16 MINUTES of checkout, which
+          # is the entire cost of a schema-check iteration. Real runs still need depth 0
+          # for the rebase-onto-main checkpoint.
+          fetch-depth: ${{ inputs.dump && 1 || 0 }}
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install requests
+
+      - name: Configure git (script commits progress itself, rebasing onto main)
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Index store screenshots
+        env:
+          STEAM_API_KEY: ${{ secrets.STEAM_API_KEY }}
+          QHPP_CC: "US"
+          # 100min at GETITEMS_DELAY=1.2s and 50 appids/call is ~5,000 batches — more than
+          # the whole ~127k catalog needs, so the very first run drains the entire backlog
+          # in one go and every run after it is near-instant.
+          RUN_MINUTES: "100"
+          QTPD_DUMP_SHOTS: ${{ inputs.dump && '1' || '0' }}
+        run: python shots.py
