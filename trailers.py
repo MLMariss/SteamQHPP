@@ -10,36 +10,56 @@ WHY THIS NEEDS A SCRAPE AT ALL
 ------------------------------
 Thumbnails are free: every capsule/header image URL is derivable from the appid
 alone (`.../steam/apps/<appid>/header.jpg`), which is why the hover-enlarge has
-never needed a data layer. Trailers are NOT. A Steam trailer lives under its own
-`movie id` — 738090 (GRIT) serves its trailer from `store_trailers/257059122/...`
-— and that id is not derivable from the appid by any rule. It has to be looked up
-and stored. Hence: one more file, one more job (ARCHITECTURE §1, one writer per
-file).
+never needed a data layer. Trailers are NOT. A trailer is addressed by a hashed CDN
+path that nothing about the appid predicts — Dota 2 (570) serves its microtrailer from
+`570/116737/313addee2092d0bd6f538d164610061ea8bbe79c/1749859757/microtrailer.webm`,
+where only the leading `570` is derivable. It has to be looked up and stored. Hence:
+one more file, one more job (ARCHITECTURE §1, one writer per file).
 
 THE ENDPOINT
 ------------
 IStoreBrowseService/GetItems/v1 with `data_request.include_trailers`. Same batched
 endpoint price_and_sale.py already uses for sale end-dates, on api.steampowered.com
 (the big budget, not the 200-per-5-min storefront one), 50 appids per call. A full
-sweep of the ~127k catalog is ~2.5k calls ≈ 50 minutes — cheap enough that this job
-is mostly idle after the first pass.
+sweep of the ~127k catalog is ~2.5k calls = ~50 minutes.
 
-SCHEMA TOLERANCE
-----------------
-Same posture as price_and_sale.py's `_extract_end_date` (see its §"the various
-GetItems schema revisions"): Valve reshapes these blobs without notice, and the
-exact key names under `trailers` are the least documented part of the store API.
-So `extract_trailer` does NOT hardcode a path. It walks the whole `trailers` blob
-for any dict carrying a video `filename` and classifies by the FILENAME, whose
-conventions (`movie480`, `movie_max`, `microtrailer`) have been stable for years
-even as the surrounding keys moved. Set QTPD_DUMP_TRAILERS=1 to dump raw items
-from a runner that can actually reach the API, then tighten if you want to.
+WHAT VALVE ACTUALLY RETURNS (verified 2026-08-19 via QTPD_DUMP_TRAILERS)
+-----------------------------------------------------------------------
+The first dump run corrected two assumptions that would have shipped broken:
 
-Output trailers.json (served to the browser):
-  { "base": "<cdn prefix>", "trailers": { "<appid>": [[<480p files>], [<micro files>]] } }
-Filenames are relative to `base` and ordered by preference, so the frontend emits
-one <source> per entry and lets the browser pick the first codec it supports.
-Games with no trailer are absent — the frontend falls back to today's still image.
+  1. THERE IS NO PROGRESSIVE FULL TRAILER ANY MORE. The old movie480/movie_max
+     .webm/.mp4 files are gone. A highlight now carries exactly two things:
+       * `microtrailer`: [{filename, type}] -- Valve's own ~6s silent loop, in
+         webm AND mp4. This is the ONLY natively playable asset.
+       * `adaptive_trailers`: [{cdn_path, encoding}] -- dash_av1.mpd,
+         dash_h264.mpd, hls_264_master.m3u8. These are DASH/HLS MANIFESTS: a
+         plain <video src> cannot play them without dash.js/hls.js, which a
+         static site should not be shipping. We record only that they exist
+         (`adaptive` in the output header) so the option stays visible.
+     So the hover preview is the microtrailer -- which is exactly what Steam
+     itself plays when you hover a capsule in the store.
+
+  2. `trailer_url_format` IS RELATIVE, and its placeholder is `${FILENAME}`,
+     not `{FILENAME}`:
+         "steam/apps/${FILENAME}?t=1762820639"
+     The prefix before the placeholder is a CDN-relative PATH, so it has to be
+     joined onto a CDN host (CDN_HOST). The `?t=` suffix is a cache-buster and
+     is dropped. Filenames themselves are now long hashed paths that begin with
+     the appid, e.g.
+         570/116737/313addee.../1749859757/microtrailer.webm
+
+Set QTPD_DUMP_TRAILERS=1 to re-dump the raw blob AND probe the candidate CDN
+hosts (probe_hosts) from a runner that can actually reach Steam -- a sandbox
+with Steam blocked cannot, which is why this file guesses nothing about hosts
+that the dump has not confirmed.
+
+Output trailers.json (served to the browser), format trailers_v2:
+  { "base": "<absolute CDN prefix>",
+    "trailers": { "<appid>": ["<file>.webm", "<file>.mp4"] } }
+One flat list per game, best-codec-first, from the FIRST highlight only (a game
+like TF2 exposes 17 trailers; the frontend plays one). The frontend emits one
+<source> per entry and lets the browser choose. Games with no playable trailer
+are absent -- the hover panel falls back to the enlarged still.
 
 Output trailers_state.json (NOT served; the queue's memory, like catalog.json):
   { "misses": { "<appid>": <ts> }, "swept_at": <ts> }
@@ -78,10 +98,21 @@ GETITEMS_DELAY = 1.2                                # matches price_and_sale.py'
 MAX_RETRIES = 4
 MISS_TTL_DAYS = int(os.environ.get("QTPD_TRAILER_MISS_TTL", "30"))
 
-# Fallback CDN prefix, used when no response carried a `trailer_url_format` to learn
-# from. Valve has served store trailers from this host for years; the per-run learned
-# value still wins so a host migration needs no code change.
-DEFAULT_BASE = "https://video.akamai.steamstatic.com/store_trailers/"
+# `trailer_url_format` gives only a CDN-RELATIVE path ("steam/apps/${FILENAME}?t=..."),
+# so the host has to come from here. CDN_HOST is the one probe_hosts confirmed; the
+# relative prefix is still learned per-run, so a path change needs no code edit.
+CDN_HOST = os.environ.get("QTPD_TRAILER_CDN", "https://video.akamai.steamstatic.com/")
+DEFAULT_PREFIX = "steam/apps/"          # used only if no response carried a format string
+
+# Probed in order by probe_hosts() under QTPD_DUMP_TRAILERS=1. Kept as a list so the
+# next schema surprise is a data question answered from a runner, not a guess.
+CANDIDATE_HOSTS = [
+    "https://video.akamai.steamstatic.com/",
+    "https://video.cloudflare.steamstatic.com/",
+    "https://cdn.akamai.steamstatic.com/",
+    "https://cdn.cloudflare.steamstatic.com/",
+    "https://shared.akamai.steamstatic.com/",
+]
 
 VIDEO_EXTS = (".webm", ".mp4")
 IN_ACTIONS = os.environ.get("GITHUB_ACTIONS") == "true"
@@ -140,56 +171,119 @@ def _rank(filename):
     return 1
 
 
+def _prefix_from_format(fmt):
+    """CDN-relative path prefix out of a `trailer_url_format` value.
+
+    Real example: "steam/apps/${FILENAME}?t=1762820639" -> "steam/apps/".
+    Note the placeholder is `${FILENAME}`, not `{FILENAME}` — the leading `$` has to
+    be stripped too, and everything from the brace onward (including the `?t=`
+    cache-buster) is discarded.
+    """
+    if not isinstance(fmt, str) or "{" not in fmt:
+        return None
+    return fmt.split("{")[0].rstrip("$").lstrip("/")
+
+
+def _playable(entries):
+    """[filename] for a list of {filename,type} dicts, webm before mp4.
+
+    WebM/VP9 first (about half the bytes of the h264 mp4 at the same tier, and
+    played by everything current); mp4 second as the compatibility source for older
+    Safari. `sorted` is stable, so within a codec Valve's own order survives.
+    """
+    out = []
+    for e in entries or []:
+        if not isinstance(e, dict):
+            continue
+        fn = e.get("filename")
+        if isinstance(fn, str) and fn.lower().endswith(VIDEO_EXTS):
+            out.append(fn)
+    return sorted(dict.fromkeys(out), key=lambda f: 0 if f.lower().endswith(".webm") else 1)
+
+
+def _highlights(trailers):
+    """The trailer entries for one item, primary first.
+
+    `highlights` is the store's own ordering (what the page shows first), with
+    `other_trailers` as the fallback for apps that have only those. Any other
+    list-of-dicts under `trailers` is accepted last so a rename degrades to
+    something rather than nothing.
+    """
+    if isinstance(trailers, list):
+        return [t for t in trailers if isinstance(t, dict)]
+    if not isinstance(trailers, dict):
+        return []
+    for key in ("highlights", "other_trailers"):
+        v = trailers.get(key)
+        if isinstance(v, list) and any(isinstance(t, dict) for t in v):
+            return [t for t in v if isinstance(t, dict)]
+    for v in trailers.values():
+        if isinstance(v, list) and any(isinstance(t, dict) for t in v):
+            return [t for t in v if isinstance(t, dict)]
+    return []
+
+
 def extract_trailer(item):
-    """(list_480p, list_micro, base_or_None) for one GetItems store_item.
+    """(files, has_adaptive, prefix_or_None) for one GetItems store_item.
 
-    Both lists are CDN-relative filenames ordered best-codec-first; either may be
-    empty. Classification is by filename because that is the stable part:
+    `files` are CDN-relative filenames for ONE trailer — the first highlight — best
+    codec first. Only the first: TF2 exposes 17 trailers and the hover panel plays
+    one, so keeping them all would bloat the served file for nothing.
 
-      movie480_vp9.webm / movie480.mp4   -> the 480p tier, what we actually play
-      movie_max_vp9.webm / movie_max.mp4 -> source tier; used ONLY if no 480 exists
-      microtrailer.webm                  -> Valve's own ~6s silent loop
+    Which asset: `microtrailer` is the only natively playable thing Valve still
+    returns (see the module docstring). The legacy progressive tiers are checked
+    first anyway, so an app that still carries them gets the better clip; in
+    practice none currently do.
 
-    Anything else that ends .webm/.mp4 is kept as a last-resort 480p candidate, so a
-    renamed tier still yields a playable URL instead of nothing.
+    `has_adaptive` reports whether DASH/HLS manifests exist for this app. It is
+    aggregated into the output header only — those need dash.js/hls.js to play, and
+    a static site should not ship a streaming library just for a hover preview.
     """
     trailers = item.get("trailers")
     if not isinstance(trailers, (dict, list)):
-        return [], [], None
+        return [], False, None
 
-    base = None
-    tier480, tiermax, micro, other = [], [], [], []
+    prefix = None
+    has_adaptive = False
     for d in _walk(trailers):
-        if base is None:
-            # The prefix normally arrives as `trailer_url_format`, but that key has been
-            # renamed before, so match on the VALUE instead: any string holding a
-            # store_trailers URL with a {PLACEHOLDER}. Strip the placeholder to leave a
-            # plain prefix we can concatenate against.
+        if prefix is None:
             for v in d.values():
-                if isinstance(v, str) and "{" in v and "store_trailers" in v:
-                    base = v.split("{")[0]
+                p = _prefix_from_format(v)
+                if p:
+                    prefix = p
                     break
-        fn = d.get("filename")
-        if not isinstance(fn, str):
-            continue
-        low = fn.lower()
-        if not low.endswith(VIDEO_EXTS):
-            continue
-        if "microtrailer" in low:
-            micro.append(fn)
-        elif "480" in low:
-            tier480.append(fn)
-        elif "max" in low:
-            tiermax.append(fn)
-        else:
-            other.append(fn)
+        if not has_adaptive and isinstance(d.get("cdn_path"), str):
+            has_adaptive = True
 
-    # Dedupe while keeping the codec ordering deterministic.
-    def _clean(xs):
-        return sorted(dict.fromkeys(xs), key=_rank)
+    files = []
+    for h in _highlights(trailers):
+        # Legacy progressive tiers first (better content when present), then the
+        # microtrailer, which is what actually ships today.
+        for key in ("trailer_480p", "trailer_max", "microtrailer"):
+            files = _playable(h.get(key))
+            if files:
+                break
+        if files:
+            break
 
-    play = _clean(tier480) or _clean(tiermax) or _clean(other)
-    return play, _clean(micro), base
+    return files, has_adaptive, prefix
+
+
+def probe_hosts(prefix, filename):
+    """HEAD one real trailer file against every CANDIDATE_HOST and log the status.
+
+    Only runs under QTPD_DUMP_TRAILERS=1. The point is to settle CDN_HOST with
+    evidence from a runner that can reach Steam, rather than guessing from a
+    sandbox where the whole domain is blocked.
+    """
+    log("=== CDN host probe ===")
+    for host in CANDIDATE_HOSTS:
+        url = host + (prefix or DEFAULT_PREFIX) + filename
+        try:
+            r = SESSION.head(url, timeout=20, allow_redirects=True)
+            log(f"  {r.status_code}  {r.headers.get('content-type','?'):<16} {url}")
+        except requests.RequestException as e:
+            log(f"  ERR  {url}  ({e})")
 
 
 # --------------------------------------------------------------------------- #
@@ -218,12 +312,22 @@ def getitems(appids):
     # and run the workflow manually to see the real shape from a runner that can actually
     # reach the API (a sandbox with Steam blocked cannot).
     if os.environ.get("QTPD_DUMP_TRAILERS") == "1":
-        log("=== RAW GetItems(trailers) DUMP (first 3 items) ===")
-        for it in items[:3]:
-            log(json.dumps(it.get("trailers"), indent=2)[:4000])
+        log("=== RAW GetItems(trailers) DUMP (first 2 items) ===")
+        for it in items[:2]:
+            log(json.dumps(it.get("trailers"), indent=2)[:3000])
             log("---")
-        log("=== extract_trailer results: "
-            f"{[(it.get('appid') or it.get('id'), extract_trailer(it)[:2]) for it in items[:10]]}")
+        log("=== extract_trailer results ===")
+        first = None
+        for it in items[:10]:
+            files, adaptive, prefix = extract_trailer(it)
+            log(f"  {it.get('appid') or it.get('id')}: adaptive={adaptive} prefix={prefix!r} "
+                f"files={files}")
+            if first is None and files:
+                first = (prefix, files[0])
+        if first:
+            probe_hosts(*first)
+        else:
+            log("  no playable files found in this batch — nothing to probe")
         sys.exit(0)
     return items
 
@@ -261,13 +365,19 @@ def load_json(path, default):
         return default
 
 
-def save_trailers(hits, base):
+def save_trailers(hits, prefix, adaptive_count):
     # Compact separators, not indent=2: this file is machine-generated, browser-facing,
     # and ~100k rows deep — pretty-printing it would roughly triple the bytes on the
     # wire for zero human benefit.
+    #
+    # `base` is stored ABSOLUTE (host + learned prefix) so the frontend concatenates
+    # and nothing else needs to know how it was assembled.
     TRAILERS_FILE.write_text(json.dumps(
-        {"format": "trailers_v1", "generated_at": int(time.time()),
-         "base": base, "count": len(hits),
+        {"format": "trailers_v2", "generated_at": int(time.time()),
+         "base": CDN_HOST + (prefix or DEFAULT_PREFIX), "count": len(hits),
+         # Informational: how many apps also expose DASH/HLS manifests, i.e. how much
+         # is on the table if a streaming player is ever worth the weight.
+         "adaptive_available": adaptive_count,
          "trailers": {str(k): v for k, v in sorted(hits.items(), key=lambda kv: int(kv[0]))}},
         ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
 
@@ -331,7 +441,8 @@ def main():
 
     tdoc = load_json(TRAILERS_FILE, {})
     hits = dict(tdoc.get("trailers") or {})
-    base = tdoc.get("base") or DEFAULT_BASE
+    prefix = None                       # learned from the first response that carries it
+    adaptive_count = int(tdoc.get("adaptive_available") or 0)
     sdoc = load_json(STATE_FILE, {})
     misses = dict(sdoc.get("misses") or {})
     swept_at = sdoc.get("swept_at") or 0
@@ -340,7 +451,7 @@ def main():
     log(f"Catalog {len(catalog)} | have trailers {len(hits)} | known misses {len(misses)} | "
         f"queued {len(queue)} | budget {RUN_MINUTES}min")
     if not queue:
-        log("Nothing due. (Trailer ids are permanent; re-sweep via manual dispatch.)")
+        log("Nothing due. (Trailer paths are permanent; re-sweep via manual dispatch.)")
         save_state(misses, int(time.time()))
         git_checkpoint("trailers: nothing due")
         return
@@ -362,14 +473,18 @@ def main():
                 continue
             key = str(aid)
             seen_ids.add(int(aid))
-            play, micro, learned = extract_trailer(it)
-            if learned:
-                base = learned
-            if play or micro:
-                hits[key] = [play, micro]
+            files, has_adaptive, learned = extract_trailer(it)
+            if learned and prefix is None:
+                prefix = learned
+            if has_adaptive:
+                adaptive_count += 1
+            if files:
+                hits[key] = files
                 misses.pop(key, None)
                 found += 1
             else:
+                # No natively playable asset. Adaptive-only apps land here too: they
+                # have a trailer, we just cannot play it without a streaming library.
                 misses[key] = now
         # Appids the response dropped entirely (delisted, region-locked, not an app):
         # record them as misses so they don't re-queue every single run.
@@ -379,14 +494,14 @@ def main():
         checked += len(batch)
 
         if time.time() - last_ckpt >= CHECKPOINT_SECONDS:
-            save_trailers(hits, base)
+            save_trailers(hits, prefix, adaptive_count)
             save_state(misses, swept_at)
             git_checkpoint(f"trailers: {len(hits)} with video ({found} new this run)")
             last_ckpt = time.time()
 
     if checked >= len(queue):
         swept_at = int(time.time())
-    save_trailers(hits, base)
+    save_trailers(hits, prefix, adaptive_count)
     save_state(misses, swept_at)
     git_checkpoint(f"trailers: {len(hits)} with video ({found} new this run)")
     log(f"Done. checked {checked}, found {found}, total with trailers {len(hits)}, "

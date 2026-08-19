@@ -1,10 +1,10 @@
-name: 2.6 Store trailers -> trailers.json
+name: 2.8 Store trailers -> trailers.json
 
 on:
   workflow_dispatch:        # run manually from the Actions tab
     inputs:
       dump:
-        description: "Dump the raw GetItems trailers blob for 3 apps, then exit (schema check)"
+        description: "Dump the raw GetItems trailers blob + probe CDN hosts, then exit (no writes)"
         type: boolean
         default: false
   schedule:

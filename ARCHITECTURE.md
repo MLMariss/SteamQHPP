@@ -77,38 +77,60 @@ The frontend fetches **13 files**: the eight data layers above (`games`, `prices
 ### 2.1 The trailer layer (`trailers.py` → `trailers.json`)
 
 **Why it has to exist at all.** Every other piece of store art QTPD shows is free: capsule
-and header URLs are derivable from the appid alone, which is why the thumbnail and its
-hover-enlarge never needed a data layer. Trailers are the exception. A Steam trailer is
-addressed by its own **movie id** — nothing about `738090` tells you its trailer lives
-under `store_trailers/257059122/` — and that mapping exists only inside Valve's store API.
-So it gets a file and a job, per §1's one-writer rule.
+and header URLs are derivable from the appid, which is why the thumbnail and its
+hover-enlarge never needed a data layer. Trailers are the exception. A trailer is
+addressed by a hashed CDN path that nothing about the appid predicts — Dota 2 (570)
+serves its preview clip from
+`570/116737/313addee2092d0bd6f538d164610061ea8bbe79c/1749859757/microtrailer.webm`, where
+only the leading `570` is derivable. So it gets a file and a job, per §1's one-writer rule.
 
 **Source.** `IStoreBrowseService/GetItems/v1` with `data_request.include_trailers`, the
 same batched endpoint `price_and_sale.py` uses for sale end-dates: 50 appids per call, on
 `api.steampowered.com` (the large budget, not the 200-per-5-min storefront one). A full
-sweep of the catalog is ~2.5k calls ≈ 50 minutes, so the very first run drains the whole
+sweep of the catalog is ~2.5k calls ≈ 50 minutes, so the first run drains the whole
 backlog and every run after it handles only new releases.
 
-**Schema tolerance.** The keys under `trailers` are the least stable, least documented part
-of the store API. `extract_trailer` therefore never hardcodes a key path: it walks the whole
-blob for dicts carrying a video `filename` and classifies on the **filename**, whose
-conventions (`movie480`, `movie_max`, `microtrailer`) have outlived several renames of the
-keys around them. `QTPD_DUMP_TRAILERS=1` (workflow input `dump`) prints the raw blob from a
-runner that can actually reach the API — the same escape hatch as `QHPP_DUMP_GETITEMS`.
+**What Valve actually returns** — established by running the job's own dump mode
+(`QTPD_DUMP_TRAILERS=1`, workflow input `dump`) on a runner that can reach Steam, which a
+dev sandbox with the domain blocked cannot. Two findings, both of which invalidated the
+first implementation:
 
-**Files.** `trailers.json` (served) holds hits only, `{appid: [[480p files], [micro files]]}`
-plus the CDN `base` prefix, so a Valve host migration is a data change rather than a code
-change. Filenames are ordered best-codec-first and the frontend emits one `<source>` each,
-letting the browser take WebM/VP9 or fall back to mp4. `trailers_state.json` (**not**
-served) is the queue's memory — `{misses: {appid: ts}}` — so games with no trailer aren't
-re-queried every run; a miss is retried after `QTPD_TRAILER_MISS_TTL` days, because an
-unreleased game gains a trailer later. The first pass walks the catalog **most-reviewed
-first**, so the games anyone actually hovers get covered in the opening minutes rather than
-at the end of the sweep.
+1. **There is no progressive full trailer any more.** The old `movie480`/`movie_max`
+   `.webm`/`.mp4` files are gone. A highlight carries a `microtrailer` (webm **and** mp4)
+   — Valve's own ~6s silent loop, the only natively playable asset — and
+   `adaptive_trailers`, which are DASH/HLS **manifests** (`dash_av1.mpd`,
+   `hls_264_master.m3u8`). Those need dash.js or hls.js; a static-first site should not
+   ship a streaming library for a hover preview, so the job records only *how many* apps
+   have them (`adaptive_available`) to keep the option visible. The preview we play is
+   therefore the microtrailer — which is exactly what Steam itself plays when you hover a
+   capsule on its own store.
+2. **`trailer_url_format` is relative and uses `${FILENAME}`, not `{FILENAME}`** —
+   `"steam/apps/${FILENAME}?t=1762820639"`. The part before the placeholder is a
+   CDN-relative path that must be joined onto a host (`CDN_HOST`); the `?t=` suffix is a
+   cache-buster and is dropped.
 
-**Frontend.** See §11's hover panel: the trailer plays in the enlarged hover popup after a
-350 ms dwell, muted and looping. The layer is purely additive — absent, still filling, or
-switched off, the popup shows the enlarged still exactly as it did before.
+**Schema tolerance.** `extract_trailer` still refuses to hardcode one key path — it reads
+`highlights`, falls back to `other_trailers`, then to any list-of-dicts under `trailers`,
+and prefers the legacy progressive tiers over the microtrailer where an app still has
+them. But the lesson of the first pass stands recorded: filename conventions were *not*
+the stable thing, and the fix came from dumping the real payload rather than reasoning
+about it. Dump first, then tighten.
+
+**Files.** `trailers.json` (served, `trailers_v2`) holds hits only —
+`{appid: [filename, ...]}`, one flat best-codec-first list from the **first highlight
+only** (TF2 exposes 17 trailers; the panel plays one) — plus an absolute `base` prefix, so
+a Valve host migration is a data change rather than a code change.
+`trailers_state.json` (**not** served) is the queue's memory, `{misses: {appid: ts}}`, so
+games with no playable clip aren't re-queried every run; a miss retries after
+`QTPD_TRAILER_MISS_TTL` days, because an unreleased game gains a trailer later.
+Adaptive-only apps count as misses — they have a trailer we can't play. The first pass
+walks the catalog **most-reviewed first**, so the games anyone actually hovers get covered
+in the opening minutes rather than at the end of the sweep.
+
+**Frontend.** The clip plays in the enlarged hover popup after a 350 ms dwell, muted and
+looping, cross-faded in only once the browser reports `playing`. The layer is purely
+additive — absent, still filling, or switched off via the **Preview: Video** control, the
+popup shows the enlarged still exactly as it did before.
 
 ---
 
