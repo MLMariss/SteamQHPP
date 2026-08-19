@@ -1512,7 +1512,7 @@ try{
     <span class="rb-lbl">Preview</span>
     <div class="seg viewseg" role="group" aria-label="Hover video preview">
       <button id="trailerToggle" aria-pressed="true"
-              title="Play the game's Steam trailer when you hover its thumbnail, instead of just enlarging the still. Muted and looping; roughly 1-3 MB per trailer, loaded only on the game you hover. Turn off to keep the enlarged still only.">Video</button>
+              title="Play the game's Steam preview clip when you hover its thumbnail, instead of just enlarging the still. This is the same short silent loop Steam plays on its own store capsules — a few hundred KB, loaded only for the game you actually hover. Turn off to keep the enlarged still only.">Video</button>
     </div>
     <div class="rb-legend" aria-hidden="true">
       <span class="rb-key" title="QTPD — Quality Time Per Dollar, the headline metric. Higher means more game-hours of value per dollar."><b class="k-q">QTPD</b> value score</span>
@@ -2352,8 +2352,8 @@ setInterval(() => {
 
 // ── Hover trailer preview ─────────────────────────────────────────────────────────────
 // Enlarging the still tells you what the art looks like; it does not tell you what the
-// game IS. trailers.json (see trailers.py) maps appid -> CDN filenames for the store
-// trailer, so the hover panel can play the real thing.
+// game IS. trailers.json (see trailers.py) maps appid -> CDN filenames for Steam's own
+// preview clip, so the hover panel can play moving footage instead of a poster.
 //
 // Why the video is BUILT ON HOVER and DESTROYED ON LEAVE rather than sitting in every
 // row's markup: a 100-row page would otherwise hold 100 <video> elements, and even with
@@ -2373,12 +2373,16 @@ function trailersOn(){
 }
 
 // appid -> [{src,type}] ordered best-codec-first, so the browser takes the first it can
-// play (VP9/WebM for everything current, mp4 for older Safari). Falls back to the
-// microtrailer when a game has only that.
+// play (VP9/WebM for everything current, mp4 for older Safari).
+//
+// trailers.json v2 stores ONE flat filename list per game — the clip Valve returns for
+// the store's own hover preview. Valve no longer serves a progressive full trailer at
+// all; the full version exists only as DASH/HLS manifests, which would need dash.js or
+// hls.js to play (see trailers.py). So this is Steam's ~6s silent loop, which is both
+// the right length for a hover and small enough not to punish the connection.
 function trailerSources(appid){
-  const t = window.TRAILERS && window.TRAILERS[String(appid)];
-  if(!t) return [];
-  const files = (t[0] && t[0].length) ? t[0] : (t[1] || []);
+  const files = (window.TRAILERS && window.TRAILERS[String(appid)]) || [];
+  if(!Array.isArray(files)) return [];
   return files.map(f => ({ src: window.TRAILER_BASE + f,
                            type: /\.mp4$/i.test(f) ? "video/mp4" : "video/webm" }));
 }
@@ -4090,12 +4094,16 @@ Promise.all([
   // ({apps:{}}) is truthy-but-empty, so guard on the count — otherwise the flag
   // filters activate with no data behind them and zero out the whole list.
   window.HAS_PICS = !!(picsMap && Object.keys(picsMap).length);
+  // v2 payload: {appid: [filename, ...]} — a flat, best-codec-first list per game.
   // Trailers stay in their own lookup rather than being merged onto each game object:
   // only the row you actually hover ever needs one, so copying ~100k arrays into the
   // catalog at load time would cost memory for nothing. The CDN prefix is carried in the
   // file so a Valve host migration is a data change, not a code change.
   window.TRAILERS = (trlj && trlj.trailers) ? trlj.trailers : null;
-  window.TRAILER_BASE = (trlj && trlj.base) || "https://video.akamai.steamstatic.com/store_trailers/";
+  // Fallback only — trailers.json carries the real base. Value confirmed by trailers.py's
+  // probe (200 video/webm): the video CDN's `store_trailers/` root PLUS the API's own
+  // "steam/apps/" prefix. Both segments are required; either alone 404s.
+  window.TRAILER_BASE = (trlj && trlj.base) || "https://video.cloudflare.steamstatic.com/store_trailers/steam/apps/";
   // Decode a category id (int) -> feature name via the categories map ("category_N" keys).
   const catName = id => window.PICS_CAT_LK["category_" + id] || window.PICS_CAT_LK[String(id)] || null;
   // gray threshold: below this many reviews the weighted rating renders low-confidence.

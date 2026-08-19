@@ -1,10 +1,10 @@
-name: 2.6 Store trailers -> trailers.json
+name: 2.8 Store trailers -> trailers.json
 
 on:
   workflow_dispatch:        # run manually from the Actions tab
     inputs:
       dump:
-        description: "Dump the raw GetItems trailers blob for 3 apps, then exit (schema check)"
+        description: "Dump the raw GetItems trailers blob + probe CDN hosts, then exit (no writes)"
         type: boolean
         default: false
   schedule:
@@ -30,8 +30,18 @@ jobs:
     steps:
       - uses: actions/checkout@v5
         with:
-          ref: main
-          fetch-depth: 0
+          # The REF THAT TRIGGERED the run, not a hardcoded "main". On the schedule that
+          # resolves to main exactly as before; on a manual dispatch from a branch it
+          # actually runs that branch's code. With `ref: main` hardcoded, dispatching a
+          # schema-check from a fix branch silently re-ran the code being fixed.
+          # Writing to main stays safe: git_checkpoint refuses to push from a non-main
+          # checkout, so a branch run can only ever be a dry run.
+          ref: ${{ github.ref_name }}
+          # A dump run reads nothing from git history and commits nothing, so it takes a
+          # shallow clone: full history on this repo costs ~16 MINUTES of checkout (the
+          # tags job measures 15m59s), which is the entire cost of a schema-check
+          # iteration. Real runs still need depth 0 for the rebase-onto-main checkpoint.
+          fetch-depth: ${{ inputs.dump && 1 || 0 }}
 
       - uses: actions/setup-python@v6
         with:
