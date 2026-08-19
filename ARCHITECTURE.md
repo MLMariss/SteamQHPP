@@ -60,17 +60,55 @@ one checkpoint's worth of work.
    │ pics_refresh.py ─────────► pics_raw/shard_NN.json   │wishlist│  (steamid/vanity  │
    │        ├─ pics_summarize.py ─────► pics/shard_NN    │◄──────►│   → wishlist)     │
    │        └─ pics_merge.py ─────────► pics.json        │        └──────────────────┘
+   │ trailers.py ─────────────► trailers.json            │
+   │                            + trailers_state.json    │
    │ coverage.py ─────────────► COVERAGE.md              │
    │ shard_health.py ─────────► SHARDS.md                │  (generated docs, not read
    └────────────────────────────────────────────────────┘   by the frontend)
 ```
 
 All scraping is server-side; the browser only reads JSON and (optionally) calls the Worker.
-The frontend fetches **12 files**: the eight data layers above (`games`, `prices`, `hltb`,
-`tags`, `recent`, `playtime`, `ratings`, `updates`), the merged `pics.json`, and the three
-static decode maps in `lookups/` (`tags.json`, `genres.json`, `categories.json`, §9.6).
-`catalog.json`, the `*_raw/` shard sets, `pics/`, and the two generated `.md` files are
-never served to the browser.
+The frontend fetches **13 files**: the eight data layers above (`games`, `prices`, `hltb`,
+`tags`, `recent`, `playtime`, `ratings`, `updates`), the merged `pics.json`, `trailers.json`
+(§2.1), and the three static decode maps in `lookups/` (`tags.json`, `genres.json`,
+`categories.json`, §9.6). `catalog.json`, `trailers_state.json`, the `*_raw/` shard sets,
+`pics/`, and the two generated `.md` files are never served to the browser.
+
+### 2.1 The trailer layer (`trailers.py` → `trailers.json`)
+
+**Why it has to exist at all.** Every other piece of store art QTPD shows is free: capsule
+and header URLs are derivable from the appid alone, which is why the thumbnail and its
+hover-enlarge never needed a data layer. Trailers are the exception. A Steam trailer is
+addressed by its own **movie id** — nothing about `738090` tells you its trailer lives
+under `store_trailers/257059122/` — and that mapping exists only inside Valve's store API.
+So it gets a file and a job, per §1's one-writer rule.
+
+**Source.** `IStoreBrowseService/GetItems/v1` with `data_request.include_trailers`, the
+same batched endpoint `price_and_sale.py` uses for sale end-dates: 50 appids per call, on
+`api.steampowered.com` (the large budget, not the 200-per-5-min storefront one). A full
+sweep of the catalog is ~2.5k calls ≈ 50 minutes, so the very first run drains the whole
+backlog and every run after it handles only new releases.
+
+**Schema tolerance.** The keys under `trailers` are the least stable, least documented part
+of the store API. `extract_trailer` therefore never hardcodes a key path: it walks the whole
+blob for dicts carrying a video `filename` and classifies on the **filename**, whose
+conventions (`movie480`, `movie_max`, `microtrailer`) have outlived several renames of the
+keys around them. `QTPD_DUMP_TRAILERS=1` (workflow input `dump`) prints the raw blob from a
+runner that can actually reach the API — the same escape hatch as `QHPP_DUMP_GETITEMS`.
+
+**Files.** `trailers.json` (served) holds hits only, `{appid: [[480p files], [micro files]]}`
+plus the CDN `base` prefix, so a Valve host migration is a data change rather than a code
+change. Filenames are ordered best-codec-first and the frontend emits one `<source>` each,
+letting the browser take WebM/VP9 or fall back to mp4. `trailers_state.json` (**not**
+served) is the queue's memory — `{misses: {appid: ts}}` — so games with no trailer aren't
+re-queried every run; a miss is retried after `QTPD_TRAILER_MISS_TTL` days, because an
+unreleased game gains a trailer later. The first pass walks the catalog **most-reviewed
+first**, so the games anyone actually hovers get covered in the opening minutes rather than
+at the end of the sweep.
+
+**Frontend.** See §11's hover panel: the trailer plays in the enlarged hover popup after a
+350 ms dwell, muted and looping. The layer is purely additive — absent, still filling, or
+switched off, the popup shows the enlarged still exactly as it did before.
 
 ---
 

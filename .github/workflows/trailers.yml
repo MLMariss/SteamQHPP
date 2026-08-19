@@ -1,0 +1,57 @@
+name: 2.6 Store trailers -> trailers.json
+
+on:
+  workflow_dispatch:        # run manually from the Actions tab
+    inputs:
+      dump:
+        description: "Dump the raw GetItems trailers blob for 3 apps, then exit (schema check)"
+        type: boolean
+        default: false
+  schedule:
+    # Trailer ids are effectively permanent — once a game's movie id is known it never
+    # needs re-fetching — so this is a backlog-drain job, not a refresh loop. After the
+    # first pass clears the catalog it only picks up newly-released games plus misses
+    # aged past QTPD_TRAILER_MISS_TTL, which is a few hundred appids a day: minutes of
+    # work. Daily at :13 on an hour no other job uses (prices :07, scraper :17, tags
+    # :23, recent :41) so it never contends for the API budget.
+    - cron: "13 5 * * *"
+
+permissions:
+  contents: write           # commits trailers.json + trailers_state.json as it runs
+
+concurrency:
+  group: steam-trailers     # never overlap trailer runs
+  cancel-in-progress: false
+
+jobs:
+  trailers:
+    runs-on: ubuntu-latest
+    timeout-minutes: 115     # RUN_MINUTES=100 + headroom
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install requests
+
+      - name: Configure git (script commits progress itself, rebasing onto main)
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Index store trailers
+        env:
+          STEAM_API_KEY: ${{ secrets.STEAM_API_KEY }}
+          QHPP_CC: "US"
+          # 100min at GETITEMS_DELAY=1.2s and 50 appids/call is ~5,000 batches — more
+          # than the whole ~127k catalog needs, so the very first run drains the entire
+          # backlog in one go and every run after it is near-instant.
+          RUN_MINUTES: "100"
+          QTPD_DUMP_TRAILERS: ${{ inputs.dump && '1' || '0' }}
+        run: python trailers.py
