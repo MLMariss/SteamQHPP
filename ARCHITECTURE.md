@@ -106,8 +106,13 @@ first implementation:
    capsule on its own store.
 2. **`trailer_url_format` is relative and uses `${FILENAME}`, not `{FILENAME}`** —
    `"steam/apps/${FILENAME}?t=1762820639"`. The part before the placeholder is a
-   CDN-relative path that must be joined onto a host (`CDN_HOST`); the `?t=` suffix is a
-   cache-buster and is dropped.
+   CDN-relative path; the `?t=` suffix is a cache-buster and is dropped. The catch that
+   cost two probe rounds: that prefix is **not the whole path**. The working URL is the
+   video CDN's `store_trailers/` **root** *plus* the learned `steam/apps/` prefix —
+   `https://video.cloudflare.steamstatic.com/store_trailers/steam/apps/<filename>` —
+   and either segment alone 404s. `probe_hosts` established this with a HEAD sweep over
+   a host × root matrix, requiring a `video/*` content-type so an HTML error page served
+   as 200 cannot pass. akamai, cloudflare and fastly all serve it.
 
 **Schema tolerance.** `extract_trailer` still refuses to hardcode one key path — it reads
 `highlights`, falls back to `other_trailers`, then to any list-of-dicts under `trailers`,

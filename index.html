@@ -4100,11 +4100,10 @@ Promise.all([
   // catalog at load time would cost memory for nothing. The CDN prefix is carried in the
   // file so a Valve host migration is a data change, not a code change.
   window.TRAILERS = (trlj && trlj.trailers) ? trlj.trailers : null;
-  // Fallback only — trailers.json carries the real base. Pointed at the SAME host+root the
-  // thumbnails already load from (CDN above), because the API's trailer prefix is literally
-  // "steam/apps/": the clip sits beside the header art it belongs to. The old fallback here
-  // guessed a "store_trailers/" path that no longer exists.
-  window.TRAILER_BASE = (trlj && trlj.base) || "https://cdn.cloudflare.steamstatic.com/steam/apps/";
+  // Fallback only — trailers.json carries the real base. Value confirmed by trailers.py's
+  // probe (200 video/webm): the video CDN's `store_trailers/` root PLUS the API's own
+  // "steam/apps/" prefix. Both segments are required; either alone 404s.
+  window.TRAILER_BASE = (trlj && trlj.base) || "https://video.cloudflare.steamstatic.com/store_trailers/steam/apps/";
   // Decode a category id (int) -> feature name via the categories map ("category_N" keys).
   const catName = id => window.PICS_CAT_LK["category_" + id] || window.PICS_CAT_LK[String(id)] || null;
   // gray threshold: below this many reviews the weighted rating renders low-confidence.

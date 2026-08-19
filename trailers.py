@@ -101,7 +101,13 @@ MISS_TTL_DAYS = int(os.environ.get("QTPD_TRAILER_MISS_TTL", "30"))
 # `trailer_url_format` gives only a CDN-RELATIVE path ("steam/apps/${FILENAME}?t=..."),
 # so the host has to come from here. CDN_HOST is the one probe_hosts confirmed; the
 # relative prefix is still learned per-run, so a path change needs no code edit.
-CDN_HOST = os.environ.get("QTPD_TRAILER_CDN", "https://video.akamai.steamstatic.com/")
+# CONFIRMED by probe_hosts on 2026-08-19: this host+root, with the learned "steam/apps/"
+# prefix appended, returns 200 video/webm. video.cloudflare / video.akamai / video.fastly
+# all serve it; cloudflare matches the host index.html already uses for capsule art.
+# The subtlety that cost two rounds: `store_trailers/` is the ROOT and `steam/apps/` is
+# the learned prefix — the path needs BOTH, concatenated in that order.
+CDN_HOST = os.environ.get("QTPD_TRAILER_CDN",
+                          "https://video.cloudflare.steamstatic.com/store_trailers/")
 DEFAULT_PREFIX = "steam/apps/"          # used only if no response carried a format string
 
 # Probed as a HOST x ROOT matrix by probe_hosts() under QTPD_DUMP_TRAILERS=1. The first
