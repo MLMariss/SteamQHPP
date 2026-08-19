@@ -495,9 +495,26 @@
   .gamecell .hidebtn{margin-right:-2px}   /* sit snug to the thumbnail */
   .thumb{position:relative; flex:none; width:150px; height:57px; border-radius:5px; overflow:hidden; background:#0b0f18; border:1px solid #2a3550}
   .thumb img{width:100%; height:100%; object-fit:cover; display:block}
-  .thumb .pop{position:fixed; z-index:60; width:380px; height:178px; border-radius:8px; overflow:hidden;
+  /* Hover preview. 512x288 = 16:9, sized for the TRAILER rather than the header art:
+     store trailers are all 16:9, and letterboxing them inside the old 380x178 header
+     ratio wasted a third of the panel. The still (header art, ~2.14:1) now fills via
+     object-fit:cover, which crops its sides a little — a fair trade, since the still is
+     only the poster frame the video replaces ~350ms later. See armTrailer(). */
+  .thumb .pop{position:fixed; z-index:60; width:512px; height:288px; border-radius:8px; overflow:hidden;
         border:1px solid var(--line); box-shadow:0 14px 40px #000b; display:none; pointer-events:none; background:#0b0f18}
   .thumb .pop img{width:100%; height:100%; object-fit:cover}
+  /* The <video> is created on hover-dwell and destroyed on mouseout (armTrailer/stopTrailer),
+     so at most one exists at a time. It sits ON TOP of the still and cross-fades in only
+     once the browser reports `playing`, so a slow-loading trailer never flashes a black
+     panel over perfectly good art. */
+  .thumb .pop video{position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
+        display:block; opacity:0; transition:opacity .22s ease}
+  .thumb .pop.playing video{opacity:1}
+  /* Tiny "has a trailer" affordance, shown on the still until the video takes over. */
+  .thumb .pop.hastrailer::after{content:"▶"; position:absolute; right:8px; bottom:6px; z-index:2;
+        font-size:11px; line-height:1; color:#fff; opacity:.85; text-shadow:0 1px 4px #000d;
+        transition:opacity .22s ease}
+  .thumb .pop.playing::after{opacity:0}
   /* Adult games (PICS content_desc 3/4): blur the art behind a three-stage reveal.
      Stage 1 (default):   blurred + "18+" badge, whole thumb is a button.
      Stage 2 (.confirm):  click once -> "18+?" confirmation prompt.
@@ -1487,6 +1504,16 @@ try{
       <button data-view="card"  aria-pressed="false" title="Cards — the same data as the table, stacked one game per card. Used when the window is under 1280px.">Card</button>
       <button data-view="grid"  aria-pressed="false" title="Grid — Steam box art with the QTPD score and review score on each card. Click a card for price and length.">Grid</button>
     </div>
+    <!-- Hover preview switch. Lives here with the other DISPLAY preferences (not in the
+         filter panel, which is about which games you see). It exists because the preview
+         downloads a ~480p video per hover: cheap on a desktop connection, rude on a
+         metered one, so it has to be switchable and the choice has to stick. Default on;
+         forced off, ignoring the saved value, when the OS asks for reduced motion. -->
+    <span class="rb-lbl">Preview</span>
+    <div class="seg viewseg" role="group" aria-label="Hover video preview">
+      <button id="trailerToggle" aria-pressed="true"
+              title="Play the game's Steam trailer when you hover its thumbnail, instead of just enlarging the still. Muted and looping; roughly 1-3 MB per trailer, loaded only on the game you hover. Turn off to keep the enlarged still only.">Video</button>
+    </div>
     <div class="rb-legend" aria-hidden="true">
       <span class="rb-key" title="QTPD — Quality Time Per Dollar, the headline metric. Higher means more game-hours of value per dollar."><b class="k-q">QTPD</b> value score</span>
       <span class="rb-key" title="Steam review score — the share of all reviews that are positive. Colour runs red (low) to green (high)."><i class="k-rev"></i> review score</span>
@@ -2323,6 +2350,82 @@ setInterval(() => {
   });
 }, 1000);
 
+// ── Hover trailer preview ─────────────────────────────────────────────────────────────
+// Enlarging the still tells you what the art looks like; it does not tell you what the
+// game IS. trailers.json (see trailers.py) maps appid -> CDN filenames for the store
+// trailer, so the hover panel can play the real thing.
+//
+// Why the video is BUILT ON HOVER and DESTROYED ON LEAVE rather than sitting in every
+// row's markup: a 100-row page would otherwise hold 100 <video> elements, and even with
+// preload="none" that is a lot of dead DOM. Exactly one exists at any moment.
+//
+// Why the DWELL DELAY: without it, dragging the pointer down the table fires a video
+// load per row it crosses. 350ms is long enough that a pass-through costs nothing and
+// short enough that a deliberate hover feels immediate.
+const POP_W = 512, POP_H = 288;          // must match .thumb .pop in the CSS
+const TRAILER_DWELL_MS = 350;
+const REDUCED_MOTION = matchMedia("(prefers-reduced-motion: reduce)").matches;
+let trailerTimer = null, trailerPop = null;
+
+function trailersOn(){
+  if(REDUCED_MOTION) return false;       // OS preference overrides the saved choice
+  try{ return localStorage.getItem("qtpd.trailers") !== "0"; }catch(e){ return true; }
+}
+
+// appid -> [{src,type}] ordered best-codec-first, so the browser takes the first it can
+// play (VP9/WebM for everything current, mp4 for older Safari). Falls back to the
+// microtrailer when a game has only that.
+function trailerSources(appid){
+  const t = window.TRAILERS && window.TRAILERS[String(appid)];
+  if(!t) return [];
+  const files = (t[0] && t[0].length) ? t[0] : (t[1] || []);
+  return files.map(f => ({ src: window.TRAILER_BASE + f,
+                           type: /\.mp4$/i.test(f) ? "video/mp4" : "video/webm" }));
+}
+
+function stopTrailer(){
+  if(trailerTimer){ clearTimeout(trailerTimer); trailerTimer = null; }
+  if(!trailerPop) return;
+  const v = trailerPop.querySelector("video");
+  if(v){
+    // Drop the sources and load() before removing: without it the browser keeps the
+    // half-finished download running for a panel nobody is looking at any more.
+    v.pause(); v.innerHTML = ""; v.removeAttribute("src");
+    try{ v.load(); }catch(e){}
+    v.remove();
+  }
+  trailerPop.classList.remove("playing", "hastrailer");
+  trailerPop = null;
+}
+
+function armTrailer(thumb, pop){
+  if(pop === trailerPop) return;         // mouseover re-fires on child nodes; ignore
+  stopTrailer();
+  if(!trailersOn()) return;
+  const srcs = trailerSources(thumb.dataset.appid);
+  if(!srcs.length) return;               // no trailer known -> today's still-only behaviour
+  trailerPop = pop;
+  pop.classList.add("hastrailer");
+  trailerTimer = setTimeout(() => {
+    if(trailerPop !== pop) return;       // left during the dwell
+    const v = document.createElement("video");
+    v.muted = true; v.loop = true; v.autoplay = true; v.preload = "auto";
+    // Attributes as well as properties: iOS Safari only honours the ATTRIBUTE form of
+    // muted/playsinline, and without both it refuses to autoplay inline.
+    v.setAttribute("muted", ""); v.setAttribute("playsinline", ""); v.playsInline = true;
+    srcs.forEach(s => {
+      const el = document.createElement("source"); el.src = s.src; el.type = s.type;
+      v.appendChild(el);
+    });
+    v.addEventListener("playing", () => { if(trailerPop === pop) pop.classList.add("playing"); },
+                       { once:true });
+    pop.appendChild(v);
+    // Autoplay can still be refused (policy, codec, offline). Swallow it: the still is
+    // already on screen, so a rejected play() is a no-op, not an error state.
+    const p = v.play(); if(p && p.catch) p.catch(() => {});
+  }, TRAILER_DWELL_MS);
+}
+
 // thumbnail hover-enlarge
 document.body.addEventListener("mouseover", e => {
   const thumb = e.target.closest(".thumb");
@@ -2349,13 +2452,17 @@ document.body.addEventListener("mouseover", e => {
     img.src = start;
   }
   const r = thumb.getBoundingClientRect();
-  let top = r.bottom + 8; if(top + 178 > window.innerHeight) top = r.top - 178 - 8;
-  let left = r.left;      if(left + 380 > window.innerWidth) left = window.innerWidth - 380 - 10;
+  let top = r.bottom + 8; if(top + POP_H > window.innerHeight) top = r.top - POP_H - 8;
+  let left = r.left;      if(left + POP_W > window.innerWidth) left = window.innerWidth - POP_W - 10;
   pop.style.left = Math.max(8,left) + "px"; pop.style.top = Math.max(8,top) + "px"; pop.style.display = "block";
+  armTrailer(thumb, pop);
 });
 document.body.addEventListener("mouseout", e => {
   const thumb = e.target.closest(".thumb");
-  if(thumb && !thumb.contains(e.relatedTarget)) thumb.querySelector(".pop").style.display = "none";
+  if(thumb && !thumb.contains(e.relatedTarget)){
+    thumb.querySelector(".pop").style.display = "none";
+    stopTrailer();
+  }
 });
 
 // ── Three-stage 18+ gate for adult art (PICS content_desc 3/4) ────────────────────────
@@ -2380,7 +2487,9 @@ function adultSetStage(el, stage){
   el.classList.toggle("revealed", stage === 3);
   // Re-hiding while the hover-popover is open would leave a big un-blurred still on screen
   // (the popover only re-checks `revealed` on mouseenter), so close it on the way down.
-  if(stage === 1){ const pop = el.querySelector(".pop"); if(pop) pop.style.display = "none"; }
+  // ...and kill any trailer playing in it, or re-hiding the art would leave the VIDEO
+  // running un-blurred in a panel the user just asked to close.
+  if(stage === 1){ const pop = el.querySelector(".pop"); if(pop) pop.style.display = "none"; stopTrailer(); }
 }
 document.body.addEventListener("click", e => {
   const thumb = e.target.closest(".thumb.adult");
@@ -3735,6 +3844,29 @@ function init(data){
     sync();   // pre-paint restore already set the class; match the indicator to it
   })();
 
+  // Hover-trailer switch. Reflects the effective state, not just the stored one: when the
+  // OS asks for reduced motion the previews stay off and the control says so rather than
+  // claiming to be on and then doing nothing.
+  (function(){
+    const btn = document.getElementById("trailerToggle"); if(!btn) return;
+    const sync = () => {
+      const on = trailersOn();
+      btn.setAttribute("aria-pressed", String(on));
+      if(REDUCED_MOTION){
+        btn.classList.add("disabled");
+        btn.title = "Hover video previews are off because your system is set to reduce motion.";
+      }
+    };
+    btn.addEventListener("click", () => {
+      if(REDUCED_MOTION) return;
+      const on = !trailersOn();
+      try{ localStorage.setItem("qtpd.trailers", on ? "1" : "0"); }catch(e){}
+      if(!on) stopTrailer();          // kill anything playing the moment it's switched off
+      sync();
+    });
+    sync();
+  })();
+
   // Mobile sort control: picking a field sets that sort with its natural default direction;
   // the ▼/▲ button flips direction. Mirrors the header behavior for the card layout.
   // Bind a <select>+dir pair (mobile top-bar sort AND the desktop grid sort) to the sort state.
@@ -3926,7 +4058,10 @@ Promise.all([
   fetch("lookups/tags.json",      {cache:"no-store"}).then(r => r.ok ? r.json() : null).catch(() => null),
   fetch("lookups/genres.json",    {cache:"no-store"}).then(r => r.ok ? r.json() : null).catch(() => null),
   fetch("lookups/categories.json",{cache:"no-store"}).then(r => r.ok ? r.json() : null).catch(() => null),
-]).then(([g, pj, hj, tj, rj, ptj, ratj, uj, picsj, tagLk, genreLk, catLk]) => {
+  // Trailer layer (trailers.py). Purely additive: absent or still-filling, the hover
+  // panel just shows the enlarged still exactly as before.
+  fetch("trailers.json", {cache:"no-store"}).then(r => r.ok ? r.json() : null).catch(() => null),
+]).then(([g, pj, hj, tj, rj, ptj, ratj, uj, picsj, tagLk, genreLk, catLk, trlj]) => {
   const data = (g && g.games && g.games.length) ? g : SAMPLE;
   const priceMap  = (pj && pj.prices) ? pj.prices : null;
   const hltbMap   = (hj && hj.hltb)   ? hj.hltb   : null;
@@ -3955,6 +4090,12 @@ Promise.all([
   // ({apps:{}}) is truthy-but-empty, so guard on the count — otherwise the flag
   // filters activate with no data behind them and zero out the whole list.
   window.HAS_PICS = !!(picsMap && Object.keys(picsMap).length);
+  // Trailers stay in their own lookup rather than being merged onto each game object:
+  // only the row you actually hover ever needs one, so copying ~100k arrays into the
+  // catalog at load time would cost memory for nothing. The CDN prefix is carried in the
+  // file so a Valve host migration is a data change, not a code change.
+  window.TRAILERS = (trlj && trlj.trailers) ? trlj.trailers : null;
+  window.TRAILER_BASE = (trlj && trlj.base) || "https://video.akamai.steamstatic.com/store_trailers/";
   // Decode a category id (int) -> feature name via the categories map ("category_N" keys).
   const catName = id => window.PICS_CAT_LK["category_" + id] || window.PICS_CAT_LK[String(id)] || null;
   // gray threshold: below this many reviews the weighted rating renders low-confidence.
