@@ -206,9 +206,14 @@ response. The dump mode exists precisely to make that look cheap; skipping it co
 
 Three things came out of the fix:
 
-1. **`CDN_HOST` stops at the `store_item_assets/` root.** The resulting URL matches the
-   shape the site already serves header art from (`ASSET_CDN` + `<appid>/<hash>/header.jpg`),
-   which is the corroboration available without a runner.
+1. **`CDN_HOST` stops at the `store_item_assets/` root.** **Confirmed** on a runner
+   (`probe_shot_hosts`, run 32365480684): joined via `join_url` this base returns
+   `200 image/jpeg` for both rootings in the wild — `…/steam/apps/730/ss_<sha1>.jpg` and
+   `…/steam/apps/578080/<sha1>/ss_<sha1>.jpg` — from `shared.cloudflare`, `shared.akamai`
+   and `shared.fastly` alike. Worth recording why the probe samples one filename **per
+   distinct rooting**: `cdn.cloudflare` + `steam/apps/` serves the flat shape and 404s the
+   hash-dir one, so a single-sample probe would have blessed a base that is correct for
+   only part of the catalog.
 2. **`_clean_filename` normalises every input to one rooting.** A full URL, a legacy
    `cdn.…/steam/apps/…` URL and the relative form all reduce to `steam/apps/<appid>/<file>`,
    so the frontend never has to work out which of several rootings it is holding.

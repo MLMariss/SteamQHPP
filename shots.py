@@ -133,6 +133,15 @@ MAX_SHOTS = int(os.environ.get("QTPD_SHOTS_PER_GAME", "4"))
 
 # The `store_item_assets/` ROOT ONLY — deliberately NOT including `steam/apps/`.
 #
+# CONFIRMED 2026-08-20 by probe_shot_hosts on a runner (run 32365480684): this base, joined
+# via join_url, returns 200 image/jpeg for BOTH rootings in the wild —
+#   .../store_item_assets/steam/apps/730/ss_<sha1>.jpg                 (flat)
+#   .../store_item_assets/steam/apps/578080/<sha1>/ss_<sha1>.jpg       (hash-dir)
+# shared.cloudflare, shared.akamai and shared.fastly all serve both. Note that
+# cdn.cloudflare/cdn.akamai + `steam/apps/` serve the FLAT shape and 404 the hash-dir one:
+# a probe of a single sample would have blessed a base that is right for only part of the
+# catalog, which is why the dump probes one sample per distinct rooting.
+#
 # CORRECTED 2026-08-19 after the first real sweep. Valve returns these filenames already
 # rooted at `steam/apps/<appid>/<file>`, so the original base (which ended in
 # `steam/apps/`) produced `.../store_item_assets/steam/apps/steam/apps/<appid>/...` —
@@ -305,6 +314,28 @@ def extract_shots(item):
     return [], bool(mature)
 
 
+def join_url(base, appid, filename):
+    """base + filename, collapsing any overlap between them.
+
+    The Python twin of index.html's joinShot(), and it exists for the same reason: Valve
+    roots these filenames at `steam/apps/<appid>/` while a candidate base may or may not
+    already end in those segments, and concatenating blindly is what produced
+    `.../steam/apps/steam/apps/<appid>/...` in the first sweep. The prober below MUST use
+    it — probing candidate roots with a naive join tests malformed URLs and reports that
+    nothing works, which is worse than not probing at all.
+    """
+    b = base if base.endswith("/") else base + "/"
+    path = filename if "/" in filename else f"steam/apps/{appid}/{filename}"
+    b_segs = [x for x in b.split("/") if x]
+    p_segs = [x for x in path.split("/") if x]
+    overlap = 0
+    for n in range(min(len(b_segs), len(p_segs)), 0, -1):
+        if b_segs[-n:] == p_segs[:n]:
+            overlap = n
+            break
+    return b + "/".join(p_segs[overlap:])
+
+
 def probe_shot_hosts(appid, filename):
     """HEAD one real screenshot across the HOST x ROOT matrix and log every status.
 
@@ -319,8 +350,7 @@ def probe_shot_hosts(appid, filename):
     for root in CANDIDATE_ROOTS:
         for host in CANDIDATE_HOSTS:
             base = host + root
-            # A bare filename needs the appid segment; a relative path already has it.
-            url = base + (filename if "/" in filename else f"{appid}/{filename}")
+            url = join_url(base, appid, filename)
             try:
                 r = SESSION.head(url, timeout=20, allow_redirects=True)
                 ctype = r.headers.get("content-type", "?")
@@ -370,20 +400,35 @@ def getitems(appids):
             log(json.dumps(it.get("screenshots"), indent=2)[:3000])
             log("---")
         log("=== extract_shots results ===")
-        first = None
-        got = 0
+        samples, got = [], 0
         for n, it in enumerate(items):
             aid = it.get("appid") or it.get("id")
             files, mature_only = extract_shots(it)
             if files:
                 got += 1
+                samples.append((aid, files[0]))
             if n < 10:
                 log(f"  {aid}: n={len(files)} mature_only={mature_only} files={files}")
-            if first is None and files:
-                first = (aid, files[0])
         log(f"=== coverage in this batch: {got}/{len(items)} items returned screenshots ===")
-        if first:
-            probe_shot_hosts(*first)
+        if samples:
+            log(f"=== URL the frontend would build, under the shipped base ===")
+            for aid, f in samples[:5]:
+                log(f"  {join_url(CDN_HOST, aid, f)}")
+            # Probe up to three DISTINCT rootings. The catalog carries at least three
+            # (hash-dir `<appid>/<sha1>/ss_<sha1>.jpg`, flat `<appid>/ss_<sha1>.jpg`, and
+            # legacy `<appid>/<digits>.jpg`), and a host that serves one need not serve
+            # all of them — probing a single sample could bless a base that is only
+            # right for a third of the catalog.
+            seen_shapes, probed = set(), 0
+            for aid, f in samples:
+                shape = f.count("/")
+                if shape in seen_shapes:
+                    continue
+                seen_shapes.add(shape)
+                probe_shot_hosts(aid, f)
+                probed += 1
+                if probed >= 3:
+                    break
         else:
             log("  no screenshots found in this batch — nothing to probe")
         sys.exit(0)

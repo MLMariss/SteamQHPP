@@ -102,6 +102,21 @@ shots_case("no screenshots block at all", {"appid": 1}, [], False)
 shots_case("present but empty is a plain miss, not a decline",
            {"screenshots": {"all_ages_screenshots": [], "mature_content_screenshots": []}}, [], False)
 
+print("\njoin_url — must agree with index.html's joinShot() on every rooting we have seen")
+OLD = "https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/"   # as deployed
+NEW = "https://shared.cloudflare.steamstatic.com/store_item_assets/"              # corrected
+WANT = "https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/"
+for label, appid, fn in [
+        ("hash-dir (modern)", 3416070,
+         "steam/apps/3416070/b93835ca/ss_b93835ca.jpg"),
+        ("flat ss_<sha1>",    6080, "steam/apps/6080/ss_bf6667e9.jpg"),
+        ("legacy numeric",    1600, "steam/apps/1600/0000000249.jpg"),
+        ("bare filename",      620, "ss_deadbeef.jpg"),
+]:
+    a, b = S.join_url(OLD, appid, fn), S.join_url(NEW, appid, fn)
+    check(f"{label}: both bases agree, no doubling",
+          a == b and a.startswith(WANT) and "steam/apps/steam/apps" not in a)
+
 print("\nsharding")
 tmp = Path(tempfile.mkdtemp())
 real_dir = S.SHOTS_DIR
