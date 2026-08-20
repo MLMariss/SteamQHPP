@@ -2438,14 +2438,33 @@ function loadShotsShard(appid){
   return p;
 }
 
-// [url] for one game. Filenames are stored base-relative; one that already carries a "/"
-// is a full path and is used verbatim, otherwise the `<appid>/` segment goes in — the
-// same "/" discriminator artUrl uses to tell modern PICS header art from legacy.
+// base + filename, collapsing any overlap between the two.
+//
+// Valve returns these filenames already rooted at `steam/apps/<appid>/`, which the first
+// shipped base ALSO ended in — so a naive concatenation produced
+// `.../store_item_assets/steam/apps/steam/apps/<appid>/ss_....jpg`, doubled and 404ing on
+// every row. shots.py's base has been corrected to stop at the `store_item_assets/` root,
+// but shards written before that fix are already committed and being served, so the join
+// cannot assume either rooting. Dropping the longest run of leading path segments the base
+// already ends with makes both shapes resolve to the same correct URL, which is also what
+// lets the correction ship without waiting for all 64 shards to be rewritten.
+function joinShot(base, appid, f){
+  const b = base.endsWith("/") ? base : base + "/";
+  const path = f.includes("/") ? f : `steam/apps/${appid}/${f}`;
+  const bSegs = b.split("/").filter(Boolean);
+  const pSegs = path.split("/").filter(Boolean);
+  let overlap = 0;
+  for(let n = Math.min(bSegs.length, pSegs.length); n > 0; n--){
+    if(bSegs.slice(-n).join("/") === pSegs.slice(0, n).join("/")){ overlap = n; break; }
+  }
+  return b + pSegs.slice(overlap).join("/");
+}
+
+// [url] for one game, or [] when this shard has nothing for it.
 function shotUrls(appid, doc){
   const files = (doc && doc.shots) ? doc.shots[String(appid)] : null;
   if(!Array.isArray(files) || !files.length) return [];
-  const base = doc.base || "";
-  return files.map(f => base + (f.includes("/") ? f : appid + "/" + f));
+  return files.map(f => joinShot(doc.base || "", appid, f));
 }
 
 // ── One hover's media: the trailer, then the stills ───────────────────────────────────
