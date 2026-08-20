@@ -133,6 +133,15 @@ MAX_SHOTS = int(os.environ.get("QTPD_SHOTS_PER_GAME", "4"))
 
 # The `store_item_assets/` ROOT ONLY — deliberately NOT including `steam/apps/`.
 #
+# CONFIRMED 2026-08-20 by probe_shot_hosts on a runner (run 32365480684): this base, joined
+# via join_url, returns 200 image/jpeg for BOTH rootings in the wild —
+#   .../store_item_assets/steam/apps/730/ss_<sha1>.jpg                 (flat)
+#   .../store_item_assets/steam/apps/578080/<sha1>/ss_<sha1>.jpg       (hash-dir)
+# shared.cloudflare, shared.akamai and shared.fastly all serve both. Note that
+# cdn.cloudflare/cdn.akamai + `steam/apps/` serve the FLAT shape and 404 the hash-dir one:
+# a probe of a single sample would have blessed a base that is right for only part of the
+# catalog, which is why the dump probes one sample per distinct rooting.
+#
 # CORRECTED 2026-08-19 after the first real sweep. Valve returns these filenames already
 # rooted at `steam/apps/<appid>/<file>`, so the original base (which ended in
 # `steam/apps/`) produced `.../store_item_assets/steam/apps/steam/apps/<appid>/...` —
