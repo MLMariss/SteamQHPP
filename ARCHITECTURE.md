@@ -248,6 +248,16 @@ hundred new rows produce a small diff rather than a 25 MB one on a repo Pages se
 `shots_state.json` (**not** served) is the queue's memory, `{misses: {appid: ts}}`, retried
 after `QTPD_SHOTS_MISS_TTL` days because a freshly-listed game gains screenshots later.
 
+**Host resilience.** The stored `base` names one CDN edge, but three serve byte-identical
+files. When a frame fails to load, `startShots` retries the same path across `SHOT_HOSTS`
+(akamai, cloudflare, fastly) before treating it as dead — because a viewer who cannot reach
+one edge would otherwise get a panel that silently never starts, which is indistinguishable
+from the feature being broken. `CDN_HOST` leads with **akamai** for the same reason: it is
+the host `ASSET_CDN` already pulls every modern header image from, so it is the one edge the
+page continuously demonstrates works for whoever is looking at it. Picking a host the app
+had never used was the original mistake here — it passed every server-side check and still
+showed nothing in a browser.
+
 **Frontend.** `joinShot()` concatenates `base` + filename after dropping the longest run
 of leading path segments the base already ends with. That is not defensive
 over-engineering: shards written under the old doubled base are committed and being served,
