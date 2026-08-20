@@ -131,13 +131,20 @@ SHARDS = 64                                         # appid % SHARDS -> shots/sh
 # own `ordinal` is the developer's chosen order, so the first N are the best N.
 MAX_SHOTS = int(os.environ.get("QTPD_SHOTS_PER_GAME", "4"))
 
-# Screenshots are expected under the same `store_item_assets/` root the frontend already
-# uses for modern header art (index.html ASSET_CDN = shared.akamai.../store_item_assets/
-# steam/apps). UNCONFIRMED — probe_shot_hosts() under QTPD_DUMP_SHOTS=1 settles it from a
-# runner that can actually reach Steam. cloudflare over akamai to match the host the
-# capsule art already comes from.
+# The `store_item_assets/` ROOT ONLY — deliberately NOT including `steam/apps/`.
+#
+# CORRECTED 2026-08-19 after the first real sweep. Valve returns these filenames already
+# rooted at `steam/apps/<appid>/<file>`, so the original base (which ended in
+# `steam/apps/`) produced `.../store_item_assets/steam/apps/steam/apps/<appid>/...` —
+# every URL doubled and 404'd. This is the exact mirror of the trap trailers.py fell into
+# from the other direction, where the learned prefix was NOT the whole path: the lesson is
+# that the split between "base" and "filename" is Valve's to decide, not ours to assume.
+# The resulting URL now matches the shape the site already serves header art from
+# (index.html ASSET_CDN + `<appid>/<hash>/header.jpg`), which is the one piece of evidence
+# available without a runner: `store_item_assets/steam/apps/<appid>/<file>`.
+# cloudflare over akamai to match the host the capsule art already comes from.
 CDN_HOST = os.environ.get("QTPD_SHOTS_CDN",
-                          "https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/")
+                          "https://shared.cloudflare.steamstatic.com/store_item_assets/")
 
 # Probed as a HOST x ROOT matrix under the dump flag. Kept as lists for the same reason
 # trailers.py keeps them: when the path shape surprises us, the answer should come from a
@@ -206,11 +213,12 @@ def _clean_filename(v):
         return None
     s = s.split("?", 1)[0]                       # drop the ?t= cache-buster
     if s.startswith("http"):
-        # Keep everything after the known root so the stored value stays base-relative.
-        for marker in ("/store_item_assets/steam/apps/", "/steam/apps/"):
-            if marker in s:
-                s = s.split(marker, 1)[1]
-                break
+        # Keep everything after the STORE_ITEM_ASSETS root, so a full URL reduces to the
+        # same `steam/apps/<appid>/<file>` shape the relative form already arrives in.
+        if "/store_item_assets/" in s:
+            s = s.split("/store_item_assets/", 1)[1]
+        elif "/steam/apps/" in s:
+            s = "steam/apps/" + s.split("/steam/apps/", 1)[1]
         else:
             s = s.rsplit("/", 1)[-1]             # unknown layout: keep the bare filename
     s = s.lstrip("/")
@@ -424,14 +432,23 @@ def shard_path(n):
 
 
 def load_shots():
-    """{appid_str: [filename]} merged across every shard on disk."""
-    hits = {}
+    """({appid_str: [filename]}, {stale shard numbers}) from the shards on disk.
+
+    The second value is every shard whose stored `base` no longer matches CDN_HOST. A hit
+    is never re-queried, so without this a base correction would never reach the rows
+    already committed — they would serve broken URLs until someone forced a full re-sweep.
+    Returning them as pre-dirtied shards makes the next run repair itself.
+    """
+    hits, stale = {}, set()
     for n in range(SHARDS):
         doc = load_json(shard_path(n), {})
-        for k, v in (doc.get("shots") or {}).items():
+        rows = doc.get("shots") or {}
+        if rows and doc.get("base") != CDN_HOST:
+            stale.add(n)
+        for k, v in rows.items():
             if isinstance(v, list) and v:
                 hits[str(k)] = v
-    return hits
+    return hits, stale
 
 
 def save_shots(hits, dirty):
@@ -537,7 +554,7 @@ def main():
         log("games.json missing or sample-only — nothing to do.")
         return
 
-    hits = load_shots()
+    hits, stale_base = load_shots()
     sdoc = load_json(STATE_FILE, {})
     misses = dict(sdoc.get("misses") or {})
     swept_at = sdoc.get("swept_at") or 0
@@ -547,13 +564,20 @@ def main():
         f"queued {len(queue)} | budget {RUN_MINUTES}min | max {MAX_SHOTS}/game")
     if not queue:
         log("Nothing due. (Screenshot hashes are permanent; re-sweep via manual dispatch.)")
+        if stale_base:
+            log(f"  ...but {len(stale_base)} shard(s) carry an outdated base — rewriting")
+            save_shots(hits, stale_base)
         save_state(misses, int(time.time()))
-        git_checkpoint("shots: nothing due")
+        git_checkpoint("shots: base rewrite" if stale_base else "shots: nothing due")
         return
 
     last_ckpt = time.time()
     found = checked = mature_only = 0
-    dirty = set()
+    # Shards carrying an outdated base start dirty, so the correction lands on the next
+    # save even for games this run never re-queries.
+    dirty = set(stale_base)
+    if stale_base:
+        log(f"  {len(stale_base)} shard(s) carry an outdated base — rewriting them")
     for i in range(0, len(queue), GETITEMS_BATCH):
         if time.time() >= deadline:
             log("  time budget reached — wrapping up")

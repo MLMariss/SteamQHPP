@@ -57,10 +57,21 @@ shots_case("duplicates collapse, first position wins",
            ["ss_s.jpg"], False)
 
 print("\nextract_shots — filename normalisation")
-shots_case("full URL: host dropped to base-relative, ?t= cache-buster stripped",
+# The rooting matters more than it looks: base + filename is a plain concatenation, so a
+# filename normalised to the wrong root doubles or drops a path segment. The first real
+# sweep shipped `steam/apps/<appid>/...` filenames under a base that ALSO ended in
+# `steam/apps/`, and every URL 404'd. Everything below pins the one canonical shape.
+shots_case("full URL reduces to the store_item_assets-relative path, ?t= stripped",
            {"screenshots": {"all_ages_screenshots": [{"path_thumbnail":
             "https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/620/ss_x.600x338.jpg?t=176"}]}},
-           ["620/ss_x.600x338.jpg"], False)
+           ["steam/apps/620/ss_x.600x338.jpg"], False)
+shots_case("the relative form Valve actually returns is kept as-is",
+           {"screenshots": {"all_ages_screenshots": [{"filename": "steam/apps/6080/ss_a.jpg"}]}},
+           ["steam/apps/6080/ss_a.jpg"], False)
+shots_case("a legacy CDN URL is re-rooted to the same shape",
+           {"screenshots": {"all_ages_screenshots": [
+               {"filename": "https://cdn.cloudflare.steamstatic.com/steam/apps/1600/0000000249.jpg"}]}},
+           ["steam/apps/1600/0000000249.jpg"], False)
 shots_case("unknown host layout degrades to the bare filename",
            {"screenshots": {"all_ages_screenshots": [{"filename": "https://example.net/w/p/ss_z.jpg"}]}},
            ["ss_z.jpg"], False)
@@ -98,7 +109,8 @@ try:
     S.SHOTS_DIR = tmp / "shots"
     hits = {str(a): [f"ss_{a}.jpg"] for a in range(1000, 1400)}
     S.save_shots(hits, {S.shard_of(k) for k in hits})
-    check("round-trips through the shard set unchanged", S.load_shots() == hits)
+    check("round-trips through the shard set unchanged", S.load_shots()[0] == hits)
+    check("shards written under the current base are not flagged stale", S.load_shots()[1] == set())
     check("every row lands in the shard its appid names", all(
         int(a) % S.SHARDS == json.loads(p.read_text())["_shard"]
         for p in S.SHOTS_DIR.iterdir() for a in json.loads(p.read_text())["shots"]))
@@ -110,9 +122,27 @@ try:
     S.save_shots(hits, {S.shard_of(key)})
     changed = [p.name for p in S.SHOTS_DIR.iterdir() if before.get(p.name) != p.read_bytes()]
     check("a one-row change rewrites exactly one shard", changed == [f"shard_{S.shard_of(key):02d}.json"])
-    check("and the changed row is what comes back", S.load_shots()[key] == ["ss_new.jpg"])
+    check("and the changed row is what comes back", S.load_shots()[0][key] == ["ss_new.jpg"])
     check("shards carry the CDN base the frontend joins against", all(
         json.loads(p.read_text()).get("base") for p in S.SHOTS_DIR.iterdir()))
+
+    # A base correction has to reach rows already committed. Hits are never re-queried, so
+    # without this the doubled-URL bug would have survived every future run.
+    real_host = S.CDN_HOST
+    try:
+        S.CDN_HOST = "https://example.invalid/new_root/"
+        _rows, stale = S.load_shots()
+        check("every populated shard is flagged stale when the base changes",
+              stale == {p for p in range(S.SHARDS)
+                        if (S.SHOTS_DIR / f"shard_{p:02d}.json").exists()
+                        and json.loads((S.SHOTS_DIR / f"shard_{p:02d}.json").read_text())["shots"]})
+        S.save_shots(_rows, stale)
+        check("and the rewrite lands the new base on disk", all(
+            json.loads(p.read_text())["base"] == "https://example.invalid/new_root/"
+            for p in S.SHOTS_DIR.iterdir()))
+        check("rewriting the base does not disturb the rows", S.load_shots()[0] == _rows)
+    finally:
+        S.CDN_HOST = real_host
 finally:
     S.SHOTS_DIR = real_dir
     shutil.rmtree(tmp, ignore_errors=True)

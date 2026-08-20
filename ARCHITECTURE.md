@@ -182,25 +182,44 @@ same batched endpoint as §2.1 and `price_and_sale.py`, 50 appids per call, ~2.5
 minutes for a full sweep. Catalog order is **most-reviewed first**, so the games anyone
 actually hovers are covered in the opening minutes.
 
-**Expected coverage, and what is not yet verified.** Screenshots are effectively mandatory:
-Valve requires a minimum of five to publish a store page, where a trailer is optional and
-`trailers.json` still resolved 96.4% of the catalog. This layer should therefore land at or
-above that. **That is an inference from Valve's submission rules, not a measurement** —
-unlike §2.1, whose surprises were caught by a dump run, the response shape here has never
-been seen from a runner that can reach Steam. Two specific unknowns remain open until
-`QTPD_DUMP_SHOTS=1` (workflow input `dump`) is run:
+**Coverage.** Screenshots are effectively mandatory — Valve requires a minimum of five to
+publish a store page, where a trailer is optional and `trailers.json` still resolved 96.4%
+of the catalog — so this layer was predicted to land at or above that. The first real sweep
+bore that out: **78,213 hits in the first ~50 minutes**, against a queue walked
+most-reviewed first.
 
-1. **The key path.** Expected `screenshots.all_ages_screenshots[] = {filename, ordinal}`.
-   `extract_shots` therefore hardcodes nothing: it tries the named key, then any other
-   list-of-dicts under `screenshots` whose key does not look mature, and pulls
-   `filename`/`path_thumbnail`/`path_full`/`path`/`url`-shaped values out of whatever it
-   finds — normalising full URLs, `?t=` cache-busters and leading slashes away.
-2. **The serving host.** Expected under the same `store_item_assets/` root the frontend
-   already uses for modern header art, with an `<appid>/` path segment.
-   `probe_shot_hosts()` HEADs a real filename across a host × root matrix and requires an
-   `image/*` content-type, so an HTML error page served as 200 cannot pass — the same
-   method that took §2.1 two rounds to settle. **Run the dump before trusting a row this
-   parser writes.**
+**What the first sweep corrected, and the lesson it repeats.** The key path was right:
+`screenshots.all_ages_screenshots[] = {filename, ordinal}`, and `extract_shots`'s
+tolerance (named key, then any non-mature list-of-dicts, pulling
+`filename`/`path_thumbnail`/`path_full`/`path`/`url` values) was never exercised. **The
+join was wrong.** Valve returns filenames *already rooted* at `steam/apps/<appid>/<file>`,
+and the shipped base also ended in `steam/apps/`, so every URL came out as
+`.../store_item_assets/steam/apps/steam/apps/<appid>/ss_….jpg` — doubled, and 404 on every
+row.
+
+This is §2.1's trap seen from the other side. There, the learned prefix was *not the whole
+path* and a segment had to be **added**; here a segment had to be **removed**. The
+generalisable point: **the split between "base" and "filename" is Valve's to decide, not
+ours to assume**, and no amount of reasoning about it substitutes for looking at one real
+response. The dump mode exists precisely to make that look cheap; skipping it cost a
+78k-row sweep that had to be repaired afterwards rather than five minutes up front.
+
+Three things came out of the fix:
+
+1. **`CDN_HOST` stops at the `store_item_assets/` root.** The resulting URL matches the
+   shape the site already serves header art from (`ASSET_CDN` + `<appid>/<hash>/header.jpg`),
+   which is the corroboration available without a runner.
+2. **`_clean_filename` normalises every input to one rooting.** A full URL, a legacy
+   `cdn.…/steam/apps/…` URL and the relative form all reduce to `steam/apps/<appid>/<file>`,
+   so the frontend never has to work out which of several rootings it is holding.
+3. **The base is self-healing.** `load_shots` returns every shard whose stored `base` no
+   longer matches `CDN_HOST`, and those start the next run pre-dirtied. Without it a base
+   correction could never reach rows already committed — a hit is never re-queried, so the
+   broken URLs would have survived every future run until someone forced a full re-sweep.
+
+`probe_shot_hosts()` (HEAD across a host × root matrix, requiring an `image/*` content-type
+so an HTML error page served as 200 cannot pass) remains under `QTPD_DUMP_SHOTS=1` for the
+next time the path shape moves.
 
 **Adult content.** Only `all_ages_screenshots` is stored. Valve splits mature stills into
 `mature_content_screenshots`, and a game can carry those *without* tripping the frontend's
@@ -213,7 +232,8 @@ is recorded as a miss, and the run log counts those separately from genuine empt
 shards by `appid % 64`) holds hits only — `{appid: [filename, ...]}`, capped at
 `QTPD_SHOTS_PER_GAME` (default **4**) in Valve's own `ordinal` order, which is the
 developer's pick of what represents the game best. Each shard carries its own absolute
-`base`, so a host migration stays a data change. This is the one layer that departs from
+`base`, so a host migration stays a data change — and a *changed* base re-dirties every
+shard that still carries the old one, so the correction propagates on its own. This is the one layer that departs from
 §2.1's single flat file: a trailer is one short filename list per game and the whole map is
 small enough to ship at load, whereas screenshots are ~4 hashes per game (~25 MB across the
 catalog) and **only the row you actually hover ever needs them**. Shipping that eagerly
@@ -223,7 +243,12 @@ hundred new rows produce a small diff rather than a 25 MB one on a repo Pages se
 `shots_state.json` (**not** served) is the queue's memory, `{misses: {appid: ts}}`, retried
 after `QTPD_SHOTS_MISS_TTL` days because a freshly-listed game gains screenshots later.
 
-**Frontend.** One control governs every kind of panel motion: the existing **Preview:
+**Frontend.** `joinShot()` concatenates `base` + filename after dropping the longest run
+of leading path segments the base already ends with. That is not defensive
+over-engineering: shards written under the old doubled base are committed and being served,
+so the join must resolve both rootings to the same URL — which is also what let the fix ship
+without waiting for all 64 shards to be rewritten. One control governs every kind of panel
+motion: the existing **Preview:
 Video** toggle (and the `prefers-reduced-motion` override inside `trailersOn()`) suppresses
 the rotation too — a cross-fading slideshow is motion, and turning video off must not leave
 the panel animating. Where a game has a clip, the clip plays once and then hands over;
