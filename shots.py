@@ -152,8 +152,14 @@ MAX_SHOTS = int(os.environ.get("QTPD_SHOTS_PER_GAME", "4"))
 # (index.html ASSET_CDN + `<appid>/<hash>/header.jpg`), which is the one piece of evidence
 # available without a runner: `store_item_assets/steam/apps/<appid>/<file>`.
 # cloudflare over akamai to match the host the capsule art already comes from.
+# akamai rather than cloudflare, though the probe showed both serving every rooting: this
+# is the host ASSET_CDN already pulls every modern header image from, so it is the one edge
+# the page continuously demonstrates works for whoever is looking at it. A host the app has
+# never used is an unproven dependency, and when it fails for a viewer the rotation just
+# silently never starts. The frontend falls back across all three regardless (SHOT_HOSTS in
+# index.html); this only decides which one is tried first.
 CDN_HOST = os.environ.get("QTPD_SHOTS_CDN",
-                          "https://shared.cloudflare.steamstatic.com/store_item_assets/")
+                          "https://shared.akamai.steamstatic.com/store_item_assets/")
 
 # Probed as a HOST x ROOT matrix under the dump flag. Kept as lists for the same reason
 # trailers.py keeps them: when the path shape surprises us, the answer should come from a

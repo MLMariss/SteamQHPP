@@ -2460,6 +2460,30 @@ function joinShot(base, appid, f){
   return b + pSegs.slice(overlap).join("/");
 }
 
+// Alternate hosts for one built URL, in preference order.
+//
+// A hover preview must not hinge on a single CDN edge. Three hosts serve byte-identical
+// files (confirmed by shots.py's probe: shared.akamai, shared.cloudflare and shared.fastly
+// all returned 200 image/jpeg for every rooting), and the shard's stored `base` names only
+// one of them. When that one fails for a viewer — DNS, an extension, a regional edge — the
+// rotation would silently do nothing, which is indistinguishable from "the feature is
+// broken". So a failed frame retries the same path elsewhere before giving up.
+//
+// akamai leads deliberately: it is the host ASSET_CDN already pulls every modern header
+// image from, so it is the one edge this page has continuously demonstrated works for
+// whoever is looking at it.
+const SHOT_HOSTS = [
+  "https://shared.akamai.steamstatic.com/store_item_assets/",
+  "https://shared.cloudflare.steamstatic.com/store_item_assets/",
+  "https://shared.fastly.steamstatic.com/store_item_assets/",
+];
+function shotAlternates(url){
+  const i = url.indexOf("/store_item_assets/");
+  if(i < 0) return [];
+  const path = url.slice(i + "/store_item_assets/".length);
+  return SHOT_HOSTS.map(h => h + path).filter(u => u !== url);
+}
+
 // [url] for one game, or [] when this shard has nothing for it.
 function shotUrls(appid, doc){
   const files = (doc && doc.shots) ? doc.shots[String(appid)] : null;
@@ -2537,10 +2561,16 @@ function startShots(pop, urls){
       Array.from(pips.children).forEach((el, k) => el.classList.toggle("on", k === shown));
       shotTimer = setTimeout(advance, SHOT_MS);
     };
+    let alts = null, altIdx = 0;
     back.onerror = () => {
-      // A dead hash should skip, not stall. If every frame in the set fails, give up
-      // rather than spinning: the still underneath is already a reasonable panel.
       if(shotPop !== pop) return;
+      // Before treating the frame as dead, try the same path on the other CDN hosts. A
+      // viewer who cannot reach one edge still gets the rotation from another, instead of
+      // a panel that silently never starts.
+      if(alts === null) alts = shotAlternates(urls[shown]);
+      if(altIdx < alts.length){ back.src = alts[altIdx++]; return; }
+      // A genuinely dead hash should skip, not stall. If every frame in the set fails,
+      // give up rather than spinning: the still underneath is already a reasonable panel.
       if(++fails >= urls.length) return;
       i = (i + 1) % urls.length;
       advance();
