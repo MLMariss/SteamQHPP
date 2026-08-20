@@ -22,6 +22,7 @@ on:
     branches: [main]
     paths:
       - index.html                # a look/layout change -> deploy right away
+      - .github/workflows/pages.yml   # a change to WHAT gets published should publish it
   schedule:
     - cron: "0,30 * * * *"        # republish current main every 30 min, on :00 and :30
 
@@ -48,11 +49,43 @@ jobs:
         with:
           ref: main
 
-      - name: Stage site files (index.html + data JSON only, no source)
+      # Stage exactly what the browser fetches: index.html, the root data layers, and the
+      # SUBDIRECTORIES it also reads. `cp *.json` copies root files only, so any served
+      # directory has to be named here explicitly.
+      #
+      # This has bitten twice. `lookups/` (PICS id -> name decode maps, §9.6) was never
+      # staged, so those ids silently failed to decode on the live site while working
+      # locally. `shots/` (§2.2) then repeated it: every shard 404'd, the rotation never
+      # started, and every server-side check still passed — the data was correct, the URLs
+      # were correct, the code was correct, and none of it was published.
+      #
+      # ADDING A NEW SERVED FILE? If the frontend fetches it from a subdirectory, add it
+      # here, or it will not exist in production no matter how right everything else is.
+      # The check below fails the deploy rather than publishing a site with a missing
+      # layer, so the next one announces itself here instead of in a hover that does
+      # nothing.
+      - name: Stage site files (index.html + served JSON, no source)
         run: |
           mkdir -p _site
           cp index.html _site/
           cp *.json _site/
+          cp -r lookups _site/
+          cp -r shots _site/ 2>/dev/null || echo "note: shots/ absent (layer not populated yet)"
+
+      - name: Verify every path the frontend fetches is staged
+        run: |
+          missing=0
+          for p in $(grep -o 'fetch("[^"]*\.json"' index.html | sed 's/fetch("//; s/"//'); do
+            if [ ! -f "_site/$p" ]; then echo "MISSING from _site: $p"; missing=1; fi
+          done
+          # shots/ is fetched with a computed shard name, so check the directory itself.
+          if grep -q 'fetch(`shots/' index.html && [ -d shots ] && [ ! -d _site/shots ]; then
+            echo "MISSING from _site: shots/ (exists in repo but was not staged)"; missing=1
+          fi
+          if [ "$missing" = "1" ]; then
+            echo "Refusing to publish a site with a data layer missing."; exit 1
+          fi
+          echo "All fetched paths present in _site."
 
       - uses: actions/configure-pages@v5
 
