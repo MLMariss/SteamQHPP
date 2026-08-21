@@ -258,7 +258,29 @@ page continuously demonstrates works for whoever is looking at it. Picking a hos
 had never used was the original mistake here — it passed every server-side check and still
 showed nothing in a browser.
 
-**Frontend.** `joinShot()` concatenates `base` + filename after dropping the longest run
+**Frontend — one cycling playlist.** The panel runs a single list, `[clip, still, still,
+still, still]`, and wraps back to the clip. It did not start that way: the clip played once
+and handed over to the stills for good, which lost the moving footage — the part that
+actually tells you what a game *is* — for the rest of the hover. A game with no clip is the
+same list minus its first item; a game with no stills is a one-item list that repeats,
+which is §2.1's original looping behaviour. Every entry point (the dwell, a finished clip,
+a still's timer, a click) goes through `showMedia()`, so one place cancels the previous
+item's timer and one place paints.
+
+**Clicking the thumbnail steps forward.** The *thumbnail* is the target, not the panel: the
+panel is `pointer-events:none` and positioned clear of the thumb, so the thing you are
+already hovering is the thing you click and the hover never breaks. The 18+ gate keeps
+priority — and it cannot simply rely on being registered first, because both listeners sit
+on `document.body`, where `stopPropagation` does **not** stop a sibling listener on the same
+node; the rotation's handler defers to the gate explicitly.
+
+The clip starts on the 350 ms dwell **without waiting for the shard fetch**; the stills
+append to the playlist when they arrive and the pips rebuild. Making the video wait on a
+~400 KB fetch would trade away the responsiveness the dwell exists to protect. The two
+cross-fade layers are built on first use, so a clip-only game — or any game before its
+shard is populated — never gets empty `<img>` elements for having been hovered.
+
+`joinShot()` concatenates `base` + filename after dropping the longest run
 of leading path segments the base already ends with. That is not defensive
 over-engineering: shards written under the old doubled base are committed and being served,
 so the join must resolve both rootings to the same URL — which is also what let the fix ship
