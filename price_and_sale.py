@@ -131,8 +131,14 @@ def fetch_prices(appids):
             continue
         pi = round(po.get("initial", 0) / 100, 2) or None
         pf = round(po.get("final", 0) / 100, 2) or None
-        out[int(aid)] = {"price_initial": pi, "price_final": pf,
-                         "discount_pct": int(po.get("discount_percent", 0))}
+        disc = int(po.get("discount_percent", 0))
+        # A "free to keep for 48 hours" promo reports discount_percent 100 while both
+        # initial and final still hold the FULL price (see scraper.py's
+        # reconcile_price_flags). The prices are the trustworthy half of that response:
+        # a final at or above the initial means no cut is actually in effect.
+        if disc > 0 and pi is not None and pf is not None and pf >= pi:
+            disc = 0
+        out[int(aid)] = {"price_initial": pi, "price_final": pf, "discount_pct": disc}
     return out
 
 
@@ -428,7 +434,14 @@ def fetch_end_dates(appids):
 # I/O + git
 # --------------------------------------------------------------------------- #
 def load_appids():
-    """All non-free appids from games.json (free games have no price to refresh)."""
+    """Every appid from games.json that could have a price to refresh.
+
+    Free games are skipped — except the few that games.json records WITH a price. That
+    pairing is either a free app which also sells a paid package at the app level, or a
+    stale free-to-keep-promo snapshot (see scraper.py's reconcile_price_flags), and both
+    need the live price. Excluding them wholesale is what let promo snapshots fossilise:
+    the record said "free", so this job never re-checked the price that would have
+    disproved it. The set is a handful of games, so it costs nothing to carry them."""
     if not GAMES_FILE.exists():
         return []
     try:
@@ -437,7 +450,8 @@ def load_appids():
         return []
     if d.get("sample"):
         return []
-    return [int(g["appid"]) for g in d.get("games", []) if not g.get("is_free")]
+    return [int(g["appid"]) for g in d.get("games", [])
+            if not g.get("is_free") or g.get("price_initial")]
 
 
 def save_prices(prices):
