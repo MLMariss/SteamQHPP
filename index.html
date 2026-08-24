@@ -7,7 +7,7 @@
 <link rel="icon" type="image/svg+xml" href="favicon.svg" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Chivo+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
 <style>
   :root{
     --bg:#0e1320; --panel:#192133; --panel-2:#212c42; --line:#2c3858;
@@ -15,7 +15,17 @@
     --gold:#ffc24d; --gold-deep:#b98a28; --gold-soft:#3a2f17; --blue:#6f9bff; --coral:#ff7d7d;
     --teal:#5dd6a8; --green:#54c98a; --red:#ff7d7d;
     --sans:"IBM Plex Sans",system-ui,sans-serif;
-    --mono:"IBM Plex Mono",ui-monospace,monospace;
+    /* Chivo Mono, NOT IBM Plex Mono. Plex Mono draws a DOT inside its zero — a coding-font
+       convention for telling 0 from O, and unreadable clutter on a page whose entire job is
+       showing numbers: "-60%", "1080h", "$10.00", "43,201" all carry it. It cannot be switched
+       off, either: Plex Mono ships no `zero` feature and no stylistic sets (its GSUB is just
+       ccmp/dnom/frac/numr), so the dot is the only zero the font has.
+       Chivo Mono has a plain zero, still separates 1 / l / I (which the sans faces do not — in
+       both IBM Plex Sans and Inter the lowercase l and capital I are the same bar), and is a
+       metric drop-in: 0.600 advance/em against Plex Mono's 0.600, x-height 0.511 vs 0.516, cap
+       height 0.686 vs 0.698. Every column width and hard-coded px measurement on the page was
+       tuned against those numbers and keeps working untouched. */
+    --mono:"Chivo Mono",ui-monospace,monospace;
     /* Thumbs-up glyph, used as a CSS mask so it inherits whatever colour it sits on. Marks the
        Steam review score on grid cards, which was previously a bare coloured "90%" whose meaning
        existed only in a hover tooltip — invisible to a first-time user and absent on touch. */

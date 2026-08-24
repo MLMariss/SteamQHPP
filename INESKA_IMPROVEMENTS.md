@@ -525,11 +525,13 @@ counterpart in the table view*. The 700 weight was doing the work that size shou
 doing, which is why it reads as dense rather than loud.
 
 The wider "check other fonts" ask: the page runs two families, **IBM Plex Sans** (UI text)
-and **IBM Plex Mono** (every figure). Both are clear digital faces with unambiguous
-`0/O`, `1/l/I` — there is no bad font on the page to remove. What there *is* is a long tail
-of very small type: 14 rules at `11px`, 2 at `10px`, 32 at `12px`. The 10px ones
-(`body.layout-card tbody td::before`, the mobile column labels) are the genuinely marginal
-ones.
+and **IBM Plex Mono** (every figure). There is also a long tail of very small type: 14 rules
+at `11px`, 2 at `10px`, 32 at `12px`; the 10px ones (`body.layout-card tbody td::before`, the
+mobile column labels) are the genuinely marginal ones.
+
+> **Correction — this paragraph originally claimed "both are clear digital faces with
+> unambiguous `0/O`… there is no bad font on the page to remove." That was asserted without
+> inspecting a single glyph, and it was wrong.** See the second round on this item below.
 
 **Where.** `index.html` — `.gdisc` (L905), `.grate` (L923), `.gq` (L913), `.disc` (L600);
 the small-type tail at L1072 and L1117.
@@ -550,8 +552,59 @@ the small-type tail at L1072 and L1117.
 - **(d) Raise the 10px floor** — the mobile `td::before` column labels to 11px. Separate,
   small, safe.
 
-**Shipped:** (a) + (b) + (d). No new typeface — (c) stays rejected. The longest mobile label
-("Sale ends") still fits its 72px gutter at 11px, so nothing reflowed.
+**Shipped, first pass:** (a) + (b) + (d). The longest mobile label ("Sale ends") still fits
+its 72px gutter at 11px, so nothing reflowed.
+
+---
+
+### 14b — …and the mono font draws a dot inside its zero
+
+**Said**:
+
+> Fix this shit for real this time — the font used for discount have a dot in null character
+> — what the fuck is that?! Pick a normal font that is visible and understandable with normal
+> characters where in null 0 there is no shit in it.
+
+**Problem.** Correct, and option (c) above was rejected on a claim that had never been
+checked. Inspecting the actual font binary:
+
+| | contours in `0` | contours in `O` |
+|---|---|---|
+| IBM Plex Mono | **3** — ring, counter, **and a dot** | 2 |
+
+Plex Mono draws a dot inside its zero. That is a deliberate coding-font convention for
+telling `0` from `O` in source code, and it is clutter on a page whose entire job is showing
+numbers — `-60%`, `1080h`, `$10.00`, `43,201`, `100%` all carry it.
+
+It also **cannot be turned off in CSS.** Plex Mono's GSUB feature list is exactly
+`ccmp, dnom, frac, numr` — no `zero` feature, no stylistic sets. The dotted zero is the only
+zero the font has, so the family had to change.
+
+**Survey.** Nineteen candidates checked by counting contours on `0` against `O`. Almost every
+monospace face marks its zero — that is the point of a coding font. Only four came back
+plain: **IBM Plex Sans**, **Inter**, **Azeret Mono**, **Chivo Mono**.
+
+The two sans faces were then rejected on a *different* legibility test: in both Plex Sans and
+Inter, lowercase `l` and capital `I` are the identical bar. Trading an ambiguous `0/O` for an
+ambiguous `l/I` is not a fix on a data-dense page.
+
+**Fix.** `--mono` → **Chivo Mono**. Plain zero, `1 / l / I` stay distinct, all three weights
+(400/500/600) served, and — the deciding factor — it is a **metric drop-in**:
+
+| | advance/em | x-height | cap height |
+|---|---|---|---|
+| IBM Plex Mono | 0.600 | 0.516 | 0.698 |
+| **Chivo Mono** | **0.600** | 0.511 | 0.686 |
+| Azeret Mono | 0.650 ✗ | 0.544 | 0.698 |
+
+Azeret is 8.3% wider and would have pushed every table column. Chivo changes nothing: measured
+in Chromium against the live page, `Playtime · ▲/▼` at 12px is **101.16px in both fonts**,
+ten digits at 13px are **78.28px in both**, `$1,234.56` is **70.45px in both**, with no clipped
+headers and no table overflow under either. Every hard-coded px width on the page was tuned
+against Plex Mono's metrics and keeps working untouched.
+
+**Shipped: the swap, applied globally to `--mono`** rather than to the discount badge alone —
+the dotted zero was in every number on the site, not just that one chip.
 
 ---
 
