@@ -913,8 +913,17 @@
   .gcard .gmeta{flex:none; background:#080b12; border-top:1px solid var(--line); padding:7px 10px 8px;
         display:flex; flex-direction:column; gap:3px}
   .gmeta-top{display:flex; align-items:baseline; justify-content:space-between; gap:8px}
-  .gq{align-self:flex-start; font-family:var(--mono); font-size:13px; font-weight:600; color:var(--gold); white-space:nowrap}
+  /* Bottom line of the panel: QTPD on the left, the active sort's value on the right. The right
+     half used to be empty space. */
+  .gmeta-bot{display:flex; align-items:baseline; justify-content:space-between; gap:8px; min-height:1.45em}
+  .gq{font-family:var(--mono); font-size:13px; font-weight:600; color:var(--gold); white-space:nowrap}
   .gq.na{color:var(--muted-2); font-weight:400}
+  /* Whatever the grid is currently sorted by, when the card doesn't already show it. Deliberately
+     quieter than QTPD — this is corroboration for the ordering, not a second headline. */
+  .gsortval{font-family:var(--mono); font-size:12.5px; color:var(--muted); white-space:nowrap; flex:none;
+        font-variant-numeric:tabular-nums}
+  .gsortval.na{color:var(--muted-2)}
+  .gsvu{margin-left:4px; font-size:11px; color:var(--muted-2)}
   /* Top third of the current results by QTPD — the mark that used to be a gold ring around the
      whole card, now attached to the value it describes.
      An inset box-shadow, NOT a border: a border is 1px of box model on each side, which made
@@ -928,6 +937,17 @@
         -webkit-mask:var(--thumb-mask); mask:var(--thumb-mask)}
   .grate.na{color:var(--muted-2); font-weight:400}
   .grate.na::before{display:none}
+  /* Both review periods, stacked. line-height is tightened to 1.15 on purpose: two rows at the
+     page's default 1.45 would stand ~38px tall against the 33.75px the .gname min-height below
+     reserves, and every card in the grid would gain height. At 1.15 the pair fits inside the
+     space the title already holds open, so adding the second score costs no layout at all. */
+  .grates{display:flex; flex-direction:column; align-items:flex-end; gap:1px; flex:none; line-height:1.15}
+  /* The period tag is what makes each number self-describing — a bare % was the whole problem.
+     Neither score is dimmed: both are real data and both stay legible in their rating colour.
+     What marks the one the current sort uses is the TAG going gold, which is a cue about the
+     sort rather than about the score. */
+  .grlbl{margin-left:4px; font-size:11px; font-weight:500; color:var(--muted-2); letter-spacing:.02em}
+  .grate.gsel .grlbl{color:var(--gold); background:var(--gold-soft); border-radius:4px; padding:0 4px; margin-left:3px}
   /* min-height reserves both clamped lines whether or not the title needs them. Without it a
      one-line title and a two-line title build different-height cards, and because grid rows
      stretch to their tallest item a single long title re-heights its whole row — the grid
@@ -935,7 +955,7 @@
   .gname{flex:1; min-width:0; font-family:var(--sans); font-weight:600; font-size:13.5px; color:#fff; line-height:1.25;
         min-height:2.5em;
         display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden}
-  .gmeta-top .grate{flex:none}   /* rating stays put on the right as the title truncates */
+  .gmeta-top .grates{flex:none}  /* scores stay put on the right as the title truncates */
   /* Details overlay — covers the whole card; overflow-y:auto keeps actions reachable on short cards. */
   .ginfo{position:absolute; inset:0; background:#0e1320f2; display:none; flex-direction:column; padding:11px;
         gap:5px; font-family:var(--mono); overflow-y:auto}
@@ -951,8 +971,11 @@
   .gcard.open .ginfo{display:flex}
   .gi-title{font-family:var(--sans); font-weight:600; font-size:13.5px; color:var(--title); line-height:1.2;
         display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden}
-  .gi-row{display:flex; justify-content:space-between; font-size:12.5px; color:var(--muted)}
-  .gi-row b{color:var(--text); font-weight:600}
+  .gi-row{display:flex; justify-content:space-between; gap:8px; font-size:12.5px; color:var(--muted)}
+  .gi-row b{color:var(--text); font-weight:600; white-space:nowrap}
+  /* Source qualifier after a row label — "Length HLTB", "Playtime median". Upright, not italic:
+     these are names of data sources, not emphasis, and italic mono reads as an error state. */
+  .gi-row i{font-style:normal; font-size:11px; color:var(--muted-2); margin-left:4px}
   .gi-row .gi-q{color:var(--gold); font-weight:700}
   .gi-actions{margin-top:auto; display:flex; gap:7px; padding-top:2px}
   .gi-actions a,.gi-actions button{flex:1; text-align:center; font-family:var(--mono); font-size:12px;
@@ -2029,10 +2052,15 @@ const TITLE_COLLATOR = new Intl.Collator(undefined, {numeric:true, sensitivity:"
 // table is needed for "Latin, then Cyrillic, then Japanese": a default collator already orders
 // scripts that way, so classifying "is this a real letter at all" is the whole job.
 const titleBucket = s => /^[\p{L}\p{N}]/u.test(s) ? 0 : 1;
+// \p{Cf} as well as \s: eight titles open with a zero-width space or joiner (U+200B/200C/200D,
+// all General_Category=Cf) rather than a real one. Those are the same bug wearing an invisible
+// costume — "​Triple Fantasy" looks like it starts with T and was sorting among the symbols —
+// and .trim() alone does not touch them.
+const TITLE_TRIM = /^[\s\p{Cf}]+|[\s\p{Cf}]+$/gu;
 // Cached on the game object: sortKey() runs twice per comparison, ~2 × n log n times per sort.
 function titleSortKey(g){
   let k = g._tkey;
-  if(k === undefined){ k = g._tkey = g.title.trim(); }
+  if(k === undefined){ k = g._tkey = g.title.replace(TITLE_TRIM, ""); }
   return k;
 }
 // Takes `dir` rather than letting the caller multiply, because the bucket must NOT be flipped:
@@ -3108,10 +3136,43 @@ function gridCardHTML(g){
   const qHtml = q != null
     ? `<span class="gq" title="${esc(qTip)}">${qLbl} ${fmtQval(q)}</span>`
     : `<span class="gq na" title="${esc(qLbl)} — not available for this game (no price or no length data).">${qLbl} —</span>`;
-  // Rating = Steam all-time review score, plain number + % (no weighted/recent source letters).
-  const rateHtml = g.rating_pct != null
-    ? `<span class="grate" style="color:${ratingColor(g.rating_pct)}" title="Steam review score — ${g.rating_pct}% of ${g.review_count ? g.review_count.toLocaleString() + " reviews are" : "reviews are"} positive. Colour runs red (low) to green (high).">${g.rating_pct}%</span>`
-    : `<span class="grate na" title="Steam review score — none yet for this game.">—</span>`;
+  // BOTH review scores, stacked, each labelled. The card used to print one bare number — the
+  // ALL-TIME score — while sorting by Review score sorts on whichever period the All-time/30-day
+  // toggle selects, and that defaults to 30-day. So "sort by review score" produced a grid
+  // reading 92, 97, 95, 95, 91… : perfectly ordered on 100%, 100%, 100%, 100%, 100%, a column
+  // that was nowhere on screen. Printing both, with the sorted one lit, makes the order
+  // verifiable instead of looking broken. No minimum-review rule is applied — the ranking is
+  // left exactly as it was, only made legible.
+  // Which row the sort ACTUALLY used, not merely which period is selected: ratingVal() falls back
+  // to the all-time score when a game has no 30-day one, so gold-tagging "30d" on a card whose
+  // 30-day cell is a dash would point at the wrong number — the very confusion this fixes.
+  const active = (state.ratingSource === "recent" && g.recent_pct != null) ? "recent" : "all";
+  const rateRow = (pct, count, key) => {
+    const is30 = key === "recent";
+    const lbl  = is30 ? "30d" : "all";
+    const on   = active === key;
+    const per  = is30 ? "in the last 30 days" : "over the game's whole history";
+    if(pct == null){
+      const why = is30 ? "No reviews in the last 30 days." : "No reviews yet.";
+      return `<span class="grate na${on ? " gsel" : ""}" title="Steam review score, ${per} — ${why}">`
+           + `—<span class="grlbl">${lbl}</span></span>`;
+    }
+    const n = count ? count.toLocaleString() + ` review${count === 1 ? "" : "s"}` : "reviews";
+    return `<span class="grate${on ? " gsel" : ""}" style="color:${ratingColor(pct)}"`
+         + ` title="Steam review score, ${per} — ${pct}% of ${n} positive. Colour runs red (low) to green (high).`
+         + `${on ? " This is the figure the current Review-score sort uses." : ""}">`
+         + `${pct}%<span class="grlbl">${lbl}</span></span>`;
+  };
+  const rateHtml = `<div class="grates">`
+    + rateRow(g.recent_pct, g.recent_count, "recent")
+    + rateRow(g.rating_pct, g.review_count, "all")
+    + `</div>`;
+  // The active sort's value, on the free half of the QTPD line. The grid sort bar offers all
+  // thirteen fields while the card shows three, so sorting by Review count / Trend / Weighted /
+  // Updated / Playtime / HLTB reordered the grid by a quantity that appeared nowhere. Rather
+  // than deleting those sorts, the card shows whatever it is currently sorted by — and shows
+  // nothing when the sort is already visible on the card (QTPD, Name, and the two scores).
+  const sortHtml = gridSortValueHTML(g);
   let priceTxt;
   const pfx = g.price_src === "package" ? "from " : "";
   if(g.is_free) priceTxt = "Free";
@@ -3120,6 +3181,24 @@ function gridCardHTML(g){
   else priceTxt = `${pfx}$${g.price_final.toFixed(2)}`;
   const h = hoursFor(g);
   const hStr = h != null ? (h >= 10 ? Math.round(h) : (Math.round(h * 10) / 10).toFixed(1)) + "h" : "—";
+  // Length and Playtime are two different measurements and the card used to show only the
+  // sparser one under the ambiguous label "Length", which read as though it were the same thing
+  // as the Playtime you can sort by. They're now named apart and shown together — but only here,
+  // on the opened face, so the front of the card stays a three-figure summary.
+  //   Length   = HowLongToBeat hours to FINISH. It is what QTPD divides price by, so it stays
+  //              first: without it the headline number on the card can't be explained.
+  //   Playtime = median hours reviewers actually PLAYED. Far better covered (63.5% of the
+  //              catalogue against 11.8% for non-estimated HLTB), which is why a card whose
+  //              Length is "—" usually still has something to say here.
+  const ptMins = g.pt_up != null ? g.pt_up : g.pt_down;
+  const ptStr = ptMins != null
+    ? (ptMins/60 >= 10 ? Math.round(ptMins/60) : (ptMins/60).toFixed(1)) + "h"
+    : "—";
+  const ptTip = g.pt_up != null
+    ? "Playtime — median hours played by reviewers who recommended it. Time spent, not time to finish."
+    : (g.pt_down != null
+        ? "Playtime — median hours played by reviewers who did NOT recommend it; too few recommenders for a median of their own."
+        : "Playtime — too few reviews with playtime data (3+ needed) for a median.");
   return `<div class="${cls}" data-gappid="${g.appid}" tabindex="0" role="button" aria-label="${esc(g.title)}">
     <div class="gart">
       <img class="gcap" loading="lazy" src="${headerUrl(g.appid)}" alt="" referrerpolicy="no-referrer"
@@ -3128,18 +3207,68 @@ function gridCardHTML(g){
     </div>
     <div class="gmeta">
       <div class="gmeta-top"><div class="gname" title="${esc(g.title)}">${esc(g.title)}</div>${rateHtml}</div>
-      ${qHtml}
+      <div class="gmeta-bot">${qHtml}${sortHtml}</div>
     </div>
     <div class="ginfo">
       <div class="gi-title">${esc(g.title)}</div>
       <div class="gi-row"><span>Price</span><b>${priceTxt}</b></div>
-      <div class="gi-row"><span>Length</span><b>${hStr}</b></div>
+      <div class="gi-row" title="Length — HowLongToBeat, community-reported hours to finish the game. This is the length QTPD divides the price by."><span>Length <i>HLTB</i></span><b>${hStr}</b></div>
+      <div class="gi-row" title="${esc(ptTip)}"><span>Playtime <i>median</i></span><b>${ptStr}</b></div>
       <div class="gi-actions">
         <a class="gi-steam" href="${esc(g.url)}" target="_blank" rel="noopener">Steam ↗</a>
         <button type="button" data-gclose="1">Close ✕</button>
       </div>
     </div>
   </div>`;
+}
+
+// The value of whatever the grid is currently sorted by, for the right-hand end of the card's
+// QTPD line. Returns "" for sorts the card already displays, so the slot only appears when it
+// is telling you something you can't otherwise see.
+//
+// Each entry is [text, unit] rather than a bare number: a naked figure on a grid card is exactly
+// the problem item #9 was raised about — "43,201" alone says nothing, "43,201 rev" says it in
+// three more characters. The unit is dimmed so the number still reads first.
+const GSORT_SELF_EVIDENT = new Set(["qtpd", "title", "rating_pct"]);
+function gridSortValueHTML(g){
+  const k = state.sortKey;
+  if(GSORT_SELF_EVIDENT.has(k)) return "";
+  let txt = null, unit = "";
+  if(k === "review_count"){
+    const n = state.ratingSource === "recent" ? g.recent_count : g.review_count;
+    if(n != null){ txt = n.toLocaleString(); unit = "rev"; }
+  } else if(k === "trend"){
+    const t = gTrend(g);
+    if(t != null){ txt = (t > 0 ? "▲ +" : t < 0 ? "▼ " : "≈ ") + t; unit = "trend"; }
+  } else if(k === "wr"){
+    if(g.wr != null){ txt = g.wr + "%"; unit = "wtd"; }
+  } else if(k === "price_final"){
+    txt = g.is_free ? "Free" : (g.price_final != null ? "$" + g.price_final.toFixed(2) : null);
+  } else if(k === "discount_pct"){
+    if(g.discount_pct > 0){ txt = "-" + g.discount_pct + "%"; unit = "off"; }
+  } else if(k === "discount_end"){
+    const c = fmtCountdown(g.discount_end); if(c){ txt = c.text; unit = "left"; }
+  } else if(k === "release_ts"){
+    if(g.release_ts) txt = new Date(g.release_ts * 1000).getFullYear();
+  } else if(k === "updated"){
+    if(g.last_update_ts) txt = relTime(g.last_update_ts);
+  } else if(k === "playtime"){
+    const m = state.ptMetric === "down" ? g.pt_down : g.pt_up;
+    // Named, not just arrowed: "1108h ▲" is a riddle, "1108h ▲play" is a fact. Both length
+    // fields render as "Nh", so the unit is the only thing telling them apart.
+    if(m != null){ txt = (m/60 >= 10 ? Math.round(m/60) : (m/60).toFixed(1)) + "h"; unit = (state.ptMetric === "down" ? "▼" : "▲") + "play"; }
+  } else if(k === "hltb"){
+    const h = hoursFor(g);
+    if(h != null){ txt = (h >= 10 ? Math.round(h) : h.toFixed(1)) + "h"; unit = "len"; }
+  }
+  const lbl = SORT_LABELS[k] || k;
+  // The slot renders even with no value, as a dash: it is one flex row, and a card that dropped
+  // it entirely would sit differently from its neighbours in the same row.
+  const tip = txt == null
+    ? `Sorted by ${lbl} — no value for this game, so it sorts to the end.`
+    : `Sorted by ${lbl}. ${SORT_TIPS[k] || ""}`;
+  return `<span class="gsortval${txt == null ? " na" : ""}" title="${esc(tip.trim())}">`
+       + `${txt == null ? "—" : esc(String(txt))}${unit ? `<span class="gsvu">${esc(unit)}</span>` : ""}</span>`;
 }
 
 // Open/close one grid card. The class drives the CSS; the state Set is what survives the next
@@ -4027,8 +4156,11 @@ function init(data){
       state.ratingSource = b.dataset.ratesrc;
       document.querySelectorAll("[data-ratesrc]").forEach(o => o.setAttribute("aria-pressed", o === b));
       syncSortArrows();     // header hint reflects which score drives the Reviews sort
-      // Both halves of the Reviews column follow the period toggle, so re-sort for either.
-      if(state.sortKey === "rating_pct" || state.sortKey === "review_count"){ render(); }
+      // Always re-render, not only when the Reviews column is the sort key. Grid cards print
+      // BOTH periods and gold-tag whichever one the sort would use, so the toggle changes what
+      // is on screen even when the list order doesn't move — and a Review-count sort in grid
+      // shows the count for the selected period too.
+      render();
       syncURL();
     }));
   document.querySelectorAll("[data-rev]").forEach(b =>
