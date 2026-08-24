@@ -143,6 +143,30 @@ game has no stills to hand over to. The layer is purely additive — absent, sti
 switched off via the **Preview: Video** control, the popup shows the enlarged still exactly
 as it did before.
 
+**Frontend, on touch.** Grid view is the view that survives on a phone, and there it plays
+**in place** in the card's art rather than in a popup: the art is its own tap target (tap to
+watch, tap again to go back to the art), everything else on the card still flips it to the
+details face. Three rules make that gesture work, and each replaced a bug:
+
+- **The tap contract is a separate, persistent class** (`.hasclip`, painted at render) from
+  the playback cycle's own `.hastrailer`. When they were one class, stopping a preview — or
+  the cycle merely reaching its first screenshot — stripped it, the art silently went back to
+  being a flip target, and a clip could be watched exactly once per render.
+- **The badge is a real button** (a gold disc), not a small glyph on a chip, because on touch
+  there is no hover to discover the clip with: the badge *is* the discovery path. While a
+  preview runs it becomes the stop control, so art↔clip is somewhere you can move both ways.
+- **The give-up watchdog measures silence, not elapsed time.** It exists for the clip that
+  will never start (autoplay refused, codec unsupported, dead CDN edge), which never fires
+  `ended`. It was a flat 1.4 s from the moment the element was built — and on a phone 1.4 s is
+  not "never started", it is "still downloading", so a deliberately tapped trailer was
+  discarded mid-flight and the preview opened on screenshot #1. Any sign of life from the
+  element now resets the window (1.4 s of total silence, 6 s between signs, 20 s ceiling).
+  Detecting a genuinely dead clip promptly is a separate job and needs care: with `<source>`
+  **children** a failed candidate is silent on the `<video>` — Chromium fires no `error` on
+  the element and rejects no `play()`; each candidate errors on its own `<source>` and the
+  element lands in `NETWORK_NO_SOURCE`. Watching the candidates, a 404 now hands over in
+  ~150 ms, faster than the old flat timer, while a slow one is waited for.
+
 
 ### 2.2 The screenshot layer (`shots.py` → `shots/shard_NN.json`)
 

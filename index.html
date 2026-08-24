@@ -527,14 +527,47 @@
         font-size:11px; line-height:1; color:#fff; opacity:.85; text-shadow:0 1px 4px #000d;
         transition:opacity .22s ease; pointer-events:none}
   .pop.playing::after{opacity:0}
-  /* Opposite corner from the discount badge, and drawn as a chip rather than a bare glyph: on
-     touch this is not decoration but the thing telling you the art is its own tap target. */
-  .gplay{position:absolute; left:7px; bottom:7px; z-index:4; pointer-events:none;
-        font-family:var(--mono); font-size:13px; line-height:1; color:#fff;
-        padding:3px 8px; border-radius:6px; background:#0b0f18cc;
-        opacity:0; transition:opacity .22s ease}
-  .gart.hastrailer .gplay{opacity:.92}
-  .gart.playing .gplay{opacity:0}
+  /* Opposite corner from the discount badge, and drawn as a real BUTTON rather than a chip
+     with a glyph in it. On a phone there is no hover to discover the clip with, so this badge
+     is the entire discovery path: it has to read as "press me", not as a watermark. It used to
+     be a 13px white glyph on a translucent chip and lost every fight with the art behind it,
+     which is why the trailers went unfound on touch — a gold disc with a dark ring does not.
+     Still `pointer-events:none`: the whole .gart is the tap target (see the #gridview click
+     handler), and the badge only has to SAY so — taking the pointer itself would put a
+     dead spot over the art for the miss. */
+  .gplay{position:absolute; left:8px; bottom:8px; z-index:4; pointer-events:none;
+        display:flex; align-items:center; justify-content:center;
+        width:28px; height:28px; border-radius:50%;
+        font-family:var(--mono); font-size:13px; line-height:1; color:#0e1320;
+        background:var(--gold); box-shadow:0 0 0 2px #0b0f18b3, 0 2px 10px #000a;
+        opacity:0; transition:opacity .22s ease, background .22s ease, color .22s ease}
+  .gplay i{font-style:normal}
+  .gplay .gp-play{margin-left:2px}          /* ▶ is optically left-heavy inside a circle */
+  .gplay .gp-stop{display:none; font-size:11px}
+  /* TWO classes light the badge, and they are not interchangeable:
+       .hasclip     persistent — "this card has a clip", painted at render on touch. It is also
+                    the tap contract the #gridview handler reads.
+       .hastrailer  transient — armMedia adds it for the pointer dwell, showShot and stopMedia
+                    take it away again.
+     They used to be one class, and that was the bug behind "I can only watch it once": stopping
+     a preview (or the cycle simply reaching its first screenshot) stripped .hastrailer, the tap
+     contract went with it, and from then on tapping the art flipped the card instead of
+     restarting the clip. Splitting them makes the affordance survive the preview. */
+  .gart.hasclip .gplay, .gart.hastrailer .gplay{opacity:.96}
+  /* TOUCH ONLY (the negation of the query CAN_HOVER reads, so the two cannot disagree): while a
+     preview is running the badge becomes its stop control. Without it the tap that stops a clip
+     is as undiscoverable as the tap that started one used to be — and going back to the box art
+     and forward to the clip again is the whole point of keeping the target alive. */
+  @media not all and (hover: hover){
+    .gart.rotating .gplay{background:#0b0f18cc; color:#fff; opacity:.85;
+          box-shadow:0 0 0 1px #ffffff33, 0 2px 10px #000a}
+    .gart.rotating .gplay .gp-play{display:none}
+    .gart.rotating .gplay .gp-stop{display:block}
+  }
+  /* On a pointer device there is nothing to press — moving off the art already stops it — so the
+     badge behaves exactly as it always did: it marks the dwell and the buffering wait, then gets
+     out of the way the moment there is footage to get out of the way of. */
+  @media (hover: hover){ .gart.playing .gplay{opacity:0} }
   /* Art still behind the 18+ blur can't be played (gridArtPlayable refuses it), so don't
      advertise a tap that would do nothing. */
   .gcard.adult:not(.revealed) .gplay{display:none}
@@ -2617,7 +2650,12 @@ function shotUrls(appid, doc){
 // Exactly one panel is armed at a time. `media` holds everything belonging to it and is
 // nulled on mouseout, and every callback re-checks `media === m` first, so a timer or an
 // image load that outlives its hover is a no-op rather than a stale frame.
-const VIDEO_STALL_MS = 1400;   // clip never started -> move on rather than strand the stills
+// How long the cycle waits on a clip that has not started yet. These measure SILENCE, not
+// elapsed time — see the watchdog in showVideo(): every sign of life from the element resets
+// the window, so a slow download is waited out while a dead one still hands over promptly.
+const VIDEO_STALL_MS = 1400;    // no sign of life at all -> move on rather than strand the stills
+const VIDEO_LOAD_MS  = 6000;    // ...but a clip that IS arriving gets this long between signs
+const VIDEO_WAIT_MAX = 20000;   // ceiling, so a stream that drips forever still hands over
 let media = null, mediaTimers = [];
 
 function killVideo(pop){
@@ -2694,6 +2732,11 @@ function showVideo(m, item){
   // not exist yet: on a clip-only game they never do.
   if(m.layers) m.layers.forEach(el => el.classList.remove("on"));
   killVideo(m.pop);
+  // `playing` goes with the element it belonged to. It is the cross-fade's "the clip is up"
+  // flag, and on a clip-only game — where the cycle comes straight back round to this same
+  // item — leaving it set painted the brand-new, still-empty <video> at full opacity: a black
+  // frame over perfectly good art for as long as the replay took to buffer.
+  m.pop.classList.remove("playing");
   const v = document.createElement("video");
   v.muted = true; v.autoplay = true; v.preload = "auto";
   // Attributes as well as properties: iOS Safari only honours the ATTRIBUTE form of
@@ -2704,20 +2747,62 @@ function showVideo(m, item){
     v.appendChild(el);
   });
   m.pop.classList.add("hastrailer");
-  v.addEventListener("playing", () => { if(media === m) m.pop.classList.add("playing"); },
-                     { once:true });
+  v.addEventListener("playing", () => {
+    if(media !== m) return;
+    // It made it: the watchdog below has nothing left to guard against.
+    if(m.timer){ clearTimeout(m.timer); m.timer = null; }
+    m.pop.classList.add("playing");
+  }, { once:true });
   // NOT loop=true: the clip is one item in a cycle now, so it hands on when it ends. On a
   // one-item playlist showMedia wraps back to the clip, which replays it as before.
   v.addEventListener("ended", () => { if(media === m) nextMedia(m); });
   m.pop.appendChild(v);
-  // Autoplay can be refused (policy, codec, offline). Swallow it: the enlarged still is
-  // already on screen, so a rejected play() is a no-op, not an error state.
-  const p = v.play(); if(p && p.catch) p.catch(() => {});
-  // ...but a refusal also means `ended` never fires, which would strand the stills behind
-  // a clip that is not playing. Move on if nothing has started shortly after.
-  m.timer = setTimeout(() => {
-    if(media === m && !m.pop.classList.contains("playing") && m.items.length > 1) nextMedia(m);
-  }, VIDEO_STALL_MS);
+
+  // ── Watchdog: the clip that is never going to start ──────────────────────────────────
+  // This exists because a refused or unplayable clip never fires `ended`, which would strand
+  // the stills behind a video that is not playing. It used to be a flat 1.4s from the moment
+  // the element was built — and on a phone 1.4s is not "never started", it is "still
+  // downloading". So the trailer you had deliberately TAPPED was thrown away mid-flight and
+  // the preview opened on screenshot #1: the one thing you asked to see was the one thing you
+  // could not, and the clip's bytes had been spent anyway.
+  // It now measures SILENCE instead. Any sign of life from the element — bytes arriving,
+  // metadata parsed, a decodable frame — resets the window, so a slow clip is waited out; only
+  // a stretch with nothing in it at all, a hard error, or a refused play() hands over. A
+  // ceiling still applies, so a stream that drips forever cannot hold the cycle open.
+  const deadline = Date.now() + VIDEO_WAIT_MAX;
+  const wait = ms => { if(m.timer) clearTimeout(m.timer); m.timer = setTimeout(handOver, ms); };
+  function handOver(){
+    if(media !== m || m.items[m.idx] !== item) return;   // the cycle already moved on
+    if(m.pop.classList.contains("playing")) return;      // ...or it started after all
+    if(m.items.length > 1){ nextMedia(m); return; }
+    // Nothing to hand over TO yet: on a tap the playlist is [clip] until the screenshot shard
+    // lands. Keep the slot open for it rather than ending the preview on a still that has not
+    // arrived, but stop once the ceiling is reached — the box art underneath is a fine resting
+    // state, and a bare re-arm here would spin.
+    if(Date.now() < deadline) wait(VIDEO_STALL_MS); else m.timer = null;
+  }
+  wait(VIDEO_STALL_MS);
+  ["loadstart", "progress", "loadedmetadata", "loadeddata", "canplay"].forEach(ev =>
+    v.addEventListener(ev, () => {
+      if(media !== m || m.items[m.idx] !== item) return;
+      if(m.pop.classList.contains("playing")) return;
+      const left = Math.min(VIDEO_LOAD_MS, deadline - Date.now());
+      if(left > 0) wait(left);                           // alive, just slow: reset the window
+    }));
+  // A dead source is not slowness — nothing further is coming — so don't sit out the window
+  // for it. Watching it is fiddlier than it looks: with <source> CHILDREN a failed candidate
+  // is SILENT on the <video> itself. Chromium fires no `error` on the element and rejects no
+  // play(); each candidate errors on its own <source> and the element simply lands in
+  // NETWORK_NO_SOURCE (verified against a 404 in Chromium 1194 — video.error stays null). So
+  // the candidates are what we watch, and the element's own networkState is what says they are
+  // exhausted, which also covers one skipped for its codec rather than for a 404.
+  v.querySelectorAll("source").forEach(el => el.addEventListener("error", () => {
+    // Deferred a tick: on the last candidate the state flips to NO_SOURCE just after its error.
+    setTimeout(() => { if(v.networkState === HTMLMediaElement.NETWORK_NO_SOURCE) handOver(); }, 0);
+  }));
+  v.addEventListener("error", handOver);        // a bare src, or a decode error before playback
+  // Autoplay can still be refused outright (policy, data-saver), and that DOES reject.
+  const p = v.play(); if(p && p.catch) p.catch(handOver);
 }
 
 function showShot(m, item){
@@ -3207,7 +3292,10 @@ function gridCardHTML(g){
   // on a table row. On touch there IS no hover to reveal it, and the badge is doing double duty —
   // it says "this game has a clip" AND "the art is its own tap target" — so it is painted up
   // front for every card that has something to play.
-  const artCls = (!CAN_HOVER && trailersOn() && trailerSources(g.appid).length) ? " hastrailer" : "";
+  // `.hasclip`, NOT `.hastrailer`: the latter belongs to the playback cycle and gets stripped
+  // whenever the preview stops or reaches a screenshot, which used to take the tap target with
+  // it and make the clip unrepeatable. See the .gplay rules and the #gridview click handler.
+  const artCls = (!CAN_HOVER && trailersOn() && trailerSources(g.appid).length) ? " hasclip" : "";
   const qLbl = freeMode() ? "FREE" : "QTPD";
   // Every mark on the card carries its own explanation: the score, what "high" means, and the
   // review %. None of it was labelled before — the card showed two bare numbers and a coloured
@@ -3293,7 +3381,7 @@ function gridCardHTML(g){
       <img class="gcap" loading="lazy" src="${imgChain(g.appid, g.art)[0]}" alt="" referrerpolicy="no-referrer"
            data-appid="${g.appid}" data-art="${esc(g.art || "")}" data-step="0"
            onerror="stepThumb(this,true)" onload="stepThumb(this,false)" />
-      ${disc}<span class="gplay" aria-hidden="true">▶</span>
+      ${disc}<span class="gplay" aria-hidden="true"><i class="gp-play">▶</i><i class="gp-stop">■</i></span>
     </div>
     <div class="gmeta">
       <div class="gmeta-top"><div class="gname" title="${esc(g.title)}">${esc(g.title)}</div>${rateHtml}</div>
@@ -4547,11 +4635,17 @@ function init(data){
     // the plain click-anywhere-to-flip behaviour, since hover already plays the clip for them.
     if(!CAN_HOVER){
       const art = e.target.closest(".gart");
-      // `.hastrailer` — the ▶ badge — is the contract: the art takes the tap exactly when it is
+      // `.hasclip` — the badge — is the contract: the art takes the tap exactly when it is
       // showing the user that it will. A card with no clip has no badge and stays a plain flip
       // target, rather than eating the tap and appearing dead.
-      if(art && art.classList.contains("hastrailer") && gridArtPlayable(art)){
+      // This deliberately does NOT test `.hastrailer`, which it used to: that class comes and
+      // goes with the playback cycle, so a preview that had been stopped — or had merely rolled
+      // on to its first screenshot — silently handed the art back to the flip gesture, and the
+      // clip could not be started a second time. The contract has to outlive the playback.
+      if(art && art.classList.contains("hasclip") && gridArtPlayable(art)){
         e.preventDefault(); e.stopPropagation();
+        // Toggle: tap to watch, tap again to go back to the box art. Either way the badge is
+        // still there afterwards, so it can be tapped again.
         if(media && media.pop === art) stopMedia(); else armMedia(art, art, 0);
         return;
       }
