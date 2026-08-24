@@ -41,16 +41,16 @@ lost in paraphrase, with an English gloss beneath it.
 | 11 | Accidental text selection can't be cleared | Grid view | **Done** |
 | 12 | A fully-opened grid row collapses | Grid view | **Done** |
 | 13 | Opened cards revert after scrolling away and back | Grid view | **Done** |
-| 14 | Discount badge is the smallest type on the card | Grid view / type | Pending review |
-| 15 | The Video preview toggle does nothing in Grid view | Grid view | Pending review |
-| 16 | Titles with a leading space sort to the very top | Sort | Pending review |
-| 17 | "Review score" sort looks unsorted in Grid view | Sort / Grid view | Pending review |
-| 18 | Grid sorts by fields the card never shows | Sort / Grid view | Pending review |
-| 19 | The card shows HLTB "Length", the sparsest field we have | Grid view / data | Pending review |
-| 20 | "HLTB" is never expanded anywhere | Tooltips | Pending review |
-| 21 | The header count strip has no tooltip | Tooltips | Pending review |
-| 22 | Truncated titles can't be read in full | Tooltips | Pending review |
-| 23 | "Per page" only lets the user hurt themselves | Header / paging | Pending review |
+| 14 | Discount badge is the smallest type on the card | Grid view / type | **Done** |
+| 15 | The Video preview toggle does nothing in Grid view | Grid view | **Done** |
+| 16 | Titles with a leading space sort to the very top | Sort | **Done** |
+| 17 | "Review score" sort looks unsorted in Grid view | Sort / Grid view | **Done** |
+| 18 | Grid sorts by fields the card never shows | Sort / Grid view | **Done** |
+| 19 | The card shows HLTB "Length", the sparsest field we have | Grid view / data | **Done** |
+| 20 | "HLTB" is never expanded anywhere | Tooltips | **Done** |
+| 21 | The header count strip has no tooltip | Tooltips | **Done** |
+| 22 | Truncated titles can't be read in full | Tooltips | **Done** |
+| 23 | "Per page" only lets the user hurt themselves | Header / paging | **Done** |
 
 ---
 
@@ -491,7 +491,8 @@ separate report. Raise it and it's a small change.
 A second sitting on the live site, this time driving the Grid view and the sort bar rather
 than reading the page cold. Same capture rules as above: original line verbatim, English
 gloss beneath, then the problem, where it lives, and a proposed direction. Nothing in this
-round is implemented — every `Fix` below is a proposal awaiting a decision.
+round shipped in the same sitting; each `Fix` records the option that was chosen and what
+verifying it showed.
 
 ---
 
@@ -549,6 +550,9 @@ the small-type tail at L1072 and L1117.
 - **(d) Raise the 10px floor** — the mobile `td::before` column labels to 11px. Separate,
   small, safe.
 
+**Shipped:** (a) + (b) + (d). No new typeface — (c) stays rejected. The longest mobile label
+("Sale ends") still fits its 72px gutter at 11px, so nothing reflowed.
+
 ---
 
 ## 15 — The Video preview toggle does nothing in Grid view
@@ -584,8 +588,24 @@ feature: it is a control that lies.
   would need positioning against a card rather than a row, and the 18+ blur gate has to be
   respected on the card path too. *Recommended as a follow-up, not bundled with (a).*
 
-Do **(a)** now regardless: even if (b) ships later, (a) is the correct behaviour for any
-view that has no preview.
+**Shipped: (b), not (a).** Hiding the switch was the safe answer to the wrong question — Grid
+is the view that survives on a phone, so the feature belonged there most. The video /
+screenshot / pips CSS moved off `.thumb .pop` onto a `.mediabox` class worn by both the
+floating panel and a card's `.gart`, and the clip plays **in place** inside the art rather
+than in a popup: a card's art is already 220px+ at capsule ratio, and a 512px panel over it
+would bury three neighbours — playing in place is also what Steam's own store grid does, so
+the gesture needs no explaining.
+
+Two gestures over one code path: hover-dwell on pointer devices, tap-to-play on touch (tap
+again to stop). The card therefore has two zones — art = watch, everything else = flip — and
+a ▶ badge marks the split. `.hastrailer` is the contract the tap handler checks, so a card
+with no clip stays a plain flip target instead of eating the tap.
+
+*Three lifecycle cases had to be closed, all verified in Chromium at 414px with touch
+emulation:* flipping a card stops a clip playing behind the details face; a grid re-render
+stops one before `innerHTML` discards its element, which would otherwise strand a detached
+`<video>` streaming; and switching Video off re-renders so the badges go with it. Table-view
+hover preview re-tested unchanged.
 
 ---
 
@@ -638,6 +658,17 @@ page of games that look like they were sorted by nothing.
 
 Cheap enough that the "not sure it's worth the hassle" reservation doesn't apply — (a)+(b)+(c)
 together are under ten lines in one function.
+
+**Shipped: (a) + (b) + (c),** plus one case the survey above missed — eight titles open with a
+zero-width space or joiner (General_Category `Cf`), which `.trim()` does not touch, so
+`Triple Fantasy` looked like it started with T and sorted among the symbols. The sort key
+strips those too.
+
+*Verified over the full 80,827-row result set:* A→Z now opens `0.5%`, `0.0035％`, `0°N 0°W`,
+`0Gravity`, `0RBITALIS` and closes on the symbol bucket (`🚀 Human Rocket Person`, `$1 Ride`,
+`€100`); the 22 space-prefixed titles now sit at their real alphabetical positions, the first
+at index 2,817 rather than index 0. Z→A keeps the symbol bucket at the end rather than
+flipping it to the front.
 
 ---
 
@@ -693,6 +724,17 @@ line (L3070–L3072), All-time/30-day toggle (filters panel, `state.ratingSource
   below, say, 10 recent reviews) — but that changes a live ranking rule, so it is **not**
   bundled here. Raise it as its own item if wanted.
 
+**Shipped: (a) + (b). (c) was explicitly declined** — "don't limit the review count". The
+ranking is unchanged; only its legibility is. Both periods print, stacked, each tagged `30d` /
+`all` with its own tooltip, and the row the sort *actually used* is tagged in gold. "Actually
+used" is the subtle part: `ratingVal()` falls back to all-time when a game has no 30-day
+score, so a card whose `30d` cell is a dash gold-tags `all` instead — tagging the dash would
+have pointed at the wrong number, which is the very confusion being fixed.
+
+*Costs no layout:* the stack's line-height is tightened to 1.15 so two 13px rows fit inside
+the 2.5em the `.gname` min-height already holds open for a two-line title. Measured in
+Chromium, every card in a row is 187px before and after, open or closed.
+
 ---
 
 ## 18 — Grid sorts by fields the card never shows
@@ -730,6 +772,13 @@ same trust problem as #17, arriving from the other direction.
   card has a value, or rows go ragged again (the problem item #10 fixed).
 - **(c) Both.** Do (b), and drop only `Sale ends` from the grid bar — it is the one field
   that is meaningless for the ~90% of cards not on sale.
+
+**Shipped: (b).** No sort was removed. The card's QTPD line carries the active sort's value on
+its free right-hand half, and stays empty for sorts the card already shows. Each value keeps a
+dimmed unit — `43,201 rev`, `1281h len`, `1108h ▲play` — rather than the bare number
+originally suggested: an unlabelled figure on a card is the same problem item #9 was raised
+about, and *both* length fields render as `Nh`, so the unit is the only thing telling Length
+from Playtime.
 
 ---
 
@@ -785,6 +834,11 @@ price by, so removing it makes the headline metric unexplainable on the card.
 - **(d) Straight swap, as suggested.** Not recommended, for the reason above — but it is a
   one-line change if the coverage argument is judged to outweigh explaining QTPD.
 
+**Shipped: (a) + (b), on the opened face only** — the front of the card stays a three-figure
+summary. `Length HLTB` keeps the top slot because it is what QTPD divides price by;
+`Playtime median` sits beneath it. The Playtime and HLTB column headers were rewritten to say
+outright that one is time-to-finish and the other time-actually-played.
+
 ---
 
 ## 20 — "HLTB" is never expanded anywhere
@@ -814,6 +868,9 @@ prose for most of these — the tips get written once and reused by the grid bar
 `<select>` and the summary chip. HLTB's becomes: *"HLTB — HowLongToBeat, community-reported
 hours to finish a game. Main story / +Extras / Completionist, with the average below."*
 *Recommended*; it is the one fix in this round that also improves Table and mobile.
+
+**Shipped as proposed.** All thirteen sort fields now carry a real explanation instead of
+`"Sort by " + label`.
 
 ---
 
@@ -847,6 +904,9 @@ rather than one blob over the whole strip — the existing tooltip engine picks 
 
 *Recommended.* Small, and it retires three "dafaq is this" moments in one line.
 
+**Shipped as proposed** — three separate tooltips, one per group, rather than one blob over
+the whole strip.
+
 ---
 
 ## 22 — Truncated titles can't be read in full
@@ -877,6 +937,9 @@ notes:
   rule needs the same exemption `.util-btn`/`.seg button` already have (L115–L118).
 
 *Recommended.*
+
+**Shipped as proposed,** including the cursor exemption — `.gname` needed it too, since the
+grid card is itself a click target.
 
 ---
 
@@ -919,3 +982,8 @@ default (L1663), URL write (L3782), URL read/validate (L3841–L3842), click bin
   `auto-fill minmax(220px, 1fr)` — at a 1600px window that is 7 columns, so 66 ends a page
   mid-row. Harmless with infinite scroll (the next page fills it in), and 66 rows is a fine
   table page. Flagging it only so the number is a decision and not a surprise.
+
+**Shipped: (a), at 66,** confirmed. The control is gone and `PAGE_SIZE` is a constant. `?per=`
+survives so links shared before the removal still resolve — its validator was the
+`[100, 500, 2000]` whitelist noted above, which would have rejected the new default, and is
+now a range check.
