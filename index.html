@@ -3280,10 +3280,19 @@ function gridCardHTML(g){
     : (g.pt_down != null
         ? "Playtime — median hours played by reviewers who did NOT recommend it; too few recommenders for a median of their own."
         : "Playtime — too few reviews with playtime data (3+ needed) for a median.");
+  // The card art uses the SAME source chain as the table thumb (imgChain + stepThumb), and
+  // must keep using it: Steam's current store_item_assets URLs embed a hash that cannot be
+  // derived from the appid, so the PICS-sourced art path is the only way to reach art for
+  // those games. This card used to build header.jpg with capsule_231x87.jpg behind it --
+  // both derived, so both 404 for every hashed-scheme game (~28% of the catalogue, and the
+  // large majority of anything released recently, which Released-descending puts on top).
+  // stepThumb also brings the "loaded but empty" guard, so a degenerate 200 from the CDN
+  // steps on instead of sticking as a blank tile.
   return `<div class="${cls}" data-gappid="${g.appid}" tabindex="0" role="button" aria-label="${esc(g.title)}">
     <div class="gart mediabox${artCls}" data-appid="${g.appid}" data-art="${esc(g.art || "")}">
-      <img class="gcap" loading="lazy" src="${headerUrl(g.appid)}" alt="" referrerpolicy="no-referrer"
-           onerror="this.onerror=null;this.src='${capsuleUrl(g.appid)}'" />
+      <img class="gcap" loading="lazy" src="${imgChain(g.appid, g.art)[0]}" alt="" referrerpolicy="no-referrer"
+           data-appid="${g.appid}" data-art="${esc(g.art || "")}" data-step="0"
+           onerror="stepThumb(this,true)" onload="stepThumb(this,false)" />
       ${disc}<span class="gplay" aria-hidden="true">▶</span>
     </div>
     <div class="gmeta">
