@@ -112,11 +112,15 @@
      their tip with ?. Emptying the native `title` on hover (the JS engine below) keeps the
      attribute present, so these selectors stay matched while the custom tooltip is shown. */
   [title]{cursor:help}
-  .util-btn[title], .viewseg button[title], .pagesize button[title], .steppers button[title],
+  .util-btn[title], .viewseg button[title], .steppers button[title],
   #msortdir[title], #gsortdir[title], .gsort-b[title], .gsort-morebtn[title], .logo[title],
   .field-x[title], .hidebtn[title], [data-tag][title], .sumf[title], .sumreset[title],
   .unhide-link[title], .seg button[title], .section-head[title], #wishimport[title],
-  #clear[title], .linkbtn[title]{cursor:pointer}
+  #clear[title], .linkbtn[title],
+  /* Titles carry their own full text as a tip (they clamp to two lines, so a long name is
+     otherwise unreadable) but must NOT wear the help cursor: .gtitle is a link to Steam and
+     .gname sits on a card whose whole job is to be clicked. */
+  .gtitle[title], .gname[title]{cursor:pointer}
   /* Text fields that carry a tip keep the text caret, not the help cursor. */
   input[title]{cursor:text}
   /* …but the sortable headers (single and split) DO wear the ? — they are the fields this
@@ -163,14 +167,6 @@
   .seg button:hover:not([aria-pressed="true"]){background:var(--panel-2); color:var(--text)}
   .seg button:focus-visible{outline:2px solid var(--blue); outline-offset:-2px}
 
-  /* per-page size selector in the top bar */
-  .pagesize{display:inline-flex; align-items:center; gap:7px; flex:none}
-  .pagesize-lbl{font-family:var(--mono); font-size:11px; color:var(--muted); text-transform:uppercase; letter-spacing:.06em}
-  .pagesize button{appearance:none; background:var(--panel); border:1px solid var(--line); color:var(--muted);
-        font-family:var(--mono); font-size:12px; padding:5px 9px; cursor:pointer; border-radius:7px}
-  .pagesize button:hover{color:var(--text)}
-  .pagesize button.on{background:var(--gold-soft); color:var(--gold); border-color:var(--gold-soft)}
-  .pagesize button:focus-visible{outline:2px solid var(--blue); outline-offset:-2px}
   /* infinite-scroll sentinel / "loading more" row */
   .loadmore{text-align:center; padding:18px; font-family:var(--mono); font-size:12px; color:var(--muted)}
 
@@ -902,8 +898,15 @@
   .gcard.adult.confirm .gart::after{content:"18+?"; background:radial-gradient(circle at center, #000b, #0007)}
   .gcard.adult.revealed .gcap{filter:none; transform:none}
   .gcard.adult.revealed .gart::after{content:""; background:none}
+  /* Size and weight are deliberately the SAME as .grate / .gq below, not smaller: this is the
+     one figure on the card that sits on top of box art — the busiest, least predictable surface
+     here — and it used to be the smallest type on the card at 12px, leaning on weight 700 to do
+     the work size should have been doing. tabular-nums so -5% and -75% occupy the same width and
+     the badge stops jittering between cards; the shadow lifts the chip off bright key art. */
   .gdisc{position:absolute; top:7px; right:7px; background:var(--coral); color:#0e1320;
-        font-family:var(--mono); font-size:12px; font-weight:700; padding:2px 6px; border-radius:6px}
+        font-family:var(--mono); font-size:13px; font-weight:600; letter-spacing:.01em;
+        font-variant-numeric:tabular-nums; padding:2px 7px; border-radius:6px;
+        box-shadow:0 1px 6px #0008}
   /* Info panel — deliberately darker than --panel so the title reads clean off the art.
      Scoped to .gcard: bare .gmeta is also the table's title cell (see ~L293), and the dark
      background was bleeding behind table titles as a black block. */
@@ -1069,7 +1072,10 @@
   body.layout-card tbody td,body.layout-card tbody td.num,body.layout-card tbody td.center{padding:4px 0; border:0; display:flex; flex-flow:row wrap;
       align-items:baseline; justify-content:flex-start; gap:2px 9px; min-width:0; min-height:0; overflow:hidden}
   body.layout-card td.pad{padding:4px 0}
-  body.layout-card tbody td::before{content:attr(data-label); font-family:var(--mono); font-size:10px; letter-spacing:.03em;
+  /* 11px, not 10: these are the only labels on the mobile card telling you what each value IS,
+     and 10px uppercase mono at --muted-2 was the smallest readable text on the site. The longest
+     label ("Sale ends") still fits the 72px gutter at this size, so nothing reflows. */
+  body.layout-card tbody td::before{content:attr(data-label); font-family:var(--mono); font-size:11px; letter-spacing:.03em;
       text-transform:uppercase; color:var(--muted-2); flex:none; width:72px; line-height:1.5}
   body.layout-card tbody td:empty{display:none}
   /* plain-language relabels for the mobile card */
@@ -1135,7 +1141,6 @@
 
   /* ── Mobile-polish (2026-07): readability groups, leaner bar, demoted wishlist ──────────── */
   /* #2: per-page is meaningless on an infinite-scroll phone list — hide it for a leaner bar. */
-  body.layout-card #pagesize,body.grid-view.narrow #pagesize{display:none}   /* #3: also hide on mobile grid; infinite scroll loads 100/page by default */
   /* #1: group separator lines chunk the tall card into scannable blocks —
      price · ratings · length/playtime · dates · tags — so ratings read apart from length. */
   body.layout-card tbody td{padding:5px 0}
@@ -1240,12 +1245,13 @@ try{
         <button id="msortdir" type="button" title="Toggle sort direction" aria-label="Toggle sort direction">▼</button>
       </div>
       <div class="meta" id="meta"></div>
-      <div class="pagesize" id="pagesize" title="Games shown per page (scroll down to load more)">
-        <span class="pagesize-lbl">per page</span>
-        <button data-size="100" class="on">100</button>
-        <button data-size="500">500</button>
-        <button data-size="2000">2000</button>
-      </div>
+      <!-- The PER PAGE 100/500/2000 selector used to sit here. Removed: infinite scroll already
+           loads the next page on reaching the bottom, so the control's only real effect was how
+           much work ONE render does — render() rebuilds every visible row from scratch, so 2000
+           meant building two thousand DOM subtrees on every filter keystroke, sort click and tag
+           cycle. No user goal needed it that infinite scroll didn't serve, and the genuine
+           "give me everything at once" path is the CSV export two buttons along. Page size is
+           now fixed at PAGE_SIZE below. -->
       <!-- The view switcher used to sit here, first in the tools cluster. It moved down to
            #resultBar, immediately above the results it governs — read cold at the top of the
            page, "Table / Card / Grid" are three unexplained words answering a question the
@@ -1561,8 +1567,8 @@ try{
             <th class="sortable center" data-sort="release_ts" title="Released — the Steam release date. Hover a row's value for the exact day.">Released</th>
             <th class="sortable center" data-sort="updated" title="Updated — how recently the game was last patched, and how often. Top line: time since the last update. Badge: updates in the last 90 days (hover it for the 365-day count). Sorts most-recently-updated first.">Updated</th>
             <th class="tagsth" id="tagsTh" title="Collapse the Tags column to give the space to Game — bigger art and full titles."><span class="tagslabel">Tags</span><span class="tagstoggle" id="tagsToggle">&gt;&lt;</span></th>
-            <th class="sortable num pad" data-sort="playtime" title="Playtime — median hours played, split by review. Green ▲ = players who recommended it; red ▼ = players who did not. Long hours on a ▼ is a real signal: someone knows the game well and still says skip. Hover a value for mean, sample size, and spread. Click to sort; pick which side sorts with the Playtime-sort toggle in the filters.">Playtime · <span class="ptup" id="pthUp">▲</span>/<span class="ptdown" id="pthDown">▼</span></th>
-            <th class="sortable num pad" data-sort="hltb" title="HLTB — Main / Main+Extras / Completionist hours, with the average below. Sorts by the HLTB metric picked above.">HLTB · M / E / 100%</th>
+            <th class="sortable num pad" data-sort="playtime" title="Playtime — median hours Steam reviewers actually PLAYED, split by review. Not the same as Length (HLTB), which is how long the game takes to finish. Green ▲ = players who recommended it; red ▼ = players who did not. Long hours on a ▼ is a real signal: someone knows the game well and still says skip. Hover a value for mean, sample size, and spread. Click to sort; pick which side sorts with the Playtime-sort toggle in the filters.">Playtime · <span class="ptup" id="pthUp">▲</span>/<span class="ptdown" id="pthDown">▼</span></th>
+            <th class="sortable num pad" data-sort="hltb" title="HLTB — HowLongToBeat, community-reported hours to FINISH the game: Main story / Main+Extras / Completionist, with the average below. This is the length QTPD divides the price by, and it is not the same as Playtime (hours actually played). Sorts by the HLTB metric picked above.">HLTB · M / E / 100%</th>
             <th class="sortable num pad" data-sort="qtpd" title="QTPD — Quality Time Per Dollar, the headline metric. Higher means more game-hours of value per dollar.">QTPD <span class="arrow" id="qarrow">▼</span></th>
           </tr>
         </thead>
@@ -1649,6 +1655,13 @@ const bandOf = rc => {
   return b;
 };
 
+// How many games one page renders. Fixed, not user-selectable: the old PER PAGE selector let
+// anyone pick 2000, which bought them nothing (infinite scroll already loads the next page on
+// reaching the bottom) and cost them a 2000-card rebuild on every keystroke, sort and tag click.
+// 66 is deliberately modest — enough to fill several screens of grid, small enough that a
+// re-render is imperceptible. ?per= still overrides it for anyone who wants a different size.
+const PAGE_SIZE = 66;
+
 // ----- state -----
 const state = { data:null, q:"", tagQuery:"", tagsInc:new Set(), tagsExc:new Set(), tagMode:"and", priceClass:new Set(["full","sale","free"]),
                 qBasis:"after", hltbMetric:"main", minScore:0, revBands:new Set([1,2,3,4]), minPrice:null, maxPrice:null,
@@ -1660,7 +1673,7 @@ const state = { data:null, q:"", tagQuery:"", tagsInc:new Set(), tagsExc:new Set
                 // so every scroll that tripped the infinite-scroll observer silently re-closed
                 // everything the user had opened. Holding it in state survives the rebuild.
                 openCards:new Set(),
-                pageSize:100, pagesShown:1,
+                pageSize:PAGE_SIZE, pagesShown:1,
                 wishlist:null, wishOnly:false, sortKey:"qtpd", sortDir:-1, ratingSource:"recent", hltbQuality:"real", ptMetric:"up", fullCounts:{},
                 view:"table", tagLinger:new Map(),   // tagLinger: tag -> clearedAt (ms) for chips fading out after a cycle-to-neutral
                 // PICS "Flags" cluster. Each key is independent; "any" = no filter.
@@ -2001,6 +2014,37 @@ function passNonRange(x){
 }
 function rangeActive(){ return state.qMinVal > 0.001 || !state.qMaxUnbounded; }
 
+// ----- Name sort: trimmed, letters before symbols, natural number order -----
+// Steam ships titles with leading whitespace — 22 of them in the current catalogue — and the
+// old comparator sorted the RAW string, so every one of those floated above "A". Twenty-two
+// rows is nothing until you notice they occupy the entire first screen of an A→Z sort, which
+// is why sorting by Name read as "sorted by nothing".
+//
+// One hoisted Intl.Collator rather than per-call String.localeCompare: `numeric` puts Portal 2
+// after Portal rather than after Portal 10, and reusing one collator across a 127k-row sort is
+// dramatically cheaper than constructing the comparison afresh for every pair.
+const TITLE_COLLATOR = new Intl.Collator(undefined, {numeric:true, sensitivity:"base"});
+// Bucket 0 = starts with a letter or a digit, bucket 1 = starts with anything else (`//SNOW…`,
+// `#KILLALLZOMBIES`, `[the Sequence]`, `¡Zombies!`, `🔴 Circles` — 295 titles). No per-script
+// table is needed for "Latin, then Cyrillic, then Japanese": a default collator already orders
+// scripts that way, so classifying "is this a real letter at all" is the whole job.
+const titleBucket = s => /^[\p{L}\p{N}]/u.test(s) ? 0 : 1;
+// Cached on the game object: sortKey() runs twice per comparison, ~2 × n log n times per sort.
+function titleSortKey(g){
+  let k = g._tkey;
+  if(k === undefined){ k = g._tkey = g.title.trim(); }
+  return k;
+}
+// Takes `dir` rather than letting the caller multiply, because the bucket must NOT be flipped:
+// symbol-titles belong at the far end of the list whichever way the names run, exactly as a null
+// value always sorts last below. Only the name comparison within a bucket reverses.
+function cmpTitle(a, b, dir){
+  const ak = titleSortKey(a), bk = titleSortKey(b);
+  const ab = titleBucket(ak), bb = titleBucket(bk);
+  if(ab !== bb) return ab - bb;
+  return dir * TITLE_COLLATOR.compare(ak, bk);
+}
+
 function visibleGames(){
   let g = state.data.games.filter(passNonRange);
   if(rangeActive()) g = g.filter(x => {
@@ -2028,7 +2072,7 @@ function visibleGames(){
                  : k === "updated" ? x.last_update_ts
                  : x[k];
   g.sort((a,b)=>{
-    if(k === "title") return dir * a.title.localeCompare(b.title);
+    if(k === "title") return cmpTitle(a, b, dir);
     let av = val(a), bv = val(b);
     const an = av == null, bn = bv == null;
     if(an && bn) return 0;
@@ -2302,7 +2346,7 @@ function render(){
             <span class="pop"><img alt="" referrerpolicy="no-referrer" /></span>
           </span>
           <span class="gmeta">
-            <a class="gtitle" href="${esc(g.url)}" target="_blank" rel="noopener">${esc(g.title)}</a>${wished}
+            <a class="gtitle" href="${esc(g.url)}" target="_blank" rel="noopener" title="${esc(g.title)}">${esc(g.title)}</a>${wished}
             <div class="gsub">${g.review_count? g.review_count.toLocaleString()+" reviews" : "app "+g.appid}</div>
           </span></div></td>
       <td data-label="Reviews">${reviews}</td>
@@ -3083,7 +3127,7 @@ function gridCardHTML(g){
       ${disc}
     </div>
     <div class="gmeta">
-      <div class="gmeta-top"><div class="gname">${esc(g.title)}</div>${rateHtml}</div>
+      <div class="gmeta-top"><div class="gname" title="${esc(g.title)}">${esc(g.title)}</div>${rateHtml}</div>
       ${qHtml}
     </div>
     <div class="ginfo">
@@ -3203,6 +3247,26 @@ function markChangedControls(){
 const SORT_LABELS = {qtpd:"QTPD", title:"Name", rating_pct:"Review score", review_count:"Review count",
   trend:"Trend", wr:"Weighted", price_final:"Price", discount_pct:"Discount", discount_end:"Sale ends",
   release_ts:"Released", updated:"Updated", playtime:"Playtime", hltb:"HLTB"};
+// What each sort field MEANS, keyed the same as SORT_LABELS. The grid sort bar used to generate
+// its tooltips as `"Sort by " + label`, which on the one field nobody can guess produced the
+// tooltip "Sort by HLTB" — the acronym restated and nothing else. The words "HowLongToBeat"
+// appeared nowhere on the page. Written once here and reused by the grid bar, so the explanation
+// lives in one place instead of being duplicated per control.
+const SORT_TIPS = {
+  qtpd:         "QTPD — Quality Time Per Dollar, the headline metric. Game-hours of value per dollar; higher is better.",
+  title:        "Name — alphabetical. Titles starting with a symbol sort to the end rather than the top.",
+  rating_pct:   "Review score — the share of Steam reviews that are positive. Sorts on the period picked by the All-time / 30-day toggle; both figures are shown on every card.",
+  review_count: "Review count — how many reviews the game has. A high score on 20 reviews means far less than the same score on 20,000.",
+  trend:        "Trend — the recent score minus the all-time score: whether opinion is improving, stable, or declining.",
+  wr:           "Weighted — a review score where each vote counts by how long that player actually played, so a 300-hour thumbs-up outweighs a 20-minute one.",
+  price_final:  "Price — what the game costs right now, after any discount.",
+  discount_pct: "Discount — the size of the current price cut. Games not on sale sort as no discount.",
+  discount_end: "Sale ends — how long is left on the current discount. Sorts soonest-ending first.",
+  release_ts:   "Released — the Steam release date.",
+  updated:      "Updated — how recently the game was last patched. Sorts most-recently-updated first.",
+  playtime:     "Playtime — the median hours Steam reviewers actually played, split by whether they recommended it. Not the same as Length: this is time spent, not time to finish.",
+  hltb:         "HLTB — HowLongToBeat, community-reported hours to finish a game: Main story, Main + Extras, or Completionist. This is the length QTPD divides the price by."
+};
 const REV_LBLS = ["0", "10", "100", "1k", "5k+"];
 
 function renderSummary(){
@@ -3436,11 +3500,19 @@ function renderMeta(){
   // Show the full filtered count, not just the rows currently paged into view.
   const total = (state._totalFiltered != null) ? state._totalFiltered : $("#rows").children.length;
   const badge = d.sample ? '<span class="preview-badge">preview data</span>' : '';
-  const when = d.sample ? '' : `${relTime(d.generated_at)} · `;
   const hid = state.hidden.size
     ? ` · <button id="unhide" class="unhide-link" title="Show the games you've hidden this session">${state.hidden.size} hidden ✕</button>`
     : '';
-  $("#meta").innerHTML = `<span class="n">${total}</span> / ${d.games.length} games · ${when}USD${badge}${hid}`;
+  // Four separate facts used to sit in this strip as one unlabelled mono line with no explanation
+  // anywhere: what the two numbers count, what the timestamp is the age OF (the scrape, not the
+  // page load), and why USD is asserted. Each group carries its own tip rather than one blob over
+  // the whole line — the tooltip engine picks up any [title] and adds the help cursor for free.
+  const countTip = "Results — games matching your current filters, out of every game in the dataset.";
+  const ageTip   = "Data age — how long since the scraper last refreshed prices and reviews. Updates run continuously, so this is usually minutes, not days.";
+  const curTip   = "Currency — every price here is US dollars from the Steam US store. There is no currency conversion.";
+  const counts = `<span title="${esc(countTip)}"><span class="n">${total}</span> / ${d.games.length} games</span>`;
+  const when   = d.sample ? '' : `<span title="${esc(ageTip)}">${relTime(d.generated_at)}</span> · `;
+  $("#meta").innerHTML = `${counts} · ${when}<span title="${esc(curTip)}">USD</span>${badge}${hid}`;
   const ub = $("#unhide"); if(ub) ub.addEventListener("click", unhideAll);
   renderSummary();          // L2: keep the collapsed-bar summary sentence current
   updateSectionCounts();    // L1: keep each accordion's "N active" badge current
@@ -3618,7 +3690,7 @@ function buildGridSortButtons(){
   GSORT_BTNS = Object.entries(SORT_LABELS).map(([k, lbl]) => {
     const b = document.createElement("button");
     b.type = "button"; b.className = "gsort-b"; b.dataset.sortk = k;
-    b.textContent = lbl; b.title = `Sort by ${lbl}`;
+    b.textContent = lbl; b.title = SORT_TIPS[k] || `Sort by ${lbl}`;
     wrap.appendChild(b);
     return b;
   });
@@ -3779,7 +3851,7 @@ function syncURL(){
   if(state.ptMetric !== "up") p.set("pt", state.ptMetric);
   if(state.sortKey !== "qtpd") p.set("sort", state.sortKey);
   if(!(state.sortKey === "qtpd" && state.sortDir === -1)) p.set("dir", state.sortDir < 0 ? "d" : "a");
-  if(state.pageSize !== 100) p.set("per", state.pageSize);
+  if(state.pageSize !== PAGE_SIZE) p.set("per", state.pageSize);
   if(state.qRangeTouched){
     p.set("qmin", state.qMinVal.toFixed(3));
     if(!state.qMaxUnbounded) p.set("qmax", state.qMaxVal.toFixed(3));
@@ -3838,8 +3910,10 @@ function loadFromURL(){
     document.querySelectorAll("[data-ptmetric]").forEach(o => o.setAttribute("aria-pressed", o.dataset.ptmetric===v)); } });
   setIf("ratesrc", v => { if(v==="all"||v==="recent"){ state.ratingSource = v;
     document.querySelectorAll("[data-ratesrc]").forEach(o => o.setAttribute("aria-pressed", o.dataset.ratesrc===v)); } });
-  setIf("per", v => { const n = parseInt(v,10); if([100,500,2000].includes(n)){ state.pageSize = n;
-    document.querySelectorAll("#pagesize button").forEach(o => o.classList.toggle("on", o.dataset.size===String(n))); } });
+  // ?per= outlives the removed selector so links shared before it went away still resolve, and
+  // so a page size stays reachable for anyone who wants one. Validated as a range now rather than
+  // the old [100,500,2000] whitelist, which would have rejected the new default of 66.
+  setIf("per", v => { const n = parseInt(v,10); if(Number.isFinite(n) && n >= 1 && n <= 2000) state.pageSize = n; });
   // QTPD range restored after domain is computed (see applyURLRange), just capture raw:
   state._pendingQMin = p.has("qmin") ? parseFloat(p.get("qmin")) : null;
   state._pendingQMax = p.has("qmax") ? parseFloat(p.get("qmax")) : null;
@@ -3915,13 +3989,6 @@ function init(data){
   $("#steamidClear").addEventListener("click", () => {
     const el = $("#steamid"); el.value = ""; syncWishClear(); el.focus();
   });
-  // Page-size selector: change games-per-page, reset to page 1, re-render.
-  document.querySelectorAll("#pagesize button").forEach(b =>
-    b.addEventListener("click", () => {
-      state.pageSize = parseInt(b.dataset.size, 10);
-      document.querySelectorAll("#pagesize button").forEach(x => x.classList.toggle("on", x === b));
-      resetPaging(); render(); syncURL();
-    }));
   // Price-type band: All is a one-way reset (re-lights every facet, never itself un-presses).
   // Facets Full/Sale/Free toggle independently but can never all be off — un-pressing the
   // last lit facet snaps back to All-on, so the list is never empty.
