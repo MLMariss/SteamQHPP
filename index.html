@@ -1715,9 +1715,18 @@ const isAdult = g => {
 // to reach art for games with no plain header.jpg. The two derived URLs stay behind it
 // as fallbacks for games PICS hasn't covered yet (coverage is still filling), and are
 // deduped out when `art` already resolves to the same legacy URL.
-const imgChain = (a, art) => {
+// `shape` orders the two DERIVED fallbacks, because the two surfaces are built around
+// different Steam assets and their boxes say so: the table thumb is 150x57 (2.63, which is
+// capsule_231x87's 2.655) and the grid card is aspect-ratio:460/215 (2.14, which is
+// header.jpg's). Feeding a capsule into the grid's box crops its sides for nothing, and
+// per the measurements in 06b1b31 capsule_231x87 404s MORE often than a plain header.jpg
+// — so for the grid, header first is better on both availability and shape. The authoritative
+// `art` path stays first either way; it is the only entry that is not a guess.
+const imgChain = (a, art, shape) => {
   const first = artUrl(a, art);
-  return [first, capsuleUrl(a), headerUrl(a)].filter((u, i, xs) => u && xs.indexOf(u) === i);
+  const derived = shape === "header" ? [headerUrl(a), capsuleUrl(a)]
+                                     : [capsuleUrl(a), headerUrl(a)];
+  return [first, ...derived].filter((u, i, xs) => u && xs.indexOf(u) === i);
 };
 // onerror / onload handler shared by table thumb and popup. Reads the appid and the
 // current step from data-* attrs on the <img>, advances to the next source, and stops
@@ -1727,7 +1736,7 @@ function stepThumb(img, hardError){
   if(!hardError && img.naturalWidth > 1) return;   // genuine image -> keep it
   const a = img.getAttribute("data-appid");
   let step = (+img.getAttribute("data-step") || 0) + 1;
-  const chain = imgChain(a, img.getAttribute("data-art"));
+  const chain = imgChain(a, img.getAttribute("data-art"), img.getAttribute("data-shape"));
   if(step < chain.length){
     img.setAttribute("data-step", step);
     img.src = chain[step];
@@ -3084,8 +3093,8 @@ function gridCardHTML(g){
            header.jpg still resolves — so the old pair had no live entry at all for those,
            and the card rendered a broken image. imgChain puts the PICS art path first;
            stepThumb also catches the 200-but-empty responses the CDN sometimes returns. -->
-      <img class="gcap" loading="lazy" src="${imgChain(g.appid, g.art)[0]}" alt="" referrerpolicy="no-referrer"
-           data-appid="${g.appid}" data-art="${esc(g.art || "")}" data-step="0"
+      <img class="gcap" loading="lazy" src="${imgChain(g.appid, g.art, "header")[0]}" alt="" referrerpolicy="no-referrer"
+           data-appid="${g.appid}" data-art="${esc(g.art || "")}" data-step="0" data-shape="header"
            onerror="stepThumb(this,true)" onload="stepThumb(this,false)" />
       ${disc}
     </div>
