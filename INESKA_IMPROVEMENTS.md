@@ -41,6 +41,16 @@ lost in paraphrase, with an English gloss beneath it.
 | 11 | Accidental text selection can't be cleared | Grid view | **Done** |
 | 12 | A fully-opened grid row collapses | Grid view | **Done** |
 | 13 | Opened cards revert after scrolling away and back | Grid view | **Done** |
+| 14 | Discount badge is the smallest type on the card | Grid view / type | **Done** |
+| 15 | The Video preview toggle does nothing in Grid view | Grid view | **Done** |
+| 16 | Titles with a leading space sort to the very top | Sort | **Done** |
+| 17 | "Review score" sort looks unsorted in Grid view | Sort / Grid view | **Done** |
+| 18 | Grid sorts by fields the card never shows | Sort / Grid view | **Done** |
+| 19 | The card shows HLTB "Length", the sparsest field we have | Grid view / data | **Done** |
+| 20 | "HLTB" is never expanded anywhere | Tooltips | **Done** |
+| 21 | The header count strip has no tooltip | Tooltips | **Done** |
+| 22 | Truncated titles can't be read in full | Tooltips | **Done** |
+| 23 | "Per page" only lets the user hurt themselves | Header / paging | **Done** |
 
 ---
 
@@ -473,3 +483,507 @@ reverted.
 same DOM-only way and is lost on exactly the same re-render — a revealed card re-blurs after
 scrolling. Same cause, same shape of fix (a Set of revealed appids); left out because it is a
 separate report. Raise it and it's a small change.
+
+---
+
+# Round 2 — grid, sort and tooltip pass
+
+A second sitting on the live site, this time driving the Grid view and the sort bar rather
+than reading the page cold. Same capture rules as above: original line verbatim, English
+gloss beneath, then the problem, where it lives, and a proposed direction. Nothing in this
+round shipped in the same sitting; each `Fix` records the option that was chosen and what
+verifying it showed.
+
+---
+
+## 14 — Discount badge is the smallest type on the card
+
+**Said**:
+
+> Es liktu vai nu tādu pašu fonta izmēru un weight kā pie vērtējuma vai citu fontu uz tiem
+> akcijas badges.
+
+*"I'd give those sale badges either the same font size and weight as the rating, or a
+different font."*
+
+> Update discount font for better readability, also check other fonts to avoid any shit
+> fonts — we need clear, easy-reading digital fonts.
+
+**Problem.** The `-60%` badge is the one number on a grid card that sits **on top of the box
+art** — the busiest, lowest-contrast surface on the page — and it is set smaller than every
+number that sits on the calm dark panel below it:
+
+| Element | Size | Weight |
+|---|---|---|
+| `.gdisc` — discount badge, over the art | **12px** | 700 |
+| `.grate` — review score, on the panel | 13px | 600 |
+| `.gq` — QTPD, on the panel | 13px | 600 |
+| `.disc` — the same badge in the table | 13px | 700 |
+
+So the badge is not only the smallest thing on the card, it is smaller than *its own
+counterpart in the table view*. The 700 weight was doing the work that size should have been
+doing, which is why it reads as dense rather than loud.
+
+The wider "check other fonts" ask: the page runs two families, **IBM Plex Sans** (UI text)
+and **IBM Plex Mono** (every figure). Both are clear digital faces with unambiguous
+`0/O`, `1/l/I` — there is no bad font on the page to remove. What there *is* is a long tail
+of very small type: 14 rules at `11px`, 2 at `10px`, 32 at `12px`. The 10px ones
+(`body.layout-card tbody td::before`, the mobile column labels) are the genuinely marginal
+ones.
+
+**Where.** `index.html` — `.gdisc` (L905), `.grate` (L923), `.gq` (L913), `.disc` (L600);
+the small-type tail at L1072 and L1117.
+
+**Fix — pending review.** Three options, not mutually exclusive:
+
+- **(a) Match the rating.** `.gdisc` → `font-size:13px; font-weight:600`, i.e. identical to
+  `.grate` and `.gq`. One card, one type scale. *Recommended* — it is what was asked for,
+  it is two values, and it makes the card internally consistent.
+- **(b) Match, and let it carry over the art.** (a) plus `letter-spacing:.01em`,
+  `font-variant-numeric:tabular-nums` (so `-5%` and `-75%` don't jitter between cards), and
+  a `box-shadow:0 1px 6px #0008` so the coral chip separates from bright key art.
+  *Recommended alongside (a).*
+- **(c) A different family for figures.** Rejected unless asked for again: adding a third
+  webfont costs a network round-trip on first paint for one badge, and Plex Mono is already
+  a digital-clear face. If the badge still doesn't pop after (a)+(b), the lever is size and
+  the chip, not a new typeface.
+- **(d) Raise the 10px floor** — the mobile `td::before` column labels to 11px. Separate,
+  small, safe.
+
+**Shipped:** (a) + (b) + (d). No new typeface — (c) stays rejected. The longest mobile label
+("Sale ends") still fits its 72px gutter at 11px, so nothing reflowed.
+
+---
+
+## 15 — The Video preview toggle does nothing in Grid view
+
+**Said**:
+
+> Ja šis attiecas tikai uz Table view, varbūt paslēpt, ja cits skats izvēlēts? Citādāk
+> uzspied Grid view laikā un gaidi, kādi brīnumi notiks. A nekas nenotiek. 🥲
+
+*"If this only applies to Table view, maybe hide it when another view is selected?
+Otherwise you click it while in Grid view and wait for the miracle. And nothing happens."*
+
+**Problem.** Confirmed, and it is exactly as described. The hover preview is bound to
+`.thumb` — the small capsule image in a **table/card row**. A grid card has no `.thumb`; its
+art is `.gart > img.gcap`, which nothing in `armMedia()` ever matches. So in Grid view the
+`Preview / Video` switch is a live, pressable, tooltipped control that changes a
+`localStorage` key and produces no observable effect whatsoever. Worse than a missing
+feature: it is a control that lies.
+
+**Where.** `index.html` — toggle markup (L1530–L1539), `.thumb .pop` CSS (L496–L540),
+`armMedia()` / `stopMedia()` (~L2376–L2600), `gridCardHTML()` (L3045–L3100).
+
+**Fix — pending review.** Two directions:
+
+- **(a) Hide it in Grid.** `body.grid-view` hides the `Preview` label and its `.seg`, the
+  way `#pagesize` is already hidden on card layouts (L1138). Two CSS lines, zero risk,
+  ships today. The switch reappears intact on Table/Card, and the saved preference is
+  untouched. *Recommended as the immediate fix.*
+- **(b) Make it true — hover preview on grid cards.** The machinery is view-agnostic
+  already; what it needs is a second mount point. Give `.gart` the same `.pop` panel and
+  point `armMedia()` at `.thumb, .gart`. This is the better product answer — box art *is*
+  the thing you want to see move — but it is a real change: the pop is `512×288` fixed and
+  would need positioning against a card rather than a row, and the 18+ blur gate has to be
+  respected on the card path too. *Recommended as a follow-up, not bundled with (a).*
+
+**Shipped: (b), not (a).** Hiding the switch was the safe answer to the wrong question — Grid
+is the view that survives on a phone, so the feature belonged there most. The video /
+screenshot / pips CSS moved off `.thumb .pop` onto a `.mediabox` class worn by both the
+floating panel and a card's `.gart`, and the clip plays **in place** inside the art rather
+than in a popup: a card's art is already 220px+ at capsule ratio, and a 512px panel over it
+would bury three neighbours — playing in place is also what Steam's own store grid does, so
+the gesture needs no explaining.
+
+Two gestures over one code path: hover-dwell on pointer devices, tap-to-play on touch (tap
+again to stop). The card therefore has two zones — art = watch, everything else = flip — and
+a ▶ badge marks the split. `.hastrailer` is the contract the tap handler checks, so a card
+with no clip stays a plain flip target instead of eating the tap.
+
+*Three lifecycle cases had to be closed, all verified in Chromium at 414px with touch
+emulation:* flipping a card stops a clip playing behind the details face; a grid re-render
+stops one before `innerHTML` discards its element, which would otherwise strand a detached
+`<video>` streaming; and switching Video off re-renders so the badges go with it. Table-view
+hover preview re-tested unchanged.
+
+---
+
+## 16 — Titles with a leading space sort to the very top
+
+**Said**:
+
+> Šis interesanti. Visiem, kas iet līdz simboliem, acīmredzot space ielikts pirms
+> nosaukuma, tāpēc rādās pirmie. Droši vien varētu mēģināt kaut ko samudrīt un rādīt kā
+> pirmos tikai tos, kas sākas ar burtu (latīņu → kirilica → japāņu etc.) un pārējos samest
+> beigās. Bet hz. Nezinu, vai ir vērts čakarēties.
+
+*"Interesting. Everything that ends up next to the symbols apparently has a space put
+before the name, which is why they show first. You could probably rig something so only
+titles starting with a letter come first (Latin → Cyrillic → Japanese etc.) and dump the
+rest at the end. But dunno. Not sure it's worth the hassle."*
+
+**Problem.** Correct diagnosis. Sorting by Name is
+`dir * a.title.localeCompare(b.title)` on the **raw** title, and Steam ships titles with
+leading whitespace. Measured against the current dataset (127,226 games):
+
+- **22** titles begin with whitespace — ` Fieldrunners 2`, ` Wanba Warriors`,
+  ` Virtua Fighter 5 R.E.V.O. World Stage`, ` Promise with My Sister`, …
+- **295** titles begin with a non-alphanumeric character — `//SNOWFLAKE TATTOO//`,
+  `#KILLALLZOMBIES`, `[the Sequence]`, `¡Zombies!`, `🔴 Circles`, …
+
+Twenty-two rows is a small defect with an outsized effect, because they occupy the entire
+**first screen** of an A→Z sort. The first thing a user sees when they sort by name is a
+page of games that look like they were sorted by nothing.
+
+**Where.** `index.html` — `visibleGames()` sort comparator (L2028–L2036).
+
+**Fix — pending review.**
+
+- **(a) Trim.** Sort on `title.trim()`. Two characters of code, fixes 22 of the 22 rows the
+  complaint is actually about. *Recommended — this alone closes the report.*
+- **(b) Trim + letters-before-symbols.** A one-line bucket in front of the compare: a title
+  whose first character is a letter or digit sorts before one that isn't. This handles the
+  remaining 295 (`//`, `#`, `[`, `¡`, emoji) without needing any script-ordering table —
+  `isalnum`-style classification is script-agnostic, so Latin, Cyrillic and Japanese all
+  land in the same "real letter" bucket and then order among themselves by the collator, in
+  that natural order, for free. **The "Latin → Cyrillic → Japanese" ordering asked for is
+  what a default collator already does** — no per-script list to write. *Recommended: it is
+  ~4 lines and answers the whole idea, not just the visible symptom.*
+- **(c) Also fix the collation while we're in here.** Replace `String.localeCompare` with a
+  single hoisted `Intl.Collator(undefined, {numeric:true, sensitivity:"base"})`. Two wins:
+  `Portal 2` sorts after `Portal`, not after `Portal 10`; and one reused collator is
+  markedly faster than 127k `localeCompare` calls, which is a real cost on the "all games"
+  name sort. *Recommended.*
+
+Cheap enough that the "not sure it's worth the hassle" reservation doesn't apply — (a)+(b)+(c)
+together are under ten lines in one function.
+
+**Shipped: (a) + (b) + (c),** plus one case the survey above missed — eight titles open with a
+zero-width space or joiner (General_Category `Cf`), which `.trim()` does not touch, so
+`Triple Fantasy` looked like it started with T and sorted among the symbols. The sort key
+strips those too.
+
+*Verified over the full 80,827-row result set:* A→Z now opens `0.5%`, `0.0035％`, `0°N 0°W`,
+`0Gravity`, `0RBITALIS` and closes on the symbol bucket (`🚀 Human Rocket Person`, `$1 Ride`,
+`€100`); the 22 space-prefixed titles now sit at their real alphabetical positions, the first
+at index 2,817 rather than index 0. Z→A keeps the symbol bucket at the end rather than
+flipping it to the front.
+
+---
+
+## 17 — "Review score" sort looks unsorted in Grid view
+
+**Said**:
+
+> Izskatās, ka šis īsti nestrādā. Sorted by review score (visible in corner) and it's not
+> sorted by it at all.
+
+*"Looks like this doesn't really work."*
+
+**Problem.** The sort is working. The **card is showing a different number than the one
+being sorted on**, which is worse than a broken sort, because it makes correct output look
+broken.
+
+`state.ratingSource` defaults to `"recent"`, so sorting by Review score sorts on the
+**30-day** score (`recent_pct`). `gridCardHTML()` prints `g.rating_pct` — the **all-time**
+score — with a tooltip that says "Steam review score". Reproduced exactly against the games
+in the screenshot:
+
+| Card, in the order shown | Printed (all-time) | Sorted on (30-day) |
+|---|---|---|
+| GUN™ | 92% | **100%** (18 reviews) |
+| Peggle™ Nights | 97% | **100%** (51) |
+| Trackmania United Forever | 95% | **100%** (17) |
+| X-COM: UFO Defense | 95% | **100%** (11) |
+| Brothers in Arms: Hell's Highway™ | 91% | **100%** (14) |
+| Oddworld: Abe's Exoddus® | 95% | **100%** (13) |
+| Sid Meier's Civilization IV: Colonization | 87% | **100%** (13) |
+
+Perfectly sorted, descending, on a column the card never displays. The table view does not
+have this bug — it prints whichever value the toggle selects. Grid inherited the number but
+not the toggle. `Review count` has the identical mismatch (`review_count` printed,
+`recent_count` sorted).
+
+**Where.** `index.html` — `ratingVal` / `countVal` (L2013–L2025), `gridCardHTML()` rating
+line (L3070–L3072), All-time/30-day toggle (filters panel, `state.ratingSource`).
+
+**Fix — pending review.**
+
+- **(a) Print what we sort.** The card's `%` follows `state.ratingSource`, with a small
+  `30d` / `all` marker next to it so the number is self-describing. *Recommended — this is
+  the actual fix; everything else is a variation on it.*
+- **(b) Put the toggle where Grid users can reach it.** The All-time / 30-day switch lives
+  in the filter panel; a Grid user sorting from the grid sort bar never opens it. Surface it
+  in `#resultBar` next to the legend, or as a click on the `30d`/`all` marker itself.
+  *Recommended alongside (a).*
+- **(c) Separate observation, decide separately.** Even fixed, the top of a 30-day sort is
+  *100% of 11 reviews*. That is the correct value and a nearly useless ranking. The table
+  survives it because it prints the count beside the score; a grid card would too, once (a)
+  lands. A stronger option is a minimum sample for the 30-day sort (fall back to all-time
+  below, say, 10 recent reviews) — but that changes a live ranking rule, so it is **not**
+  bundled here. Raise it as its own item if wanted.
+
+**Shipped: (a) + (b). (c) was explicitly declined** — "don't limit the review count". The
+ranking is unchanged; only its legibility is. Both periods print, stacked, each tagged `30d` /
+`all` with its own tooltip, and the row the sort *actually used* is tagged in gold. "Actually
+used" is the subtle part: `ratingVal()` falls back to all-time when a game has no 30-day
+score, so a card whose `30d` cell is a dash gold-tags `all` instead — tagging the dash would
+have pointed at the wrong number, which is the very confusion being fixed.
+
+*Costs no layout:* the stack's line-height is tightened to 1.15 so two 13px rows fit inside
+the 2.5em the `.gname` min-height already holds open for a two-line title. Measured in
+Chromium, every card in a row is 187px before and after, open or closed.
+
+---
+
+## 18 — Grid sorts by fields the card never shows
+
+**Said**:
+
+> Tātad mums Grid view ir sorting opcijas, ar parametriem, kas šajā view nemaz netiek
+> rādīti..? Need to be adjusted for this view.
+
+*"So in Grid view we have sorting options with parameters that this view doesn't even
+display..?"*
+
+**Problem.** The grid sort bar is built from the full `SORT_LABELS` map — all thirteen
+fields — while a grid card shows exactly three: QTPD, review score, title (plus price and
+length behind the flip). Sort by **Review count**, **Trend**, **Weighted**, **Updated**,
+**Playtime**, **HLTB** or **Sale ends** and the grid reorders itself by a quantity that is
+nowhere on screen. The user is asked to trust an ordering they cannot verify — which is the
+same trust problem as #17, arriving from the other direction.
+
+**Where.** `index.html` — `buildGridSortButtons()` (L3615–L3625), `SORT_LABELS` (L3203),
+`gridCardHTML()` (L3045–L3100).
+
+**Fix — pending review.**
+
+- **(a) Trim the list.** Restrict the grid sort bar to fields the card shows: QTPD, Name,
+  Review score, Price, Discount, Length. Honest, and one line. But it *removes* working
+  functionality — "cheapest first among 4k+ reviews" is a real thing to want — and it
+  desyncs Grid from the table and the mobile `<select>`, which keep all thirteen.
+- **(b) Show the sort key on the card.** Keep all thirteen fields; when the active sort is
+  a field the card doesn't already display, the card grows one small line: `Reviews 43,201`
+  / `Trend ▲ +4` / `Updated 3d ago` / `Playtime 12.4h`. It disappears again when sorting by
+  QTPD or Name, which the card already shows. *Recommended* — it makes every sort verifiable
+  instead of deleting the ones that aren't, and it costs one `<div>` and a small
+  `key → (game) => text` map. It also has to reserve its line height whether or not a given
+  card has a value, or rows go ragged again (the problem item #10 fixed).
+- **(c) Both.** Do (b), and drop only `Sale ends` from the grid bar — it is the one field
+  that is meaningless for the ~90% of cards not on sale.
+
+**Shipped: (b).** No sort was removed. The card's QTPD line carries the active sort's value on
+its free right-hand half, and stays empty for sorts the card already shows. Each value keeps a
+dimmed unit — `43,201 rev`, `1281h len`, `1108h ▲play` — rather than the bare number
+originally suggested: an unlabelled figure on a card is the same problem item #9 was raised
+about, and *both* length fields render as `Nh`, so the unit is the only thing telling Length
+from Playtime.
+
+---
+
+## 19 — The card shows HLTB "Length", the sparsest field we have
+
+**Said**:
+
+> Kas ir "Playtime"? Tas pats, kas "Length"? Ja jā, tad tur kaut kas nestrādā.
+
+*"What is 'Playtime'? The same as 'Length'? If so, something's not working there."*
+
+> So we can sort by playtime (upvote or downvote) but the card shows HLTB length. Maybe
+> worth swapping and showing the playtime — as that value is ~100% there, where HLTB is
+> just a small portion of games.
+
+**Problem.** They are two different fields, and nothing on the card says so:
+
+- **Length** = HowLongToBeat hours (`hoursFor()`), community-reported time to finish. This
+  is the numerator of QTPD.
+- **Playtime** = median hours actually played by Steam reviewers, split by whether they
+  recommended the game (`pt_up` / `pt_down`).
+
+The instinct about coverage is right, and the gap is even wider than "a small portion".
+Measured on the current data (127,226 games):
+
+| Field | Games with a value | Coverage |
+|---|---|---|
+| Playtime (`pt_up`/`pt_down`) | 80,846 | **63.5%** |
+| HLTB — any `main` value | 34,021 | 26.7% |
+| HLTB — *real*, not estimated (the default, `hltbQuality:"real"`) | ~15,002 | **11.8%** |
+
+So on the default settings the card's `Length` row is blank for roughly **seven cards in
+eight**, while a Playtime figure exists for nearly two in three. That is also why so many
+cards read `QTPD —`: no length, no score.
+
+But a straight swap is wrong. `Length` is not decoration — it is the number QTPD divides
+price by, so removing it makes the headline metric unexplainable on the card.
+
+**Where.** `index.html` — `hoursFor()` / `realHours()` (L1742–L1752), grid `Length` row
+(L3095), playtime fields (L4476), Playtime column header (L1564).
+
+**Fix — pending review.**
+
+- **(a) Label them apart.** `Length (HLTB)` and `Playtime (median)`, each with a tooltip
+  saying what it measures. Answers "is it the same thing?" on its own. *Recommended
+  minimum.*
+- **(b) Show both on the flipped card.** Keep `Length` (it explains QTPD) and add a
+  `Playtime` row beneath it. Two rows, ~63% and ~12% filled — the card stops being empty for
+  most games. *Recommended.*
+- **(c) Fall back.** When `Length` is `—`, print the playtime figure in its place, marked as
+  playtime. Denser, but it hides the fact that QTPD is unscored *because* the length is
+  missing. Prefer (b).
+- **(d) Straight swap, as suggested.** Not recommended, for the reason above — but it is a
+  one-line change if the coverage argument is judged to outweigh explaining QTPD.
+
+**Shipped: (a) + (b), on the opened face only** — the front of the card stays a three-figure
+summary. `Length HLTB` keeps the top slot because it is what QTPD divides price by;
+`Playtime median` sits beneath it. The Playtime and HLTB column headers were rewritten to say
+outright that one is time-to-finish and the other time-actually-played.
+
+---
+
+## 20 — "HLTB" is never expanded anywhere
+
+**Said**:
+
+> Es, piemēram, pis, kas ir HLTB. :D Teorētiski var ielikt atšifrējumu tooltip.
+
+*"I, for one, have no idea what HLTB is. :D You could in theory put the expansion in the
+tooltip."*
+
+> Yes, the tooltips are absolutely not helping here.
+
+**Problem.** The grid sort buttons are generated with a placeholder tooltip:
+`b.title = "Sort by " + lbl`. So hovering `HLTB` says **"Sort by HLTB"** — the acronym
+restated, and nothing else. The word *HowLongToBeat* does not appear on the page. The table
+header has a real tooltip but still never expands it ("HLTB — Main / Main+Extras /
+Completionist hours…"). Same emptiness on every other grid sort button: "Sort by Weighted",
+"Sort by Trend", "Sort by Updated".
+
+**Where.** `index.html` — `buildGridSortButtons()` (L3621), HLTB `<th>` (L1565), Playtime
+`<th>` (L1564).
+
+**Fix — pending review.** Add a `SORT_TIPS` map keyed the same as `SORT_LABELS`, and have
+`buildGridSortButtons()` use `SORT_TIPS[k] || "Sort by " + lbl`. The table already has good
+prose for most of these — the tips get written once and reused by the grid bar, the mobile
+`<select>` and the summary chip. HLTB's becomes: *"HLTB — HowLongToBeat, community-reported
+hours to finish a game. Main story / +Extras / Completionist, with the average below."*
+*Recommended*; it is the one fix in this round that also improves Table and mobile.
+
+**Shipped as proposed.** All thirteen sort fields now carry a real explanation instead of
+`"Sort by " + label`.
+
+---
+
+## 21 — The header count strip has no tooltip
+
+**Said**:
+
+> Izskatās, ka te varbūt trūkst tooltips.
+
+*"Looks like a tooltip might be missing here."* (pointing at `80637 / 126910 games · 43m
+ago · USD`)
+
+**Problem.** Four separate facts crammed into one unlabelled mono line, none explained:
+what the two numbers are (matching your filters / total in the dataset), what `43m ago`
+timestamps (when the scrape that produced this data ran, not the page load), and why `USD`
+is asserted (every price on the page is USD; there is no currency switch). `#meta` is built
+by `renderMeta()` with no `title` anywhere on it.
+
+**Where.** `index.html` — `renderMeta()` (L3434–L3443), `.meta` CSS (L66).
+
+**Fix — pending review.** Wrap the three groups in their own spans with their own tooltips
+rather than one blob over the whole strip — the existing tooltip engine picks up any
+`[title]` and gives it the help cursor automatically, so it is markup only:
+
+- `80637 / 126910 games` → *"Results — games matching your current filters, out of every
+  game in the dataset."*
+- `43m ago` → *"Data age — how long since the scraper last refreshed prices and reviews.
+  Updates run continuously."*
+- `USD` → *"Currency — all prices are US dollars from the Steam US store. There is no
+  currency conversion."*
+
+*Recommended.* Small, and it retires three "dafaq is this" moments in one line.
+
+**Shipped as proposed** — three separate tooltips, one per group, rather than one blob over
+the whole strip.
+
+---
+
+## 22 — Truncated titles can't be read in full
+
+**Said**:
+
+> Text cut is by design, but we could add a tooltip with full text at least on mouse over,
+> so everything is readable — which it was not before.
+
+**Problem.** Both title elements clamp to two lines with `-webkit-line-clamp:2` and neither
+carries a `title` attribute, so a clipped name is simply unreadable — `The Binding of
+Isaac: Rebirt…` with no way to see the rest short of opening the store page. Affects
+`.gtitle` (table/card rows) and `.gname` (grid cards). The grid card *does* repeat the full
+title on its flipped `.gi-title` face, but that costs a click and is not discoverable as
+"this is how I read the name".
+
+**Where.** `index.html` — `.gtitle` (L561–L562) and its markup (L2305); `.gname` (L932–L934)
+and its markup (L3086).
+
+**Fix — pending review.** Add `title="${esc(g.title)}"` to both. The tooltip engine renders
+it in the same styled box as everything else and applies the help cursor for free. Two
+notes:
+
+- Set it **unconditionally**, not only when truncated — measuring truncation means reading
+  `scrollHeight` per card, which is a forced layout on up to 2,000 nodes per render. A
+  redundant tooltip on a short title costs nothing.
+- `.gtitle` is an `<a>` to Steam, so it keeps the pointer cursor; the `[title]` help-cursor
+  rule needs the same exemption `.util-btn`/`.seg button` already have (L115–L118).
+
+*Recommended.*
+
+**Shipped as proposed,** including the cursor exemption — `.gname` needed it too, since the
+grid card is itself a click target.
+
+---
+
+## 23 — "Per page" only lets the user hurt themselves
+
+**Said**:
+
+> Šis vispār ir nepieciešams, ja Tev saturs ielādējas automātiski, tiklīdz aizskrollē līdz
+> apakšai? Kāds dunduks uzliks 2000 un tad besīsies, ka viss bremzē. :D
+
+*"Is this even needed, given the content loads automatically as soon as you scroll to the
+bottom? Some numpty will set 2000 and then get annoyed that everything is slow."*
+
+> True — reduce it to 66 by default and keep it that way.
+
+**Problem.** `PER PAGE 100 / 500 / 2000` is a performance footgun wearing the costume of a
+feature. Infinite scroll already loads the next page on reaching the bottom
+(`ensurePageObserver`), so the control's only real effect is **how much work one render
+does**: `render()` rebuilds every visible row or card from scratch, so `2000` means
+building two thousand DOM subtrees on every filter keystroke, every sort click, every tag
+cycle. There is no user goal that "2000" serves and infinite scroll doesn't — the genuine
+"give me everything at once" path is the CSV export, which already exists two buttons away.
+It is also already hidden on card layouts and on narrow grid (L1138), i.e. it has been
+half-retired once already.
+
+**Where.** `index.html` — markup (L1243–L1247), `.pagesize` CSS (L167–L173), `state.pageSize`
+default (L1663), URL write (L3782), URL read/validate (L3841–L3842), click binding
+(L3919–L3922), pagination (L2091–L2092).
+
+**Fix — pending review.**
+
+- **(a) Remove the control; fix the page at 66.** `state.pageSize:66`, delete the three
+  buttons and the label, keep `?per=` honoured on read so existing shared links don't break
+  (validate as a number in 1…2000 rather than the current hard-coded `[100,500,2000]`
+  whitelist, which would otherwise reject `66` itself). *Recommended* — it is what was
+  asked for, and it removes a control rather than tuning one.
+- **(b) Keep the control, default 66, drop 2000.** `66 / 200` only. Safer if anyone is
+  attached to the buttons, but it keeps a control whose entire purpose is now internal.
+- **(c) Worth confirming:** 66 is a slightly odd number against the grid, which is
+  `auto-fill minmax(220px, 1fr)` — at a 1600px window that is 7 columns, so 66 ends a page
+  mid-row. Harmless with infinite scroll (the next page fills it in), and 66 rows is a fine
+  table page. Flagging it only so the number is a decision and not a surprise.
+
+**Shipped: (a), at 66,** confirmed. The control is gone and `PAGE_SIZE` is a constant. `?per=`
+survives so links shared before the removal still resolve — its validator was the
+`[100, 500, 2000]` whitelist noted above, which would have rejected the new default, and is
+now a range check.

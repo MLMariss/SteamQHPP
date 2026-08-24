@@ -112,11 +112,15 @@
      their tip with ?. Emptying the native `title` on hover (the JS engine below) keeps the
      attribute present, so these selectors stay matched while the custom tooltip is shown. */
   [title]{cursor:help}
-  .util-btn[title], .viewseg button[title], .pagesize button[title], .steppers button[title],
+  .util-btn[title], .viewseg button[title], .steppers button[title],
   #msortdir[title], #gsortdir[title], .gsort-b[title], .gsort-morebtn[title], .logo[title],
   .field-x[title], .hidebtn[title], [data-tag][title], .sumf[title], .sumreset[title],
   .unhide-link[title], .seg button[title], .section-head[title], #wishimport[title],
-  #clear[title], .linkbtn[title]{cursor:pointer}
+  #clear[title], .linkbtn[title],
+  /* Titles carry their own full text as a tip (they clamp to two lines, so a long name is
+     otherwise unreadable) but must NOT wear the help cursor: .gtitle is a link to Steam and
+     .gname sits on a card whose whole job is to be clicked. */
+  .gtitle[title], .gname[title]{cursor:pointer}
   /* Text fields that carry a tip keep the text caret, not the help cursor. */
   input[title]{cursor:text}
   /* …but the sortable headers (single and split) DO wear the ? — they are the fields this
@@ -163,14 +167,6 @@
   .seg button:hover:not([aria-pressed="true"]){background:var(--panel-2); color:var(--text)}
   .seg button:focus-visible{outline:2px solid var(--blue); outline-offset:-2px}
 
-  /* per-page size selector in the top bar */
-  .pagesize{display:inline-flex; align-items:center; gap:7px; flex:none}
-  .pagesize-lbl{font-family:var(--mono); font-size:11px; color:var(--muted); text-transform:uppercase; letter-spacing:.06em}
-  .pagesize button{appearance:none; background:var(--panel); border:1px solid var(--line); color:var(--muted);
-        font-family:var(--mono); font-size:12px; padding:5px 9px; cursor:pointer; border-radius:7px}
-  .pagesize button:hover{color:var(--text)}
-  .pagesize button.on{background:var(--gold-soft); color:var(--gold); border-color:var(--gold-soft)}
-  .pagesize button:focus-visible{outline:2px solid var(--blue); outline-offset:-2px}
   /* infinite-scroll sentinel / "loading more" row */
   .loadmore{text-align:center; padding:18px; font-family:var(--mono); font-size:12px; color:var(--muted)}
 
@@ -503,41 +499,68 @@
   .thumb .pop{position:fixed; z-index:60; width:512px; height:288px; border-radius:8px; overflow:hidden;
         border:1px solid var(--line); box-shadow:0 14px 40px #000b; display:none; pointer-events:none; background:#0b0f18}
   .thumb .pop img{width:100%; height:100%; object-fit:cover}
-  /* The <video> is created on hover-dwell and destroyed on mouseout (armMedia/stopMedia),
+  /* ── .mediabox: any container a preview can play inside ─────────────────────────────────
+     These rules used to be scoped to `.thumb .pop`, the floating panel beside a table row —
+     which is why the Preview/Video switch did nothing whatsoever in Grid view: a grid card has
+     no .thumb and no .pop, so armMedia() had nothing to attach to and the control silently
+     changed a localStorage key and stopped there.
+     They are now keyed on .mediabox, worn by BOTH the floating panel and a grid card's .gart.
+     The panel keeps its own positioning and sizing rules below; everything about how a clip and
+     the still layers behave inside a box is shared, so the two paths cannot drift apart.
+     The grid plays IN PLACE rather than in a popup: a card's art is already 220px+ at full
+     capsule ratio, and floating a 512px panel over it would bury its three neighbours. It is
+     also what Steam's own store grid does, so the gesture needs no explaining. */
+  /* The <video> is created on hover-dwell (or a tap) and destroyed on leave (armMedia/stopMedia),
      so at most one exists at a time. It sits ON TOP of the still and cross-fades in only
      once the browser reports `playing`, so a slow-loading trailer never flashes a black
      panel over perfectly good art. */
-  .thumb .pop video{position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
-        display:block; opacity:0; transition:opacity .22s ease}
-  .thumb .pop.playing video{opacity:1}
-  /* Tiny "has a trailer" affordance, shown on the still until the video takes over. */
-  .thumb .pop.hastrailer::after{content:"▶"; position:absolute; right:8px; bottom:6px; z-index:2;
+  .mediabox video{position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
+        display:block; opacity:0; transition:opacity .22s ease; pointer-events:none}
+  .mediabox.playing video{opacity:1}
+  /* Tiny "has a trailer" affordance, shown on the still until the video takes over.
+     The floating panel draws it with ::after; a grid card CANNOT, because .gart::after is
+     already the 18+ overlay and an element has only one ::after — the two would fight over the
+     same pseudo-element and produce a small "18+" chip where the full-cover gate should be.
+     So the card gets a real .gplay element instead, which also lets the 18+ state hide it
+     without touching the gate. */
+  .pop.hastrailer::after{content:"▶"; position:absolute; right:8px; bottom:6px; z-index:4;
         font-size:11px; line-height:1; color:#fff; opacity:.85; text-shadow:0 1px 4px #000d;
-        transition:opacity .22s ease}
-  .thumb .pop.playing::after{opacity:0}
+        transition:opacity .22s ease; pointer-events:none}
+  .pop.playing::after{opacity:0}
+  /* Opposite corner from the discount badge, and drawn as a chip rather than a bare glyph: on
+     touch this is not decoration but the thing telling you the art is its own tap target. */
+  .gplay{position:absolute; left:7px; bottom:7px; z-index:4; pointer-events:none;
+        font-family:var(--mono); font-size:13px; line-height:1; color:#fff;
+        padding:3px 8px; border-radius:6px; background:#0b0f18cc;
+        opacity:0; transition:opacity .22s ease}
+  .gart.hastrailer .gplay{opacity:.92}
+  .gart.playing .gplay{opacity:0}
+  /* Art still behind the 18+ blur can't be played (gridArtPlayable refuses it), so don't
+     advertise a tap that would do nothing. */
+  .gcard.adult:not(.revealed) .gplay{display:none}
   /* Rotating screenshots (shots.py -> shots/shard_NN.json). Created on demand and torn
      down with the panel, exactly like the <video>: at most one <img.shot> exists at a
      time. It layers ABOVE both the poster still and the video, so starting the rotation
      is a cross-fade rather than a swap through a blank frame.
      Screenshots are true 16:9 and so fill the 512x288 panel with NO crop — the header
      art (~2.14:1) is the one that loses its sides to object-fit:cover. */
-  .thumb .pop img.shot{position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
-        display:block; opacity:0; transition:opacity .35s ease; z-index:2}
-  .thumb .pop img.shot.on{opacity:1}
+  .mediabox img.shot{position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
+        display:block; opacity:0; transition:opacity .35s ease; z-index:2; pointer-events:none}
+  .mediabox img.shot.on{opacity:1}
   /* The clip sits UNDER the stills: both live in the panel for the whole hover (the two
      still layers are reused every time the cycle comes round), so a still that is showing
      has to cover the video rather than blend with it. */
-  .thumb .pop video{z-index:1}
+  .mediabox video{z-index:1}
   /* A rotation is steppable by clicking the thumbnail, so say so. */
   .thumb.hasmedia{cursor:pointer}
   /* Which frame you are on, and how many there are. Hidden until the rotation starts, so
      a game with no stills looks exactly like it does today. */
-  .thumb .pop .pips{position:absolute; left:0; right:0; bottom:6px; z-index:3;
+  .mediabox .pips{position:absolute; left:0; right:0; bottom:6px; z-index:3;
         display:none; justify-content:center; gap:5px; pointer-events:none}
-  .thumb .pop.rotating .pips{display:flex}
-  .thumb .pop .pips i{width:5px; height:5px; border-radius:50%; background:#ffffff66;
+  .mediabox.rotating .pips{display:flex}
+  .mediabox .pips i{width:5px; height:5px; border-radius:50%; background:#ffffff66;
         box-shadow:0 1px 3px #000a; transition:background .2s ease}
-  .thumb .pop .pips i.on{background:#fff}
+  .mediabox .pips i.on{background:#fff}
   /* Adult games (PICS content_desc 3/4): blur the art behind a three-stage reveal.
      Stage 1 (default):   blurred + "18+" badge, whole thumb is a button.
      Stage 2 (.confirm):  click once -> "18+?" confirmation prompt.
@@ -902,16 +925,34 @@
   .gcard.adult.confirm .gart::after{content:"18+?"; background:radial-gradient(circle at center, #000b, #0007)}
   .gcard.adult.revealed .gcap{filter:none; transform:none}
   .gcard.adult.revealed .gart::after{content:""; background:none}
-  .gdisc{position:absolute; top:7px; right:7px; background:var(--coral); color:#0e1320;
-        font-family:var(--mono); font-size:12px; font-weight:700; padding:2px 6px; border-radius:6px}
+  /* Size and weight are deliberately the SAME as .grate / .gq below, not smaller: this is the
+     one figure on the card that sits on top of box art — the busiest, least predictable surface
+     here — and it used to be the smallest type on the card at 12px, leaning on weight 700 to do
+     the work size should have been doing. tabular-nums so -5% and -75% occupy the same width and
+     the badge stops jittering between cards; the shadow lifts the chip off bright key art. */
+  /* z-index above the clip and screenshot layers (1 and 2): both are appended to .gart AFTER
+     this badge, so without it a playing preview paints straight over the discount. */
+  .gdisc{position:absolute; top:7px; right:7px; z-index:5; background:var(--coral); color:#0e1320;
+        font-family:var(--mono); font-size:13px; font-weight:600; letter-spacing:.01em;
+        font-variant-numeric:tabular-nums; padding:2px 7px; border-radius:6px;
+        box-shadow:0 1px 6px #0008}
   /* Info panel — deliberately darker than --panel so the title reads clean off the art.
      Scoped to .gcard: bare .gmeta is also the table's title cell (see ~L293), and the dark
      background was bleeding behind table titles as a black block. */
   .gcard .gmeta{flex:none; background:#080b12; border-top:1px solid var(--line); padding:7px 10px 8px;
         display:flex; flex-direction:column; gap:3px}
   .gmeta-top{display:flex; align-items:baseline; justify-content:space-between; gap:8px}
-  .gq{align-self:flex-start; font-family:var(--mono); font-size:13px; font-weight:600; color:var(--gold); white-space:nowrap}
+  /* Bottom line of the panel: QTPD on the left, the active sort's value on the right. The right
+     half used to be empty space. */
+  .gmeta-bot{display:flex; align-items:baseline; justify-content:space-between; gap:8px; min-height:1.45em}
+  .gq{font-family:var(--mono); font-size:13px; font-weight:600; color:var(--gold); white-space:nowrap}
   .gq.na{color:var(--muted-2); font-weight:400}
+  /* Whatever the grid is currently sorted by, when the card doesn't already show it. Deliberately
+     quieter than QTPD — this is corroboration for the ordering, not a second headline. */
+  .gsortval{font-family:var(--mono); font-size:12.5px; color:var(--muted); white-space:nowrap; flex:none;
+        font-variant-numeric:tabular-nums}
+  .gsortval.na{color:var(--muted-2)}
+  .gsvu{margin-left:4px; font-size:11px; color:var(--muted-2)}
   /* Top third of the current results by QTPD — the mark that used to be a gold ring around the
      whole card, now attached to the value it describes.
      An inset box-shadow, NOT a border: a border is 1px of box model on each side, which made
@@ -925,6 +966,17 @@
         -webkit-mask:var(--thumb-mask); mask:var(--thumb-mask)}
   .grate.na{color:var(--muted-2); font-weight:400}
   .grate.na::before{display:none}
+  /* Both review periods, stacked. line-height is tightened to 1.15 on purpose: two rows at the
+     page's default 1.45 would stand ~38px tall against the 33.75px the .gname min-height below
+     reserves, and every card in the grid would gain height. At 1.15 the pair fits inside the
+     space the title already holds open, so adding the second score costs no layout at all. */
+  .grates{display:flex; flex-direction:column; align-items:flex-end; gap:1px; flex:none; line-height:1.15}
+  /* The period tag is what makes each number self-describing — a bare % was the whole problem.
+     Neither score is dimmed: both are real data and both stay legible in their rating colour.
+     What marks the one the current sort uses is the TAG going gold, which is a cue about the
+     sort rather than about the score. */
+  .grlbl{margin-left:4px; font-size:11px; font-weight:500; color:var(--muted-2); letter-spacing:.02em}
+  .grate.gsel .grlbl{color:var(--gold); background:var(--gold-soft); border-radius:4px; padding:0 4px; margin-left:3px}
   /* min-height reserves both clamped lines whether or not the title needs them. Without it a
      one-line title and a two-line title build different-height cards, and because grid rows
      stretch to their tallest item a single long title re-heights its whole row — the grid
@@ -932,7 +984,7 @@
   .gname{flex:1; min-width:0; font-family:var(--sans); font-weight:600; font-size:13.5px; color:#fff; line-height:1.25;
         min-height:2.5em;
         display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden}
-  .gmeta-top .grate{flex:none}   /* rating stays put on the right as the title truncates */
+  .gmeta-top .grates{flex:none}  /* scores stay put on the right as the title truncates */
   /* Details overlay — covers the whole card; overflow-y:auto keeps actions reachable on short cards. */
   .ginfo{position:absolute; inset:0; background:#0e1320f2; display:none; flex-direction:column; padding:11px;
         gap:5px; font-family:var(--mono); overflow-y:auto}
@@ -948,8 +1000,11 @@
   .gcard.open .ginfo{display:flex}
   .gi-title{font-family:var(--sans); font-weight:600; font-size:13.5px; color:var(--title); line-height:1.2;
         display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden}
-  .gi-row{display:flex; justify-content:space-between; font-size:12.5px; color:var(--muted)}
-  .gi-row b{color:var(--text); font-weight:600}
+  .gi-row{display:flex; justify-content:space-between; gap:8px; font-size:12.5px; color:var(--muted)}
+  .gi-row b{color:var(--text); font-weight:600; white-space:nowrap}
+  /* Source qualifier after a row label — "Length HLTB", "Playtime median". Upright, not italic:
+     these are names of data sources, not emphasis, and italic mono reads as an error state. */
+  .gi-row i{font-style:normal; font-size:11px; color:var(--muted-2); margin-left:4px}
   .gi-row .gi-q{color:var(--gold); font-weight:700}
   .gi-actions{margin-top:auto; display:flex; gap:7px; padding-top:2px}
   .gi-actions a,.gi-actions button{flex:1; text-align:center; font-family:var(--mono); font-size:12px;
@@ -1069,7 +1124,10 @@
   body.layout-card tbody td,body.layout-card tbody td.num,body.layout-card tbody td.center{padding:4px 0; border:0; display:flex; flex-flow:row wrap;
       align-items:baseline; justify-content:flex-start; gap:2px 9px; min-width:0; min-height:0; overflow:hidden}
   body.layout-card td.pad{padding:4px 0}
-  body.layout-card tbody td::before{content:attr(data-label); font-family:var(--mono); font-size:10px; letter-spacing:.03em;
+  /* 11px, not 10: these are the only labels on the mobile card telling you what each value IS,
+     and 10px uppercase mono at --muted-2 was the smallest readable text on the site. The longest
+     label ("Sale ends") still fits the 72px gutter at this size, so nothing reflows. */
+  body.layout-card tbody td::before{content:attr(data-label); font-family:var(--mono); font-size:11px; letter-spacing:.03em;
       text-transform:uppercase; color:var(--muted-2); flex:none; width:72px; line-height:1.5}
   body.layout-card tbody td:empty{display:none}
   /* plain-language relabels for the mobile card */
@@ -1135,7 +1193,6 @@
 
   /* ── Mobile-polish (2026-07): readability groups, leaner bar, demoted wishlist ──────────── */
   /* #2: per-page is meaningless on an infinite-scroll phone list — hide it for a leaner bar. */
-  body.layout-card #pagesize,body.grid-view.narrow #pagesize{display:none}   /* #3: also hide on mobile grid; infinite scroll loads 100/page by default */
   /* #1: group separator lines chunk the tall card into scannable blocks —
      price · ratings · length/playtime · dates · tags — so ratings read apart from length. */
   body.layout-card tbody td{padding:5px 0}
@@ -1240,12 +1297,13 @@ try{
         <button id="msortdir" type="button" title="Toggle sort direction" aria-label="Toggle sort direction">▼</button>
       </div>
       <div class="meta" id="meta"></div>
-      <div class="pagesize" id="pagesize" title="Games shown per page (scroll down to load more)">
-        <span class="pagesize-lbl">per page</span>
-        <button data-size="100" class="on">100</button>
-        <button data-size="500">500</button>
-        <button data-size="2000">2000</button>
-      </div>
+      <!-- The PER PAGE 100/500/2000 selector used to sit here. Removed: infinite scroll already
+           loads the next page on reaching the bottom, so the control's only real effect was how
+           much work ONE render does — render() rebuilds every visible row from scratch, so 2000
+           meant building two thousand DOM subtrees on every filter keystroke, sort click and tag
+           cycle. No user goal needed it that infinite scroll didn't serve, and the genuine
+           "give me everything at once" path is the CSV export two buttons along. Page size is
+           now fixed at PAGE_SIZE below. -->
       <!-- The view switcher used to sit here, first in the tools cluster. It moved down to
            #resultBar, immediately above the results it governs — read cold at the top of the
            page, "Table / Card / Grid" are three unexplained words answering a question the
@@ -1525,7 +1583,7 @@ try{
     <div class="seg viewseg" id="viewSwitch" role="group" aria-label="View mode">
       <button data-view="table" aria-pressed="true"  title="Table — every column, one row per game. Needs a window at least 1280px wide; below 1366px the Tags column folds to a strip so the rest still fits.">Table</button>
       <button data-view="card"  aria-pressed="false" title="Cards — the same data as the table, stacked one game per card. Used when the window is under 1280px.">Card</button>
-      <button data-view="grid"  aria-pressed="false" title="Grid — Steam box art with the QTPD score and review score on each card. Click a card for price and length.">Grid</button>
+      <button data-view="grid"  aria-pressed="false" title="Grid — Steam box art with the QTPD score and both review scores (30-day and all-time) on each card, plus whatever you are sorting by. Hover the art to play the game's preview clip, or tap it on a phone. Click a card for price, length and playtime.">Grid</button>
     </div>
     <!-- Hover preview switch. Lives here with the other DISPLAY preferences (not in the
          filter panel, which is about which games you see). It exists because the preview
@@ -1535,7 +1593,7 @@ try{
     <span class="rb-lbl">Preview</span>
     <div class="seg viewseg" role="group" aria-label="Hover video preview">
       <button id="trailerToggle" aria-pressed="true"
-              title="Play the game's Steam preview clip when you hover its thumbnail, instead of just enlarging the still. This is the same short silent loop Steam plays on its own store capsules — a few hundred KB, loaded only for the game you actually hover. Turn off to keep the enlarged still only.">Video</button>
+              title="Play the game's Steam preview clip instead of a still — hover a table thumbnail, or in Grid view hover a card's box art (tap it on a phone; tap again to stop). This is the same short silent loop Steam plays on its own store capsules — a few hundred KB, loaded only for the game you actually pick. Turn off to keep the stills only.">Video</button>
     </div>
     <div class="rb-legend" aria-hidden="true">
       <span class="rb-key" title="QTPD — Quality Time Per Dollar, the headline metric. Higher means more game-hours of value per dollar."><b class="k-q">QTPD</b> value score</span>
@@ -1561,8 +1619,8 @@ try{
             <th class="sortable center" data-sort="release_ts" title="Released — the Steam release date. Hover a row's value for the exact day.">Released</th>
             <th class="sortable center" data-sort="updated" title="Updated — how recently the game was last patched, and how often. Top line: time since the last update. Badge: updates in the last 90 days (hover it for the 365-day count). Sorts most-recently-updated first.">Updated</th>
             <th class="tagsth" id="tagsTh" title="Collapse the Tags column to give the space to Game — bigger art and full titles."><span class="tagslabel">Tags</span><span class="tagstoggle" id="tagsToggle">&gt;&lt;</span></th>
-            <th class="sortable num pad" data-sort="playtime" title="Playtime — median hours played, split by review. Green ▲ = players who recommended it; red ▼ = players who did not. Long hours on a ▼ is a real signal: someone knows the game well and still says skip. Hover a value for mean, sample size, and spread. Click to sort; pick which side sorts with the Playtime-sort toggle in the filters.">Playtime · <span class="ptup" id="pthUp">▲</span>/<span class="ptdown" id="pthDown">▼</span></th>
-            <th class="sortable num pad" data-sort="hltb" title="HLTB — Main / Main+Extras / Completionist hours, with the average below. Sorts by the HLTB metric picked above.">HLTB · M / E / 100%</th>
+            <th class="sortable num pad" data-sort="playtime" title="Playtime — median hours Steam reviewers actually PLAYED, split by review. Not the same as Length (HLTB), which is how long the game takes to finish. Green ▲ = players who recommended it; red ▼ = players who did not. Long hours on a ▼ is a real signal: someone knows the game well and still says skip. Hover a value for mean, sample size, and spread. Click to sort; pick which side sorts with the Playtime-sort toggle in the filters.">Playtime · <span class="ptup" id="pthUp">▲</span>/<span class="ptdown" id="pthDown">▼</span></th>
+            <th class="sortable num pad" data-sort="hltb" title="HLTB — HowLongToBeat, community-reported hours to FINISH the game: Main story / Main+Extras / Completionist, with the average below. This is the length QTPD divides the price by, and it is not the same as Playtime (hours actually played). Sorts by the HLTB metric picked above.">HLTB · M / E / 100%</th>
             <th class="sortable num pad" data-sort="qtpd" title="QTPD — Quality Time Per Dollar, the headline metric. Higher means more game-hours of value per dollar.">QTPD <span class="arrow" id="qarrow">▼</span></th>
           </tr>
         </thead>
@@ -1649,6 +1707,13 @@ const bandOf = rc => {
   return b;
 };
 
+// How many games one page renders. Fixed, not user-selectable: the old PER PAGE selector let
+// anyone pick 2000, which bought them nothing (infinite scroll already loads the next page on
+// reaching the bottom) and cost them a 2000-card rebuild on every keystroke, sort and tag click.
+// 66 is deliberately modest — enough to fill several screens of grid, small enough that a
+// re-render is imperceptible. ?per= still overrides it for anyone who wants a different size.
+const PAGE_SIZE = 66;
+
 // ----- state -----
 const state = { data:null, q:"", tagQuery:"", tagsInc:new Set(), tagsExc:new Set(), tagMode:"and", priceClass:new Set(["full","sale","free"]),
                 qBasis:"after", hltbMetric:"main", minScore:0, revBands:new Set([1,2,3,4]), minPrice:null, maxPrice:null,
@@ -1660,7 +1725,7 @@ const state = { data:null, q:"", tagQuery:"", tagsInc:new Set(), tagsExc:new Set
                 // so every scroll that tripped the infinite-scroll observer silently re-closed
                 // everything the user had opened. Holding it in state survives the rebuild.
                 openCards:new Set(),
-                pageSize:100, pagesShown:1,
+                pageSize:PAGE_SIZE, pagesShown:1,
                 wishlist:null, wishOnly:false, sortKey:"qtpd", sortDir:-1, ratingSource:"recent", hltbQuality:"real", ptMetric:"up", fullCounts:{},
                 view:"table", tagLinger:new Map(),   // tagLinger: tag -> clearedAt (ms) for chips fading out after a cycle-to-neutral
                 // PICS "Flags" cluster. Each key is independent; "any" = no filter.
@@ -2001,6 +2066,42 @@ function passNonRange(x){
 }
 function rangeActive(){ return state.qMinVal > 0.001 || !state.qMaxUnbounded; }
 
+// ----- Name sort: trimmed, letters before symbols, natural number order -----
+// Steam ships titles with leading whitespace — 22 of them in the current catalogue — and the
+// old comparator sorted the RAW string, so every one of those floated above "A". Twenty-two
+// rows is nothing until you notice they occupy the entire first screen of an A→Z sort, which
+// is why sorting by Name read as "sorted by nothing".
+//
+// One hoisted Intl.Collator rather than per-call String.localeCompare: `numeric` puts Portal 2
+// after Portal rather than after Portal 10, and reusing one collator across a 127k-row sort is
+// dramatically cheaper than constructing the comparison afresh for every pair.
+const TITLE_COLLATOR = new Intl.Collator(undefined, {numeric:true, sensitivity:"base"});
+// Bucket 0 = starts with a letter or a digit, bucket 1 = starts with anything else (`//SNOW…`,
+// `#KILLALLZOMBIES`, `[the Sequence]`, `¡Zombies!`, `🔴 Circles` — 295 titles). No per-script
+// table is needed for "Latin, then Cyrillic, then Japanese": a default collator already orders
+// scripts that way, so classifying "is this a real letter at all" is the whole job.
+const titleBucket = s => /^[\p{L}\p{N}]/u.test(s) ? 0 : 1;
+// \p{Cf} as well as \s: eight titles open with a zero-width space or joiner (U+200B/200C/200D,
+// all General_Category=Cf) rather than a real one. Those are the same bug wearing an invisible
+// costume — "​Triple Fantasy" looks like it starts with T and was sorting among the symbols —
+// and .trim() alone does not touch them.
+const TITLE_TRIM = /^[\s\p{Cf}]+|[\s\p{Cf}]+$/gu;
+// Cached on the game object: sortKey() runs twice per comparison, ~2 × n log n times per sort.
+function titleSortKey(g){
+  let k = g._tkey;
+  if(k === undefined){ k = g._tkey = g.title.replace(TITLE_TRIM, ""); }
+  return k;
+}
+// Takes `dir` rather than letting the caller multiply, because the bucket must NOT be flipped:
+// symbol-titles belong at the far end of the list whichever way the names run, exactly as a null
+// value always sorts last below. Only the name comparison within a bucket reverses.
+function cmpTitle(a, b, dir){
+  const ak = titleSortKey(a), bk = titleSortKey(b);
+  const ab = titleBucket(ak), bb = titleBucket(bk);
+  if(ab !== bb) return ab - bb;
+  return dir * TITLE_COLLATOR.compare(ak, bk);
+}
+
 function visibleGames(){
   let g = state.data.games.filter(passNonRange);
   if(rangeActive()) g = g.filter(x => {
@@ -2028,7 +2129,7 @@ function visibleGames(){
                  : k === "updated" ? x.last_update_ts
                  : x[k];
   g.sort((a,b)=>{
-    if(k === "title") return dir * a.title.localeCompare(b.title);
+    if(k === "title") return cmpTitle(a, b, dir);
     let av = val(a), bv = val(b);
     const an = av == null, bn = bv == null;
     if(an && bn) return 0;
@@ -2119,6 +2220,10 @@ function render(){
 
   // L3/L5: grid view renders box-art cards from the same paged `games`; table view builds rows.
   if(state.view === "grid"){
+    // innerHTML replaces every card, including the one currently playing, which would leave
+    // `media` pointing at a detached node and its <video> streaming with no way to reach it.
+    // Same class of bug as the open-card state that item #13 fixed: the DOM does not survive.
+    if(media && media.pop.closest("#gridview")) stopMedia();
     $("#gridview").innerHTML = games.map(gridCardHTML).join("");
     tbody.innerHTML = "";
   } else {
@@ -2299,10 +2404,10 @@ function render(){
             <img loading="lazy" src="${imgChain(g.appid, g.art)[0]}" alt="" referrerpolicy="no-referrer"
                  data-appid="${g.appid}" data-art="${esc(g.art || "")}" data-step="0"
                  onerror="stepThumb(this,true)" onload="stepThumb(this,false)" />
-            <span class="pop"><img alt="" referrerpolicy="no-referrer" /></span>
+            <span class="pop mediabox"><img alt="" referrerpolicy="no-referrer" /></span>
           </span>
           <span class="gmeta">
-            <a class="gtitle" href="${esc(g.url)}" target="_blank" rel="noopener">${esc(g.title)}</a>${wished}
+            <a class="gtitle" href="${esc(g.url)}" target="_blank" rel="noopener" title="${esc(g.title)}">${esc(g.title)}</a>${wished}
             <div class="gsub">${g.review_count? g.review_count.toLocaleString()+" reviews" : "app "+g.appid}</div>
           </span></div></td>
       <td data-label="Reviews">${reviews}</td>
@@ -2652,7 +2757,10 @@ function showShot(m, item){
   back.src = item.url;
 }
 
-function armMedia(thumb, pop){
+// `dwell` defaults to the hover delay. A TAP passes 0: the dwell exists to stop a pointer
+// sweeping across rows from firing a video per row it crosses, and a tap has no such problem —
+// it is already a deliberate act, so making it wait would just feel broken.
+function armMedia(thumb, pop, dwell){
   if(media && media.pop === pop) return;   // mouseover re-fires on child nodes; ignore
   stopMedia();
   // One switch governs every kind of panel motion. A cross-fading slideshow is motion
@@ -2687,7 +2795,7 @@ function armMedia(thumb, pop){
       mkPips(m);
       if(started) setPips(m); else showMedia(m, 0);
     });
-  }, TRAILER_DWELL_MS));
+  }, dwell == null ? TRAILER_DWELL_MS : dwell));
 }
 
 // thumbnail hover-enlarge
@@ -2728,6 +2836,46 @@ document.body.addEventListener("mouseout", e => {
     stopTrailer();
   }
 });
+
+// ── Grid card preview ─────────────────────────────────────────────────────────────────
+// The Preview/Video switch used to be a control that lied: it is wired to `.thumb`, which
+// exists only in a table/card row, so pressing it in Grid view saved a preference and
+// produced no observable effect at all. Grid is also the view that survives on a phone
+// (setView coerces Table→Card when narrow, but leaves Grid alone), so a hover-only preview
+// would have shipped the feature to the smaller half of the audience.
+//
+// Two gestures, one code path — armMedia() takes any .mediabox, and a card's .gart is one:
+//   pointer devices : hover-dwell on the art, same 350ms as the table
+//   touch devices   : TAP the art; tap again to stop
+// The card therefore has two zones — art = watch, panel/rest = flip to details — and the ▶
+// badge on the art is what advertises the split, so it isn't a hidden gesture. Tap-to-play is
+// also the gentler behaviour on the metered connections the Video switch was built for: a
+// pointer sweeping a grid would fire a download per card it crossed, whereas a tap is one
+// deliberate clip, once.
+const CAN_HOVER = matchMedia("(hover: hover)").matches;
+// Not playable while the details face is up (the art is behind it), never on art still behind
+// the 18+ blur — the same rule the table thumb follows — and never when the Video switch is off,
+// which matters for more than just suppressing the clip: on touch the art only steals the tap
+// from the card's flip gesture when it has something to play, so with previews off the whole
+// card goes back to being one flip target.
+function gridArtPlayable(art){
+  if(!trailersOn()) return false;
+  const card = art.closest(".gcard");
+  if(!card || card.classList.contains("open")) return false;
+  if(card.classList.contains("adult") && !card.classList.contains("revealed")) return false;
+  return true;
+}
+if(CAN_HOVER){
+  document.body.addEventListener("mouseover", e => {
+    const art = e.target.closest(".gcard .gart");
+    if(!art || !gridArtPlayable(art)) return;
+    armMedia(art, art);          // carrier and box are the same element: the clip plays in place
+  });
+  document.body.addEventListener("mouseout", e => {
+    const art = e.target.closest(".gcard .gart");
+    if(art && !art.contains(e.relatedTarget)) stopMedia();
+  });
+}
 
 // ── Three-stage 18+ gate for adult art (PICS content_desc 3/4) ────────────────────────
 // Shared by the table thumbnail and the grid card, so both gates behave identically.
@@ -3055,6 +3203,11 @@ function gridCardHTML(g){
   const disc = onSale
     ? `<span class="gdisc" title="On sale — ${g.discount_pct}% off right now. Discounted games also carry the gold card edge.">-${g.discount_pct}%</span>`
     : "";
+  // On a pointer device the ▶ appears during the hover-dwell (armMedia adds it), the way it does
+  // on a table row. On touch there IS no hover to reveal it, and the badge is doing double duty —
+  // it says "this game has a clip" AND "the art is its own tap target" — so it is painted up
+  // front for every card that has something to play.
+  const artCls = (!CAN_HOVER && trailersOn() && trailerSources(g.appid).length) ? " hastrailer" : "";
   const qLbl = freeMode() ? "FREE" : "QTPD";
   // Every mark on the card carries its own explanation: the score, what "high" means, and the
   // review %. None of it was labelled before — the card showed two bare numbers and a coloured
@@ -3064,10 +3217,43 @@ function gridCardHTML(g){
   const qHtml = q != null
     ? `<span class="gq" title="${esc(qTip)}">${qLbl} ${fmtQval(q)}</span>`
     : `<span class="gq na" title="${esc(qLbl)} — not available for this game (no price or no length data).">${qLbl} —</span>`;
-  // Rating = Steam all-time review score, plain number + % (no weighted/recent source letters).
-  const rateHtml = g.rating_pct != null
-    ? `<span class="grate" style="color:${ratingColor(g.rating_pct)}" title="Steam review score — ${g.rating_pct}% of ${g.review_count ? g.review_count.toLocaleString() + " reviews are" : "reviews are"} positive. Colour runs red (low) to green (high).">${g.rating_pct}%</span>`
-    : `<span class="grate na" title="Steam review score — none yet for this game.">—</span>`;
+  // BOTH review scores, stacked, each labelled. The card used to print one bare number — the
+  // ALL-TIME score — while sorting by Review score sorts on whichever period the All-time/30-day
+  // toggle selects, and that defaults to 30-day. So "sort by review score" produced a grid
+  // reading 92, 97, 95, 95, 91… : perfectly ordered on 100%, 100%, 100%, 100%, 100%, a column
+  // that was nowhere on screen. Printing both, with the sorted one lit, makes the order
+  // verifiable instead of looking broken. No minimum-review rule is applied — the ranking is
+  // left exactly as it was, only made legible.
+  // Which row the sort ACTUALLY used, not merely which period is selected: ratingVal() falls back
+  // to the all-time score when a game has no 30-day one, so gold-tagging "30d" on a card whose
+  // 30-day cell is a dash would point at the wrong number — the very confusion this fixes.
+  const active = (state.ratingSource === "recent" && g.recent_pct != null) ? "recent" : "all";
+  const rateRow = (pct, count, key) => {
+    const is30 = key === "recent";
+    const lbl  = is30 ? "30d" : "all";
+    const on   = active === key;
+    const per  = is30 ? "in the last 30 days" : "over the game's whole history";
+    if(pct == null){
+      const why = is30 ? "No reviews in the last 30 days." : "No reviews yet.";
+      return `<span class="grate na${on ? " gsel" : ""}" title="Steam review score, ${per} — ${why}">`
+           + `—<span class="grlbl">${lbl}</span></span>`;
+    }
+    const n = count ? count.toLocaleString() + ` review${count === 1 ? "" : "s"}` : "reviews";
+    return `<span class="grate${on ? " gsel" : ""}" style="color:${ratingColor(pct)}"`
+         + ` title="Steam review score, ${per} — ${pct}% of ${n} positive. Colour runs red (low) to green (high).`
+         + `${on ? " This is the figure the current Review-score sort uses." : ""}">`
+         + `${pct}%<span class="grlbl">${lbl}</span></span>`;
+  };
+  const rateHtml = `<div class="grates">`
+    + rateRow(g.recent_pct, g.recent_count, "recent")
+    + rateRow(g.rating_pct, g.review_count, "all")
+    + `</div>`;
+  // The active sort's value, on the free half of the QTPD line. The grid sort bar offers all
+  // thirteen fields while the card shows three, so sorting by Review count / Trend / Weighted /
+  // Updated / Playtime / HLTB reordered the grid by a quantity that appeared nowhere. Rather
+  // than deleting those sorts, the card shows whatever it is currently sorted by — and shows
+  // nothing when the sort is already visible on the card (QTPD, Name, and the two scores).
+  const sortHtml = gridSortValueHTML(g);
   let priceTxt;
   const pfx = g.price_src === "package" ? "from " : "";
   if(g.is_free) priceTxt = "Free";
@@ -3076,20 +3262,39 @@ function gridCardHTML(g){
   else priceTxt = `${pfx}$${g.price_final.toFixed(2)}`;
   const h = hoursFor(g);
   const hStr = h != null ? (h >= 10 ? Math.round(h) : (Math.round(h * 10) / 10).toFixed(1)) + "h" : "—";
+  // Length and Playtime are two different measurements and the card used to show only the
+  // sparser one under the ambiguous label "Length", which read as though it were the same thing
+  // as the Playtime you can sort by. They're now named apart and shown together — but only here,
+  // on the opened face, so the front of the card stays a three-figure summary.
+  //   Length   = HowLongToBeat hours to FINISH. It is what QTPD divides price by, so it stays
+  //              first: without it the headline number on the card can't be explained.
+  //   Playtime = median hours reviewers actually PLAYED. Far better covered (63.5% of the
+  //              catalogue against 11.8% for non-estimated HLTB), which is why a card whose
+  //              Length is "—" usually still has something to say here.
+  const ptMins = g.pt_up != null ? g.pt_up : g.pt_down;
+  const ptStr = ptMins != null
+    ? (ptMins/60 >= 10 ? Math.round(ptMins/60) : (ptMins/60).toFixed(1)) + "h"
+    : "—";
+  const ptTip = g.pt_up != null
+    ? "Playtime — median hours played by reviewers who recommended it. Time spent, not time to finish."
+    : (g.pt_down != null
+        ? "Playtime — median hours played by reviewers who did NOT recommend it; too few recommenders for a median of their own."
+        : "Playtime — too few reviews with playtime data (3+ needed) for a median.");
   return `<div class="${cls}" data-gappid="${g.appid}" tabindex="0" role="button" aria-label="${esc(g.title)}">
-    <div class="gart">
+    <div class="gart mediabox${artCls}" data-appid="${g.appid}" data-art="${esc(g.art || "")}">
       <img class="gcap" loading="lazy" src="${headerUrl(g.appid)}" alt="" referrerpolicy="no-referrer"
            onerror="this.onerror=null;this.src='${capsuleUrl(g.appid)}'" />
-      ${disc}
+      ${disc}<span class="gplay" aria-hidden="true">▶</span>
     </div>
     <div class="gmeta">
-      <div class="gmeta-top"><div class="gname">${esc(g.title)}</div>${rateHtml}</div>
-      ${qHtml}
+      <div class="gmeta-top"><div class="gname" title="${esc(g.title)}">${esc(g.title)}</div>${rateHtml}</div>
+      <div class="gmeta-bot">${qHtml}${sortHtml}</div>
     </div>
     <div class="ginfo">
       <div class="gi-title">${esc(g.title)}</div>
       <div class="gi-row"><span>Price</span><b>${priceTxt}</b></div>
-      <div class="gi-row"><span>Length</span><b>${hStr}</b></div>
+      <div class="gi-row" title="Length — HowLongToBeat, community-reported hours to finish the game. This is the length QTPD divides the price by."><span>Length <i>HLTB</i></span><b>${hStr}</b></div>
+      <div class="gi-row" title="${esc(ptTip)}"><span>Playtime <i>median</i></span><b>${ptStr}</b></div>
       <div class="gi-actions">
         <a class="gi-steam" href="${esc(g.url)}" target="_blank" rel="noopener">Steam ↗</a>
         <button type="button" data-gclose="1">Close ✕</button>
@@ -3098,9 +3303,62 @@ function gridCardHTML(g){
   </div>`;
 }
 
+// The value of whatever the grid is currently sorted by, for the right-hand end of the card's
+// QTPD line. Returns "" for sorts the card already displays, so the slot only appears when it
+// is telling you something you can't otherwise see.
+//
+// Each entry is [text, unit] rather than a bare number: a naked figure on a grid card is exactly
+// the problem item #9 was raised about — "43,201" alone says nothing, "43,201 rev" says it in
+// three more characters. The unit is dimmed so the number still reads first.
+const GSORT_SELF_EVIDENT = new Set(["qtpd", "title", "rating_pct"]);
+function gridSortValueHTML(g){
+  const k = state.sortKey;
+  if(GSORT_SELF_EVIDENT.has(k)) return "";
+  let txt = null, unit = "";
+  if(k === "review_count"){
+    const n = state.ratingSource === "recent" ? g.recent_count : g.review_count;
+    if(n != null){ txt = n.toLocaleString(); unit = "rev"; }
+  } else if(k === "trend"){
+    const t = gTrend(g);
+    if(t != null){ txt = (t > 0 ? "▲ +" : t < 0 ? "▼ " : "≈ ") + t; unit = "trend"; }
+  } else if(k === "wr"){
+    if(g.wr != null){ txt = g.wr + "%"; unit = "wtd"; }
+  } else if(k === "price_final"){
+    txt = g.is_free ? "Free" : (g.price_final != null ? "$" + g.price_final.toFixed(2) : null);
+  } else if(k === "discount_pct"){
+    if(g.discount_pct > 0){ txt = "-" + g.discount_pct + "%"; unit = "off"; }
+  } else if(k === "discount_end"){
+    const c = fmtCountdown(g.discount_end); if(c){ txt = c.text; unit = "left"; }
+  } else if(k === "release_ts"){
+    if(g.release_ts) txt = new Date(g.release_ts * 1000).getFullYear();
+  } else if(k === "updated"){
+    if(g.last_update_ts) txt = relTime(g.last_update_ts);
+  } else if(k === "playtime"){
+    const m = state.ptMetric === "down" ? g.pt_down : g.pt_up;
+    // Named, not just arrowed: "1108h ▲" is a riddle, "1108h ▲play" is a fact. Both length
+    // fields render as "Nh", so the unit is the only thing telling them apart.
+    if(m != null){ txt = (m/60 >= 10 ? Math.round(m/60) : (m/60).toFixed(1)) + "h"; unit = (state.ptMetric === "down" ? "▼" : "▲") + "play"; }
+  } else if(k === "hltb"){
+    const h = hoursFor(g);
+    if(h != null){ txt = (h >= 10 ? Math.round(h) : h.toFixed(1)) + "h"; unit = "len"; }
+  }
+  const lbl = SORT_LABELS[k] || k;
+  // The slot renders even with no value, as a dash: it is one flex row, and a card that dropped
+  // it entirely would sit differently from its neighbours in the same row.
+  const tip = txt == null
+    ? `Sorted by ${lbl} — no value for this game, so it sorts to the end.`
+    : `Sorted by ${lbl}. ${SORT_TIPS[k] || ""}`;
+  return `<span class="gsortval${txt == null ? " na" : ""}" title="${esc(tip.trim())}">`
+       + `${txt == null ? "—" : esc(String(txt))}${unit ? `<span class="gsvu">${esc(unit)}</span>` : ""}</span>`;
+}
+
 // Open/close one grid card. The class drives the CSS; the state Set is what survives the next
 // render() — never toggle the class directly, or the card reverts on the next rebuild.
 function setCardOpen(card, open){
+  // The details face covers the art, so a clip playing behind it would keep streaming where
+  // nobody can see it — and on touch the tap that opened the card is the same tap that would
+  // otherwise have started it.
+  if(open && media && card.contains(media.pop)) stopMedia();
   card.classList.toggle("open", open);
   const id = card.dataset.gappid;
   if(!id) return;
@@ -3203,6 +3461,26 @@ function markChangedControls(){
 const SORT_LABELS = {qtpd:"QTPD", title:"Name", rating_pct:"Review score", review_count:"Review count",
   trend:"Trend", wr:"Weighted", price_final:"Price", discount_pct:"Discount", discount_end:"Sale ends",
   release_ts:"Released", updated:"Updated", playtime:"Playtime", hltb:"HLTB"};
+// What each sort field MEANS, keyed the same as SORT_LABELS. The grid sort bar used to generate
+// its tooltips as `"Sort by " + label`, which on the one field nobody can guess produced the
+// tooltip "Sort by HLTB" — the acronym restated and nothing else. The words "HowLongToBeat"
+// appeared nowhere on the page. Written once here and reused by the grid bar, so the explanation
+// lives in one place instead of being duplicated per control.
+const SORT_TIPS = {
+  qtpd:         "QTPD — Quality Time Per Dollar, the headline metric. Game-hours of value per dollar; higher is better.",
+  title:        "Name — alphabetical. Titles starting with a symbol sort to the end rather than the top.",
+  rating_pct:   "Review score — the share of Steam reviews that are positive. Sorts on the period picked by the All-time / 30-day toggle; both figures are shown on every card.",
+  review_count: "Review count — how many reviews the game has. A high score on 20 reviews means far less than the same score on 20,000.",
+  trend:        "Trend — the recent score minus the all-time score: whether opinion is improving, stable, or declining.",
+  wr:           "Weighted — a review score where each vote counts by how long that player actually played, so a 300-hour thumbs-up outweighs a 20-minute one.",
+  price_final:  "Price — what the game costs right now, after any discount.",
+  discount_pct: "Discount — the size of the current price cut. Games not on sale sort as no discount.",
+  discount_end: "Sale ends — how long is left on the current discount. Sorts soonest-ending first.",
+  release_ts:   "Released — the Steam release date.",
+  updated:      "Updated — how recently the game was last patched. Sorts most-recently-updated first.",
+  playtime:     "Playtime — the median hours Steam reviewers actually played, split by whether they recommended it. Not the same as Length: this is time spent, not time to finish.",
+  hltb:         "HLTB — HowLongToBeat, community-reported hours to finish a game: Main story, Main + Extras, or Completionist. This is the length QTPD divides the price by."
+};
 const REV_LBLS = ["0", "10", "100", "1k", "5k+"];
 
 function renderSummary(){
@@ -3436,11 +3714,19 @@ function renderMeta(){
   // Show the full filtered count, not just the rows currently paged into view.
   const total = (state._totalFiltered != null) ? state._totalFiltered : $("#rows").children.length;
   const badge = d.sample ? '<span class="preview-badge">preview data</span>' : '';
-  const when = d.sample ? '' : `${relTime(d.generated_at)} · `;
   const hid = state.hidden.size
     ? ` · <button id="unhide" class="unhide-link" title="Show the games you've hidden this session">${state.hidden.size} hidden ✕</button>`
     : '';
-  $("#meta").innerHTML = `<span class="n">${total}</span> / ${d.games.length} games · ${when}USD${badge}${hid}`;
+  // Four separate facts used to sit in this strip as one unlabelled mono line with no explanation
+  // anywhere: what the two numbers count, what the timestamp is the age OF (the scrape, not the
+  // page load), and why USD is asserted. Each group carries its own tip rather than one blob over
+  // the whole line — the tooltip engine picks up any [title] and adds the help cursor for free.
+  const countTip = "Results — games matching your current filters, out of every game in the dataset.";
+  const ageTip   = "Data age — how long since the scraper last refreshed prices and reviews. Updates run continuously, so this is usually minutes, not days.";
+  const curTip   = "Currency — every price here is US dollars from the Steam US store. There is no currency conversion.";
+  const counts = `<span title="${esc(countTip)}"><span class="n">${total}</span> / ${d.games.length} games</span>`;
+  const when   = d.sample ? '' : `<span title="${esc(ageTip)}">${relTime(d.generated_at)}</span> · `;
+  $("#meta").innerHTML = `${counts} · ${when}<span title="${esc(curTip)}">USD</span>${badge}${hid}`;
   const ub = $("#unhide"); if(ub) ub.addEventListener("click", unhideAll);
   renderSummary();          // L2: keep the collapsed-bar summary sentence current
   updateSectionCounts();    // L1: keep each accordion's "N active" badge current
@@ -3618,7 +3904,7 @@ function buildGridSortButtons(){
   GSORT_BTNS = Object.entries(SORT_LABELS).map(([k, lbl]) => {
     const b = document.createElement("button");
     b.type = "button"; b.className = "gsort-b"; b.dataset.sortk = k;
-    b.textContent = lbl; b.title = `Sort by ${lbl}`;
+    b.textContent = lbl; b.title = SORT_TIPS[k] || `Sort by ${lbl}`;
     wrap.appendChild(b);
     return b;
   });
@@ -3779,7 +4065,7 @@ function syncURL(){
   if(state.ptMetric !== "up") p.set("pt", state.ptMetric);
   if(state.sortKey !== "qtpd") p.set("sort", state.sortKey);
   if(!(state.sortKey === "qtpd" && state.sortDir === -1)) p.set("dir", state.sortDir < 0 ? "d" : "a");
-  if(state.pageSize !== 100) p.set("per", state.pageSize);
+  if(state.pageSize !== PAGE_SIZE) p.set("per", state.pageSize);
   if(state.qRangeTouched){
     p.set("qmin", state.qMinVal.toFixed(3));
     if(!state.qMaxUnbounded) p.set("qmax", state.qMaxVal.toFixed(3));
@@ -3838,8 +4124,10 @@ function loadFromURL(){
     document.querySelectorAll("[data-ptmetric]").forEach(o => o.setAttribute("aria-pressed", o.dataset.ptmetric===v)); } });
   setIf("ratesrc", v => { if(v==="all"||v==="recent"){ state.ratingSource = v;
     document.querySelectorAll("[data-ratesrc]").forEach(o => o.setAttribute("aria-pressed", o.dataset.ratesrc===v)); } });
-  setIf("per", v => { const n = parseInt(v,10); if([100,500,2000].includes(n)){ state.pageSize = n;
-    document.querySelectorAll("#pagesize button").forEach(o => o.classList.toggle("on", o.dataset.size===String(n))); } });
+  // ?per= outlives the removed selector so links shared before it went away still resolve, and
+  // so a page size stays reachable for anyone who wants one. Validated as a range now rather than
+  // the old [100,500,2000] whitelist, which would have rejected the new default of 66.
+  setIf("per", v => { const n = parseInt(v,10); if(Number.isFinite(n) && n >= 1 && n <= 2000) state.pageSize = n; });
   // QTPD range restored after domain is computed (see applyURLRange), just capture raw:
   state._pendingQMin = p.has("qmin") ? parseFloat(p.get("qmin")) : null;
   state._pendingQMax = p.has("qmax") ? parseFloat(p.get("qmax")) : null;
@@ -3915,13 +4203,6 @@ function init(data){
   $("#steamidClear").addEventListener("click", () => {
     const el = $("#steamid"); el.value = ""; syncWishClear(); el.focus();
   });
-  // Page-size selector: change games-per-page, reset to page 1, re-render.
-  document.querySelectorAll("#pagesize button").forEach(b =>
-    b.addEventListener("click", () => {
-      state.pageSize = parseInt(b.dataset.size, 10);
-      document.querySelectorAll("#pagesize button").forEach(x => x.classList.toggle("on", x === b));
-      resetPaging(); render(); syncURL();
-    }));
   // Price-type band: All is a one-way reset (re-lights every facet, never itself un-presses).
   // Facets Full/Sale/Free toggle independently but can never all be off — un-pressing the
   // last lit facet snaps back to All-on, so the list is never empty.
@@ -3960,8 +4241,11 @@ function init(data){
       state.ratingSource = b.dataset.ratesrc;
       document.querySelectorAll("[data-ratesrc]").forEach(o => o.setAttribute("aria-pressed", o === b));
       syncSortArrows();     // header hint reflects which score drives the Reviews sort
-      // Both halves of the Reviews column follow the period toggle, so re-sort for either.
-      if(state.sortKey === "rating_pct" || state.sortKey === "review_count"){ render(); }
+      // Always re-render, not only when the Reviews column is the sort key. Grid cards print
+      // BOTH periods and gold-tag whichever one the sort would use, so the toggle changes what
+      // is on screen even when the list order doesn't move — and a Review-count sort in grid
+      // shows the count for the selected period too.
+      render();
       syncURL();
     }));
   document.querySelectorAll("[data-rev]").forEach(b =>
@@ -4141,7 +4425,7 @@ function init(data){
       btn.setAttribute("aria-pressed", String(on));
       if(REDUCED_MOTION){
         btn.classList.add("disabled");
-        btn.title = "Hover video previews are off because your system is set to reduce motion.";
+        btn.title = "Video previews are off because your system is set to reduce motion.";
       }
     };
     btn.addEventListener("click", () => {
@@ -4149,6 +4433,10 @@ function init(data){
       const on = !trailersOn();
       try{ localStorage.setItem("qtpd.trailers", on ? "1" : "0"); }catch(e){}
       if(!on) stopTrailer();          // kill anything playing the moment it's switched off
+      // Grid cards paint their ▶ affordance at render time on touch devices, so the switch has
+      // to rebuild them or it would keep advertising a tap it no longer honours. Only when it
+      // would actually change something on screen.
+      if(state.view === "grid" && !CAN_HOVER) render();
       sync();
     });
     sync();
@@ -4243,6 +4531,21 @@ function init(data){
       e.preventDefault(); e.stopPropagation();
       adultSetStage(card, adultStage(card) === 1 ? 2 : 3);
       return;
+    }
+    // Touch: the art is its own tap target — play/stop the clip instead of flipping the card.
+    // Everything else on the card still flips, which is why the ▶ badge is painted on the art:
+    // it marks the boundary between the two zones. Pointer devices skip this entirely and keep
+    // the plain click-anywhere-to-flip behaviour, since hover already plays the clip for them.
+    if(!CAN_HOVER){
+      const art = e.target.closest(".gart");
+      // `.hastrailer` — the ▶ badge — is the contract: the art takes the tap exactly when it is
+      // showing the user that it will. A card with no clip has no badge and stays a plain flip
+      // target, rather than eating the tap and appearing dead.
+      if(art && art.classList.contains("hastrailer") && gridArtPlayable(art)){
+        e.preventDefault(); e.stopPropagation();
+        if(media && media.pop === art) stopMedia(); else armMedia(art, art, 0);
+        return;
+      }
     }
     if(e.target.closest("[data-gclose]")){ setCardOpen(card, false); return; }
     setCardOpen(card, !card.classList.contains("open"));
