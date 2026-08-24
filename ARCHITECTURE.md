@@ -2565,8 +2565,9 @@ revert is just `STEAM_DELAY` back to 2.0 and/or fewer slots.
   and drops flagged review bombs, so its count is lower and usually its percentage is higher
   (Moonlighter: 21,971 reviews / 82% here vs 17,224 / *Very Positive* there). Both are correct
   for what they measure; `purchase_type=all` is the wider, harder-to-game population and is
-  what the weighted rating (§10) is built on. The 30-day figure from `recent.json` uses the
-  same call and tracks the store's *Recent Reviews* closely (Moonlighter 79% / 149 vs 146).
+  what the weighted rating (§10) is built on. The 30-day figure is unaffected: `recent.json`
+  reads Steam's own `appreviewhistogram`, so it tracks the store's *Recent Reviews* closely
+  (Moonlighter 79% / 149 vs the store's 146) — which is why only the all-time line looks off.
 - **Dataset size** — the two per-game working sets are **sharded** (`playtime_raw/NN.json` and
   `updates_raw/NN.json`, 64 buckets each) because one file would exceed GitHub's 100 MB limit.
   Measured (`SHARDS.md`, 2026-07-22): the biggest `playtime_raw/` shard is **13.27 MB**, median
