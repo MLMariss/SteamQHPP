@@ -617,6 +617,17 @@
   /* Let the browser keep vertical panning (the grid scrolls) and pinch-zoom, but stop it
      claiming HORIZONTAL drags on a swipeable card — those are the preview's. */
   .gart.hasclip{touch-action:pan-y pinch-zoom}
+  /* ...and while a card is ACTUALLY PLAYING, the preview takes vertical too, so a swipe up can
+     pull it into the stage (see bindMediaSwipe). `touch-action` is read by the browser when the
+     gesture STARTS, so this cannot be decided mid-drag — it has to be a class that goes on with
+     the playback and comes off with it (armMedia / stopMedia).
+     The trade is deliberate and narrow: while a clip is running, that one card stops being a
+     place you can scroll from. It is one card out of the eight or so on screen, and it always
+     has two ways out that also restore scrolling — the ■ badge, and a swipe DOWN, which stops
+     the preview. Every card that is not playing pans exactly as it always did.
+     MUST stay after .gart.hasclip above: the two selectors have identical specificity, so
+     source order is the only thing that decides which wins. */
+  .gart.armed{touch-action:none}
   /* Adult games (PICS content_desc 3/4): blur the art behind a three-stage reveal.
      Stage 1 (default):   blurred + "18+" badge, whole thumb is a button.
      Stage 2 (.confirm):  click once -> "18+?" confirmation prompt.
@@ -1139,6 +1150,137 @@
   tbody tr.flash{animation:qflash 2.2s ease}
   .gcard.flash{border-color:var(--gold); box-shadow:0 0 0 2px var(--gold)}
 
+  /* ── The preview stage: a docked player for the phone ─────────────────────────────────
+     The mobile grid plays its preview INSIDE the card, and on a 390px phone that card's art is
+     171x80px — roughly 3% of the viewport, with a 16:9 clip cropped into a 2.14:1 box on top of
+     that. The stage promotes what you tapped into a full-width 16:9 player docked under the
+     sticky nav, and turns the grid below into its remote control: tap any card and that game
+     loads up here instead of starting a second preview down there.
+
+     It is a .mediabox, like the hover popup and a grid card's art — so every rule about how a
+     clip, the two screenshot layers and the pips behave inside a box is already written above
+     and shared by all three. Only the geometry and the chrome are new.
+
+     WHY IT LIVES OUTSIDE #gridview (see the markup): render() rebuilds the grid with innerHTML
+     on every filter keystroke, every sort click AND every infinite-scroll page bump. Anything
+     inside it is destroyed by the very act this feature exists for — scrolling the grid while
+     watching. A sibling survives, and render()'s existing
+     `if(media.pop.closest("#gridview")) stopMedia()` guard becomes exactly right untouched. */
+  .stage{display:none}
+  body.stage-open .stage{display:block}
+  /* Sticky and IN FLOW rather than fixed and overlaid: the block then pushes the grid down by
+     itself, so opening and closing it needs no scroll-position arithmetic and the list never
+     jumps under the finger. There is no clipping ancestor on the path
+     body > .wrap.body > .tablecard (and .tablescroll goes overflow:visible once narrow), so
+     sticky works here with nothing else changed.
+     `top` TRACKS the nav rather than assuming a height: past 24px of scroll, body.nav-scrolled
+     hides .bar-main and the sticky nav shrinks, so --nav-h is written from a ResizeObserver on
+     #topbar (syncNavH). z-index sits below .topbar's 40, so opening the filter panel covers the
+     player instead of fighting it. */
+  body.narrow .stage{position:sticky; top:var(--nav-h,0px); z-index:35;
+        background:linear-gradient(180deg,#141c2c,#111827); border-bottom:1px solid var(--line);
+        border-radius:10px 10px 0 0; padding:0 10px 4px; box-shadow:0 10px 22px #0007}
+  /* The affordance for the swipe that closes it. A bare edge says nothing; a grabber is the one
+     phone idiom everybody already reads as "this pulls down". */
+  .stage-grab{height:15px; display:flex; align-items:center; justify-content:center}
+  .stage-grab::before{content:""; width:34px; height:4px; border-radius:99px; background:#ffffff2e}
+  /* 16:9, NOT the card's 460/215. Steam's microtrailers and its screenshots are both 16:9 — the
+     2.14:1 shape belongs to BOX ART, which is only the poster frame the video replaces ~350ms
+     later. At card size that crop costs little; at 210px tall it is about 17% of the picture. So
+     the stage takes the ratio of the thing you actually watch, and lets the poster lose its
+     sides to object-fit:cover instead — the same trade the hover popup already documents.
+     The width cap is what stops a landscape phone handing the whole screen to the player: past
+     that point the box narrows and centres rather than growing to fill a short viewport. */
+  .stage-box{position:relative; width:min(100%, calc(46vh * 16 / 9)); margin:0 auto;
+        aspect-ratio:16/9; overflow:hidden; background:#0b0f18; border-radius:8px;
+        /* Every direction on the player belongs to the player: left/right steps the playlist,
+           down closes it, a tap starts or stops. Nothing here needs to pan — the grid below is
+           what scrolls, which is how every docked video player on a phone already behaves. */
+        touch-action:none; cursor:pointer}
+  .stage-poster{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block}
+  /* Same two-glyph control as a card's .gplay badge, for the same reason: on touch there is no
+     hover, so the badge has to SAY which of start/stop the next tap will do. pointer-events stay
+     off — the whole box is the tap target, and a real button here would eat the swipes. */
+  .splay{position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); z-index:4;
+        pointer-events:none; display:flex; align-items:center; justify-content:center;
+        width:52px; height:52px; border-radius:50%;
+        font-family:var(--mono); font-size:20px; line-height:1; color:#0e1320;
+        background:var(--gold); box-shadow:0 0 0 3px #0b0f18b3, 0 3px 14px #000a;
+        opacity:.95; transition:opacity .22s ease, width .22s ease, height .22s ease}
+  .splay i{font-style:normal}
+  .splay .gp-play{margin-left:3px}          /* ▶ is optically left-heavy inside a circle */
+  .splay .gp-stop{display:none; font-size:15px}
+  /* Once there is footage, the big gold disc would be sitting in the middle of it — so it
+     shrinks into the corner and becomes the stop control, rather than disappearing the way the
+     hover popup's does. Nothing else on the player stops it. */
+  .stage-box.rotating .splay{left:10px; top:auto; bottom:10px; transform:none;
+        width:30px; height:30px; font-size:13px; background:#0b0f18cc; color:#fff; opacity:.88;
+        box-shadow:0 0 0 1px #ffffff33, 0 2px 10px #000a}
+  .stage-box.rotating .splay .gp-play{display:none}
+  .stage-box.rotating .splay .gp-stop{display:block}
+  /* The pips are the read-out for the swipe here exactly as they are on a card, so they get the
+     same enlarged treatment — but unconditionally, since the stage only ever exists on touch. */
+  .stage-box .pips{gap:6px; bottom:8px}
+  .stage-box .pips i{width:6px; height:6px; background:#ffffffa6}
+  .stage-box .pips i.on{width:16px; border-radius:99px}
+  /* What a 372px-wide strip can carry that a 171px card cannot: the full title, the headline
+     score, the price, BOTH review periods and both length figures — the same numbers as the
+     card's flip face, without the flip. */
+  .stage-meta{display:flex; flex-direction:column; gap:3px; padding:7px 1px 2px}
+  .sm-row{display:flex; align-items:center; gap:10px}
+  .sm-title{flex:1; min-width:0; font-weight:600; font-size:14px; color:var(--title);
+        white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+  .sm-title:hover{text-decoration:underline}
+  /* Allowed to WRAP to a second line rather than ellipse: six figures do not fit one phone
+     line, and half a number is no use to anybody. Two lines cost ~15px and the strip still
+     leaves three and a half rows of grid on screen. */
+  .sm-nums{flex:1; min-width:0; font-family:var(--mono); font-size:11.5px; color:var(--muted-2);
+        line-height:1.35; overflow:hidden;
+        display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical}
+  .sm-nums b{color:var(--gold); font-weight:600}
+  .sm-nums .smsep{opacity:.4; margin:0 4px}
+  .sm-ctl{display:flex; align-items:center; gap:3px; flex:none}
+  .stage-meta button{appearance:none; background:transparent; border:1px solid var(--line);
+        color:var(--muted); border-radius:8px; width:32px; height:30px; font-size:16px;
+        line-height:1; cursor:pointer; font-family:var(--mono); flex:none}
+  .stage-meta button:hover{color:var(--text); border-color:var(--muted-2)}
+  .stage-meta .sm-x{font-size:12px}
+  /* Pips stop being countable past about six, and the playlist regularly runs to seven. */
+  .sm-count{font-family:var(--mono); font-size:11.5px; color:var(--muted-2); min-width:34px;
+        text-align:center; font-variant-numeric:tabular-nums}
+  /* The stage's discovery path. A gesture nobody can see is a gesture nobody uses — the same
+     reasoning that turned .gplay from a 13px glyph into a gold disc when the trailers were going
+     unfound on touch. So while a card's preview is running it grows a second control, opposite
+     the stop badge: ⤢ pulls that preview up into the player. The swipe is the accelerator, not
+     the way in. Unlike .gplay this takes its OWN tap — it does something different from the art
+     underneath it — so it is a real button with real pointer-events. */
+  .gexp{position:absolute; right:8px; bottom:8px; z-index:5; display:none; appearance:none;
+        padding:0; border:0; cursor:pointer; align-items:center; justify-content:center;
+        width:28px; height:28px; border-radius:50%;
+        font-family:var(--mono); font-size:13px; line-height:1; color:#0e1320;
+        background:var(--gold); box-shadow:0 0 0 2px #0b0f18b3, 0 2px 10px #000a}
+  body.can-stage .gart.rotating .gexp{display:flex}
+  body.stage-open .gart .gexp{display:none}          /* it is already up there */
+  .gcard.adult:not(.revealed) .gexp{display:none}    /* nothing playable behind the gate */
+  /* Which card is on the stage. State-driven (state.stageAppid, re-applied by markStaged after
+     every render) rather than a class left on the element — the grid is rebuilt wholesale often
+     enough that a class alone would vanish on the next filter keystroke. */
+  .gcard.staged{border-color:var(--gold); box-shadow:0 0 0 2px var(--gold-soft)}
+  .thumb.staged{border-color:var(--gold); box-shadow:0 0 0 2px var(--gold-soft)}
+  /* Card view (the detailed view on a phone) had NO reachable preview at all: its only path was
+     the .pop panel, which is hover-only, so on touch the thumbnail simply did nothing. It now
+     opens the stage, and this badge is what says so. A real element rather than .thumb::after,
+     which the 18+ gate already owns — an element has one ::after, and the two would fight over
+     it. That is the same collision that gave the grid card a .gplay element instead. */
+  .thumb.hasclip{cursor:pointer}
+  .tplay{position:absolute; right:3px; bottom:3px; z-index:4; pointer-events:none;
+        display:flex; align-items:center; justify-content:center;
+        width:19px; height:19px; border-radius:50%;
+        font-family:var(--mono); font-size:9px; line-height:1; color:#0e1320;
+        background:var(--gold); box-shadow:0 0 0 1.5px #0b0f18b3}
+  .tplay i{font-style:normal; margin-left:1px}
+  .thumb.adult:not(.revealed) .tplay{display:none}
+
   /* ── Narrow screens: table → compact spec-sheet card ──────────────────────────────────
      Redesign (2026 responsive-table best practice). Below the table's real floor the 12
      columns can't be compared row-to-row on a phone, so each row becomes a self-contained
@@ -1638,18 +1780,23 @@ try{
     <span class="rb-lbl">View</span>
     <div class="seg viewseg" id="viewSwitch" role="group" aria-label="View mode">
       <button data-view="table" aria-pressed="true"  title="Table — every column, one row per game. Needs a window at least 1280px wide; below 1366px the Tags column folds to a strip so the rest still fits.">Table</button>
-      <button data-view="card"  aria-pressed="false" title="Cards — the same data as the table, stacked one game per card. Used when the window is under 1280px.">Card</button>
-      <button data-view="grid"  aria-pressed="false" title="Grid — Steam box art with the QTPD score and both review scores (30-day and all-time) on each card, plus whatever you are sorting by. Hover the art to play the game's preview clip, or tap it on a phone. Click a card for price, length and playtime.">Grid</button>
+      <button data-view="card"  aria-pressed="false" title="Cards — the same data as the table, stacked one game per card. Used when the window is under 1280px. On a phone, tapping a card's thumbnail opens the game's preview clip in the player at the top of the screen.">Card</button>
+      <button data-view="grid"  aria-pressed="false" title="Grid — Steam box art with the QTPD score and both review scores (30-day and all-time) on each card, plus whatever you are sorting by. Hover the art to play the game's preview clip, or tap it on a phone; on a phone you can then swipe up (or press ⤢) to watch it in a bigger player that stays put while you keep scrolling. Click a card for price, length and playtime.">Grid</button>
     </div>
     <!-- Hover preview switch. Lives here with the other DISPLAY preferences (not in the
          filter panel, which is about which games you see). It exists because the preview
          downloads a ~480p video per hover: cheap on a desktop connection, rude on a
          metered one, so it has to be switchable and the choice has to stick. Default on;
-         forced off, ignoring the saved value, when the OS asks for reduced motion. -->
+         forced off, ignoring the saved value, when the OS asks for reduced motion.
+         It governs the phone's preview player too (see .stage): the player is nothing but
+         preview, so switching this off closes it and un-paints the badges that open it.
+         That matters more now than it did — the player does not download more per game, but
+         it makes people watch many more games, which is the whole point of it and also the
+         entire cost of it. -->
     <span class="rb-lbl">Preview</span>
     <div class="seg viewseg" role="group" aria-label="Hover video preview">
       <button id="trailerToggle" aria-pressed="true"
-              title="Play the game's Steam preview clip instead of a still — hover a table thumbnail, or in Grid view hover a card's box art (tap it on a phone; tap again to stop). This is the same short silent loop Steam plays on its own store capsules — a few hundred KB, loaded only for the game you actually pick. Turn off to keep the stills only.">Video</button>
+              title="Play the game's Steam preview clip instead of a still — hover a table thumbnail, or in Grid view hover a card's box art (tap it on a phone; tap again to stop). On a phone, swiping up on a playing card — or tapping a thumbnail in Card view — moves it into a bigger player docked under this bar, and every card below then loads into that player on a tap. This is the same short silent loop Steam plays on its own store capsules — a few hundred KB, loaded only for the game you actually pick. Turn off to keep the stills only, and to switch the player off with them.">Video</button>
     </div>
     <div class="rb-legend" aria-hidden="true">
       <span class="rb-key" title="QTPD — Quality Time Per Dollar, the headline metric. Higher means more game-hours of value per dollar."><b class="k-q">QTPD</b> value score</span>
@@ -1658,6 +1805,52 @@ try{
     </div>
   </div>
   <div class="tablecard">
+    <!-- ── The preview stage (phones only) ─────────────────────────────────────────────
+         A docked player that sticks under the nav while the grid keeps scrolling below it.
+         It is a THIRD .mediabox — the same contract the hover popup and a grid card's art
+         already wear — so armMedia() drives it with no new playback code at all.
+         It sits HERE, outside #gridview, on purpose: render() rebuilds the grid with
+         innerHTML on every filter keystroke and every infinite-scroll page bump, so anything
+         inside it is destroyed by the very act this feature exists for — scrolling the grid
+         while watching. As a sibling it survives, and render()'s existing
+         `if(media.pop.closest("#gridview")) stopMedia()` guard is left exactly right.
+         First child of .tablecard rather than of #gridview so it serves BOTH phone views:
+         the box-art grid, and the detailed Card view whose table follows below. -->
+    <div class="stage" id="stage" aria-hidden="true">
+      <div class="stage-grab" aria-hidden="true"></div>
+      <div class="stage-box mediabox" id="stageBox" tabindex="0" role="group"
+           aria-label="Preview player — tap to start or stop, swipe left and right for the next clip or screenshot, swipe down to close"
+           title="The game's Steam preview clip and screenshots. Tap to start or stop · swipe left/right to step through them · swipe down (or ✕) to close and go back to the full grid. Tap any card below to watch that game up here instead.">
+        <!-- The poster ships empty and gets its src from setStagePoster, exactly as the hover
+             popup's <img> does: nothing is fetched for a player nobody has opened. -->
+        <img class="stage-poster" id="stagePoster" alt="" referrerpolicy="no-referrer" />
+        <span class="splay" aria-hidden="true"><i class="gp-play">▶</i><i class="gp-stop">■</i></span>
+      </div>
+      <!-- Two rows, not one. On a 390px phone the four controls take ~150px, which left the
+           figures below the title with about half the width they need and ellipsed them mid
+           number — a strip that showed "QTPD 115 · $9.99 · 79%30d 9…" is worse than no strip.
+           Splitting it puts Close with the title (where a close control belongs) and the
+           stepper with the counter it moves (where it explains itself), and hands the figures
+           the width to actually print. -->
+      <div class="stage-meta">
+        <div class="sm-row">
+          <a class="sm-title" id="stageTitle" target="_blank" rel="noopener"
+             title="Open this game's Steam store page"></a>
+          <button type="button" id="stageClose" class="sm-x" aria-label="Close player"
+                  title="Close the player and go back to the full grid. Swiping down on the player does the same.">✕</button>
+        </div>
+        <div class="sm-row">
+          <div class="sm-nums" id="stageNums"></div>
+          <div class="sm-ctl">
+            <button type="button" id="stagePrev" aria-label="Previous"
+                    title="Back one — step to the previous clip or screenshot. Swiping right on the player does the same.">‹</button>
+            <span class="sm-count" id="stageCount" title="Which clip or screenshot you are on, out of how many this game has.">—</span>
+            <button type="button" id="stageNext" aria-label="Next"
+                    title="Forward one — step to the next clip or screenshot. Swiping left on the player does the same.">›</button>
+          </div>
+        </div>
+      </div>
+    </div>
     <div class="tablescroll">
       <table>
         <colgroup>
@@ -1781,6 +1974,10 @@ const state = { data:null, q:"", tagQuery:"", tagsInc:new Set(), tagsExc:new Set
                 // so every scroll that tripped the infinite-scroll observer silently re-closed
                 // everything the user had opened. Holding it in state survives the rebuild.
                 openCards:new Set(),
+                // Which game is in the preview player, or null. Session-only and deliberately
+                // NOT serialized — same rule as openCards and the hidden-games list: per-device
+                // chrome is not part of the query a shared link is meant to reproduce.
+                stageAppid:null,
                 pageSize:PAGE_SIZE, pagesShown:1,
                 wishlist:null, wishOnly:false, sortKey:"qtpd", sortDir:-1, ratingSource:"recent", hltbQuality:"real", ptMetric:"up", fullCounts:{},
                 view:"table", tagLinger:new Map(),   // tagLinger: tag -> clearedAt (ms) for chips fading out after a cycle-to-neutral
@@ -2453,14 +2650,18 @@ function render(){
       ptCell = `<div class="ptcell">${ptRow(g.pt_up, g.pt_nup, true)}${ptRow(g.pt_down, g.pt_ndown, false)}</div>`;
     }
 
+    // On a phone this thumbnail is the way into the preview player (there is no hover to open
+    // the .pop panel with), and the badge is what says so. Empty on every pointer device.
+    const thumbClip = touchClipCls(g.appid);
     return `<tr>
       <td data-label="Game"><div class="gamecell">
           <button class="hidebtn" data-hide="${g.appid}" title="Hide this game for this session" aria-label="Hide ${esc(g.title)}">×</button>
-          <span class="thumb${isAdult(g) ? ' adult' : ''}" data-appid="${g.appid}" data-art="${esc(g.art || "")}">
+          <span class="thumb${isAdult(g) ? ' adult' : ''}${thumbClip}" data-appid="${g.appid}" data-art="${esc(g.art || "")}">
             <img loading="lazy" src="${imgChain(g.appid, g.art)[0]}" alt="" referrerpolicy="no-referrer"
                  data-appid="${g.appid}" data-art="${esc(g.art || "")}" data-step="0"
                  onerror="stepThumb(this,true)" onload="stepThumb(this,false)" />
             <span class="pop mediabox"><img alt="" referrerpolicy="no-referrer" /></span>
+            ${thumbClip ? '<span class="tplay" aria-hidden="true"><i>▶</i></span>' : ''}
           </span>
           <span class="gmeta">
             <a class="gtitle" href="${esc(g.url)}" target="_blank" rel="noopener" title="${esc(g.title)}">${esc(g.title)}</a>${wished}
@@ -2493,23 +2694,47 @@ function render(){
   } else {
     foot.style.display = "none";
   }
+  markStaged();       // the rebuilt cards do not carry it — see markStaged / state.stageAppid
+  renderMeta();
+}
+
+// Show one more page. In GRID view the new slice is APPENDED; everywhere else this still falls
+// back to a full render().
+//
+// It used to be `state.pagesShown += 1; render();` for both — and render() assigns
+// #gridview.innerHTML, so reaching the bottom of the list threw away every card on screen and
+// rebuilt it from scratch just to add the next hundred. That was merely wasteful before. With
+// the preview player docked above the grid, scrolling is what the user does *while watching*,
+// so it put a rebuild of several hundred DOM subtrees — each with a lazily-loading image —
+// right next to a decoding <video>, on every page bump.
+//
+// The detailed view still re-renders. Its rows are built by a closure inside render() that
+// depends on per-render values (the QTPD bar scale, computed across the whole filtered set), so
+// pulling it apart is a bigger change than this one is worth — and its rows carry no video.
+function growPage(){
+  const all = visibleGames();
+  state._totalFiltered = all.length;
+  const from = state.pageSize * state.pagesShown;
+  if(from >= all.length) return;                       // nothing left to show
+  state.pagesShown += 1;
+  if(state.view !== "grid"){ render(); return; }
+  const to = Math.min(state.pageSize * state.pagesShown, all.length);
+  $("#gridview").insertAdjacentHTML("beforeend", all.slice(from, to).map(gridCardHTML).join(""));
+  markStaged();                                        // the new cards may include the staged one
+  const foot = $("#loadmore");
+  if(to < all.length) foot.textContent = `Showing ${to} of ${all.length} — scroll for more…`;
+  else foot.style.display = "none";
   renderMeta();
 }
 
 // Lazily create one IntersectionObserver that watches the loadmore sentinel. When it
-// becomes visible, bump pagesShown and re-render (which appends the next slice).
+// becomes visible, show the next page (see growPage).
 let _pageObserver = null;
 function ensurePageObserver(){
   if(_pageObserver) return;
   const foot = $("#loadmore");
   _pageObserver = new IntersectionObserver(entries => {
-    if(entries.some(e => e.isIntersecting)){
-      // Only grow if there's actually more to show.
-      if(state.pageSize * state.pagesShown < state._totalFiltered){
-        state.pagesShown += 1;
-        render();
-      }
-    }
+    if(entries.some(e => e.isIntersecting)) growPage();
   }, {rootMargin: "400px"});   // start loading a bit before the user hits the very bottom
   _pageObserver.observe(foot);
 }
@@ -2698,8 +2923,9 @@ function stopMedia(){
   if(m.timer) clearTimeout(m.timer);
   killVideo(m.pop);
   m.pop.querySelectorAll("img.shot, .pips").forEach(el => el.remove());
-  m.pop.classList.remove("playing", "hastrailer", "rotating");
+  m.pop.classList.remove("playing", "hastrailer", "rotating", "armed");
   m.thumb.classList.remove("hasmedia");
+  syncStageCount(null);
 }
 
 // Kept as the old name so the 18+ gate and the Video toggle read the same as before.
@@ -2731,10 +2957,24 @@ function mkPips(m){
   if(m.items.length < 2) pips.style.display = "none";
   m.pop.appendChild(pips);
   m.pips = pips;
+  syncStageCount(m);
 }
 
 function setPips(m){
   if(m.pips) Array.from(m.pips.children).forEach((el, k) => el.classList.toggle("on", k === m.idx));
+  syncStageCount(m);
+}
+
+// The stage's "3 / 7" read-out. Pips are the position indicator on a card, but they stop being
+// countable past about six and a playlist regularly runs to seven, so the player prints the
+// number as well. Driven from the same two places the pips are, so the two cannot disagree.
+// Passing null (or another box's session) blanks it.
+function syncStageCount(m){
+  if(!document.body.classList.contains("stage-open")) return;   // nobody is looking at it
+  const el = document.getElementById("stageCount"); if(!el) return;
+  const box = document.getElementById("stageBox");
+  if(!m || !box || m.pop !== box || !m.items.length){ el.textContent = "—"; return; }
+  el.textContent = `${m.idx + 1} / ${m.items.length}`;
 }
 
 function showMedia(m, i){
@@ -2896,7 +3136,11 @@ function showShot(m, item){
 // `step` is the direction a SWIPE arrived with (see stepMedia): the preview starts at the
 // clip as usual and then moves by one as soon as the playlist has a second item, so a swipe
 // on a card that was not playing yet does what the finger asked rather than merely starting it.
-function armMedia(thumb, pop, dwell, step){
+// `seek` is a playlist index to RESUME at, used when a preview is handed from a card to the
+// stage: the card was on screenshot #4, so the player opens on screenshot #4 rather than
+// starting the game over. It costs nothing to honour — the screenshot shard is already in
+// shotsShardCache from the card's own playback, so the full list resolves in a microtask.
+function armMedia(thumb, pop, dwell, step, seek){
   if(media && media.pop === pop) return;   // mouseover re-fires on child nodes; ignore
   stopMedia();
   // One switch governs every kind of panel motion. A cross-fading slideshow is motion
@@ -2907,8 +3151,13 @@ function armMedia(thumb, pop, dwell, step){
   const appid = thumb.dataset.appid;
   const srcs = trailerSources(appid);
   const m = { pop, thumb, items: [], idx: -1, layers: null, pips: null,
-              front: -1, fails: 0, timer: null, pending: step || 0 };
+              front: -1, fails: 0, timer: null, pending: step || 0,
+              seek: (seek != null && seek > 0) ? seek : null };
   media = m;
+  // Touch only: while this box is playing it also owns VERTICAL drags, so a swipe up can pull
+  // the preview into the stage. See .gart.armed in the CSS — touch-action is read when the
+  // gesture starts, so it has to go on with the playback and come off with it.
+  if(!CAN_HOVER) pop.classList.add("armed");
   if(srcs.length) pop.classList.add("hastrailer");   // ▶ affordance during the dwell
 
   const shotsP = loadShotsShard(appid).then(doc => shotUrls(appid, doc));
@@ -2918,18 +3167,35 @@ function armMedia(thumb, pop, dwell, step){
     // The clip starts on the dwell, WITHOUT waiting for the stills. The shard is ~400KB
     // on a first hover, and making the video wait on it would trade the responsiveness
     // the dwell exists to protect for a list that is complete a moment sooner.
-    if(srcs.length){
+    // A RESUMING arm (m.seek) is the one case that skips this: it is going to land on some
+    // other item a microtask later, so building a <video> here would be building one purely
+    // to tear it down again.
+    if(srcs.length && m.seek == null){
       m.items = [{ kind:"video", srcs }];
       mkPips(m);
       showMedia(m, 0);
     }
     shotsP.then(urls => {
       if(media !== m) return;
-      if(!urls.length) return;           // clip-only, or nothing at all: leave as is
       const started = m.items.length > 0;
+      // Resuming a game that turns out to have no stills after all: the clip IS the whole
+      // playlist, so start it rather than leaving the player sitting on its poster.
+      if(!urls.length && !started && srcs.length){
+        m.seek = null;
+        m.items = [{ kind:"video", srcs }];
+        mkPips(m); showMedia(m, 0);
+        return;
+      }
+      if(!urls.length) return;           // clip-only, or nothing at all: leave as is
+      if(!started && srcs.length) m.items = [{ kind:"video", srcs }];   // skipped above; add it now
       m.items = m.items.concat(urls.map(url => ({ kind:"shot", url })));
       mkPips(m);
-      if(started) setPips(m); else showMedia(m, 0);
+      const resume = m.seek; m.seek = null;
+      // showMedia's modulo wraps, so an index carried over from a game with a longer playlist
+      // lands somewhere sensible rather than throwing.
+      if(resume != null) showMedia(m, resume);
+      else if(started) setPips(m);
+      else showMedia(m, 0);
       applyPendingStep(m);               // a swipe that arrived while this was in flight
     });
   }, dwell == null ? TRAILER_DWELL_MS : dwell));
@@ -3014,6 +3280,218 @@ if(CAN_HOVER){
   });
 }
 
+// ── The preview stage ─────────────────────────────────────────────────────────────────
+// A docked player for the phone. The grid's in-card preview works, but on a 390px phone the
+// box it plays in is 171x80px, and a 16:9 clip is cropped into a 2.14:1 hole on top of that.
+// The stage promotes what you tapped into a full-width 16:9 player pinned under the nav, and
+// turns the grid below it into the remote control: tap any card and that game loads up there.
+//
+// It reuses the whole media engine unchanged — the stage box is a .mediabox, so armMedia()
+// drives it exactly as it drives a card's art or the desktop hover popup. What is new here is
+// only: which box is current, what the chrome around it says, and the gestures in and out.
+//
+// PHONE ONLY, by design. On a pointer device a grid card is already 220px+ and hover plays the
+// clip in place, and the detailed view is a full table — neither has the problem this solves,
+// so nothing about desktop changes. `isNarrow()` is the same test the rest of the layout uses.
+const stageBox   = () => document.getElementById("stageBox");
+const isStaged   = () => !!state.stageAppid;
+// trailersOn() carries BOTH the Video switch and the reduced-motion override, so this one call
+// gates the player the way it already gates every other kind of panel motion.
+const stageAvailable = () => isNarrow() && trailersOn();
+
+// appid -> game record. Built once, lazily: the stage needs the full row for its meta strip
+// (title, price, both scores, both lengths) and a linear scan of ~44k games per open would be
+// silly. Reset in init(), the only place state.data is assigned.
+let _gameIdx = null;
+function gameOf(appid){
+  if(!_gameIdx){
+    _gameIdx = new Map();
+    ((state.data && state.data.games) || []).forEach(g => _gameIdx.set(String(g.appid), g));
+  }
+  return _gameIdx.get(String(appid)) || null;
+}
+
+// The sticky player's `top`. It cannot be a constant: past 24px of scroll body.nav-scrolled
+// hides .bar-main and the compact nav shrinks, and opening the filter panel grows it again. A
+// ResizeObserver on #topbar (see wire()) keeps this honest without measuring on every frame.
+function syncNavH(){
+  const tb = document.getElementById("topbar"); if(!tb) return;
+  document.documentElement.style.setProperty(
+    "--nav-h", Math.max(0, Math.round(tb.getBoundingClientRect().height)) + "px");
+}
+
+// The player's poster frame. Same content-verified source chain as the table thumb and the grid
+// card (imgChain + stepThumb), starting from the PICS `art` URL where there is one: Steam's
+// store_item_assets scheme puts a per-asset SHA1 in the path that cannot be derived from the
+// appid, so a derived URL 404s for roughly a quarter of the catalogue. Starting large also
+// matters more here than on a card — this box is 372px wide, not 171px.
+function setStagePoster(appid, art){
+  const img = document.getElementById("stagePoster"); if(!img) return;
+  const chain = imgChain(appid, art);
+  const start = artUrl(appid, art) || headerUrl(appid);
+  img.setAttribute("data-appid", String(appid));
+  img.setAttribute("data-art", art || "");
+  img.setAttribute("data-step", String(Math.max(0, chain.indexOf(start))));
+  img.onerror = () => stepThumb(img, true);
+  img.onload  = () => stepThumb(img, false);
+  img.src = start;
+}
+
+// Everything a card cannot say in 171px: the untruncated title, the headline score, the price,
+// BOTH review periods and both length figures. Deliberately the same numbers as the card's flip
+// face — the player is not a second source of truth, it is the same one with room to print it.
+function paintStageMeta(g, appid){
+  const t = document.getElementById("stageTitle"), n = document.getElementById("stageNums");
+  if(!t || !n) return;
+  if(!g){                      // filtered out, or a stale id: keep the player honest, not blank
+    t.textContent = "App " + appid; t.removeAttribute("href"); n.textContent = "";
+    return;
+  }
+  t.textContent = g.title; t.href = g.url; t.title = g.title + " — open on Steam";
+  const qLbl = freeMode() ? "FREE" : "QTPD";
+  let price;
+  if(g.is_free) price = "Free";
+  else if(g.price_final == null) price = noPriceText(g);
+  else {
+    price = "$" + g.price_final.toFixed(2) + (g.discount_pct > 0 ? ` -${g.discount_pct}%` : "");
+    if(g.price_src === "package") price = "from " + price;   // a floor, not the price (see pkgTip)
+  }
+  const h = hoursFor(g);
+  const hStr = h != null ? (h >= 10 ? Math.round(h) : (Math.round(h * 10) / 10).toFixed(1)) + "h" : "—";
+  const ptMins = g.pt_up != null ? g.pt_up : g.pt_down;
+  const ptStr = ptMins != null
+    ? (ptMins / 60 >= 10 ? Math.round(ptMins / 60) : (ptMins / 60).toFixed(1)) + "h" : "—";
+  const rate = (pct, lbl) => pct == null
+    ? `<span style="color:var(--muted-2)">—</span>${lbl}`
+    : `<span style="color:${ratingColor(pct)}">${pct}%</span>${lbl}`;
+  const sep = `<span class="smsep">·</span>`;
+  n.innerHTML = `<b>${qLbl} ${fmtQval(colValue(g))}</b>${sep}${esc(price)}${sep}`
+              + `${rate(g.recent_pct, "30d")} ${rate(g.rating_pct, "all")}${sep}`
+              + `${esc(hStr)} len${sep}${esc(ptStr)} play`;
+}
+
+// Which card is on the stage. A class alone would not survive — the grid is rebuilt wholesale on
+// every filter keystroke and every page bump — so the appid lives in state and this re-applies
+// the mark, exactly the pattern state.openCards uses for flipped cards. Both phone views get it:
+// the grid card's gold edge, and the Card view's thumbnail.
+function markStaged(){
+  document.querySelectorAll(".gcard.staged, .thumb.staged").forEach(el => el.classList.remove("staged"));
+  const id = state.stageAppid; if(!id) return;
+  document.querySelectorAll(`.gcard[data-gappid="${id}"], .thumb[data-appid="${id}"]`)
+    .forEach(el => el.classList.add("staged"));
+  // The meta strip is derived from live filter state — QTPD moves with the price basis and the
+  // HLTB metric, and the label itself becomes FREE in free-only mode — so it is repainted here
+  // rather than only on load. This runs from render(), which is what every such change ends in.
+  paintStageMeta(gameOf(id), id);
+}
+
+// Load a game into the player (already open). `startIdx` resumes mid-playlist — the ⤢ chip
+// passes the card's current position so the player opens on the frame that was on screen,
+// rather than starting the game over.
+function stageLoad(appid, startIdx){
+  const id = String(appid);
+  state.stageAppid = id;
+  const g = gameOf(id);
+  const box = stageBox(); if(!box) return;
+  box.dataset.appid = id;
+  box.dataset.art = (g && g.art) || "";
+  setStagePoster(id, (g && g.art) || "");
+  paintStageMeta(g, id);
+  markStaged();
+  syncNavH();
+  // Carrier and box are the same element, as they are for a grid card: the clip plays in place.
+  armMedia(box, box, 0, 0, startIdx);
+}
+
+function stageOpen(appid, startIdx){
+  if(!stageAvailable()) return;
+  document.body.classList.add("stage-open");
+  const st = document.getElementById("stage");
+  if(st) st.setAttribute("aria-hidden", "false");
+  stageLoad(appid, startIdx);
+}
+
+function stageClose(){
+  if(!isStaged()) return;
+  if(media && media.pop === stageBox()) stopMedia();
+  state.stageAppid = null;
+  document.body.classList.remove("stage-open");
+  const st = document.getElementById("stage");
+  if(st) st.setAttribute("aria-hidden", "true");
+  markStaged();
+}
+
+// Tap the player: start it, or stop it back to the poster. Same contract as a card's art, and
+// the ■/▶ badge in the middle says which the next tap will do.
+function stageToggle(){
+  const box = stageBox(); if(!box || !box.dataset.appid) return;
+  if(media && media.pop === box) stopMedia();
+  else armMedia(box, box, 0);
+}
+
+// ── One swipe recogniser, two surfaces ────────────────────────────────────────────────
+// Extracted from the grid's own handler so the cards and the player cannot drift apart. The
+// horizontal half is unchanged from what shipped: passive throughout, decided by MEASURING
+// rather than by capturing the gesture, and latched as soon as the finger commits to a
+// direction so a swipe that curves at the release still counts as the swipe it started as.
+//
+// The vertical half is new and is the delicate one, because vertical is how the page scrolls.
+// It is claimed only where the browser has already been told to stay out of it (touch-action:
+// none — the .armed class on a playing card, and the player itself), which is decided per
+// gesture at touchstart via `vertWhen`. Everywhere else a vertical drag drops the gesture and
+// scrolls exactly as it always did.
+const SWIPE_MIN_PX = 30;      // below this a "swipe" is a tap with an unsteady finger
+const SWIPE_RATIO  = 1.2;     // one axis must beat the other by this much, or it is ambiguous
+const SWIPE_UP_PX  = 44;      // vertical needs a longer throw than horizontal: it is the axis
+                              // the page normally owns, so the bar to take it is higher
+
+// Some engines deliver a `click` after a drag that no scroll consumed, and it would toggle the
+// very preview the swipe just moved — stopping it on every other gesture. Chromium, measured,
+// emits none (the drag is consumed as a gesture), but iOS Safari is not Chromium, so the guard
+// stays. It is a ONE-SHOT SWALLOW, not an elapsed-time window: it eats the first click to
+// arrive and disarms. A synthetic click lands within a tick, whereas a real follow-up tap
+// cannot physically arrive within 250ms of the finger lifting — so this absorbs the phantom
+// without ever eating a deliberate tap. A plain time window got that wrong in both directions.
+function swallowNextClick(){
+  const done = () => { document.removeEventListener("click", eat, true); clearTimeout(tid); };
+  const eat  = ev => { ev.preventDefault(); ev.stopPropagation(); done(); };
+  const tid  = setTimeout(done, 250);
+  document.addEventListener("click", eat, true);      // capture: beats every handler below
+}
+
+// pick(target)     -> the .mediabox this touch belongs to, or null to ignore the gesture
+// vert(box, dir)   -> optional; dir is -1 for up, +1 for down
+// vertWhen(box)    -> optional; may this gesture claim vertical? (checked once, at touchstart)
+function bindMediaSwipe(root, pick, vert, vertWhen){
+  let s = null;
+  root.addEventListener("touchstart", e => {
+    if(e.touches.length !== 1){ s = null; return; }   // pinch/zoom is not ours
+    const box = pick(e.target);
+    s = box ? { box, x: e.touches[0].clientX, y: e.touches[0].clientY, on: false, v: 0,
+                cv: !!vert && (!vertWhen || vertWhen(box)) } : null;
+  }, { passive:true });
+  root.addEventListener("touchmove", e => {
+    if(!s || s.on || s.v || e.touches.length !== 1) return;      // already latched, or not ours
+    const dx = e.touches[0].clientX - s.x, dy = e.touches[0].clientY - s.y;
+    if(Math.abs(dx) >= SWIPE_MIN_PX && Math.abs(dx) > Math.abs(dy) * SWIPE_RATIO){ s.on = true; return; }
+    if(Math.abs(dy) > Math.abs(dx) * SWIPE_RATIO){
+      if(!s.cv){ s = null; return; }                             // it is a scroll: let go of it
+      if(Math.abs(dy) >= SWIPE_UP_PX) s.v = dy < 0 ? -1 : 1;
+    }
+  }, { passive:true });
+  root.addEventListener("touchend", e => {
+    const g = s; s = null;
+    if(!g) return;
+    if(g.v){ swallowNextClick(); vert(g.box, g.v); return; }
+    if(!g.on) return;                            // a tap: the click handler owns it
+    const dx = e.changedTouches[0].clientX - g.x;
+    if(Math.abs(dx) < SWIPE_MIN_PX) return;
+    swallowNextClick();
+    stepMedia(g.box, dx < 0 ? 1 : -1);           // drag left = forward, drag right = back
+  }, { passive:true });
+  root.addEventListener("touchcancel", () => { s = null; }, { passive:true });
+}
+
 // ── Three-stage 18+ gate for adult art (PICS content_desc 3/4) ────────────────────────
 // Shared by the table thumbnail and the grid card, so both gates behave identically.
 //   stage 1  blurred + "18+"       (default)
@@ -3061,6 +3539,26 @@ document.body.addEventListener("click", e => {
   if(media.items.length < 2) return;      // nothing to step to
   e.preventDefault();
   nextMedia(media);
+});
+
+// Card view (the detailed view on a phone): the thumbnail opens the stage.
+//
+// Before this, a phone had NO way to reach a preview from the detailed view at all. The only
+// path was the .pop panel, which is built on mouseover and positioned beside the row — and a
+// phone has no mouseover, so the thumbnail was inert and the clip and screenshots were simply
+// unreachable in that view. Routing it to the player is the fix, and it needs none of the
+// popup's positioning: the player already has somewhere to be.
+//
+// Registered ahead of the step-the-rotation handler below, which cannot fire on touch anyway
+// (it requires media.thumb === thumb, and nothing on touch ever armed the thumb).
+if(!CAN_HOVER) document.body.addEventListener("click", e => {
+  const thumb = e.target.closest(".thumb");
+  if(!thumb || !thumb.classList.contains("hasclip")) return;
+  // The 18+ gate owns the tap until the art is revealed — the same rule the grid card follows.
+  if(thumb.classList.contains("adult") && !thumb.classList.contains("revealed")) return;
+  if(!stageAvailable()) return;
+  e.preventDefault(); e.stopPropagation();
+  if(isStaged()) stageLoad(thumb.dataset.appid, 0); else stageOpen(thumb.dataset.appid, 0);
 });
 
 // Undo for BOTH surfaces. Registered here rather than next to the grid's click handler so
@@ -3257,6 +3755,12 @@ function update(){ resetPaging(); recomputeDomain(); buildTagRail(); render(); s
 const sameSet = (s, arr) => s.size === arr.length && arr.every(x => s.has(x));
 const fmtQval = v => v == null ? "—" : v >= 100 ? v.toFixed(0) : v >= 10 ? v.toFixed(1) : v.toFixed(2);
 
+// " hasclip" when this game has something to play AND we are on a device with no hover to
+// discover it with. It is both the affordance (see .gplay / .tplay) and the tap contract the
+// grid and card click handlers read, so the two surfaces share one definition of it.
+const touchClipCls = appid =>
+  (!CAN_HOVER && trailersOn() && trailerSources(appid).length) ? " hasclip" : "";
+
 // ── L3 / L5 — view switcher + cool box-art grid ─────────────────────────────────────────
 const VIEWS = ["table", "card", "grid"];
 // Two widths, both measured rather than guessed:
@@ -3299,6 +3803,12 @@ function applyLayout(){
   document.body.classList.toggle("narrow", narrow);   // used to split mobile-sort vs desktop #gridSort
   document.body.classList.toggle("grid-view", state.view === "grid");
   document.body.classList.toggle("layout-card", state.view !== "grid" && narrow);
+  // The preview player exists only where the problem does — see the stage module. On a pointer
+  // device a grid card is 220px+ and hover already plays the clip in place, so a window that
+  // grows past the table's floor closes the player rather than leaving it stranded.
+  document.body.classList.toggle("can-stage", !CAN_HOVER && narrow);
+  if(!narrow) stageClose();
+  syncNavH();
   updateViewButtons(narrow);
   layoutGridSort();   // (re)fit the grid-sort field buttons for the current width/visibility
 }
@@ -3347,7 +3857,7 @@ function gridCardHTML(g){
   // `.hasclip`, NOT `.hastrailer`: the latter belongs to the playback cycle and gets stripped
   // whenever the preview stops or reaches a screenshot, which used to take the tap target with
   // it and make the clip unrepeatable. See the .gplay rules and the #gridview click handler.
-  const artCls = (!CAN_HOVER && trailersOn() && trailerSources(g.appid).length) ? " hasclip" : "";
+  const artCls = touchClipCls(g.appid);
   const qLbl = freeMode() ? "FREE" : "QTPD";
   // Every mark on the card carries its own explanation: the score, what "high" means, and the
   // review %. None of it was labelled before — the card showed two bare numbers and a coloured
@@ -3434,6 +3944,8 @@ function gridCardHTML(g){
            data-appid="${g.appid}" data-art="${esc(g.art || "")}" data-step="0"
            onerror="stepThumb(this,true)" onload="stepThumb(this,false)" />
       ${disc}<span class="gplay" aria-hidden="true"><i class="gp-play">▶</i><i class="gp-stop">■</i></span>
+      <button type="button" class="gexp" tabindex="-1" aria-label="Watch bigger"
+              title="Watch this one bigger — pull the preview into the player at the top of the screen, then keep scrolling and tap any other card to watch that instead. Swiping up on a playing card does the same.">⤢</button>
     </div>
     <div class="gmeta">
       <div class="gmeta-top"><div class="gname" title="${esc(g.title)}">${esc(g.title)}</div>${rateHtml}</div>
@@ -4304,12 +4816,18 @@ function syncRevButtons(){
 // The nav is normal page flow: it scrolls away naturally and the sticky <thead> takes
 // over as the pinned bar, so the filter panel never ambushes the reader on scroll.
 function setFiltersCompact(compact){
+  // Opening the filter panel grows the nav to most of the screen, which would shove the sticky
+  // player off the top — and picking filters is a deliberate change of task anyway. So the
+  // panel closes it rather than the two fighting over the space.
+  if(!compact) stageClose();
   $("#topbar").classList.toggle("compact", compact);
   $("#collapseLabel").textContent = compact ? "⌄ Show filters" : "⌃ Hide filters";
+  syncNavH();
 }
 
 function init(data){
   state.data = data;
+  _gameIdx = null;                     // the appid -> game map is derived from this (see gameOf)
   loadFromURL();                       // hydrate state from querystring (if any)
   computeFullCounts(); recomputeDomain(); applyURLRange();
   buildTagRail(); renderFoot();
@@ -4581,7 +5099,10 @@ function init(data){
       if(REDUCED_MOTION) return;
       const on = !trailersOn();
       try{ localStorage.setItem("qtpd.trailers", on ? "1" : "0"); }catch(e){}
-      if(!on) stopTrailer();          // kill anything playing the moment it's switched off
+      if(!on){
+        stopTrailer();                // kill anything playing the moment it's switched off
+        stageClose();                 // ...including the player, which is nothing but preview
+      }
       // Grid cards paint their ▶ affordance at render time on touch devices, so the switch has
       // to rebuild them or it would keep advertising a tap it no longer honours. Only when it
       // would actually change something on screen.
@@ -4668,64 +5189,67 @@ function init(data){
   }));
   window.matchMedia(NARROW_MQ).addEventListener("change", applyLayout);
   window.matchMedia(TAGS_SQUEEZE_MQ).addEventListener("change", applyTagSqueeze);
-  // ── Swipe the art to scrub the preview (touch only) ─────────────────────────────────
-  // The art already had one gesture — tap to start, tap again to go back to the box art —
-  // and that is a switch, not a browser: it could reach the clip and nothing else, while the
-  // screenshots behind it were only ever reachable by waiting out the rotation.
-  // Swiping the art left/right now steps that playlist, so the whole preview is navigable:
+  // ── Swipe the art (touch only) ───────────────────────────────────────────────────────
+  // The art already had one gesture — tap to start, tap again to go back to the box art — and
+  // that is a switch, not a browser: it could reach the clip and nothing else, while the
+  // screenshots behind it were only ever reachable by waiting out the rotation. Swiping the art
+  // now steps that playlist, and — while it is playing — pulls it into the stage:
   //   tap          start / stop (unchanged — the badge shows which it will do)
   //   swipe left   next media          swipe right   previous media
-  // The pips (already drawn for the rotation) become the read-out for it, which is why they
-  // are enlarged on touch: they are now a position indicator, not just decoration.
+  //   swipe up     promote to the docked player      swipe down   stop the preview
+  // The pips (already drawn for the rotation) are the read-out for the horizontal half, which is
+  // why they are enlarged on touch: they are a position indicator, not decoration.
   //
-  // Deliberately NOT a horizontal scroller or a transform-drag: the media layers are built
-  // and destroyed one at a time (see armMedia), so there is no filmstrip to slide. The
-  // gesture is a discrete step, and the cross-fade the panel already does is the transition.
-  const SWIPE_MIN_PX = 30;      // below this a "swipe" is a tap with an unsteady finger
-  const SWIPE_RATIO  = 1.2;     // horizontal must beat vertical by this much, or it is a scroll
-  let swipe = null;
-  const gv = $("#gridview");
-  // Some engines deliver a `click` after a drag that no scroll consumed, and it would toggle
-  // the very preview the swipe just moved — stopping it on every other gesture. Chromium,
-  // measured, emits none (the drag is consumed as a gesture), but iOS Safari is not Chromium,
-  // so the guard stays. It is a ONE-SHOT SWALLOW, not an elapsed-time window: it eats the
-  // first click to arrive and disarms. A synthetic click lands within a tick, whereas a real
-  // follow-up tap cannot physically arrive within 250ms of the finger lifting — so this
-  // absorbs the phantom without ever eating a deliberate tap. A plain time window got that
-  // wrong in both directions: it swallowed real taps, and bought nothing this does not.
-  function swallowNextClick(){
-    const done = () => { document.removeEventListener("click", eat, true); clearTimeout(tid); };
-    const eat  = ev => { ev.preventDefault(); ev.stopPropagation(); done(); };
-    const tid  = setTimeout(done, 250);
-    document.addEventListener("click", eat, true);      // capture: beats every handler below
-  }
-  // Passive: this never calls preventDefault — vertical scrolling through the grid has to stay
-  // completely untouched, and a listener that might block it costs scroll performance on every
-  // card. Horizontal intent is decided by measuring, not by capturing the gesture.
-  gv.addEventListener("touchstart", e => {
-    if(e.touches.length !== 1){ swipe = null; return; }   // pinch/zoom is not ours
-    const art = e.target.closest(".gart");
-    swipe = (art && art.classList.contains("hasclip") && gridArtPlayable(art))
-      ? { art, x: e.touches[0].clientX, y: e.touches[0].clientY, on: false } : null;
-  }, { passive:true });
-  gv.addEventListener("touchmove", e => {
-    if(!swipe || e.touches.length !== 1) return;
-    const dx = e.touches[0].clientX - swipe.x, dy = e.touches[0].clientY - swipe.y;
-    // Latch as soon as the finger commits to a direction. Latching rather than judging only
-    // at the end means a swipe that curves upward at the release still counts as the swipe
-    // it started as — and a scroll that drifts sideways never does.
-    if(!swipe.on && Math.abs(dy) > Math.abs(dx)) swipe = null;                       // scrolling
-    else if(Math.abs(dx) >= SWIPE_MIN_PX && Math.abs(dx) > Math.abs(dy) * SWIPE_RATIO) swipe.on = true;
-  }, { passive:true });
-  gv.addEventListener("touchend", e => {
-    const s = swipe; swipe = null;
-    if(!s || !s.on) return;                      // a tap: the click handler owns it
-    const dx = e.changedTouches[0].clientX - s.x;
-    if(Math.abs(dx) < SWIPE_MIN_PX) return;
-    swallowNextClick();
-    stepMedia(s.art, dx < 0 ? 1 : -1);           // drag left = forward, drag right = back
-  }, { passive:true });
-  gv.addEventListener("touchcancel", () => { swipe = null; }, { passive:true });
+  // Deliberately NOT a horizontal scroller or a transform-drag: the media layers are built and
+  // destroyed one at a time (see armMedia), so there is no filmstrip to slide. The gesture is a
+  // discrete step, and the cross-fade the panel already does is the transition.
+  //
+  // VERTICAL is only claimed on a card that is actually PLAYING, because vertical is how the
+  // page scrolls. That state is exactly when .gart.armed has set touch-action:none, so the
+  // browser has already been told to stay out of it and the gesture is genuinely ours. Every
+  // other card pans as it always did — and a playing card always has a way back to scrolling
+  // (the ■ badge, a tap, or the downward swipe itself).
+  bindMediaSwipe(
+    $("#gridview"),
+    t => {
+      const art = t.closest && t.closest(".gart");
+      return (art && art.classList.contains("hasclip") && gridArtPlayable(art)) ? art : null;
+    },
+    (art, dir) => {
+      if(dir < 0) stageOpen(art.dataset.appid, (media && media.pop === art) ? media.idx : 0);
+      else stopMedia();          // down: put the card back to its box art, and scrolling with it
+    },
+    art => !CAN_HOVER && art.classList.contains("armed") && stageAvailable()
+  );
+  // The player. Every direction here is the player's — see .stage-box's touch-action:none — so
+  // vertical needs no gate. Up does nothing on purpose: a second hidden meaning for the gesture
+  // that opened it would be a coin-flip for the user, and ‹ › are right there for stepping.
+  bindMediaSwipe(
+    $("#stage"),
+    t => (t.closest && t.closest(".stage-box")) ? stageBox() : null,
+    (box, dir) => { if(dir > 0) stageClose(); },
+    () => true
+  );
+  // Player chrome. The box itself is the start/stop target (a real button in the middle of it
+  // would eat the swipes), so the badge is decoration and these are the only real controls.
+  $("#stageBox").addEventListener("click", e => {
+    if(e.target.closest("button")) return;
+    e.preventDefault(); stageToggle();
+  });
+  $("#stagePrev").addEventListener("click", () => stepMedia(stageBox(), -1));
+  $("#stageNext").addEventListener("click", () => stepMedia(stageBox(), 1));
+  $("#stageClose").addEventListener("click", stageClose);
+  // Keyboard, scoped to the player rather than the document: the stage is a phone feature, and a
+  // global Escape here would fight the filter popovers' own Escape handler below.
+  $("#stage").addEventListener("keydown", e => {
+    if(e.key === "ArrowLeft"){ e.preventDefault(); stepMedia(stageBox(), -1); }
+    else if(e.key === "ArrowRight"){ e.preventDefault(); stepMedia(stageBox(), 1); }
+    else if(e.key === "Escape"){ e.preventDefault(); stageClose(); }
+  });
+  // The player sticks to the bottom of the nav, and the nav changes height — .bar-main is hidden
+  // past 24px of scroll, and the filter panel grows it. Measure rather than assume.
+  syncNavH();
+  if(window.ResizeObserver) new ResizeObserver(syncNavH).observe($("#topbar"));
 
   // Grid card interactions: tap a card to expand its info; Steam link + Close handled inline.
   $("#gridview").addEventListener("click", e => {
@@ -4745,6 +5269,18 @@ function init(data){
     // it marks the boundary between the two zones. Pointer devices skip this entirely and keep
     // the plain click-anywhere-to-flip behaviour, since hover already plays the clip for them.
     if(!CAN_HOVER){
+      // The ⤢ chip is a control in its own right and sits ON the art, which is itself a tap
+      // target — so it has to be tested first or the art would swallow it.
+      const exp = e.target.closest(".gexp");
+      if(exp){
+        e.preventDefault(); e.stopPropagation();
+        const a = exp.closest(".gart");
+        // Hand the card's CURRENT position over, not the start of the game: the player opens on
+        // the frame that was on screen. The screenshot shard is already cached from this card's
+        // own playback, so the resume costs no fetch (see armMedia's `seek`).
+        if(a) stageOpen(a.dataset.appid, (media && media.pop === a) ? media.idx : 0);
+        return;
+      }
       const art = e.target.closest(".gart");
       // `.hasclip` — the badge — is the contract: the art takes the tap exactly when it is
       // showing the user that it will. A card with no clip has no badge and stays a plain flip
@@ -4755,9 +5291,15 @@ function init(data){
       // clip could not be started a second time. The contract has to outlive the playback.
       if(art && art.classList.contains("hasclip") && gridArtPlayable(art)){
         e.preventDefault(); e.stopPropagation();
+        // While the player is open the grid is its remote control: a tap loads that game up
+        // there instead of starting a second preview down here. It has to be one or the other —
+        // exactly one media session exists, so a card that started playing would take the video
+        // off the stage mid-watch.
+        if(isStaged()) stageLoad(art.dataset.appid, 0);
         // Toggle: tap to watch, tap again to go back to the box art. Either way the badge is
         // still there afterwards, so it can be tapped again.
-        if(media && media.pop === art) stopMedia(); else armMedia(art, art, 0);
+        else if(media && media.pop === art) stopMedia();
+        else armMedia(art, art, 0);
         return;
       }
     }
