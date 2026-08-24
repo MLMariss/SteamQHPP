@@ -2231,6 +2231,91 @@ at 100 / 500 / 2000 per page (the selector is hidden on mobile). *(Historical no
 `sale` param was removed when the on-sale-only toggle became the three-way `pc` price-type
 filter; old links carrying `sale` are simply ignored.)*
 
+**The preview stage — a docked player for phones (`.stage` / `stageOpen` / `stageLoad`).**
+The grid plays its preview *inside* the card, and on a 390px phone that card's art is
+**171×80px** — roughly 3% of the viewport, with a 16:9 clip cropped into a 2.14:1 box on top of
+that. The stage promotes what you tapped into a **full-width 16:9 player docked under the sticky
+nav**, and turns the grid below it into the remote control: tap any card and that game loads up
+there instead. Measured on a 390×844 phone the player is **352×198px plus a two-row meta strip,
+about 34% of the viewport**, leaving three and a half rows of grid on screen.
+
+- **It is a third `.mediabox`, not a second player.** `armMedia(carrier, box, dwell, step, seek)`
+  takes any element wearing the class, which is how one code path already drives both the
+  desktop hover popup and a grid card's art. The stage adds no playback code at all — only which
+  box is current, the chrome around it, and the gestures in and out. Exactly one `<video>` still
+  exists on the page at a time, which is *why* a card cannot keep playing while the player is
+  open: a tap on a card while staged **loads the stage** rather than starting a rival session.
+- **It lives OUTSIDE `#gridview`, and that is the whole design.** `render()` assigns
+  `#gridview.innerHTML` on every filter keystroke, every sort click **and every infinite-scroll
+  page bump** — so promoting the card element itself (`position:fixed` + a placeholder, which
+  preserves the running video) would have it destroyed by the very act the feature exists for:
+  scrolling the grid while watching. As a sibling inside `.tablecard` it survives, and render's
+  existing `if (media.pop.closest("#gridview")) stopMedia()` guard is left exactly right. Being
+  the first child of `.tablecard` rather than of `#gridview` also serves **both** phone views —
+  the box-art grid and the Card view whose table follows below it.
+- **Sticky and in flow, not fixed and overlaid.** The block pushes the grid down by itself, so
+  opening and closing needs no scroll-position compensation and the list never jumps under the
+  finger. There is no clipping ancestor on `body > .wrap.body > .tablecard` (and `.tablescroll`
+  goes `overflow:visible` once narrow), so `position:sticky` works untouched. `top` is
+  `var(--nav-h)`, written from a **`ResizeObserver` on `#topbar`** (`syncNavH`) because the nav
+  is not a fixed height: past 24px of scroll `body.nav-scrolled` hides `.bar-main` and it shrinks
+  (measured: 194px → 93px). `z-index:35` sits below `.topbar`'s 40, so opening the filter panel
+  covers the player rather than fighting it — and `setFiltersCompact(false)` closes it outright,
+  since an open panel takes most of the screen.
+- **16:9, not the card's 460/215.** Steam's microtrailers *and* its screenshots are both 16:9;
+  the 2.14:1 shape belongs to **box art**, which is only the poster frame the video replaces
+  ~350ms later. At card size the crop costs little; at 198px tall it is ~17% of the picture. So
+  the player takes the ratio of the thing you actually watch and lets the poster lose its sides
+  to `object-fit:cover` instead — the same trade the hover popup already made. A
+  `width:min(100%, 46vh*16/9)` cap keeps a **landscape** phone from handing the whole screen to
+  the player: past that point the box narrows and centres.
+- **Gestures.** Tap the player to start/stop · swipe **left/right** to step the playlist ·
+  swipe **down** (or `✕`) to close. Up does nothing on purpose — a second hidden meaning for the
+  gesture that opened it would be a coin-flip for the user, and `‹ ›` are right there. On a
+  **card**: tap to play in place (unchanged) · swipe left/right to step (unchanged) · swipe
+  **up** to promote · swipe **down** to stop.
+- **Claiming vertical is the one delicate part**, because vertical is how the page scrolls.
+  `touch-action` is read when a gesture *starts*, so it cannot be decided mid-drag — it has to be
+  a class that goes on with playback and comes off with it. `.gart.armed{touch-action:none}` is
+  added by `armMedia` and removed by `stopMedia`, **on touch only**, so vertical is claimed
+  exactly on the one card that is currently playing. The trade is deliberate and narrow: that
+  card stops being a place you can scroll from, and it always has two ways out that hand
+  scrolling straight back (the `■` badge, or the downward swipe that stops it). Every other card
+  keeps `pan-y pinch-zoom` and pans as it always did. `bindMediaSwipe(root, pick, vert, vertWhen)`
+  is the one recogniser both surfaces share — passive throughout, deciding by *measuring* rather
+  than capturing, with the iOS phantom-click swallow (`swallowNextClick`) on both.
+- **Discovery is a control, not a gesture.** The `⤢` chip appears on a card *while it is
+  playing*, opposite the `■` badge — the swipe is the accelerator, not the way in. This repeats
+  the reasoning that turned `.gplay` from a 13px glyph into a gold disc when the trailers were
+  going unfound on touch: on a phone there is no hover, so the badge **is** the discovery path.
+  The chip hands over the card's **current playlist index**, so the player opens on the frame
+  that was on screen rather than restarting the game — free, because the screenshot shard is
+  already in `shotsShardCache` from the card's own playback (`armMedia`'s `seek`).
+- **Card view gets previews for the first time.** Its only path was the `.pop` panel, which is
+  built on `mouseover` — so on a phone the thumbnail was simply **inert** and the clip and
+  screenshots were unreachable in that view entirely. It now opens the player, marked by a
+  `.tplay` badge. A real element rather than `.thumb::after`, which the 18+ gate already owns —
+  the same collision that gave the grid card a `.gplay` element instead of a pseudo-element.
+- **Phone only, by design.** `stageAvailable() = isNarrow() && trailersOn()`. On a pointer device
+  a grid card is already 220px+ and hover plays the clip in place, so **nothing about desktop
+  changes** — the affordances are not even painted (`touchClipCls()` is empty when `CAN_HOVER`).
+  `trailersOn()` carries both the **Video** switch and the **reduced-motion** override, so one
+  call gates the player the way it already gates every other kind of panel motion.
+- **Session-only state.** `state.stageAppid` is not serialized to the URL and not persisted —
+  the same rule as `openCards` and the hidden-games list: per-device chrome is not part of the
+  query a shared link is meant to reproduce. `markStaged()` re-applies the gold "on stage" edge
+  after every render (a class alone would vanish on the next filter keystroke) and repaints the
+  meta strip, whose figures move with the price basis, the HLTB metric and free-only mode.
+
+**Infinite scroll appends in grid view (`growPage`).** Reaching the bottom used to be
+`state.pagesShown += 1; render()`, and render assigns `#gridview.innerHTML` — so it threw away
+every card on screen and rebuilt it from scratch just to add the next hundred. Merely wasteful
+before; with the player docked above the grid, **scrolling is what the user does while
+watching**, which put a rebuild of several hundred DOM subtrees next to a decoding `<video>` on
+every page bump. The next slice is now appended. The detailed view still re-renders: its rows
+are built by a closure inside `render()` that depends on per-render values (the QTPD bar scale,
+computed across the whole filtered set), and its rows carry no video.
+
 **Thumbnails & hiding.** Header art with a hover-enlarge popover, sourced from the PICS
 `art` field (§9.5) and falling back to a content-verified chain of appid-derived URLs for
 games PICS hasn't covered. `art` comes first because it is the only *authoritative* source:
@@ -2644,6 +2729,19 @@ revert is just `STEAM_DELAY` back to 2.0 and/or fewer slots.
 ---
 
 ## 16. Recent changes
+
+- **The preview stage — a docked player for phones (Aug 2026).** The mobile grid could play a
+  game's preview, but only inside the card: **171×80px** on a 390px phone, with a 16:9 clip
+  cropped into a 2.14:1 box. Swiping up on a playing card — or pressing the new `⤢` chip —
+  now moves it into a full-width **16:9 player docked under the sticky nav**, and every card
+  below loads into that player on a tap, so you browse and watch without leaving the grid.
+  Swipe down or `✕` to collapse. **Card view gains previews it never had**: its thumbnail was
+  inert on touch, because its only path was a `mouseover` popup. The player is a third
+  `.mediabox`, so `armMedia()` drives it with no new playback code; it lives outside
+  `#gridview` because `render()` rebuilds that on every page bump, which would destroy a
+  promoted card mid-watch. Phone-only — **nothing on desktop changes**. Grid pagination now
+  **appends** instead of re-rendering, since scrolling is what you do while the player is up.
+  Full design in §11.
 
 - **Free-to-keep promos no longer fossilise as “-100% off” (Aug 2026).** A paid game that is
   free for a weekend makes `appdetails` self-contradictory — `is_free: true` and
