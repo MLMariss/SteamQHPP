@@ -2245,6 +2245,17 @@ about 34% of the viewport**, leaving three and a half rows of grid on screen.
   box is current, the chrome around it, and the gestures in and out. Exactly one `<video>` still
   exists on the page at a time, which is *why* a card cannot keep playing while the player is
   open: a tap on a card while staged **loads the stage** rather than starting a rival session.
+- **The stage broke an assumption `armMedia`'s re-arm guard had always been allowed to make.**
+  That guard exists so a `mouseover` re-firing on child nodes does not restart the clip, and it
+  used to test the **box** alone — safe while every carrier was one box per game (one `.pop` per
+  row, one `.gart` per card), so "same box" and "same game" meant the same thing. The stage is
+  **one box whose game changes under it**, so with a preview running every later `stageLoad()`
+  returned early and did nothing: the title and figures updated (they are painted before the
+  arm) while the previous game's clip carried on underneath, and tapping a second card looked
+  dead until you stopped the first. The guard now tests box **and** game, and the appid is read
+  off the **session** (`media.appid`) rather than the element — `stageLoad` sets the box's
+  dataset before arming, so an element-level comparison would see the new id on both sides and
+  still match.
 - **It lives OUTSIDE `#gridview`, and that is the whole design.** `render()` assigns
   `#gridview.innerHTML` on every filter keystroke, every sort click **and every infinite-scroll
   page bump** — so promoting the card element itself (`position:fixed` + a placeholder, which
