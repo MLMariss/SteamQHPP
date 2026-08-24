@@ -499,41 +499,68 @@
   .thumb .pop{position:fixed; z-index:60; width:512px; height:288px; border-radius:8px; overflow:hidden;
         border:1px solid var(--line); box-shadow:0 14px 40px #000b; display:none; pointer-events:none; background:#0b0f18}
   .thumb .pop img{width:100%; height:100%; object-fit:cover}
-  /* The <video> is created on hover-dwell and destroyed on mouseout (armMedia/stopMedia),
+  /* ── .mediabox: any container a preview can play inside ─────────────────────────────────
+     These rules used to be scoped to `.thumb .pop`, the floating panel beside a table row —
+     which is why the Preview/Video switch did nothing whatsoever in Grid view: a grid card has
+     no .thumb and no .pop, so armMedia() had nothing to attach to and the control silently
+     changed a localStorage key and stopped there.
+     They are now keyed on .mediabox, worn by BOTH the floating panel and a grid card's .gart.
+     The panel keeps its own positioning and sizing rules below; everything about how a clip and
+     the still layers behave inside a box is shared, so the two paths cannot drift apart.
+     The grid plays IN PLACE rather than in a popup: a card's art is already 220px+ at full
+     capsule ratio, and floating a 512px panel over it would bury its three neighbours. It is
+     also what Steam's own store grid does, so the gesture needs no explaining. */
+  /* The <video> is created on hover-dwell (or a tap) and destroyed on leave (armMedia/stopMedia),
      so at most one exists at a time. It sits ON TOP of the still and cross-fades in only
      once the browser reports `playing`, so a slow-loading trailer never flashes a black
      panel over perfectly good art. */
-  .thumb .pop video{position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
-        display:block; opacity:0; transition:opacity .22s ease}
-  .thumb .pop.playing video{opacity:1}
-  /* Tiny "has a trailer" affordance, shown on the still until the video takes over. */
-  .thumb .pop.hastrailer::after{content:"▶"; position:absolute; right:8px; bottom:6px; z-index:2;
+  .mediabox video{position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
+        display:block; opacity:0; transition:opacity .22s ease; pointer-events:none}
+  .mediabox.playing video{opacity:1}
+  /* Tiny "has a trailer" affordance, shown on the still until the video takes over.
+     The floating panel draws it with ::after; a grid card CANNOT, because .gart::after is
+     already the 18+ overlay and an element has only one ::after — the two would fight over the
+     same pseudo-element and produce a small "18+" chip where the full-cover gate should be.
+     So the card gets a real .gplay element instead, which also lets the 18+ state hide it
+     without touching the gate. */
+  .pop.hastrailer::after{content:"▶"; position:absolute; right:8px; bottom:6px; z-index:4;
         font-size:11px; line-height:1; color:#fff; opacity:.85; text-shadow:0 1px 4px #000d;
-        transition:opacity .22s ease}
-  .thumb .pop.playing::after{opacity:0}
+        transition:opacity .22s ease; pointer-events:none}
+  .pop.playing::after{opacity:0}
+  /* Opposite corner from the discount badge, and drawn as a chip rather than a bare glyph: on
+     touch this is not decoration but the thing telling you the art is its own tap target. */
+  .gplay{position:absolute; left:7px; bottom:7px; z-index:4; pointer-events:none;
+        font-family:var(--mono); font-size:13px; line-height:1; color:#fff;
+        padding:3px 8px; border-radius:6px; background:#0b0f18cc;
+        opacity:0; transition:opacity .22s ease}
+  .gart.hastrailer .gplay{opacity:.92}
+  .gart.playing .gplay{opacity:0}
+  /* Art still behind the 18+ blur can't be played (gridArtPlayable refuses it), so don't
+     advertise a tap that would do nothing. */
+  .gcard.adult:not(.revealed) .gplay{display:none}
   /* Rotating screenshots (shots.py -> shots/shard_NN.json). Created on demand and torn
      down with the panel, exactly like the <video>: at most one <img.shot> exists at a
      time. It layers ABOVE both the poster still and the video, so starting the rotation
      is a cross-fade rather than a swap through a blank frame.
      Screenshots are true 16:9 and so fill the 512x288 panel with NO crop — the header
      art (~2.14:1) is the one that loses its sides to object-fit:cover. */
-  .thumb .pop img.shot{position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
-        display:block; opacity:0; transition:opacity .35s ease; z-index:2}
-  .thumb .pop img.shot.on{opacity:1}
+  .mediabox img.shot{position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
+        display:block; opacity:0; transition:opacity .35s ease; z-index:2; pointer-events:none}
+  .mediabox img.shot.on{opacity:1}
   /* The clip sits UNDER the stills: both live in the panel for the whole hover (the two
      still layers are reused every time the cycle comes round), so a still that is showing
      has to cover the video rather than blend with it. */
-  .thumb .pop video{z-index:1}
+  .mediabox video{z-index:1}
   /* A rotation is steppable by clicking the thumbnail, so say so. */
   .thumb.hasmedia{cursor:pointer}
   /* Which frame you are on, and how many there are. Hidden until the rotation starts, so
      a game with no stills looks exactly like it does today. */
-  .thumb .pop .pips{position:absolute; left:0; right:0; bottom:6px; z-index:3;
+  .mediabox .pips{position:absolute; left:0; right:0; bottom:6px; z-index:3;
         display:none; justify-content:center; gap:5px; pointer-events:none}
-  .thumb .pop.rotating .pips{display:flex}
-  .thumb .pop .pips i{width:5px; height:5px; border-radius:50%; background:#ffffff66;
+  .mediabox.rotating .pips{display:flex}
+  .mediabox .pips i{width:5px; height:5px; border-radius:50%; background:#ffffff66;
         box-shadow:0 1px 3px #000a; transition:background .2s ease}
-  .thumb .pop .pips i.on{background:#fff}
+  .mediabox .pips i.on{background:#fff}
   /* Adult games (PICS content_desc 3/4): blur the art behind a three-stage reveal.
      Stage 1 (default):   blurred + "18+" badge, whole thumb is a button.
      Stage 2 (.confirm):  click once -> "18+?" confirmation prompt.
@@ -903,7 +930,9 @@
      here — and it used to be the smallest type on the card at 12px, leaning on weight 700 to do
      the work size should have been doing. tabular-nums so -5% and -75% occupy the same width and
      the badge stops jittering between cards; the shadow lifts the chip off bright key art. */
-  .gdisc{position:absolute; top:7px; right:7px; background:var(--coral); color:#0e1320;
+  /* z-index above the clip and screenshot layers (1 and 2): both are appended to .gart AFTER
+     this badge, so without it a playing preview paints straight over the discount. */
+  .gdisc{position:absolute; top:7px; right:7px; z-index:5; background:var(--coral); color:#0e1320;
         font-family:var(--mono); font-size:13px; font-weight:600; letter-spacing:.01em;
         font-variant-numeric:tabular-nums; padding:2px 7px; border-radius:6px;
         box-shadow:0 1px 6px #0008}
@@ -1554,7 +1583,7 @@ try{
     <div class="seg viewseg" id="viewSwitch" role="group" aria-label="View mode">
       <button data-view="table" aria-pressed="true"  title="Table — every column, one row per game. Needs a window at least 1280px wide; below 1366px the Tags column folds to a strip so the rest still fits.">Table</button>
       <button data-view="card"  aria-pressed="false" title="Cards — the same data as the table, stacked one game per card. Used when the window is under 1280px.">Card</button>
-      <button data-view="grid"  aria-pressed="false" title="Grid — Steam box art with the QTPD score and review score on each card. Click a card for price and length.">Grid</button>
+      <button data-view="grid"  aria-pressed="false" title="Grid — Steam box art with the QTPD score and both review scores (30-day and all-time) on each card, plus whatever you are sorting by. Hover the art to play the game's preview clip, or tap it on a phone. Click a card for price, length and playtime.">Grid</button>
     </div>
     <!-- Hover preview switch. Lives here with the other DISPLAY preferences (not in the
          filter panel, which is about which games you see). It exists because the preview
@@ -1564,7 +1593,7 @@ try{
     <span class="rb-lbl">Preview</span>
     <div class="seg viewseg" role="group" aria-label="Hover video preview">
       <button id="trailerToggle" aria-pressed="true"
-              title="Play the game's Steam preview clip when you hover its thumbnail, instead of just enlarging the still. This is the same short silent loop Steam plays on its own store capsules — a few hundred KB, loaded only for the game you actually hover. Turn off to keep the enlarged still only.">Video</button>
+              title="Play the game's Steam preview clip instead of a still — hover a table thumbnail, or in Grid view hover a card's box art (tap it on a phone; tap again to stop). This is the same short silent loop Steam plays on its own store capsules — a few hundred KB, loaded only for the game you actually pick. Turn off to keep the stills only.">Video</button>
     </div>
     <div class="rb-legend" aria-hidden="true">
       <span class="rb-key" title="QTPD — Quality Time Per Dollar, the headline metric. Higher means more game-hours of value per dollar."><b class="k-q">QTPD</b> value score</span>
@@ -2191,6 +2220,10 @@ function render(){
 
   // L3/L5: grid view renders box-art cards from the same paged `games`; table view builds rows.
   if(state.view === "grid"){
+    // innerHTML replaces every card, including the one currently playing, which would leave
+    // `media` pointing at a detached node and its <video> streaming with no way to reach it.
+    // Same class of bug as the open-card state that item #13 fixed: the DOM does not survive.
+    if(media && media.pop.closest("#gridview")) stopMedia();
     $("#gridview").innerHTML = games.map(gridCardHTML).join("");
     tbody.innerHTML = "";
   } else {
@@ -2371,7 +2404,7 @@ function render(){
             <img loading="lazy" src="${imgChain(g.appid, g.art)[0]}" alt="" referrerpolicy="no-referrer"
                  data-appid="${g.appid}" data-art="${esc(g.art || "")}" data-step="0"
                  onerror="stepThumb(this,true)" onload="stepThumb(this,false)" />
-            <span class="pop"><img alt="" referrerpolicy="no-referrer" /></span>
+            <span class="pop mediabox"><img alt="" referrerpolicy="no-referrer" /></span>
           </span>
           <span class="gmeta">
             <a class="gtitle" href="${esc(g.url)}" target="_blank" rel="noopener" title="${esc(g.title)}">${esc(g.title)}</a>${wished}
@@ -2724,7 +2757,10 @@ function showShot(m, item){
   back.src = item.url;
 }
 
-function armMedia(thumb, pop){
+// `dwell` defaults to the hover delay. A TAP passes 0: the dwell exists to stop a pointer
+// sweeping across rows from firing a video per row it crosses, and a tap has no such problem —
+// it is already a deliberate act, so making it wait would just feel broken.
+function armMedia(thumb, pop, dwell){
   if(media && media.pop === pop) return;   // mouseover re-fires on child nodes; ignore
   stopMedia();
   // One switch governs every kind of panel motion. A cross-fading slideshow is motion
@@ -2759,7 +2795,7 @@ function armMedia(thumb, pop){
       mkPips(m);
       if(started) setPips(m); else showMedia(m, 0);
     });
-  }, TRAILER_DWELL_MS));
+  }, dwell == null ? TRAILER_DWELL_MS : dwell));
 }
 
 // thumbnail hover-enlarge
@@ -2800,6 +2836,46 @@ document.body.addEventListener("mouseout", e => {
     stopTrailer();
   }
 });
+
+// ── Grid card preview ─────────────────────────────────────────────────────────────────
+// The Preview/Video switch used to be a control that lied: it is wired to `.thumb`, which
+// exists only in a table/card row, so pressing it in Grid view saved a preference and
+// produced no observable effect at all. Grid is also the view that survives on a phone
+// (setView coerces Table→Card when narrow, but leaves Grid alone), so a hover-only preview
+// would have shipped the feature to the smaller half of the audience.
+//
+// Two gestures, one code path — armMedia() takes any .mediabox, and a card's .gart is one:
+//   pointer devices : hover-dwell on the art, same 350ms as the table
+//   touch devices   : TAP the art; tap again to stop
+// The card therefore has two zones — art = watch, panel/rest = flip to details — and the ▶
+// badge on the art is what advertises the split, so it isn't a hidden gesture. Tap-to-play is
+// also the gentler behaviour on the metered connections the Video switch was built for: a
+// pointer sweeping a grid would fire a download per card it crossed, whereas a tap is one
+// deliberate clip, once.
+const CAN_HOVER = matchMedia("(hover: hover)").matches;
+// Not playable while the details face is up (the art is behind it), never on art still behind
+// the 18+ blur — the same rule the table thumb follows — and never when the Video switch is off,
+// which matters for more than just suppressing the clip: on touch the art only steals the tap
+// from the card's flip gesture when it has something to play, so with previews off the whole
+// card goes back to being one flip target.
+function gridArtPlayable(art){
+  if(!trailersOn()) return false;
+  const card = art.closest(".gcard");
+  if(!card || card.classList.contains("open")) return false;
+  if(card.classList.contains("adult") && !card.classList.contains("revealed")) return false;
+  return true;
+}
+if(CAN_HOVER){
+  document.body.addEventListener("mouseover", e => {
+    const art = e.target.closest(".gcard .gart");
+    if(!art || !gridArtPlayable(art)) return;
+    armMedia(art, art);          // carrier and box are the same element: the clip plays in place
+  });
+  document.body.addEventListener("mouseout", e => {
+    const art = e.target.closest(".gcard .gart");
+    if(art && !art.contains(e.relatedTarget)) stopMedia();
+  });
+}
 
 // ── Three-stage 18+ gate for adult art (PICS content_desc 3/4) ────────────────────────
 // Shared by the table thumbnail and the grid card, so both gates behave identically.
@@ -3127,6 +3203,11 @@ function gridCardHTML(g){
   const disc = onSale
     ? `<span class="gdisc" title="On sale — ${g.discount_pct}% off right now. Discounted games also carry the gold card edge.">-${g.discount_pct}%</span>`
     : "";
+  // On a pointer device the ▶ appears during the hover-dwell (armMedia adds it), the way it does
+  // on a table row. On touch there IS no hover to reveal it, and the badge is doing double duty —
+  // it says "this game has a clip" AND "the art is its own tap target" — so it is painted up
+  // front for every card that has something to play.
+  const artCls = (!CAN_HOVER && trailersOn() && trailerSources(g.appid).length) ? " hastrailer" : "";
   const qLbl = freeMode() ? "FREE" : "QTPD";
   // Every mark on the card carries its own explanation: the score, what "high" means, and the
   // review %. None of it was labelled before — the card showed two bare numbers and a coloured
@@ -3200,10 +3281,10 @@ function gridCardHTML(g){
         ? "Playtime — median hours played by reviewers who did NOT recommend it; too few recommenders for a median of their own."
         : "Playtime — too few reviews with playtime data (3+ needed) for a median.");
   return `<div class="${cls}" data-gappid="${g.appid}" tabindex="0" role="button" aria-label="${esc(g.title)}">
-    <div class="gart">
+    <div class="gart mediabox${artCls}" data-appid="${g.appid}" data-art="${esc(g.art || "")}">
       <img class="gcap" loading="lazy" src="${headerUrl(g.appid)}" alt="" referrerpolicy="no-referrer"
            onerror="this.onerror=null;this.src='${capsuleUrl(g.appid)}'" />
-      ${disc}
+      ${disc}<span class="gplay" aria-hidden="true">▶</span>
     </div>
     <div class="gmeta">
       <div class="gmeta-top"><div class="gname" title="${esc(g.title)}">${esc(g.title)}</div>${rateHtml}</div>
@@ -3274,6 +3355,10 @@ function gridSortValueHTML(g){
 // Open/close one grid card. The class drives the CSS; the state Set is what survives the next
 // render() — never toggle the class directly, or the card reverts on the next rebuild.
 function setCardOpen(card, open){
+  // The details face covers the art, so a clip playing behind it would keep streaming where
+  // nobody can see it — and on touch the tap that opened the card is the same tap that would
+  // otherwise have started it.
+  if(open && media && card.contains(media.pop)) stopMedia();
   card.classList.toggle("open", open);
   const id = card.dataset.gappid;
   if(!id) return;
@@ -4340,7 +4425,7 @@ function init(data){
       btn.setAttribute("aria-pressed", String(on));
       if(REDUCED_MOTION){
         btn.classList.add("disabled");
-        btn.title = "Hover video previews are off because your system is set to reduce motion.";
+        btn.title = "Video previews are off because your system is set to reduce motion.";
       }
     };
     btn.addEventListener("click", () => {
@@ -4348,6 +4433,10 @@ function init(data){
       const on = !trailersOn();
       try{ localStorage.setItem("qtpd.trailers", on ? "1" : "0"); }catch(e){}
       if(!on) stopTrailer();          // kill anything playing the moment it's switched off
+      // Grid cards paint their ▶ affordance at render time on touch devices, so the switch has
+      // to rebuild them or it would keep advertising a tap it no longer honours. Only when it
+      // would actually change something on screen.
+      if(state.view === "grid" && !CAN_HOVER) render();
       sync();
     });
     sync();
@@ -4442,6 +4531,21 @@ function init(data){
       e.preventDefault(); e.stopPropagation();
       adultSetStage(card, adultStage(card) === 1 ? 2 : 3);
       return;
+    }
+    // Touch: the art is its own tap target — play/stop the clip instead of flipping the card.
+    // Everything else on the card still flips, which is why the ▶ badge is painted on the art:
+    // it marks the boundary between the two zones. Pointer devices skip this entirely and keep
+    // the plain click-anywhere-to-flip behaviour, since hover already plays the clip for them.
+    if(!CAN_HOVER){
+      const art = e.target.closest(".gart");
+      // `.hastrailer` — the ▶ badge — is the contract: the art takes the tap exactly when it is
+      // showing the user that it will. A card with no clip has no badge and stays a plain flip
+      // target, rather than eating the tap and appearing dead.
+      if(art && art.classList.contains("hastrailer") && gridArtPlayable(art)){
+        e.preventDefault(); e.stopPropagation();
+        if(media && media.pop === art) stopMedia(); else armMedia(art, art, 0);
+        return;
+      }
     }
     if(e.target.closest("[data-gclose]")){ setCardOpen(card, false); return; }
     setCardOpen(card, !card.classList.contains("open"));
