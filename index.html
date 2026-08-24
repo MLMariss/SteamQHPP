@@ -537,14 +537,47 @@
         font-size:11px; line-height:1; color:#fff; opacity:.85; text-shadow:0 1px 4px #000d;
         transition:opacity .22s ease; pointer-events:none}
   .pop.playing::after{opacity:0}
-  /* Opposite corner from the discount badge, and drawn as a chip rather than a bare glyph: on
-     touch this is not decoration but the thing telling you the art is its own tap target. */
-  .gplay{position:absolute; left:7px; bottom:7px; z-index:4; pointer-events:none;
-        font-family:var(--mono); font-size:13px; line-height:1; color:#fff;
-        padding:3px 8px; border-radius:6px; background:#0b0f18cc;
-        opacity:0; transition:opacity .22s ease}
-  .gart.hastrailer .gplay{opacity:.92}
-  .gart.playing .gplay{opacity:0}
+  /* Opposite corner from the discount badge, and drawn as a real BUTTON rather than a chip
+     with a glyph in it. On a phone there is no hover to discover the clip with, so this badge
+     is the entire discovery path: it has to read as "press me", not as a watermark. It used to
+     be a 13px white glyph on a translucent chip and lost every fight with the art behind it,
+     which is why the trailers went unfound on touch — a gold disc with a dark ring does not.
+     Still `pointer-events:none`: the whole .gart is the tap target (see the #gridview click
+     handler), and the badge only has to SAY so — taking the pointer itself would put a
+     dead spot over the art for the miss. */
+  .gplay{position:absolute; left:8px; bottom:8px; z-index:4; pointer-events:none;
+        display:flex; align-items:center; justify-content:center;
+        width:28px; height:28px; border-radius:50%;
+        font-family:var(--mono); font-size:13px; line-height:1; color:#0e1320;
+        background:var(--gold); box-shadow:0 0 0 2px #0b0f18b3, 0 2px 10px #000a;
+        opacity:0; transition:opacity .22s ease, background .22s ease, color .22s ease}
+  .gplay i{font-style:normal}
+  .gplay .gp-play{margin-left:2px}          /* ▶ is optically left-heavy inside a circle */
+  .gplay .gp-stop{display:none; font-size:11px}
+  /* TWO classes light the badge, and they are not interchangeable:
+       .hasclip     persistent — "this card has a clip", painted at render on touch. It is also
+                    the tap contract the #gridview handler reads.
+       .hastrailer  transient — armMedia adds it for the pointer dwell, showShot and stopMedia
+                    take it away again.
+     They used to be one class, and that was the bug behind "I can only watch it once": stopping
+     a preview (or the cycle simply reaching its first screenshot) stripped .hastrailer, the tap
+     contract went with it, and from then on tapping the art flipped the card instead of
+     restarting the clip. Splitting them makes the affordance survive the preview. */
+  .gart.hasclip .gplay, .gart.hastrailer .gplay{opacity:.96}
+  /* TOUCH ONLY (the negation of the query CAN_HOVER reads, so the two cannot disagree): while a
+     preview is running the badge becomes its stop control. Without it the tap that stops a clip
+     is as undiscoverable as the tap that started one used to be — and going back to the box art
+     and forward to the clip again is the whole point of keeping the target alive. */
+  @media not all and (hover: hover){
+    .gart.rotating .gplay{background:#0b0f18cc; color:#fff; opacity:.85;
+          box-shadow:0 0 0 1px #ffffff33, 0 2px 10px #000a}
+    .gart.rotating .gplay .gp-play{display:none}
+    .gart.rotating .gplay .gp-stop{display:block}
+  }
+  /* On a pointer device there is nothing to press — moving off the art already stops it — so the
+     badge behaves exactly as it always did: it marks the dwell and the buffering wait, then gets
+     out of the way the moment there is footage to get out of the way of. */
+  @media (hover: hover){ .gart.playing .gplay{opacity:0} }
   /* Art still behind the 18+ blur can't be played (gridArtPlayable refuses it), so don't
      advertise a tap that would do nothing. */
   .gcard.adult:not(.revealed) .gplay{display:none}
@@ -569,8 +602,21 @@
         display:none; justify-content:center; gap:5px; pointer-events:none}
   .mediabox.rotating .pips{display:flex}
   .mediabox .pips i{width:5px; height:5px; border-radius:50%; background:#ffffff66;
-        box-shadow:0 1px 3px #000a; transition:background .2s ease}
+        box-shadow:0 1px 3px #000a; transition:background .2s ease, width .2s ease}
   .mediabox .pips i.on{background:#fff}
+  /* On touch the art is swipeable (see the #gridview touch handlers), which promotes these
+     from decoration to the position read-out for that gesture — you need to be able to see
+     where in the playlist you are, and that there IS a playlist. So on a card they get bigger,
+     the current one stretches into a bar, and the row sits on a scrim that survives a pale
+     screenshot. Untouched in the hover popup, where nothing is swipeable. */
+  @media not all and (hover: hover){
+    .gart .pips{gap:6px; bottom:7px}
+    .gart .pips i{width:6px; height:6px; background:#ffffffa6}
+    .gart .pips i.on{width:16px; border-radius:99px}
+  }
+  /* Let the browser keep vertical panning (the grid scrolls) and pinch-zoom, but stop it
+     claiming HORIZONTAL drags on a swipeable card — those are the preview's. */
+  .gart.hasclip{touch-action:pan-y pinch-zoom}
   /* Adult games (PICS content_desc 3/4): blur the art behind a three-stage reveal.
      Stage 1 (default):   blurred + "18+" badge, whole thumb is a button.
      Stage 2 (.confirm):  click once -> "18+?" confirmation prompt.
@@ -2627,7 +2673,12 @@ function shotUrls(appid, doc){
 // Exactly one panel is armed at a time. `media` holds everything belonging to it and is
 // nulled on mouseout, and every callback re-checks `media === m` first, so a timer or an
 // image load that outlives its hover is a no-op rather than a stale frame.
-const VIDEO_STALL_MS = 1400;   // clip never started -> move on rather than strand the stills
+// How long the cycle waits on a clip that has not started yet. These measure SILENCE, not
+// elapsed time — see the watchdog in showVideo(): every sign of life from the element resets
+// the window, so a slow download is waited out while a dead one still hands over promptly.
+const VIDEO_STALL_MS = 1400;    // no sign of life at all -> move on rather than strand the stills
+const VIDEO_LOAD_MS  = 6000;    // ...but a clip that IS arriving gets this long between signs
+const VIDEO_WAIT_MAX = 20000;   // ceiling, so a stream that drips forever still hands over
 let media = null, mediaTimers = [];
 
 function killVideo(pop){
@@ -2698,12 +2749,42 @@ function showMedia(m, i){
 
 const nextMedia = m => showMedia(m, m.idx + 1);
 
+// A swipe can land before there is anything to swipe TO: on a tap the playlist is [clip]
+// until the screenshot shard arrives, and on a game with no clip it is empty until then.
+// Dropping the gesture in that window would make the card feel dead exactly when the user is
+// first exploring it, so the direction is parked on `m.pending` and applied the moment the
+// stills land. One step is remembered, not a queue — a flurry of swipes during the wait
+// means "move", not "move four times".
+function applyPendingStep(m){
+  if(!m.pending || m.items.length < 2) return;
+  const d = m.pending; m.pending = 0;
+  showMedia(m, m.idx + d);
+}
+
+// One entry point for "move the preview by one", whatever it is currently doing.
+//   running  -> step now (or park the step if the playlist is still one item long)
+//   idle     -> arm it, carrying the direction so the swipe still lands once it is running
+// dir: +1 = forward, -1 = back. showMedia's modulo already wraps both ways.
+function stepMedia(box, dir){
+  if(media && media.pop === box){
+    if(media.items.length > 1) showMedia(media, media.idx + dir);
+    else media.pending = dir;
+    return;
+  }
+  armMedia(box, box, 0, dir);
+}
+
 function showVideo(m, item){
   // Fade the stills out rather than tearing them down — the two layers are reused every
   // time the cycle comes back round, so only the <video> is built and destroyed. They may
   // not exist yet: on a clip-only game they never do.
   if(m.layers) m.layers.forEach(el => el.classList.remove("on"));
   killVideo(m.pop);
+  // `playing` goes with the element it belonged to. It is the cross-fade's "the clip is up"
+  // flag, and on a clip-only game — where the cycle comes straight back round to this same
+  // item — leaving it set painted the brand-new, still-empty <video> at full opacity: a black
+  // frame over perfectly good art for as long as the replay took to buffer.
+  m.pop.classList.remove("playing");
   const v = document.createElement("video");
   v.muted = true; v.autoplay = true; v.preload = "auto";
   // Attributes as well as properties: iOS Safari only honours the ATTRIBUTE form of
@@ -2714,20 +2795,62 @@ function showVideo(m, item){
     v.appendChild(el);
   });
   m.pop.classList.add("hastrailer");
-  v.addEventListener("playing", () => { if(media === m) m.pop.classList.add("playing"); },
-                     { once:true });
+  v.addEventListener("playing", () => {
+    if(media !== m) return;
+    // It made it: the watchdog below has nothing left to guard against.
+    if(m.timer){ clearTimeout(m.timer); m.timer = null; }
+    m.pop.classList.add("playing");
+  }, { once:true });
   // NOT loop=true: the clip is one item in a cycle now, so it hands on when it ends. On a
   // one-item playlist showMedia wraps back to the clip, which replays it as before.
   v.addEventListener("ended", () => { if(media === m) nextMedia(m); });
   m.pop.appendChild(v);
-  // Autoplay can be refused (policy, codec, offline). Swallow it: the enlarged still is
-  // already on screen, so a rejected play() is a no-op, not an error state.
-  const p = v.play(); if(p && p.catch) p.catch(() => {});
-  // ...but a refusal also means `ended` never fires, which would strand the stills behind
-  // a clip that is not playing. Move on if nothing has started shortly after.
-  m.timer = setTimeout(() => {
-    if(media === m && !m.pop.classList.contains("playing") && m.items.length > 1) nextMedia(m);
-  }, VIDEO_STALL_MS);
+
+  // ── Watchdog: the clip that is never going to start ──────────────────────────────────
+  // This exists because a refused or unplayable clip never fires `ended`, which would strand
+  // the stills behind a video that is not playing. It used to be a flat 1.4s from the moment
+  // the element was built — and on a phone 1.4s is not "never started", it is "still
+  // downloading". So the trailer you had deliberately TAPPED was thrown away mid-flight and
+  // the preview opened on screenshot #1: the one thing you asked to see was the one thing you
+  // could not, and the clip's bytes had been spent anyway.
+  // It now measures SILENCE instead. Any sign of life from the element — bytes arriving,
+  // metadata parsed, a decodable frame — resets the window, so a slow clip is waited out; only
+  // a stretch with nothing in it at all, a hard error, or a refused play() hands over. A
+  // ceiling still applies, so a stream that drips forever cannot hold the cycle open.
+  const deadline = Date.now() + VIDEO_WAIT_MAX;
+  const wait = ms => { if(m.timer) clearTimeout(m.timer); m.timer = setTimeout(handOver, ms); };
+  function handOver(){
+    if(media !== m || m.items[m.idx] !== item) return;   // the cycle already moved on
+    if(m.pop.classList.contains("playing")) return;      // ...or it started after all
+    if(m.items.length > 1){ nextMedia(m); return; }
+    // Nothing to hand over TO yet: on a tap the playlist is [clip] until the screenshot shard
+    // lands. Keep the slot open for it rather than ending the preview on a still that has not
+    // arrived, but stop once the ceiling is reached — the box art underneath is a fine resting
+    // state, and a bare re-arm here would spin.
+    if(Date.now() < deadline) wait(VIDEO_STALL_MS); else m.timer = null;
+  }
+  wait(VIDEO_STALL_MS);
+  ["loadstart", "progress", "loadedmetadata", "loadeddata", "canplay"].forEach(ev =>
+    v.addEventListener(ev, () => {
+      if(media !== m || m.items[m.idx] !== item) return;
+      if(m.pop.classList.contains("playing")) return;
+      const left = Math.min(VIDEO_LOAD_MS, deadline - Date.now());
+      if(left > 0) wait(left);                           // alive, just slow: reset the window
+    }));
+  // A dead source is not slowness — nothing further is coming — so don't sit out the window
+  // for it. Watching it is fiddlier than it looks: with <source> CHILDREN a failed candidate
+  // is SILENT on the <video> itself. Chromium fires no `error` on the element and rejects no
+  // play(); each candidate errors on its own <source> and the element simply lands in
+  // NETWORK_NO_SOURCE (verified against a 404 in Chromium 1194 — video.error stays null). So
+  // the candidates are what we watch, and the element's own networkState is what says they are
+  // exhausted, which also covers one skipped for its codec rather than for a 404.
+  v.querySelectorAll("source").forEach(el => el.addEventListener("error", () => {
+    // Deferred a tick: on the last candidate the state flips to NO_SOURCE just after its error.
+    setTimeout(() => { if(v.networkState === HTMLMediaElement.NETWORK_NO_SOURCE) handOver(); }, 0);
+  }));
+  v.addEventListener("error", handOver);        // a bare src, or a decode error before playback
+  // Autoplay can still be refused outright (policy, data-saver), and that DOES reject.
+  const p = v.play(); if(p && p.catch) p.catch(handOver);
 }
 
 function showShot(m, item){
@@ -2770,7 +2893,10 @@ function showShot(m, item){
 // `dwell` defaults to the hover delay. A TAP passes 0: the dwell exists to stop a pointer
 // sweeping across rows from firing a video per row it crosses, and a tap has no such problem —
 // it is already a deliberate act, so making it wait would just feel broken.
-function armMedia(thumb, pop, dwell){
+// `step` is the direction a SWIPE arrived with (see stepMedia): the preview starts at the
+// clip as usual and then moves by one as soon as the playlist has a second item, so a swipe
+// on a card that was not playing yet does what the finger asked rather than merely starting it.
+function armMedia(thumb, pop, dwell, step){
   if(media && media.pop === pop) return;   // mouseover re-fires on child nodes; ignore
   stopMedia();
   // One switch governs every kind of panel motion. A cross-fading slideshow is motion
@@ -2781,7 +2907,7 @@ function armMedia(thumb, pop, dwell){
   const appid = thumb.dataset.appid;
   const srcs = trailerSources(appid);
   const m = { pop, thumb, items: [], idx: -1, layers: null, pips: null,
-              front: -1, fails: 0, timer: null };
+              front: -1, fails: 0, timer: null, pending: step || 0 };
   media = m;
   if(srcs.length) pop.classList.add("hastrailer");   // ▶ affordance during the dwell
 
@@ -2804,6 +2930,7 @@ function armMedia(thumb, pop, dwell){
       m.items = m.items.concat(urls.map(url => ({ kind:"shot", url })));
       mkPips(m);
       if(started) setPips(m); else showMedia(m, 0);
+      applyPendingStep(m);               // a swipe that arrived while this was in flight
     });
   }, dwell == null ? TRAILER_DWELL_MS : dwell));
 }
@@ -3217,7 +3344,10 @@ function gridCardHTML(g){
   // on a table row. On touch there IS no hover to reveal it, and the badge is doing double duty —
   // it says "this game has a clip" AND "the art is its own tap target" — so it is painted up
   // front for every card that has something to play.
-  const artCls = (!CAN_HOVER && trailersOn() && trailerSources(g.appid).length) ? " hastrailer" : "";
+  // `.hasclip`, NOT `.hastrailer`: the latter belongs to the playback cycle and gets stripped
+  // whenever the preview stops or reaches a screenshot, which used to take the tap target with
+  // it and make the clip unrepeatable. See the .gplay rules and the #gridview click handler.
+  const artCls = (!CAN_HOVER && trailersOn() && trailerSources(g.appid).length) ? " hasclip" : "";
   const qLbl = freeMode() ? "FREE" : "QTPD";
   // Every mark on the card carries its own explanation: the score, what "high" means, and the
   // review %. None of it was labelled before — the card showed two bare numbers and a coloured
@@ -3290,11 +3420,20 @@ function gridCardHTML(g){
     : (g.pt_down != null
         ? "Playtime — median hours played by reviewers who did NOT recommend it; too few recommenders for a median of their own."
         : "Playtime — too few reviews with playtime data (3+ needed) for a median.");
+  // The card art uses the SAME source chain as the table thumb (imgChain + stepThumb), and
+  // must keep using it: Steam's current store_item_assets URLs embed a hash that cannot be
+  // derived from the appid, so the PICS-sourced art path is the only way to reach art for
+  // those games. This card used to build header.jpg with capsule_231x87.jpg behind it --
+  // both derived, so both 404 for every hashed-scheme game (~28% of the catalogue, and the
+  // large majority of anything released recently, which Released-descending puts on top).
+  // stepThumb also brings the "loaded but empty" guard, so a degenerate 200 from the CDN
+  // steps on instead of sticking as a blank tile.
   return `<div class="${cls}" data-gappid="${g.appid}" tabindex="0" role="button" aria-label="${esc(g.title)}">
     <div class="gart mediabox${artCls}" data-appid="${g.appid}" data-art="${esc(g.art || "")}">
-      <img class="gcap" loading="lazy" src="${headerUrl(g.appid)}" alt="" referrerpolicy="no-referrer"
-           onerror="this.onerror=null;this.src='${capsuleUrl(g.appid)}'" />
-      ${disc}<span class="gplay" aria-hidden="true">▶</span>
+      <img class="gcap" loading="lazy" src="${imgChain(g.appid, g.art)[0]}" alt="" referrerpolicy="no-referrer"
+           data-appid="${g.appid}" data-art="${esc(g.art || "")}" data-step="0"
+           onerror="stepThumb(this,true)" onload="stepThumb(this,false)" />
+      ${disc}<span class="gplay" aria-hidden="true"><i class="gp-play">▶</i><i class="gp-stop">■</i></span>
     </div>
     <div class="gmeta">
       <div class="gmeta-top"><div class="gname" title="${esc(g.title)}">${esc(g.title)}</div>${rateHtml}</div>
@@ -4529,6 +4668,65 @@ function init(data){
   }));
   window.matchMedia(NARROW_MQ).addEventListener("change", applyLayout);
   window.matchMedia(TAGS_SQUEEZE_MQ).addEventListener("change", applyTagSqueeze);
+  // ── Swipe the art to scrub the preview (touch only) ─────────────────────────────────
+  // The art already had one gesture — tap to start, tap again to go back to the box art —
+  // and that is a switch, not a browser: it could reach the clip and nothing else, while the
+  // screenshots behind it were only ever reachable by waiting out the rotation.
+  // Swiping the art left/right now steps that playlist, so the whole preview is navigable:
+  //   tap          start / stop (unchanged — the badge shows which it will do)
+  //   swipe left   next media          swipe right   previous media
+  // The pips (already drawn for the rotation) become the read-out for it, which is why they
+  // are enlarged on touch: they are now a position indicator, not just decoration.
+  //
+  // Deliberately NOT a horizontal scroller or a transform-drag: the media layers are built
+  // and destroyed one at a time (see armMedia), so there is no filmstrip to slide. The
+  // gesture is a discrete step, and the cross-fade the panel already does is the transition.
+  const SWIPE_MIN_PX = 30;      // below this a "swipe" is a tap with an unsteady finger
+  const SWIPE_RATIO  = 1.2;     // horizontal must beat vertical by this much, or it is a scroll
+  let swipe = null;
+  const gv = $("#gridview");
+  // Some engines deliver a `click` after a drag that no scroll consumed, and it would toggle
+  // the very preview the swipe just moved — stopping it on every other gesture. Chromium,
+  // measured, emits none (the drag is consumed as a gesture), but iOS Safari is not Chromium,
+  // so the guard stays. It is a ONE-SHOT SWALLOW, not an elapsed-time window: it eats the
+  // first click to arrive and disarms. A synthetic click lands within a tick, whereas a real
+  // follow-up tap cannot physically arrive within 250ms of the finger lifting — so this
+  // absorbs the phantom without ever eating a deliberate tap. A plain time window got that
+  // wrong in both directions: it swallowed real taps, and bought nothing this does not.
+  function swallowNextClick(){
+    const done = () => { document.removeEventListener("click", eat, true); clearTimeout(tid); };
+    const eat  = ev => { ev.preventDefault(); ev.stopPropagation(); done(); };
+    const tid  = setTimeout(done, 250);
+    document.addEventListener("click", eat, true);      // capture: beats every handler below
+  }
+  // Passive: this never calls preventDefault — vertical scrolling through the grid has to stay
+  // completely untouched, and a listener that might block it costs scroll performance on every
+  // card. Horizontal intent is decided by measuring, not by capturing the gesture.
+  gv.addEventListener("touchstart", e => {
+    if(e.touches.length !== 1){ swipe = null; return; }   // pinch/zoom is not ours
+    const art = e.target.closest(".gart");
+    swipe = (art && art.classList.contains("hasclip") && gridArtPlayable(art))
+      ? { art, x: e.touches[0].clientX, y: e.touches[0].clientY, on: false } : null;
+  }, { passive:true });
+  gv.addEventListener("touchmove", e => {
+    if(!swipe || e.touches.length !== 1) return;
+    const dx = e.touches[0].clientX - swipe.x, dy = e.touches[0].clientY - swipe.y;
+    // Latch as soon as the finger commits to a direction. Latching rather than judging only
+    // at the end means a swipe that curves upward at the release still counts as the swipe
+    // it started as — and a scroll that drifts sideways never does.
+    if(!swipe.on && Math.abs(dy) > Math.abs(dx)) swipe = null;                       // scrolling
+    else if(Math.abs(dx) >= SWIPE_MIN_PX && Math.abs(dx) > Math.abs(dy) * SWIPE_RATIO) swipe.on = true;
+  }, { passive:true });
+  gv.addEventListener("touchend", e => {
+    const s = swipe; swipe = null;
+    if(!s || !s.on) return;                      // a tap: the click handler owns it
+    const dx = e.changedTouches[0].clientX - s.x;
+    if(Math.abs(dx) < SWIPE_MIN_PX) return;
+    swallowNextClick();
+    stepMedia(s.art, dx < 0 ? 1 : -1);           // drag left = forward, drag right = back
+  }, { passive:true });
+  gv.addEventListener("touchcancel", () => { swipe = null; }, { passive:true });
+
   // Grid card interactions: tap a card to expand its info; Steam link + Close handled inline.
   $("#gridview").addEventListener("click", e => {
     const card = e.target.closest(".gcard"); if(!card) return;
@@ -4548,11 +4746,17 @@ function init(data){
     // the plain click-anywhere-to-flip behaviour, since hover already plays the clip for them.
     if(!CAN_HOVER){
       const art = e.target.closest(".gart");
-      // `.hastrailer` — the ▶ badge — is the contract: the art takes the tap exactly when it is
+      // `.hasclip` — the badge — is the contract: the art takes the tap exactly when it is
       // showing the user that it will. A card with no clip has no badge and stays a plain flip
       // target, rather than eating the tap and appearing dead.
-      if(art && art.classList.contains("hastrailer") && gridArtPlayable(art)){
+      // This deliberately does NOT test `.hastrailer`, which it used to: that class comes and
+      // goes with the playback cycle, so a preview that had been stopped — or had merely rolled
+      // on to its first screenshot — silently handed the art back to the flip gesture, and the
+      // clip could not be started a second time. The contract has to outlive the playback.
+      if(art && art.classList.contains("hasclip") && gridArtPlayable(art)){
         e.preventDefault(); e.stopPropagation();
+        // Toggle: tap to watch, tap again to go back to the box art. Either way the badge is
+        // still there afterwards, so it can be tapped again.
         if(media && media.pop === art) stopMedia(); else armMedia(art, art, 0);
         return;
       }
@@ -4634,6 +4838,33 @@ function expireSaleIfEnded(game, now){
     return true;
   }
   return false;
+}
+
+// Undo a fossilised free-to-keep promo. While a paid game is free for a weekend, Steam's
+// own store API answers is_free:true AND discount_percent:100 while still quoting the FULL
+// price on both initial and final — a snapshot that outlives the promo in games.json (the
+// scrapers now reconcile it at capture, but a record written before that fix, or by any
+// future variant of the same quirk, still reaches the browser). Left alone it makes the game
+// the site's biggest "deal": a -100% badge, the top of the discount sort, gold sale edging,
+// and no QTPD at all, since a free game has no price to divide by. The prices are the
+// trustworthy half, so they decide — a final price at or above the initial means no cut, and
+// a full undiscounted price means not free. Entirely offline, no scraping. Returns true if it
+// changed the game. A free app that also sells a genuinely discounted package (Capcom Arcade
+// Stadium: free, $59.99 -> $14.99) keeps both facts — only the impossible pairing is undone.
+function reconcilePriceFlags(game){
+  const pf = game.price_final, pi = game.price_initial;
+  if(pf == null || pf <= 0) return false;              // real free game — nothing to contradict
+  let changed = false;
+  if(game.discount_pct > 0 && pi != null && pf >= pi){ // "-100%" at the full price
+    game.discount_pct = 0;
+    game.discount_end = null;
+    changed = true;
+  }
+  if(game.is_free && !(game.discount_pct > 0)){        // a full price is not free
+    game.is_free = false;
+    changed = true;
+  }
+  return changed;
 }
 
 // Load the catalog plus the three decoupled data layers, merge each by appid:
@@ -4811,6 +5042,7 @@ Promise.all([
       game.upd_c90  = sum("90d");
       game.upd_c365 = sum("365d");
     }
+    reconcilePriceFlags(game);        // undo a fossilised free-weekend snapshot
     expireSaleIfEnded(game, now);     // offline collapse of any already-ended sale
   });
   init(data);
