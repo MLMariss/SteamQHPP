@@ -144,9 +144,37 @@ switched off via the **Preview: Video** control, the popup shows the enlarged st
 as it did before.
 
 **Frontend, on touch.** Grid view is the view that survives on a phone, and there it plays
-**in place** in the card's art rather than in a popup: the art is its own tap target (tap to
-watch, tap again to go back to the art), everything else on the card still flips it to the
-details face. Three rules make that gesture work, and each replaced a bug:
+**in place** in the card's art rather than in a popup. The art carries two gestures, and
+everything else on the card still flips it to the details face:
+
+| gesture | effect |
+| --- | --- |
+| **tap** | start the preview / stop it and go back to the box art |
+| **swipe left** | next media in the playlist |
+| **swipe right** | previous media |
+
+Tap alone was a *switch*, not a browser: it could reach the clip and nothing else, while the
+screenshots behind it were reachable only by waiting out the rotation. The swipe makes the
+whole playlist navigable, and the pips — already drawn for the rotation — become its
+read-out, which is why they are enlarged on touch and the current one stretches to a bar.
+
+Three details decide whether that gesture feels right:
+
+- **Horizontal intent is latched during the move, not judged at the release**, so a swipe
+  that curves upward as the finger lifts still counts, and a scroll that drifts sideways
+  never does. The listeners are `passive` and never `preventDefault` — vertical scrolling
+  through the grid has to stay untouched — with `touch-action: pan-y pinch-zoom` on a
+  swipeable card so the browser does not claim horizontal drags.
+- **A swipe that lands before the playlist has a second item is parked, not dropped.** On a
+  tap the list is `[clip]` until the screenshot shard arrives; the direction is remembered
+  and applied the moment the stills land. One step is remembered, not a queue.
+- **The stray-click guard is a one-shot swallow, not a time window.** Some engines deliver a
+  `click` after a drag no scroll consumed, and it would stop the very preview the swipe just
+  moved. Chromium (measured) emits none, but iOS Safari is not Chromium. A 500ms window was
+  tried first and was wrong in both directions: it swallowed deliberate taps that followed a
+  swipe, and bought nothing the one-shot does not.
+
+Three further rules make the tap itself work, and each replaced a bug:
 
 - **The tap contract is a separate, persistent class** (`.hasclip`, painted at render) from
   the playback cycle's own `.hastrailer`. When they were one class, stopping a preview — or
