@@ -3141,16 +3141,30 @@ function showShot(m, item){
 // starting the game over. It costs nothing to honour — the screenshot shard is already in
 // shotsShardCache from the card's own playback, so the full list resolves in a microtask.
 function armMedia(thumb, pop, dwell, step, seek){
-  if(media && media.pop === pop) return;   // mouseover re-fires on child nodes; ignore
+  const appid = thumb.dataset.appid;
+  // Re-arming the same box for the same GAME is the no-op this guard is for: mouseover
+  // re-fires on every child node the pointer crosses, and restarting the clip each time would
+  // make a hover unwatchable.
+  //
+  // It used to test the box alone, which was true for every carrier that existed at the time —
+  // one .pop per row, one .gart per card, so "same box" and "same game" were the same thing.
+  // The stage broke that assumption: it is ONE box whose game changes under it. So with a
+  // preview running, every later stageLoad() returned here and did nothing — the title and the
+  // figures updated (stageLoad paints those before arming), while the previous game's clip kept
+  // playing underneath. Tapping a second card looked dead until you stopped the first one.
+  //
+  // The appid has to come off the SESSION, not off the element: stageLoad sets the box's
+  // dataset before calling this, so by now both sides of an element-level comparison read the
+  // new id and the guard would still match.
+  if(media && media.pop === pop && media.appid === appid) return;
   stopMedia();
   // One switch governs every kind of panel motion. A cross-fading slideshow is motion
   // too, so the Video toggle (and the reduced-motion override inside trailersOn) has to
   // suppress the stills as well — otherwise turning video off would leave the panel
   // still animating.
   if(!trailersOn()) return;
-  const appid = thumb.dataset.appid;
   const srcs = trailerSources(appid);
-  const m = { pop, thumb, items: [], idx: -1, layers: null, pips: null,
+  const m = { pop, thumb, appid, items: [], idx: -1, layers: null, pips: null,
               front: -1, fails: 0, timer: null, pending: step || 0,
               seek: (seek != null && seek > 0) ? seek : null };
   media = m;
