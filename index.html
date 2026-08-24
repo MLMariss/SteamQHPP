@@ -3078,8 +3078,15 @@ function gridCardHTML(g){
   const hStr = h != null ? (h >= 10 ? Math.round(h) : (Math.round(h * 10) / 10).toFixed(1)) + "h" : "—";
   return `<div class="${cls}" data-gappid="${g.appid}" tabindex="0" role="button" aria-label="${esc(g.title)}">
     <div class="gart">
-      <img class="gcap" loading="lazy" src="${headerUrl(g.appid)}" alt="" referrerpolicy="no-referrer"
-           onerror="this.onerror=null;this.src='${capsuleUrl(g.appid)}'" />
+      <!-- Same T6 chain as the table row, NOT a derived header URL with a capsule fallback.
+           Both derived URLs 404 for a game on the store_item_assets scheme (the hash is not
+           derivable from the appid), and capsule_231x87.jpg 404s even for games whose plain
+           header.jpg still resolves — so the old pair had no live entry at all for those,
+           and the card rendered a broken image. imgChain puts the PICS art path first;
+           stepThumb also catches the 200-but-empty responses the CDN sometimes returns. -->
+      <img class="gcap" loading="lazy" src="${imgChain(g.appid, g.art)[0]}" alt="" referrerpolicy="no-referrer"
+           data-appid="${g.appid}" data-art="${esc(g.art || "")}" data-step="0"
+           onerror="stepThumb(this,true)" onload="stepThumb(this,false)" />
       ${disc}
     </div>
     <div class="gmeta">
