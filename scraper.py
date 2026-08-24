@@ -578,6 +578,47 @@ def parse_release(d):
 
 
 # --------------------------------------------------------------------------- #
+# Free-to-keep promos: reconciling a self-contradictory appdetails response
+# --------------------------------------------------------------------------- #
+# While a paid game is "free to keep for the next 48 hours", appdetails flips `is_free`
+# to true and `discount_percent` to 100 while `price_overview` still quotes the FULL
+# price on BOTH `initial` and `final`. Stored verbatim that snapshot outlives the promo,
+# and nothing else can undo it: `price_and_sale.py` skipped every is_free game, so the
+# fast layer that corrects all other prices never reached it, and only a full-catalog
+# re-scrape (weeks away for an old game) would. Moonlighter (606150) and Breathedge
+# (738520) sat at "-100% off" on a full-price game — the top two rows of the discount
+# sort — for weeks that way, with no QTPD at all because a "free" game has no price to
+# divide by.
+#
+# The prices are the trustworthy half of the response, so they decide:
+#   * a final price at or above the initial price means NO cut is in effect -> discount 0,
+#   * a full, undiscounted price means the game is NOT free.
+# A free app that also sells a genuinely discounted package at the app level (Capcom
+# Arcade Stadium 1515950: free, $59.99 -> $14.99) keeps both facts — that pairing is real,
+# only the full-price-yet-free-and-100%-off combination is impossible.
+def reconcile_price_flags(is_free, price_initial, price_final, discount_pct):
+    """Return (is_free, discount_pct) with promo-snapshot contradictions resolved."""
+    if price_final is None or price_final <= 0:
+        return is_free, discount_pct              # no price to argue with (real free game)
+    if discount_pct > 0 and price_initial is not None and price_final >= price_initial:
+        discount_pct = 0                          # "-100%" while charging the full price
+    if is_free and discount_pct == 0:
+        is_free = False                           # a full price is not free
+    return is_free, discount_pct
+
+
+def promo_residue(rec):
+    """True if a STORED record still carries a free-promo snapshot — its own prices say
+    "paid, not discounted" while is_free/discount_pct say free and/or on sale."""
+    free = bool(rec.get("is_free"))
+    disc = int(rec.get("discount_pct") or 0)
+    if not free and disc == 0:
+        return False                              # nothing to contradict
+    return (free, disc) != reconcile_price_flags(
+        free, rec.get("price_initial"), rec.get("price_final"), disc)
+
+
+# --------------------------------------------------------------------------- #
 # Build one game record. Returns dict (released, scraped) | ("pending", date, ts)
 # (not yet released -> waiting room) | "skip" (confirmed non-game -> permanent)
 # | "recheck" (appdetails success:false -> soft, bounded retry, §3.1)
@@ -621,6 +662,10 @@ def build_record(appid, prev=None):
         price_initial = round(po.get("initial", 0) / 100, 2) or None
         price_final = round(po.get("final", 0) / 100, 2) or None
         discount_pct = int(po.get("discount_percent", 0))
+    # A live free-to-keep promo reports is_free + 100% off on top of the full price.
+    # Believe the prices, not the flags, so the promo can't fossilise (see above).
+    is_free, discount_pct = reconcile_price_flags(
+        is_free, price_initial, price_final, discount_pct)
 
     # discount_end is no longer scraped here. It's owned by price_and_sale.py (prices.json),
     # which polls IStoreBrowseService/GetItems frequently to track live end dates and
@@ -809,6 +854,8 @@ def select_work(master, has_lm, processed, catalog):
       * last_modified moved past scraped_at (the original signal — store/depot only),
       * the game's age-since-release tier cooldown elapsed (REVIEW_TIERS),
       * PICS's review percentage disagrees with our stored one (PICS_REV_DELTA).
+    Ahead of all three, the forced queue and any record still carrying free-promo
+    residue (promo_residue) are re-scraped first.
     """
     now = int(time.time())
     skipped = set(catalog["skipped"])
@@ -861,6 +908,19 @@ def select_work(master, has_lm, processed, catalog):
     forced = [int(a) for a in (catalog.get("force_refresh") or []) if str(a) in processed]
     forced_set = set(forced)
 
+    # Records left self-contradictory by a free-to-keep promo (see reconcile_price_flags):
+    # stored free and/or -100% off while carrying a full price. They sort to the very top
+    # of the site's discount view and no other job can correct them, so they jump the
+    # refresh queue alongside the forced ones. The population is a handful of games
+    # catalog-wide, so this can't crowd out real work.
+    promo_bad = sorted((int(k) for k, rec in processed.items()
+                        if int(k) not in forced_set and promo_residue(rec)),
+                       key=lambda a: processed[str(a)].get("scraped_at", 0))
+    promo_set = set(promo_bad)
+    if promo_bad:
+        log(f"Free-promo residue: {len(promo_bad)} stored record(s) priced but flagged "
+            f"free/discounted -> re-scraping first")
+
     # Review-drift signal from the daily PICS pass — free, no storefront cost.
     # (Returns {} when PICS_REV_DELTA is 0 or pics.json isn't readable.)
     pics_rev = load_pics_rev()
@@ -879,7 +939,7 @@ def select_work(master, has_lm, processed, catalog):
     cands = []
     for k, rec in processed.items():
         aid = int(k); sat = rec.get("scraped_at", 0)
-        if aid in forced_set:
+        if aid in forced_set or aid in promo_set:
             continue                       # queued explicitly up front; don't double-add
         if has_lm:
             lm = master.get(aid)
@@ -921,7 +981,7 @@ def select_work(master, has_lm, processed, catalog):
         log(f"Refresh triggers: {n_tier} age-tier, {n_pics} PICS review-drift "
             f"(>={PICS_REV_DELTA}pt), {n_lm} last_modified "
             f"(overlapping; {len(cands)} distinct)")
-    refresh_ids = forced + [a for _, _, a in cands]
+    refresh_ids = forced + promo_bad + [a for _, _, a in cands]
     return new_ids, refresh_ids
 
 

@@ -904,6 +904,9 @@ price_initial, price_final, discount_pct } ] }`. The catalog the frontend iterat
 price snapshot from the initial scrape: `prices.json` overrides it, but a game scraped before
 the price job reaches it still renders a price. `scraped_at` is the staleness key every
 refresh trigger in §6 compares against, and `is_free` lives **here**, not in `prices.json`.
+`is_free` / `discount_pct` are **reconciled against the prices at capture** — a live free-to-keep
+promo answers `is_free: true` + `discount_percent: 100` on top of the full price, and stored
+verbatim that snapshot outlives the promo (§15).
 
 **`catalog.json`** — the scraper's own state; not read by the frontend. Seven keys:
 `last_sync` (enumeration watermark), `skipped` (permanent — confirmed non-games), `pending`
@@ -1158,6 +1161,10 @@ found:
 - **`price_and_sale.py` → `prices.json`.** The fast layer. Self-discovers sales from live
   Steam fetches (it does **not** depend on `games.json`'s `discount_pct`), batches appids
   per call (`PRICE_BATCH`), and pulls sale end-dates from `IStoreBrowseService/GetItems`.
+  It reads `games.json` for one thing only — which appids to price — and takes every game
+  that is **not free, plus any free-flagged one that still carries a price** (§15): skipping
+  free games wholesale is what let promo snapshots fossilise, since the stale flag itself
+  suppressed the re-check that would have disproved it.
 - **`tags_refresh.py` → `tags.json`.** SteamSpy tags (SteamSpy, not Steam).
 - **`recent_refresh.py` → `recent.json`.** The 30-day rolling review score, on an offset
   cron so it stays fresh; `RECENT_COOLDOWN_DAYS` controls how stale a score must be to
@@ -1995,7 +2002,10 @@ after Reviews — it's derived from them — and **Price + Discount are merged**
   discount badge inline to its right. Its **header is split** into two independently-clickable
   sort targets — "Price" (sorts by current price) and "Sale" (sorts by discount depth) — and the
   sort arrow hops to whichever half is active. **Sale ends** is a live countdown that
-  collapses offline when a sale has expired (honest between price refreshes).
+  collapses offline when a sale has expired (honest between price refreshes). Two offline
+  corrections run over the merged record before anything renders: `expireSaleIfEnded()` for a
+  sale whose end date has passed, and `reconcilePriceFlags()` for a record whose flags
+  contradict its own prices — free, or discounted, while quoting the full price (§15).
 - **Playtime** stacks ▲ recommenders over ▼ non-recommenders' median hours. Hours display
   **whole for ≥10h, one decimal under 10h**; the review-count sample size is kept in the
   data + tooltip but not shown inline. When a game has **no playtime data the cell renders
@@ -2532,6 +2542,31 @@ revert is just `STEAM_DELAY` back to 2.0 and/or fewer slots.
   zeroes `discount_pct` and resets `price_final` to `price_initial` in the merged in-memory
   record once `discount_end` has passed, not just the countdown UI, so the displayed price
   stays honest between price refreshes.
+- **Free-to-keep promos poison a price snapshot.** While a paid game is free for a weekend,
+  `appdetails` answers `is_free: true` **and** `discount_percent: 100` while `price_overview`
+  still quotes the **full** price on both `initial` and `final` — a self-contradictory response
+  that, stored verbatim, outlives the promo. Moonlighter (`606150`) and Breathedge (`738520`)
+  sat at **“-100% off” on a full-price game** — the top two rows of the discount sort, gold
+  sale edging, and no QTPD at all (a "free" game has no price to divide by) — for weeks. It
+  fossilised because every layer that could have corrected it was gated on the bad flag:
+  `price_and_sale.py` skipped `is_free` games, so the fast layer never re-priced them, and
+  only a full-catalog re-scrape (weeks away for a 2018 game) would have. Fixed in three
+  places, prices believed over flags each time: `reconcile_price_flags()` in `scraper.py` at
+  capture, the same rule in `price_and_sale.fetch_prices()`, and `reconcilePriceFlags()` in the
+  frontend merge so records written before the fix are corrected in the reader. `scraper.py`
+  additionally re-scrapes any stored record still carrying the contradiction (`promo_residue()`)
+  ahead of the normal queue. A free app that *also* sells a genuinely discounted package
+  (Capcom Arcade Stadium `1515950`: free, $59.99 → $14.99) keeps both facts — only the
+  impossible combination is undone. `test_price_flags.py` covers the rule and the two real
+  records.
+- **Review percentages differ from the store page, deliberately.** `rating_from_reviews()`
+  queries `appreviews` with `purchase_type=all`, which counts every review — key, gift and
+  giveaway copies included. The store page's headline summary counts **Steam purchasers only**
+  and drops flagged review bombs, so its count is lower and usually its percentage is higher
+  (Moonlighter: 21,971 reviews / 82% here vs 17,224 / *Very Positive* there). Both are correct
+  for what they measure; `purchase_type=all` is the wider, harder-to-game population and is
+  what the weighted rating (§10) is built on. The 30-day figure from `recent.json` uses the
+  same call and tracks the store's *Recent Reviews* closely (Moonlighter 79% / 149 vs 146).
 - **Dataset size** — the two per-game working sets are **sharded** (`playtime_raw/NN.json` and
   `updates_raw/NN.json`, 64 buckets each) because one file would exceed GitHub's 100 MB limit.
   Measured (`SHARDS.md`, 2026-07-22): the biggest `playtime_raw/` shard is **13.27 MB**, median
@@ -2556,6 +2591,17 @@ revert is just `STEAM_DELAY` back to 2.0 and/or fewer slots.
 ---
 
 ## 16. Recent changes
+
+- **Free-to-keep promos no longer fossilise as “-100% off” (Aug 2026).** A paid game that is
+  free for a weekend makes `appdetails` self-contradictory — `is_free: true` and
+  `discount_percent: 100` on top of the full price — and nothing undid that snapshot once the
+  promo ended, because `price_and_sale.py` skipped `is_free` games and so never re-priced them.
+  Moonlighter and Breathedge headed the discount sort at a fake -100% for weeks, with no QTPD.
+  Now the **prices decide** in all three layers (`reconcile_price_flags()` at capture, the same
+  rule in the price job, `reconcilePriceFlags()` in the frontend merge for records already on
+  disk), the price job no longer drops a free-flagged game that carries a price, and
+  `scraper.py` re-scrapes leftover contradictions first (`promo_residue()`). Five stored
+  records were affected. Full write-up in §15; regression tests in `test_price_flags.py`.
 
 - **`FRESHNESS.md` — daily data-freshness check (Jul 2026).** New generated doc + workflow
   (`freshness.py`, `freshness.yml`, task **4.3**, daily **07:00 UTC**), full design in §11.6.
