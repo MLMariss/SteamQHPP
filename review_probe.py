@@ -270,13 +270,20 @@ def probe_offtopic(appid):
         else:
             log("  >>> INCONCLUSIVE on this game (no off-topic reviews in the newest 100).")
             log("      Re-run against a game with an active/recent review bomb.")
-        if same_totals:
-            log("  >>> query_summary does NOT move with the flag.")
-            log("      => The anchor is measured differently from the sample. The bundle")
-            log("         header MUST print both numbers, explicitly labelled (plan §5).")
-        else:
-            log("  >>> query_summary DOES move with the flag.")
+        delta = (s0.get("total_reviews") or 0) - (s1.get("total_reviews") or 0)
+        if not same_totals:
+            log(f"  >>> query_summary DOES move with the flag ({delta:+,} reviews).")
             log("      => Fetch the anchor with the same setting; one consistent number.")
+        elif len(only_in_0) == 0:
+            # Identical totals prove nothing on a game that has no off-topic reviews at all.
+            # Only a game WITH some can distinguish "not coupled" from "nothing to exclude".
+            log("  >>> NO EVIDENCE EITHER WAY on this game — it has no off-topic reviews,")
+            log("      so identical totals are expected and say nothing about coupling.")
+            log("      Judge coupling only on a game where the two totals CAN differ.")
+        else:
+            log("  >>> query_summary does NOT move despite off-topic reviews existing.")
+            log("      => Anchor and sample are measured differently; the bundle header")
+            log("         MUST print both numbers, explicitly labelled (plan §5).")
     return {str(k): {"summary": v["summary"], "page1_ids": len(v["ids"])} for k, v in out.items()}
 
 
@@ -328,7 +335,12 @@ def probe_flags(reviews):
 # --------------------------------------------------------------------------- #
 # Q5 — the real compaction numbers.
 # --------------------------------------------------------------------------- #
-BBCODE = re.compile(r"\[/?[a-zA-Z][^\]]{0,40}\]")
+# Whitelisted tags ONLY. An earlier version matched any [word], which the first live run
+# showed was wrong — it counted "[sailing]" and "[russians]" (prose, not markup) as tags. A
+# strip pass built on that would delete words out of a review, so the tag list is explicit.
+BBCODE = re.compile(
+    r"\[/?(?:b|i|u|h[1-3]|url|quote|spoiler|list|olist|\*|strike|code|noparse"
+    r"|table|tr|th|td|img|previewyoutube|hr)(?:=[^\]]{0,200})?\]", re.I)
 NON_ALNUM = re.compile(r"[^a-zA-Z0-9\s]")
 REPEAT_RUN = re.compile(r"(.)\1{19,}")          # 20+ of the same char in a row
 

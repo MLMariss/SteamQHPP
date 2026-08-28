@@ -1,12 +1,12 @@
 # Review Digest — design memo
 
-**Status: Phase 0 built (the probe). No feature code yet.** Design record for a per-game, on-demand pull of
+**Status: Phase 0 RUN — all questions answered (§14). No feature code yet.** Design record for a per-game, on-demand pull of
 *real Steam review text*, packaged into one copy-paste block with an AI prompt attached, so
 the user gets a quantitative issue breakdown from actual players instead of reading 500
 reviews by hand.
 
-All open design questions are now **decided** (§12). The only remaining unknowns are
-empirical and belong to the Phase 0 probe (§3, §10).
+All design questions are **decided** (§12); the empirical ones were answered by the Phase 0
+probe on 2026-08-28 (**§14 — read this first**, it changes §3, §5 and §6).
 
 Companion docs: [ARCHITECTURE.md](ARCHITECTURE.md) (§1 design principles, §3.1 the
 review-TEXT roadmap item this is adjacent to, §12 the Worker) · [ROADMAP.md](ROADMAP.md).
@@ -59,7 +59,12 @@ lets the user's own AI do the inference. No model, no key, no cost, no batch job
 
 ---
 
-## 3. THE ONE BLOCKING UNKNOWN — does `appreviews` send CORS headers?
+## 3. ~~THE BLOCKING UNKNOWN~~ — ANSWERED: no CORS. Branch A1.
+
+> **Probe result (2026-08-28): `appreviews` returns NO `Access-Control-Allow-Origin`.**
+> Status 200, full JSON, but no CORS header — and the OPTIONS preflight returns nothing
+> either. ARCHITECTURE §1 holds for this endpoint too. **A Cloudflare Worker passthrough
+> is required.** The rest of this section is the reasoning that led there.
 
 ARCHITECTURE §1 states flatly: *"Steam sends no CORS headers, so the browser cannot call
 Steam directly."* That was established for the **storefront/wishlist** endpoints. It has
@@ -147,8 +152,14 @@ requires the AI to:
 That way you see the campaign *and* the underlying game quality, and neither one hides the
 other.
 
+**Anchor coupling — RESOLVED (probe §14).** `query_summary` **does** respond to
+`filter_offtopic_activity`, so the anchor is fetched with the *same* setting as the sample
+and there is exactly one consistent number. No dual-anchor needed. It also responds to
+`language`, so an English sample gets an English anchor — which is the correct comparison.
+
 **Honesty rules that make the numbers mean something:**
-1. `query_summary` is always printed — the true all-time split is at the top.
+1. `query_summary` is always printed — the true all-time split is at the top, fetched with
+   the same `language` and `filter_offtopic_activity` as the sample.
 2. The sampling mode is stated verbatim in the header.
 3. The prompt must report counts as "N of the 500 sampled", never as a bare percentage of
    the game.
@@ -157,21 +168,44 @@ other.
 
 ## 6. Compaction — the token problem
 
-500 raw ≈ 31k tokens. Compaction buys ~30–40% and, more importantly, removes content that
-**actively poisons the counting**.
+Measured, not guessed — every number below comes from the Phase 0 run (§14).
 
-| pass | what | why |
+| pass | what | measured effect (§14) |
 |---|---|---|
-| **BBCode strip** | `[b] [i] [h1] [url=…] [quote] [spoiler] [list] [*] [strike] [table]` | reviews are BBCode; tags are pure token cost |
-| **Whitespace collapse** | newlines → space, runs → one | reviews are full of decorative blank lines |
-| **ASCII/emoji-art drop** | non-alphanumeric ratio > ~0.4 on a >80-char review, or >20 repeated identical chars | Steam is full of these, they are enormous, and they carry **zero** signal |
-| **Near-duplicate drop** | hash of lowercased alphanumerics | copypasta appears verbatim hundreds of times and would skew **every single count** |
-| **Per-review cap** | ~600 chars + ellipsis | the first 600 chars carry essentially all the complaint content; the tail is anecdote |
-| **Min length** | drop <4 chars | keep short ones — "runs terribly" is 3 tokens of pure signal |
+| **Per-review cap** | 600 chars + ellipsis | truncates only **6.1%** of reviews, saves **~35%** of the budget (20.9k → 13.7k tokens). The best lever by far — **keep 600** |
+| **Near-duplicate drop** | hash of lowercased alphanumerics | 4 groups, **32 removable copies** in 1793 (1.8%). Small on tokens, but the worst offender was posted **30×** — exactly the skew this exists to stop |
+| **ASCII/emoji-art drop** | non-alnum ratio > 0.4 on >80 chars | drops **2.1%** of long reviews. The distribution is **bimodal** (p50 0.034, p99 0.993), so *any* threshold from 0.30–0.60 gives the same answer — **0.4 confirmed, and it is not a sensitive knob** |
+| **BBCode strip** | whitelisted tags only | **0.5%** of reviews contain markup. Near-worthless as a token saver — **keep it for cleanliness, not budget**. Must whitelist real tags: the probe's first regex matched `[sailing]` and `[russians]` in prose, and stripping those would delete words out of a review |
+| **Whitespace collapse** | newlines → space, runs → one | cheap, keeps the one-review-per-line format intact |
+| **Min length** | keep everything ≥1 char | see below — do **not** drop short reviews |
 
-The two numeric thresholds (**600-char cap**, **0.4 art ratio**) are placeholders to be
-**tuned against the Phase 0 sample**, not guessed. *Dump first, then tighten* — the lesson
-ARCHITECTURE §2.1 records from the trailer work.
+**The headline measurement: the median Steam review is 35 characters.** Not the ~250 the
+plan assumed. The distribution is p25 **10** · p50 **35** · p75 **115** · p90 **377** ·
+p99 **2081** · max **7953**.
+
+**Budget at 500 reviews** (scaled from the probe's 1793):
+
+| cap | tokens | truncated |
+|---|---|---|
+| none | ~20.9k | 0% |
+| 800 | ~15.0k | 4.5% |
+| **600** | **~13.7k** | **6.1%** |
+| 400 | ~11.7k | 9.5% |
+| 300 | ~10.4k | 12.2% |
+
+Even **uncapped, 500 reviews is only ~21k tokens** — comfortably pasteable anywhere. The
+600 cap is kept because a single 7,953-char essay is ~2,000 tokens of one person's opinion
+and distorts the tally, not because the budget demands it.
+
+**38% of reviews are under 20 characters** ("good", "gg", "+rep", "10/10"); 6.2% are under
+4. This does *not* become a filter. Short reviews are real sentiment, they cost ~2 tokens
+each, and dropping them would bias the sample **negative** — one-word reviews skew positive.
+Filtering them would also be QTPD deciding which reviews count, which is the same thing we
+refused to do with review bombs (§5).
+
+Instead the header **reports** it: `substantive: 310 of 500 have >20 chars of text`. The AI
+is told the issue counts can only come from those, while the ▲/▼ tally legitimately uses all
+500. Same principle as everywhere else here — do not hide the shape of the sample, state it.
 
 **Every drop is counted and printed in the header.** The bundle never hides what it did to
 the sample.
@@ -215,8 +249,8 @@ a long paste). Known reliability pattern for long pastes; costs ~200 tokens.
 
 ### The four flags — and the requirement they create
 
-All four ship, at ~2–4 tokens per review. They are cheap and each one changes what a review
-*means*:
+All four ship, at ~2–4 tokens per review. **All four are confirmed live and populated**
+(§14) — none is dead weight. Each changes what a review *means*:
 
 | flag | source field | why it matters |
 |---|---|---|
@@ -224,6 +258,11 @@ All four ship, at ~2–4 tokens per review. They are cheap and each one changes 
 | `[free]` | `received_for_free` or `!steam_purchase` | review-key and gifted reviews skew positive |
 | `[deck]` | `primarily_steam_deck` | Deck performance is its own technical category, currently blended into general perf |
 | `[upd]` | `timestamp_updated != timestamp_created` | someone revisited their verdict after patches — direct evidence for the trend question |
+
+**Measured hit rates over 1,800 live reviews:** `[EA]` 600 (all of Valheim — still in early
+access, so the flag is doing exactly its job) · `[free]` 165 (6 `received_for_free` + 159
+`!steam_purchase` — the *inverted purchase* half carries almost all the signal, which is why
+`[free]` is defined as either) · `[deck]` 22 · `[upd]` 68.
 
 **The flags are useless unless the prompt uses them.** `review_prompt.md` must explicitly
 instruct the AI to classify and sort on them — separate EA-era complaints from current
@@ -303,7 +342,7 @@ is the wrong size and lifecycle.
 
 ## 11. Phases
 
-**Phase 0 — probe. ✅ BUILT, not yet run.** `review_probe.py` +
+**Phase 0 — probe. ✅ DONE — run 2026-08-28, findings in §14.** `review_probe.py` +
 `.github/workflows/review-probe.yml` (`workflow_dispatch` only, never scheduled),
 runner-side because the sandbox is blocked.
 
@@ -329,10 +368,23 @@ the English-only default is on a given title.
 artifact — the no-prose-in-the-repo rule (§2) applies to the probe too. `permissions:
 contents: read`, so it *cannot* write even by accident.
 
-**Phase 1 — MVP.** `fetchReviewPage` + compaction + formatter + `review_prompt.md` loader +
-modal + copy + download. Recent / 500 / English, bombs in, all four flags. Both entry
-points (grid card + table review count) — the table one is a one-line change, no reason to
-defer it.
+**Phase 0.5 — the Worker. NEW, and it gates Phase 1.** The probe put us on branch A1, so
+the browser cannot reach Steam and a Cloudflare Worker passthrough has to exist before any
+of the UI can be tested against real data. Scope:
+
+- One route: `/?appid=<n>&cursor=<c>&…` → `store.steampowered.com/appreviews/<appid>`.
+- **Param allowlist and a numeric-appid check.** Without them this is an open proxy for
+  anything on Steam's domain — it must forward only the handful of params in §4.
+- CORS headers scoped to the Pages origin, not `*`.
+- Cloudflare **Cache API**, 30–60 min TTL keyed on the full param set. Steam's numbers
+  barely move in an hour and this makes repeat opens free.
+- **Its source lives in this repo this time** (`worker/`). The wishlist Worker's source was
+  lost, which is the entire reason A1 is expensive today; do not repeat that.
+
+**Phase 1 — MVP.** `fetchReviewPage` (pointed at the Worker) + compaction + formatter +
+`review_prompt.md` loader + modal + copy + download. Recent / 500 / English, bombs in, all
+four flags, substantive-count in the header. Both entry points (grid card + table review
+count) — the table one is a one-line change, no reason to defer it.
 
 **Phase 2.** Language toggle, size picker, session cache, prompt iteration against real
 games.
@@ -374,3 +426,79 @@ disagree. The AI doing this properly *is* the feature.
 **No new data file, no new scheduled job, no change to any existing writer.**
 ARCHITECTURE §1's one-writer-per-file rule is untouched and nothing here can interfere with
 the scrapers.
+
+---
+
+## 14. Phase 0 findings — the live run
+
+**Run:** [33168828313](https://github.com/MLMariss/SteamQTPD/actions/runs/33168828313) ·
+2026-08-28 · Cyberpunk 2077 (1091500), Valheim (892970), Dota 2 (570) · 6 pages each ·
+1,800 reviews · 55 s.
+
+### Q1 — CORS: **no. Branch A1.**
+
+`appreviews` returns 200 with full JSON and **no `Access-Control-Allow-Origin`** (the
+OPTIONS preflight carries nothing either). ARCHITECTURE §1's claim holds for this endpoint
+too. **A Cloudflare Worker passthrough is required** — this is the expensive answer, and it
+adds Phase 0.5 (§11).
+
+### Q2 — cursor depth: **no constraint whatsoever.**
+
+All three games: **6/6 clean pages, 600 unique reviews, zero duplicates, cursor advanced
+every time.** 500 is reachable with room to spare; the ceiling was never tested because
+nothing pushed back. If 500 ever proves too small, more is simply available.
+
+### Q3 — off-topic flag: **`query_summary` IS coupled.**
+
+Cyberpunk: `include` 983,491 vs `exclude` 975,799 — **7,692 off-topic reviews, and the
+summary moved.** Valheim and Dota 2 were identical only because neither game has any
+off-topic reviews at all.
+
+So the anchor is fetched with the same `filter_offtopic_activity` as the sample and there is
+**one consistent number** — the two-anchor fallback §5 was braced for is not needed.
+
+`query_summary` also tracks `language`: Cyberpunk is 983,491 reviews overall but 417,281 in
+English. An English sample therefore gets an English anchor, which is the correct comparison
+rather than a bug.
+
+*Still unproven:* the **polarity** of `filter_offtopic_activity`. No game in the set had
+off-topic reviews inside its newest 100, so "0 = include" is inferred from the totals, not
+demonstrated per-review. Re-run against a game with an **active** bomb to close it. Low
+risk — the totals only make sense one way — but it is inference, not observation.
+
+### Q4 — flags: **all four alive.**
+
+| flag | true | of 1,800 |
+|---|---|---|
+| `[EA]` | 600 | exactly Valheim's whole block — it is still in early access, so the flag is behaving |
+| `[free]` | 165 | 6 `received_for_free` + 159 `!steam_purchase` — **the inverted-purchase half carries the signal**, so `[free]` must be defined as either |
+| `[deck]` | 22 | rare but real |
+| `[upd]` | 68 | real |
+
+`received_for_free` alone (0.3%) would have been near-dead weight. Defining `[free]` as
+`received_for_free OR !steam_purchase` is what makes it worth its tokens.
+
+### Q5 — compaction: **the assumptions were wrong in useful ways.**
+
+1. **The median review is 35 characters**, not ~250. Steam reviews are dominated by
+   one-liners.
+2. **500 reviews is only ~21k tokens uncapped.** The budget was never the problem.
+3. **BBCode is 0.5% of reviews.** It was assumed to be everywhere. It is not a token lever.
+4. **The art-ratio threshold is not a sensitive knob** — the distribution is bimodal
+   (p50 0.034, p99 0.993), so anything from 0.30 to 0.60 drops the same ~2%.
+5. **38% of reviews are under 20 characters.** The single most consequential finding for
+   the prompt (§6).
+
+### Bugs the live data exposed in the probe itself
+
+- **BBCode regex matched any `[word]`.** The run reported `[sailing]×1` and `[russians]×1` —
+  people writing brackets in prose, not markup. A strip pass built on that regex would have
+  silently deleted words out of reviews. Now whitelisted to real tags.
+- **Q3's verdict conflated "no off-topic reviews" with "not coupled".** Valheim and Dota 2
+  were reported as "query_summary does NOT move" when the truth is they had nothing to
+  exclude. That false negative would have sent the design down the two-anchor path for no
+  reason. The verdict now distinguishes the two cases.
+
+Both fixed. They are worth recording because both were reasoning errors that only real data
+could catch — the same lesson ARCHITECTURE §2.1 recorded from the trailers: *dump first,
+then tighten*.
