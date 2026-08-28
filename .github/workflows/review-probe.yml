@@ -1,0 +1,52 @@
+name: 0.1 Review Digest probe [manual] -> run log + artifact
+
+on:
+  workflow_dispatch:          # MANUAL ONLY — never scheduled. This is a one-off
+    inputs:                   # diagnostic for REVIEW_DIGEST_PLAN.md Phase 0, not a data job.
+      appids:
+        description: "Comma-separated appids to probe (blank = Cyberpunk/Valheim/Dota 2)"
+        required: false
+        default: ""
+      pages:
+        description: "Cursor pages per game (5 are needed for a 500-review sample)"
+        required: false
+        default: "6"
+
+# READ-ONLY. Unlike every other workflow here this one commits NOTHING: the plan's rule is
+# that no review prose lands in the repo, and the probe follows it. Findings go to the run
+# log; the raw sample goes out as a build artifact you download and eyeball.
+permissions:
+  contents: read
+
+concurrency:
+  group: review-probe
+  cancel-in-progress: false
+
+jobs:
+  review-probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20        # ~20 storefront calls at 1.5s; the budget is nowhere near
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+
+      - name: Install deps
+        run: pip install "requests>=2.31"
+
+      - name: Probe Steam appreviews
+        env:
+          QTPD_PROBE_APPIDS: ${{ inputs.appids }}
+          QTPD_PROBE_PAGES:  ${{ inputs.pages }}
+        run: python review_probe.py
+
+      - name: Upload findings
+        if: always()           # a partial dump is still worth having when a probe fails
+        uses: actions/upload-artifact@v4
+        with:
+          name: review-probe-findings
+          path: review_probe_out/
+          retention-days: 14
+          if-no-files-found: warn
