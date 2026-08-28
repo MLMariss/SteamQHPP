@@ -1,6 +1,6 @@
 # Review Digest — design memo
 
-**Status: PLAN ONLY. Nothing built yet.** Design record for a per-game, on-demand pull of
+**Status: Phase 0 built (the probe). No feature code yet.** Design record for a per-game, on-demand pull of
 *real Steam review text*, packaged into one copy-paste block with an AI prompt attached, so
 the user gets a quantitative issue breakdown from actual players instead of reading 500
 reviews by hand.
@@ -303,14 +303,31 @@ is the wrong size and lifecycle.
 
 ## 11. Phases
 
-**Phase 0 — probe (must happen first; ~30 min).** `review_probe.py` +
-`.github/workflows/review-probe.yml` (`workflow_dispatch`), runner-side because the sandbox
-is blocked. In one run it answers:
-- Does `appreviews` return `Access-Control-Allow-Origin`? (`curl -I -H 'Origin: https://mlmariss.github.io'`) → **decides A0 vs A1**
-- How deep does the `recent` cursor go before it repeats or dies? (need 5 clean pages)
-- Is `filter_offtopic_activity=0` really *include*?
-- Are all four flag fields actually present and populated on live payloads?
-- Dump one real 100-review sample to tune the §6 thresholds against reality.
+**Phase 0 — probe. ✅ BUILT, not yet run.** `review_probe.py` +
+`.github/workflows/review-probe.yml` (`workflow_dispatch` only, never scheduled),
+runner-side because the sandbox is blocked.
+
+**To run it:** Actions → *0.1 Review Digest probe* → **Run workflow**. Optional inputs
+`appids` (comma-separated) and `pages`. Read the findings in the run log; download
+`review-probe-findings` from the run's Artifacts for `report.json` and the raw
+`sample.json`.
+
+It answers, in one ~5-minute run:
+
+| # | question | what it decides |
+|---|---|---|
+| **Q1** | does `appreviews` send `Access-Control-Allow-Origin`? | **A0 (no backend at all) vs A1 (write a Worker)** |
+| **Q2** | how deep does the `recent` cursor page cleanly? | whether a 500-review sample is even reachable |
+| **Q3** | is `filter_offtopic_activity=0` really *include*, and does `query_summary` move with it? | whether the header prints one anchor or two (§5) |
+| **Q4** | are the four flag fields present *and* populated? | whether any of `[EA]` `[free]` `[deck]` `[upd]` is dead weight |
+| **Q5** | real length / art-ratio / BBCode / duplicate distributions | replaces the placeholder 600-char cap and 0.4 art ratio with measured numbers (§6) |
+
+It also reports the **English share** per game, which is the evidence for how misleading
+the English-only default is on a given title.
+
+**It commits nothing.** Findings go to the run log, the raw sample goes out as a build
+artifact — the no-prose-in-the-repo rule (§2) applies to the probe too. `permissions:
+contents: read`, so it *cannot* write even by accident.
 
 **Phase 1 — MVP.** `fetchReviewPage` + compaction + formatter + `review_prompt.md` loader +
 modal + copy + download. Recent / 500 / English, bombs in, all four flags. Both entry
@@ -350,7 +367,7 @@ disagree. The AI doing this properly *is* the feature.
 |---|---|
 | `index.html` | one new ~400-line section: fetch, compact, format, modal; plus two small entry-point edits (`:2668`, `:3973`) |
 | `review_prompt.md` | **new** — the prompt, iterated independently |
-| `review_probe.py` + `.github/workflows/review-probe.yml` | Phase 0 only; keep as a diagnostic or delete |
+| `review_probe.py` + `.github/workflows/review-probe.yml` | **added** — Phase 0 diagnostic; read-only, commits nothing, manual trigger only |
 | Worker (outside this repo) | **only under branch A1** |
 | `ARCHITECTURE.md` / `ROADMAP.md` | new section + cross-reference |
 
