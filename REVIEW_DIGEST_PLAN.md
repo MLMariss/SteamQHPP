@@ -1,9 +1,12 @@
 # Review Digest — design memo
 
-**Status: PLAN ONLY. Nothing built yet.** This is the design record for a per-game,
-on-demand pull of *real Steam review text*, packaged into one copy-paste block with an AI
-prompt attached, so the user can get a quantitative issue breakdown of a game from actual
-players instead of reading 300 reviews by hand.
+**Status: PLAN ONLY. Nothing built yet.** Design record for a per-game, on-demand pull of
+*real Steam review text*, packaged into one copy-paste block with an AI prompt attached, so
+the user gets a quantitative issue breakdown from actual players instead of reading 500
+reviews by hand.
+
+All open design questions are now **decided** (§12). The only remaining unknowns are
+empirical and belong to the Phase 0 probe (§3, §10).
 
 Companion docs: [ARCHITECTURE.md](ARCHITECTURE.md) (§1 design principles, §3.1 the
 review-TEXT roadmap item this is adjacent to, §12 the Worker) · [ROADMAP.md](ROADMAP.md).
@@ -14,15 +17,15 @@ review-TEXT roadmap item this is adjacent to, §12 the Worker) · [ROADMAP.md](R
 
 ```
 1. find a game            → existing search / filters, no change
-2. hit "Reviews ⇩"        → new button on the card's details face
-3. QTPD fetches N real reviews from Steam, live, in the browser
+2. hit the reviews entry  → grid card button, or the review count in the table row
+3. QTPD fetches 500 real reviews from Steam, live, in the browser
 4. QTPD compacts them into one text block, AI prompt on top
 5. Copy / Download .txt   → paste into any AI → quantitative answer
 ```
 
 The benefit is step 3–4: **capture of most/all recent reviews stops being a manual
-process.** QTPD does not do the summarizing — it does the *collection and packaging*, which
-is the part that is tedious, mechanical, and currently impossible by hand.
+process.** QTPD does not summarize — it does the *collection and packaging*, which is the
+part that is tedious, mechanical, and currently impossible by hand.
 
 ---
 
@@ -46,7 +49,7 @@ game*, scraped during the existing playtime walk, surfaced as a column. This one
 | coverage | all ~78k games | one game, on click |
 | fidelity | counts from a fixed lexicon | the actual prose |
 | freshness | last playtime sweep | live |
-| cost | free (rides an existing walk) | ~3–10 requests per click |
+| cost | free (rides an existing walk) | ~5 requests per click |
 | storage | one small JSON | none |
 
 §3.1 explicitly parked its Option **C** ("LLM one-line summary per game") because it "adds
@@ -65,118 +68,120 @@ endpoint, and the answer decides whether this feature needs a backend at all:
 
 - **Branch A0 — CORS present.** Zero backend. The whole feature is client-side in
   `index.html`. No new job, no new data file, no Worker, nothing to deploy or keep alive.
-- **Branch A1 — no CORS.** A Cloudflare Worker passthrough (~40 lines) that forwards
-  `/?reviews=<appid>&cursor=…` to Steam and re-serves it with
-  `Access-Control-Allow-Origin`. Same pattern and probably the same Worker project as the
-  wishlist proxy (§12) — though note that Worker's source is **not in this repo and appears
-  to be lost**, so A1 realistically means writing a new one.
+- **Branch A1 — no CORS.** A Cloudflare Worker passthrough (~40 lines) forwarding
+  `/?reviews=<appid>&cursor=…` to Steam and re-serving it with
+  `Access-Control-Allow-Origin`. Same pattern as the wishlist proxy (§12) — but that
+  Worker's source is **not in this repo and appears to be lost**, so A1 realistically means
+  writing a new one.
 
-**The probe cannot be run from a dev sandbox** — `store.steampowered.com` is blocked there
-(verified: proxy returns 403 to CONNECT). Same situation as the trailer work, which was
-resolved with a runner-side dump mode (`QTPD_DUMP_TRAILERS=1`). Do the same here.
+**The probe cannot run from a dev sandbox** — `store.steampowered.com` is blocked there
+(verified 2026-08: proxy returns 403 to CONNECT). Same wall the trailer work hit, resolved
+there with a runner-side dump mode (`QTPD_DUMP_TRAILERS=1`). Do the same here.
 
-**Crucially, this does not block starting.** The UI, the compaction, the format and the
-prompt are identical in both branches, behind one function:
+**This does not block starting.** The UI, compaction, format and prompt are identical in
+both branches, behind one seam:
 
 ```js
 async function fetchReviewPage(appid, params, cursor) { … }   // A0: Steam. A1: Worker.
 ```
-
-Build everything against that seam; the probe only decides what goes inside it.
 
 ---
 
 ## 4. What Steam actually gives us
 
 `GET https://store.steampowered.com/appreviews/<appid>?json=1` — public, **keyless**,
-already used by three jobs in this repo (`scraper.py:506`, `playtime_refresh.py:531`,
+already called by three jobs in this repo (`scraper.py:506`, `playtime_refresh.py:531`,
 `recent_refresh.py`).
-
-**Parameters that matter:**
 
 | param | values | note |
 |---|---|---|
-| `filter` | `recent` / `updated` / `all` | `recent` is the one that paginates deep and reliably; `all` is helpfulness-ranked and is documented as unstable past a few cursor pages — **verify in the probe** |
-| `language` | `english` / `all` / … | see §6 |
-| `review_type` | `all` / `positive` / `negative` | the basis for Balanced mode (§5) |
+| `filter` | `recent` / `updated` / `all` | `recent` paginates deep and reliably; `all` is helpfulness-ranked and unstable past a few cursor pages — **verify in the probe** |
+| `language` | `english` / `all` | §5 |
+| `review_type` | `all` / `positive` / `negative` | reserved for a possible Balanced mode |
 | `purchase_type` | `all` / `steam` / `non_steam_purchase` | repo jobs use `all` |
-| `num_per_page` | max **100** | hard cap |
+| `num_per_page` | max **100** | hard cap → 500 = 5 requests |
 | `cursor` | `*` then echo | must be URL-encoded |
-| `day_range` | 1–365 | only meaningful with `filter=all` |
-| `filter_offtopic_activity` | `0` includes review bombs | Steam's default excludes them — see §8 |
+| `filter_offtopic_activity` | `0` **includes** review bombs | we include — §5. Confirm the polarity in the probe |
 
-**Per-review fields available** (audited in ARCHITECTURE §3.1 — we currently fetch all of
-this on every playtime run and throw it away):
+**Per-review fields** (audited in ARCHITECTURE §3.1 — all of this is already fetched and
+discarded on every playtime run): `recommendationid`, `review`, `voted_up`, `votes_up`,
+`votes_funny`, `weighted_vote_score`, `comment_count`, `timestamp_created`,
+`timestamp_updated`, `language`, `steam_purchase`, `received_for_free`,
+`written_during_early_access`, `primarily_steam_deck`, and `author{ steamid,
+num_games_owned, num_reviews, playtime_forever, playtime_at_review, last_played }`.
 
-`recommendationid`, `review` *(the text)*, `voted_up`, `votes_up`, `votes_funny`,
-`weighted_vote_score`, `comment_count`, `timestamp_created`, `timestamp_updated`,
-`language`, `steam_purchase`, `received_for_free`, `written_during_early_access`,
-`primarily_steam_deck`, and `author{ steamid, num_games_owned, num_reviews,
-playtime_forever, playtime_at_review, last_played }`.
-
-**`query_summary`** (first page, `cursor=*`) carries `total_reviews`, `total_positive`,
-`total_negative`, `review_score_desc`. **This is the population anchor** and is what keeps
-the AI's percentages honest (§5).
-
-**Cost per digest:** 300 reviews = 3 requests. 1000 = 10. That is nothing.
+**`query_summary`** (first page, `cursor=*`): `total_reviews`, `total_positive`,
+`total_negative`, `review_score_desc`. **The population anchor** that keeps the AI's
+percentages honest (§5).
 
 ---
 
-## 5. Sampling — the honest-numbers problem
+## 5. Sampling — decided
 
-The user's ask ("count the issues, what share are technical") is a **quantitative claim**.
-Hand an AI an arbitrary slice and its percentages describe *the slice*, not the game. This
-is the single most important design decision in the feature, and it is a formatting
-decision, not a code one.
+**Default: the 500 most recent reviews, `filter=recent`, English, review bombs included.**
 
-**Rules:**
+**Size — 500.** 5 requests. ~125 KB raw ≈ **~31k tokens**, ~20–25k after compaction (§6).
+Comfortable for Claude and most modern chat boxes; revisit if it proves too big in
+practice.
 
-1. **Always print `query_summary` in the header.** The true split is stated at the top, so
-   the AI can anchor and caveat rather than guess.
-2. **State the sampling mode verbatim in the header**, so the AI cannot silently
-   over-claim.
-3. **Ask the prompt to report counts as "N of the 300 sampled"**, never as a bare percentage
-   of the game.
+**Mode — `recent`.** Answers "what is this game like *now*", which is the actual question,
+and it is the filter that paginates reliably.
 
-**Modes:**
+**Language — English by default, an *All languages* toggle in the modal.** English-only
+gives clean signal and reliable counting; the toggle exists because on a
+Chinese- or Russian-majority game, English-only is a genuinely misleading minority slice.
+The header always prints the non-English share so the limitation is visible either way.
 
-| mode | how | answers |
-|---|---|---|
-| **Recent** *(default)* | `filter=recent`, newest N | "what is this game like **now**" — the most defensible slice and what people actually want |
-| **Balanced** | two passes, `review_type=positive` and `negative`, sampled **in the ratio of the true split** (a 90%-positive game gets ~90/10) | the only mode where "share mentioning X" genuinely transfers to the population |
-| **Most helpful** | `filter=all&day_range=365` | quality over recency — the reviews other players voted up |
-| **Negatives only** | `review_type=negative` | pure issue-mining; header must say **NOT REPRESENTATIVE** in caps |
+**Review bombs — INCLUDED (`filter_offtopic_activity=0`).** Deliberate. There is no such
+thing as an illegitimate review here: if a publisher or developer did something people are
+angry about, that *is* something a prospective buyer needs to see, and it will come out in
+the analysis on its own. Suppressing it would be QTPD deciding which player anger counts.
 
-Balanced should be built on `recent` + `review_type`, **not** on `filter=all`, for the
-pagination-reliability reason in §4.
+**But the prompt must separate it, not blend it.** A coordinated campaign and a crash bug
+are both real and both worth knowing — they are just not the same fact. So the prompt
+requires the AI to:
+1. detect a coordinated spike (publisher, DRM, price change, politics) and report it as its
+   **own section** with its own count and date range, and
+2. give the issue table **both ways — with and without those reviews**.
+
+That way you see the campaign *and* the underlying game quality, and neither one hides the
+other.
+
+**Honesty rules that make the numbers mean something:**
+1. `query_summary` is always printed — the true all-time split is at the top.
+2. The sampling mode is stated verbatim in the header.
+3. The prompt must report counts as "N of the 500 sampled", never as a bare percentage of
+   the game.
 
 ---
 
 ## 6. Compaction — the token problem
 
-Raw, 1000 reviews ≈ 250 KB ≈ **~62k tokens**. Fine for Claude, far too big for a lot of
-chat boxes. 300 reviews raw is ~75 KB ≈ ~19k tokens, which is comfortable everywhere. The
-compaction pass buys roughly another 30–40% on top of that, and — more importantly —
-removes content that actively *poisons the counting*.
+500 raw ≈ 31k tokens. Compaction buys ~30–40% and, more importantly, removes content that
+**actively poisons the counting**.
 
 | pass | what | why |
 |---|---|---|
-| **BBCode strip** | `[b] [i] [h1] [url=…] [quote] [spoiler] [list] [*] [strike] [table]` | Steam reviews are BBCode; the tags are pure token cost |
+| **BBCode strip** | `[b] [i] [h1] [url=…] [quote] [spoiler] [list] [*] [strike] [table]` | reviews are BBCode; tags are pure token cost |
 | **Whitespace collapse** | newlines → space, runs → one | reviews are full of decorative blank lines |
 | **ASCII/emoji-art drop** | non-alphanumeric ratio > ~0.4 on a >80-char review, or >20 repeated identical chars | Steam is full of these, they are enormous, and they carry **zero** signal |
-| **Near-duplicate drop** | hash of lowercased alphanumerics | copypasta ("publisher bad") appears verbatim hundreds of times and would skew **every single count** |
+| **Near-duplicate drop** | hash of lowercased alphanumerics | copypasta appears verbatim hundreds of times and would skew **every single count** |
 | **Per-review cap** | ~600 chars + ellipsis | the first 600 chars carry essentially all the complaint content; the tail is anecdote |
-| **Min length** | drop <4 chars | keep the short ones — "runs terribly" is 3 tokens of pure signal |
+| **Min length** | drop <4 chars | keep short ones — "runs terribly" is 3 tokens of pure signal |
 
-**Every drop gets counted and printed in the header** (`excluded: 14 art, 6 dupes`). Same
-principle as §5: the bundle never hides what it did to the sample.
+The two numeric thresholds (**600-char cap**, **0.4 art ratio**) are placeholders to be
+**tuned against the Phase 0 sample**, not guessed. *Dump first, then tighten* — the lesson
+ARCHITECTURE §2.1 records from the trailer work.
+
+**Every drop is counted and printed in the header.** The bundle never hides what it did to
+the sample.
 
 ---
 
-## 7. Output format — a compact line protocol, not JSON
+## 7. Output format
 
-JSON roughly doubles the token count on braces, quotes and repeated keys, and buys nothing
-here. One review per line:
+One review per line — JSON would roughly double the token count on braces, quotes and
+repeated keys and buys nothing.
 
 ```
 === QTPD REVIEW DIGEST ===
@@ -185,136 +190,170 @@ You are given real Steam reviews for one game. Instructions are at the BOTTOM.
 GAME: Cyberpunk 2077  (appid 1091500)
 ALL-TIME: Very Positive — 79% of 723,411 reviews  (571,494 ▲ / 151,917 ▼)
 LAST 30 DAYS: 88% of 4,210
-SAMPLE: 300 newest English reviews (filter=recent) · fetched 2026-08-28
-  sample split: 241 ▲ / 59 ▼  (80% positive)
-  excluded: 14 ASCII-art · 6 duplicates · 41 truncated at 600 chars
+SAMPLE: 500 newest English reviews (filter=recent) · fetched 2026-08-28
+  sample split: 402 ▲ / 98 ▼  (80% positive)
+  off-topic/campaign reviews: INCLUDED
+  excluded: 21 ASCII-art · 9 duplicates · 78 truncated at 600 chars
   language: english only (≈38% of this game's reviews are other languages)
-LEGEND: ▲/▼ = recommends or not · Nh = hours played at time of review · date · ↑N = helpful votes
+LEGEND: ▲/▼ recommends · Nh hours at review · date · ↑N helpful votes
+        [EA] written during early access · [free] free/non-Steam copy
+        [deck] played on Steam Deck · [upd] review edited after posting
 
---- REVIEWS (300) ---
-▲ 142h 2026-08-27 ↑31 | Best it's ever been. Holds 90fps on a 3070 since 2.3, the …
+--- REVIEWS (500) ---
+▲ 142h 2026-08-27 ↑31 [upd] | Best it's ever been. Holds 90fps on a 3070 since 2.3 …
 ▼ 8h 2026-08-27 ↑4 | Crashes on every alt-tab with a DX12 device-removed error. Refunded.
-▼ 61h 2026-08-26 ↑12 | Police AI still teleports behind you. Two years of patches …
-…
+▼ 61h 2026-08-26 ↑12 [deck] | Runs at 25fps docked, police AI still teleports …
+▲ 340h 2026-08-26 ↑8 [EA][free] | Review key. Rough at launch, but the 2.0 rework …
 
 --- INSTRUCTIONS ---
-[the prompt]
+[loaded from review_prompt.md — see §8]
 ```
 
-**The prompt goes at the top AND the bottom.** A short framing line first (so the reader —
-human or model — knows what they are looking at), the full instructions last (so they are
-the most recent thing in context after a long paste). This is a known reliability pattern
-for long pastes and costs ~200 tokens.
+**Prompt at top and bottom.** A short framing line first (so the reader knows what they are
+looking at), the full instructions last (so they are the most recent thing in context after
+a long paste). Known reliability pattern for long pastes; costs ~200 tokens.
 
-### The prompt (draft)
+### The four flags — and the requirement they create
 
-> These are real Steam reviews for the game named above, one per line.
->
-> 1. **Verdict** — one paragraph: what is the consensus, and what is it conditional on.
-> 2. **Issue table** — every distinct issue actually mentioned, with: issue · how many of
->    the sampled reviews mention it · % of the sample · % of the *negative* reviews in the
->    sample. Sort by count.
-> 3. **Category rollup** — group every issue into exactly one of:
->    **Technical** (crashes, performance, bugs, drivers, Deck/Linux) ·
->    **Design** (balance, difficulty, pacing, controls, UI) ·
->    **Content** (length, repetition, endgame, missing features) ·
->    **Monetization** (MTX, DLC, pay-to-win, price) ·
->    **Service** (servers, always-online, anticheat, support).
->    Give a count and % of all issue mentions per category.
-> 4. **Headline number** — what share of the complaints are *technical* vs everything else.
-> 5. **Trend** — split the sample at its median date and compare. Is it getting better?
-> 6. **Praise** — the top 3–5 things people consistently like.
-> 7. **Caveat** — restate the sample size and mode, and that the counts describe the sample.
->    Where the all-time split above differs from the sample's, say so explicitly.
->
-> Rules: count only what a review **actually says**. Do not infer, do not extrapolate, do
-> not pad the list with issues you would expect this genre to have. If something is
-> mentioned twice, it is 2. Ignore jokes and memes unless they encode a real complaint.
+All four ship, at ~2–4 tokens per review. They are cheap and each one changes what a review
+*means*:
+
+| flag | source field | why it matters |
+|---|---|---|
+| `[EA]` | `written_during_early_access` | an EA review complaining about missing content is a completely different fact from a post-1.0 one |
+| `[free]` | `received_for_free` or `!steam_purchase` | review-key and gifted reviews skew positive |
+| `[deck]` | `primarily_steam_deck` | Deck performance is its own technical category, currently blended into general perf |
+| `[upd]` | `timestamp_updated != timestamp_created` | someone revisited their verdict after patches — direct evidence for the trend question |
+
+**The flags are useless unless the prompt uses them.** `review_prompt.md` must explicitly
+instruct the AI to classify and sort on them — separate EA-era complaints from current
+ones, break technical issues out by Deck vs desktop, note whether `[free]` reviews skew the
+sentiment, and lean on `[upd]` for the trend section. Flags in the data with no instruction
+to read them is just wasted tokens.
 
 ---
 
-## 8. Risks and answers
+## 8. The prompt lives in its own file
 
-| risk | answer |
-|---|---|
-| **Steam rate-limits the browser** (A0) | 10 requests is far under the ~200/5min budget; add 250–400 ms between pages, hard-cap at 1000, disable Fetch while one runs |
-| **Worker IP is shared across all users** (A1) | Cloudflare Cache API keyed on appid+params, 30–60 min TTL. Steam's own numbers barely move in an hour, and it makes repeat opens free |
-| **The scrapers' own budget** | Untouched under A0 (fetch comes from the *user's* IP). Under A1 it is the Worker's IP pool, not the runners' — still separate from the ~200/5min the jobs are already sitting at (`STEAM_DELAY = 1.5`) |
-| **`filter=all` cursor unreliable past a few pages** | Build every deep mode on `filter=recent`; confirm the limit in the probe |
-| **Review bombs** | `filter_offtopic_activity` — Steam's default excludes them. A review bomb is *exactly* the thing a summary should catch, so make it a visible toggle and print the setting in the header |
-| **Non-English noise** | Default `english`; print the non-English share so the AI can caveat coverage |
-| **ToS** | Public, keyless, documented endpoint the repo already calls in three jobs; output is a user-initiated copy for personal use; **no prose is cached in the repo** — which is also the storage answer from §2 |
+**`review_prompt.md`, at the repo root, fetched at modal-open time.** The prompt is the
+part that will be iterated on hardest and longest, and it should not require touching a
+5,500-line `index.html` to tune a sentence.
+
+- **Not a 14th load-time fetch.** The site fetches 13 files at load (ARCHITECTURE §2); this
+  one is **lazy** — requested only when the modal first opens, ~2 KB, then cached in memory
+  for the session.
+- **`cache: "no-store"`**, matching the wishlist fetch pattern (`index.html:4488`), so an
+  edit is live on the next modal open rather than after a CDN cache expiry.
+- **Inline fallback constant.** If the fetch fails, the bundle still gets a minimal built-in
+  prompt. A digest must never be produced with no instructions attached.
+- **Not a data-layer file.** No job writes it; it is authored by hand. ARCHITECTURE §1's
+  one-writer rule is about jobs racing each other and is unaffected.
+- Optionally a `<!-- v3 -->` first line, echoed into the bundle header, so an output can be
+  traced back to the prompt that produced it.
+
+The prompt content itself is deliberately **not frozen in this memo** — it gets its own
+iteration cycle in that file. It must cover: verdict · issue table with counts · the
+technical/design/content/monetization/service rollup · the headline technical share ·
+campaign detection as a separate section with both tallies (§5) · trend from dates and
+`[upd]` · flag-aware classification (§7) · praise · and the sample-vs-population caveat.
 
 ---
 
 ## 9. UI — where it lives in `index.html`
 
-- **Entry point (grid):** `.gi-actions` on the card's details face — `index.html:3973`,
-  right next to the existing `Steam ↗`. Add **`Reviews ⇩`**.
-- **Entry point (table):** a per-row action in Phase 2; the grid card is enough to ship.
-- **Modal:** new `#revModal`. Reuse the `.pop-host` / `.pop-backdrop` styling at
-  `index.html:1907`, but **not** `#popover` itself — that is the small filter/CSV editor and
-  is the wrong size and lifecycle.
-- **Controls:** mode (Recent / Balanced / Most helpful / Negatives) · size (100 / 300 / 1000)
-  · language (English / All) · offtopic toggle → **Fetch**.
-- **Progress:** `page 3/10 · 287 reviews · ~18k tokens`, live. Ten sequential requests is
-  3–8 s and silence reads as broken.
+**Grid card.** `.gi-actions` on the details face — `index.html:3973`, next to the existing
+`Steam ↗`. Add **`Reviews ⇩`**. Already-styled slot, works on phone.
+
+**Table row — zero extra space.** The Game cell already prints the review count under the
+title (`.gsub`, `index.html:2668` — *"1,015,944 reviews"*). **That text becomes the
+button.** It costs no new pixels, it already says the word "reviews", and clicking a review
+count to get the reviews needs no explaining. Underline on hover + pointer cursor + tooltip
+carry the affordance; make it a real `<button>` for keyboard access. Games with no
+`review_count` render `"app 570"` instead and are simply not clickable. It sits *outside*
+the `<a class="gtitle">` store link, so there is no nested-interactive problem.
+
+**Modal.** New `#revModal`, reusing the `.pop-host` / `.pop-backdrop` styling at
+`index.html:1907` — but **not** `#popover` itself, which is the small filter/CSV editor and
+is the wrong size and lifecycle.
+
+- **Controls:** language (English / All) · size · **Fetch**.
+- **Progress:** `page 3/5 · 287 reviews · ~19k tokens`, live. Five sequential requests is
+  2–4 s and silence reads as broken.
 - **Result:** readonly `<textarea>` preview + **Copy all** + **Download .txt** (reuse the
-  Blob pattern at `index.html:4366`) + a live char/token estimate.
+  Blob pattern at `index.html:4366`) + live char/token estimate.
 - **Abort:** `AbortController`; closing the modal cancels in flight.
-- **Cache:** last few bundles in memory (and `sessionStorage`) so re-opening is instant.
+- **Cache:** last few bundles in memory / `sessionStorage`, so re-opening is instant.
 - **Failure:** the existing `toast()` at `index.html:4417`, same voice as the wishlist
   failure path.
 
 ---
 
-## 10. Phases
+## 10. Risks and answers
 
-**Phase 0 — probe (must happen first; ~30 min).** `review_probe.py` +
-`.github/workflows/review-probe.yml` (`workflow_dispatch`), runner-side because the sandbox
-is blocked. It answers, in one run:
-- Does `appreviews` return `Access-Control-Allow-Origin`? (`curl -I -H 'Origin: https://mlmariss.github.io'`) → **decides A0 vs A1**
-- How deep does the `recent` cursor actually go before it repeats or dies?
-- Do `review_type=positive|negative` paginate properly?
-- Which fields are really present on a live payload?
-- Dump one real 100-review sample to eyeball for the compaction thresholds in §6 — *dump
-  first, then tighten*, exactly the lesson ARCHITECTURE §2.1 records from the trailer work.
-
-**Phase 1 — MVP, client-only.** `fetchReviewPage` + compaction + formatter + modal + copy +
-download. One mode: Recent / 300 / English. Ship it.
-
-**Phase 2.** Balanced + Most-helpful + Negatives modes, size picker, offtopic toggle,
-session cache, table-view entry point, non-English share.
-
-**Phase 3 — optional.** Compare-two-games digest; a shareable link that re-runs the fetch;
-and an **in-browser lexicon count** that does the technical/design tally locally, so QTPD
-shows a number *before* any AI is involved — which is where this converges with the
-ROADMAP §3.1 keyword item and where the two features finally share code.
+| risk | answer |
+|---|---|
+| **Steam rate-limits the browser** (A0) | 5 requests is far under the ~200/5min budget; 250–400 ms between pages, disable Fetch while one runs |
+| **Worker IP shared across users** (A1) | Cloudflare Cache API keyed on appid+params, 30–60 min TTL — Steam's numbers barely move in an hour, and repeat opens become free |
+| **The scrapers' own budget** | Untouched under A0 (the fetch comes from the *user's* IP). Under A1 it is the Worker's IP pool, still separate from the runners already sitting at `STEAM_DELAY = 1.5` |
+| **`filter=all` cursor unreliable past a few pages** | Everything is built on `filter=recent`; confirm the depth limit in the probe |
+| **Non-English noise** | English default, All as a toggle, non-English share always printed |
+| **ToS** | Public, keyless, documented endpoint the repo already calls in three jobs; output is a user-initiated copy for personal use; **no prose cached in the repo** — which is also the storage answer from §2 |
 
 ---
 
-## 11. Files touched
+## 11. Phases
+
+**Phase 0 — probe (must happen first; ~30 min).** `review_probe.py` +
+`.github/workflows/review-probe.yml` (`workflow_dispatch`), runner-side because the sandbox
+is blocked. In one run it answers:
+- Does `appreviews` return `Access-Control-Allow-Origin`? (`curl -I -H 'Origin: https://mlmariss.github.io'`) → **decides A0 vs A1**
+- How deep does the `recent` cursor go before it repeats or dies? (need 5 clean pages)
+- Is `filter_offtopic_activity=0` really *include*?
+- Are all four flag fields actually present and populated on live payloads?
+- Dump one real 100-review sample to tune the §6 thresholds against reality.
+
+**Phase 1 — MVP.** `fetchReviewPage` + compaction + formatter + `review_prompt.md` loader +
+modal + copy + download. Recent / 500 / English, bombs in, all four flags. Both entry
+points (grid card + table review count) — the table one is a one-line change, no reason to
+defer it.
+
+**Phase 2.** Language toggle, size picker, session cache, prompt iteration against real
+games.
+
+**Decided against — the in-browser lexicon counter.** A JS keyword count of
+technical-vs-design issues was considered and **dropped**. A hardcoded word list cannot
+handle negation ("zero crashes, runs great" scores as a crash complaint), sarcasm, or
+unlisted synonyms, so it would systematically undercount — and it would sit next to the
+AI's answer as a second, worse verdict with no way to tell which is wrong when they
+disagree. The AI doing this properly *is* the feature.
+
+---
+
+## 12. Decisions — all closed
+
+| # | decision | choice |
+|---|---|---|
+| 1 | sample size | **500** most recent (revisit if it proves too big) |
+| 2 | sample mode | **recent** |
+| 3 | prompt placement | **inline in the bundle**, top + bottom |
+| 4 | review bombs | **included** — a publisher screw-up is legitimate signal; prompt reports it separately and gives both tallies |
+| 5 | in-browser lexicon count | **dropped entirely** |
+| 6 | language | **English default, All as a toggle** |
+| 7 | grid entry point | `.gi-actions`, next to `Steam ↗` |
+| 8 | table entry point | **the review count in `.gsub` becomes the button** — zero extra space |
+| 9 | prompt location | **`review_prompt.md`**, its own file, lazily fetched, iterated separately |
+| 10 | per-review flags | **all four** — `[EA]` `[free]` `[deck]` `[upd]`, and the prompt must classify/sort on them |
+
+## 13. Files touched
 
 | file | change |
 |---|---|
-| `index.html` | one new ~400-line section: fetch, compact, format, modal |
+| `index.html` | one new ~400-line section: fetch, compact, format, modal; plus two small entry-point edits (`:2668`, `:3973`) |
+| `review_prompt.md` | **new** — the prompt, iterated independently |
 | `review_probe.py` + `.github/workflows/review-probe.yml` | Phase 0 only; keep as a diagnostic or delete |
 | Worker (outside this repo) | **only under branch A1** |
 | `ARCHITECTURE.md` / `ROADMAP.md` | new section + cross-reference |
 
-**No new data file. No new scheduled job. No change to any existing writer.** §1's
-one-writer-per-file rule is untouched, and nothing here can interfere with the scrapers.
-
----
-
-## 12. Open decisions — needed before Phase 1
-
-1. **Default sample size** — 300 (recommended: ~19k tokens, fits everywhere) vs 500.
-2. **Default mode** — Recent (recommended: answers "how is it *now*") vs Balanced (more
-   statistically honest, twice the requests, and worse at catching a recent patch).
-3. **Prompt placement** — inline in the bundle (recommended, one copy and done) vs a
-   separate "copy prompt" button.
-4. **Review bombs in or out by default.**
-5. **Is Phase 3's in-browser lexicon count wanted at all?** It makes QTPD answer the
-   question itself with no AI in the loop — and it is also the piece most likely to be
-   wrong, because a hand-built lexicon has no idea what it is missing.
+**No new data file, no new scheduled job, no change to any existing writer.**
+ARCHITECTURE §1's one-writer-per-file rule is untouched and nothing here can interfere with
+the scrapers.
