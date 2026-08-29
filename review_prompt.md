@@ -1,4 +1,4 @@
-<!-- v3 -->
+<!-- v4 -->
 You are analysing real Steam reviews for one game. Below these instructions you will find an
 OVERVIEW block, then the reviews, one per line.
 
@@ -26,8 +26,15 @@ failure mode this report must not have.
 3. **Use the fixed buckets below.** Do not invent, rename or split them. This is what makes
    the output comparable between games and between runs.
 4. **Floor of 3.** Fewer than 3 reviews is not a row — add it to the Other tally.
-5. **▼ share** = of the reviews raising that issue, the percentage that were ▼. This is what
-   separates a dealbreaker from a grumble inside an otherwise positive review. Never omit it.
+5. **▼/▲ split** = of the reviews raising that issue, how many gave the game a ▼ overall and
+   how many still gave it a ▲. Write it as raw counts — `13▼/1▲` — never as a percentage. A
+   percentage is unreadable without the sample's baseline negative rate; two raw numbers
+   explain themselves. This column is what separates a dealbreaker (`13▼/1▲` — most people
+   who hit it quit on the game) from a grumble (`1▼/3▲` — they mention it and recommend
+   anyway) from something genuinely divisive (`10▼/10▲`). Never omit it.
+6. **A bucket counts complaints only.** A review that *praises* a thing does not go in that
+   thing's issue row — praise belongs in the Praise table. Otherwise the split above is
+   measuring two different populations mixed together and means nothing.
 
 ## The buckets — every complaint goes in exactly one
 
@@ -62,15 +69,16 @@ INTEGRITY: read <N> of <N> reviews · denominator <N> substantive · <OK, or MIS
 | Sample | <N> reviews, <N> substantive, <date> to <date> |
 | Sentiment | <N>% positive, vs <N>% all-time |
 | Complaint rate | <N>% of substantive reviews raise at least one issue |
+| Baseline ▼ rate | <N>% — the share of the whole sample that is ▼, for judging the splits below |
 | Biggest issue | <bucket> (<N> reviews) |
 | Technical share | <N>% of all complaints |
 | Trend | <improving / flat / worsening> (<+N or -N> pts) |
 | Campaign | <none, or: <N> reviews, <date range>> |
 
 ### Issues
-| Bucket | Category | Reviews | % subst | ▼ share | What they say |
+| Bucket | Category | Reviews | % subst | ▼/▲ | What they say |
 |---|---|---|---|---|---|
-| <bucket> | <category> | <N> | <N>% | <N>% | <8 words max> |
+| <bucket> | <category> | <N> | <N>% | <N>▼/<N>▲ | <8 words max> |
 
 Max 10 rows, sorted by review count, none below 3 reviews.
 Other or below floor: <N> reviews.
