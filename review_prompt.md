@@ -1,6 +1,6 @@
-<!-- v4 -->
+<!-- v5 -->
 You are analysing real Steam reviews for one game. Below these instructions you will find an
-OVERVIEW block, then the reviews, one per line.
+OVERVIEW block, a TIMELINE block, then the reviews, one per line.
 
 **The counts are the whole point of this report.** A description of what players think, with no
 numbers attached, is worthless here — the reader could get that from reading five reviews
@@ -15,7 +15,8 @@ failure mode this report must not have.
 `▲/▼  Nh  date  ↑N  [flags] | review text`
 
 ▲/▼ recommends or not · **Nh** hours played · date posted · **↑N** helpful votes ·
-`[EA]` early access · `[free]` free/non-Steam copy · `[deck]` Steam Deck · `[upd]` edited later.
+`[now]` posted inside the NOW window · `[EA]` early access · `[free]` free/non-Steam copy ·
+`[deck]` Steam Deck · `[upd]` edited later.
 
 ## How to count
 
@@ -35,6 +36,19 @@ failure mode this report must not have.
 6. **A bucket counts complaints only.** A review that *praises* a thing does not go in that
    thing's issue row — praise belongs in the Praise table. Otherwise the split above is
    measuring two different populations mixed together and means nothing.
+   The trap here is counting *mentions of a topic* as complaints. "Simple graphics, but I
+   love it" is not a graphics complaint; it is praise with a shrug attached. Counting it as
+   one is how a game with four real complaints about its art ends up reporting thirty.
+7. **`Now` column = reviews carrying the `[now]` flag.** Every review inside the recent
+   window is tagged, so this is a lookup, not a judgement. It is the difference between a
+   problem the game still has and one it had at launch: a sample dominated by a launch
+   spike will rank a long-dead complaint first on lifetime count alone. If an issue's `Now`
+   count is near zero while its total is large, it has faded — say so in Notes rather than
+   letting the row imply it is current.
+8. **Never recompute the TIMELINE block.** Sentiment rates, the trend in points, the
+   baseline ▼ rate and the quarterly figures are all computed for you. Copy them. Deriving
+   them by hand from 500 dated lines is the single most error-prone thing you could do here,
+   and getting the direction backwards would invert the report's conclusion.
 
 ## The buckets — every complaint goes in exactly one
 
@@ -42,6 +56,7 @@ failure mode this report must not have.
 Save or progress loss · Controller & platform support
 
 **Design** — Grind & pacing · Difficulty & balance · Combat & controls · UI & quality-of-life ·
+Co-op & multiplayer design (tethering, instancing, shared progress) ·
 Hostile mechanics (griefing, raids, losing your work)
 
 **Content** — Thin or too short · Repetitive or filler · Story & writing · Missing or cut features
@@ -66,21 +81,25 @@ INTEGRITY: read <N> of <N> reviews · denominator <N> substantive · <OK, or MIS
 | | |
 |---|---|
 | Verdict | <12 words max> |
+| Right now | <N>% positive across the NOW window, <improving / flat / worsening> (<+N or -N> pts vs before) — both copied from TIMELINE |
+| Best at | <the top Praise row> (<N> reviews) |
+| Most pressing | <the issue with the highest Now count> (<N> now / <N> total) |
+| Sentiment | <N>% positive across the sample, vs <N>% all-time |
 | Sample | <N> reviews, <N> substantive, <date> to <date> |
-| Sentiment | <N>% positive, vs <N>% all-time |
 | Complaint rate | <N>% of substantive reviews raise at least one issue |
-| Baseline ▼ rate | <N>% — the share of the whole sample that is ▼, for judging the splits below |
-| Biggest issue | <bucket> (<N> reviews) |
+| Baseline ▼ rate | <N>% — copied from TIMELINE, for judging the splits below |
 | Technical share | <N>% of all complaints |
-| Trend | <improving / flat / worsening> (<+N or -N> pts) |
 | Campaign | <none, or: <N> reviews, <date range>> |
 
-### Issues
-| Bucket | Category | Reviews | % subst | ▼/▲ | What they say |
-|---|---|---|---|---|---|
-| <bucket> | <category> | <N> | <N>% | <N>▼/<N>▲ | <8 words max> |
+The first four rows are the answer; the rest is the evidence. Fill them in that order.
 
-Max 10 rows, sorted by review count, none below 3 reviews.
+### Issues
+| Bucket | Category | Reviews | Now | % subst | ▼/▲ | What they say |
+|---|---|---|---|---|---|---|
+| <bucket> | <category> | <N> | <N> | <N>% | <N>▼/<N>▲ | <8 words max> |
+
+Max 10 rows, none below 3 reviews. **Sort by `Now`, then by Reviews** — the reader is buying
+the game today, so what is still being complained about outranks what once was.
 Other or below floor: <N> reviews.
 
 ### Praise
@@ -94,11 +113,13 @@ Max 5 rows.
 - <max 5 bullets, one line each — only what a number cannot carry>
 ```
 
-Use Notes only where it changes the picture: a campaign worth separating (with which issue
-ranks move if excluded); `[EA]` complaints that may already be fixed; `[deck]` players
-differing from desktop; `[free]` sentiment differing from paying players; whether the loudest
-critics are experienced (high `Nh`) or drive-by; any way this sample misleads about the game
-overall. If none of those apply, write "None." and stop.
+Use Notes only where it changes the picture: an issue whose `Now` count has collapsed, so the
+table's total overstates it; a top complaint that is really an **expectation mismatch** —
+people wanting a different game rather than reporting a fault — and what the store page fails
+to warn them about; a campaign worth separating (with which issue ranks move if excluded);
+`[EA]` complaints that may already be fixed; `[deck]` or `[free]` players differing from the
+rest (the splits are in TIMELINE); whether the loudest critics are experienced (high `Nh`) or
+drive-by; any way this sample misleads about the game overall. If none apply, write "None."
 
 ## Rules
 
