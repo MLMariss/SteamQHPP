@@ -1,6 +1,6 @@
 # Review Digest — design memo
 
-**Status: Phase 0 RUN — all questions answered (§14). No feature code yet.** Design record for a per-game, on-demand pull of
+**Status: Phase 0 run (§14) · Phase 0.5 Worker written, awaiting deploy. Phase 1 next.** Design record for a per-game, on-demand pull of
 *real Steam review text*, packaged into one copy-paste block with an AI prompt attached, so
 the user gets a quantitative issue breakdown from actual players instead of reading 500
 reviews by hand.
@@ -368,9 +368,11 @@ the English-only default is on a given title.
 artifact — the no-prose-in-the-repo rule (§2) applies to the probe too. `permissions:
 contents: read`, so it *cannot* write even by accident.
 
-**Phase 0.5 — the Worker. NEW, and it gates Phase 1.** The probe put us on branch A1, so
-the browser cannot reach Steam and a Cloudflare Worker passthrough has to exist before any
-of the UI can be tested against real data. Scope:
+**Phase 0.5 — the Worker. ✅ WRITTEN (`worker/`), awaiting deploy.** The probe put us on
+branch A1, so the browser cannot reach Steam and this had to exist before any of the UI
+could be tested against real data. Deploy steps are in
+[`worker/README.md`](worker/README.md); until it is deployed and `REVIEWS_PROXY` points at
+it, Phase 1 has nothing to fetch from. What it does:
 
 - One route: `/?appid=<n>&cursor=<c>&…` → `store.steampowered.com/appreviews/<appid>`.
 - **Param allowlist and a numeric-appid check.** Without them this is an open proxy for
@@ -380,6 +382,11 @@ of the UI can be tested against real data. Scope:
   barely move in an hour and this makes repeat opens free.
 - **Its source lives in this repo this time** (`worker/`). The wishlist Worker's source was
   lost, which is the entire reason A1 is expensive today; do not repeat that.
+- `num_per_page=0` is preserved rather than clamped — it means *summary only, no bodies*,
+  which is how the bundle header fetches its population anchor in one cheap call. An early
+  `|| 100` fallback silently turned that into a full page fetch; caught by `worker/test.mjs`.
+- Unit tests (`node worker/test.mjs`) cover the appid validation, the param allowlist, the
+  clamping and the CORS allowlist — pure functions, no Cloudflare runtime needed.
 
 **Phase 1 — MVP.** `fetchReviewPage` (pointed at the Worker) + compaction + formatter +
 `review_prompt.md` loader + modal + copy + download. Recent / 500 / English, bombs in, all
@@ -420,7 +427,7 @@ disagree. The AI doing this properly *is* the feature.
 | `index.html` | one new ~400-line section: fetch, compact, format, modal; plus two small entry-point edits (`:2668`, `:3973`) |
 | `review_prompt.md` | **new** — the prompt, iterated independently |
 | `review_probe.py` + `.github/workflows/review-probe.yml` | **added** — Phase 0 diagnostic; read-only, commits nothing, manual trigger only |
-| Worker (outside this repo) | **only under branch A1** |
+| `worker/` | **added** — the A1 proxy (`index.js`, `wrangler.toml`, `README.md`, `test.mjs`). In-repo by design; the wishlist Worker's source was lost |
 | `ARCHITECTURE.md` / `ROADMAP.md` | new section + cross-reference |
 
 **No new data file, no new scheduled job, no change to any existing writer.**
