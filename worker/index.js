@@ -136,7 +136,13 @@ export default {
     // else can omit or forge it. The real protections are the appid regex and the param
     // allowlist above, which hold regardless of who is calling.
     if (origin && !cors) {
-      return json({ error: "origin not allowed" }, 403);
+      // Echo the caller's origin on THIS response only, so the browser can actually read
+      // the message. Without it the rejection is opaque — fetch() just throws "Failed to
+      // fetch" and the page cannot tell a disallowed origin from a dead URL or bad DNS,
+      // which is exactly the dead end this cost once already. The body carries no data,
+      // only the reason, so letting an unlisted origin read it gives nothing away.
+      return json({ error: "origin not allowed", origin, allowed: [...ALLOWED_ORIGINS] }, 403,
+                  { "Access-Control-Allow-Origin": origin, "Vary": "Origin" });
     }
 
     const url = new URL(request.url);
