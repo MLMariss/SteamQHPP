@@ -5763,6 +5763,16 @@ Promise.all([
 // only route. If a digest fails with a network error, check this URL first.
 const REVIEWS_PROXY = "https://qtpd-reviews.mlmariss.workers.dev";
 
+// The deployed Worker's URL is an account-level detail this file cannot know for certain —
+// the subdomain depends on how it was deployed. Rather than making a wrong guess a
+// code-change-and-redeploy round trip, the failure path offers the URL as an editable field
+// and remembers the correction here. The constant above stays the default.
+const RD_PROXY_KEY = "qtpd_reviews_proxy";
+function rdProxy(){
+  try { return localStorage.getItem(RD_PROXY_KEY) || REVIEWS_PROXY; }
+  catch(e){ return REVIEWS_PROXY; }        // private mode / storage blocked
+}
+
 const RD = {
   size: 500,            // decision 1. ~21k tokens raw, ~14k after the cap.
   perPage: 100,         // Steam's hard max
@@ -5829,7 +5839,7 @@ function rdFlags(rv){
 
 async function rdCall(params, signal){
   const qs = new URLSearchParams(params).toString();
-  const r = await fetch(`${REVIEWS_PROXY}/?${qs}`, { signal, cache:"no-store" });
+  const r = await fetch(`${rdProxy()}/?${qs}`, { signal, cache:"no-store" });
   if(!r.ok){
     let detail = "";
     try { detail = " — " + ((await r.json()).error || ""); } catch(e){}
@@ -5974,7 +5984,8 @@ function rdRenderSetup(g){
        <button type="button" class="rd-opt${rdState.lang==="english"?" on":""}" data-rdlang="english">English</button>
        <button type="button" class="rd-opt${rdState.lang==="all"?" on":""}" data-rdlang="all">All languages</button>
      </div>
-     <div class="rd-prog" id="rdProg"></div>`;
+     <div class="rd-prog" id="rdProg"></div>
+     <div id="rdErr"></div>`;
   foot.innerHTML = `<button type="button" class="rd-go" id="rdGo">Fetch ${RD.size} reviews</button>`;
 }
 
@@ -6013,12 +6024,27 @@ async function rdRun(){
     rdRenderResult(rdState.bundle);
   } catch(err){
     if(err && err.name === "AbortError") return;      // user closed the dialog
-    const body = document.getElementById("rdBody");
-    if(body){
-      // Name the proxy in the error: a wrong or undeployed REVIEWS_PROXY is by far the
-      // most likely cause, and the message should point straight at it.
-      body.insertAdjacentHTML("beforeend",
-        `<div class="rd-err">Couldn't fetch reviews.\n${(err && err.message) || err}\n\nProxy: ${REVIEWS_PROXY}</div>`);
+    const slot = document.getElementById("rdErr");
+    if(slot){
+      const msg = (err && err.message) || String(err);
+      // "Failed to fetch" is a TypeError the browser gives for DNS failure, a refused
+      // connection, or a CORS block — it deliberately hides which. All three come back to
+      // the proxy URL or its origin allowlist, so say that plainly instead of echoing an
+      // error that explains nothing.
+      const networkish = /failed to fetch|networkerror|load failed/i.test(msg);
+      slot.innerHTML =
+        `<div class="rd-err">Couldn't fetch reviews.\n${esc(msg)}</div>` +
+        (networkish
+          ? `<p class="rd-note" style="margin-top:9px">The browser couldn't reach the proxy at all. That means the
+             URL is wrong, the Worker isn't deployed there, or it refused this page's origin
+             (<code>${esc(location.origin)}</code>). Check the URL on your Cloudflare
+             dashboard and correct it here — it's remembered for next time.</p>`
+          : `<p class="rd-note" style="margin-top:9px">The proxy answered, but not with review data.</p>`) +
+        `<div class="rd-row" style="margin-top:4px">
+           <input id="rdProxyIn" class="rd-out" style="height:auto; padding:8px; flex:1 1 320px"
+                  value="${esc(rdProxy())}" spellcheck="false" aria-label="Review proxy URL">
+           <button type="button" class="rd-opt" id="rdProxySave">Save &amp; retry</button>
+         </div>`;
     }
     if(go){ go.disabled = false; go.textContent = "Try again"; }
   } finally {
@@ -6053,6 +6079,14 @@ document.addEventListener("click", e => {
     return;
   }
   if(e.target.closest("#rdGo")){ rdRun(); return; }
+  if(e.target.closest("#rdProxySave")){
+    const v = (document.getElementById("rdProxyIn").value || "").trim().replace(/\/+$/, "");
+    if(!/^https:\/\/[^\s]+$/.test(v)){ toast("That doesn't look like an https:// URL.", "err", 4000); return; }
+    try { localStorage.setItem(RD_PROXY_KEY, v); } catch(err){ /* private mode: still retry below */ }
+    document.getElementById("rdErr").innerHTML = "";
+    rdRun();
+    return;
+  }
   if(e.target.closest("#rdCopy")){
     const ta = document.getElementById("rdOut");
     const done = () => toast("Digest copied — paste it into an AI.", "ok", 4000);

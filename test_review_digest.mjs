@@ -100,7 +100,7 @@ console.log("modal opened");
 await page.locator("#rdGo").click();
 await page.waitForSelector("#rdOut", { timeout: 15000 });
 const bundle = await page.locator("#rdOut").inputValue();
-await browser.close(); srv.close();
+await browser.close();
 
 console.log("\n================ BUNDLE (first 40 lines) ================");
 console.log(bundle.split("\n").slice(0, 40).join("\n"));
@@ -131,5 +131,32 @@ check(bundle.includes("Campaign check"), "real review_prompt.md loaded (not the 
 check(errors.length === 0, `no uncaught JS errors (${errors.length})`);
 console.log(`  (${noise.length} console 404s from the deliberately absent JSON layers - expected)`);
 errors.slice(0, 5).forEach(e => console.log("     " + e));
+// --- second scenario: the proxy is unreachable ------------------------------------
+// This is the exact failure the first live click hit. A network-level failure must not
+// dead-end: it has to name the likely cause and offer the URL as an editable field, so a
+// wrong subdomain is a five-second fix in the page rather than a code change and redeploy.
+{
+  const b2 = await chromium.launch({ executablePath: "/opt/pw-browsers/chromium-1194/chrome-linux/chrome" });
+  const p2 = await b2.newPage();
+  const errs2 = [];
+  p2.on("pageerror", e => errs2.push(e.message));
+  await p2.route("**/qtpd-reviews.*/**", r => r.abort("connectionrefused"));
+  await p2.goto("http://127.0.0.1:8099/index.html", { waitUntil: "networkidle" });
+  await p2.waitForTimeout(500);
+  await p2.locator("button.gsub-rev").first().click();
+  await p2.waitForSelector("#rdHost.on");
+  await p2.locator("#rdGo").click();
+  await p2.waitForSelector("#rdProxyIn", { timeout: 10000 });
+  const shown = await p2.locator("#rdProxyIn").inputValue();
+  const note  = await p2.locator("#rdErr").textContent();
+  await b2.close();
+  console.log("\nfailure path:");
+  check(shown.startsWith("https://"), `proxy URL offered for editing (${shown})`);
+  check(/couldn't reach the proxy/i.test(note), "network failure explained, not just echoed");
+  check(/origin/i.test(note), "origin named as a possible cause");
+  check(errs2.length === 0, "no uncaught JS errors on the failure path");
+}
+
+srv.close();
 console.log(fails ? `\n${fails} CHECKS FAILED` : "\nALL CHECKS PASSED");
 process.exit(fails ? 1 : 0);
