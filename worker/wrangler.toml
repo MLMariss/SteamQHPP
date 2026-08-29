@@ -1,0 +1,11 @@
+# Deploy config for the Review Digest proxy. See README.md in this directory.
+#
+# No secrets and no bindings: unlike the wishlist Worker this one needs no STEAM_API_KEY,
+# because `appreviews` is a public keyless endpoint (REVIEW_DIGEST_PLAN.md §4).
+name = "qtpd-reviews"
+main = "index.js"
+compatibility_date = "2026-08-28"
+
+# Free plan is ample: a digest is 5-6 requests, and the 30-minute edge cache means repeat
+# opens of the same game cost nothing.
+workers_dev = true
