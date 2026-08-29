@@ -139,7 +139,10 @@ check(bundle.includes("--- INSTRUCTIONS ---"), "instructions section present");
   check(/LEGEND: ▲\/▼/.test(bundle) && /^▲ |\n▲ /m.test(bundle),
         "review lines use the ▲/▼ glyphs the prompt documents");
 }
-check(bundle.includes("Campaign check"), "real review_prompt.md loaded (not the fallback)");
+// Pinning a phrase from the prompt made this break on every prompt edit. The version
+// marker is the durable signal: only the file carries one, the inline fallback does not.
+check(/=== QTPD REVIEW DIGEST · prompt v\S+ ===/.test(bundle),
+      "real review_prompt.md loaded, not the inline fallback");
 check(errors.length === 0, `no uncaught JS errors (${errors.length})`);
 console.log(`  (${noise.length} console 404s from the deliberately absent JSON layers - expected)`);
 errors.slice(0, 5).forEach(e => console.log("     " + e));
