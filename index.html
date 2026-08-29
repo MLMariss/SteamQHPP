@@ -5886,7 +5886,7 @@ async function rdCollect(appid, lang, onProgress, signal){
 // document. Fetched lazily on first open — NOT a 14th load-time fetch — and never
 // allowed to fail into a bundle with no instructions attached.
 const RD_PROMPT_FALLBACK =
-`Analyse the Steam reviews above. Report: (1) a one-paragraph verdict; (2) every issue
+`Analyse the Steam reviews that follow below. Report: (1) a one-paragraph verdict; (2) every issue
 players actually mention, with how many of the sampled reviews mention it; (3) those issues
 grouped into Technical / Design / Content / Monetization / Service with counts; (4) what
 share of complaints are technical; (5) whether a review-bombing campaign is present, counted
@@ -5925,9 +5925,22 @@ function rdBuildBundle(g, data, lang, prompt){
     ? Math.round(100 * scoped.total_reviews / overall.total_reviews) : null;
 
   const L = [];
-  L.push("=== QTPD REVIEW DIGEST ===");
-  L.push("You are given real Steam reviews for one game. Instructions are at the BOTTOM.");
+  // Order: INSTRUCTIONS -> OVERVIEW -> REVIEWS. Leading with the task means a human
+  // scanning the paste sees what it is for in the first screen, instead of scrolling past
+  // hundreds of review lines to find out.
+  // The prompt file's leading <!-- vN --> marker was invisible clutter when instructions
+  // sat at the bottom; leading the document it is the first thing anyone reads. Lift the
+  // version into the title line and strip it from the body — the traceability is kept, the
+  // reader just does not have to look at an HTML comment first.
+  let promptBody = prompt, promptVer = "";
+  const vm = prompt.match(/^\s*<!--\s*(v[\w.\-]+)\s*-->\s*\n?/i);
+  if(vm){ promptVer = " · prompt " + vm[1]; promptBody = prompt.slice(vm[0].length); }
+  L.push(`=== QTPD REVIEW DIGEST${promptVer} ===`);
   L.push("");
+  L.push("--- INSTRUCTIONS ---");
+  L.push(promptBody.trim());
+  L.push("");
+  L.push("--- OVERVIEW ---");
   L.push(`GAME: ${g.title}  (appid ${g.appid})`);
   if(overall.total_reviews)
     L.push(`ALL-TIME (all languages): ${overall.review_score_desc || "—"} — ${oPct}% of ${overall.total_reviews.toLocaleString()} reviews`
@@ -5948,7 +5961,7 @@ function rdBuildBundle(g, data, lang, prompt){
   L.push(`  excluded: ${dropped.art} ASCII-art · ${dropped.dupe} duplicates · ${dropped.empty} empty · ${truncated} truncated at ${RD.cap} chars`);
   if(engShare != null) L.push(`  language: english only (~${engShare}% of this game's reviews; ${100-engShare}% are other languages)`);
   L.push("");
-  L.push("LEGEND: up/down = recommends or not · Nh = hours played at review · date · ^N = helpful votes");
+  L.push("LEGEND: ▲/▼ = recommends or not · Nh = hours played at review · date · ↑N = helpful votes");
   L.push("        [EA] written during early access · [free] free or non-Steam copy");
   L.push("        [deck] played mainly on Steam Deck · [upd] edited after posting");
   L.push("");
@@ -5956,12 +5969,14 @@ function rdBuildBundle(g, data, lang, prompt){
   for(const { rv, text } of rows){
     const mins = (rv.author && (rv.author.playtime_at_review ?? rv.author.playtime_forever)) || 0;
     const hrs = mins >= 600 ? Math.round(mins/60) : (mins/60).toFixed(1);
-    const votes = rv.votes_up ? ` ^${rv.votes_up}` : "";
-    L.push(`${rv.voted_up ? "up" : "down"} ${hrs}h ${rdDay(rv.timestamp_created)}${votes}${rdFlags(rv)} | ${text}`);
+    const votes = rv.votes_up ? ` ↑${rv.votes_up}` : "";
+    L.push(`${rv.voted_up ? "▲" : "▼"} ${hrs}h ${rdDay(rv.timestamp_created)}${votes}${rdFlags(rv)} | ${text}`);
   }
   L.push("");
-  L.push("--- INSTRUCTIONS ---");
-  L.push(prompt);
+  // One closing line, not a second copy of the prompt. Instructions read most reliably as
+  // the most recent thing in context, which is what putting them last used to buy; a
+  // pointer costs ~15 tokens and keeps that without duplicating the whole block.
+  L.push("--- END OF REVIEWS. Now produce the analysis described in the INSTRUCTIONS at the top. ---");
   return L.join("\n");
 }
 

@@ -1,85 +1,111 @@
-<!-- v1 -->
-You are analysing real Steam reviews for one game. The reviews are above, one per line.
+<!-- v4 -->
+You are analysing real Steam reviews for one game. Below these instructions you will find an
+OVERVIEW block, then the reviews, one per line.
 
-Read the SAMPLE block in the header before anything else: it tells you how many reviews you
-were given, how they were selected, and how many carry enough text to analyse. Every count
-you report is a count **of that sample**, never of the game as a whole.
+**The counts are the whole point of this report.** A description of what players think, with no
+numbers attached, is worthless here — the reader could get that from reading five reviews
+himself. What he cannot do by hand is count 500. That is your job.
+
+So: **every issue row must carry a review count.** If you cannot count reliably, say so on the
+INTEGRITY line and stop. Do not quietly replace the tables with prose — that is the one
+failure mode this report must not have.
 
 ## Line format
 
 `▲/▼  Nh  date  ↑N  [flags] | review text`
 
-- **▲ / ▼** — the player recommends the game, or does not.
-- **Nh** — hours played at the time of writing.
-- **date** — when it was posted.
-- **↑N** — how many other players marked it helpful.
-- **flags** — `[EA]` written during early access · `[free]` free or non-Steam copy ·
-  `[deck]` played mainly on Steam Deck · `[upd]` edited after first posting.
+▲/▼ recommends or not · **Nh** hours played · date posted · **↑N** helpful votes ·
+`[EA]` early access · `[free]` free/non-Steam copy · `[deck]` Steam Deck · `[upd]` edited later.
 
-## What to produce
+## How to count
 
-**1. Verdict.** One paragraph. What is the consensus, and what is it conditional on
-(hardware, patch version, expectations, playstyle)?
+1. **The unit is the review, not the mention.** A review complaining about crashes four times
+   counts **once** for Crashes. One review can count in several different buckets.
+2. **The denominator is the substantive-review count** from the OVERVIEW, for every
+   percentage. Never switch denominators.
+3. **Use the fixed buckets below.** Do not invent, rename or split them. This is what makes
+   the output comparable between games and between runs.
+4. **Floor of 3.** Fewer than 3 reviews is not a row — add it to the Other tally.
+5. **▼/▲ split** = of the reviews raising that issue, how many gave the game a ▼ overall and
+   how many still gave it a ▲. Write it as raw counts — `13▼/1▲` — never as a percentage. A
+   percentage is unreadable without the sample's baseline negative rate; two raw numbers
+   explain themselves. This column is what separates a dealbreaker (`13▼/1▲` — most people
+   who hit it quit on the game) from a grumble (`1▼/3▲` — they mention it and recommend
+   anyway) from something genuinely divisive (`10▼/10▲`). Never omit it.
+6. **A bucket counts complaints only.** A review that *praises* a thing does not go in that
+   thing's issue row — praise belongs in the Praise table. Otherwise the split above is
+   measuring two different populations mixed together and means nothing.
 
-**2. Issue table.** Every distinct problem players actually mention. Columns: issue ·
-reviews mentioning it · % of the sample · % of the ▼ reviews. Sort by count, highest first.
+## The buckets — every complaint goes in exactly one
 
-**3. Category rollup.** Put every issue in exactly one bucket, with a count and a share of
-all issue mentions:
+**Technical** — Crashes & launch · Performance & frame rate · Bugs & glitches ·
+Save or progress loss · Controller & platform support
 
-- **Technical** — crashes, performance, frame rate, bugs, drivers, load times
-- **Design** — balance, difficulty, pacing, controls, UI, AI
-- **Content** — length, repetition, empty endgame, missing or cut features
-- **Monetization** — microtransactions, DLC, pay-to-win, price
-- **Service** — servers, always-online, anti-cheat, support, account requirements
+**Design** — Grind & pacing · Difficulty & balance · Combat & controls · UI & quality-of-life ·
+Hostile mechanics (griefing, raids, losing your work)
 
-**4. The headline number.** What share of all complaints are Technical, versus everything
-else combined? State it plainly in one sentence.
+**Content** — Thin or too short · Repetitive or filler · Story & writing · Missing or cut features
 
-**5. Campaign check.** Off-topic and review-bombing reviews are deliberately *included* in
-this sample, because a publisher or developer doing something people are angry about is real
-information. But it is a different fact from a crash bug, so separate it:
+**Monetization** — Price & value · DLC, paywalls & microtransactions
 
-- Is there a spike of reviews about something other than playing the game — a publisher
-  decision, DRM, a price change, a politics or platform dispute? Give its count and the date
-  range it clusters in.
-- If there is, present the issue table **twice**: once including those reviews, once
-  excluding them. Say which issues change rank between the two.
-- If there is no such spike, say so in one line and move on.
+**Service** — Servers & connectivity · Always-online & DRM · Support & communication
 
-**6. Trend.** Split the sample at its median date and compare the halves. Is sentiment
-improving, worsening, or flat, and which specific issues appear or disappear? `[upd]`
-reviews are direct evidence — someone went back and changed their verdict.
+Anything fitting none of these goes in the Other tally. If Other would be your biggest row,
+say so in Notes — it means these buckets are wrong for this game.
 
-**7. Read the flags.** These change what a review means, so use them:
+## OUTPUT — copy this skeleton exactly and fill in every `< >`
 
-- `[EA]` — early-access complaints about missing content may already be resolved. Report
-  EA-era issues separately from current ones; do not blend them into one tally.
-- `[deck]` — report Steam Deck performance complaints separately from desktop ones. They are
-  different problems with different causes.
-- `[free]` — these players did not pay. Check whether their sentiment differs from the rest,
-  and say so if it does.
-- Long-playtime reviewers (high `Nh`) know the late game. Weight them for depth complaints,
-  and low-hour reviewers for first-impression and launch problems.
+Do not add sections. Do not rename them. Do not reorder them. Do not write an executive
+summary, an introduction, a methodology note, or a closing paragraph. This skeleton, and
+nothing else:
 
-**8. Praise.** The three to five things players consistently like.
+```
+INTEGRITY: read <N> of <N> reviews · denominator <N> substantive · <OK, or MISMATCH — stopping>
 
-**9. Caveat.** Close by restating: the sample size and how it was selected, how many reviews
-had enough text to analyse, and the game's overall score from the header. Where the sample's
-positive/negative split differs from the game's all-time split, say so and offer the likely
-reason.
+### Snapshot
+| | |
+|---|---|
+| Verdict | <12 words max> |
+| Sample | <N> reviews, <N> substantive, <date> to <date> |
+| Sentiment | <N>% positive, vs <N>% all-time |
+| Complaint rate | <N>% of substantive reviews raise at least one issue |
+| Baseline ▼ rate | <N>% — the share of the whole sample that is ▼, for judging the splits below |
+| Biggest issue | <bucket> (<N> reviews) |
+| Technical share | <N>% of all complaints |
+| Trend | <improving / flat / worsening> (<+N or -N> pts) |
+| Campaign | <none, or: <N> reviews, <date range>> |
+
+### Issues
+| Bucket | Category | Reviews | % subst | ▼/▲ | What they say |
+|---|---|---|---|---|---|
+| <bucket> | <category> | <N> | <N>% | <N>▼/<N>▲ | <8 words max> |
+
+Max 10 rows, sorted by review count, none below 3 reviews.
+Other or below floor: <N> reviews.
+
+### Praise
+| What they praise | Reviews | % subst |
+|---|---|---|
+| <thing> | <N> | <N>% |
+
+Max 5 rows.
+
+### Notes
+- <max 5 bullets, one line each — only what a number cannot carry>
+```
+
+Use Notes only where it changes the picture: a campaign worth separating (with which issue
+ranks move if excluded); `[EA]` complaints that may already be fixed; `[deck]` players
+differing from desktop; `[free]` sentiment differing from paying players; whether the loudest
+critics are experienced (high `Nh`) or drive-by; any way this sample misleads about the game
+overall. If none of those apply, write "None." and stop.
 
 ## Rules
 
-- **Count only what a review actually says.** Do not infer, extrapolate, or add issues you
-  would expect this genre to have. If nobody mentioned it, it is not in the table.
-- **Mentioned twice is 2.** Do not merge distinct complaints to tidy the list, and do not
-  split one complaint into several to pad it.
-- **Short reviews are real.** A large share of Steam reviews are a few words ("good", "gg",
-  "refunded"). They count toward sentiment. They mostly cannot carry an issue, which is why
-  the header reports how many reviews are substantive — issue percentages should be read
-  against that number, and you should say so.
-- **Ignore jokes and memes** unless they encode an actual complaint.
-- **Do not soften the findings.** If the picture is bad, say it is bad.
-- If you are unsure whether something is one issue or two, say so rather than picking
-  silently.
+- **Count only what a review actually says.** Never infer or extrapolate, and never add an
+  issue the genre would suggest. If nobody said it, it does not exist.
+- **Short reviews are real.** Many are a few words; they count toward sentiment but usually
+  carry no issue, which is why percentages use the substantive count.
+- **Ignore jokes and memes** unless they carry a real complaint.
+- **Do not soften anything.** If the picture is bad, the Verdict says it is bad.
+- **Length is not thoroughness.** Exceeding the caps is a failure.
