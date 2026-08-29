@@ -1442,6 +1442,56 @@
     .gridview{grid-template-columns:repeat(auto-fill, minmax(150px, 1fr)); gap:10px; padding:10px}
   }
   @media (prefers-reduced-motion:reduce){ .qfill{transition:none} .section-head .sec-caret{transition:none} }
+
+  /* ---- Review Digest (REVIEW_DIGEST_PLAN.md) -------------------------------------
+     Pulls 500 real Steam reviews on demand and packages them, with the AI prompt
+     attached, into one copy-paste block. Its own modal rather than .popover: that host
+     is the small filter/CSV editor and is the wrong size and lifecycle for this. */
+  .rd-host{position:fixed; inset:0; z-index:200; display:none}
+  .rd-host.on{display:block}
+  .rd-back{position:absolute; inset:0; background:#060912cc}
+  .rd-modal{position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);
+        width:min(760px, calc(100vw - 28px)); max-height:calc(100vh - 48px); display:flex; flex-direction:column;
+        background:var(--panel-2); border:1px solid var(--line); border-radius:13px; box-shadow:0 20px 60px #000c}
+  .rd-head{display:flex; align-items:center; gap:10px; padding:13px 15px; border-bottom:1px solid var(--line)}
+  .rd-head h3{margin:0; font-size:15px; color:var(--title); font-weight:600; flex:1;
+        overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
+  .rd-head .rd-x{appearance:none; background:transparent; border:0; color:var(--muted-2);
+        font-size:17px; line-height:1; cursor:pointer; padding:4px 6px; border-radius:6px}
+  .rd-head .rd-x:hover{color:var(--coral); background:#3a1f27}
+  .rd-body{padding:14px 15px; overflow:auto}
+  .rd-row{display:flex; flex-wrap:wrap; align-items:center; gap:8px; margin-bottom:11px}
+  .rd-row > span.rd-lbl{font-family:var(--mono); font-size:11px; letter-spacing:.06em;
+        text-transform:uppercase; color:var(--muted-2); min-width:74px}
+  .rd-opt{appearance:none; background:var(--panel); border:1px solid var(--line); color:var(--muted);
+        font-family:var(--mono); font-size:12px; padding:6px 11px; border-radius:8px; cursor:pointer}
+  .rd-opt:hover{color:var(--text); border-color:var(--muted-2)}
+  .rd-opt.on{background:var(--gold-soft); border-color:var(--gold-deep); color:var(--gold)}
+  .rd-go{background:var(--gold-soft); border:1px solid var(--gold-deep); color:var(--gold);
+        font-family:var(--mono); font-size:13px; padding:9px 18px; border-radius:9px; cursor:pointer}
+  .rd-go:hover:not(:disabled){filter:brightness(1.13)}
+  .rd-go:disabled{opacity:.5; cursor:default}
+  .rd-note{font-size:12px; color:var(--muted-2); line-height:1.55; margin:0 0 11px}
+  .rd-prog{font-family:var(--mono); font-size:12px; color:var(--gold); min-height:17px}
+  .rd-err{font-family:var(--mono); font-size:12px; color:var(--coral); line-height:1.6;
+        white-space:pre-wrap; word-break:break-word}
+  .rd-out{width:100%; height:300px; resize:vertical; box-sizing:border-box;
+        background:var(--bg); border:1px solid var(--line); border-radius:9px; color:var(--muted);
+        font-family:var(--mono); font-size:11.5px; line-height:1.5; padding:10px; margin-top:4px}
+  .rd-foot{display:flex; flex-wrap:wrap; align-items:center; gap:9px; padding:12px 15px;
+        border-top:1px solid var(--line)}
+  .rd-foot .rd-size{font-family:var(--mono); font-size:11.5px; color:var(--muted-2); margin-left:auto}
+
+  /* Table entry point: the review count under the title is ALREADY on the card, so it
+     becomes the button. Zero new pixels, and "1,015,944 reviews" needs no explaining as
+     the way to reach the reviews. Sits outside the <a class="gtitle"> store link, so
+     there is no nested-interactive problem. */
+  .gsub .gsub-rev{appearance:none; background:transparent; border:0; padding:0; cursor:pointer;
+        font:inherit; color:inherit; text-decoration:underline; text-decoration-style:dotted;
+        text-underline-offset:2px; text-decoration-color:var(--line)}
+  .gsub .gsub-rev:hover{color:var(--gold)}
+  .gsub .gsub-rev:focus-visible{outline:2px solid var(--gold); outline-offset:2px; border-radius:3px}
+  .gi-actions .gi-rev{background:var(--gold-soft); border:1px solid var(--gold-deep); color:var(--gold)}
 </style>
 </head>
 <body>
@@ -1905,6 +1955,19 @@ try{
 <div class="toast-host" id="toastHost"></div>
 <!-- shared popover host: L2 summary editors + L4 CSV column-picker -->
 <div class="pop-host" id="popHost"><div class="pop-backdrop" id="popBackdrop"></div><div class="popover" id="popover" role="dialog"></div></div>
+<!-- Review Digest modal (REVIEW_DIGEST_PLAN.md §9) -->
+<div class="rd-host" id="rdHost">
+  <div class="rd-back" id="rdBack"></div>
+  <div class="rd-modal" role="dialog" aria-modal="true" aria-labelledby="rdTitle">
+    <div class="rd-head">
+      <h3 id="rdTitle">Review digest</h3>
+      <button type="button" class="rd-x" id="rdClose" aria-label="Close">&#10005;</button>
+    </div>
+    <div class="rd-body" id="rdBody"></div>
+    <div class="rd-foot" id="rdFoot"></div>
+  </div>
+</div>
+
 
 <script>
 const NOW = () => Math.floor(Date.now()/1000);
@@ -2665,7 +2728,7 @@ function render(){
           </span>
           <span class="gmeta">
             <a class="gtitle" href="${esc(g.url)}" target="_blank" rel="noopener" title="${esc(g.title)}">${esc(g.title)}</a>${wished}
-            <div class="gsub">${g.review_count? g.review_count.toLocaleString()+" reviews" : "app "+g.appid}</div>
+            <div class="gsub">${g.review_count ? `<button type="button" class="gsub-rev" data-rdopen="${g.appid}" title="Pull the 500 newest Steam reviews and package them with an AI prompt">${g.review_count.toLocaleString()} reviews</button>` : "app "+g.appid}</div>
           </span></div></td>
       <td data-label="Reviews">${reviews}</td>
       <td data-label="Trend" class="center">${trend}</td>
@@ -3972,6 +4035,7 @@ function gridCardHTML(g){
       <div class="gi-row" title="${esc(ptTip)}"><span>Playtime <i>median</i></span><b>${ptStr}</b></div>
       <div class="gi-actions">
         <a class="gi-steam" href="${esc(g.url)}" target="_blank" rel="noopener">Steam ↗</a>
+        <button type="button" class="gi-rev" data-rdopen="${g.appid}" title="Pull the 500 newest Steam reviews and package them with an AI prompt">Reviews ⇩</button>
         <button type="button" data-gclose="1">Close ✕</button>
       </div>
     </div>
@@ -5687,6 +5751,332 @@ Promise.all([
   document.addEventListener("mousedown", hide, true);
   addEventListener("blur", hide);
 })();
+
+// ===================================================================================
+// Review Digest — pull real Steam reviews on demand, package them for an AI.
+// Design record: REVIEW_DIGEST_PLAN.md. Numbers here come from the Phase 0 probe (§14),
+// not from guesses — see the comments on each threshold.
+// ===================================================================================
+
+// The Worker from worker/index.js. Steam sends no Access-Control-Allow-Origin on
+// appreviews (probe Q1), so the browser cannot call it directly and this proxy is the
+// only route. If a digest fails with a network error, check this URL first.
+const REVIEWS_PROXY = "https://qtpd-reviews.mlmariss.workers.dev";
+
+const RD = {
+  size: 500,            // decision 1. ~21k tokens raw, ~14k after the cap.
+  perPage: 100,         // Steam's hard max
+  cap: 600,             // truncates 6.1% of reviews, saves ~35% of the budget (probe Q5)
+  artRatio: 0.4,        // the art distribution is bimodal, so 0.3-0.6 all behave the same
+  artMinLen: 40,        // measured: prose ratio p90 is 0.061, art ~1.0 — the gap is huge, so
+                        // a low floor is safe. At 80 a 74-char block-glyph review slipped
+                        // through; short punctuation-heavy reviews ("10/10", "<3") are well
+                        // under 40 chars and under the ratio, so they are never touched.
+  dupeMinLen: 20,       // shorter than this, identical text is coincidence, not copypasta
+  substantive: 20,      // 38% of reviews are under this. Reported, never filtered.
+  pageDelayMs: 250,     // gentle on the Worker's shared egress IP
+};
+
+// Whitelisted tags only. The probe's first regex matched any [word] and reported
+// "[sailing]" and "[russians]" from ordinary prose — stripping those would delete words
+// out of a review. Never widen this to a generic bracket match.
+const RD_BBCODE = /\[\/?(?:b|i|u|h[1-3]|url|quote|spoiler|list|olist|\*|strike|code|noparse|table|tr|th|td|img|previewyoutube|hr)(?:=[^\]]{0,200})?\]/gi;
+
+const rdState = { open:false, appid:null, lang:"english", busy:false, abort:null, bundle:"", promptText:null };
+
+function rdArtRatio(t){
+  const body = t.replace(/\s/g, "");
+  if(!body) return 0;
+  const nonAlnum = body.replace(/[a-zA-Z0-9]/g, "").length;
+  return nonAlnum / body.length;
+}
+function rdNormKey(t){ return t.toLowerCase().replace(/[^a-z0-9]/g, ""); }
+
+// One pass over the raw reviews: clean the text, drop what would poison the counting,
+// and report every drop so the bundle header can state what happened to the sample.
+function rdCompact(raw){
+  const out = [], seen = new Set();
+  const dropped = { art:0, dupe:0, empty:0 };
+  let truncated = 0;
+  for(const rv of raw){
+    let t = (rv.review || "").replace(RD_BBCODE, " ").replace(/\s+/g, " ").trim();
+    if(!t){ dropped.empty++; continue; }
+    if(t.length > RD.artMinLen && rdArtRatio(t) > RD.artRatio){ dropped.art++; continue; }
+    if(/(.)\1{19,}/.test(t)){ dropped.art++; continue; }   // 20+ repeated chars = art, not prose
+    if(t.length >= RD.dupeMinLen){
+      const k = rdNormKey(t);
+      // Copypasta appears verbatim dozens of times (the probe found one posted 30x) and
+      // would skew every single count, so identical text is kept exactly once.
+      if(seen.has(k)){ dropped.dupe++; continue; }
+      seen.add(k);
+    }
+    if(t.length > RD.cap){ t = t.slice(0, RD.cap).trimEnd() + "…"; truncated++; }
+    out.push({ rv, text:t });
+  }
+  return { rows:out, dropped, truncated };
+}
+
+function rdFlags(rv){
+  const f = [];
+  if(rv.written_during_early_access) f.push("EA");
+  // received_for_free alone is ~0.3% of reviews; the inverted purchase flag carries
+  // almost all the signal (probe Q4), so [free] means either.
+  if(rv.received_for_free || rv.steam_purchase === false) f.push("free");
+  if(rv.primarily_steam_deck) f.push("deck");
+  if(rv.timestamp_updated && rv.timestamp_created && rv.timestamp_updated !== rv.timestamp_created) f.push("upd");
+  return f.length ? " [" + f.join("][") + "]" : "";
+}
+
+async function rdCall(params, signal){
+  const qs = new URLSearchParams(params).toString();
+  const r = await fetch(`${REVIEWS_PROXY}/?${qs}`, { signal, cache:"no-store" });
+  if(!r.ok){
+    let detail = "";
+    try { detail = " — " + ((await r.json()).error || ""); } catch(e){}
+    throw new Error(`proxy returned ${r.status}${detail}`);
+  }
+  const d = await r.json();
+  if(!d || d.success !== 1) throw new Error("Steam returned no data for this game");
+  return d;
+}
+
+// num_per_page=0 gets query_summary with no review bodies — one cheap call for the
+// population anchor. The Worker preserves the 0 rather than clamping it.
+function rdSummary(appid, language, signal){
+  return rdCall({ appid, language, purchase_type:"all", num_per_page:0,
+                  filter:"recent", cursor:"*", filter_offtopic_activity:0 }, signal);
+}
+
+async function rdCollect(appid, lang, onProgress, signal){
+  const pages = Math.ceil(RD.size / RD.perPage);
+  onProgress(`fetching totals…`);
+  // Anchor fetched with the SAME language and off-topic setting as the sample, so the
+  // header's percentage and the sample's are measured the same way (probe Q3).
+  const scoped = await rdSummary(appid, lang, signal);
+  const overall = lang === "all" ? scoped : await rdSummary(appid, "all", signal);
+
+  const raw = [];
+  let cursor = "*";
+  for(let p = 1; p <= pages; p++){
+    onProgress(`page ${p}/${pages} · ${raw.length} reviews`);
+    const d = await rdCall({ appid, language:lang, purchase_type:"all",
+                             num_per_page:RD.perPage, filter:"recent", cursor,
+                             filter_offtopic_activity:0 }, signal);
+    const batch = d.reviews || [];
+    raw.push(...batch);
+    const next = d.cursor;
+    if(!batch.length || batch.length < RD.perPage || !next || next === cursor) break;
+    cursor = next;
+    if(p < pages) await new Promise(r => setTimeout(r, RD.pageDelayMs));
+  }
+  return { raw: raw.slice(0, RD.size), scoped:scoped.query_summary || {}, overall:overall.query_summary || {} };
+}
+
+// The prompt is its own file so it can be iterated without touching this 5,500-line
+// document. Fetched lazily on first open — NOT a 14th load-time fetch — and never
+// allowed to fail into a bundle with no instructions attached.
+const RD_PROMPT_FALLBACK =
+`Analyse the Steam reviews above. Report: (1) a one-paragraph verdict; (2) every issue
+players actually mention, with how many of the sampled reviews mention it; (3) those issues
+grouped into Technical / Design / Content / Monetization / Service with counts; (4) what
+share of complaints are technical; (5) whether a review-bombing campaign is present, counted
+separately, with the issue table given both with and without it; (6) whether sentiment is
+improving, by splitting the sample at its median date; (7) the top praise. Count only what
+reviews actually say — do not infer. Issue percentages should be read against the
+substantive-review count in the header, not the full sample size.`;
+
+async function rdLoadPrompt(){
+  if(rdState.promptText) return rdState.promptText;
+  try {
+    const r = await fetch("review_prompt.md", { cache:"no-store" });
+    if(r.ok){
+      const t = (await r.text()).trim();
+      if(t) { rdState.promptText = t; return t; }
+    }
+  } catch(e){ /* fall through — a digest without instructions is worse than a generic one */ }
+  rdState.promptText = RD_PROMPT_FALLBACK;
+  return rdState.promptText;
+}
+
+function rdPct(pos, total){ return total ? Math.round(100 * pos / total) : null; }
+function rdDay(ts){ return ts ? new Date(ts * 1000).toISOString().slice(0, 10) : "?"; }
+
+function rdBuildBundle(g, data, lang, prompt){
+  const { raw, scoped, overall } = data;
+  const { rows, dropped, truncated } = rdCompact(raw);
+
+  const up = rows.filter(r => r.rv.voted_up).length;
+  const down = rows.length - up;
+  const substantive = rows.filter(r => r.text.length > RD.substantive).length;
+  const times = rows.map(r => r.rv.timestamp_created).filter(Boolean).sort((a, b) => a - b);
+  const sPct = rdPct(scoped.total_positive, scoped.total_reviews);
+  const oPct = rdPct(overall.total_positive, overall.total_reviews);
+  const engShare = (overall.total_reviews && scoped.total_reviews && lang !== "all")
+    ? Math.round(100 * scoped.total_reviews / overall.total_reviews) : null;
+
+  const L = [];
+  L.push("=== QTPD REVIEW DIGEST ===");
+  L.push("You are given real Steam reviews for one game. Instructions are at the BOTTOM.");
+  L.push("");
+  L.push(`GAME: ${g.title}  (appid ${g.appid})`);
+  if(overall.total_reviews)
+    L.push(`ALL-TIME (all languages): ${overall.review_score_desc || "—"} — ${oPct}% of ${overall.total_reviews.toLocaleString()} reviews`
+         + ` (${(overall.total_positive||0).toLocaleString()} up / ${(overall.total_negative||0).toLocaleString()} down)`);
+  if(lang !== "all" && scoped.total_reviews)
+    L.push(`ALL-TIME (english only): ${sPct}% of ${scoped.total_reviews.toLocaleString()} reviews`);
+  if(g.recent_pct != null && g.recent_count)
+    L.push(`LAST 30 DAYS: ${g.recent_pct}% of ${g.recent_count.toLocaleString()}`);
+  L.push("");
+  L.push(`SAMPLE: ${rows.length} newest ${lang === "all" ? "reviews, all languages" : "English reviews"} (filter=recent) · fetched ${new Date().toISOString().slice(0,10)}`);
+  if(times.length) L.push(`  covering: ${rdDay(times[0])} to ${rdDay(times[times.length-1])}`);
+  L.push(`  sample split: ${up} up / ${down} down` + (rows.length ? ` (${Math.round(100*up/rows.length)}% positive)` : ""));
+  // 38% of real reviews are under 20 chars (probe Q5). They are real sentiment and are
+  // NOT filtered — dropping them would bias the sample negative, since one-word reviews
+  // skew positive. Stating the count lets the AI read issue rates against the right base.
+  L.push(`  substantive: ${substantive} of ${rows.length} have more than ${RD.substantive} characters of text`);
+  L.push(`  off-topic / review-bombing reviews: INCLUDED`);
+  L.push(`  excluded: ${dropped.art} ASCII-art · ${dropped.dupe} duplicates · ${dropped.empty} empty · ${truncated} truncated at ${RD.cap} chars`);
+  if(engShare != null) L.push(`  language: english only (~${engShare}% of this game's reviews; ${100-engShare}% are other languages)`);
+  L.push("");
+  L.push("LEGEND: up/down = recommends or not · Nh = hours played at review · date · ^N = helpful votes");
+  L.push("        [EA] written during early access · [free] free or non-Steam copy");
+  L.push("        [deck] played mainly on Steam Deck · [upd] edited after posting");
+  L.push("");
+  L.push(`--- REVIEWS (${rows.length}) ---`);
+  for(const { rv, text } of rows){
+    const mins = (rv.author && (rv.author.playtime_at_review ?? rv.author.playtime_forever)) || 0;
+    const hrs = mins >= 600 ? Math.round(mins/60) : (mins/60).toFixed(1);
+    const votes = rv.votes_up ? ` ^${rv.votes_up}` : "";
+    L.push(`${rv.voted_up ? "up" : "down"} ${hrs}h ${rdDay(rv.timestamp_created)}${votes}${rdFlags(rv)} | ${text}`);
+  }
+  L.push("");
+  L.push("--- INSTRUCTIONS ---");
+  L.push(prompt);
+  return L.join("\n");
+}
+
+// ---- UI ---------------------------------------------------------------------------
+function rdClose(){
+  if(rdState.abort) rdState.abort.abort();
+  rdState.open = false; rdState.busy = false; rdState.abort = null; rdState.bundle = "";
+  const h = document.getElementById("rdHost");
+  if(h) h.classList.remove("on");
+}
+
+function rdRenderSetup(g){
+  const body = document.getElementById("rdBody"), foot = document.getElementById("rdFoot");
+  document.getElementById("rdTitle").textContent = g.title;
+  body.innerHTML =
+    `<p class="rd-note">Pulls the <b>${RD.size} most recent</b> reviews from Steam and packages them
+     with an analysis prompt — copy the result into any AI to get an issue breakdown.
+     Review-bombing reviews are included on purpose; the prompt reports them separately.</p>
+     <div class="rd-row"><span class="rd-lbl">Language</span>
+       <button type="button" class="rd-opt${rdState.lang==="english"?" on":""}" data-rdlang="english">English</button>
+       <button type="button" class="rd-opt${rdState.lang==="all"?" on":""}" data-rdlang="all">All languages</button>
+     </div>
+     <div class="rd-prog" id="rdProg"></div>`;
+  foot.innerHTML = `<button type="button" class="rd-go" id="rdGo">Fetch ${RD.size} reviews</button>`;
+}
+
+function rdRenderResult(bundle){
+  const body = document.getElementById("rdBody"), foot = document.getElementById("rdFoot");
+  const kb = (bundle.length / 1024).toFixed(0), tok = Math.round(bundle.length / 4 / 100) / 10;
+  body.innerHTML =
+    `<p class="rd-note">Ready. Copy it, paste into an AI, and it will do the counting.
+     The prompt is already included at the bottom.</p>
+     <textarea class="rd-out" id="rdOut" readonly spellcheck="false"></textarea>`;
+  document.getElementById("rdOut").value = bundle;
+  foot.innerHTML =
+    `<button type="button" class="rd-go" id="rdCopy">Copy all</button>
+     <button type="button" class="rd-opt" id="rdDl">Download .txt</button>
+     <span class="rd-size">${kb} KB · ~${tok}k tokens</span>`;
+}
+
+async function rdRun(){
+  if(rdState.busy) return;
+  const g = gameOf(rdState.appid);
+  if(!g) return;
+  rdState.busy = true;
+  rdState.abort = new AbortController();
+  const go = document.getElementById("rdGo");
+  if(go){ go.disabled = true; go.textContent = "Fetching…"; }
+  const prog = document.getElementById("rdProg");
+  const say = m => { if(prog) prog.textContent = m; };
+  try {
+    const [data, prompt] = await Promise.all([
+      rdCollect(g.appid, rdState.lang, say, rdState.abort.signal),
+      rdLoadPrompt(),
+    ]);
+    if(!data.raw.length) throw new Error("this game has no reviews in that language");
+    say("building…");
+    rdState.bundle = rdBuildBundle(g, data, rdState.lang, prompt);
+    rdRenderResult(rdState.bundle);
+  } catch(err){
+    if(err && err.name === "AbortError") return;      // user closed the dialog
+    const body = document.getElementById("rdBody");
+    if(body){
+      // Name the proxy in the error: a wrong or undeployed REVIEWS_PROXY is by far the
+      // most likely cause, and the message should point straight at it.
+      body.insertAdjacentHTML("beforeend",
+        `<div class="rd-err">Couldn't fetch reviews.\n${(err && err.message) || err}\n\nProxy: ${REVIEWS_PROXY}</div>`);
+    }
+    if(go){ go.disabled = false; go.textContent = "Try again"; }
+  } finally {
+    rdState.busy = false;
+  }
+}
+
+function rdOpen(appid){
+  const g = gameOf(appid);
+  if(!g){ toast("Couldn't find that game.", "err", 4000); return; }
+  rdState.appid = appid; rdState.open = true; rdState.bundle = "";
+  const host = document.getElementById("rdHost");
+  if(!host) return;
+  rdRenderSetup(g);
+  host.classList.add("on");
+}
+
+document.addEventListener("click", e => {
+  const open = e.target.closest("[data-rdopen]");
+  if(open){
+    e.preventDefault(); e.stopPropagation();     // never also flip the card / follow the link
+    rdOpen(parseInt(open.getAttribute("data-rdopen"), 10));
+    return;
+  }
+  if(!rdState.open) return;
+  if(e.target.closest("#rdClose") || e.target.closest("#rdBack")){ rdClose(); return; }
+  const lang = e.target.closest("[data-rdlang]");
+  if(lang && !rdState.busy){
+    rdState.lang = lang.getAttribute("data-rdlang");
+    document.querySelectorAll("[data-rdlang]").forEach(b =>
+      b.classList.toggle("on", b.getAttribute("data-rdlang") === rdState.lang));
+    return;
+  }
+  if(e.target.closest("#rdGo")){ rdRun(); return; }
+  if(e.target.closest("#rdCopy")){
+    const ta = document.getElementById("rdOut");
+    const done = () => toast("Digest copied — paste it into an AI.", "ok", 4000);
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(rdState.bundle).then(done).catch(() => { ta.select(); document.execCommand("copy"); done(); });
+    } else { ta.select(); document.execCommand("copy"); done(); }
+    return;
+  }
+  if(e.target.closest("#rdDl")){
+    const g = gameOf(rdState.appid) || { title:"game", appid:rdState.appid };
+    const blob = new Blob([rdState.bundle], { type:"text/plain;charset=utf-8" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `qtpd-reviews-${String(g.title).replace(/[^a-z0-9]+/gi, "-").toLowerCase()}-${g.appid}.txt`;
+    document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+  }
+}, true);   // capture: the grid card's own click handler would otherwise flip the card first
+
+addEventListener("keydown", e => {
+  if(e.key === "Escape" && rdState.open){ e.stopPropagation(); rdClose(); }
+}, true);
+
 </script>
 </body>
 </html>

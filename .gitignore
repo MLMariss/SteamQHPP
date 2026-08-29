@@ -17,3 +17,6 @@ Desktop.ini
 # (files created by stray redirects, pager fragments, etc.)
 h origin*
 t --oneline*
+
+# Playwright for test_review_digest.mjs (not a repo dependency; installed ad hoc)
+node_modules/
