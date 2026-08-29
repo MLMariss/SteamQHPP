@@ -1,9 +1,10 @@
 <!-- v1 -->
-You are analysing real Steam reviews for one game. The reviews are above, one per line.
+You are analysing real Steam reviews for one game. Below these instructions you will find
+an OVERVIEW block, then the reviews themselves, one per line.
 
-Read the SAMPLE block in the header before anything else: it tells you how many reviews you
-were given, how they were selected, and how many carry enough text to analyse. Every count
-you report is a count **of that sample**, never of the game as a whole.
+Read the OVERVIEW block before the reviews: it tells you how many reviews you were given,
+how they were selected, and how many carry enough text to analyse. Every count you report
+is a count **of that sample**, never of the game as a whole.
 
 ## Line format
 
@@ -65,8 +66,8 @@ reviews are direct evidence — someone went back and changed their verdict.
 **8. Praise.** The three to five things players consistently like.
 
 **9. Caveat.** Close by restating: the sample size and how it was selected, how many reviews
-had enough text to analyse, and the game's overall score from the header. Where the sample's
-positive/negative split differs from the game's all-time split, say so and offer the likely
+had enough text to analyse, and the game's overall score from the OVERVIEW block. Where
+the sample's positive/negative split differs from the game's all-time split, say so and offer the likely
 reason.
 
 ## Rules
@@ -77,7 +78,7 @@ reason.
   split one complaint into several to pad it.
 - **Short reviews are real.** A large share of Steam reviews are a few words ("good", "gg",
   "refunded"). They count toward sentiment. They mostly cannot carry an issue, which is why
-  the header reports how many reviews are substantive — issue percentages should be read
+  the OVERVIEW reports how many reviews are substantive — issue percentages should be read
   against that number, and you should say so.
 - **Ignore jokes and memes** unless they encode an actual complaint.
 - **Do not soften the findings.** If the picture is bad, say it is bad.

@@ -109,7 +109,8 @@ console.log("================ (end excerpt) ================\n");
 let fails = 0;
 const check = (cond, msg) => { console.log((cond ? "  ok:  " : "  FAIL:") + " " + msg); if (!cond) fails++; };
 check(gridBtns > 0, `grid card Reviews button rendered (${gridBtns})`);
-check(bundle.includes("=== QTPD REVIEW DIGEST ==="), "header present");
+check(/^=== QTPD REVIEW DIGEST( · prompt \S+)? ===/.test(bundle),
+      "title line present, carrying the prompt version when the file declares one");
 check(/ALL-TIME \(all languages\).*983,491/.test(bundle), "all-language anchor printed");
 check(/ALL-TIME \(english only\): 89% of 417,281/.test(bundle), "english anchor printed and scoped");
 check(/language: english only \(~42%/.test(bundle), "non-English share reported");
@@ -127,6 +128,17 @@ check(!/\[b\]|\[\/b\]|\[url=/.test(bundle), "BBCode stripped");
 check(bundle.includes("[sailing]"), "bracketed PROSE preserved (not treated as BBCode)");
 check(/1 duplicates/.test(bundle) && /1 ASCII-art/.test(bundle), "drops counted in header");
 check(bundle.includes("--- INSTRUCTIONS ---"), "instructions section present");
+{
+  // Order is INSTRUCTIONS -> OVERVIEW -> REVIEWS. Asserted by position, not presence, so a
+  // future edit cannot quietly put the task back behind 500 lines of review text.
+  const i = bundle.indexOf("--- INSTRUCTIONS ---");
+  const o = bundle.indexOf("--- OVERVIEW ---");
+  const r = bundle.indexOf("--- REVIEWS (");
+  check(i >= 0 && o > i && r > o, `sections ordered instructions(${i}) < overview(${o}) < reviews(${r})`);
+  check(bundle.trimEnd().endsWith("at the top. ---"), "closing pointer back to the instructions");
+  check(/LEGEND: ▲\/▼/.test(bundle) && /^▲ |\n▲ /m.test(bundle),
+        "review lines use the ▲/▼ glyphs the prompt documents");
+}
 check(bundle.includes("Campaign check"), "real review_prompt.md loaded (not the fallback)");
 check(errors.length === 0, `no uncaught JS errors (${errors.length})`);
 console.log(`  (${noise.length} console 404s from the deliberately absent JSON layers - expected)`);
