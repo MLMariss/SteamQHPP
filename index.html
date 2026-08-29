@@ -5826,8 +5826,9 @@ function rdCompact(raw){
   return { rows:out, dropped, truncated };
 }
 
-function rdFlags(rv){
+function rdFlags(rv, isNow){
   const f = [];
+  if(isNow) f.push("now");
   if(rv.written_during_early_access) f.push("EA");
   // received_for_free alone is ~0.3% of reviews; the inverted purchase flag carries
   // almost all the signal (probe Q4), so [free] means either.
@@ -5885,15 +5886,22 @@ async function rdCollect(appid, lang, onProgress, signal){
 // The prompt is its own file so it can be iterated without touching this 5,500-line
 // document. Fetched lazily on first open — NOT a 14th load-time fetch — and never
 // allowed to fail into a bundle with no instructions attached.
+// Only reached when review_prompt.md fails to load. It used to be the v1 instructions, which
+// asked for seven prose sections and produced exactly the failures v2-v5 were written to fix —
+// a stale fallback is a worse outcome than a short one, so this is a condensed v5 instead.
 const RD_PROMPT_FALLBACK =
-`Analyse the Steam reviews that follow below. Report: (1) a one-paragraph verdict; (2) every issue
-players actually mention, with how many of the sampled reviews mention it; (3) those issues
-grouped into Technical / Design / Content / Monetization / Service with counts; (4) what
-share of complaints are technical; (5) whether a review-bombing campaign is present, counted
-separately, with the issue table given both with and without it; (6) whether sentiment is
-improving, by splitting the sample at its median date; (7) the top praise. Count only what
-reviews actually say — do not infer. Issue percentages should be read against the
-substantive-review count in the header, not the full sample size.`;
+`Analyse the Steam reviews that follow. Count REVIEWS, not mentions — one review counts once per
+issue. Count complaints only: "simple graphics, but I love it" is praise, not a graphics
+complaint. Percentages use the substantive-review count from the OVERVIEW. Anything fewer than
+3 reviews say is not a row. Copy the TIMELINE block's numbers; never recompute them.
+
+Output, and nothing else: (1) a Snapshot table — verdict in 12 words, the NOW-window sentiment
+and trend from TIMELINE, the top praise, and the issue with the highest Now count; (2) an
+Issues table of at most 10 rows — bucket, category, review count, how many carry the [now] flag,
+% of substantive, a raw ▼/▲ split, and 8 words on what they say — sorted by the Now count;
+(3) a Praise table of at most 5 rows with counts; (4) at most 5 one-line Notes, used only for
+what a number cannot carry — an issue that has faded, a complaint that is really an expectation
+mismatch, or a way this sample misleads. No introduction, no methodology, no closing paragraph.`;
 
 async function rdLoadPrompt(){
   if(rdState.promptText) return rdState.promptText;
@@ -5911,6 +5919,94 @@ async function rdLoadPrompt(){
 function rdPct(pos, total){ return total ? Math.round(100 * pos / total) : null; }
 function rdDay(ts){ return ts ? new Date(ts * 1000).toISOString().slice(0, 10) : "?"; }
 
+// Whole-sample counts describe the sample's LIFETIME, which for anything with a launch
+// spike is mostly history. Measured on Salt 2: 29% of the 500-review sample landed in the
+// 1.0 launch month, and "no ship combat" — the complaint every AI ranked first — drove
+// 10 of 33 negatives that month but only 1 of 15 in the last 90 days. Lifetime counting
+// answers "what upset people in November", not "what is wrong now".
+//
+// Two jobs here, both to keep the AI from doing arithmetic it gets wrong. Every review in
+// the recent window is tagged [now] so counting it is a lookup, not 500 date comparisons;
+// and every rate the prompt asks for is computed below, so the model copies rather than
+// derives. A model that inverted this split — reporting a decline where the data shows a
+// small rise — is what motivated moving it into code.
+const RD_NOW_DAYS  = 90;    // the window Steam itself calls "recent"
+const RD_NOW_MIN   = 100;   // a quiet game still gets a countable window
+const RD_NOW_NOISY = 50;    // under this, label the trend noisy rather than reporting it flat
+
+function rdPlural(n, word){ return `${n} ${word}${n === 1 ? "" : "s"}`; }
+
+function rdQuarter(ts){
+  const d = new Date(ts * 1000);
+  return `${d.getUTCFullYear()}Q${Math.floor(d.getUTCMonth() / 3) + 1}`;
+}
+
+// Tags each row with .now and returns every precomputed figure the OVERVIEW prints.
+function rdWindows(rows){
+  const dated = rows.filter(r => r.rv.timestamp_created);
+  if(!dated.length) return null;
+
+  const byTime = [...dated].sort((a, b) => b.rv.timestamp_created - a.rv.timestamp_created);
+  const cutoff = byTime[0].rv.timestamp_created - RD_NOW_DAYS * 86400;
+  // Whichever window is larger: the last 90 days, or the newest RD_NOW_MIN reviews. A busy
+  // game gets the calendar window; a slow one still gets enough rows to count against.
+  const calN = byTime.filter(r => r.rv.timestamp_created >= cutoff).length;
+  let n = calN;
+  if(n < RD_NOW_MIN) n = Math.min(RD_NOW_MIN, byTime.length);
+  // Widening buys a countable window at the cost of blunting the signal — on Salt 2 it
+  // turned a 90-day read of 69% into a 5-month read of 76%, because the widened window
+  // swallowed a strong quarter. So the 90-day figure is reported alongside rather than
+  // discarded: the AI counts the wider window, the reader still sees the sharper number.
+  const widened = n > calN;
+
+  const now = byTime.slice(0, n), before = byTime.slice(n);
+  for(const r of rows) r.now = false;
+  for(const r of now) r.now = true;
+
+  const span = grp => {
+    const up = grp.filter(r => r.rv.voted_up).length;
+    const ts = grp.map(r => r.rv.timestamp_created).sort((a, b) => a - b);
+    return { n:grp.length, up, down:grp.length - up, pct:rdPct(up, grp.length),
+             from:rdDay(ts[0]), to:rdDay(ts[ts.length - 1]) };
+  };
+  const nowS = span(now), beforeS = before.length ? span(before) : null;
+  const cal = (widened && calN) ? span(byTime.slice(0, calN)) : null;
+
+  const q = new Map();
+  for(const r of dated){
+    const k = rdQuarter(r.rv.timestamp_created);
+    const c = q.get(k) || { n:0, up:0 };
+    c.n++; if(r.rv.voted_up) c.up++;
+    q.set(k, c);
+  }
+  const quarters = [...q.entries()].sort((a, b) => a[0].localeCompare(b[0]))
+    .map(([key, c]) => ({ key, n:c.n, pct:rdPct(c.up, c.n) }));
+
+  // The prompt's Notes section asks whether [free], [EA] or [deck] players differ from the
+  // rest. That is a three-way comparison across 500 rows — cheap here, unreliable there.
+  const flagSplits = [];
+  for(const [label, test] of [
+    ["EA",   r => r.rv.written_during_early_access],
+    ["free", r => r.rv.received_for_free || r.rv.steam_purchase === false],
+    ["deck", r => r.rv.primarily_steam_deck],
+  ]){
+    const hit = rows.filter(test), rest = rows.filter(r => !test(r));
+    if(!hit.length || !rest.length) continue;
+    flagSplits.push(`[${label}] ${rdPlural(hit.length, "review")} ${rdPct(hit.filter(r => r.rv.voted_up).length, hit.length)}%`
+                  + ` vs ${rdPct(rest.filter(r => r.rv.voted_up).length, rest.length)}% for the rest`);
+  }
+
+  const upAll = rows.filter(r => r.rv.voted_up).length;
+  return {
+    now:nowS, before:beforeS, cal, quarters, flagSplits, widened,
+    trend: beforeS ? nowS.pct - beforeS.pct : null,
+    // Either side being thin makes the difference meaningless, not just the recent one — a
+    // 2-review BEFORE will happily produce a confident-looking "-29 pts".
+    noisy: nowS.n < RD_NOW_NOISY || (beforeS ? beforeS.n < RD_NOW_NOISY : false),
+    baselineDown: rdPct(rows.length - upAll, rows.length),
+  };
+}
+
 function rdBuildBundle(g, data, lang, prompt){
   const { raw, scoped, overall } = data;
   const { rows, dropped, truncated } = rdCompact(raw);
@@ -5919,6 +6015,7 @@ function rdBuildBundle(g, data, lang, prompt){
   const down = rows.length - up;
   const substantive = rows.filter(r => r.text.length > RD.substantive).length;
   const times = rows.map(r => r.rv.timestamp_created).filter(Boolean).sort((a, b) => a - b);
+  const W = rdWindows(rows);   // also tags each row with .now, read by the review loop below
   const sPct = rdPct(scoped.total_positive, scoped.total_reviews);
   const oPct = rdPct(overall.total_positive, overall.total_reviews);
   const engShare = (overall.total_reviews && scoped.total_reviews && lang !== "all")
@@ -5960,17 +6057,41 @@ function rdBuildBundle(g, data, lang, prompt){
   L.push(`  off-topic / review-bombing reviews: INCLUDED`);
   L.push(`  excluded: ${dropped.art} ASCII-art · ${dropped.dupe} duplicates · ${dropped.empty} empty · ${truncated} truncated at ${RD.cap} chars`);
   if(engShare != null) L.push(`  language: english only (~${engShare}% of this game's reviews; ${100-engShare}% are other languages)`);
+
+  // Everything below is arithmetic, and arithmetic is the one thing an AI reading 500 rows
+  // reliably gets wrong. Computed here, stated as fact, and the prompt forbids recomputing it.
+  if(W){
+    L.push("");
+    L.push("--- TIMELINE (precomputed — copy these numbers; do NOT recalculate them) ---");
+    L.push(`NOW    : ${W.now.from} to ${W.now.to} · ${rdPlural(W.now.n, "review")} · ${W.now.up}▲/${W.now.down}▼ · ${W.now.pct}% positive`);
+    if(W.widened)
+      L.push(`         widened from the last ${RD_NOW_DAYS} days (only ${rdPlural(W.cal.n, "review")} there) to the newest ${W.now.n}, so the count holds up`);
+    L.push(`         every review in this window is marked [now] on its line below`);
+    if(W.cal)
+      L.push(`LAST ${RD_NOW_DAYS}D: ${rdPlural(W.cal.n, "review")} · ${W.cal.pct}% positive — sharper than NOW but noisier; quote it only as a caveat`);
+    if(W.before){
+      L.push(`BEFORE : ${W.before.from} to ${W.before.to} · ${rdPlural(W.before.n, "review")} · ${W.before.up}▲/${W.before.down}▼ · ${W.before.pct}% positive`);
+      L.push(`TREND  : ${W.trend > 0 ? "+" : ""}${W.trend} pts, now vs before`
+           + (W.noisy ? ` — NOISY: ${W.now.n} vs ${W.before.n} reviews is too thin to call a trend. Say so; do not report a direction.` : ""));
+    }
+    L.push(`BASELINE ▼ RATE: ${W.baselineDown}% of the whole sample is ▼ — judge every ▼/▲ split against this`);
+    if(W.quarters.length > 1)
+      L.push(`BY QUARTER: ${W.quarters.map(q => `${q.key} ${q.pct}% (${q.n})`).join(" · ")}`);
+    if(W.flagSplits.length) L.push(`FLAG SPLITS: ${W.flagSplits.join(" · ")}`);
+  }
+
   L.push("");
   L.push("LEGEND: ▲/▼ = recommends or not · Nh = hours played at review · date · ↑N = helpful votes");
+  L.push("        [now] posted inside the NOW window above — count these for the Now column");
   L.push("        [EA] written during early access · [free] free or non-Steam copy");
   L.push("        [deck] played mainly on Steam Deck · [upd] edited after posting");
   L.push("");
   L.push(`--- REVIEWS (${rows.length}) ---`);
-  for(const { rv, text } of rows){
+  for(const { rv, text, now } of rows){
     const mins = (rv.author && (rv.author.playtime_at_review ?? rv.author.playtime_forever)) || 0;
     const hrs = mins >= 600 ? Math.round(mins/60) : (mins/60).toFixed(1);
     const votes = rv.votes_up ? ` ↑${rv.votes_up}` : "";
-    L.push(`${rv.voted_up ? "▲" : "▼"} ${hrs}h ${rdDay(rv.timestamp_created)}${votes}${rdFlags(rv)} | ${text}`);
+    L.push(`${rv.voted_up ? "▲" : "▼"} ${hrs}h ${rdDay(rv.timestamp_created)}${votes}${rdFlags(rv, now)} | ${text}`);
   }
   L.push("");
   // One closing line, not a second copy of the prompt. Instructions read most reliably as

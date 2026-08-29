@@ -35,8 +35,8 @@ const mk = (i, o = {}) => ({
   review: o.review ?? `Solid game, runs fine after the patch. Review number ${i} with enough text to be substantive.`,
   voted_up: o.voted_up ?? (i % 4 !== 0),
   votes_up: i,
-  timestamp_created: 1756000000 - i * 3600,
-  timestamp_updated: o.updated ? 1756900000 : 1756000000 - i * 3600,
+  timestamp_created: o.ts ?? 1756000000 - i * 3600,
+  timestamp_updated: o.updated ? 1756900000 : (o.ts ?? 1756000000 - i * 3600),
   written_during_early_access: !!o.ea,
   received_for_free: !!o.free,
   steam_purchase: o.notSteam ? false : true,
@@ -55,7 +55,16 @@ const special = [
   mk(9, { review: "gg" }),                                                // non-substantive
   mk(10, { review: "[b]Great[/b] see [url=http://x.com]this[/url] and [sailing] stays" }), // bbcode + prose brackets
 ];
-const page1 = [...special, ...Array.from({ length: 90 }, (_, i) => mk(i + 20))];
+// The fixture used to span ~4 days, so every review fell in one window and the NOW/BEFORE
+// split was never exercised. These 60 sit a year back, forcing a real BEFORE side and a
+// multi-quarter breakdown.
+//
+// The total must exceed RD_NOW_MIN (100) or the widened window swallows the whole sample and
+// BEFORE comes back empty — which is the trap this fixture fell into at 100 reviews. At 130
+// (128 after the dupe and the art are dropped) only 68 are inside 90 days, so the window
+// widens to 100, leaving 28 in BEFORE: widening and the split are both exercised at once.
+const old = Array.from({ length: 60 }, (_, i) => mk(i + 200, { ts: 1756000000 - (300 + i * 3) * 86400 }));
+const page1 = [...special, ...Array.from({ length: 60 }, (_, i) => mk(i + 20)), ...old];
 
 const browser = await chromium.launch({ executablePath: "/opt/pw-browsers/chromium-1194/chrome-linux/chrome" });
 const page = await browser.newPage();
@@ -128,6 +137,32 @@ check(!/\[b\]|\[\/b\]|\[url=/.test(bundle), "BBCode stripped");
 check(bundle.includes("[sailing]"), "bracketed PROSE preserved (not treated as BBCode)");
 check(/1 duplicates/.test(bundle) && /1 ASCII-art/.test(bundle), "drops counted in header");
 check(bundle.includes("--- INSTRUCTIONS ---"), "instructions section present");
+{
+  // TIMELINE exists so the AI copies rates instead of deriving them from 500 dated lines.
+  // Assert the numbers are actually printed AND internally consistent — a block that says
+  // 76% while tagging a different number of rows is worse than no block at all.
+  check(bundle.includes("--- TIMELINE"), "TIMELINE block present");
+  const now = bundle.match(/^NOW    : \S+ to \S+ · (\d+) reviews · (\d+)▲\/(\d+)▼ · (\d+)% positive$/m);
+  check(!!now, "NOW line printed with span, counts and rate");
+  if (now) {
+    const [, n, up, down, pctd] = now.map(Number);
+    check(up + down === n, `NOW ▲+▼ equals its review count (${up}+${down}=${n})`);
+    check(Math.round(100 * up / n) === pctd, `NOW rate matches its own counts (${pctd}%)`);
+    const tagged = (bundle.match(/^[▲▼] .*\[now\]/gm) || []).length;
+    check(tagged === n, `[now] tags on review lines match the NOW count (${tagged} vs ${n})`);
+  }
+  check(/^BEFORE : /m.test(bundle), "BEFORE window printed (fixture spans a year)");
+  check(/^TREND  : [+-]?\d+ pts/.test(bundle) || /^TREND  : /m.test(bundle), "TREND printed in points");
+  check(/^BASELINE ▼ RATE: \d+%/m.test(bundle), "baseline ▼ rate printed");
+  check(/^BY QUARTER: .*Q\d \d+% \(\d+\)/m.test(bundle), "quarterly breakdown printed");
+  // Fewer than RD_NOW_MIN reviews are recent here, so the window must widen AND say so.
+  check(/widened from the last 90 days/.test(bundle), "widened window disclosed, not silently applied");
+  check(/^LAST 90D: \d+ reviews · \d+% positive/m.test(bundle), "sharper 90-day rate still reported");
+  check(/FLAG SPLITS: .*\[free\] \d+ reviews \d+% vs \d+%/.test(bundle), "flag splits precomputed");
+  check(/\[now\]\[EA\]|\[now\]\[free\]|\[now\]\[deck\]/.test(bundle) || /\[now\]/.test(bundle),
+        "[now] composes with the other flags");
+  check(/\[now\] posted inside the NOW window/.test(bundle), "legend documents the [now] flag");
+}
 {
   // Order is INSTRUCTIONS -> OVERVIEW -> REVIEWS. Asserted by position, not presence, so a
   // future edit cannot quietly put the task back behind 500 lines of review text.
