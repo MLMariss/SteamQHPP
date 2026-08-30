@@ -125,6 +125,18 @@ await page.locator("button.gsub-rev").first().click();
 await page.waitForSelector("#rdHost.on", { timeout: 4000 });
 console.log("modal opened");
 
+// Setup-dialog state, read before anything is clicked (plan §15.3, §15.4). `check` is
+// defined further down, so these are collected here and asserted with the rest.
+const sizeOpts  = await page.locator("[data-rdsize]").allTextContents();
+const sizeOn    = await page.locator("[data-rdsize].on").allTextContents();
+const focusOpts = await page.locator("[data-rdfocus]").count();
+const focusOn   = await page.locator("[data-rdfocus].on").count();
+const goLabel   = (await page.locator("#rdGo").textContent()).trim();
+// A focus whose family name does not exist in RD_TOPICS points the model at nothing and
+// fails silently — no error, just a focus the bundle cannot answer. Typos are the whole risk.
+const badFocusMap = await page.evaluate(() =>
+  RD_FOCUS.flatMap(f => f.topics.filter(t => !RD_TOPICS.some(x => x.name === t))));
+
 await page.locator("#rdGo").click();
 await page.waitForSelector("#rdOut", { timeout: 15000 });
 const bundle = await page.locator("#rdOut").inputValue();
@@ -211,6 +223,38 @@ check(bundle.includes("--- INSTRUCTIONS ---"), "instructions section present");
   const tops = (bundle.match(/^[▲▼] .*\[top\]/gm) || []).length;
   check(tops === 10, `[top] tags the 10 most-upvoted reviews (${tops})`);
   check(/\[top\] among the 10 most-upvoted reviews/.test(bundle), "legend documents the [top] flag");
+}
+{
+  // The setup dialog. The default sample must be the FIRST button, not merely the selected
+  // one — QTPD's segmented controls put the default leftmost, and 300·500·1000 read in
+  // numeric order would quietly break that rule.
+  check(sizeOpts.join("·") === "500·300·1000", `sample sizes offered, default leftmost (${sizeOpts.join("·")})`);
+  check(sizeOn.length === 1 && sizeOn[0] === "500", `500 is the default and the only one lit (${sizeOn.join(",")})`);
+  check(goLabel === "Fetch 500 reviews", `fetch button quotes the chosen size (${JSON.stringify(goLabel)})`);
+  check(focusOpts === 7, `seven reader-focus toggles offered (${focusOpts})`);
+  check(focusOn === 0, `no focus is on by default (${focusOn})`);
+  check(badFocusMap.length === 0,
+        `every reader focus maps to a real RD_TOPICS family${badFocusMap.length ? " — orphaned: " + badFocusMap.join(", ") : ""}`);
+  check(!bundle.includes("--- READER FOCUS"), "no READER FOCUS block when nothing was ticked");
+}
+{
+  // §15.1 restructured the report so the first screen is the answer and the Issues table is
+  // the working. The skeleton lives in review_prompt.md and rides into the bundle verbatim,
+  // so its section ORDER is assertable here — and order is exactly what the three models
+  // disagreed on. Headings only: pinning prose made this break on every prompt edit.
+  const at = h => bundle.indexOf("\n" + h + "\n");
+  const seq = ["### Snapshot", "### Who it's for", "### Loved vs hated",
+               "### Where the complaints land", "### Notes", "### Issues"].map(h => [h, at(h)]);
+  check(seq.every(([, i]) => i > 0), `every output section present (${seq.filter(([, i]) => i < 0).map(([h]) => h).join(", ") || "all"})`);
+  check(seq.every(([, i], n) => n === 0 || i > seq[n - 1][1]),
+        `output sections ordered snapshot -> who -> loved/hated -> buckets -> notes -> issues`);
+  // An empty `| | |` header row is dropped whole by strict renderers, taking its table with
+  // it — observed live in one of the three models.
+  check(bundle.includes("| Field | Value |"), "Snapshot carries a real header row, not an empty one");
+  check(bundle.includes("| Dragging the score |"), "Snapshot carries the Dragging-the-score row");
+  check(/\| Quit \/ stayed \| What they say \|/.test(bundle), "Issues header names the split column in words");
+  check(/max\(5 reviews, 2% of substantive\)/.test(bundle), "row floor raised off the fixed 3");
+  check(/headline row/i.test(bundle), "headline-row rule carried in the instructions");
 }
 {
   // Order is INSTRUCTIONS -> OVERVIEW -> REVIEWS. Asserted by position, not presence, so a
@@ -308,6 +352,85 @@ errors.slice(0, 5).forEach(e => console.log("     " + e));
   check(/WARNING: a \d+-day NOW window is a same-fortnight read/.test(b),
         "short NOW window warns the trend is not a trend");
   check(errs3.length === 0, `no uncaught JS errors on the busy path (${errs3.length})`);
+}
+
+// --- fourth scenario: sample size and reader focus (plan §15.3, §15.4) ---------------
+// The only scenario that pages. Every other fixture returns an empty cursor and stops after
+// one page, so the loop that turns "1000" into ten requests was never exercised — and the
+// size selector is nothing but that loop plus four places that quote the number, all of
+// which must move together or the card promises 500 while the dialog fetches 1000.
+{
+  const b4 = await chromium.launch({ executablePath: "/opt/pw-browsers/chromium-1194/chrome-linux/chrome" });
+  const p4 = await b4.newPage();
+  const errs4 = [];
+  p4.on("pageerror", e => errs4.push(e.message));
+  const cursors = [];
+  let seq = 0;
+  await p4.route("**/qtpd-reviews.*/**", route => {
+    const q = new URL(route.request().url()).searchParams;
+    const fulfil = body => route.fulfill({ status: 200, contentType: "application/json",
+      headers: { "Access-Control-Allow-Origin": "*" }, body: JSON.stringify(body) });
+    if (q.get("num_per_page") === "0")
+      return fulfil({ success: 1, reviews: [], query_summary: { total_reviews: 60000,
+        total_positive: 45000, total_negative: 15000, review_score_desc: "Mostly Positive" } });
+    cursors.push(q.get("cursor"));
+    const base = seq; seq += 100;
+    // 7200s apart, so 1000 reviews span ~83 days — wide enough for a real NOW/BEFORE split.
+    const reviews = Array.from({ length: 100 }, (_, i) =>
+      mk(base + i + 1, { ts: 1756000000 - (base + i) * 7200 }));
+    fulfil({ success: 1, query_summary: {}, reviews, cursor: "c" + seq });
+  });
+  await p4.goto("http://127.0.0.1:8099/index.html", { waitUntil: "networkidle" });
+  await p4.waitForTimeout(500);
+  await p4.locator("button.gsub-rev").first().click();
+  await p4.waitForSelector("#rdHost.on");
+  await p4.locator('[data-rdsize="1000"]').click();
+  await p4.locator('[data-rdfocus="deck"]').click();
+  await p4.locator('[data-rdfocus="value"]').click();
+  await p4.locator('[data-rdfocus="value"]').click();   // and off again — a toggle, not a latch
+  await p4.locator('[data-rdfocus="mtx"]').click();
+  const goLabel4    = (await p4.locator("#rdGo").textContent()).trim();
+  const countCopy4  = (await p4.locator("#rdCount").textContent()).trim();
+  const entryTitle4 = await p4.locator("button.gsub-rev").first().getAttribute("title");
+  const focusOn4    = await p4.locator("[data-rdfocus].on").count();
+  const pressed4    = await p4.locator('[data-rdfocus="deck"]').getAttribute("aria-pressed");
+  // Ten pages at the 250ms inter-page delay is ~2.5s of deliberate waiting, so this one
+  // gets a longer leash than the single-page scenarios above.
+  await p4.locator("#rdGo").click();
+  await p4.waitForSelector("#rdOut", { timeout: 40000 });
+  const b = await p4.locator("#rdOut").inputValue();
+  await b4.close();
+
+  console.log("\nsample size + reader focus:");
+  check(goLabel4 === "Fetch 1000 reviews", `fetch button follows the size (${JSON.stringify(goLabel4)})`);
+  check(countCopy4 === "1000", `dialog copy follows the size (${countCopy4})`);
+  check(/Pull the 1000 newest/.test(entryTitle4 || ""),
+        `entry-point tooltip re-synced after the change (${JSON.stringify(entryTitle4)})`);
+  check(cursors.length === 10, `1000 reviews fetched as ten pages (${cursors.length})`);
+  check(cursors[0] === "*" && cursors[1] === "c100", `each page follows the previous cursor (${cursors.slice(0, 2)})`);
+  check((b.match(/^--- REVIEWS \(1000\) ---$/m) || []).length === 1, "all 1000 reviews reached the bundle");
+  check(focusOn4 === 2, `two focuses lit after one was toggled back off (${focusOn4})`);
+  check(pressed4 === "true", `lit focus reports aria-pressed (${pressed4})`);
+  {
+    // The focus block is an amendment to the task, not another input to weigh, so it sits
+    // with the instructions rather than down with the data.
+    const i = b.indexOf("--- INSTRUCTIONS ---"), f = b.indexOf("--- READER FOCUS"), o = b.indexOf("--- OVERVIEW ---");
+    check(f > i && o > f, `READER FOCUS sits between instructions(${i}) and overview(${o}) at ${f}`);
+    const lines = b.match(/^\* .+ · start from TOPIC MENTIONS: .+$/gm) || [];
+    check(lines.length === 2, `one line per ticked focus, in dialog order (${lines.length})`);
+    check(/^\* Steam Deck /.test(lines[0] || "") && /^\* Microtransactions /.test(lines[1] || ""),
+          "focus lines follow the dialog order, not the click order");
+    // Each line names the families it should be answered from; if the name has drifted out
+    // of RD_TOPICS the topic block will not mention it and the focus is unanswerable.
+    const topics = b.slice(b.indexOf("--- TOPIC MENTIONS"), b.indexOf("LEGEND:"));
+    const named = lines.flatMap(l => l.split("TOPIC MENTIONS: ")[1].split(" + "));
+    check(named.every(t => topics.includes(t)), `every named family appears in the topic block (${named.join(", ")})`);
+    check(/gets its OWN row in the Issues table — below the floor, and at 0/.test(b),
+          "the guaranteed-row-at-zero rule is stated, not merely implied");
+    check(/Counts only\. Do not recommend, defend, dismiss or condemn/.test(b),
+          "the no-editorialising rule is stated for every focus");
+  }
+  check(errs4.length === 0, `no uncaught JS errors on the size/focus path (${errs4.length})`);
 }
 
 srv.close();
