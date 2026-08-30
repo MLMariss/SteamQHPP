@@ -8,6 +8,9 @@ reviews by hand.
 All design questions are **decided** (§12); the empirical ones were answered by the Phase 0
 probe on 2026-08-28 (**§14 — read this first**, it changes §3, §5 and §6).
 
+**Later than the phases below:** §16 records what shipped on 2026-08-30 (precomputed topic
+signals, the NOW-window fix); §15 holds the specs that are written but unbuilt.
+
 Companion docs: [ARCHITECTURE.md](ARCHITECTURE.md) (§1 design principles, §3.1 the
 review-TEXT roadmap item this is adjacent to, §12 the Worker) · [ROADMAP.md](ROADMAP.md).
 
@@ -403,6 +406,15 @@ unlisted synonyms, so it would systematically undercount — and it would sit ne
 AI's answer as a second, worse verdict with no way to tell which is wrong when they
 disagree. The AI doing this properly *is* the feature.
 
+**…reversed on 2026-08-30. See §16.** The objection above is about a lexicon count in the
+**output**, and it still stands — nothing keyword-derived is ever printed as a verdict. What
+shipped is a lexicon count in the **input**: a `TOPIC SIGNALS` block inside the bundle, read
+by the model and thrown away. It never reaches the reader, so there is no second verdict to
+disagree with, and negation and synonyms are the model's job to correct rather than the
+regex's job to get right. What forced the reversal was measurement: three models given the
+same 500 reviews returned counts differing by up to 3.4x for the same issue, while every
+number they merely *copied* from TIMELINE was identical in all three.
+
 ---
 
 ## 12. Decisions — all closed
@@ -413,7 +425,7 @@ disagree. The AI doing this properly *is* the feature.
 | 2 | sample mode | **recent** |
 | 3 | prompt placement | **inline in the bundle**, top + bottom |
 | 4 | review bombs | **included** — a publisher screw-up is legitimate signal; prompt reports it separately and gives both tallies |
-| 5 | in-browser lexicon count | **dropped entirely** |
+| 5 | in-browser lexicon count | **dropped as output; reversed as input 2026-08-30** — precomputed into the bundle for the model to check itself against, never printed (§16) |
 | 6 | language | **English default, All as a toggle** |
 | 7 | grid entry point | `.gi-actions`, next to `Steam ↗` |
 | 8 | table entry point | **the review count in `.gsub` becomes the button** — zero extra space |
@@ -509,3 +521,216 @@ risk — the totals only make sense one way — but it is inference, not observa
 Both fixed. They are worth recording because both were reasoning errors that only real data
 could catch — the same lesson ARCHITECTURE §2.1 recorded from the trailers: *dump first,
 then tighten*.
+
+---
+
+## 15. Planned upgrades — output redesign (deferred, unbuilt)
+
+Specs only, no rationale. Sourced from the three-model comparison on 2026-08-30 (Claude, GPT
+and Gemini against one Salt 2 bundle, plus a Gears Tactics bundle, appid 1184050). Items 1
+and 2 of that review shipped as **§16**; **15.1–15.4 below are unbuilt**. They are
+independent — pick any one without the others, except where a **Blocked on** line says
+otherwise.
+
+### 15.1 Output restructure
+
+`review_prompt.md` only. No code change.
+
+**Section order** — first screen is the answer, the rest is evidence:
+
+1. `INTEGRITY`
+2. `### Snapshot`
+3. `### Who it's for` — new
+4. `### Loved vs hated` — new
+5. `### Where the complaints land` — new
+6. `### Notes`
+7. `### Issues` — the existing detail table, moved last
+
+**Snapshot**
+- Header row becomes `| Field | Value |`. The current `| | |` is an empty header row; strict
+  markdown renderers drop the whole table (observed in Gemini, which rendered every digest
+  table as raw pipes).
+- New row: `| Dragging the score | <top issue> — <N>% of all ▼ reviews, <rising / flat / falling> vs before |`.
+
+**`### Who it's for`** — two bullet lists, max 4 bullets each:
+
+```
+**Buy it if you** — <trait>; <trait>; …
+**Skip it if you** — <trait>; <trait>; …
+```
+
+Rule: every `Skip it if` clause traces to an Issues row that cleared the floor, or to a
+TOPIC SIGNALS family with hits. No clause may be inferred from the genre.
+
+**`### Loved vs hated`** — one table, max 5 rows, columns ranked independently. Replaces the
+standalone Praise table.
+
+```
+| # | Loved | N | Hated | N |
+```
+
+**`### Where the complaints land`** — bucket rollup, 5 fixed rows, counted at review level
+(a review complaining about two Technical things counts once):
+
+```
+| Bucket | Reviews raising ≥1 | % subst |
+```
+
+**Issues table**
+- `▼/▲` header becomes `Quit / stayed`, order pinned ▼ first (Gemini flipped it to ▲/▼).
+- One legend line directly under the table: *"Quit / stayed — of the reviewers who raised
+  this: how many refused to recommend / recommended anyway."*
+- Blank line required before every table.
+
+**Acceptance**: the same bundle through all three models produces the same section order,
+and every `Skip it if` clause in all three traces to a table row.
+
+### 15.2 Floor raise and headline row
+
+`review_prompt.md` only.
+
+- Row floor rises from 3 reviews to `max(5, 2% of substantive)`; everything under goes to the
+  Other tally.
+- **Headline row**: when one concrete complaint clears 8% of substantive, it gets a row whose
+  `Category` is free text in players' own words, overriding the fixed taxonomy for that row
+  only. Max one per report; sorts first regardless of `Now`.
+  Reference case — Gears Tactics 1184050: the Xbox/Microsoft account requirement is ~12% of
+  substantive and 30% of all ▼ reviews, but the fixed taxonomy splits it across
+  *Always-online & DRM*, *Support & communication* and *Crashes & launch*, so it never
+  surfaces as one thing.
+- Notes must call out the Other tally when it is the largest row.
+
+### 15.3 Sample-size selector
+
+`index.html`. `RD.size` becomes state.
+
+- Three options in the setup dialog beside the language toggle: **300 · 500 · 1000**, default
+  500. Confirm ordering against the "default leftmost" rule before building.
+- `rdCollect` already derives its page count from `RD.size`; the constant becomes
+  `rdState.size`. Steam caps `num_per_page` at 100, so 1000 = 10 pages ≈ +2.5s at the current
+  250ms inter-page delay. Worker needs no change — I/O-bound, nowhere near free-plan limits.
+- Button label and the `Fetch <N> reviews` copy read from state. `RD.size` also appears in
+  both entry-point `title=` attributes; both must follow.
+- Dialog copy must say what 1000 buys: *history* on slow games, not accuracy.
+
+**Blocked on**: §16. Unaided model counting degrades with length, so 1000 without the
+precomputed signals is worse than 500.
+
+### 15.4 Reader-focus toggles
+
+`index.html` + `review_prompt.md`.
+
+Checkbox row in the setup dialog. Each checked box appends one line to a
+`--- READER FOCUS ---` block emitted immediately after `--- INSTRUCTIONS ---`.
+
+| toggle | TOPIC SIGNALS family it maps to (§16) |
+|---|---|
+| Potato PC | Performance & FPS |
+| Steam Deck / handheld | Steam Deck & handheld |
+| Needs a third-party account | Third-party account & always-online |
+| Microtransactions / DLC | Microtransactions & DLC |
+| Co-op with friends | Multiplayer & servers |
+| Short game / value | Length & content · Price & value |
+| Political or ideological content | Political & ideological content |
+
+Rules the block states to the model:
+
+- Each focus gets a guaranteed Issues row **even below the floor**, including `0` — "nobody
+  mentioned this" is a valid and useful answer.
+- Each focus gets one line in `### Who it's for`.
+- Counts only. No editorialising in either direction, on any focus.
+
+**Blocked on**: §16 for the families, §15.1 for `### Who it's for`.
+
+---
+
+## 16. Shipped 2026-08-30 — precomputed signals and the window fix
+
+Two changes, both aimed at the same measured problem: **the numbers this report copies are
+right and the numbers it counts are not.** Three models given the identical 500-review bundle
+returned 58 / 25 / 17 reviews for the same issue and 97 / 38 / 128 for the top praise row,
+while every figure they copied from TIMELINE — NOW sentiment, the trend in points, the
+`[free]` split — came back identical in all three.
+
+### 16.1 The NOW window could swallow the sample — fixed
+
+`rdWindows` widened the NOW window when the last 90 days held fewer than `RD_NOW_MIN`
+reviews, but had no matching guard at the other end. On a game busy enough that 500 reviews
+do not reach back 90 days, `calN === byTime.length`: NOW became the entire sample, `before`
+came back empty, and TIMELINE printed **no BEFORE and no TREND line at all** — while the
+prompt still asked the model for a trend in points. The model supplied one anyway.
+
+Now the two cases are separate branches on `calN < RD_NOW_MIN`:
+
+- **below** — widen to the newest `RD_NOW_MIN` (unchanged behaviour)
+- **at or above** — cap NOW at `RD_NOW_MAX` (0.6) of the sample, guaranteeing a BEFORE side
+
+They are exclusive on purpose. A single `min`/`max` chain lets the cap undo the widening on a
+slow game, where NOW legitimately is most of the sample. Narrowing is disclosed on its own
+line the way widening already was.
+
+### 16.2 Coverage — how much real time the sample is
+
+A review count says nothing about the span it covers, and the same 500 reviews are 25 months
+of Gears Tactics (~20/month) and about two days of a hit. `-15 pts` means opposite things in
+each, and nothing in the bundle distinguished them. Added:
+
+- `COVERAGE:` sample span in days plus the rate — **per day** under `RD_THIN_SAMPLE_DAYS`
+  (60), per month above it, because "~5073 reviews/month" extrapolated off three days is
+  arithmetic nobody asked for.
+- `SPANS  :` how many days NOW and BEFORE each cover.
+- Warnings under `RD_THIN_SAMPLE_DAYS` (the sample carries no history) and under
+  `RD_THIN_NOW_DAYS` = 14 (the trend is a same-fortnight read). Prompt rule 9 makes the model
+  say so in the Snapshot rather than reporting a direction.
+
+### 16.3 TOPIC MENTIONS — the lexicon count, reversed as an input
+
+**This reverses §12 decision 5, and only halfway.** The original objection — a keyword tally
+printed *next to* the model's answer is a second, worse verdict — still holds, and nothing
+here is ever shown to a reader. What ships is a tally printed *inside* the bundle, which the
+model reads, corrects against the text, and discards.
+
+- 17 keyword families in `RD_TOPICS`. Each is a list of clauses; a clause may carry a `near`
+  term that must also match, which is what makes "account" usable ("account" alone is
+  meaningless, "account" plus "xbox" is decisive). Never add `/g` — the regexes are reused
+  across every review and `/g` makes `.test()` stateful.
+- Emitted as a pipe table: hits · now · before · ▼/▲ · helpful votes on the ▼ side · share of
+  each window. Sorted like the Issues table so the model reads them in the same order.
+- **A hit is a mention, not a complaint.** Praise matches too. Detecting complaints by regex
+  is the negation problem that killed the original idea; the ▼/▲ column carries that
+  distinction instead, read against `BASELINE ▼ RATE`.
+- Families below 3 hits and at zero are named rather than dropped. "Nobody mentioned
+  microtransactions" is a finding, and without the line the model cannot tell a family that
+  was checked and found absent from one that was never looked for.
+- Prompt rule 10: use it as a floor, explain in Notes any count that lands below half or
+  above double the hits, and never reproduce the table. The block says the same about itself
+  — a pipe table sitting in context is the most copy-pasteable thing in the bundle.
+
+### 16.4 `[top]` — the reviews a buyer actually reads
+
+The `RD_TOP_VOTED` (10) most-upvoted reviews are flagged on their own lines. A per-review
+tally weights a drive-by one-liner the same as the review at the top of the store page, and
+helpful votes are the only weight the sample carries.
+
+Measured on Gears Tactics 1184050, 496 English reviews: **nine of the ten `[top]` reviews are
+the Xbox account requirement, and all ten are ▼.** The same family carries 685 helpful votes
+on its negative side and went from 8% of BEFORE to 16% of NOW. Nothing in the previous bundle
+surfaced any of that, and no model counting by hand found it.
+
+### 16.5 Verification
+
+`test_review_digest.mjs` gains a third scenario (a 300-review sample across ~12 days) that
+covers the narrowing branch, the per-day rate and both span warnings — the slow fixture only
+ever exercised widening. The main fixture gains twelve topic-bearing reviews, three per
+family across four families: without them every review matched nothing and the topic table
+asserted a header with no rows under it.
+
+Prompt is now **v6**: `[top]` in the line format, rule 9 (obey the coverage warnings, never
+invent a missing TREND), rule 10 (TOPIC MENTIONS is a floor, not a source), a `Sample reach`
+Snapshot row, and a Notes trigger for what the `[top]` reviews are about. The inline
+`RD_PROMPT_FALLBACK` was updated in step — a stale fallback is the failure mode §8 already
+recorded once.
+
+**Not changed here**: the output skeleton. Restructuring it is §15.1–15.2 and is deliberately
+separate, so the effect of the precomputed signals is visible against the current format
+before the format moves under it.
