@@ -1,6 +1,6 @@
-<!-- v5 -->
+<!-- v6 -->
 You are analysing real Steam reviews for one game. Below these instructions you will find an
-OVERVIEW block, a TIMELINE block, then the reviews, one per line.
+OVERVIEW block, a TIMELINE block, a TOPIC MENTIONS block, then the reviews, one per line.
 
 **The counts are the whole point of this report.** A description of what players think, with no
 numbers attached, is worthless here — the reader could get that from reading five reviews
@@ -15,8 +15,9 @@ failure mode this report must not have.
 `▲/▼  Nh  date  ↑N  [flags] | review text`
 
 ▲/▼ recommends or not · **Nh** hours played · date posted · **↑N** helpful votes ·
-`[now]` posted inside the NOW window · `[EA]` early access · `[free]` free/non-Steam copy ·
-`[deck]` Steam Deck · `[upd]` edited later.
+`[now]` posted inside the NOW window · `[top]` one of the most-upvoted reviews in the
+sample · `[EA]` early access · `[free]` free/non-Steam copy · `[deck]` Steam Deck ·
+`[upd]` edited later.
 
 ## How to count
 
@@ -49,6 +50,24 @@ failure mode this report must not have.
    baseline ▼ rate and the quarterly figures are all computed for you. Copy them. Deriving
    them by hand from 500 dated lines is the single most error-prone thing you could do here,
    and getting the direction backwards would invert the report's conclusion.
+9. **Obey the TIMELINE warnings, and never paper over a missing number.** `COVERAGE` says
+   how much real time this sample covers — 500 reviews is two years of a quiet game and two
+   days of a busy one, and the same "−15 pts" means opposite things in each. If `SPANS`
+   warns the NOW window is a fortnight, or `COVERAGE` warns the sample is under two months,
+   say so in the Snapshot instead of reporting a trend as though it were a trend. If the
+   window was `narrowed`, the comparison is recent-vs-slightly-less-recent, not now-vs-launch.
+   If TIMELINE prints **no** `TREND` line at all, write "no comparable earlier window in this
+   sample" — never estimate one.
+10. **TOPIC MENTIONS is a floor to check yourself against, not a source to copy.** It is a
+   regex hit count, so it over-counts (praise matches too, and "zero crashes" matches
+   Crashes) and under-counts (synonyms nobody listed). Use it in one direction only: after
+   you have counted a bucket yourself, compare. If your number is below half the hits or
+   above double them, you have probably missed something or double-counted — go back to the
+   reviews, then say in Notes why the final number differs. **Never reproduce that table**,
+   and never let a hit count stand in for a count you did not do.
+   Its `▼/▲` column is the useful part: a topic at 42▼/12▲ against a 29% baseline is a
+   complaint, the same topic at 12▼/42▲ is praise, and the raw hit count cannot tell them
+   apart. A family with hits but no bucket in your table is a gap you should explain.
 
 ## The buckets — every complaint goes in exactly one
 
@@ -81,11 +100,12 @@ INTEGRITY: read <N> of <N> reviews · denominator <N> substantive · <OK, or MIS
 | | |
 |---|---|
 | Verdict | <12 words max> |
-| Right now | <N>% positive across the NOW window, <improving / flat / worsening> (<+N or -N> pts vs before) — both copied from TIMELINE |
+| Right now | <N>% positive across the NOW window, <improving / flat / worsening> (<+N or -N> pts vs before) — both copied from TIMELINE; if TIMELINE warns the window is thin or short, say "too recent to call" instead of a direction |
 | Best at | <the top Praise row> (<N> reviews) |
 | Most pressing | <the issue with the highest Now count> (<N> now / <N> total) |
 | Sentiment | <N>% positive across the sample, vs <N>% all-time |
 | Sample | <N> reviews, <N> substantive, <date> to <date> |
+| Sample reach | <N> days of reviews, ~<N> per month — copied from COVERAGE |
 | Complaint rate | <N>% of substantive reviews raise at least one issue |
 | Baseline ▼ rate | <N>% — copied from TIMELINE, for judging the splits below |
 | Technical share | <N>% of all complaints |
@@ -119,7 +139,10 @@ people wanting a different game rather than reporting a fault — and what the s
 to warn them about; a campaign worth separating (with which issue ranks move if excluded);
 `[EA]` complaints that may already be fixed; `[deck]` or `[free]` players differing from the
 rest (the splits are in TIMELINE); whether the loudest critics are experienced (high `Nh`) or
-drive-by; any way this sample misleads about the game overall. If none apply, write "None."
+drive-by; **what the `[top]` reviews are about** — if the most-upvoted reviews in the sample
+are one complaint, that complaint is what a buyer reads on the store page whatever its rank
+here; any bucket where your count diverges sharply from TOPIC MENTIONS, and why; any way this
+sample misleads about the game overall. If none apply, write "None."
 
 ## Rules
 

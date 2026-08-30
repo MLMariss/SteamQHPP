@@ -5826,9 +5826,10 @@ function rdCompact(raw){
   return { rows:out, dropped, truncated };
 }
 
-function rdFlags(rv, isNow){
+function rdFlags(rv, isNow, isTop){
   const f = [];
   if(isNow) f.push("now");
+  if(isTop) f.push("top");
   if(rv.written_during_early_access) f.push("EA");
   // received_for_free alone is ~0.3% of reviews; the inverted purchase flag carries
   // almost all the signal (probe Q4), so [free] means either.
@@ -5901,7 +5902,12 @@ Issues table of at most 10 rows — bucket, category, review count, how many car
 % of substantive, a raw ▼/▲ split, and 8 words on what they say — sorted by the Now count;
 (3) a Praise table of at most 5 rows with counts; (4) at most 5 one-line Notes, used only for
 what a number cannot carry — an issue that has faded, a complaint that is really an expectation
-mismatch, or a way this sample misleads. No introduction, no methodology, no closing paragraph.`;
+mismatch, or a way this sample misleads. No introduction, no methodology, no closing paragraph.
+
+TOPIC MENTIONS is a regex hit count, not an answer: check your own counts against it, explain
+any that differ by more than half in Notes, and never reproduce the table. Obey the COVERAGE
+and SPANS warnings — if the NOW window is a fortnight, say "too recent to call" rather than
+reporting a trend.`;
 
 async function rdLoadPrompt(){
   if(rdState.promptText) return rdState.promptText;
@@ -5933,6 +5939,13 @@ function rdDay(ts){ return ts ? new Date(ts * 1000).toISOString().slice(0, 10) :
 const RD_NOW_DAYS  = 90;    // the window Steam itself calls "recent"
 const RD_NOW_MIN   = 100;   // a quiet game still gets a countable window
 const RD_NOW_NOISY = 50;    // under this, label the trend noisy rather than reporting it flat
+const RD_NOW_MAX   = 0.6;   // ...and NOW may never take more than this share — see rdWindows
+// A window measured in reviews says nothing about how much TIME it covers, and the two come
+// apart badly: 500 English reviews is 25 months of Gears Tactics and about two days of a hit.
+// Below these spans the comparison is still arithmetically valid and practically meaningless,
+// so the bundle says so rather than letting "-15 pts" read the same in both cases.
+const RD_THIN_NOW_DAYS    = 14;
+const RD_THIN_SAMPLE_DAYS = 60;
 
 function rdPlural(n, word){ return `${n} ${word}${n === 1 ? "" : "s"}`; }
 
@@ -5948,16 +5961,33 @@ function rdWindows(rows){
 
   const byTime = [...dated].sort((a, b) => b.rv.timestamp_created - a.rv.timestamp_created);
   const cutoff = byTime[0].rv.timestamp_created - RD_NOW_DAYS * 86400;
-  // Whichever window is larger: the last 90 days, or the newest RD_NOW_MIN reviews. A busy
-  // game gets the calendar window; a slow one still gets enough rows to count against.
   const calN = byTime.filter(r => r.rv.timestamp_created >= cutoff).length;
-  let n = calN;
-  if(n < RD_NOW_MIN) n = Math.min(RD_NOW_MIN, byTime.length);
-  // Widening buys a countable window at the cost of blunting the signal — on Salt 2 it
-  // turned a 90-day read of 69% into a 5-month read of 76%, because the widened window
-  // swallowed a strong quarter. So the 90-day figure is reported alongside rather than
-  // discarded: the AI counts the wider window, the reader still sees the sharper number.
-  const widened = n > calN;
+
+  // Two failure modes at opposite ends of one axis. Only the first was handled.
+  //
+  // A SLOW game: the last 90 days hold a handful of reviews, too few to count against, so
+  // the window WIDENS to the newest RD_NOW_MIN.
+  //
+  // A BUSY game: the sample does not reach back 90 days at all, so the calendar window
+  // covers everything — n === byTime.length, `before` comes out empty, and TIMELINE
+  // silently prints no BEFORE and no TREND while the prompt still asks the model for one.
+  // The model then supplies a trend it cannot have derived. So NOW also NARROWS: it may
+  // never take more than RD_NOW_MAX of the sample, which guarantees a BEFORE side exists.
+  //
+  // The branches are exclusive on purpose. A single min()/max() chain would let the cap
+  // undo the widening on a slow game, where NOW legitimately IS most of the sample.
+  let n, widened = false, narrowed = false;
+  if(calN < RD_NOW_MIN){
+    // Widening buys a countable window at the cost of blunting the signal — on Salt 2 it
+    // turned a 90-day read of 69% into a 5-month read of 76%, because the widened window
+    // swallowed a strong quarter. So the 90-day figure is reported alongside rather than
+    // discarded: the AI counts the wider window, the reader still sees the sharper number.
+    n = Math.min(RD_NOW_MIN, byTime.length);
+    widened = n > calN;
+  } else {
+    n = Math.max(1, Math.min(calN, Math.floor(byTime.length * RD_NOW_MAX)));
+    narrowed = n < calN;
+  }
 
   const now = byTime.slice(0, n), before = byTime.slice(n);
   for(const r of rows) r.now = false;
@@ -5967,7 +5997,8 @@ function rdWindows(rows){
     const up = grp.filter(r => r.rv.voted_up).length;
     const ts = grp.map(r => r.rv.timestamp_created).sort((a, b) => a - b);
     return { n:grp.length, up, down:grp.length - up, pct:rdPct(up, grp.length),
-             from:rdDay(ts[0]), to:rdDay(ts[ts.length - 1]) };
+             from:rdDay(ts[0]), to:rdDay(ts[ts.length - 1]),
+             days: Math.max(1, Math.round((ts[ts.length - 1] - ts[0]) / 86400)) };
   };
   const nowS = span(now), beforeS = before.length ? span(before) : null;
   const cal = (widened && calN) ? span(byTime.slice(0, calN)) : null;
@@ -5997,14 +6028,121 @@ function rdWindows(rows){
   }
 
   const upAll = rows.filter(r => r.rv.voted_up).length;
+  const newest = byTime[0].rv.timestamp_created, oldest = byTime[byTime.length - 1].rv.timestamp_created;
+  const sampleDays = Math.max(1, Math.round((newest - oldest) / 86400));
   return {
-    now:nowS, before:beforeS, cal, quarters, flagSplits, widened,
+    now:nowS, before:beforeS, cal, quarters, flagSplits, widened, narrowed, calN,
+    sampleDays,
+    // The rate is what makes a sample size mean something: 500 reviews is a very different
+    // instrument at 19/month than at 19/day, and nothing else in the bundle says which one
+    // the reader is holding. Both units are carried because a per-month figure extrapolated
+    // off a three-day sample reads as "~5073 reviews/month", which is arithmetic nobody
+    // asked for; short samples get the honest unit instead.
+    perMonth: Math.round(byTime.length / (sampleDays / 30.44) * 10) / 10,
+    perDay: Math.round(byTime.length / sampleDays * 10) / 10,
     trend: beforeS ? nowS.pct - beforeS.pct : null,
     // Either side being thin makes the difference meaningless, not just the recent one — a
     // 2-review BEFORE will happily produce a confident-looking "-29 pts".
     noisy: nowS.n < RD_NOW_NOISY || (beforeS ? beforeS.n < RD_NOW_NOISY : false),
     baselineDown: rdPct(rows.length - upAll, rows.length),
   };
+}
+
+// ---- topic mentions ----------------------------------------------------------------
+// REVIEW_DIGEST_PLAN.md §12 decision 5 dropped an in-browser lexicon count, and for the
+// right reason: a keyword tally printed NEXT TO the model's answer is a second, worse
+// verdict with no way to tell which is wrong. That still holds — nothing below is ever
+// shown to a reader. This is the other thing entirely, a tally printed INSIDE the bundle,
+// which the model reads, corrects against the actual text, and throws away.
+//
+// It exists because counting is the one part of this report that is not reproducible.
+// Three models given the identical 500-review bundle returned 58 / 25 / 17 reviews for the
+// same issue, while every figure they merely COPIED from TIMELINE was identical in all
+// three. Copying works; counting does not. So the counting gets a floor to check itself
+// against, and divergence from it becomes something the model has to explain.
+//
+// A hit is a MENTION, not a complaint — praise matches too. That is deliberate: trying to
+// detect complaints by regex is the negation problem that killed the original idea, while
+// the ▼/▲ split within a family says which way the topic cuts without any parsing at all.
+const RD_TOP_VOTED = 10;
+
+// Precision beats recall here. A family that fires on ordinary prose poisons the floor it
+// exists to provide, so the ambiguous ones carry a `near` term that must ALSO match:
+// "account" is meaningless on its own and decisive next to "xbox". Never add the /g flag —
+// these are reused across every review and /g makes .test() stateful.
+const RD_TOPICS = [
+  { name:"Crashes & won't launch", clauses:[
+    { re:/\bcrash|\bctd\b|won'?t (?:start|launch|open|run)|(?:fails?|failed|unable) to (?:start|launch|load)|black ?screen|freezes? (?:on|at) (?:start|launch|load)/i } ] },
+  { name:"Performance & FPS", clauses:[
+    { re:/\bfps\b|frame ?rate|frame ?drops?|stutter|\blag(?:s|gy|ging)?\b|unoptimi[sz]|optimi[sz]ation|choppy|slide ?show|\bperformance\b|runs? (?:badly|poorly|terribly)/i } ] },
+  { name:"Bugs & glitches", clauses:[
+    { re:/\bbugs?\b|\bbugg(?:y|ed)\b|\bglitch(?:es|y|ed)?\b|soft ?lock|game[- ]?breaking|broken (?:quest|mission|mechanic)/i } ] },
+  { name:"Save & progress loss", clauses:[
+    { re:/(?:lost|lose|losing|corrupt(?:ed)?|wiped?|deleted) (?:my |all |the |your )?(?:save|progress|character|world)|save ?(?:file|game)? ?(?:corrupt|gone|lost|wiped)/i } ] },
+  // Two clauses because the same grievance is written two ways and both belong in one row:
+  // "needs an Xbox account" and "can't play offline" are one purchase blocker, not two.
+  { name:"Third-party account & always-online", clauses:[
+    { re:/\b(?:accounts?|log ?in|login|logging in|sign ?-? ?in|signin)\b/i,
+      near:/xbox|microsoft|hotmail|ubisoft|uplay|\bepic\b|rockstar|\bea app\b|origin launcher|bethesda|third ?party|3rd ?party/i },
+    { re:/always[ -]?online|can'?t play offline|no offline|offline (?:mode|play)|requires? (?:an? )?(?:internet|connection)|\bdenuvo\b|\bdrm\b/i } ] },
+  { name:"Controller & input", clauses:[
+    { re:/\bcontrollers?\b|\bgamepad|\bjoystick|re ?bind|re ?map|key ?bind|dead ?zone|dualsense|\bxinput\b/i } ] },
+  // NOT a bare \bdeck\b — that matches every card game in the catalogue.
+  { name:"Steam Deck & handheld", clauses:[
+    { re:/steam ?deck|handheld|\bproton\b|rog ally|legion go/i } ] },
+  { name:"Multiplayer & servers", clauses:[
+    { re:/de ?sync|\bservers?\b|matchmaking|can'?t (?:connect|join)|disconnect|\bnetcode\b|dedicated server|host migration/i } ] },
+  { name:"Price & value", clauses:[
+    { re:/overpriced|not worth (?:the )?(?:price|money|full)|too expensive|wait for (?:a )?sale|full price|\brefund/i } ] },
+  { name:"Microtransactions & DLC", clauses:[
+    { re:/microtransaction|\bmtx\b|battle ?pass|pay ?wall|\bdlc\b|season pass|cash ?grab|pay[- ]?to[- ]?win|\bp2w\b|premium currency|loot ?box/i } ] },
+  { name:"Grind & pacing", clauses:[
+    { re:/\bgrind(?:y|ing)?\b|tedious|repetitive|\bfiller\b|\bpadded\b|time ?sink|\bslog\b|\bchore\b/i } ] },
+  { name:"Difficulty & balance", clauses:[
+    { re:/too (?:hard|easy|difficult)|unbalanced|un ?fair|difficulty spike|bullet ?sponge|damage sponge|artificial difficulty/i } ] },
+  { name:"Length & amount of content", clauses:[
+    { re:/too short|too long|drags? on|out ?stays?|over ?stays?|lacks? content|not enough content|little content|no end ?game|content drought|beat it in/i } ] },
+  { name:"Story & writing", clauses:[
+    { re:/\bstory\b|\bwriting\b|\bdialogue\b|\bplot\b|voice ?acting|\bnarrative\b|\bcutscenes?\b/i } ] },
+  { name:"Political & ideological content", clauses:[
+    { re:/\bwoke\b|\bdei\b|\bsjw\b|\bpropaganda\b|political(?:ly)? (?:correct|agenda|message)|forced diversity|\bpronouns?\b|\blgbt|girl ?boss/i } ] },
+  { name:"Localisation & language", clauses:[
+    { re:/locali[sz]|translat|\bsubtitles?\b|language (?:support|option)|no (?:russian|german|french|spanish|chinese|portuguese|polish|turkish|japanese|korean|italian) /i } ] },
+  { name:"Dev communication & abandonment", clauses:[
+    { re:/abandon(?:ed|ware)?|dead game|no (?:updates?|patches)|devs? (?:are |have )?(?:gone|silent|quiet|dead)|radio silence|road ?map|stopped (?:updating|supporting)/i } ] },
+];
+
+function rdTopicHit(topic, text){
+  for(const c of topic.clauses){
+    if(c.re.test(text) && (!c.near || c.near.test(text))) return true;
+  }
+  return false;
+}
+
+// One pass per family over the compacted text. Needs rdWindows to have run first: the .now
+// tag is what makes the now/before columns a lookup rather than 500 date comparisons.
+function rdTopics(rows, W){
+  const out = [];
+  for(const t of RD_TOPICS){
+    const hit = rows.filter(r => rdTopicHit(t, r.text));
+    if(!hit.length){ out.push({ name:t.name, n:0 }); continue; }
+    const now = hit.filter(r => r.now).length;
+    const up  = hit.filter(r => r.rv.voted_up).length;
+    // Helpful votes are the only weight the sample carries, and an unweighted tally throws
+    // it away. On Gears Tactics six of the eight highest-voted reviews in 496 were the same
+    // complaint — the row it sits in reads as ordinary until this column is next to it.
+    const votesDown = hit.filter(r => !r.rv.voted_up)
+                         .reduce((a, r) => a + (r.rv.votes_up | 0), 0);
+    out.push({
+      name:t.name, n:hit.length, now, before:hit.length - now,
+      up, down:hit.length - up, votesDown,
+      nowPct:    W && W.now    ? rdPct(now, W.now.n) : null,
+      beforePct: W && W.before ? rdPct(hit.length - now, W.before.n) : null,
+    });
+  }
+  // Sorted the way the Issues table is sorted, so the model reads the two in the same order.
+  out.sort((a, b) => (b.now || 0) - (a.now || 0) || b.n - a.n);
+  return out;
 }
 
 function rdBuildBundle(g, data, lang, prompt){
@@ -6016,6 +6154,16 @@ function rdBuildBundle(g, data, lang, prompt){
   const substantive = rows.filter(r => r.text.length > RD.substantive).length;
   const times = rows.map(r => r.rv.timestamp_created).filter(Boolean).sort((a, b) => a - b);
   const W = rdWindows(rows);   // also tags each row with .now, read by the review loop below
+  // The highest-voted reviews are the ones a buyer actually reads on the store page, and a
+  // per-review tally weights them the same as a drive-by one-liner. Tagging them costs a
+  // sort and lets the model see whether the loudest reviews and the most common ones are
+  // the same complaint — on Gears Tactics six of the top eight were, and no unweighted
+  // count in this bundle would have shown it.
+  for(const r of rows) r.topVoted = false;
+  [...rows].filter(r => (r.rv.votes_up | 0) > 0)
+           .sort((a, b) => (b.rv.votes_up | 0) - (a.rv.votes_up | 0))
+           .slice(0, RD_TOP_VOTED).forEach(r => { r.topVoted = true; });
+  const T = W ? rdTopics(rows, W) : null;
   const sPct = rdPct(scoped.total_positive, scoped.total_reviews);
   const oPct = rdPct(overall.total_positive, overall.total_reviews);
   const engShare = (overall.total_reviews && scoped.total_reviews && lang !== "all")
@@ -6063,9 +6211,18 @@ function rdBuildBundle(g, data, lang, prompt){
   if(W){
     L.push("");
     L.push("--- TIMELINE (precomputed — copy these numbers; do NOT recalculate them) ---");
+    // A review count says nothing about the time it covers, and the same 500 reviews are
+    // two years of one game and two days of another. Everything below reads differently
+    // depending on which, so it is stated before any of it.
+    L.push(`COVERAGE: this sample spans ${rdPlural(W.sampleDays, "day")} · `
+         + (W.sampleDays < RD_THIN_SAMPLE_DAYS ? `~${W.perDay} reviews/day` : `~${W.perMonth} reviews/month`));
+    if(W.sampleDays < RD_THIN_SAMPLE_DAYS)
+      L.push(`          WARNING: fewer than ${RD_THIN_SAMPLE_DAYS} days. This sample cannot describe the game before ${rdDay(times[0])}; do not present it as the game's history.`);
     L.push(`NOW    : ${W.now.from} to ${W.now.to} · ${rdPlural(W.now.n, "review")} · ${W.now.up}▲/${W.now.down}▼ · ${W.now.pct}% positive`);
     if(W.widened)
       L.push(`         widened from the last ${RD_NOW_DAYS} days (only ${rdPlural(W.cal.n, "review")} there) to the newest ${W.now.n}, so the count holds up`);
+    if(W.narrowed)
+      L.push(`         narrowed: the last ${RD_NOW_DAYS} days hold ${W.calN} of the ${rows.length} sampled reviews, so NOW is the newest ${W.now.n} and BEFORE is the rest. This sample does not reach back far enough for a real 90-day comparison — treat the trend as recent-vs-slightly-less-recent.`);
     L.push(`         every review in this window is marked [now] on its line below`);
     if(W.cal)
       L.push(`LAST ${RD_NOW_DAYS}D: ${rdPlural(W.cal.n, "review")} · ${W.cal.pct}% positive — sharper than NOW but noisier; quote it only as a caveat`);
@@ -6073,6 +6230,9 @@ function rdBuildBundle(g, data, lang, prompt){
       L.push(`BEFORE : ${W.before.from} to ${W.before.to} · ${rdPlural(W.before.n, "review")} · ${W.before.up}▲/${W.before.down}▼ · ${W.before.pct}% positive`);
       L.push(`TREND  : ${W.trend > 0 ? "+" : ""}${W.trend} pts, now vs before`
            + (W.noisy ? ` — NOISY: ${W.now.n} vs ${W.before.n} reviews is too thin to call a trend. Say so; do not report a direction.` : ""));
+      L.push(`SPANS  : NOW covers ${rdPlural(W.now.days, "day")} · BEFORE covers ${rdPlural(W.before.days, "day")}`
+           + (W.now.days < RD_THIN_NOW_DAYS
+              ? ` — WARNING: a ${W.now.days}-day NOW window is a same-fortnight read, not a patch-over-patch trend. Report it as too recent to call.` : ""));
     }
     L.push(`BASELINE ▼ RATE: ${W.baselineDown}% of the whole sample is ▼ — judge every ▼/▲ split against this`);
     if(W.quarters.length > 1)
@@ -6080,18 +6240,48 @@ function rdBuildBundle(g, data, lang, prompt){
     if(W.flagSplits.length) L.push(`FLAG SPLITS: ${W.flagSplits.join(" · ")}`);
   }
 
+  // The floor the model checks its own counting against. Emitted as a pipe table because
+  // that is the shape it parses most reliably — and because that shape is also the most
+  // temptingly copy-pasteable, the "input, not output" line below is not optional.
+  if(T){
+    const live = T.filter(t => t.n >= 3);
+    const quiet = T.filter(t => t.n > 0 && t.n < 3).map(t => t.name);
+    const none = T.filter(t => t.n === 0).map(t => t.name);
+    L.push("");
+    L.push("--- TOPIC MENTIONS (regex hits over the review text — a floor, not an answer) ---");
+    L.push("THIS BLOCK IS INPUT, NOT OUTPUT. Never reproduce it; it is here so you can check your");
+    L.push("own counting. A hit means the topic CAME UP, praise or complaint alike — 40 mentions of");
+    L.push("Story is not 40 story complaints, and the ▼/▲ column is what says which way it cuts.");
+    L.push("Read that column against the BASELINE ▼ RATE above. These hits over-count (\"zero");
+    L.push("crashes, runs great\" matches Crashes) and under-count (synonyms nobody listed), so read");
+    L.push("the matching reviews and correct them. If your final count for a topic lands below half");
+    L.push("these hits or above double them, that is fine — but say why in Notes.");
+    L.push("");
+    L.push("| topic | hits | now | before | ▼/▲ | ↑votes on ▼ | % of NOW | % of BEFORE |");
+    L.push("|---|---:|---:|---:|---|---:|---:|---:|");
+    for(const t of live)
+      L.push(`| ${t.name} | ${t.n} | ${t.now} | ${t.before} | ${t.down}▼/${t.up}▲ | ${t.votesDown} `
+           + `| ${t.nowPct == null ? "—" : t.nowPct + "%"} | ${t.beforePct == null ? "—" : t.beforePct + "%"} |`);
+    // Naming the empty families matters as much as the full ones: "nobody mentioned
+    // microtransactions" is a real finding, and without this line the model cannot tell a
+    // topic that was checked and found absent from one that was never looked for.
+    if(quiet.length) L.push(`Fewer than 3 hits: ${quiet.join(" · ")}`);
+    if(none.length)  L.push(`Checked, zero hits: ${none.join(" · ")}`);
+  }
+
   L.push("");
   L.push("LEGEND: ▲/▼ = recommends or not · Nh = hours played at review · date · ↑N = helpful votes");
   L.push("        [now] posted inside the NOW window above — count these for the Now column");
+  L.push(`        [top] among the ${RD_TOP_VOTED} most-upvoted reviews in this sample — what buyers actually read`);
   L.push("        [EA] written during early access · [free] free or non-Steam copy");
   L.push("        [deck] played mainly on Steam Deck · [upd] edited after posting");
   L.push("");
   L.push(`--- REVIEWS (${rows.length}) ---`);
-  for(const { rv, text, now } of rows){
+  for(const { rv, text, now, topVoted } of rows){
     const mins = (rv.author && (rv.author.playtime_at_review ?? rv.author.playtime_forever)) || 0;
     const hrs = mins >= 600 ? Math.round(mins/60) : (mins/60).toFixed(1);
     const votes = rv.votes_up ? ` ↑${rv.votes_up}` : "";
-    L.push(`${rv.voted_up ? "▲" : "▼"} ${hrs}h ${rdDay(rv.timestamp_created)}${votes}${rdFlags(rv, now)} | ${text}`);
+    L.push(`${rv.voted_up ? "▲" : "▼"} ${hrs}h ${rdDay(rv.timestamp_created)}${votes}${rdFlags(rv, now, topVoted)} | ${text}`);
   }
   L.push("");
   // One closing line, not a second copy of the prompt. Instructions read most reliably as
