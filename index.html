@@ -1472,6 +1472,13 @@
   .rd-go:hover:not(:disabled){filter:brightness(1.13)}
   .rd-go:disabled{opacity:.5; cursor:default}
   .rd-note{font-size:12px; color:var(--muted-2); line-height:1.55; margin:0 0 11px}
+  /* Sits under a .rd-row to explain what its options buy. Indented to the label gutter so
+     it reads as belonging to that row and not as another paragraph of intro copy. */
+  .rd-hint{font-size:11.5px; color:var(--muted-2); line-height:1.5; margin:-6px 0 12px 82px; opacity:.85}
+  /* The focus toggles are a multi-select, so they get square corners to tell them apart at a
+     glance from the mutually-exclusive pills above them. */
+  .rd-opt.rd-chk{border-radius:6px; padding:5px 9px; font-size:11.5px}
+  @media (max-width:560px){ .rd-hint{margin-left:0} }
   .rd-prog{font-family:var(--mono); font-size:12px; color:var(--gold); min-height:17px}
   .rd-err{font-family:var(--mono); font-size:12px; color:var(--coral); line-height:1.6;
         white-space:pre-wrap; word-break:break-word}
@@ -2728,7 +2735,7 @@ function render(){
           </span>
           <span class="gmeta">
             <a class="gtitle" href="${esc(g.url)}" target="_blank" rel="noopener" title="${esc(g.title)}">${esc(g.title)}</a>${wished}
-            <div class="gsub">${g.review_count ? `<button type="button" class="gsub-rev" data-rdopen="${g.appid}" title="Pull the 500 newest Steam reviews and package them with an AI prompt">${g.review_count.toLocaleString()} reviews</button>` : "app "+g.appid}</div>
+            <div class="gsub">${g.review_count ? `<button type="button" class="gsub-rev" data-rdopen="${g.appid}" title="${rdEntryTitle()}">${g.review_count.toLocaleString()} reviews</button>` : "app "+g.appid}</div>
           </span></div></td>
       <td data-label="Reviews">${reviews}</td>
       <td data-label="Trend" class="center">${trend}</td>
@@ -4035,7 +4042,7 @@ function gridCardHTML(g){
       <div class="gi-row" title="${esc(ptTip)}"><span>Playtime <i>median</i></span><b>${ptStr}</b></div>
       <div class="gi-actions">
         <a class="gi-steam" href="${esc(g.url)}" target="_blank" rel="noopener">Steam ↗</a>
-        <button type="button" class="gi-rev" data-rdopen="${g.appid}" title="Pull the 500 newest Steam reviews and package them with an AI prompt">Reviews ⇩</button>
+        <button type="button" class="gi-rev" data-rdopen="${g.appid}" title="${rdEntryTitle()}">Reviews ⇩</button>
         <button type="button" data-gclose="1">Close ✕</button>
       </div>
     </div>
@@ -5774,7 +5781,6 @@ function rdProxy(){
 }
 
 const RD = {
-  size: 500,            // decision 1. ~21k tokens raw, ~14k after the cap.
   perPage: 100,         // Steam's hard max
   cap: 600,             // truncates 6.1% of reviews, saves ~35% of the budget (probe Q5)
   artRatio: 0.4,        // the art distribution is bimodal, so 0.3-0.6 all behave the same
@@ -5792,7 +5798,37 @@ const RD = {
 // out of a review. Never widen this to a generic bracket match.
 const RD_BBCODE = /\[\/?(?:b|i|u|h[1-3]|url|quote|spoiler|list|olist|\*|strike|code|noparse|table|tr|th|td|img|previewyoutube|hr)(?:=[^\]]{0,200})?\]/gi;
 
-const rdState = { open:false, appid:null, lang:"english", busy:false, abort:null, bundle:"", promptText:null };
+// Sample size is a user choice, not a constant (plan §15.3). 500 stays the default — ~21k
+// tokens raw, ~14k after the cap — and leads the row per the "default leftmost" rule; 300
+// is the cheap read, 1000 is for slow games where 500 reviews barely reach back a year.
+// More reviews buy HISTORY, not accuracy: the counting floor is the model's, not the
+// sample's, which is why this only became safe once §16 precomputed the arithmetic.
+const RD_SIZES = [500, 300, 1000];
+
+// §15.4 — reader focus. Each entry is one toggle in the setup dialog and, when on, one line
+// in the READER FOCUS block. `topics` names the RD_TOPICS families below that answer it, so
+// a focus is answerable from a precomputed count rather than from what the genre implies.
+// Every name here must match an RD_TOPICS `name` exactly — a typo silently points the model
+// at a family that does not exist. test_review_digest.mjs asserts the mapping.
+const RD_FOCUS = [
+  { key:"perf",     label:"Potato PC",            ask:"will it run on a weak PC",
+    topics:["Performance & FPS"] },
+  { key:"deck",     label:"Steam Deck",           ask:"is it any good on a Steam Deck or another handheld",
+    topics:["Steam Deck & handheld"] },
+  { key:"account",  label:"Third-party account",  ask:"does it demand a non-Steam account or a permanent connection",
+    topics:["Third-party account & always-online"] },
+  { key:"mtx",      label:"Microtransactions",    ask:"is it monetised beyond the purchase price",
+    topics:["Microtransactions & DLC"] },
+  { key:"coop",     label:"Co-op with friends",   ask:"does playing it with friends actually work",
+    topics:["Multiplayer & servers"] },
+  { key:"value",    label:"Short game / value",   ask:"is there enough game here for the money",
+    topics:["Length & amount of content", "Price & value"] },
+  { key:"politics", label:"Political content",    ask:"does it carry political or ideological content",
+    topics:["Political & ideological content"] },
+];
+
+const rdState = { open:false, appid:null, lang:"english", size:RD_SIZES[0], focus:[],
+                  busy:false, abort:null, bundle:"", promptText:null };
 
 function rdArtRatio(t){
   const body = t.replace(/\s/g, "");
@@ -5859,8 +5895,11 @@ function rdSummary(appid, language, signal){
                   filter:"recent", cursor:"*", filter_offtopic_activity:0 }, signal);
 }
 
-async function rdCollect(appid, lang, onProgress, signal){
-  const pages = Math.ceil(RD.size / RD.perPage);
+// `size` is the chosen sample (§15.3). Steam caps num_per_page at 100, so 1000 is 10 pages
+// and about +2.5s at the current inter-page delay — I/O-bound, nowhere near the Worker's
+// free-plan CPU limits, so nothing there needs to change.
+async function rdCollect(appid, lang, size, onProgress, signal){
+  const pages = Math.ceil(size / RD.perPage);
   onProgress(`fetching totals…`);
   // Anchor fetched with the SAME language and off-topic setting as the sample, so the
   // header's percentage and the sample's are measured the same way (probe Q3).
@@ -5881,7 +5920,7 @@ async function rdCollect(appid, lang, onProgress, signal){
     cursor = next;
     if(p < pages) await new Promise(r => setTimeout(r, RD.pageDelayMs));
   }
-  return { raw: raw.slice(0, RD.size), scoped:scoped.query_summary || {}, overall:overall.query_summary || {} };
+  return { raw: raw.slice(0, size), scoped:scoped.query_summary || {}, overall:overall.query_summary || {} };
 }
 
 // The prompt is its own file so it can be iterated without touching this 5,500-line
@@ -5893,21 +5932,29 @@ async function rdCollect(appid, lang, onProgress, signal){
 const RD_PROMPT_FALLBACK =
 `Analyse the Steam reviews that follow. Count REVIEWS, not mentions — one review counts once per
 issue. Count complaints only: "simple graphics, but I love it" is praise, not a graphics
-complaint. Percentages use the substantive-review count from the OVERVIEW. Anything fewer than
-3 reviews say is not a row. Copy the TIMELINE block's numbers; never recompute them.
+complaint. Percentages use the substantive-review count from the OVERVIEW. The floor for a row
+is max(5 reviews, 2% of substantive); anything under it goes to the Other tally. Copy the
+TIMELINE block's numbers; never recompute them.
 
-Output, and nothing else: (1) a Snapshot table — verdict in 12 words, the NOW-window sentiment
-and trend from TIMELINE, the top praise, and the issue with the highest Now count; (2) an
-Issues table of at most 10 rows — bucket, category, review count, how many carry the [now] flag,
-% of substantive, a raw ▼/▲ split, and 8 words on what they say — sorted by the Now count;
-(3) a Praise table of at most 5 rows with counts; (4) at most 5 one-line Notes, used only for
-what a number cannot carry — an issue that has faded, a complaint that is really an expectation
-mismatch, or a way this sample misleads. No introduction, no methodology, no closing paragraph.
+Output in this order, and nothing else — a blank line before every table: (1) an INTEGRITY line;
+(2) a Snapshot table headed \`| Field | Value |\` — verdict in 12 words, the NOW-window sentiment
+and trend from TIMELINE, the top praise, the issue with the highest Now count, and what is
+dragging the score (top issue as a % of all ▼ reviews); (3) "Who it's for" — a **Buy it if you**
+line and a **Skip it if you** line, max 4 semicolon-separated clauses each, every Skip clause
+traceable to a table row and none inferred from the genre; (4) "Loved vs hated", one table of at
+most 5 rows, the two columns ranked independently; (5) "Where the complaints land" — Technical,
+Design, Content, Monetization, Service, each with the number of reviews raising at least one and
+its % of substantive; (6) at most 5 one-line Notes, used only for what a number cannot carry;
+(7) "Issues" LAST — at most 10 rows of bucket, category, review count, how many carry the [now]
+flag, % of substantive, a raw ▼-first "Quit / stayed" split, and 8 words on what they say,
+sorted by the Now count. If one concrete complaint clears 8% of substantive, give it one row
+named in the players' own words and sort it first. No introduction, no methodology, no closing.
 
 TOPIC MENTIONS is a regex hit count, not an answer: check your own counts against it, explain
 any that differ by more than half in Notes, and never reproduce the table. Obey the COVERAGE
 and SPANS warnings — if the NOW window is a fortnight, say "too recent to call" rather than
-reporting a trend.`;
+reporting a trend. If a READER FOCUS block is present it overrides these caps: every focus gets
+its own Issues row even at 0, and one clause in "Who it's for". Counts only, no editorialising.`;
 
 async function rdLoadPrompt(){
   if(rdState.promptText) return rdState.promptText;
@@ -6145,7 +6192,31 @@ function rdTopics(rows, W){
   return out;
 }
 
-function rdBuildBundle(g, data, lang, prompt){
+// §15.4. Only emitted when the reader ticked something, and placed directly under the
+// instructions rather than with the data: it is not another input to weigh, it is an
+// amendment to the task. The three rules are restated here in full even though the prompt
+// carries them too — the prompt is generic and this block is the only thing that knows
+// which focuses were asked for, so a model that skimmed rule 11 still meets them.
+//
+// The guaranteed-row-at-zero rule is the whole point. "Nobody in 500 reviews mentioned
+// microtransactions" is the answer the reader came for and the one an unprompted report
+// never gives, because a bucket with no complaints simply does not appear in it.
+function rdFocusBlock(focus){
+  if(!focus || !focus.length) return null;
+  const L = [];
+  L.push(`--- READER FOCUS (${rdPlural(focus.length, "question")} the reader asked — answer every one) ---`);
+  L.push("These override the row caps and the floor in the instructions above.");
+  L.push("  1. Each focus below gets its OWN row in the Issues table — below the floor, and at 0.");
+  L.push("     \"Nobody raised this\" is a real answer and the one he most wants; a missing row is not.");
+  L.push("  2. Each focus gets one clause in `### Who it's for`, on whichever side its count supports.");
+  L.push("  3. Counts only. Do not recommend, defend, dismiss or condemn any focus in either");
+  L.push("     direction — report what the reviews say and how many said it.");
+  for(const f of focus)
+    L.push(`* ${f.label} — ${f.ask} · start from TOPIC MENTIONS: ${f.topics.join(" + ")}`);
+  return L.join("\n");
+}
+
+function rdBuildBundle(g, data, lang, prompt, focus){
   const { raw, scoped, overall } = data;
   const { rows, dropped, truncated } = rdCompact(raw);
 
@@ -6184,6 +6255,8 @@ function rdBuildBundle(g, data, lang, prompt){
   L.push("");
   L.push("--- INSTRUCTIONS ---");
   L.push(promptBody.trim());
+  const focusBlock = rdFocusBlock(focus);
+  if(focusBlock){ L.push(""); L.push(focusBlock); }
   L.push("");
   L.push("--- OVERVIEW ---");
   L.push(`GAME: ${g.title}  (appid ${g.appid})`);
@@ -6303,16 +6376,38 @@ function rdRenderSetup(g){
   const body = document.getElementById("rdBody"), foot = document.getElementById("rdFoot");
   document.getElementById("rdTitle").textContent = g.title;
   body.innerHTML =
-    `<p class="rd-note">Pulls the <b>${RD.size} most recent</b> reviews from Steam and packages them
+    `<p class="rd-note">Pulls the <b id="rdCount">${rdState.size}</b> most recent reviews from Steam and packages them
      with an analysis prompt — copy the result into any AI to get an issue breakdown.
      Review-bombing reviews are included on purpose; the prompt reports them separately.</p>
      <div class="rd-row"><span class="rd-lbl">Language</span>
        <button type="button" class="rd-opt${rdState.lang==="english"?" on":""}" data-rdlang="english">English</button>
        <button type="button" class="rd-opt${rdState.lang==="all"?" on":""}" data-rdlang="all">All languages</button>
      </div>
+     <div class="rd-row"><span class="rd-lbl">Sample</span>
+       ${RD_SIZES.map(n => `<button type="button" class="rd-opt${rdState.size===n?" on":""}" data-rdsize="${n}">${n}</button>`).join("")}
+     </div>
+     <p class="rd-hint">A bigger sample buys <b>history</b>, not accuracy — on a busy game 500 reviews
+        may only reach back a fortnight, and 1000 is the only way to see what it was like before.
+        On a quiet game they all cover the same years, so 300 is enough and costs a third of the tokens.</p>
+     <div class="rd-row"><span class="rd-lbl">Focus</span>
+       ${RD_FOCUS.map(f => `<button type="button" class="rd-opt rd-chk${rdState.focus.includes(f.key)?" on":""}"
+          data-rdfocus="${f.key}" aria-pressed="${rdState.focus.includes(f.key)}">${esc(f.label)}</button>`).join("")}
+     </div>
+     <p class="rd-hint">Optional. Each one you pick gets its own row in the report even if the answer
+        is zero — which is the answer you can't get any other way.</p>
      <div class="rd-prog" id="rdProg"></div>
      <div id="rdErr"></div>`;
-  foot.innerHTML = `<button type="button" class="rd-go" id="rdGo">Fetch ${RD.size} reviews</button>`;
+  foot.innerHTML = `<button type="button" class="rd-go" id="rdGo">Fetch ${rdState.size} reviews</button>`;
+}
+
+// The dialog's own copy is re-rendered on demand, but the entry-point buttons were rendered
+// with the rest of the grid long before the dialog opened — so a size change has to reach
+// back and correct their tooltips, or the card promises 500 while the dialog fetches 1000.
+function rdEntryTitle(){
+  return `Pull the ${rdState.size} newest Steam reviews and package them with an AI prompt`;
+}
+function rdSyncEntryTitles(){
+  document.querySelectorAll("[data-rdopen]").forEach(b => b.title = rdEntryTitle());
 }
 
 function rdRenderResult(bundle){
@@ -6341,12 +6436,15 @@ async function rdRun(){
   const say = m => { if(prog) prog.textContent = m; };
   try {
     const [data, prompt] = await Promise.all([
-      rdCollect(g.appid, rdState.lang, say, rdState.abort.signal),
+      rdCollect(g.appid, rdState.lang, rdState.size, say, rdState.abort.signal),
       rdLoadPrompt(),
     ]);
     if(!data.raw.length) throw new Error("this game has no reviews in that language");
     say("building…");
-    rdState.bundle = rdBuildBundle(g, data, rdState.lang, prompt);
+    // Resolved from keys here rather than stored as objects, so rdState stays serialisable
+    // and the dialog order — not the click order — decides how the focus lines read.
+    const focus = RD_FOCUS.filter(f => rdState.focus.includes(f.key));
+    rdState.bundle = rdBuildBundle(g, data, rdState.lang, prompt, focus);
     rdRenderResult(rdState.bundle);
   } catch(err){
     if(err && err.name === "AbortError") return;      // user closed the dialog
@@ -6402,6 +6500,28 @@ document.addEventListener("click", e => {
     rdState.lang = lang.getAttribute("data-rdlang");
     document.querySelectorAll("[data-rdlang]").forEach(b =>
       b.classList.toggle("on", b.getAttribute("data-rdlang") === rdState.lang));
+    return;
+  }
+  const size = e.target.closest("[data-rdsize]");
+  if(size && !rdState.busy){
+    rdState.size = parseInt(size.getAttribute("data-rdsize"), 10);
+    document.querySelectorAll("[data-rdsize]").forEach(b =>
+      b.classList.toggle("on", parseInt(b.getAttribute("data-rdsize"), 10) === rdState.size));
+    // Four places quote the number — this copy, the button, and both entry-point tooltips.
+    // They must move together or one of them lies about what the fetch will do.
+    const n = document.getElementById("rdCount"); if(n) n.textContent = rdState.size;
+    const go = document.getElementById("rdGo");   if(go) go.textContent = `Fetch ${rdState.size} reviews`;
+    rdSyncEntryTitles();
+    return;
+  }
+  const focus = e.target.closest("[data-rdfocus]");
+  if(focus && !rdState.busy){
+    const k = focus.getAttribute("data-rdfocus");
+    const i = rdState.focus.indexOf(k);
+    if(i < 0) rdState.focus.push(k); else rdState.focus.splice(i, 1);
+    const on = i < 0;
+    focus.classList.toggle("on", on);
+    focus.setAttribute("aria-pressed", String(on));
     return;
   }
   if(e.target.closest("#rdGo")){ rdRun(); return; }

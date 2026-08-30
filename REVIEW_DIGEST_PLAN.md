@@ -8,8 +8,9 @@ reviews by hand.
 All design questions are **decided** (§12); the empirical ones were answered by the Phase 0
 probe on 2026-08-28 (**§14 — read this first**, it changes §3, §5 and §6).
 
-**Later than the phases below:** §16 records what shipped on 2026-08-30 (precomputed topic
-signals, the NOW-window fix); §15 holds the specs that are written but unbuilt.
+**Later than the phases below:** §16 and §17 record what shipped on 2026-08-30 — precomputed
+topic signals and the NOW-window fix (§16), then the whole deferred output redesign (§17).
+§15 holds the specs §17 was built against and is kept as written, not updated to match.
 
 Companion docs: [ARCHITECTURE.md](ARCHITECTURE.md) (§1 design principles, §3.1 the
 review-TEXT roadmap item this is adjacent to, §12 the Worker) · [ROADMAP.md](ROADMAP.md).
@@ -524,13 +525,14 @@ then tighten*.
 
 ---
 
-## 15. Planned upgrades — output redesign (deferred, unbuilt)
+## 15. Planned upgrades — output redesign (ALL FOUR SHIPPED — see §17)
 
 Specs only, no rationale. Sourced from the three-model comparison on 2026-08-30 (Claude, GPT
 and Gemini against one Salt 2 bundle, plus a Gears Tactics bundle, appid 1184050). Items 1
-and 2 of that review shipped as **§16**; **15.1–15.4 below are unbuilt**. They are
-independent — pick any one without the others, except where a **Blocked on** line says
-otherwise.
+and 2 of that review shipped as **§16**; **15.1–15.4 shipped 2026-08-30 as §17**, which
+records what was built, the two places the spec was read against a rule rather than
+literally, and how it was verified. The specs below are left as written — they are the
+contract §17 was measured against, not a running description of the code.
 
 ### 15.1 Output restructure
 
@@ -734,3 +736,88 @@ recorded once.
 **Not changed here**: the output skeleton. Restructuring it is §15.1–15.2 and is deliberately
 separate, so the effect of the precomputed signals is visible against the current format
 before the format moves under it.
+
+---
+
+## 17. Shipped 2026-08-30 — §15.1–15.4, the whole deferred set
+
+Prompt is **v7**. All four specs went in together because 15.4 is blocked on 15.1 and
+building the two prompt specs separately would have meant two rewrites of the same skeleton.
+
+### 17.1 Output restructure (§15.1) and the floor raise (§15.2)
+
+`review_prompt.md`, plus the inline `RD_PROMPT_FALLBACK` kept in step — §8's stale-fallback
+failure mode, avoided the same way §16 avoided it.
+
+Section order is now `INTEGRITY` · Snapshot · Who it's for · Loved vs hated · Where the
+complaints land · Notes · **Issues last**. The Issues table is the working, not the finding,
+and it spent five versions on the first screen because it was the first thing built.
+
+Both spec'd tables landed as written: `| # | Loved | N | Hated | N |` with the columns ranked
+independently, and the five-bucket rollup counted at review level. Snapshot gained the
+`| Field | Value |` header and the `Dragging the score` row; the floor moved from a flat 3 to
+`max(5, 2% of substantive)`; the `▼/▲` header became `Quit / stayed` with the order pinned and
+a legend line under the table; every table now has a blank line before it.
+
+Two things the spec did not say, decided here:
+
+- **`Dragging the score` breaks rule 2's single-denominator rule** — it is a share of ▼
+  reviews, not of substantive. Rule 2 now carries that as its one labelled exception, because
+  an unexplained denominator switch in a file that forbids denominator switches is how a
+  model decides the rule is soft.
+- **The headline row's `Bucket` cell is not free text.** §15.2 frees the `Category`; leaving
+  `Bucket` free too would put a sixth bucket in the rollup table and break its fixed five
+  rows. The headline row keeps the bucket that fits best, and Notes says which others it drew
+  from — which is the Gears Tactics finding stated rather than hidden.
+
+### 17.2 Sample size (§15.3)
+
+`RD.size` is gone; `rdState.size` replaces it, from `RD_SIZES = [500, 300, 1000]`.
+
+**Order is 500 · 300 · 1000, not the spec's 300 · 500 · 1000.** §15.3 said to confirm against
+the default-leftmost rule before building; the rule wins, and 500 leads.
+
+Four places quote the number and all four now read state: the dialog copy, the fetch button,
+and **both** entry-point `title=` attributes. The tooltips were the only hard part — the cards
+are rendered long before the dialog opens, so `rdSyncEntryTitles()` reaches back and corrects
+them on change. Without it the card promises 500 while the dialog fetches 1000.
+
+Measured, on the ten-page fixture: 1000 reviews is 117 KB / ~29.8k tokens against 500's ~14k,
+and 300 is ~12.2k. The dialog says what that buys — *history*, not accuracy — because on a
+quiet game all three sizes cover the same years and the extra 15k tokens buy nothing.
+
+### 17.3 Reader focus (§15.4)
+
+`RD_FOCUS`, seven toggles, each mapping to the RD_TOPICS families that can answer it. Ticking
+any emits a `--- READER FOCUS ---` block directly under the instructions — an amendment to the
+task, not another input to weigh, which is why it sits there and not with the data.
+
+The block restates all three rules in full even though prompt rule 11 carries them, because
+the prompt is generic and only the block knows which focuses were asked for. The rule that
+matters is the guaranteed row **at zero**: "nobody in 1000 reviews mentioned microtransactions"
+is the answer the reader came for, and it is the one answer an unprompted report can never
+give, because a bucket with no complaints simply does not appear in it.
+
+Spec-vs-code naming: the spec's table says "TOPIC SIGNALS" and "Length & content"; the block
+is called TOPIC MENTIONS (§16.3) and the family is `Length & amount of content`. Code uses the
+real names — a focus pointing at a family that does not exist fails **silently**, which is why
+the test asserts the mapping rather than trusting it.
+
+Toggles are `.rd-opt` pills with `aria-pressed`, square-cornered to read as a multi-select
+against the mutually-exclusive rows above them, rather than literal checkboxes.
+
+### 17.4 Verification
+
+`test_review_digest.mjs` gains 25 checks: the setup dialog's default-leftmost ordering, the
+seven focus toggles and their `RD_FOCUS -> RD_TOPICS` mapping, the six output sections
+asserted **by position** (§15.1's acceptance criterion is order, so order is what is pinned —
+headings only, never prose, which is the mistake §16.5 already recorded), and a fourth
+scenario that pages: 1000 reviews as ten cursor-chained requests, the four number sites moving
+together, a focus toggled back off, and the block landing between INSTRUCTIONS and OVERVIEW.
+It is the only scenario that pages — every other fixture returns an empty cursor and stops
+after one page, so the loop the size selector consists of was previously never exercised.
+
+**Not run here**: `node` is not installed on this machine, so the Playwright suite could not
+be executed. Every one of the 25 assertions was instead run against a bundle built by the real
+page in a browser — same page, same `rdBuildBundle`, same prompt file, with `fetch` stubbed to
+serve ten pages — and all 25 pass. The Playwright wrapper around them is unexecuted code.
