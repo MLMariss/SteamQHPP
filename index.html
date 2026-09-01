@@ -329,7 +329,7 @@
   body.grid-view .rb-legend{display:flex}
   .rb-key{display:inline-flex; align-items:center; gap:5px; font-size:12px; color:var(--muted-2); cursor:help}
   .rb-key .k-q{font-family:var(--mono); font-size:11.5px; color:var(--gold); font-weight:600}
-  .rb-key .k-rev{width:12px; height:12px; background:var(--teal); -webkit-mask:var(--thumb-mask); mask:var(--thumb-mask)}
+  .rb-key .k-rev{width:12px; height:12px; background:#4ade80; -webkit-mask:var(--thumb-mask); mask:var(--thumb-mask)}
   .rb-key .k-sale{width:13px; height:11px; border:1px solid var(--gold-deep); border-radius:3px}
   .tablecard{background:linear-gradient(180deg,#1a2336,#151d2d); border:1px solid var(--line); border-radius:14px; margin-top:12px}
   .resultbar + .tablecard{margin-top:9px}
@@ -2205,72 +2205,46 @@ const colValue = g => freeMode() ? freeScore(g) : activeQ(g);
    while a 1-point gap (84 vs 85) flipped colour entirely. Every threshold scheme has
    that flaw; the fix is to drop thresholds and let the colour move with the number.
 
-   Interpolation happens in OKLCH, not RGB or HSL. Lerping two RGB colours runs the
-   line through the middle of the cube, so red→green passes through a muddy olive-grey
-   at the midpoint; HSL's hue circle keeps saturation but its lightness is nominal, so
-   its yellows blaze and its blues go black at the same L. OKLCH is perceptually
-   uniform: equal steps look equal, and holding L flat holds apparent brightness flat,
-   which is what keeps every rung of this ramp equally legible on the dark panel.
+   Four base colours, each already lifted for a dark background, with straight
+   per-channel RGB blending between them. RGB lerping is normally the wrong tool for a
+   red→green ramp — the line cuts through the middle of the colour cube and turns the
+   midpoint into a muddy olive-grey. It works here because the ramp never interpolates
+   red→green directly: it goes red→orange→yellow→green, and every leg keeps at least
+   one channel pinned high (R stays 255 from red all the way to yellow), so the path
+   stays along the bright face of the cube instead of diving through its centre.
+   The lime around 80–85 is the one unavoidable artefact of yellow meeting green; with
+   both endpoints this bright it reads as a deliberate rung, not as mud.
 
-   Stops are [pct, L, C, H]. They are placed so the bands the eye expects land where a
-   Steam reader expects them — 70 is gold, 80 is already green, 90+ is the emphatic
-   green — while everything between slides smoothly instead of snapping:
+   Two ranges are deliberately FLAT — nothing changes inside them:
+     0–50    all red      · ranking failures against each other is not worth a hue
+     90–100  all green    · everything at the top reads as "top"
+   and three blend:
+     51–59  red→orange · 61–74  orange→yellow · 76–89  yellow→green
 
-     ≤40 red · 50 red-orange · 60 orange · 70 gold · 75 yellow · 80 green · 90+ vivid green
-
-   Endpoints are pinned to the existing palette so the ramp reads as part of the page
-   and not a second colour system: 40 lands on --coral #ff7d7d and 70 on --gold #ffc24d.
-   The top end runs slightly brighter than --teal so a 95% game is visibly ahead of an
-   85% one — the "exceptional" rung the buckets never had. */
+   Anchors are RGB triples, not hex, because they get interpolated; hex is only ever
+   the output format. */
 const RATING_STOPS = [
-  [  0, .660, .170,  25],   // hopeless — deeper, darker red
-  [ 40, .740, .158,  25],   // = --coral
-  [ 50, .765, .152,  40],   // red-orange
-  [ 60, .790, .145,  58],   // orange
-  [ 70, .850, .148,  80],   // = --gold
-  [ 74, .850, .150,  92],   // yellow
-  [ 80, .830, .155, 128],   // green
-  [ 90, .805, .150, 152],   // strong green
-  [100, .850, .160, 165],   // exceptional
+  [  0, [255,  82,  82]],   // #FF5252  red
+  [ 50, [255,  82,  82]],
+  [ 60, [255, 160,  51]],   // #FFA033  orange
+  [ 75, [255, 225,  77]],   // #FFE14D  yellow
+  [ 90, [ 74, 222, 128]],   // #4ADE80  green
+  [100, [ 74, 222, 128]],
 ];
-/* OKLCH → sRGB hex. Emitted as hex rather than a CSS oklch() string on purpose: an
-   oklch() a browser doesn't parse is an INVALID declaration, which drops silently —
-   `color:` would fall back to inherited text (a score in plain white) and the dots,
-   which take it as `background`, would vanish entirely. Hex renders the same
-   everywhere. Out-of-gamut stops (the orange band asks for more chroma than sRGB
-   holds) are walked down in chroma rather than channel-clipped, which would skew the
-   hue toward whichever channel blew out. */
-function oklchHex(L, C, H){
-  const hr = H * Math.PI / 180, ca = Math.cos(hr), cb = Math.sin(hr);
-  const conv = c => {
-    const a = c * ca, b = c * cb;
-    const l = (L + 0.3963377774*a + 0.2158037573*b) ** 3;
-    const m = (L - 0.1055613458*a - 0.0638541728*b) ** 3;
-    const s = (L - 0.0894841775*a - 1.2914855480*b) ** 3;
-    return [ 4.0767416621*l - 3.3077115913*m + 0.2309699292*s,
-            -1.2684380046*l + 2.6097574011*m - 0.3413193965*s,
-            -0.0041960863*l - 0.7034186147*m + 1.7076147010*s];
-  };
-  let c = C, rgb = conv(c);
-  for(let i = 0; i < 60 && (Math.max(...rgb) > 1.0005 || Math.min(...rgb) < -0.0005); i++)
-    rgb = conv(c *= 0.97);
-  return "#" + rgb.map(v => {
-    v = Math.min(1, Math.max(0, v));
-    v = v <= 0.0031308 ? 12.92*v : 1.055 * v**(1/2.4) - 0.055;
-    return Math.round(v * 255).toString(16).padStart(2, "0");
-  }).join("");
-}
 /* Scores are whole percents, and ratingColor() is called several times per row on every
-   render — so the ramp is baked once into a 101-entry lookup instead of running the
-   colour maths tens of thousands of times per keystroke. */
+   render — so the ramp is baked once into a 101-entry lookup instead of re-blending tens
+   of thousands of times per keystroke. Hex out, not a CSS colour function: an unparsed
+   colour is an INVALID declaration, which drops silently — `color:` would fall back to
+   inherited white text and the dots, which take it as `background`, would vanish. */
 const RATING_RAMP = (() => {
+  const hex2 = v => Math.round(v).toString(16).padStart(2, "0");
   const out = [];
   for(let p = 0; p <= 100; p++){
     let i = 0;
     while(i < RATING_STOPS.length - 2 && p > RATING_STOPS[i+1][0]) i++;
-    const [p0, L0, C0, H0] = RATING_STOPS[i], [p1, L1, C1, H1] = RATING_STOPS[i+1];
-    const t = Math.min(1, Math.max(0, (p - p0) / (p1 - p0)));
-    out.push(oklchHex(L0 + (L1-L0)*t, C0 + (C1-C0)*t, H0 + (H1-H0)*t));
+    const [p0, c0] = RATING_STOPS[i], [p1, c1] = RATING_STOPS[i+1];
+    const t = p1 === p0 ? 0 : (p - p0) / (p1 - p0);
+    out.push("#" + c0.map((v, k) => hex2(v + (c1[k] - v) * t)).join(""));
   }
   return out;
 })();

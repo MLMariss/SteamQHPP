@@ -2745,24 +2745,33 @@ revert is just `STEAM_DELAY` back to 2.0 and/or fewer slots.
   cut at **85 / 70 / 40**, which made the colour a worse signal than the number it decorated: an
   **82%** game and a **70%** game wore the *same* gold — a 12-point gap rendered identically —
   while 84 vs 85, one point apart, flipped gold→teal. Buckets always do this; only the placement
-  of the lie moves. So the thresholds are gone. Colour now **interpolates with the score** across
-  nine stops (`RATING_STOPS`), in **OKLCH** rather than RGB or HSL: RGB lerping cuts through the
-  middle of the cube and turns red→green into muddy olive at the midpoint, and HSL's lightness is
-  nominal, so its yellows blaze while its greens sink. OKLCH is perceptually uniform, so holding
-  `L` roughly flat holds apparent brightness flat and every rung stays equally legible on the dark
-  panel. The bands land where a Steam reader expects them — **≤40 red · 50 red-orange · 60 orange
-  · 70 gold · 75 yellow · 80 green · 90+ vivid green** — with the endpoints pinned to the existing
-  palette (40 = `--coral`, 70 = `--gold`) so the ramp reads as part of the page rather than a
-  second colour system; the top end runs a touch brighter than `--teal`, which is the
-  "exceptional" rung the buckets never had. `oklchHex()` emits **hex, not a CSS `oklch()`
-  string** — an unparsed `oklch()` is an invalid declaration that drops silently, which would
-  leave scores in inherited white and make the dots (which take the colour as `background`)
-  disappear entirely. Out-of-gamut stops (the orange band asks for more chroma than sRGB holds)
-  are walked **down in chroma** instead of channel-clipped, which would skew hue toward whichever
-  channel blew out. Scores are whole percents, so the ramp is baked once into a **101-entry
-  lookup** (`RATING_RAMP`) — the colour maths never runs during a render. Every consumer is
+  of the lie moves. So the thresholds are gone and colour now moves with the score, across four
+  base colours picked for a dark background — red `#FF5252`, orange `#FFA033`, yellow `#FFE14D`,
+  green `#4ADE80` — blended per-channel in RGB. Two ranges are deliberately **flat**: **0–50**
+  all red (ranking failures against each other buys nothing) and **90–100** all green; three
+  blend: **51–59** red→orange, **61–74** orange→yellow, **76–89** yellow→green. Straight RGB
+  lerping is normally wrong for a red→green ramp — the line cuts through the middle of the colour
+  cube and the midpoint goes muddy olive — but it holds up here because the ramp never
+  interpolates red→green directly: it routes through orange and yellow, and every leg keeps a
+  channel pinned high (R stays 255 from red all the way to yellow), so the path follows the bright
+  face of the cube instead of diving through its centre. The lime around 80–85 is the one
+  unavoidable artefact of yellow meeting green, and reads as a deliberate rung at this brightness.
+  All four base colours clear **WCAG AA as text** against both the page (`#0e1320`) and panel
+  (`#192133`) grounds — red is tightest at **5.04:1** — which matters because this ramp is used as
+  a *text* colour, not just as swatch fill. Scores are whole percents, so it is baked once into a
+  **101-entry lookup** (`RATING_RAMP`) and no blending runs during a render; `ratingColor()` emits
+  **hex** rather than a CSS colour function, since an unparsed colour is an invalid declaration
+  that drops silently — scores would fall back to inherited white and the dots, which take the
+  value as `background`, would disappear. The grid legend's thumbs-up key moved from `--teal` to
+  the ramp's `#4ade80` so the swatch matches the scale it stands for. Every consumer is otherwise
   unchanged: table dots + values, the 30-day and weighted columns, grid cards and card view all
   call the same `ratingColor()`.
+
+  **Known trade-off:** the flat 90–100 band covers **35.9%** of scored games (43,068 of 119,965),
+  and 95–100 alone is 25.5% — so a third of the catalogue renders one identical green, which is
+  the bucket problem again at the busiest end of the scale. Deliberate, not an oversight: it can
+  be reopened by moving the top anchor's stop down (e.g. green at 90 and a brighter green at 100)
+  without touching anything else.
 
 - **The preview stage — a docked player for phones (Aug 2026).** The mobile grid could play a
   game's preview, but only inside the card: **171×80px** on a 390px phone, with a 16:9 clip
