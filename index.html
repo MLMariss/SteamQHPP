@@ -329,7 +329,7 @@
   body.grid-view .rb-legend{display:flex}
   .rb-key{display:inline-flex; align-items:center; gap:5px; font-size:12px; color:var(--muted-2); cursor:help}
   .rb-key .k-q{font-family:var(--mono); font-size:11.5px; color:var(--gold); font-weight:600}
-  .rb-key .k-rev{width:12px; height:12px; background:#4ade80; -webkit-mask:var(--thumb-mask); mask:var(--thumb-mask)}
+  .rb-key .k-rev{width:12px; height:12px; background:var(--rate-key,#4ade80); -webkit-mask:var(--thumb-mask); mask:var(--thumb-mask)}
   .rb-key .k-sale{width:13px; height:11px; border:1px solid var(--gold-deep); border-radius:3px}
   .tablecard{background:linear-gradient(180deg,#1a2336,#151d2d); border:1px solid var(--line); border-radius:14px; margin-top:12px}
   .resultbar + .tablecard{margin-top:9px}
@@ -1855,6 +1855,15 @@ try{
       <button id="trailerToggle" aria-pressed="true"
               title="Play the game's Steam preview clip instead of a still — hover a table thumbnail, or in Grid view hover a card's box art (tap it on a phone; tap again to stop). On a phone, swiping up on a playing card — or tapping a thumbnail in Card view — moves it into a bigger player docked under this bar, and every card below then loads into that player on a tap. This is the same short silent loop Steam plays on its own store capsules — a few hundred KB, loaded only for the game you actually pick. Turn off to keep the stills only, and to switch the player off with them.">Video</button>
     </div>
+    <!-- Rating colour scheme. A DISPLAY preference, so it sits here with View and Preview
+         rather than in the filter panel (which is about which games you see, not how they
+         are drawn). The two schemes answer different questions: Spectrum ranks (how much
+         better is this than that), Rarity sorts (which tier is this in). -->
+    <span class="rb-lbl">Colour</span>
+    <div class="seg viewseg" id="schemeSwitch" role="group" aria-label="Rating colour scheme">
+      <button data-scheme="spectrum" aria-pressed="true"></button>
+      <button data-scheme="rarity" aria-pressed="false"></button>
+    </div>
     <div class="rb-legend" aria-hidden="true">
       <span class="rb-key" title="QTPD — Quality Time Per Dollar, the headline metric. Higher means more game-hours of value per dollar."><b class="k-q">QTPD</b> value score</span>
       <span class="rb-key" title="Steam review score — the share of all reviews that are positive. Colour runs red (low) to green (high)."><i class="k-rev"></i> review score</span>
@@ -2200,44 +2209,69 @@ function freeMode(){ return state.priceClass.size === 1 && state.priceClass.has(
 const colValue = g => freeMode() ? freeScore(g) : activeQ(g);
 
 /* ── Rating colour ────────────────────────────────────────────────────────────────
-   A continuous ramp, not four buckets. The original cut at 85/70/40, so an 82% game
-   wore the SAME gold as a 70% one — a 12-point gap rendered identically — while a
-   1-point gap (84 vs 85) flipped colour entirely. Every threshold scheme has that
-   flaw; the fix is to drop thresholds and let the colour move with the number.
+   A rating's colour is defined as ANCHORS ON THE 0–100 SCALE, blended per-channel in
+   RGB between consecutive anchors. This one format expresses BOTH shipped schemes:
 
-   Colour is defined as ANCHORS ON A 0–100 SCALE, blended per-channel in RGB between
-   them. Straight RGB lerping is normally wrong for a red→green ramp — the line cuts
-   through the middle of the colour cube and the midpoint goes muddy olive — but it
-   holds up here because the ramp never interpolates red→green directly: it routes
-   through orange and yellow, and every leg keeps a channel pinned high (R stays 255
-   from red all the way to yellow), so the path follows the bright face of the cube
-   instead of diving through its centre.
+     · repeat a colour at two anchors  → that span is FLAT
+     · put two anchors one point apart → there is no integer between them to blend,
+                                         so the edge is HARD
 
-   Repeating a colour at two anchors makes the span between them FLAT, which is how the
-   deliberate plateaus are expressed — no special-casing in the blend code.
+   which is why a smooth gradient and a hard-banded tier scale share a single code
+   path with no mode flag and no branching. Straight RGB lerping is normally wrong
+   for a red→green ramp — the line cuts through the middle of the colour cube and the
+   midpoint goes muddy olive — but it holds up in `spectrum` because that ramp never
+   interpolates red→green directly: it routes through orange and yellow, and every leg
+   keeps a channel pinned high (R stays 255 from red all the way to yellow), so the
+   path follows the bright face of the cube instead of diving through its centre.
 
-   Schemes are a keyed registry so a second palette is a data addition, not a rewrite.
-   `ratingScheme` picks the active one; every surface (table SCORE all + 30d, the
-   WEIGHTED column, card view, grid cards) reads it through `ratingColor()`, so they
-   can never drift apart. */
+   Replaces the original 85/70/40 buckets, which made colour a worse signal than the
+   number it decorated: an 82% game and a 70% game wore the same gold — a 12-point gap
+   rendered identically — while 84 vs 85, one point apart, flipped gold→teal. */
 const RATING_SCHEMES = {
-  /* Warm ramp with a cool cap: red → orange → yellow → green, then a distinct blue
-     reserved for a perfect 100. Blue sits off the warm→cool temperature axis on
-     purpose — it reads as a separate mark rather than "even more green". */
-  spectrum: [
-    [  0, [255,  82,  82]],   // #FF5252  red      ┐ 0–50 flat
-    [ 50, [255,  82,  82]],   //                   ┘
-    [ 60, [255, 160,  51]],   // #FFA033  orange     51–59 red→orange
-    [ 75, [255, 225,  77]],   // #FFE14D  yellow     61–74 orange→yellow
-    [ 85, [ 74, 222, 128]],   // #4ADE80  green    ┐ 76–84 yellow→green
-    [ 95, [ 74, 222, 128]],   //                   ┘ 85–95 flat green
-    [100, [ 77, 166, 255]],   // #4DA6FF  blue       96–99 green→blue, 100 blue
-  ],
+  /* Warm ramp with a cool cap. Continuous: colour moves with the score, so two games a
+     few points apart are visibly a few points apart. Blue sits off the warm→cool
+     temperature axis on purpose, so a perfect 100 reads as a separate mark rather than
+     as "even more green". */
+  spectrum: {
+    label: "Spectrum",
+    key:   "#4ade80",
+    note:  "Colour runs red (low) through yellow to green (high), with blue for a perfect 100.",
+    tip:   "Spectrum — colour slides continuously with the score: red below 50, orange at 60, "
+         + "yellow at 75, green 85–95, blue at 100. Best for comparing two similar scores, "
+         + "since a few points' difference is a visible difference.",
+    stops: [
+      [  0, [255,  82,  82]],   // #FF5252  red      ┐ 0–50 flat
+      [ 50, [255,  82,  82]],   //                   ┘
+      [ 60, [255, 160,  51]],   // #FFA033  orange     51–59 red→orange
+      [ 75, [255, 225,  77]],   // #FFE14D  yellow     61–74 orange→yellow
+      [ 85, [ 74, 222, 128]],   // #4ADE80  green    ┐ 76–84 yellow→green
+      [ 95, [ 74, 222, 128]],   //                   ┘ 85–95 flat green
+      [100, [ 77, 166, 255]],   // #4DA6FF  blue       96–99 green→blue, 100 blue
+    ],
+  },
+  /* Loot-rarity tiers. Discrete: five hard bands, so a score reads as a CATEGORY at a
+     glance instead of a position on a ramp. Nothing blends — each band is a colour
+     repeated at both its edges, and the next band starts one point later. */
+  rarity: {
+    label: "Rarity",
+    key:   "#b478ff",
+    note:  "Five tiers: Worn, Common, Uncommon, Rare, Epic.",
+    tip:   "Rarity — five hard tiers instead of a gradient: Worn (0–49), Common (50–69), "
+         + "Uncommon (70–84), Rare (85–94), Epic (95–100). Best for sorting games into "
+         + "buckets at a glance; scores inside one tier are deliberately identical.",
+    stops: [
+      [  0, [134, 140, 150]], [ 49, [134, 140, 150]],   // #868C96  Worn
+      [ 50, [240, 242, 245]], [ 69, [240, 242, 245]],   // #F0F2F5  Common
+      [ 70, [ 74, 222, 128]], [ 84, [ 74, 222, 128]],   // #4ADE80  Uncommon
+      [ 85, [ 77, 166, 255]], [ 94, [ 77, 166, 255]],   // #4DA6FF  Rare
+      [ 95, [180, 120, 255]], [100, [180, 120, 255]],   // #B478FF  Epic
+    ],
+    /* Band names, for the tier word in a score's tooltip. Read by tierName(). */
+    tiers: [[0,"Worn"], [50,"Common"], [70,"Uncommon"], [85,"Rare"], [95,"Epic"]],
+  },
 };
-/* The active scheme. A second palette is in the works; when it lands it goes in the
-   registry above and this becomes user-switchable (with the usual localStorage +
-   `syncURL()` treatment). Until then there is exactly one, and this is it. */
-let ratingScheme = "spectrum";
+const RATING_SCHEME_DEFAULT = "spectrum";
+let ratingScheme = RATING_SCHEME_DEFAULT;
 
 /* Scores are whole percents, and ratingColor() is called several times per row on every
    render — so each scheme's ramp is baked once into a 101-entry lookup and cached, rather
@@ -2249,7 +2283,7 @@ const _ratingRamps = new Map();
 function ratingRamp(name){
   let ramp = _ratingRamps.get(name);
   if(ramp) return ramp;
-  const stops = RATING_SCHEMES[name] || RATING_SCHEMES.spectrum;
+  const stops = (RATING_SCHEMES[name] || RATING_SCHEMES[RATING_SCHEME_DEFAULT]).stops;
   const hex2 = v => Math.round(v).toString(16).padStart(2, "0");
   ramp = [];
   for(let p = 0; p <= 100; p++){
@@ -2265,6 +2299,48 @@ function ratingRamp(name){
 function ratingColor(p){
   if(p == null) return "var(--muted-2)";
   return ratingRamp(ratingScheme)[Math.min(100, Math.max(0, Math.round(p)))];
+}
+/* The tier word for a score, or "" for a scheme that has no tiers (a gradient has no
+   names to give). Appended to the review-score tooltips so the band is readable and not
+   only visible — which is also what keeps Rarity usable for anyone who cannot separate
+   its five hues. */
+function tierName(p){
+  const t = RATING_SCHEMES[ratingScheme]?.tiers;
+  if(!t || p == null) return "";
+  const v = Math.min(100, Math.max(0, Math.round(p)));
+  let name = t[0][1];
+  for(const [floor, n] of t) if(v >= floor) name = n;
+  return name;
+}
+/* Switch scheme: repaint, remember, and put it in the URL so a shared link carries it.
+   `quiet` skips the write-back during restore (see loadFromURL's _urlSuspended guard). */
+/* Tooltip suffix naming the tier, e.g. " · Rare". Empty on a gradient scheme, which has
+   no names to give. */
+function tierTip(p){ const t = tierName(p); return t ? ` · ${t}` : ""; }
+function setRatingScheme(name, quiet){
+  if(!RATING_SCHEMES[name]) name = RATING_SCHEME_DEFAULT;
+  ratingScheme = name;
+  syncSchemeUI();
+  if(!quiet){
+    try{ localStorage.setItem("qtpd.scheme", name); }catch(e){}
+    syncURL();
+    render();
+  }
+}
+/* Reflect the active scheme in the switcher, the grid legend's swatch (which is masked in
+   currentColor, so it takes the scheme's key colour through --rate-key) and the legend's
+   hover text, which otherwise keeps describing the scheme you are not using. */
+function syncSchemeUI(){
+  const sc = RATING_SCHEMES[ratingScheme] || RATING_SCHEMES[RATING_SCHEME_DEFAULT];
+  document.querySelectorAll("#schemeSwitch [data-scheme]").forEach(b => {
+    const s = RATING_SCHEMES[b.dataset.scheme];
+    if(s){ if(!b.textContent) b.textContent = s.label; b.title = s.tip; }
+    b.setAttribute("aria-pressed", String(b.dataset.scheme === ratingScheme));
+  });
+  document.documentElement.style.setProperty("--rate-key", sc.key);
+  const key = document.querySelector(".rb-key .k-rev");
+  if(key && key.parentElement)
+    key.parentElement.title = "Steam review score — the share of all reviews that are positive. " + sc.note;
 }
 function fmtCountdown(end){
   if(!end) return null;
@@ -2700,7 +2776,7 @@ function render(){
     const age = ageStr(g.release_ts);
 
     // stacked reviews: all-time over recent (recent greyed when stale / absent)
-    const allRow = `<div class="rrow" title="All-time: ${g.rating_pct==null?'no':g.rating_pct+'% of '+(g.review_count||0).toLocaleString()} reviews positive">`
+    const allRow = `<div class="rrow" title="All-time: ${g.rating_pct==null?'no':g.rating_pct+'% of '+(g.review_count||0).toLocaleString()} reviews positive${tierTip(g.rating_pct)}">`
       + `<span class="rlbl">all</span><span class="dot" style="background:${ratingColor(g.rating_pct)}"></span>`
       + `<span class="rval" style="color:${ratingColor(g.rating_pct)}">${g.rating_pct==null?'—':g.rating_pct+'%'}</span>`
       + `<span class="rcount">${compactNum(g.review_count)}</span></div>`;
@@ -2710,7 +2786,7 @@ function render(){
       recRow = `<div class="rrow recent muted" title="No recent review score (Steam shows one only for games 45+ days old with enough recent reviews)"><span class="rlbl">30d</span>`
         + `<span class="dot" style="background:var(--muted-2)"></span><span class="rval">—</span></div>`;
     } else {
-      recRow = `<div class="rrow recent${stale?' stale':''}" title="Recent Reviews (past 30 days): ${g.recent_pct}% of ${(g.recent_count||0).toLocaleString()} reviews${stale?' · score is over '+RECENT_STALE_DAYS+' days old':''}">`
+      recRow = `<div class="rrow recent${stale?' stale':''}" title="Recent Reviews (past 30 days): ${g.recent_pct}% of ${(g.recent_count||0).toLocaleString()} reviews${stale?' · score is over '+RECENT_STALE_DAYS+' days old':tierTip(g.recent_pct)}">`
         + `<span class="rlbl">30d</span><span class="dot" style="background:${stale?'var(--muted-2)':ratingColor(g.recent_pct)}"></span>`
         + `<span class="rval"${stale?'':` style="color:${ratingColor(g.recent_pct)}"`}>${g.recent_pct}%</span>`
         + `<span class="rcount">${compactNum(g.recent_count)}</span></div>`;
@@ -2738,7 +2814,7 @@ function render(){
       // deepens a game's sample the tip tracks it automatically — 1k today, 2k or 3k later.
       // Formatted with a thousands separator for readability.
       const nStr = g.wr_n != null ? g.wr_n.toLocaleString() : "?";
-      const tip = `Playtime-weighted: ${g.wr}% — from ${nStr} reviews, each counted by hours played. `
+      const tip = `Playtime-weighted: ${g.wr}%${lowConf?'':tierTip(g.wr)} — from ${nStr} reviews, each counted by hours played. `
         + `Steam's flat %: ${g.wr_steam==null?'—':g.wr_steam+'%'}`
         + (delta!=null?` (${deltaStr} pts vs Steam)`:``)
         + `. Uncapped: ${g.wr_raw==null?'—':g.wr_raw+'%'}.`
@@ -4034,7 +4110,7 @@ function gridCardHTML(g){
     }
     const n = count ? count.toLocaleString() + ` review${count === 1 ? "" : "s"}` : "reviews";
     return `<span class="grate${on ? " gsel" : ""}" style="color:${ratingColor(pct)}"`
-         + ` title="Steam review score, ${per} — ${pct}% of ${n} positive. Colour runs red (low) to green (high).`
+         + ` title="Steam review score, ${per} — ${pct}% of ${n} positive${tierTip(pct)}.`
          + `${on ? " This is the figure the current Review-score sort uses." : ""}">`
          + `${pct}%<span class="grlbl">${lbl}</span></span>`;
   };
@@ -4869,6 +4945,7 @@ function syncURL(){
   }
   if(state.ratingSource !== "recent") p.set("ratesrc", state.ratingSource);
   if(state.ptMetric !== "up") p.set("pt", state.ptMetric);
+  if(ratingScheme !== RATING_SCHEME_DEFAULT) p.set("scheme", ratingScheme);
   if(state.sortKey !== "qtpd") p.set("sort", state.sortKey);
   if(!(state.sortKey === "qtpd" && state.sortDir === -1)) p.set("dir", state.sortDir < 0 ? "d" : "a");
   if(state.pageSize !== PAGE_SIZE) p.set("per", state.pageSize);
@@ -4924,6 +5001,7 @@ function loadFromURL(){
   setIf("ctrl",  v => { if(["full","partial"].includes(v)) state.flags.ctrl = v; });
   setIf("deck",  v => { if(["verified","playable","unsupported"].includes(v)) state.flags.deck = v; });
   setIf("adult", v => { if(["hide","only"].includes(v)) state.flags.adultF = v; });
+  setIf("scheme", v => { if(RATING_SCHEMES[v]) setRatingScheme(v, true); });
   setIf("sort", v => { state.sortKey = v; });
   setIf("dir", v => { state.sortDir = v==="a" ? 1 : -1; });
   setIf("pt", v => { if(v==="up"||v==="down"){ state.ptMetric = v;
@@ -4982,6 +5060,13 @@ function init(data){
   // L3/L5 + L1: restore the saved view mode and accordion open/closed states before first paint.
   // #4 — default to Grid on mobile (box art suits small screens); desktop still defaults to Table.
   // A previously-saved choice always wins.
+  // Colour scheme: a shared link's ?scheme= already won during loadFromURL(), so only
+  // consult localStorage when the URL was silent about it.
+  if(!new URLSearchParams(location.search).has("scheme")){
+    let savedScheme = null; try{ savedScheme = localStorage.getItem("qtpd.scheme"); }catch(e){}
+    if(savedScheme && RATING_SCHEMES[savedScheme]) ratingScheme = savedScheme;
+  }
+  syncSchemeUI();
   let savedView = null; try{ savedView = localStorage.getItem("qtpd.view"); }catch(e){}
   state.view = savedView || (isNarrow() ? "grid" : "table");
   if(!VIEWS.includes(state.view)) state.view = "table";
@@ -4996,7 +5081,9 @@ function init(data){
     state.minPrice=null; state.maxPrice=null; state.trendSet=new Set(["up","flat","down"]); state.updatedWithin="any";
     state.tagMode="and"; state.wishOnly=false; state.sortKey="qtpd"; state.sortDir=-1; state.ratingSource="recent"; state.hltbQuality="real"; state.ptMetric="up"; state.qRangeTouched=false;
     state.flags={ ea:"any", eula:"any", fse:"any", vrOnly:"any", ai:"any", ctrl:"any", deck:"any", adultF:"any" };
+    ratingScheme = RATING_SCHEME_DEFAULT;
     loadFromURL();
+    syncSchemeUI();
     document.querySelectorAll("[data-tagmode]").forEach(o => o.setAttribute("aria-pressed", o.dataset.tagmode===state.tagMode));
     syncPriceClassUI();
     recomputeDomain(); applyURLRange(); buildTagRail(); syncSortArrows(); syncPtHeader(); syncFlagsUI(); render();
@@ -5318,6 +5405,8 @@ function init(data){
 
   // ── Lorenzo-list wiring ───────────────────────────────────────────────────────────────
   // L3/L5: view switcher + keep layout class in sync as the viewport crosses the table floor.
+  document.querySelectorAll("#schemeSwitch [data-scheme]").forEach(b =>
+    b.addEventListener("click", () => setRatingScheme(b.dataset.scheme)));
   document.querySelectorAll("#viewSwitch [data-view]").forEach(b => b.addEventListener("click", () => {
     if(b.classList.contains("disabled")){
       // The gate is WIDTH, not device: the table's columns need 1280px and below that the same
