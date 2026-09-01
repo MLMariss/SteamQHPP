@@ -2741,6 +2741,29 @@ revert is just `STEAM_DELAY` back to 2.0 and/or fewer slots.
 
 ## 16. Recent changes
 
+- **Review-score colour is a continuous ramp, not four buckets (Sep 2026).** `ratingColor()`
+  cut at **85 / 70 / 40**, which made the colour a worse signal than the number it decorated: an
+  **82%** game and a **70%** game wore the *same* gold — a 12-point gap rendered identically —
+  while 84 vs 85, one point apart, flipped gold→teal. Buckets always do this; only the placement
+  of the lie moves. So the thresholds are gone. Colour now **interpolates with the score** across
+  nine stops (`RATING_STOPS`), in **OKLCH** rather than RGB or HSL: RGB lerping cuts through the
+  middle of the cube and turns red→green into muddy olive at the midpoint, and HSL's lightness is
+  nominal, so its yellows blaze while its greens sink. OKLCH is perceptually uniform, so holding
+  `L` roughly flat holds apparent brightness flat and every rung stays equally legible on the dark
+  panel. The bands land where a Steam reader expects them — **≤40 red · 50 red-orange · 60 orange
+  · 70 gold · 75 yellow · 80 green · 90+ vivid green** — with the endpoints pinned to the existing
+  palette (40 = `--coral`, 70 = `--gold`) so the ramp reads as part of the page rather than a
+  second colour system; the top end runs a touch brighter than `--teal`, which is the
+  "exceptional" rung the buckets never had. `oklchHex()` emits **hex, not a CSS `oklch()`
+  string** — an unparsed `oklch()` is an invalid declaration that drops silently, which would
+  leave scores in inherited white and make the dots (which take the colour as `background`)
+  disappear entirely. Out-of-gamut stops (the orange band asks for more chroma than sRGB holds)
+  are walked **down in chroma** instead of channel-clipped, which would skew hue toward whichever
+  channel blew out. Scores are whole percents, so the ramp is baked once into a **101-entry
+  lookup** (`RATING_RAMP`) — the colour maths never runs during a render. Every consumer is
+  unchanged: table dots + values, the 30-day and weighted columns, grid cards and card view all
+  call the same `ratingColor()`.
+
 - **The preview stage — a docked player for phones (Aug 2026).** The mobile grid could play a
   game's preview, but only inside the card: **171×80px** on a 390px phone, with a 16:9 clip
   cropped into a 2.14:1 box. Swiping up on a playing card — or pressing the new `⤢` chip —
