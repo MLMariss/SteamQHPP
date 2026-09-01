@@ -2741,6 +2741,57 @@ revert is just `STEAM_DELAY` back to 2.0 and/or fewer slots.
 
 ## 16. Recent changes
 
+- **Review-score colour: two switchable schemes, one anchor format (Sep 2026).** `ratingColor()`
+  cut at **85 / 70 / 40**, which made colour a worse signal than the number it decorated: an
+  **82%** game and a **70%** game wore the *same* gold — a 12-point gap rendered identically —
+  while 84 vs 85, one point apart, flipped gold→teal. The thresholds are gone. Colour is now
+  declared as **anchors on the 0–100 scale**, blended per-channel in RGB between consecutive
+  anchors, and that single format expresses both shipped schemes with **no mode flag and no
+  branching**:
+
+  - repeat a colour at two anchors → that span is **flat**
+  - put two anchors **one point apart** → no integer between them to blend → **hard edge**
+
+  **`spectrum`** (default) — a continuous warm ramp with a cool cap. 0–50 flat red `#FF5252`,
+  51–59 red→orange, 60 orange `#FFA033`, 61–74 orange→yellow, 75 yellow `#FFE14D`, 76–84
+  yellow→green, 85–95 flat green `#4ADE80`, 96–99 green→blue, 100 blue `#4DA6FF`. Blue sits
+  deliberately off the warm→cool temperature axis so a perfect score reads as a separate mark
+  rather than "even more green". Straight RGB lerping is normally wrong for a red→green ramp —
+  the line cuts through the middle of the colour cube and the midpoint goes muddy olive — but it
+  holds here because the ramp never interpolates red→green directly: it routes through orange and
+  yellow, and every leg keeps a channel pinned high (R stays 255 from red to yellow), so the path
+  follows the bright face of the cube instead of diving through its centre.
+
+  **`rarity`** — five hard loot-tier bands, for reading a score as a *category* rather than a
+  position: **Worn** 0–49 `#868C96`, **Common** 50–69 `#F0F2F5`, **Uncommon** 70–84 `#4ADE80`,
+  **Rare** 85–94 `#4DA6FF`, **Epic** 95–100 `#B478FF`. Scores inside a tier are identical on
+  purpose.
+
+  Switching lives in the results bar beside View and Preview (it is a *display* preference, not a
+  filter), persists to `localStorage` under `qtpd.scheme`, and rides along in `?scheme=` so a
+  shared link carries it — a link's scheme beats the saved one. Each scheme's ramp is baked once
+  into a **101-entry lookup** and cached per scheme (`ratingRamp()`), so no blending runs during a
+  render. Output is **hex, not a CSS colour function**: an unparsed colour is an invalid
+  declaration that drops silently — scores would fall back to inherited white and the dots, which
+  take the value as `background`, would vanish. Every review-score surface reads the active scheme
+  through the single `ratingColor()` — table **SCORE** (`all` + `30d`), the **WEIGHTED** column,
+  card view and grid cards — so they cannot drift apart. `tierName()` puts the tier word into
+  those tooltips, which is also what keeps `rarity` usable for anyone who cannot separate its five
+  hues. The grid legend's swatch follows the scheme via `--rate-key`. The two greys that override
+  all of this are about *confidence*, not score, and stay: `30d` greys when stale, Weighted greys
+  below `CONFIDENT_REVIEWS` (§10).
+
+  **Two known trade-offs, both deliberate and both reversible in the anchor data alone:**
+  1. *spectrum* — an exact **100%** is 19.7% of scored games (23,671), but that cohort has a
+     **median of 4 reviews** and 92.4% of it sits under 20 reviews. So blue, the most distinctive
+     colour on the page, mostly marks statistically meaningless perfect scores, while the
+     genuinely well-reviewed excellent games (96–99%, median **91** reviews) get the blend.
+  2. *rarity* — **Worn `#868C96` is within 1.3:1 of `--muted-2` `#94a0c0`**, the colour this UI
+     already uses for "no score / stale / low confidence", so a genuinely bad score and missing
+     data look alike; and the tier populations invert the metaphor — **Epic** is only 6 points
+     wide but **25.5%** of the catalogue (the largest tier), while the 50-point **Worn** band is
+     10.8%.
+
 - **The preview stage — a docked player for phones (Aug 2026).** The mobile grid could play a
   game's preview, but only inside the card: **171×80px** on a 390px phone, with a 16:9 clip
   cropped into a 2.14:1 box. Swiping up on a playing card — or pressing the new `⤢` chip —
