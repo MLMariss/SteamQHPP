@@ -2745,33 +2745,51 @@ revert is just `STEAM_DELAY` back to 2.0 and/or fewer slots.
   cut at **85 / 70 / 40**, which made the colour a worse signal than the number it decorated: an
   **82%** game and a **70%** game wore the *same* gold — a 12-point gap rendered identically —
   while 84 vs 85, one point apart, flipped gold→teal. Buckets always do this; only the placement
-  of the lie moves. So the thresholds are gone and colour now moves with the score, across four
-  base colours picked for a dark background — red `#FF5252`, orange `#FFA033`, yellow `#FFE14D`,
-  green `#4ADE80` — blended per-channel in RGB. Two ranges are deliberately **flat**: **0–50**
-  all red (ranking failures against each other buys nothing) and **90–100** all green; three
-  blend: **51–59** red→orange, **61–74** orange→yellow, **76–89** yellow→green. Straight RGB
-  lerping is normally wrong for a red→green ramp — the line cuts through the middle of the colour
-  cube and the midpoint goes muddy olive — but it holds up here because the ramp never
-  interpolates red→green directly: it routes through orange and yellow, and every leg keeps a
-  channel pinned high (R stays 255 from red all the way to yellow), so the path follows the bright
-  face of the cube instead of diving through its centre. The lime around 80–85 is the one
-  unavoidable artefact of yellow meeting green, and reads as a deliberate rung at this brightness.
-  All four base colours clear **WCAG AA as text** against both the page (`#0e1320`) and panel
-  (`#192133`) grounds — red is tightest at **5.04:1** — which matters because this ramp is used as
-  a *text* colour, not just as swatch fill. Scores are whole percents, so it is baked once into a
-  **101-entry lookup** (`RATING_RAMP`) and no blending runs during a render; `ratingColor()` emits
-  **hex** rather than a CSS colour function, since an unparsed colour is an invalid declaration
-  that drops silently — scores would fall back to inherited white and the dots, which take the
-  value as `background`, would disappear. The grid legend's thumbs-up key moved from `--teal` to
-  the ramp's `#4ade80` so the swatch matches the scale it stands for. Every consumer is otherwise
-  unchanged: table dots + values, the 30-day and weighted columns, grid cards and card view all
-  call the same `ratingColor()`.
+  of the lie moves. So the thresholds are gone and colour now moves with the score, blended
+  per-channel in RGB between **anchors on the 0–100 scale**:
 
-  **Known trade-off:** the flat 90–100 band covers **35.9%** of scored games (43,068 of 119,965),
-  and 95–100 alone is 25.5% — so a third of the catalogue renders one identical green, which is
-  the bucket problem again at the busiest end of the scale. Deliberate, not an oversight: it can
-  be reopened by moving the top anchor's stop down (e.g. green at 90 and a brighter green at 100)
-  without touching anything else.
+  | band | colour |
+  |---|---|
+  | 0–50 | flat red `#FF5252` |
+  | 51–59 | red → orange |
+  | 60 | orange `#FFA033` |
+  | 61–74 | orange → yellow |
+  | 75 | yellow `#FFE14D` |
+  | 76–84 | yellow → green |
+  | 85–95 | flat green `#4ADE80` |
+  | 96–99 | green → blue |
+  | 100 | blue `#4DA6FF` |
+
+  Repeating a colour at two anchors is what makes a span **flat** — the plateaus need no
+  special-casing in the blend code. Blue sits deliberately **off the warm→cool temperature
+  axis**, so a perfect score reads as a separate mark rather than as "even more green".
+  Straight RGB lerping is normally wrong for a red→green ramp — the line cuts through the middle
+  of the colour cube and the midpoint goes muddy olive — but it holds up here because the ramp
+  never interpolates red→green directly: it routes through orange and yellow, and every leg keeps
+  a channel pinned high (R stays 255 from red all the way to yellow), so the path follows the
+  bright face of the cube instead of diving through its centre.
+
+  All five base colours clear **WCAG AA as text** against both the page (`#0e1320`) and panel
+  (`#192133`) grounds — red is tightest at **5.04:1**, blue is **7.25 / 6.29** — which matters
+  because this ramp colours *text*, not just swatch fill. Scores are whole percents, so each
+  scheme's ramp is baked once into a **101-entry lookup** and cached (`ratingRamp()`); no blending
+  runs during a render. Output is **hex, not a CSS colour function**: an unparsed colour is an
+  invalid declaration that drops silently — scores would fall back to inherited white and the
+  dots, which take the value as `background`, would disappear.
+
+  **Schemes are a keyed registry** (`RATING_SCHEMES`, active one picked by `ratingScheme`) so a
+  second palette is a data addition rather than a rewrite. A second scheme is planned; when it
+  lands it becomes user-switchable with the usual `localStorage` + `syncURL()` treatment. Every
+  review-score surface reads the registry through the single `ratingColor()` — table **SCORE**
+  (`all` + `30d`), the **WEIGHTED** column, card view and grid cards — so they cannot drift
+  apart. The two greys that override it are about *confidence*, not score, and stay: `30d` greys
+  when stale, and Weighted greys below `CONFIDENT_REVIEWS` (§10).
+
+  **Known trade-off:** an exact **100%** is 19.7% of scored games (23,671) — but that cohort has a
+  **median of 4 reviews**, and **92.4% of it has under 20 reviews**. So blue, the most distinctive
+  colour on the page, mostly marks statistically meaningless perfect scores, while the genuinely
+  well-reviewed excellent games (96–99%, median **91** reviews) get the blend. Deliberate, and
+  reversible without touching the blend code: gate blue on review count, or move the top anchor.
 
 - **The preview stage — a docked player for phones (Aug 2026).** The mobile grid could play a
   game's preview, but only inside the card: **171×80px** on a 390px phone, with a 16:9 clip
