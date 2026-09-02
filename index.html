@@ -1468,6 +1468,8 @@
   .rd-head{display:flex; align-items:center; gap:10px; padding:13px 15px; border-bottom:1px solid var(--line)}
   .rd-head h3{margin:0; font-size:15px; color:var(--title); font-weight:600; flex:1;
         overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
+  .rd-head .rd-hcount{flex:0 0 auto; font-family:var(--mono); font-size:12.5px;
+        color:var(--muted-2); white-space:nowrap}
   .rd-head .rd-x{appearance:none; background:transparent; border:0; color:var(--muted-2);
         font-size:17px; line-height:1; cursor:pointer; padding:4px 6px; border-radius:6px}
   .rd-head .rd-x:hover{color:var(--coral); background:#3a1f27}
@@ -1480,6 +1482,10 @@
      hit target clears 34px high, which is the floor a thumb needs. */
   .rd-opt{appearance:none; background:var(--panel); border:1px solid var(--line); color:var(--muted);
         font-family:var(--mono); font-size:13px; padding:8px 12px; border-radius:8px; cursor:pointer}
+  /* The three handoff buttons are <a href> (§22.4) so ctrl-click and middle-click open a
+     background tab like any link on the web. They still have to sit in the footer row as
+     buttons, which is all this rule does. */
+  a.rd-opt{display:inline-flex; align-items:center; justify-content:center; text-decoration:none}
   .rd-opt:hover{color:var(--text); border-color:var(--muted-2)}
   .rd-opt.on{background:var(--gold-soft); border-color:var(--gold-deep); color:var(--gold)}
   .rd-go{background:var(--gold-soft); border:1px solid var(--gold-deep); color:var(--gold);
@@ -2037,6 +2043,7 @@ try{
   <div class="rd-modal" role="dialog" aria-modal="true" aria-labelledby="rdTitle">
     <div class="rd-head">
       <h3 id="rdTitle">Review digest</h3>
+      <span class="rd-hcount" id="rdHeadCount"></span>
       <button type="button" class="rd-x" id="rdClose" aria-label="Close">&#10005;</button>
     </div>
     <div class="rd-body" id="rdBody"></div>
@@ -6897,6 +6904,31 @@ function rdCopyBundle(){
   catch(e){ return Promise.reject(e); }
 }
 
+// The clipboard half of a handoff click. The tab is the ANCHOR's job now, which also removes
+// the popup-blocker tightrope the old window.open walked: the write no longer has to be
+// started before the open inside one gesture, because there is no open to race.
+// Called from click AND from auxclick, so a middle-click — which fires no click event at all —
+// still leaves with the digest on the clipboard rather than opening an empty chat.
+function rdHandoff(el){
+  const spec = RD_AI.find(a => a.key === el.getAttribute("data-rdai"));
+  if(!spec || !rdState.bundle) return;
+  const copied = rdCopyBundle();
+  const big = rdPasteAdvice(rdState.bundle.length);
+  copied
+    .then(() => big && big.hard && spec.paste === "cut"
+      ? toast(`Opened ${esc(spec.label)} — a paste this long gets cut there. Use <b>Download .txt</b> and attach the file in that tab instead.`, "err", 10000)
+      : toast(`Digest copied — press <b>${rdPasteKey()}</b> in the ${esc(spec.label)} tab.`, "ok", 7000))
+    .catch(() => toast(`Opened ${esc(spec.label)}, but the clipboard was blocked — copy the box by hand and paste it there.`, "err", 7000));
+}
+
+// Middle-click. The browser opens the background tab on its own; this only makes sure the
+// clipboard was filled on the way out, so the tab the reader switches to later is ready.
+document.addEventListener("auxclick", e => {
+  if(e.button !== 1 || !rdState.open) return;
+  const ai = e.target.closest("[data-rdai]");
+  if(ai) rdHandoff(ai);
+}, true);
+
 function rdClose(){
   if(rdState.abort) rdState.abort.abort();
   rdState.open = false; rdState.busy = false; rdState.abort = null; rdState.bundle = "";
@@ -6907,6 +6939,8 @@ function rdClose(){
 function rdRenderSetup(g){
   const body = document.getElementById("rdBody"), foot = document.getElementById("rdFoot");
   document.getElementById("rdTitle").textContent = g.title;
+  const head = document.getElementById("rdHeadCount");
+  if(head) head.textContent = "";
   body.innerHTML =
     `<p class="rd-note" title="Review-bombing reviews are included on purpose — the prompt counts them and reports them separately, so you see the pile-on instead of a score quietly smoothed over.">Takes the <b id="rdCount">${rdState.size}</b> newest Steam reviews and wraps them in an AI prompt.</p>
      <div class="rd-row"><span class="rd-lbl">Report</span>
@@ -6963,25 +6997,48 @@ function rdSyncEntryTitles(){
 const RD_PASTE_WARN = 60 * 1024;
 const RD_PASTE_HARD = 150 * 1024;
 
+// Three sentences of explanation is what a reader skips (§22.4). The banner is now one line:
+// who can't take it, what to do instead, and who is unaffected. The reasoning it used to
+// spell out — that the cut is silent, that the reviews sit at the end so the fragment looks
+// complete — lives on in the tooltips and in this comment, which is where it belongs; on the
+// banner it was buying nothing that the instruction "use the .txt" doesn't already buy.
 function rdPasteAdvice(len){
   if(len < RD_PASTE_WARN) return null;
   const kb = Math.round(len / 1024);
   if(len < RD_PASTE_HARD) return { hard:false, html:
-    `<b>${kb} KB — a long paste.</b> ${RD_AI_FILE} take it (their composers attach it as a file
-     if the box won't hold it), but ${RD_AI_CUT} truncates silently rather than refusing — and
-     since the reviews are at the end, it answers from whatever survived without saying so. If a
-     reply ignores the requested format or reports far fewer reviews than you asked for, that is
-     what happened: use <b>Download .txt</b> and attach the file instead.` };
+    `<b>${kb} KB.</b> ${RD_AI_CUT} may cut a paste this long — use <b>Download .txt</b> there
+     instead. ${RD_AI_FILE} take it whole.` };
   return { hard:true, html:
-    `<b>${kb} KB — past what a chat box will hold as text.</b> ${RD_AI_FILE} handle that for you
-     and turn the paste into an attachment, so pasting there is fine. ${RD_AI_CUT} instead cuts
-     it partway through and analyses the fragment without telling you. <b>Download .txt</b> and
-     attach the file and it arrives whole in any of them.` };
+    `<b>${kb} KB.</b> ${RD_AI_CUT} can't take a paste this long — use <b>Download .txt</b> and
+     upload the file instead. ${RD_AI_FILE} take it whole.` };
+}
+
+// TOKENS (§22.4). Measured at ~3.9 characters per token on these bundles, not the generic 4:
+// the REVIEWS block is mostly short English words with a mono prefix of digits and symbols on
+// every line, which tokenises slightly worse than prose. The number is the same whether the
+// bundle is pasted or uploaded — an attachment is not cheaper, it just survives the composer —
+// and that is exactly why it is worth printing next to the KB: the KB says whether the paste
+// will make it, this says whether the model has room to read it once it does.
+const RD_CHARS_PER_TOKEN = 3.9;
+const rdTokens = len => Math.round(len / RD_CHARS_PER_TOKEN / 100) / 10;
+
+// What the bundle SAYS it holds — the count after compaction dropped art, duplicates and
+// empties, which is the number the AI will actually be counting against. Read back out of the
+// finished text rather than passed in, so the header can never disagree with the block.
+function rdBundleCount(bundle){
+  const m = bundle.match(/^--- REVIEWS \((\d+)\) ---$/m);
+  return m ? parseInt(m[1], 10) : 0;
 }
 
 function rdRenderResult(bundle){
   const body = document.getElementById("rdBody"), foot = document.getElementById("rdFoot");
-  const kb = (bundle.length / 1024).toFixed(0), tok = Math.round(bundle.length / 4 / 100) / 10;
+  const kb = (bundle.length / 1024).toFixed(0), tok = rdTokens(bundle.length);
+  // The reader picked a size, then watched a progress line for 20 pages. Saying how many
+  // reviews came back closes that loop where they are looking, and it is also the number a
+  // short sample announces itself by — 300 reviews on a game that only has 300.
+  const n = rdBundleCount(bundle);
+  const head = document.getElementById("rdHeadCount");
+  if(head) head.textContent = n ? rdPlural(n, "review") : "";
   const warn = rdPasteAdvice(bundle.length);
   const hard = !!(warn && warn.hard);
   body.innerHTML =
@@ -7006,16 +7063,21 @@ function rdRenderResult(bundle){
   const copy = `<button type="button" class="rd-${hard ? "opt" : "go"}" id="rdCopy" title="${hard
     ? `Copy the digest — ${RD_AI_FILE} take a paste this size (as an attachment if the box won't hold it); in ${RD_AI_CUT} it gets cut, so check the reply quotes the right number of reviews.`
     : "Copy the digest to your clipboard and stay here."}">Copy all</button>`;
+  // <a href>, not <button> (§22.4). These three DO navigate somewhere, and a button that
+  // opens a tab is a link wearing the wrong element: ctrl-click, middle-click, "open in new
+  // window" and the status bar all do nothing on it. As an anchor the browser handles every
+  // one of those itself and the page is never left; the handler below only adds the copy.
   // Per composer, not per size tier: at this size the same paste is fine in two of these tabs
   // and truncated in the third, and a tooltip that says otherwise is wrong where the reader is.
-  const ai = RD_AI.map(a => `<button type="button" class="rd-opt" data-rdai="${a.key}" title="${!hard
+  const ai = RD_AI.map(a => `<a class="rd-opt" data-rdai="${a.key}" href="${esc(a.url)}" target="_blank" rel="noopener" title="${!hard
     ? `Copies the digest, then opens a blank ${esc(a.label)} chat in a new tab — press ${rdPasteKey()} there. ${kb} KB is far past what any link can carry, so the paste is the one step that can't be removed.`
     : a.paste === "cut"
       ? `Opens a blank ${esc(a.label)} chat in a new tab and copies the digest — but at ${kb} KB ${esc(a.label)} cuts the paste partway through, so attach the downloaded .txt there instead.`
-      : `Copies the digest, then opens a blank ${esc(a.label)} chat in a new tab — press ${rdPasteKey()} there. At ${kb} KB ${esc(a.label)} attaches the paste as a file by itself, so it arrives whole.`}">${esc(a.label)} ↗</button>`).join("");
+      : `Copies the digest, then opens a blank ${esc(a.label)} chat in a new tab — press ${rdPasteKey()} there. At ${kb} KB ${esc(a.label)} attaches the paste as a file by itself, so it arrives whole.`}">${esc(a.label)} ↗</a>`).join("");
+  const meter = `<span class="rd-size" title="About ${tok}k tokens of the AI's context — the same whether you paste the text or upload the .txt, since an attachment is read, not summarised. Comfortable in a 200k-context model; a smaller window will refuse it or forget the start.">${kb} KB · ~${tok}k tokens in the AI</span>`;
   foot.innerHTML = hard
-    ? `${dl}${copy}${ai}<span class="rd-spacer"></span><span class="rd-size">${kb} KB · ~${tok}k tokens</span>`
-    : `${copy}${ai}<span class="rd-spacer"></span><span class="rd-size">${kb} KB · ~${tok}k tokens</span>${dl}`;
+    ? `${dl}${copy}${ai}<span class="rd-spacer"></span>${meter}`
+    : `${copy}${ai}<span class="rd-spacer"></span>${meter}${dl}`;
 }
 
 async function rdRun(){
@@ -7146,23 +7208,7 @@ document.addEventListener("click", e => {
     return;
   }
   const ai = e.target.closest("[data-rdai]");
-  if(ai){
-    const spec = RD_AI.find(a => a.key === ai.getAttribute("data-rdai"));
-    if(!spec) return;
-    // Order is load-bearing. Both the clipboard write and the window.open have to happen
-    // inside this one click's user gesture: awaiting the copy first would resume in a later
-    // microtask with the gesture spent, and the popup blocker eats the tab. So the write is
-    // STARTED here and the tab is opened synchronously behind it; only the toast waits.
-    const copied = rdCopyBundle();
-    const big = rdPasteAdvice(rdState.bundle.length);
-    window.open(spec.url, "_blank", "noopener");
-    copied
-      .then(() => big && big.hard && spec.paste === "cut"
-        ? toast(`Opened ${esc(spec.label)} — a paste this long gets cut there. Use <b>Download .txt</b> and attach the file in that tab instead.`, "err", 10000)
-        : toast(`Digest copied — press <b>${rdPasteKey()}</b> in the ${esc(spec.label)} tab that just opened.`, "ok", 7000))
-      .catch(() => toast(`Opened ${esc(spec.label)}, but the clipboard was blocked — copy the box by hand and paste it there.`, "err", 7000));
-    return;
-  }
+  if(ai){ rdHandoff(ai); return; }        // no preventDefault: the anchor opens its own tab
   if(e.target.closest("#rdDl")){
     const g = gameOf(rdState.appid) || { title:"game", appid:rdState.appid };
     const blob = new Blob([rdState.bundle], { type:"text/plain;charset=utf-8" });

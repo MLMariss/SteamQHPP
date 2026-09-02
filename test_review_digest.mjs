@@ -606,11 +606,18 @@ errors.slice(0, 5).forEach(e => console.log("     " + e));
   const warnCls = await p6.locator("#rdWarn").getAttribute("class").catch(() => null);
   const warnTxt = await p6.locator("#rdWarn").textContent().catch(() => "");
   const primary = await p6.locator("#rdFoot .rd-go").getAttribute("id");
-  const footIds = await p6.locator("#rdFoot button").evaluateAll(
+  const footIds = await p6.locator("#rdFoot button, #rdFoot a").evaluateAll(
     els => els.map(e => e.id || e.getAttribute("data-rdai")));
   const got6    = Number((out6.match(/^--- REVIEWS \((\d+)\) ---$/m) || [])[1]);
   const aiTips6 = await p6.locator("#rdFoot [data-rdai]").evaluateAll(
     els => els.map(e => e.getAttribute("data-rdai") + "|" + e.title));
+  // §22.4 — the handoff buttons are anchors, and the whole point is what the BROWSER does
+  // with them: ctrl-click, middle-click and "open in new window" are the browser's, not ours,
+  // and none of them exist on a <button> that calls window.open.
+  const aiHrefs = await p6.locator("#rdFoot [data-rdai]").evaluateAll(
+    els => els.map(e => [e.tagName, e.getAttribute("href"), e.target].join("|")));
+  const headCnt = await p6.locator("#rdHeadCount").textContent();
+  const meter6  = await p6.locator("#rdFoot .rd-size").textContent();
   await b6.close();
 
   console.log("\nshort pages, size cap and paste warning:");
@@ -625,8 +632,8 @@ errors.slice(0, 5).forEach(e => console.log("     " + e));
   check(!/size cap:/.test(out6),
         "nothing trims the sample from underneath the reader's choice any more");
   check((warnCls || "") === "rd-warn hard", `a ~300 KB bundle gets the hard paste warning (${warnCls})`);
-  check(/Download \.txt/.test(warnTxt) && /attach the file/.test(warnTxt),
-        "the warning names the download-and-attach route, not just the problem");
+  check(/Download \.txt/.test(warnTxt) && /upload the file/.test(warnTxt),
+        "the warning names the download-and-upload route, not just the problem");
   // The correction of §22.2: the blanket "too long to paste" was false on two of the three
   // tabs it was shown next to, and a warning that is wrong where the reader is standing is
   // one they learn to skip — including on the tab where it is true.
@@ -643,6 +650,16 @@ errors.slice(0, 5).forEach(e => console.log("     " + e));
   check(footIds[0] === "rdDl" && footIds.includes("rdCopy"),
         `the file leads the footer and Copy all survives as a secondary (${footIds.join(",")})`);
   check(errs6.length === 0, `no uncaught JS errors on the deep-pull path (${errs6.length})`);
+  // §22.4 — the three things the result panel has to say about what it just built.
+  check(headCnt.trim() === "2000 reviews",
+        `the dialog header states how many reviews came back (${JSON.stringify(headCnt)})`);
+  check(/\d+ KB · ~[\d.]+k tokens in the AI/.test(meter6),
+        `the footer prices the bundle in the AI's tokens, labelled (${JSON.stringify(meter6)})`);
+  check(aiHrefs.every(h => /^A\|https:\/\/.+\|_blank$/.test(h)),
+        `every handoff is a real target=_blank link, not a button (${aiHrefs.join(" ")})`);
+  // One line, not a paragraph: who can't take it, what to do, who is unaffected.
+  check(warnTxt.replace(/\s+/g, " ").trim().length < 160,
+        `the banner stays one line (${warnTxt.replace(/\s+/g, " ").trim().length} chars)`);
 }
 
 // --- seventh scenario: the budget and threshold arithmetic ----------------------------
