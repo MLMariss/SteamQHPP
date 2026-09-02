@@ -44,7 +44,9 @@ Claude's job; the user reviews the PR, merges it, and pulls. Nothing else should
    "pushed." The user should be able to click through, review, and merge without typing a
    command.
 
-Title + description as copy-paste blocks too, in case a pre-fill truncates.
+**Do NOT also paste the title and body as copy-paste blocks.** The pre-filled link already
+carries both; repeating them is duplication the user has to scroll past. Only reproduce them
+if the pre-fill is actually known to have failed.
 
 ## Branches
 - **One working branch at a time.** Do not spin a new branch per change; commit onto the branch already checked out. If it's unclear which is the working branch, ask — don't invent one.
