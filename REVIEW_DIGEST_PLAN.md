@@ -1254,3 +1254,52 @@ and the two shapes of AI tooltip. Scenario 7 asserts `RD.charBudget` is `undefin
 `RD_AI` entry declares a `paste` behaviour, and that the name lists come out as
 "Claude and ChatGPT" / "Gemini". **Not run here** — `node` is still not installed on this
 machine.
+
+### 22.4 The result panel — what it got, what it costs, and links that behave like links
+
+Four notes from using the finished panel, all of them about the same screen.
+
+**It never said how many reviews it got.** The reader picks a size, watches a progress line
+count 21 pages, and then the panel changes to a wall of text with no number on it — the count
+was only inside the bundle, five lines down in a mono block. The dialog header now carries it
+next to the game's title (`2000 reviews`), read back out of the finished bundle's
+`--- REVIEWS (n) ---` line rather than passed in, so it can never disagree with the block. It
+is its own element beside the `<h3>`, not a suffix inside it: the h3 is `nowrap`/ellipsis, and
+a long game title would have eaten the one part that must not disappear. It is also how a short
+sample announces itself — 300 back from a request for 2000 means the game only has 300.
+
+**The banner was three sentences where one would do.** §22.2's copy explained the mechanism —
+that the cut is silent, that the reviews sit at the end so the fragment reads as complete — and
+that is a paragraph, which is a thing readers skip. It is now one line:
+
+> **346 KB.** Gemini can't take a paste this long — use **Download .txt** and upload the file
+> instead. Claude and ChatGPT take it whole.
+
+Who can't take it, what to do instead, who is unaffected. The mechanism survives in the
+tooltips for anyone who wants it.
+
+**The three handoff buttons are now `<a href>`.** They were `<button>`s calling
+`window.open`, which is a link wearing the wrong element: ctrl-click, middle-click, "open in
+new window" and the status-bar preview all do nothing on a button, and a reader who ctrl-clicks
+by habit gets silence. As anchors with `target="_blank" rel="noopener"` the browser does all of
+it, and the page is still never left. The click handler no longer opens anything — it only
+copies — which also retires the popup-blocker tightrope §18.3 walked, where the clipboard write
+had to be *started* before the open inside a single gesture. Middle-click fires no `click`
+event at all, so a delegated `auxclick` listener runs the same copy; the browser opens the tab
+itself either way.
+
+**The token figure was unlabelled, and estimated at the wrong rate.** `length/4` is the generic
+approximation; these bundles measure ~**3.9** chars/token, because a review line is short
+English words behind a mono prefix of digits and symbols. `RD_CHARS_PER_TOKEN` is now that, and
+the footer says what the number *is* — `346 KB · ~90.9k tokens in the AI` — with a tooltip
+noting it is the same whether the text is pasted or the .txt is uploaded (an attachment is
+read, not summarised) and that it is comfortable in a 200k-context model. The KB says whether
+the paste will survive the composer; this says whether the model has room to read it.
+
+**Verified in the real page** (same stubbed fixture): header reads `2000 reviews`; banner is
+133 chars in one line; all three handoffs are `A|https://…|_blank`; footer reads
+`346 KB · ~90.9k tokens in the AI`; a synthetic ctrl-click and a synthetic middle-click each
+put all 354,342 characters on the clipboard with **`window.open` called zero times**; mobile
+(375×812) keeps the count in the header and the anchors full-width. `test_review_digest.mjs`
+scenario 6 gains checks for the header count, the labelled token meter, the anchor shape of all
+three handoffs, and a hard cap on the banner's length.
