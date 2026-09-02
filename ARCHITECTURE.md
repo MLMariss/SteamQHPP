@@ -2140,7 +2140,7 @@ via `markChangedControls()`.
   **price type** (All / Full / Sale / Free — an independent multi-toggle, URL `pc`; this
   **replaced the old boolean on-sale-only filter**) · min & max price · **QTPD range**
   log-slider that fits current results.
-- **Quality** — min rating (any/60+/70+/80+/90+) · **Reviews sort by** (30-day *(default)* /
+- **Quality** — min rating (any/60+/70+/80+/90+) · **Review period** (30-day *(default)* /
   All-time) · review-trend multi-toggle · min-reviews bands (0/10/100/1k/5k+, independent
   toggles, gaps allowed) · updated-within (any/1mo/3mo/6mo/1yr/1yr+) · **Playtime sort**
   (▲ *(default)* / ▼).
@@ -2148,6 +2148,32 @@ via `markChangedControls()`.
   Access · AI disclosure · Adult content · VR-only · Family-share block · Custom EULA) plus
   two graded controls (Controller, Steam Deck). Folded by default; no-ops behind the `HAS_PICS`
   guard when `pics.json` is empty.
+
+**`periodRating(g)` — one resolver for the review period.** *(Sep 2026.)* Min rating and the
+Score-column sort both call it, so a game is judged on the same number whichever way you reach
+it. It returns `recent_pct` when the period is 30-day **and the game has one**, else
+`rating_pct`.
+
+The fall-back is the load-bearing decision. Steam publishes a 30-day score for only **7,504 of
+128,292 games (5.9%)** — it needs 45+ days since release and enough recent reviews — so testing
+`recent_pct` strictly would collapse the catalogue to ≤7.5k games the moment any rating floor is
+set, which reads as a broken filter rather than a strict one. Falling back means a 70+ floor on
+the 30-day period keeps three groups apart correctly: a game with a weak 30-day score is
+**dropped** even when its lifetime score clears the floor (the Occupy Mars case: 70% all-time,
+38% for 30d); a game whose *recent* score clears it **passes** even when its lifetime score does
+not (measured: 189 such games at 70+, previously invisible); a game with no 30-day score at all
+is still judged on its lifetime score (52,601 games) rather than silently vanishing.
+
+**Min reviews deliberately does NOT follow the period.** Recent counts run one to two orders of
+magnitude below lifetime ones (Occupy Mars: 16 recent vs 3,140 all-time), so pointing the
+0/10/100/1k/5k+ bands at `recent_count` would empty the list at the default `10+` setting. The
+bands stay all-time; only the *score* follows the period. Carrying the period into the
+**weighted score / QTPD** is a separate, larger question — registered in ROADMAP §3.2, not built,
+because a 16-review sample needs a far stronger prior than the all-time-tuned one.
+
+Because the period now decides **which games pass**, its click handler runs the full `update()`
+(paging reset + QTPD-domain refit + re-render), not the bare `render()` it used while it was
+sort-only.
 - **Tags** — the **tag rail** (click to require → exclude → clear, with live per-tag counts,
   two-tier with a "+N more" expander) plus a **tag-name search** and the **`Required tags
   match: ALL / ANY`** toggle (`state.tagMode`, URL `tagmode`; ALL is the default, and
@@ -2201,7 +2227,12 @@ only as tall as its text, so `.arrow{bottom:1px}` sat on top of the label; `.spl
 (§16). Score/Count works the same way.
 Two selector toggles live in the filter bar and do **not** sort on their own:
 
-- **Reviews sort by** (all-time / 30-day) — which score the Reviews column sorts on.
+- **Review period** (30-day *(default)* / all-time) — which score the Reviews column sorts on,
+  **and** which score the Min rating floor tests. Both go through one resolver, `periodRating()`
+  (§11), so the filtered set and the sorted order can never disagree about the number a game is
+  being judged on. It was sort-only until Sep 2026, which produced the bug it was fixed for: a
+  70+ floor with 30-day selected still listed games showing **38% for 30d**, because the floor
+  read all-time. Min **reviews** deliberately does *not* follow the period — see §11.
 - **Playtime sort** (▲ recommenders / ▼ non-recommenders) — which median a click on the
   Playtime column will sort by. Switching it updates the Playtime **header** (the selected
   side lights up, the other dims) so you can see what a header-click will do, and re-sorts
