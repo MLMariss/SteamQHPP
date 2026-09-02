@@ -1498,6 +1498,12 @@
   .rd-prog{font-family:var(--mono); font-size:12.5px; color:var(--gold); min-height:17px}
   .rd-err{font-family:var(--mono); font-size:12.5px; color:var(--coral); line-height:1.6;
         white-space:pre-wrap; word-break:break-word}
+  /* Paste-length warning (§21.4). Gold at the soft threshold, coral at the hard one — the
+     hard case is not advice, it is "this will not work", so it reads as the error it is. */
+  .rd-warn{font-size:12.5px; line-height:1.55; border-radius:9px; padding:9px 11px; margin:0 0 11px;
+        background:var(--gold-soft); border:1px solid var(--gold-deep); color:var(--gold)}
+  .rd-warn.hard{background:#3a1c1c; border-color:#8c3a3a; color:var(--coral)}
+  .rd-warn b{color:inherit}
   .rd-out{width:100%; height:300px; resize:vertical; box-sizing:border-box;
         background:var(--bg); border:1px solid var(--line); border-radius:9px; color:var(--muted);
         font-family:var(--mono); font-size:12px; line-height:1.5; padding:10px; margin-top:4px}
@@ -6121,6 +6127,21 @@ const RD = {
   dupeMinLen: 20,       // shorter than this, identical text is coincidence, not copypasta
   substantive: 20,      // 38% of reviews are under this. Reported, never filtered.
   pageDelayMs: 250,     // gentle on the Worker's shared egress IP
+
+  // A REVIEW COUNT IS NOT A BUDGET (§21.2). Measured live 2026-09-02 across five games,
+  // formatting each review exactly as the REVIEWS block does: a compacted line costs 57
+  // chars on Dota 2 and 185 on Valheim — a 3x spread, so the same "1000" is 60 KB on one
+  // game and 163 KB on another. The size the reader picks is therefore a TARGET, and this
+  // is the ceiling that makes it safe on the heavy end. It prices the REVIEWS block only;
+  // the instructions and header add ~18 KB on top, so a budget-capped bundle lands at
+  // ~318 KB — about 82k tokens at the ~3.9 chars per token this bundle measures at, which
+  // still leaves a 200k-context model most of its window for the counting work it was
+  // handed. It only ever binds at 2000 on a text-heavy game (Valheim's 2000 is 312 KB);
+  // at 1000 and below nothing reaches it.
+  charBudget: 300 * 1024,
+  // The fixed part of a review line — "▲ 12.4h 2026-09-02 ↑7 [now][top] | " and its newline.
+  // Only used to price a page during the fetch, where the flags are not yet decided.
+  lineOverhead: 40,
 };
 
 // Whitelisted tags only. The probe's first regex matched any [word] and reported
@@ -6128,18 +6149,24 @@ const RD = {
 // out of a review. Never widen this to a generic bracket match.
 const RD_BBCODE = /\[\/?(?:b|i|u|h[1-3]|url|quote|spoiler|list|olist|\*|strike|code|noparse|table|tr|th|td|img|previewyoutube|hr)(?:=[^\]]{0,200})?\]/gi;
 
-// Sample size is a user choice, not a constant (plan §15.3). 500 stays the default — ~21k
-// tokens raw, ~14k after the cap; 300 is the cheap read, and 1000 is for slow games where
-// 500 reviews barely reach back a year. More reviews buy HISTORY, not accuracy: the counting
-// floor is the model's, not the sample's, which is why this only became safe once §16
-// precomputed the arithmetic.
+// Sample size is a user choice, not a constant (plan §15.3). 500 stays the default; 300 is
+// the cheap read, and 1000 and 2000 are for busy games where 500 reviews reach back days
+// rather than months — 3.4 of them on Cyberpunk 2077, measured (§21.3). More reviews buy
+// HISTORY, not accuracy: the counting floor is the model's, not the sample's, which is why
+// this only became safe once §16 precomputed the arithmetic.
+//
+// 2000 is the ceiling, and it is an AI limit, not a Steam one — Steam paginates past 12,000
+// without complaint (§21.1). At ~47 tokens per review on a text-heavy game, 2000 is ~92k
+// tokens with the prompt; 3000 would be ~126k, which is more of a 200k window spent holding
+// the list than reasoning over it. Every size is additionally capped by RD.charBudget,
+// because the review count says nothing about how big the bundle actually gets.
 //
 // Ordered smallest → largest, which deliberately OVERRIDES QTPD's "default leftmost" rule for
 // segmented controls (§18.2). These three options are a number line, and 500·300·1000 reads as
 // a typo — the eye checks the ordering before it reads the values, so a scrambled row costs
 // more attention than a default that is not first. The lit pill is what says which is the
 // default, and RD_DEFAULT_SIZE is the one place that decides it.
-const RD_SIZES = [300, 500, 1000];
+const RD_SIZES = [300, 500, 1000, 2000];
 const RD_DEFAULT_SIZE = 500;
 // The "bigger sample buys history, not accuracy" argument, per option, on the option itself.
 // It used to be three lines of body copy above the row; nobody needs it twice, and the person
@@ -6147,7 +6174,8 @@ const RD_DEFAULT_SIZE = 500;
 const RD_SIZE_TIP = {
   300:  "The cheap read — a third of the tokens. Plenty on a quiet game, where 300 reviews already cover the same years 1000 would.",
   500:  "The default. Balanced cost and reach; on a busy game it may only go back a few months.",
-  1000: "Deepest history. On a busy game this is the only option that reaches back past the last patch cycle — and it costs the most tokens.",
+  1000: "Deep history. On a busy game this is the first option that reaches back past the last patch cycle — and it costs three times 300's tokens.",
+  2000: "The most history available. On a busy game 500 reviews cover days, not months, and this is what reaches a real before-and-after. Big enough that most chat boxes will cut the paste — plan on attaching the .txt instead.",
 };
 
 // §18.4 — depth of the REPORT, not of the sample. Advanced is the v7 skeleton this file has
@@ -6227,6 +6255,15 @@ function rdArtRatio(t){
 }
 function rdNormKey(t){ return t.toLowerCase().replace(/[^a-z0-9]/g, ""); }
 
+// What one review will cost in the finished bundle, priced during the fetch — before
+// rdCompact has run, so it redoes the cheap part of it. Deliberately an UPPER bound:
+// compaction only ever removes reviews (art, duplicates, empties), never adds length, so a
+// budget met here is a budget met in the output.
+function rdLineCost(rv){
+  const t = (rv.review || "").replace(RD_BBCODE, " ").replace(/\s+/g, " ").trim();
+  return Math.min(t.length, RD.cap) + RD.lineOverhead;
+}
+
 // One pass over the raw reviews: clean the text, drop what would poison the counting,
 // and report every drop so the bundle header can state what happened to the sample.
 function rdCompact(raw){
@@ -6296,7 +6333,7 @@ async function rdCollect(appid, lang, size, onProgress, signal){
   const overall = lang === "all" ? scoped : await rdSummary(appid, "all", signal);
 
   const raw = [];
-  let cursor = "*";
+  let cursor = "*", spent = 0;
   for(let p = 1; p <= pages; p++){
     onProgress(`page ${p}/${pages} · ${raw.length} reviews`);
     const d = await rdCall({ appid, language:lang, purchase_type:"all",
@@ -6304,12 +6341,36 @@ async function rdCollect(appid, lang, size, onProgress, signal){
                              filter_offtopic_activity:0 }, signal);
     const batch = d.reviews || [];
     raw.push(...batch);
+    for(const rv of batch) spent += rdLineCost(rv);
     const next = d.cursor;
-    if(!batch.length || batch.length < RD.perPage || !next || next === cursor) break;
+    // A SHORT PAGE IS NOT THE END OF THE LIST (§21.1). This used to break on
+    // `batch.length < RD.perPage` and that was wrong: measured live 2026-09-02, Steam serves
+    // 98-99 on roughly 2% of pages — a gap where a review was deleted between the cursor
+    // being issued and the page being served — and the cursor keeps advancing normally
+    // afterwards (120 clean pages / 12,000 reviews on both Cyberpunk 2077 and Valheim, zero
+    // duplicates). At 2% a page, a ten-page pull ended early about one time in five, and it
+    // did so SILENTLY: the header dutifully reported the short sample it was handed, so the
+    // only symptom was a digest covering less time than it should have. Only an empty page
+    // or a cursor that stops advancing means Steam is genuinely out of reviews.
+    if(!batch.length || !next || next === cursor) break;
+    if(spent >= RD.charBudget) break;       // trimmed exactly below; no point fetching more
     cursor = next;
     if(p < pages) await new Promise(r => setTimeout(r, RD.pageDelayMs));
   }
-  return { raw: raw.slice(0, size), scoped:scoped.query_summary || {}, overall:overall.query_summary || {} };
+
+  // Budget trim (RD.charBudget). Cuts from the OLD end, so what survives is always the
+  // newest run of reviews — the sample stays a clean "most recent N", which is the one
+  // property every window, trend and topic count in the bundle is computed against.
+  let out = raw.slice(0, size), budgetTrimmed = 0, cost = 0, i = 0;
+  for(; i < out.length; i++){
+    const c = rdLineCost(out[i]);
+    if(cost + c > RD.charBudget) break;
+    cost += c;
+  }
+  if(i < out.length){ budgetTrimmed = out.length - i; out = out.slice(0, i); }
+
+  return { raw: out, budgetTrimmed,
+           scoped:scoped.query_summary || {}, overall:overall.query_summary || {} };
 }
 
 // The prompts are their own files so they can be iterated without touching this 6,700-line
@@ -6666,7 +6727,7 @@ function rdFocusBlock(focus){
 }
 
 function rdBuildBundle(g, data, lang, prompt, focus){
-  const { raw, scoped, overall } = data;
+  const { raw, scoped, overall, budgetTrimmed } = data;
   const { rows, dropped, truncated } = rdCompact(raw);
 
   const up = rows.filter(r => r.rv.voted_up).length;
@@ -6735,6 +6796,10 @@ function rdBuildBundle(g, data, lang, prompt, focus){
   L.push(`  substantive: ${substantive} of ${rows.length} have more than ${RD.substantive} characters of text`);
   L.push(`  off-topic / review-bombing reviews: INCLUDED`);
   L.push(`  excluded: ${dropped.art} ASCII-art · ${dropped.dupe} duplicates · ${dropped.empty} empty · ${truncated} truncated at ${RD.cap} chars`);
+  // The reader asked for N and got fewer. Everything else in this header owns up to what it
+  // did to the sample; a size cap that stayed quiet would be the one exception.
+  if(budgetTrimmed)
+    L.push(`  size cap: ${rdPlural(budgetTrimmed, "oldest review")} dropped — this game's reviews are long enough that the full request would not fit in one AI prompt`);
   if(engShare != null) L.push(`  language: english only (~${engShare}% of this game's reviews; ${100-engShare}% are other languages)`);
 
   // Everything below is arithmetic, and arithmetic is the one thing an AI reading 500 rows
@@ -6884,25 +6949,71 @@ function rdSyncEntryTitles(){
   document.querySelectorAll("[data-rdopen]").forEach(b => b.title = rdEntryTitle());
 }
 
+// PASTE LENGTH (§21.4) — the failure this exists to stop.
+// Chat composers do not refuse a long paste, they silently truncate it. Observed in Gemini: a
+// 1000-review digest arrives cut off partway through, and because this bundle leads with the
+// INSTRUCTIONS and ends with the reviews, the model reads a plausible-looking fragment and
+// answers from it. Nothing in the reply says it only saw part of the sample. The footer's old
+// Download tooltip assumed a composer would REFUSE text this long — that is the polite failure
+// mode, and not the one that actually happens.
+// Attaching the same text as a .txt has no such limit anywhere, so past these sizes the file
+// is the route and the warning says so in as many words.
+// Thresholds sit on measured bundles (2026-09-02): Dota 2 at 500 is 26 KB and Stardew Valley
+// 52 KB — routine, no warning; Cyberpunk 2077 at 500 is 75 KB and Valheim 89 KB; a 1000-review
+// pull runs 60-163 KB, which is the range the truncation was seen in, so 60 KB is where the
+// caution starts. Above 150 KB assume the paste WILL be cut and lead with the file.
+const RD_PASTE_WARN = 60 * 1024;
+const RD_PASTE_HARD = 150 * 1024;
+
+function rdPasteAdvice(len){
+  if(len < RD_PASTE_WARN) return null;
+  const kb = Math.round(len / 1024);
+  if(len < RD_PASTE_HARD) return { hard:false, html:
+    `<b>${kb} KB — long enough that some chat composers will cut it.</b> They truncate silently
+     rather than refusing, and since the reviews are at the end, the AI answers from whatever
+     survived without ever saying so. If the reply ignores the requested format or reports far
+     fewer reviews than you asked for, that is what happened — use <b>Download .txt</b> and
+     attach the file to the chat instead.` };
+  return { hard:true, html:
+    `<b>${kb} KB — too long to paste.</b> Gemini and most other composers will cut this partway
+     through, and the AI will analyse the fragment without telling you. Use <b>Download .txt</b>
+     and attach the file to the chat instead — file uploads have no such limit, and all three
+     accept one.` };
+}
+
 function rdRenderResult(bundle){
   const body = document.getElementById("rdBody"), foot = document.getElementById("rdFoot");
   const kb = (bundle.length / 1024).toFixed(0), tok = Math.round(bundle.length / 4 / 100) / 10;
+  const warn = rdPasteAdvice(bundle.length);
+  const hard = !!(warn && warn.hard);
   body.innerHTML =
-    `<p class="rd-note">Ready. Text will be copied — paste in the chat of your choice
-     (<b>${rdPasteKey()}</b>).</p>
+    (warn ? `<div class="rd-warn${hard ? " hard" : ""}" id="rdWarn">${warn.html}</div>` : "") +
+    `<p class="rd-note">Ready. ${hard
+       ? `Download it and attach the file in the chat of your choice.`
+       : `Text will be copied — paste in the chat of your choice (<b>${rdPasteKey()}</b>).`}</p>
      <textarea class="rd-out" id="rdOut" readonly spellcheck="false"></textarea>`;
   document.getElementById("rdOut").value = bundle;
   // The three AI buttons live HERE, in the footer, next to Copy all — they are actions, and
   // they were sitting mid-body dressed as another settings row. Each one copies AND opens, so
   // Copy all is simply the same action without the tab; putting them side by side says that
-  // without a paragraph explaining it. Download .txt is the escape hatch (a composer that
-  // refuses ${kb} KB), so the spacer strands it on the far right, away from the normal path.
-  foot.innerHTML =
-    `<button type="button" class="rd-go" id="rdCopy" title="Copy the digest to your clipboard and stay here.">Copy all</button>
-     ${RD_AI.map(a => `<button type="button" class="rd-opt" data-rdai="${a.key}" title="Copies the digest, then opens a blank ${esc(a.label)} chat in a new tab — press ${rdPasteKey()} there. ${kb} KB is far past what any link can carry, so the paste is the one step that can't be removed.">${esc(a.label)} ↗</button>`).join("")}
-     <span class="rd-spacer"></span>
-     <span class="rd-size">${kb} KB · ~${tok}k tokens</span>
-     <button type="button" class="rd-opt" id="rdDl" title="Save as a .txt file and attach it instead — use this if a chat composer refuses text this long. All three accept the file.">Download .txt</button>`;
+  // without a paragraph explaining it. Download .txt is normally the escape hatch, so the
+  // spacer strands it on the far right, away from the normal path.
+  // Past the hard threshold that inverts: the paste is the step that does not work, so the file
+  // leads the row as the primary and Copy all drops to a secondary. The AI buttons stay either
+  // way — they still open the right tab, and every tooltip and toast on that path says to
+  // attach the file rather than paste.
+  const dl = `<button type="button" class="rd-${hard ? "go" : "opt"}" id="rdDl" title="${hard
+    ? `Save as a .txt and attach it in the chat — at ${kb} KB the paste gets cut partway through, and all three accept the file.`
+    : "Save as a .txt file and attach it instead — use this if a chat composer refuses text this long. All three accept the file."}">Download .txt</button>`;
+  const copy = `<button type="button" class="rd-${hard ? "opt" : "go"}" id="rdCopy" title="${hard
+    ? `Copy the digest anyway — ${kb} KB is past what most composers keep, so check that the reply quotes the right number of reviews.`
+    : "Copy the digest to your clipboard and stay here."}">Copy all</button>`;
+  const ai = RD_AI.map(a => `<button type="button" class="rd-opt" data-rdai="${a.key}" title="${hard
+    ? `Opens a blank ${esc(a.label)} chat in a new tab and copies the digest — but at ${kb} KB the paste will be cut, so attach the downloaded .txt there instead.`
+    : `Copies the digest, then opens a blank ${esc(a.label)} chat in a new tab — press ${rdPasteKey()} there. ${kb} KB is far past what any link can carry, so the paste is the one step that can't be removed.`}">${esc(a.label)} ↗</button>`).join("");
+  foot.innerHTML = hard
+    ? `${dl}${copy}${ai}<span class="rd-spacer"></span><span class="rd-size">${kb} KB · ~${tok}k tokens</span>`
+    : `${copy}${ai}<span class="rd-spacer"></span><span class="rd-size">${kb} KB · ~${tok}k tokens</span>${dl}`;
 }
 
 async function rdRun(){
@@ -7022,8 +7133,13 @@ document.addEventListener("click", e => {
     return;
   }
   if(e.target.closest("#rdCopy")){
+    // A digest past the hard threshold is copied fine and PASTED badly, so the confirmation
+    // has to repeat what the panel said rather than declare success (§21.4).
+    const big = rdPasteAdvice(rdState.bundle.length);
     rdCopyBundle()
-      .then(() => toast("Digest copied — paste it into an AI.", "ok", 4000))
+      .then(() => big && big.hard
+        ? toast("Copied — but most composers will cut a paste this long. If the reply looks wrong, download the .txt and attach it instead.", "err", 9000)
+        : toast("Digest copied — paste it into an AI.", "ok", 4000))
       .catch(() => toast("Couldn't reach the clipboard — select the box and copy it by hand.", "err", 5000));
     return;
   }
@@ -7036,9 +7152,12 @@ document.addEventListener("click", e => {
     // microtask with the gesture spent, and the popup blocker eats the tab. So the write is
     // STARTED here and the tab is opened synchronously behind it; only the toast waits.
     const copied = rdCopyBundle();
+    const big = rdPasteAdvice(rdState.bundle.length);
     window.open(spec.url, "_blank", "noopener");
     copied
-      .then(() => toast(`Digest copied — press <b>${rdPasteKey()}</b> in the ${esc(spec.label)} tab that just opened.`, "ok", 7000))
+      .then(() => big && big.hard
+        ? toast(`Opened ${esc(spec.label)} — but this digest is too long to paste. Use <b>Download .txt</b> and attach the file in that tab instead.`, "err", 10000)
+        : toast(`Digest copied — press <b>${rdPasteKey()}</b> in the ${esc(spec.label)} tab that just opened.`, "ok", 7000))
       .catch(() => toast(`Opened ${esc(spec.label)}, but the clipboard was blocked — copy the box by hand and paste it there.`, "err", 7000));
     return;
   }
