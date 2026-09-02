@@ -6167,9 +6167,9 @@ const RD_SIZE_TIP = {
 // is worse than no tooltip.
 const RD_MODES = [
   { key:"simple",   label:"Simplified", file:"review_prompt_simple.md",
-    tip:"Plain read, no numbers. Sections: Summary · Who it's for · Best and worst." },
+    tip:"Plain read, no numbers. Sections: game title · Summary · Who it's for · Best and worst." },
   { key:"advanced", label:"Advanced",   file:"review_prompt.md",
-    tip:"Everything in Simplified plus the working: Integrity · Snapshot · Who it's for · Loved vs hated · Where the complaints land · Notes · Issues. Every complaint counted and set against the substantive-review count." },
+    tip:"Everything in Simplified plus the working: game title · Snapshot · Who it's for · Loved vs hated · Where the complaints land · Notes · Issues · Integrity footer. Every complaint counted and set against the substantive-review count." },
 ];
 const RD_DEFAULT_MODE = "advanced";        // what this page shipped with; Simplified is the addition
 
@@ -6330,7 +6330,11 @@ complaint. Percentages use the substantive-review count from the OVERVIEW. The f
 is max(5 reviews, 2% of substantive); anything under it goes to the Other tally. Copy the
 TIMELINE block's numbers; never recompute them.
 
-Output in this order, and nothing else — a blank line before every table: (1) an INTEGRITY line;
+Output in this order, and nothing else — a blank line before every table: (1) \`# <the game's
+title>\` as the first line, copied character for character from the GAME: line at the top of
+this bundle — never abbreviated, translated or written from memory — then one italic line
+carrying the sample's date range, its review count and the appid, copied from the REVIEWS: and
+SAMPLE lines; the reader is running several games at once and needs to tell the reports apart;
 (2) a Snapshot table headed \`| Field | Value |\` — verdict in 12 words, the NOW-window sentiment
 and trend from TIMELINE, the top praise, the issue with the highest Now count, and what is
 dragging the score (top issue as a % of all ▼ reviews); (3) "Who it's for" — a **Buy it if you**
@@ -6342,7 +6346,11 @@ its % of substantive; (6) at most 5 one-line Notes, used only for what a number 
 (7) "Issues" LAST — at most 10 rows of bucket, category, review count, how many carry the [now]
 flag, % of substantive, a raw ▼-first "Quit / stayed" split, and 8 words on what they say,
 sorted by the Now count. If one concrete complaint clears 8% of substantive, give it one row
-named in the players' own words and sort it first. No introduction, no methodology, no closing.
+named in the players' own words and sort it first; (8) LAST, under a \`---\` rule, one INTEGRITY
+line: how many reviews you read, the denominator, and OK or what went wrong. It goes at the
+bottom because it is the receipt, not the finding — the one exception is counting you cannot
+trust, which moves it directly under the title and stops the report there. No introduction, no
+methodology, no closing.
 
 TOPIC MENTIONS is a regex hit count, not an answer: check your own counts against it, explain
 any that differ by more than half in Notes, and never reproduce the table. Obey the COVERAGE
@@ -6360,8 +6368,14 @@ one review counts once for a thing however many times it says it. Count complain
 TIMELINE block; copy its numbers. TOPIC MENTIONS is a regex floor for checking your own
 counting against — never reproduce it and never quote it as an answer.
 
-No percentages anywhere, and no issue table. Output these three sections in this order and
-nothing else — a blank line before the table:
+No percentages anywhere, and no issue table. Output a title and these three sections in this
+order and nothing else — a blank line before the table:
+
+# <the game's title>
+First line, copied character for character from the GAME: line at the top of this bundle —
+never abbreviated, translated or written from memory. Under it, one italic line with the
+sample's date range and size, copied from the REVIEWS: line. The reader is running several
+games at once and needs to tell the answers apart.
 
 ### Summary
 3-5 sentences of plain prose: what players actually say about this game right now, what it
@@ -6383,7 +6397,8 @@ If a READER FOCUS block is present, add a fourth section \`### What you asked ab
 line per focus: the focus, its review count, and one sentence on what they say. Report zero as
 zero — that is the answer he came for. Counts only, no advice about whether he should care.
 
-No introduction, no methodology, no closing paragraph, no extra sections.`;
+End with one italic line under a \`---\` rule: how many reviews were read and how many were
+substantive. No introduction, no methodology, no closing paragraph, no extra sections.`;
 
 function rdModeSpec(key){
   return RD_MODES.find(m => m.key === key) || RD_MODES.find(m => m.key === RD_DEFAULT_MODE);
@@ -6686,6 +6701,15 @@ function rdBuildBundle(g, data, lang, prompt, focus){
   const vm = prompt.match(/^\s*<!--\s*(v[\w.\-]+)\s*-->\s*\n?/i);
   if(vm){ promptVer = " · prompt " + vm[1]; promptBody = prompt.slice(vm[0].length); }
   L.push(`=== QTPD REVIEW DIGEST${promptVer} ===`);
+  // §18.5 — WHICH GAME, stated before anything else. The title used to appear once, in
+  // OVERVIEW, ~230 lines of instructions down the paste: fine for the model, useless for the
+  // human scrolling back through four digests to find the one he wants, and far enough from
+  // the report's first line that models routinely opened on a verdict with no game attached.
+  // Both prompts now copy these two lines into their heading, so they are load-bearing —
+  // renaming the `GAME:` / `REVIEWS:` labels means editing both prompt files with them.
+  L.push(`GAME: ${g.title}  (appid ${g.appid})`);
+  if(times.length)
+    L.push(`REVIEWS: ${rows.length} sampled · ${rdDay(times[0])} to ${rdDay(times[times.length-1])}`);
   L.push("");
   L.push("--- INSTRUCTIONS ---");
   L.push(promptBody.trim());

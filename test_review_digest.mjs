@@ -171,6 +171,15 @@ const check = (cond, msg) => { console.log((cond ? "  ok:  " : "  FAIL:") + " " 
 check(gridBtns > 0, `grid card Reviews button rendered (${gridBtns})`);
 check(/^=== QTPD REVIEW DIGEST( · prompt \S+)? ===/.test(bundle),
       "title line present, carrying the prompt version when the file declares one");
+// §18.5. WHICH GAME, above the instructions rather than 230 lines into them. Both prompts
+// copy these two lines into the report's heading, so they are an interface, not decoration:
+// asserted by label and by position, ahead of --- INSTRUCTIONS ---.
+{
+  const head = bundle.slice(0, bundle.indexOf("--- INSTRUCTIONS ---"));
+  check(/^GAME: .+\(appid \d+\)$/m.test(head), "game name and appid stated above the instructions");
+  check(/^REVIEWS: \d+ sampled · \d{4}-\d{2}-\d{2} to \d{4}-\d{2}-\d{2}$/m.test(head),
+        "sample size and date span stated above the instructions");
+}
 check(/ALL-TIME \(all languages\).*983,491/.test(bundle), "all-language anchor printed");
 check(/ALL-TIME \(english only\): 89% of 417,281/.test(bundle), "english anchor printed and scoped");
 check(/language: english only \(~42%/.test(bundle), "non-English share reported");
@@ -287,6 +296,15 @@ check(bundle.includes("--- INSTRUCTIONS ---"), "instructions section present");
   check(/\| Quit \/ stayed \| What they say \|/.test(bundle), "Issues header names the split column in words");
   check(/max\(5 reviews, 2% of substantive\)/.test(bundle), "row floor raised off the fixed 3");
   check(/headline row/i.test(bundle), "headline-row rule carried in the instructions");
+  // §18.5. The report opens on the game's name and closes on the receipt. Both are asserted
+  // by position against the skeleton's own sections: a title that drifts below the Snapshot,
+  // or an INTEGRITY line that creeps back to the top, is the failure this was written to fix.
+  const title = bundle.indexOf("\n# <game title");
+  check(title > 0 && title < at("### Snapshot"), "skeleton opens on the game title, above the Snapshot");
+  check(/copied character for character from the GAME: line/.test(bundle),
+        "title is ordered copied verbatim from the GAME: line, not recalled");
+  const integrity = bundle.indexOf("\nINTEGRITY: read");
+  check(integrity > at("### Issues"), "INTEGRITY demoted to a footer below the Issues table");
 }
 {
   // Order is INSTRUCTIONS -> OVERVIEW -> REVIEWS. Asserted by position, not presence, so a
@@ -512,6 +530,12 @@ errors.slice(0, 5).forEach(e => console.log("     " + e));
   check(seq.every(([, i]) => i > 0), `simple sections present (${seq.filter(([, i]) => i < 0).map(([h]) => h).join(", ") || "all"})`);
   check(seq.every(([, i], n) => n === 0 || i > seq[n - 1][1]), "simple sections ordered summary -> who -> best/worst");
   check(b.includes("| # | Best | N | Worst | N |"), "best/worst table keeps its raw review counts");
+  const sTitle = b.indexOf("\n# <game title");
+  check(sTitle > 0 && sTitle < at("### Summary"), "simple skeleton opens on the game title too");
+  check(/copied character for character from the GAME: line/.test(b),
+        "simple title is ordered copied verbatim from the GAME: line");
+  check(b.indexOf("*Read <N> of <N> reviews") > at("### Best and worst"),
+        "simple report ends on the one-line sample footer");
   // The advanced skeleton's own headings must be gone. "### Notes" is checked too: it is the
   // one heading both files could plausibly want, and it is exactly the kind of section that
   // creeps back into a report meant to be three sections long.

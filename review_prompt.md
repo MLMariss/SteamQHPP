@@ -1,16 +1,29 @@
-<!-- v7 -->
-You are analysing real Steam reviews for one game. Below these instructions you will find an
+<!-- v8 -->
+You are analysing real Steam reviews for one game. The game's name and the span of the sample
+are on the `GAME:` and `REVIEWS:` lines at the very top of this bundle, above these
+instructions, and repeated in the OVERVIEW block. Below these instructions you will find that
 OVERVIEW block, a TIMELINE block, a TOPIC MENTIONS block, then the reviews, one per line.
 A READER FOCUS block may also appear directly under these instructions; if it does, it is
 binding and its rules override the caps below.
+
+**The report opens with the game's name.** The reader runs several games in one sitting and
+ends up with three or four of these in one conversation; a report that opens on a verdict and
+never names its game is unusable to him. So the first line is
+`# <the title from the GAME: line, copied character for character>` — never abbreviated, never
+translated, never re-spelled from what you happen to know about the game, never the franchise
+name in place of this edition's, and never with a subtitle trimmed off. The second line carries
+the sample's date range and size. Both are copied, not recalled. If no `GAME:` line is present,
+write `# (game name not in this bundle)` rather than guessing.
 
 **The counts are the whole point of this report.** A description of what players think, with no
 numbers attached, is worthless here — the reader could get that from reading five reviews
 himself. What he cannot do by hand is count 500. That is your job.
 
-So: **every issue row must carry a review count.** If you cannot count reliably, say so on the
-INTEGRITY line and stop. Do not quietly replace the tables with prose — that is the one
-failure mode this report must not have.
+So: **every issue row must carry a review count.** If you cannot count reliably, put the
+INTEGRITY line at the TOP of the report, directly under the title lines, say what went wrong
+and stop there. Do not quietly replace the tables with prose — that is the one failure mode
+this report must not have. When the counting held up, INTEGRITY goes at the BOTTOM instead: it
+is the receipt, not the finding, and nobody reading this came for it.
 
 ## Line format
 
@@ -117,8 +130,9 @@ say so in Notes — it means these buckets are wrong for this game.
 
 ## OUTPUT — copy this skeleton exactly and fill in every `< >`
 
-The order is the point: **the first screen is the answer, everything after it is the
-evidence.** The Issues table comes last because it is the working, not the finding.
+The order is the point: **the title says which game, the first screen is the answer, and
+everything after it is the evidence.** The Issues table comes last because it is the working,
+not the finding, and INTEGRITY comes after even that because it is the receipt.
 
 Do not add sections. Do not rename them. Do not reorder them. Do not write an executive
 summary, an introduction, a methodology note, or a closing paragraph. Leave a blank line
@@ -126,7 +140,8 @@ before every table — without one, strict Markdown renderers drop the table and
 pipes. This skeleton, and nothing else:
 
 ```
-INTEGRITY: read <N> of <N> reviews · denominator <N> substantive · <OK, or MISMATCH — stopping>
+# <game title, copied character for character from the GAME: line>
+*Steam reviews <first date> to <last date> · <N> reviews sampled · appid <N>*
 
 ### Snapshot
 
@@ -178,7 +193,17 @@ INTEGRITY: read <N> of <N> reviews · denominator <N> substantive · <OK, or MIS
 *Quit / stayed — of the reviewers who raised this: how many refused to recommend / recommended anyway.*
 
 Floor: <N> reviews. Other or below floor: <N> reviews.
+
+---
+INTEGRITY: read <N> of <N> reviews · denominator <N> substantive · <OK, or what went wrong>
 ```
+
+**The title lines** — `# <name>`, then one italic line carrying the sample's date range, its
+review count and the appid, all copied from the `GAME:` and `REVIEWS:` lines at the top of the
+bundle and the OVERVIEW's `SAMPLE` lines. Nothing editorial in either: no verdict, no adjective,
+no score. The reader is using these two lines to tell four reports apart at a glance, and two
+runs over the same game differ only by the second one, so neither is optional and neither is
+the place for a finding.
 
 **`### Snapshot`** — the first five rows are the answer; the rest is the evidence. Fill them
 in that order. The header row must read `| Field | Value |`: an empty `| | |` header is
@@ -204,6 +229,12 @@ to the complaint rate, and it is not supposed to.
 qualifies. **Sort by `Now`, then by Reviews**, with the headline row pinned first — the
 reader is buying the game today, so what is still being complained about outranks what once
 was.
+
+**`INTEGRITY`, last** — one line under a `---` rule, after everything else, saying how many
+reviews you read, the denominator you used, and `OK` or what went wrong. It is here rather
+than at the top because it answers a question about the report, not about the game. The one
+exception is the failure case above: counting you cannot trust moves it to the top, directly
+under the title lines, where it stops the report instead of footnoting it.
 
 Use Notes only where it changes the picture: an issue whose `Now` count has collapsed, so the
 table's total overstates it; a top complaint that is really an **expectation mismatch** —
