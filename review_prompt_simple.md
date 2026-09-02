@@ -1,8 +1,19 @@
-<!-- v7-simple -->
+<!-- v8-simple -->
 You are analysing real Steam reviews for one game, for someone who wants a straight answer and
-not a report. Below these instructions you will find an OVERVIEW block, a TIMELINE block, a
-TOPIC MENTIONS block, then the reviews, one per line. A READER FOCUS block may also appear
-directly under these instructions; if it does, it is binding.
+not a report. The game's name and the span of the sample are on the `GAME:` and `REVIEWS:`
+lines at the very top of this bundle, above these instructions, and repeated in the OVERVIEW
+block. Below these instructions you will find that OVERVIEW block, a TIMELINE block, a TOPIC
+MENTIONS block, then the reviews, one per line. A READER FOCUS block may also appear directly
+under these instructions; if it does, it is binding.
+
+**The answer opens with the game's name.** He is running several games in one sitting and ends
+up with three or four of these in one conversation; an answer that never names its game is
+unusable to him. So the first line is
+`# <the title from the GAME: line, copied character for character>` — never abbreviated, never
+translated, never re-spelled from what you happen to know about the game, never the franchise
+name in place of this edition's, and never with a subtitle trimmed off. The second line carries
+the sample's date range and size. Both are copied, not recalled. If no `GAME:` line is present,
+write `# (game name not in this bundle)` rather than guessing.
 
 This is the **short** report. Its whole value is that somebody read 500 reviews and you did
 not have to — so it still has to be *true*. Short does not mean vague, and it does not mean
@@ -51,13 +62,17 @@ sample · `[EA]` early access · `[free]` free/non-Steam copy · `[deck]` Steam 
 ## OUTPUT — copy this skeleton exactly and fill in every `< >`
 
 **No percentages anywhere.** Not in the prose, not in the table, not in parentheses. Raw review
-counts only. No issue table, no bucket table, no methodology, no integrity line, no
-introduction and no closing paragraph. Leave a blank line before the table — without one,
-strict Markdown renderers drop it and print raw pipes.
+counts only. No issue table, no bucket table, no methodology, no introduction and no closing
+paragraph. The only thing under the last section is the one-line sample footer in the skeleton.
+Leave a blank line before the table — without one, strict Markdown renderers drop it and print
+raw pipes.
 
 This, and nothing else:
 
 ```
+# <game title, copied character for character from the GAME: line>
+*Steam reviews <first date> to <last date> · <N> reviews sampled*
+
 ### Summary
 
 <3-5 sentences of plain prose. What players actually say about this game, what it does well,
@@ -75,7 +90,21 @@ would tell a friend, not the way you would write a review.>
 | # | Best | N | Worst | N |
 |---|---|---:|---|---:|
 | 1 | <thing> | <N> | <thing> | <N> |
+
+---
+*Read <N> of <N> reviews · <N> of them substantive.*
 ```
+
+**The title lines** — `# <name>`, then one italic line with the sample's date range and size,
+both copied from the `GAME:` and `REVIEWS:` lines at the top of the bundle and the OVERVIEW's
+`SAMPLE` lines. Nothing editorial in either: no verdict, no adjective, no score. He is using
+them to tell four answers apart at a glance, and two runs over the same game differ only by the
+second line.
+
+**The footer** — one italic line under a `---` rule, at the very bottom, after everything else.
+It is the receipt: how many reviews were read and how many carried enough text to count. It
+goes last precisely because it is not what he came for, and it never grows into a methodology
+note.
 
 **`### Summary`** — prose, no bullets, no headings inside it. Do not soften anything: if the
 picture is bad, say it is bad.
@@ -94,7 +123,7 @@ count of 3 on either side, leave that cell empty rather than padding it.
 
 ## If a READER FOCUS block is present
 
-Add one more section, last:
+Add one more section after `### Best and worst`, above the footer line:
 
 ```
 ### What you asked about

@@ -1002,3 +1002,67 @@ buttons are asserted **in `#rdFoot`**, the paste shortcut on the body one-liner 
 handoff button's tooltip, the oversized-paste route on `Download .txt`'s own title, and the
 no-untitled-option rule above. Both states were also rendered in Chromium at 1280×900 and
 390×800 and read back as screenshots.
+
+---
+
+## 20. Shipped 2026-09-02 — which game is this a report about?
+
+Prompt is **v8** / **v8-simple**. Two changes, both about the first line of the output.
+
+### 20.1 The report names its game
+
+The digest never told the reader which game he was reading about. The title appeared exactly
+once, on the OVERVIEW's `GAME:` line, roughly 230 lines of instructions into the paste — near
+enough for the model, useless for a human, and far enough from the report's own first line
+that all three models opened on a verdict with no game attached to it. That is fine for one
+game and unusable for four, which is the normal way this feature gets used: run several
+candidates in one sitting, end up with four reports in one conversation, and be unable to tell
+them apart without scrolling back to the paste.
+
+**Bundle side.** `GAME:` and `REVIEWS:` now sit directly under the `=== QTPD REVIEW DIGEST ===`
+title line, above the instructions — the name, the appid, the sample size and the date span,
+before anything else. The OVERVIEW copy stays: repeating it next to the data costs ~15 tokens
+and keeps the anchor close to the reviews it describes.
+
+**Prompt side.** Both files open on the rule and both skeletons open on the output:
+
+```
+# <game title, copied character for character from the GAME: line>
+*Steam reviews <first date> to <last date> · <N> reviews sampled · appid <N>*
+```
+
+The verbatim wording is deliberate, and it is stated twice (prose rule and skeleton) because a
+model that "tidies" a title is the whole failure mode: a trimmed subtitle, a translated name, a
+franchise name in place of the edition's, or a title written from memory rather than copied all
+produce a heading that looks right and identifies the wrong product. The second line is what
+separates two runs over the *same* game at different sample sizes, so it is not decoration
+either. Nothing editorial is allowed in either line — a verdict there defeats the one job they
+have, which is being scannable.
+
+### 20.2 INTEGRITY became a footer
+
+`INTEGRITY: read N of N reviews · denominator N substantive · OK` was the first line of every
+advanced report. It is a service announcement about the report, not a finding about the game,
+and it was occupying the position the reader's eye lands on first. It now sits last, under a
+`---` rule, below the Issues table — reachable by anyone who wants the receipt, in nobody's way.
+
+The one exception is the failure case, and it is why this is not a pure move: counting the
+model cannot trust still puts INTEGRITY at the **top**, directly under the title, where it
+stops the report rather than footnoting it. A failure notice below 200 lines of tables it is
+warning you not to trust would be worse than no notice at all.
+
+The Simplified report had no integrity line to move — it forbids one outright — so it gets the
+same idea at its own scale: one italic line at the very bottom, `*Read <N> of <N> reviews · <N>
+of them substantive.*`, and the title block above carries the date range and size. Same shape
+in both modes, nothing added to the middle of the short report.
+
+### 20.3 Verification
+
+`test_review_digest.mjs` goes from 115 to **123 checks, all passing**. The new assertions are
+positional rather than textual, because that is what actually broke: `GAME:` and `REVIEWS:`
+asserted by label *and* by sitting above `--- INSTRUCTIONS ---`; the advanced skeleton's title
+above `### Snapshot` and its INTEGRITY line below `### Issues`; the simple skeleton's title
+above `### Summary` and its footer below `### Best and worst`; and the "copied character for
+character" rule asserted in both prompts, since dropping that phrase is how the guarantee
+quietly becomes a suggestion. Both inline `RD_PROMPT_FALLBACK` entries were updated in the same
+pass — §8's stale-fallback failure mode, avoided the same way §16 and §17 avoided it.
