@@ -177,6 +177,18 @@
   .seg button:hover:not([aria-pressed="true"]){background:var(--panel-2); color:var(--text)}
   .seg button:focus-visible{outline:2px solid var(--blue); outline-offset:-2px}
 
+  /* Min-sale stepper: −5% / readout / +5%. The middle cell is a value, not a button — the two
+     steppers move it in 5-point notches. A stepper greys out when there is nowhere useful to go:
+     down at the shallowest discount currently in the results (anything lower filters nothing out),
+     up at the deepest (anything higher empties the table). Both bounds are read from the results
+     the OTHER filters produce, so they don't chase the value as you step it. */
+  .seg.salestep .saleval{font-family:var(--mono); font-size:13px; color:var(--text); padding:9px 8px;
+        min-width:54px; text-align:center; background:var(--panel-2); user-select:none;
+        display:inline-flex; align-items:center; justify-content:center}
+  .seg.salestep.changed .saleval{background:var(--gold-soft); color:var(--gold)}
+  .seg.salestep button[disabled]{opacity:.3; cursor:default}
+  .seg.salestep button[disabled]:hover{background:transparent; color:var(--muted)}
+
   /* infinite-scroll sentinel / "loading more" row */
   .loadmore{text-align:center; padding:18px; font-family:var(--mono); font-size:12px; color:var(--muted)}
 
@@ -1669,6 +1681,14 @@ try{
             <button data-pc="free" aria-pressed="true"  title="Free — free-to-play games. Shown alone, QTPD ranks them by playtime × rating (no price).">Free</button>
           </div>
         </div>
+        <div class="field" id="minSaleField" title="Min sale % — a floor on the size of the discount, so shallow cuts drop out of the table. It starts at the smallest discount in the current results (rounded down to a multiple of 5) and moves in 5% notches. Setting a floor switches Price type off Full — a full-price game has no discount to clear it.">
+          <label>Min sale %</label>
+          <div class="seg salestep" id="minSale" role="group" aria-label="Minimum discount">
+            <button id="sale-down" type="button" title="Lower the floor by 5 points. Disabled at the shallowest discount in the current results — below that it filters nothing.">−5%</button>
+            <span class="saleval" id="saleVal" aria-live="polite">—</span>
+            <button id="sale-up" type="button" title="Raise the floor by 5 points. Disabled at the deepest discount in the current results — above that nothing is left.">+5%</button>
+          </div>
+        </div>
         <div class="field rangefield">
           <label class="rangelabel" title="QTPD range — keep only games within this value band. Log scale, and it auto-fits the ends to whatever the current filters return.">QTPD range <span class="rangevals"><b id="qminv">0</b> to <b id="qmaxv">∞</b></span></label>
           <div class="rangewrap">
@@ -2079,6 +2099,13 @@ const PAGE_SIZE = 66;
 // ----- state -----
 const state = { data:null, q:"", tagQuery:"", tagsInc:new Set(), tagsExc:new Set(), tagMode:"and", priceClass:new Set(["full","sale","free"]),
                 qBasis:"after", hltbMetric:"main", minScore:0, revBands:new Set([1,2,3,4]), minPrice:null, maxPrice:null,
+                // Min sale %: null = no floor (the resting position). Any number is a multiple of 5
+                // and means "only discounts at least this deep". saleFloor/saleCeil are the
+                // shallowest/deepest discount in the results the OTHER filters produce, floored to
+                // a multiple of 5 — they bound the stepper. minSaleForcedFull remembers that
+                // activating the floor is what un-pressed the Full price type, so clearing the
+                // floor can put it back.
+                minSale:null, minSaleForcedFull:false, saleFloor:null, saleCeil:null,
                 trendSet:new Set(["up","flat","down"]), updatedWithin:"any",
                 qMinVal:0, qMaxVal:0, qMaxUnbounded:true, qDomain:1, qRangeTouched:false,
                 hidden:new Set(),
@@ -2498,6 +2525,8 @@ function updCad(g){
 }
 
 // ----- filters (all except QTPD range) -----
+// Set only for the duration of computeSaleBounds() — see the min-sale block in passNonRange().
+let IGNORE_MIN_SALE = false;
 function passNonRange(x){
   if(state.hidden.has(x.appid)) return false;     // session-hidden by the user
   if(state.q){ if(!x.title.toLowerCase().includes(state.q.trim().toLowerCase())) return false; }
@@ -2514,6 +2543,13 @@ function passNonRange(x){
   // Default {1,2,3,4} excludes only the 0-9 band (i.e. "10+"). Games with null review_count
   // fall in band 0, so they only show when the 0-9 band is enabled.
   if(state.revBands.size > 0 && !state.revBands.has(bandOf(x.review_count))) return false;
+  // Min sale % floor. Free games are exempt — they're kept or dropped by the Free price type
+  // alone, exactly as the user asked; everything else must clear the floor, which is what
+  // pushes full-price games (discount 0) out. IGNORE_MIN_SALE lets computeSaleBounds() ask
+  // "what discounts do the other filters leave?" without the floor narrowing its own bounds.
+  if(state.minSale != null && !IGNORE_MIN_SALE && !x.is_free){
+    if(!((x.discount_pct || 0) >= state.minSale)) return false;
+  }
   const p = x.is_free ? 0 : x.price_final;
   if(state.minPrice != null){ if(p == null || p < state.minPrice) return false; }
   if(state.maxPrice != null){ if(p == null || p > state.maxPrice) return false; }
@@ -2638,6 +2674,78 @@ function visibleGames(){
     return dir * (av - bv);
   });
   return g;
+}
+
+// ----- Min sale % floor -----
+// The whole control works in notches of 5. Every value it can hold — the resting floor read off
+// the data, and every step from it — is floor5()'d, so the readout never shows a stray 12% or 37%.
+const floor5 = n => Math.floor(n / 5) * 5;
+
+// Shallowest and deepest discount among the games the OTHER filters leave standing. Deliberately
+// computed with the floor itself switched off: if the bounds were read from the already-floored
+// results, the shallowest discount would always equal the floor and −5% could never light up.
+function computeSaleBounds(){
+  let lo = null, hi = null;
+  IGNORE_MIN_SALE = true;
+  try{
+    for(const x of state.data.games){
+      if(x.is_free || !(x.discount_pct > 0)) continue;
+      if(!passNonRange(x)) continue;
+      const d = x.discount_pct;
+      if(lo == null || d < lo) lo = d;
+      if(hi == null || d > hi) hi = d;
+    }
+  } finally { IGNORE_MIN_SALE = false; }
+  state.saleFloor = lo == null ? null : floor5(lo);
+  state.saleCeil  = hi == null ? null : floor5(hi);
+}
+// What the readout shows: the live floor when one is set, otherwise the resting position (the
+// shallowest discount on offer), which is a no-op as a filter and so isn't stored as one.
+function saleDisplayVal(){
+  return state.minSale != null ? state.minSale : (state.saleFloor != null ? state.saleFloor : 0);
+}
+function syncMinSaleUI(){
+  const box = document.getElementById("minSale"); if(!box) return;
+  const none = state.saleFloor == null;                       // nothing discounted in these results
+  const v = saleDisplayVal();
+  document.getElementById("saleVal").textContent = (none && state.minSale == null) ? "—" : `\u2265${v}%`;
+  // Down is dead at rest (nothing below the shallowest discount to exclude); up is dead once the
+  // floor has reached the deepest discount, where one more notch would empty the table.
+  document.getElementById("sale-down").disabled = state.minSale == null;
+  document.getElementById("sale-up").disabled   = none || v >= state.saleCeil;
+  box.classList.toggle("changed", state.minSale != null);
+}
+// Turning a floor on hides full-price games by definition, so the Full price type comes off with
+// it — and goes back on when the floor is released, but only if the floor is what removed it.
+function setMinSale(v){
+  const was = state.minSale;
+  state.minSale = v;
+  if(v != null && was == null){
+    if(state.priceClass.has("full")){
+      state.priceClass.delete("full");
+      if(!state.priceClass.size) state.priceClass.add("sale");   // never leave the set empty
+      state.minSaleForcedFull = true;
+      syncPriceClassUI();
+    }
+  } else if(v == null && was != null){
+    if(state.minSaleForcedFull){ state.priceClass.add("full"); syncPriceClassUI(); }
+    state.minSaleForcedFull = false;
+  }
+}
+function stepMinSale(dir){
+  if(dir > 0){
+    if(state.saleCeil == null) return;
+    const next = saleDisplayVal() + 5;
+    if(next > state.saleCeil) return;
+    setMinSale(next);
+  } else {
+    if(state.minSale == null) return;
+    const next = state.minSale - 5;
+    // Stepping back down to (or past) the resting floor is how the filter is switched off —
+    // at that point it excludes nothing anyway, so holding it as an "active" filter would be a lie.
+    setMinSale(next <= (state.saleFloor != null ? state.saleFloor : 0) ? null : next);
+  }
+  update();
 }
 
 // ----- QTPD log range; resets to fit on any non-range filter change -----
@@ -4008,7 +4116,7 @@ function syncPriceClassUI(){
     b.setAttribute("aria-pressed", pc === "all" ? allOn : state.priceClass.has(pc));
   });
 }
-function update(){ resetPaging(); recomputeDomain(); buildTagRail(); render(); syncURL(); }
+function update(){ resetPaging(); computeSaleBounds(); syncMinSaleUI(); recomputeDomain(); buildTagRail(); render(); syncURL(); }
 
 /* ═══════════════════════════════════════════════════════════════════════════════════════
    Lorenzo-list features (ARCHITECTURE §3.4)
@@ -4319,7 +4427,8 @@ function sectionActiveCounts(){
   const revActive = sameSet(state.revBands, [1,2,3,4]) ? 0 : 1;
   return {
     value: (state.qBasis !== "after" ? 1 : 0) + (state.hltbMetric !== "main" ? 1 : 0) + (state.hltbQuality !== "real" ? 1 : 0)
-         + ((state.minPrice != null || state.maxPrice != null) ? 1 : 0) + (state.priceClass.size < 3 ? 1 : 0) + (state.qRangeTouched ? 1 : 0),
+         + ((state.minPrice != null || state.maxPrice != null) ? 1 : 0) + (state.priceClass.size < 3 ? 1 : 0)
+         + (state.minSale != null ? 1 : 0) + (state.qRangeTouched ? 1 : 0),
     // Quality now also carries the merged Activity controls (updated-within, playtime-sort).
     quality: (state.minScore > 0 ? 1 : 0) + (state.ratingSource !== "recent" ? 1 : 0)
          + ((state.trendSet.size > 0 && state.trendSet.size < 3) ? 1 : 0) + revActive
@@ -4376,6 +4485,9 @@ function markChangedControls(){
   // Price inputs — gold the box when that bound is set
   const mp = document.getElementById("minprice"); if(mp) mp.closest(".numinput").classList.toggle("changed", state.minPrice != null);
   const xp = document.getElementById("maxprice"); if(xp) xp.closest(".numinput").classList.toggle("changed", state.maxPrice != null);
+  // Min sale % — gold the stepper while a floor is set (syncMinSaleUI paints the same class on
+  // every step; this keeps it right after the paths that touch state without stepping).
+  { const b = document.getElementById("minSale"); if(b) b.classList.toggle("changed", state.minSale != null); }
   // QTPD range — gold the label when dragged off 0–∞
   document.querySelectorAll(".rangelabel").forEach(l => l.classList.toggle("changed", !!state.qRangeTouched));
 }
@@ -4423,6 +4535,7 @@ function renderSummary(){
   if(!sameSet(state.revBands, [1,2,3,4])){ const t = [...state.revBands].sort((a,b)=>a-b).map(i => REV_LBLS[i]).join("/"); parts.push(chip("rev", state.revBands.size ? `reviews: ${t}` : "reviews: none")); }
   if(state.minPrice != null || state.maxPrice != null){ const lo = state.minPrice != null ? `$${state.minPrice}` : "$0"; const hi = state.maxPrice != null ? `$${state.maxPrice}` : "∞"; parts.push(chip("price", `${lo}–${hi}`)); }
   if(state.priceClass.size < 3){ const lbl = {full:"full price",sale:"on sale",free:"free"}; const t = ["full","sale","free"].filter(c => state.priceClass.has(c)).map(c => lbl[c]).join(" / "); parts.push(chip("pc", t)); }
+  if(state.minSale != null) parts.push(chip("minsale", `sale ≥ ${state.minSale}%`));
   if(state.trendSet.size > 0 && state.trendSet.size < 3){ const map = {up:"▲", flat:"≈", down:"▼"}; const t = ["up","flat","down"].filter(x => state.trendSet.has(x)).map(x => map[x]).join(""); parts.push(chip("trend", `trend ${t}`)); }
   if(state.updatedWithin !== "any"){ const t = state.updatedWithin === "1yr+" ? "not updated 1yr+" : `updated ≤ ${state.updatedWithin}`; parts.push(chip("upd", t)); }
   if(state.qRangeTouched){ const lo = state.qMinVal <= 0.001 ? "0" : fmtQval(state.qMinVal); const hi = state.qMaxUnbounded ? "∞" : fmtQval(state.qMaxVal); parts.push(chip("qrange", `QTPD ${lo}–${hi}`)); }
@@ -4484,7 +4597,7 @@ const SUMMARY_EDITORS = {
   tagmode:  {title:"Required tags match", cur:() => state.tagMode, opts:[["ALL",'[data-tagmode="and"]',"and"],["ANY",'[data-tagmode="or"]',"or"]]},
 };
 function openSummaryEditor(anchor, key){
-  const EXPAND = {q:["value","#q"], price:["value","#minprice"], qrange:["value","#qmin"], tags:["tags",null]};
+  const EXPAND = {q:["value","#q"], price:["value","#minprice"], minsale:["value","#sale-up"], qrange:["value","#qmin"], tags:["tags",null]};
   if(EXPAND[key]){
     setFiltersCompact(false);
     const [sec, focusSel] = EXPAND[key];
@@ -4969,6 +5082,7 @@ function syncURL(){
   if(state.minScore) p.set("minscore", state.minScore);
   { const def = [1,2,3,4].join(","), cur = [...state.revBands].sort().join(",");
     if(cur !== def) p.set("rev", cur); }
+  if(state.minSale != null) p.set("minsale", state.minSale);
   if(state.minPrice != null) p.set("pmin", state.minPrice);
   if(state.maxPrice != null) p.set("pmax", state.maxPrice);
   if(state.trendSet.size > 0 && state.trendSet.size < 3) p.set("trend", [...state.trendSet].join(","));
@@ -5027,6 +5141,18 @@ function loadFromURL(){
   setIf("rev", v => { const idxs = v.split(",").map(n => parseInt(n,10)).filter(n => n>=0 && n<REV_BANDS.length);
     state.revBands = new Set(idxs);
     syncRevButtons(); });
+  // ?minsale=N — a shared link carrying a floor. Read AFTER ?pc (above) so the Full price type,
+  // which a floor can never show anything through, comes off whatever the link asked for.
+  setIf("minsale", v => { const n = parseInt(v, 10);
+    if(!isNaN(n) && n > 0){
+      state.minSale = Math.max(5, floor5(n));
+      if(state.priceClass.has("full")){
+        state.priceClass.delete("full");
+        if(!state.priceClass.size) state.priceClass.add("sale");
+        state.minSaleForcedFull = true;
+        syncPriceClassUI();
+      }
+    } });
   setIf("pmin", v => { const n=parseFloat(v); if(!isNaN(n)){ state.minPrice=n; const el=$("#minprice"); if(el) el.value=n; } });
   setIf("pmax", v => { const n=parseFloat(v); if(!isNaN(n)){ state.maxPrice=n; const el=$("#maxprice"); if(el) el.value=n; } });
   setIf("trend", v => { state.trendSet = new Set(v.split(",").filter(x => ["up","flat","down"].includes(x)));
@@ -5117,6 +5243,7 @@ function init(data){
   if(!VIEWS.includes(state.view)) state.view = "table";
   applyLayout();        // sets grid-view/layout-card classes + the device-appropriate view buttons
   applySections();
+  computeSaleBounds(); syncMinSaleUI();
   render();
 
   window.addEventListener("popstate", () => {   // back/forward navigation
@@ -5124,6 +5251,7 @@ function init(data){
     state.q=""; state.tagsInc.clear(); state.tagsExc.clear(); state.tagMode="and"; state.priceClass=new Set(["full","sale","free"]);
     state.qBasis="after"; state.hltbMetric="main"; state.minScore=0; state.revBands=new Set([1,2,3,4]);
     state.minPrice=null; state.maxPrice=null; state.trendSet=new Set(["up","flat","down"]); state.updatedWithin="any";
+    state.minSale=null; state.minSaleForcedFull=false;
     state.tagMode="and"; state.wishOnly=false; state.sortKey="qtpd"; state.sortDir=-1; state.ratingSource="recent"; state.hltbQuality="real"; state.ptMetric="up"; state.qRangeTouched=false;
     state.flags={ ea:"any", eula:"any", fse:"any", vrOnly:"any", ai:"any", ctrl:"any", deck:"any", adultF:"any" };
     ratingScheme = RATING_SCHEME_DEFAULT;
@@ -5131,6 +5259,7 @@ function init(data){
     syncSchemeUI();
     document.querySelectorAll("[data-tagmode]").forEach(o => o.setAttribute("aria-pressed", o.dataset.tagmode===state.tagMode));
     syncPriceClassUI();
+    computeSaleBounds(); syncMinSaleUI();
     recomputeDomain(); applyURLRange(); buildTagRail(); syncSortArrows(); syncPtHeader(); syncFlagsUI(); render();
   });
 
@@ -5153,6 +5282,11 @@ function init(data){
   syncPriceClassUI();
   $$("#priceClass button").forEach(btn => btn.addEventListener("click", () => {
     const pc = btn.dataset.pc;
+    // A min-sale floor and "show full-price games" are contradictory — a full-price game has no
+    // discount to clear the floor. Rather than leave a toggle that visibly does nothing, asking
+    // for Full back (directly, or via All) releases the floor. Order matters: clear it FIRST, so
+    // setMinSale's own restore of Full can't fight the click being handled.
+    if((pc === "all" || pc === "full") && state.minSale != null) setMinSale(null);
     if(pc === "all"){
       state.priceClass = new Set(["full","sale","free"]);
     } else if(state.priceClass.has(pc)){
@@ -5164,6 +5298,8 @@ function init(data){
     syncPriceClassUI();
     update();
   }));
+  $("#sale-down").addEventListener("click", () => stepMinSale(-1));
+  $("#sale-up").addEventListener("click",   () => stepMinSale(+1));
   $("#qb-after").addEventListener("click", () => setBasis("after"));
   $("#qb-before").addEventListener("click", () => setBasis("before"));
   document.querySelectorAll("[data-metric]").forEach(b => b.addEventListener("click", () => setMetric(b.dataset.metric)));
@@ -5314,6 +5450,7 @@ function init(data){
     state.q=""; state.tagsInc.clear(); state.tagsExc.clear(); state.tagMode="and"; state.priceClass=new Set(["full","sale","free"]);
     document.querySelectorAll("[data-tagmode]").forEach(o => o.setAttribute("aria-pressed", o.dataset.tagmode==="and"));
     state.minScore=0; state.revBands=new Set([1,2,3,4]); state.minPrice=null; state.maxPrice=null; state.wishOnly=false;
+    state.minSale=null; state.minSaleForcedFull=false;
     state.trendSet=new Set(["up","flat","down"]); state.updatedWithin="any"; state.ratingSource="recent"; state.hltbQuality="real"; state.ptMetric="up";
     $("#q").value=""; $("#minprice").value=""; $("#maxprice").value="";
     syncPriceClassUI(); $("#wishOnly").setAttribute("aria-pressed","false");
