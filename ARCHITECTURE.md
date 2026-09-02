@@ -2001,6 +2001,26 @@ length. `colValue()` is the single accessor the column, the sort, the value-mete
 range slider all read, so the swap is consistent everywhere. Any other price-type selection
 uses the normal price-based score.
 
+**Min sale % floor (`state.minSale`, Sep 2026).** A stepper — `−5%` · readout · `+5%` — that
+drops shallow discounts out of the table. It is not a preset list: the resting value is read
+from the data, as the **shallowest discount currently in the results**, floored to a multiple of
+5 (`floor5`), and every step moves 5 points, so the readout can never show a stray `12%`.
+
+- `computeSaleBounds()` walks the games passing `passNonRange()` and records the shallowest and
+  deepest discount as `saleFloor` / `saleCeil`. It runs with `IGNORE_MIN_SALE` set, i.e. with the
+  floor itself switched off — otherwise the shallowest surviving discount would *always* equal
+  the floor and `−5%` could never light up.
+- `−5%` is disabled at rest (nothing below the shallowest discount is being excluded, so there is
+  nothing to relax); `+5%` is disabled once the floor reaches `saleCeil`, where one more notch
+  would empty the table. Stepping back down to the resting floor **clears** the filter
+  (`minSale = null`) rather than holding a floor that excludes nothing.
+- Setting a floor implies "only discounted games", so `setMinSale()` un-presses the **Full**
+  price type and remembers it did (`minSaleForcedFull`) so clearing the floor puts it back.
+  **Free** is deliberately left alone — a free game is exempt from the floor and is kept or
+  dropped by its own price-type toggle. The coupling runs both ways: clicking **Full** (or
+  **All**) while a floor is set releases the floor, rather than leaving a toggle that visibly
+  does nothing.
+
 **The table (12 columns).** In order: Game · Reviews · Trend · **Weighted** · Price / Sale ·
 Sale ends · Released · **Updated** · Tags · **Playtime** · HLTB · QTPD. (**Trend** sits directly
 after Reviews — it's derived from them — and **Price + Discount are merged** into one
@@ -2242,12 +2262,12 @@ Two selector toggles live in the filter bar and do **not** sort on their own:
 **State in the URL.** Every filter/sort choice is serialized to the querystring by `syncURL()`
 and restored by `loadFromURL()`, so any view is a shareable link. Defaults are omitted (e.g.
 `hq` only appears when not `real`, `pt` only when not `up`), which keeps shared links short and
-means a bare URL is the default view. **The full set is 28 params:**
+means a bare URL is the default view. **The full set is 29 params:**
 
 | Group | Params |
 |---|---|
 | Search & tags | `q`, `inc`, `exc`, `tagmode` |
-| Value | `pc`, `basis`, `hltb`, `hq`, `pmin`, `pmax`, `qmin`, `qmax` |
+| Value | `pc`, `basis`, `hltb`, `hq`, `pmin`, `pmax`, `minsale`, `qmin`, `qmax` |
 | Quality | `minscore`, `rev`, `trend`, `upd`, `ratesrc`, `pt` |
 | Flags (PICS, §9.6) | `flags`, `noflags`, `ai`, `adult`, `ctrl`, `deck` |
 | Sort & paging | `sort`, `dir`, `per` |
@@ -2258,9 +2278,12 @@ Two things are deliberately **not** serialized: the **hidden-games list** (sessi
 `qtpd.sections`, `qtpd.tagsCollapsed` — which are per-device chrome, not the query a link is
 meant to reproduce. The `qmin`/`qmax` range is written only once the slider is manually moved
 (`qRangeTouched`), since it otherwise auto-fits the result set. Pagination is infinite-scroll
-at 100 / 500 / 2000 per page (the selector is hidden on mobile). *(Historical note: the boolean
-`sale` param was removed when the on-sale-only toggle became the three-way `pc` price-type
-filter; old links carrying `sale` are simply ignored.)*
+at 100 / 500 / 2000 per page (the selector is hidden on mobile). `minsale` is read **after**
+`pc`, so a link carrying a floor always lands with the Full price type off whatever `pc` asked
+for. *(Historical note: the boolean `sale` param was removed when the on-sale-only toggle became
+the three-way `pc` price-type filter; old links carrying `sale` are simply ignored. The min-sale
+floor is spelled `minsale` precisely so it cannot be mistaken for that retired flag — `sale=1`
+would otherwise have silently become a 5% floor.)*
 
 **The preview stage — a docked player for phones (`.stage` / `stageOpen` / `stageLoad`).**
 The grid plays its preview *inside* the card, and on a 390px phone that card's art is
@@ -2771,6 +2794,11 @@ revert is just `STEAM_DELAY` back to 2.0 and/or fewer slots.
 ---
 
 ## 16. Recent changes
+
+- **Min sale % floor (Sep 2026).** A `−5%` / readout / `+5%` stepper in the Value section, so a
+  20-page table of `-10%` cuts can be narrowed to real discounts. Its resting value and both its
+  limits are read from the current results rather than hard-coded, and setting a floor takes the
+  **Full** price type off with it. Full mechanics in §11.
 
 - **Review-score colour: two switchable schemes, one anchor format (Sep 2026).** `ratingColor()`
   cut at **85 / 70 / 40**, which made colour a worse signal than the number it decorated: an
