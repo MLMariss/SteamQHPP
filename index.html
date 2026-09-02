@@ -1461,33 +1461,56 @@
   .rd-head .rd-x:hover{color:var(--coral); background:#3a1f27}
   .rd-body{padding:14px 15px; overflow:auto}
   .rd-row{display:flex; flex-wrap:wrap; align-items:center; gap:8px; margin-bottom:11px}
-  .rd-row > span.rd-lbl{font-family:var(--mono); font-size:11px; letter-spacing:.06em;
+  .rd-row > span.rd-lbl{font-family:var(--mono); font-size:11.5px; letter-spacing:.06em;
         text-transform:uppercase; color:var(--muted-2); min-width:74px}
+  /* 13px, not 12 — these are the things you actually click, and at 12px the mono face reads
+     as fine print on a laptop and is a genuine mis-tap risk on a phone. Padding follows so the
+     hit target clears 34px high, which is the floor a thumb needs. */
   .rd-opt{appearance:none; background:var(--panel); border:1px solid var(--line); color:var(--muted);
-        font-family:var(--mono); font-size:12px; padding:6px 11px; border-radius:8px; cursor:pointer}
+        font-family:var(--mono); font-size:13px; padding:8px 12px; border-radius:8px; cursor:pointer}
   .rd-opt:hover{color:var(--text); border-color:var(--muted-2)}
   .rd-opt.on{background:var(--gold-soft); border-color:var(--gold-deep); color:var(--gold)}
   .rd-go{background:var(--gold-soft); border:1px solid var(--gold-deep); color:var(--gold);
-        font-family:var(--mono); font-size:13px; padding:9px 18px; border-radius:9px; cursor:pointer}
+        font-family:var(--mono); font-size:14px; padding:10px 18px; border-radius:9px; cursor:pointer}
   .rd-go:hover:not(:disabled){filter:brightness(1.13)}
   .rd-go:disabled{opacity:.5; cursor:default}
-  .rd-note{font-size:12px; color:var(--muted-2); line-height:1.55; margin:0 0 11px}
+  .rd-note{font-size:13.5px; color:var(--muted); line-height:1.5; margin:0 0 12px}
   /* Sits under a .rd-row to explain what its options buy. Indented to the label gutter so
-     it reads as belonging to that row and not as another paragraph of intro copy. */
-  .rd-hint{font-size:11.5px; color:var(--muted-2); line-height:1.5; margin:-6px 0 12px 82px; opacity:.85}
+     it reads as belonging to that row and not as another paragraph of intro copy. Kept for
+     the one hint that survives; the option-by-option prose moved onto the buttons' tooltips,
+     where it is there for whoever wants it and out of the way of everyone else. */
+  .rd-hint{font-size:12.5px; color:var(--muted-2); line-height:1.45; margin:-4px 0 12px 82px}
   /* The focus toggles are a multi-select, so they get square corners to tell them apart at a
      glance from the mutually-exclusive pills above them. */
-  .rd-opt.rd-chk{border-radius:6px; padding:5px 9px; font-size:11.5px}
-  @media (max-width:560px){ .rd-hint{margin-left:0} }
-  .rd-prog{font-family:var(--mono); font-size:12px; color:var(--gold); min-height:17px}
-  .rd-err{font-family:var(--mono); font-size:12px; color:var(--coral); line-height:1.6;
+  .rd-opt.rd-chk{border-radius:6px; padding:7px 10px; font-size:12.5px}
+  .rd-prog{font-family:var(--mono); font-size:12.5px; color:var(--gold); min-height:17px}
+  .rd-err{font-family:var(--mono); font-size:12.5px; color:var(--coral); line-height:1.6;
         white-space:pre-wrap; word-break:break-word}
   .rd-out{width:100%; height:300px; resize:vertical; box-sizing:border-box;
         background:var(--bg); border:1px solid var(--line); border-radius:9px; color:var(--muted);
-        font-family:var(--mono); font-size:11.5px; line-height:1.5; padding:10px; margin-top:4px}
+        font-family:var(--mono); font-size:12px; line-height:1.5; padding:10px; margin-top:4px}
   .rd-foot{display:flex; flex-wrap:wrap; align-items:center; gap:9px; padding:12px 15px;
         border-top:1px solid var(--line)}
-  .rd-foot .rd-size{font-family:var(--mono); font-size:11.5px; color:var(--muted-2); margin-left:auto}
+  /* Pushes everything after it to the right edge. Download .txt is the escape hatch for when a
+     composer refuses the paste, so it belongs away from the four buttons you normally press. */
+  .rd-foot .rd-spacer{flex:1 1 auto; min-width:0}
+  .rd-foot .rd-size{font-family:var(--mono); font-size:12px; color:var(--muted-2)}
+  /* Phone. The label gutter is dead weight at this width, so the row breaks to two lines and
+     the options get the full width; the footer's buttons go full-width for the same reason,
+     and the spacer collapses so Download .txt doesn't strand itself on a line of its own. */
+  @media (max-width:560px){
+    .rd-modal{width:calc(100vw - 16px); max-height:calc(100vh - 20px)}
+    .rd-head{padding:12px 13px}
+    .rd-body{padding:13px}
+    .rd-row{gap:7px}
+    .rd-row > span.rd-lbl{flex:0 0 100%; min-width:0; margin-bottom:1px}
+    .rd-hint{margin-left:0}
+    .rd-out{height:190px}
+    .rd-foot{padding:11px 13px; gap:8px}
+    .rd-foot .rd-spacer{flex-basis:100%; height:0}
+    .rd-foot .rd-go, .rd-foot .rd-opt{flex:1 1 auto; text-align:center}
+    .rd-foot .rd-size{order:99}
+  }
 
   /* Table entry point: the review count under the title is ALREADY on the card, so it
      becomes the button. Zero new pixels, and "1,015,944 reviews" needs no explaining as
@@ -1660,21 +1683,21 @@ try{
       <div class="filter-section" data-section="quality">
         <button class="section-head" type="button" aria-expanded="false" title="Quality — narrow by review score, review trend, how many reviews a game has, how recently it was updated, and which playtime median the Playtime column sorts by. Click to fold or unfold."><span class="sec-caret">▸</span><span class="sec-title">Quality</span><span class="sec-count" data-count="quality"></span></button>
         <div class="section-body"><div class="ctl-row">
-        <div class="field" title="Min rating — hide games below this all-time review score (% of reviews positive). Any keeps everything; 90+ keeps only the highest-rated.">
+        <div class="field" title="Min rating — hide games below this review score. Uses the period set by Review period, so with 30-day picked a game must clear the floor on its last 30 days (games Steam gives no 30-day score fall back to all-time).">
           <label>Min rating</label>
           <div class="seg" role="group" aria-label="Minimum rating">
             <button data-minscore="0"  aria-pressed="true"  title="Any — no review-score floor.">Any</button>
-            <button data-minscore="60" aria-pressed="false" title="At least 60% of reviews positive (all-time).">60+</button>
-            <button data-minscore="70" aria-pressed="false" title="At least 70% of reviews positive (all-time).">70+</button>
-            <button data-minscore="80" aria-pressed="false" title="At least 80% of reviews positive (all-time).">80+</button>
-            <button data-minscore="90" aria-pressed="false" title="At least 90% of reviews positive (all-time).">90+</button>
+            <button data-minscore="60" aria-pressed="false" title="At least 60% positive, over the selected review period.">60+</button>
+            <button data-minscore="70" aria-pressed="false" title="At least 70% positive, over the selected review period.">70+</button>
+            <button data-minscore="80" aria-pressed="false" title="At least 80% positive, over the selected review period.">80+</button>
+            <button data-minscore="90" aria-pressed="false" title="At least 90% positive, over the selected review period.">90+</button>
           </div>
         </div>
-        <div class="field" title="Reviews sort by — which score the Score column uses when you click it to sort: the last 30 days or all-time. This picks the sort basis; it doesn't filter anything.">
-          <label>Reviews sort by</label>
-          <div class="seg" role="group" aria-label="Rating source for the Reviews column sort">
-            <button data-ratesrc="recent" aria-pressed="true"  title="Sort the Score column by the last 30 days' review score.">30-day</button>
-            <button data-ratesrc="all"    aria-pressed="false" title="Sort the Score column by the all-time review score.">All-time</button>
+        <div class="field" title="Review period — which score counts: the last 30 days or all-time. It drives BOTH the Min rating floor and the Score column sort. Steam publishes a 30-day score for only a fraction of games; those without one are judged on their all-time score.">
+          <label>Review period</label>
+          <div class="seg" role="group" aria-label="Which review period the score filter and sort use">
+            <button data-ratesrc="recent" aria-pressed="true"  title="Last 30 days — Min rating and the Score sort use the 30-day score (all-time where Steam gives no 30-day one).">30-day</button>
+            <button data-ratesrc="all"    aria-pressed="false" title="All-time — Min rating and the Score sort use the all-time score.">All-time</button>
           </div>
         </div>
         <div class="field" title="Review trend — show games whose recent score is improving (▲), stable (≈), or declining (▼) versus their all-time score. Independent toggles — turn off the trends you don't want.">
@@ -1937,7 +1960,7 @@ try{
         <thead>
           <tr>
             <th class="sortable" data-sort="title">Game</th>
-            <th class="th-split" title="Review score and count. Click Score to sort by the review %; click Count to sort by number of reviews. The All-time / 30-day toggle above sets the period."><button class="splitsort sortable" data-sort="rating_pct">Score</button><span class="splitsep">/</span><button class="splitsort sortable" data-sort="review_count">Count</button></th>
+            <th class="th-split" title="Review score and count. Click Score to sort by the review %; click Count to sort by number of reviews. The Review period toggle above sets which one is used."><button class="splitsort sortable" data-sort="rating_pct">Score</button><span class="splitsep">/</span><button class="splitsort sortable" data-sort="review_count">Count</button></th>
             <th class="sortable center" data-sort="trend" title="Trend — recent score minus all-time: improving, stable, or declining.">Trend</th>
             <th class="sortable num" data-sort="wr" title="Weighted rating — each review counts by how long that player actually played, so a 300-hour thumbs-up outweighs a 20-minute one. Capped at 2× the game's median so no single super-fan dominates. Hover a cell to compare it with Steam's flat %. Grayed when too few reviews to trust.">Weighted</th>
             <th class="th-split" title="Price and discount. Click Price to sort by the current price; click Sale to sort by discount size."><button class="splitsort sortable" data-sort="price_final">Price</button><span class="splitsep">/</span><button class="splitsort sortable" data-sort="discount_pct">Sale</button></th>
@@ -2431,6 +2454,15 @@ function gTrend(g){
 function recentStale(g){
   return !g.recent_scraped_at || (NOW() - g.recent_scraped_at) > RECENT_STALE_DAYS*86400;
 }
+// THE review score for the period the user picked (#3 Review period). One resolver so the
+// Min rating floor, the Score sort and the grid card can never disagree about which number
+// a game is being judged on — they used to, and a 70+ floor kept games showing 38% for 30d.
+// Steam publishes a 30-day score for only ~6% of the catalog (45+ days old, enough recent
+// reviews), so "recent" FALLS BACK to all-time rather than hiding the other 94%: a game with
+// a 30-day score is judged on it, a game without one is still judged on its all-time score.
+function periodRating(g){
+  return (state.ratingSource === "recent" && g.recent_pct != null) ? g.recent_pct : g.rating_pct;
+}
 function trendClass(g){
   const t = gTrend(g);
   if(t == null) return "none";
@@ -2476,7 +2508,8 @@ function passNonRange(x){
     const cls = x.is_free ? "free" : (x.discount_pct > 0 ? "sale" : "full");
     if(!state.priceClass.has(cls)) return false;
   }
-  if(state.minScore > 0 && !(x.rating_pct != null && x.rating_pct >= state.minScore)) return false;
+  // Min rating tests the score for the CURRENT period, not always all-time — see periodRating().
+  if(state.minScore > 0){ const r = periodRating(x); if(!(r != null && r >= state.minScore)) return false; }
   // Review-count band toggles. A game passes if its band is enabled. Empty set = no filter.
   // Default {1,2,3,4} excludes only the 0-9 band (i.e. "10+"). Games with null review_count
   // fall in band 0, so they only show when the 0-9 band is enabled.
@@ -2579,12 +2612,9 @@ function visibleGames(){
     return q != null && q >= state.qMinVal && (state.qMaxUnbounded || q <= state.qMaxVal);
   });
   const k = state.sortKey, dir = state.sortDir;
-  // The Reviews column (data-sort="rating_pct") sorts by all-time or 30-day depending on
-  // the rating-source toggle (#3). "recent" is the default; fall back to all-time when a
-  // game has no recent score so it still sorts sensibly.
-  const ratingVal = x => (state.ratingSource === "recent")
-    ? (x.recent_pct != null ? x.recent_pct : x.rating_pct)
-    : x.rating_pct;
+  // The Reviews column (data-sort="rating_pct") sorts on whichever period #3 selects, using
+  // the same resolver as the Min rating floor so a sorted list and a filtered one agree.
+  const ratingVal = periodRating;
   // Count half of the Reviews split header. Same period toggle as the Score half: 30-day
   // uses recent_count, all-time uses review_count. Unlike the score fall-back above, a 0/absent
   // recent_count is a real value (no recent reviews), so we don't borrow the all-time total.
@@ -4362,7 +4392,7 @@ const SORT_LABELS = {qtpd:"QTPD", title:"Name", rating_pct:"Review score", revie
 const SORT_TIPS = {
   qtpd:         "QTPD — Quality Time Per Dollar, the headline metric. Game-hours of value per dollar; higher is better.",
   title:        "Name — alphabetical. Titles starting with a symbol sort to the end rather than the top.",
-  rating_pct:   "Review score — the share of Steam reviews that are positive. Sorts on the period picked by the All-time / 30-day toggle; both figures are shown on every card.",
+  rating_pct:   "Review score — the share of Steam reviews that are positive. Filters and sorts on the period picked by Review period; both figures are shown on every card.",
   review_count: "Review count — how many reviews the game has. A high score on 20 reviews means far less than the same score on 20,000.",
   trend:        "Trend — the recent score minus the all-time score: whether opinion is improving, stable, or declining.",
   wr:           "Weighted — a review score where each vote counts by how long that player actually played, so a 300-hour thumbs-up outweighs a 20-minute one.",
@@ -4384,8 +4414,12 @@ function renderSummary(){
   if(state.qBasis === "before") parts.push(chip("basis", "full-price QTPD"));
   if(state.hltbMetric !== "main"){ const m = {extra:"+Extras", complete:"100%", avg:"Avg"}[state.hltbMetric] || state.hltbMetric; parts.push(chip("metric", `${m} length`)); }
   if(state.hltbQuality !== "real") parts.push(chip("hq", "incl. estimated HLTB"));
-  if(state.minScore > 0) parts.push(chip("minscore", `rating ≥ ${state.minScore}%`));
-  if(state.ratingSource !== "recent") parts.push(chip("ratesrc", "all-time reviews"));
+  // Name the period on the chip — a bare "rating ≥ 70%" hid which score was being tested.
+  // Only when the period is the DEFAULT, though: all-time already earns its own chip below,
+  // and printing both gave "rating ≥ 70% all-time · all-time scores". The two chips stay
+  // separate so each is independently removable; they just never say the same thing twice.
+  if(state.minScore > 0) parts.push(chip("minscore", `rating ≥ ${state.minScore}%${state.ratingSource === "recent" ? " 30d" : ""}`));
+  if(state.ratingSource !== "recent") parts.push(chip("ratesrc", "all-time scores"));
   if(!sameSet(state.revBands, [1,2,3,4])){ const t = [...state.revBands].sort((a,b)=>a-b).map(i => REV_LBLS[i]).join("/"); parts.push(chip("rev", state.revBands.size ? `reviews: ${t}` : "reviews: none")); }
   if(state.minPrice != null || state.maxPrice != null){ const lo = state.minPrice != null ? `$${state.minPrice}` : "$0"; const hi = state.maxPrice != null ? `$${state.maxPrice}` : "∞"; parts.push(chip("price", `${lo}–${hi}`)); }
   if(state.priceClass.size < 3){ const lbl = {full:"full price",sale:"on sale",free:"free"}; const t = ["full","sale","free"].filter(c => state.priceClass.has(c)).map(c => lbl[c]).join(" / "); parts.push(chip("pc", t)); }
@@ -4441,7 +4475,7 @@ const SUMMARY_EDITORS = {
   metric:   {title:"HLTB metric", cur:() => state.hltbMetric, opts:[["Main",'[data-metric="main"]',"main"],["+Extras",'[data-metric="extra"]',"extra"],["100%",'[data-metric="complete"]',"complete"],["Avg",'[data-metric="avg"]',"avg"]]},
   hq:       {title:"HLTB data", cur:() => state.hltbQuality, opts:[["All (incl. est.)",'[data-hquality="loose"]',"loose"],["Real only",'[data-hquality="real"]',"real"]]},
   minscore: {title:"Min rating", cur:() => String(state.minScore), opts:[["Any",'[data-minscore="0"]',"0"],["60+",'[data-minscore="60"]',"60"],["70+",'[data-minscore="70"]',"70"],["80+",'[data-minscore="80"]',"80"],["90+",'[data-minscore="90"]',"90"]]},
-  ratesrc:  {title:"Reviews sort by", cur:() => state.ratingSource, opts:[["All-time",'[data-ratesrc="all"]',"all"],["30-day",'[data-ratesrc="recent"]',"recent"]]},
+  ratesrc:  {title:"Review period", cur:() => state.ratingSource, opts:[["All-time",'[data-ratesrc="all"]',"all"],["30-day",'[data-ratesrc="recent"]',"recent"]]},
   upd:      {title:"Updated within", cur:() => state.updatedWithin, opts:[["Any",'[data-upd="any"]',"any"],["1mo",'[data-upd="1mo"]',"1mo"],["3mo",'[data-upd="3mo"]',"3mo"],["6mo",'[data-upd="6mo"]',"6mo"],["1yr",'[data-upd="1yr"]',"1yr"],["1yr+",'[data-upd="1yr+"]',"1yr+"]]},
   pc:       {title:"Price type (toggle)", multi:true, has:v => state.priceClass.has(v), opts:[["Full",'[data-pc="full"]',"full"],["Sale",'[data-pc="sale"]',"sale"],["Free",'[data-pc="free"]',"free"]]},
   wishonly: {title:"Wishlist", toggleSel:"#wishOnly", isOn:() => state.wishOnly, opts:[["Wishlist only",null,"on"],["All games",null,"off"]]},
@@ -5151,12 +5185,11 @@ function init(data){
       state.ratingSource = b.dataset.ratesrc;
       document.querySelectorAll("[data-ratesrc]").forEach(o => o.setAttribute("aria-pressed", o === b));
       syncSortArrows();     // header hint reflects which score drives the Reviews sort
-      // Always re-render, not only when the Reviews column is the sort key. Grid cards print
-      // BOTH periods and gold-tag whichever one the sort would use, so the toggle changes what
-      // is on screen even when the list order doesn't move — and a Review-count sort in grid
-      // shows the count for the selected period too.
-      render();
-      syncURL();
+      // Full update(), not a bare render(): the period now feeds the Min rating floor, so
+      // flipping it changes WHICH GAMES PASS, not just their order. That needs paging reset
+      // and the QTPD range refit as well — a plain re-render left stale page counts and a
+      // range fitted to the other period's result set.
+      update();
     }));
   document.querySelectorAll("[data-rev]").forEach(b =>
     b.addEventListener("click", () => {
@@ -5971,6 +6004,14 @@ const RD_BBCODE = /\[\/?(?:b|i|u|h[1-3]|url|quote|spoiler|list|olist|\*|strike|c
 // default, and RD_DEFAULT_SIZE is the one place that decides it.
 const RD_SIZES = [300, 500, 1000];
 const RD_DEFAULT_SIZE = 500;
+// The "bigger sample buys history, not accuracy" argument, per option, on the option itself.
+// It used to be three lines of body copy above the row; nobody needs it twice, and the person
+// choosing 300 over 1000 is hovering the pill when they want it.
+const RD_SIZE_TIP = {
+  300:  "The cheap read — a third of the tokens. Plenty on a quiet game, where 300 reviews already cover the same years 1000 would.",
+  500:  "The default. Balanced cost and reach; on a busy game it may only go back a few months.",
+  1000: "Deepest history. On a busy game this is the only option that reaches back past the last patch cycle — and it costs the most tokens.",
+};
 
 // §18.4 — depth of the REPORT, not of the sample. Advanced is the v7 skeleton this file has
 // always emitted: every complaint counted, bucketed, and expressed as a percentage of the
@@ -5983,9 +6024,15 @@ const RD_DEFAULT_SIZE = 500;
 // not a second code path. Stripping the precomputed arithmetic to match the shorter output
 // would be the obvious economy and the wrong one — those blocks are what stop a five-line
 // report from being five confident guesses.
+// `tip` names the sections each mode actually emits — that is the only thing a reader wants
+// here, and a list of section names does it in a fraction of the prose it replaced. Keep these
+// in step with the two prompt files; a tooltip promising a table the prompt no longer asks for
+// is worse than no tooltip.
 const RD_MODES = [
-  { key:"simple",   label:"Simplified", file:"review_prompt_simple.md" },
-  { key:"advanced", label:"Advanced",   file:"review_prompt.md" },
+  { key:"simple",   label:"Simplified", file:"review_prompt_simple.md",
+    tip:"Plain read, no numbers. Sections: Summary · Who it's for · Best and worst." },
+  { key:"advanced", label:"Advanced",   file:"review_prompt.md",
+    tip:"Everything in Simplified plus the working: Integrity · Snapshot · Who it's for · Loved vs hated · Where the complaints land · Notes · Issues. Every complaint counted and set against the substantive-review count." },
 ];
 const RD_DEFAULT_MODE = "advanced";        // what this page shipped with; Simplified is the addition
 
@@ -6644,32 +6691,23 @@ function rdRenderSetup(g){
   const body = document.getElementById("rdBody"), foot = document.getElementById("rdFoot");
   document.getElementById("rdTitle").textContent = g.title;
   body.innerHTML =
-    `<p class="rd-note">Pulls the <b id="rdCount">${rdState.size}</b> most recent reviews from Steam and packages them
-     with an analysis prompt — hand the result to any AI to get the reviews read for you.
-     Review-bombing reviews are included on purpose; the prompt reports them separately.</p>
+    `<p class="rd-note" title="Review-bombing reviews are included on purpose — the prompt counts them and reports them separately, so you see the pile-on instead of a score quietly smoothed over.">Takes the <b id="rdCount">${rdState.size}</b> newest Steam reviews and wraps them in an AI prompt.</p>
      <div class="rd-row"><span class="rd-lbl">Report</span>
-       ${RD_MODES.map(m => `<button type="button" class="rd-opt${rdState.mode===m.key?" on":""}" data-rdmode="${m.key}">${esc(m.label)}</button>`).join("")}
+       ${RD_MODES.map(m => `<button type="button" class="rd-opt${rdState.mode===m.key?" on":""}" data-rdmode="${m.key}" title="${esc(m.tip)}">${esc(m.label)}</button>`).join("")}
      </div>
-     <p class="rd-hint"><b>Simplified</b> is the plain read — what players say, who the game is
-        for, and the five best and worst things, with review counts but no percentages and no
-        issue table. <b>Advanced</b> adds the full working: every complaint counted, bucketed
-        and set against the substantive-review count, with the trend and the Issues table.</p>
      <div class="rd-row"><span class="rd-lbl">Language</span>
-       <button type="button" class="rd-opt${rdState.lang==="english"?" on":""}" data-rdlang="english">English</button>
-       <button type="button" class="rd-opt${rdState.lang==="all"?" on":""}" data-rdlang="all">All languages</button>
+       <button type="button" class="rd-opt${rdState.lang==="english"?" on":""}" data-rdlang="english" title="English reviews only — the usual choice, and the cheapest.">English</button>
+       <button type="button" class="rd-opt${rdState.lang==="all"?" on":""}" data-rdlang="all" title="Every language. Widens the sample and reaches further back, but the AI reads them translated.">All languages</button>
      </div>
      <div class="rd-row"><span class="rd-lbl">Sample</span>
-       ${RD_SIZES.map(n => `<button type="button" class="rd-opt${rdState.size===n?" on":""}" data-rdsize="${n}">${n}</button>`).join("")}
+       ${RD_SIZES.map(n => `<button type="button" class="rd-opt${rdState.size===n?" on":""}" data-rdsize="${n}" title="${esc(RD_SIZE_TIP[n] || (n + " reviews."))}">${n}</button>`).join("")}
      </div>
-     <p class="rd-hint">A bigger sample buys <b>history</b>, not accuracy — on a busy game 500 reviews
-        may only reach back a fortnight, and 1000 is the only way to see what it was like before.
-        On a quiet game they all cover the same years, so 300 is enough and costs a third of the tokens.</p>
+     <p class="rd-hint">A bigger sample buys <b>history</b>, not accuracy.</p>
      <div class="rd-row"><span class="rd-lbl">Focus</span>
        ${RD_FOCUS.map(f => `<button type="button" class="rd-opt rd-chk${rdState.focus.includes(f.key)?" on":""}"
-          data-rdfocus="${f.key}" aria-pressed="${rdState.focus.includes(f.key)}">${esc(f.label)}</button>`).join("")}
+          data-rdfocus="${f.key}" aria-pressed="${rdState.focus.includes(f.key)}" title="Adds a row answering: ${esc(f.ask)}? You get the row even if the answer is zero — which is the answer you can't get any other way.">${esc(f.label)}</button>`).join("")}
      </div>
-     <p class="rd-hint">Optional. Each one you pick gets its own row in the report even if the answer
-        is zero — which is the answer you can't get any other way.</p>
+     <p class="rd-hint">Optional — each adds its own row.</p>
      <div class="rd-prog" id="rdProg"></div>
      <div id="rdErr"></div>`;
   foot.innerHTML = `<button type="button" class="rd-go" id="rdGo">Fetch ${rdState.size} reviews</button>`;
@@ -6689,22 +6727,21 @@ function rdRenderResult(bundle){
   const body = document.getElementById("rdBody"), foot = document.getElementById("rdFoot");
   const kb = (bundle.length / 1024).toFixed(0), tok = Math.round(bundle.length / 4 / 100) / 10;
   body.innerHTML =
-    `<p class="rd-note">Ready. Pick a chat below — the digest goes onto your clipboard and a new
-     conversation opens, so the only thing left to do is paste. The analysis prompt is already
-     inside it; the AI does the counting.</p>
-     <div class="rd-row"><span class="rd-lbl">Open in</span>
-       ${RD_AI.map(a => `<button type="button" class="rd-opt" data-rdai="${a.key}">${esc(a.label)} ↗</button>`).join("")}
-     </div>
-     <p class="rd-hint">Opens a new chat in a new tab with the digest on your clipboard — press
-        <b>${rdPasteKey()}</b> there. None of the three can be handed ${kb} KB through a link, so
-        that one paste is the step that cannot be removed. If a composer refuses text this long,
-        use <b>Download .txt</b> below and attach the file instead — all three accept it.</p>
+    `<p class="rd-note">Ready. Text will be copied — paste in the chat of your choice
+     (<b>${rdPasteKey()}</b>).</p>
      <textarea class="rd-out" id="rdOut" readonly spellcheck="false"></textarea>`;
   document.getElementById("rdOut").value = bundle;
+  // The three AI buttons live HERE, in the footer, next to Copy all — they are actions, and
+  // they were sitting mid-body dressed as another settings row. Each one copies AND opens, so
+  // Copy all is simply the same action without the tab; putting them side by side says that
+  // without a paragraph explaining it. Download .txt is the escape hatch (a composer that
+  // refuses ${kb} KB), so the spacer strands it on the far right, away from the normal path.
   foot.innerHTML =
-    `<button type="button" class="rd-go" id="rdCopy">Copy all</button>
-     <button type="button" class="rd-opt" id="rdDl">Download .txt</button>
-     <span class="rd-size">${kb} KB · ~${tok}k tokens</span>`;
+    `<button type="button" class="rd-go" id="rdCopy" title="Copy the digest to your clipboard and stay here.">Copy all</button>
+     ${RD_AI.map(a => `<button type="button" class="rd-opt" data-rdai="${a.key}" title="Copies the digest, then opens a blank ${esc(a.label)} chat in a new tab — press ${rdPasteKey()} there. ${kb} KB is far past what any link can carry, so the paste is the one step that can't be removed.">${esc(a.label)} ↗</button>`).join("")}
+     <span class="rd-spacer"></span>
+     <span class="rd-size">${kb} KB · ~${tok}k tokens</span>
+     <button type="button" class="rd-opt" id="rdDl" title="Save as a .txt file and attach it instead — use this if a chat composer refuses text this long. All three accept the file.">Download .txt</button>`;
 }
 
 async function rdRun(){

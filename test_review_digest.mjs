@@ -145,7 +145,21 @@ const bundle = await page.locator("#rdOut").inputValue();
 // §18.3 — the handoff row only exists once there is something to hand off, so it is read
 // here rather than with the setup-dialog state above.
 const aiOpts = await page.locator("[data-rdai]").allTextContents();
-const aiHint = await page.locator("#rdBody .rd-hint").last().textContent();
+// The handoff buttons live in the FOOTER now, beside Copy all, because they are actions and
+// not another settings row. The prose that used to sit under them in the body was cut to one
+// line; the "why" moved onto each button's own tooltip. So the paste shortcut is asserted on
+// the body's one-liner and the .txt escape hatch on the Download button's title.
+const aiInFoot = await page.locator("#rdFoot [data-rdai]").count();
+const aiHint   = await page.locator("#rdBody .rd-note").first().textContent();
+const aiTips   = await page.locator("#rdFoot [data-rdai]").evaluateAll(els => els.map(e => e.title));
+const dlTip    = await page.locator("#rdFoot #rdDl").getAttribute("title");
+// Every option in the setup dialog has to carry its own explanation now that the paragraphs
+// are gone — an untitled pill is a dead end for anyone who does not already know the answer.
+const setupUntitled = await page.evaluate(() => {
+  rdRenderSetup(gameOf(rdState.appid));
+  return [...document.querySelectorAll("#rdBody [data-rdmode],#rdBody [data-rdsize],#rdBody [data-rdlang],#rdBody [data-rdfocus]")]
+    .filter(b => !b.title || b.title.trim().length < 12).map(b => b.textContent.trim());
+});
 await browser.close();
 
 console.log("\n================ BUNDLE (first 40 lines) ================");
@@ -249,8 +263,11 @@ check(bundle.includes("--- INSTRUCTIONS ---"), "instructions section present");
   // paste: nothing here can prefill 100+ KB through a link, and a button that implied it could
   // would be the one thing worse than the paste itself.
   check(aiOpts.join("·") === "Claude ↗·ChatGPT ↗·Gemini ↗", `three chat handoffs offered (${aiOpts.join("·")})`);
-  check(/Ctrl\+V|⌘V/.test(aiHint || ""), `handoff hint names the paste shortcut (${JSON.stringify((aiHint || "").slice(0, 60))})`);
-  check(/Download \.txt/.test(aiHint || ""), "handoff hint offers the file route for oversized pastes");
+  check(aiInFoot === 3, `handoff buttons sit in the footer next to Copy all (${aiInFoot} of 3)`);
+  check(/Ctrl\+V|⌘V/.test(aiHint || ""), `handoff line names the paste shortcut (${JSON.stringify((aiHint || "").slice(0, 60))})`);
+  check(aiTips.every(t => /Ctrl\+V|⌘V/.test(t || "")), "each handoff button's tooltip names the paste shortcut");
+  check(/attach|\.txt file/i.test(dlTip || ""), "Download .txt explains the oversized-paste route on itself");
+  check(setupUntitled.length === 0, `every setup option carries its own tooltip (untitled: ${JSON.stringify(setupUntitled)})`);
 }
 {
   // §15.1 restructured the report so the first screen is the answer and the Issues table is

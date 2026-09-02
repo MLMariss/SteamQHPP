@@ -44,6 +44,7 @@ they aren't re-proposed. Sorted roughly by value-to-effort within each group.
 | Co-op max player count | §3.1 | Nothing; expect partial coverage |
 | Anti-cheat type | §3.1 | Encoding "invasive or not" as a judgement |
 | Min-reviews: single- vs multi-select | §3.2 | **A decision from you** — the request contradicts the current deliberate design |
+| **Weighted score / QTPD on the 30-day period** | §3.2 | A decision on the fall-back and on recomputing the weighted score from a 30-day input |
 | Mobile progressive disclosure | §3.2 / §3.4 | Nothing; partly addressed by Grid's tap-to-expand |
 | Short-link encoder for filter URLs | §3.4 | Choosing client-side compression vs a stateful Worker+KV |
 | Playtime ladder ceiling 3,000 → 5,000 | §3.5 | Git-growth appetite (shipped at 3,000) |
@@ -150,6 +151,31 @@ Each of these implies a new scrape and a new JSON file merged by `appid` in the 
 ### 3.2 Frontend / UX (no new scraping)
 
 Works off data already collected. Several are cheap and high-impact.
+
+- **Review period drives the score filter. [Done — Sep 2026.]** The 30-day / All-time control sat
+  in the Quality panel next to **Min rating** but was sort-only ("Reviews sort by"), so a 70+
+  floor with 30-day selected still listed games showing **38% for 30d** — their all-time score
+  cleared the floor. The toggle is now **Review period** and drives both the Min rating floor and
+  the Score sort through one resolver, `periodRating()`. **Fall-back is deliberate:** Steam
+  publishes a 30-day score for only **7,504 of 128,292 games (5.9%)** — 45+ days old with enough
+  recent reviews — so a game without one is judged on its all-time score rather than hidden.
+  Strict-drop was considered and rejected: it collapses the catalogue to ≤7.5k games. **Min
+  reviews deliberately did NOT follow the period** — recent counts are one to two orders of
+  magnitude smaller (Occupy Mars: 16 recent vs 3,140 all-time), so the default 10+ bands would
+  gut the list. *Still open:* the item below.
+
+- **Weighted score / QTPD on the 30-day period.** *Registered for future, not built.* Right now
+  flipping **Review period** switches the Min rating floor and the Score sort, but the
+  **Weighted** column and the QTPD value are still computed from the **all-time** score. So a
+  30-day view mixes periods: the Score column reads recent, the value column reads lifetime, and
+  the two are not comparable side by side. Making the whole row switch together would mean
+  recomputing the weighted score from `recent_pct` / `recent_count` — which needs decisions
+  first: (a) the same fall-back as `periodRating()`, or a blank Weighted cell for the 94% with no
+  30-day score? (b) the confidence floor (`PT_CONFIDENT`, and the weighted score's own prior) is
+  tuned for all-time counts in the thousands — a 16-review recent sample would need a much
+  stronger prior or it swings wildly; (c) whether QTPD range auto-fit and the default sort should
+  follow, since the value scale would shift under them. Cheap to prototype, not cheap to get
+  statistically honest — the sample-size problem is the real work.
 
 - **Mobile / narrow-screen layout — highest-frequency complaint. [Done.]** The old
   `table-layout: fixed` grid overflowed small screens, titles truncated, and the sale badge +

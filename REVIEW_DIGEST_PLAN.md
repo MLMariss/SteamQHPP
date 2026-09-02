@@ -934,3 +934,71 @@ rule stated, and `### Snapshot` / `### Where the complaints land` / `### Issues`
 **absent**. That absence check is the point of the scenario: a Simplified pick that quietly
 ships the advanced prompt looks completely fine until the model returns a twelve-row issue
 table nobody asked for.
+
+---
+
+## 19. Shipped 2026-09-02 — the dialog was a wall of text
+
+§18 shipped four working controls and explained each of them in a paragraph. Read back on a
+laptop it was three screens of 11.5–12px prose wrapped around the four things you actually
+click, and on a phone it was worse: the label gutter ate a third of the width and the copy ran
+to a dozen lines before the first button. The controls were fine. The reading was the problem.
+
+### 19.1 The prose moved onto the controls
+
+Every option now carries its own `title`, and the paragraph it replaced is gone:
+
+- **Report** — each mode's tooltip **names the sections it emits**, which is the only thing
+  anyone wanted from those four lines. Simplified: *Summary · Who it's for · Best and worst.*
+  Advanced: the same plus *Integrity · Snapshot · Loved vs hated · Where the complaints land ·
+  Notes · Issues.* Held in `RD_MODES[].tip` beside the prompt filename, so the tooltip and the
+  file it describes sit on one line and drift is visible in review. **Keep them in step with
+  the two prompt files** — a tooltip promising a table the prompt no longer asks for is worse
+  than no tooltip.
+- **Sample** — `RD_SIZE_TIP` carries the "bigger buys *history*, not accuracy" argument per
+  option: 300 is the cheap read that loses nothing on a quiet game, 1000 is the only one that
+  reaches past the last patch cycle on a busy one. One six-word hint survives in the body
+  because that trade-off is counter-intuitive enough to need saying unprompted.
+- **Focus** — the tooltip is generated from the entry's existing `ask` string, so a new focus
+  gets its explanation for free and cannot ship without one.
+- **Language** and the intro's review-bombing disclosure likewise became tooltips.
+
+The body copy that remains is one line at the top and two short hints. A test check enforces
+this: every `[data-rdmode]`/`[data-rdsize]`/`[data-rdlang]`/`[data-rdfocus]` button in the
+setup dialog must carry a `title` of at least 12 characters, so cutting the prose can never
+leave a bare pill with the explanation nowhere.
+
+### 19.2 The handoff buttons moved to the footer
+
+Claude / ChatGPT / Gemini were a `Open in` **row in the body**, styled exactly like the Report
+and Sample rows above them — so three *actions* were dressed as a fourth *setting*, in the
+region of the dialog you had just finished configuring. They are now in the footer beside
+`Copy all`, which is what they are: each one copies **and** opens a tab, so `Copy all` is the
+same action minus the tab. Sitting side by side says that without the paragraph that used to.
+
+`Download .txt` is the escape hatch for a composer that refuses a 74 KB paste, not part of the
+normal path, so a `.rd-spacer` strands it on the **far right** with the size readout. The
+delegated click handler is document-level and unchanged — the move is markup only, and the
+synchronous copy-then-`window.open()` ordering from §18.3 still holds.
+
+§18.3's reasoning that three gold buttons would leave the panel with no primary action is
+**preserved, not reversed**: they are still `.rd-opt` chips and `Copy all` is still the only
+`.rd-go`. What changed is where they sit.
+
+### 19.3 Type sizes and a real phone layout
+
+Options went 12px → 13px with padding to match, clearing a 34px hit target; the body note
+12 → 13.5px in `--muted` rather than `--muted-2`; hints 11.5 → 12.5px; the digest textarea
+11.5 → 12px. At ≤560px the label gutter is dropped (`flex-basis:100%` on `.rd-lbl`) so each
+row breaks to a label line plus full-width options, the modal takes the full viewport less
+8px, the textarea drops to 190px so the footer stays on screen, and footer buttons go
+full-width with the spacer collapsed so `Download .txt` is not stranded alone on a line.
+
+### 19.4 Verification
+
+`test_review_digest.mjs` goes from 110 to **115 checks, all passing**. The two assertions that
+read the old body hint were rewritten to read where the copy actually lives now: the handoff
+buttons are asserted **in `#rdFoot`**, the paste shortcut on the body one-liner *and* on every
+handoff button's tooltip, the oversized-paste route on `Download .txt`'s own title, and the
+no-untitled-option rule above. Both states were also rendered in Chromium at 1280×900 and
+390×800 and read back as screenshots.
