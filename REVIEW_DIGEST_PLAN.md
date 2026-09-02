@@ -1168,3 +1168,89 @@ shipped §18–§20 (ascending sizes, per-pill tooltips, the three chat buttons,
 dialog). Committing there would have produced a PR reverting all of it. The branch was
 fast-forwarded to `main` and the change re-applied on top, which is why the footer logic here
 knows about `RD_AI` and the size argument lives in `RD_SIZE_TIP` rather than in body copy.
+
+---
+
+## 22. Shipped 2026-09-02 — the ceiling that undid the sizes, and a warning that was wrong
+
+Both fixes here correct §21, which shipped hours earlier. Reported from use, on the same run:
+**a 2000-review pull came back with 991 reviews and a banner saying the result was too long to
+paste into Claude.** Neither half was right.
+
+### 22.1 A budget that only ever bit the games it was there for
+
+`RD.charBudget` (300 KB of review lines) trimmed the sample from the old end whenever the
+chosen size cost more than that. §21.2 argued it "only ever binds at 2000 on a text-heavy
+game" — which is correct, and is exactly the problem. A text-heavy busy game is the *only*
+reason to pick 2000: §21.3's own case for the size is that 500 reviews reach back 3.4 days on
+Cyberpunk 2077. The cap therefore fired precisely when the reader had asked for depth, silently
+handing back well under half of it — and on a game where §21.3's Valheim/Cyberpunk arithmetic
+says a 2000-review sample is 312–346 KB, i.e. every one of them.
+
+A header line owning up to the trim does not fix that. The reader picked a number off a
+segmented control; the number has to mean what it says.
+
+**The budget is gone.** `charBudget`, `lineOverhead` and `rdLineCost` (which existed only to
+price the budget) are deleted. The size the reader picks is the size fetched, and the panel
+prices the *finished* bundle instead — reporting is the right place for a spread that runs 3×
+between games, because the spread is a fact about the game, not a limit on the request.
+
+Nothing downstream needed the ceiling. It was justified by a 200k context window, but the
+route for a bundle that big is the .txt, and an attachment has no length limit anywhere.
+
+**The walk is now bounded by the count, not the page arithmetic.** `pages` (size ÷ 100) is what
+a *clean* run costs, and §21.1's short pages are 98–99: two of them in a 20-page pull ends four
+reviews under the 2000 that was asked for. The loop runs while `raw.length < size` with five
+spare pages of slack, so a fixture with one 98-page reaches 2000 on page 21 and a clean game
+still stops at page 20.
+
+### 22.2 "Too long to paste" was false in two of the three tabs it sat next to
+
+§21.4 generalised one true observation — Gemini cuts a long paste — into "Gemini and most other
+composers will cut this." **Claude and ChatGPT do not truncate an over-long paste; their
+composers convert it into an attached file**, which is the same thing **Download .txt** does,
+done automatically. So the panel told a Claude user the digest could not be pasted, next to a
+Claude button, while the paste worked fine.
+
+That is worse than saying nothing. A warning that is visibly wrong about the tool in front of
+the reader is one they learn to dismiss — including on Gemini, where it is true and where the
+failure is silent.
+
+`RD_AI` gains a `paste` field (`"file"` / `"cut"`) and it is the single source of truth for
+every sentence about size. `RD_AI_FILE` / `RD_AI_CUT` build the names into the copy, so the
+warning, the ready line, both footer tooltips, the per-AI tooltips and both toasts now say
+which composer does what instead of "most of them":
+
+| surface | before | now |
+|---|---|---|
+| hard banner | "too long to paste… all three accept the file" | names Claude + ChatGPT as fine, Gemini as cut |
+| Claude / ChatGPT button | "the paste will be cut, attach the .txt" | "attaches the paste as a file by itself, so it arrives whole" |
+| Gemini button | same generic line | "Gemini cuts the paste partway through — attach the .txt there" |
+| AI-button toast | error toast for all three | error only on a `"cut"` composer; the other two get the normal copy toast |
+| Copy all toast | `err` — "most composers will cut this" | `ok` — names who takes it and who cuts it |
+
+The thresholds (60 KB / 150 KB) and the footer inversion are unchanged: **Download .txt** still
+takes the primary button above 150 KB, now framed as the route with no limit anywhere rather
+than as a rescue from a paste that was never going to work.
+
+### 22.3 Verification
+
+Driven through the **real page in a browser** (`py -m http.server`, `window.fetch` stubbed at
+the Worker), same fixture as §21.5 — ~140 chars/review, page 3 returns 98:
+
+- 2000 requested → **21 pages fetched, 2000 reviews**, `SAMPLE: 2000 newest`,
+  `--- REVIEWS (2000) ---`, **no `size cap:` line**, bundle 346 KB / ~88.6k tokens.
+- Hard banner reads: *"346 KB — past what a chat box will hold as text. Claude and ChatGPT
+  handle that for you and turn the paste into an attachment… Gemini instead cuts it partway
+  through…"*
+- Footer: `rdDl, rdCopy, claude, gpt, gemini` — file still primary. Claude/ChatGPT tooltips say
+  *"attaches the paste as a file by itself, so it arrives whole"*; Gemini's says *"cuts the
+  paste partway through, so attach the downloaded .txt there instead"*.
+- No console errors on load or on the deep-pull path.
+
+`test_review_digest.mjs` scenario 6 now asserts `got === 2000`, `pages === 21`, **no** size-cap
+line, that the warning names Gemini *and* Claude + ChatGPT, that "too long to paste" is gone,
+and the two shapes of AI tooltip. Scenario 7 asserts `RD.charBudget` is `undefined`, that every
+`RD_AI` entry declares a `paste` behaviour, and that the name lists come out as
+"Claude and ChatGPT" / "Gemini". **Not run here** — `node` is still not installed on this
+machine.

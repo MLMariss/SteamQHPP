@@ -555,16 +555,19 @@ errors.slice(0, 5).forEach(e => console.log("     " + e));
   check(errs5.length === 0, `no uncaught JS errors on the simple path (${errs5.length})`);
 }
 
-// --- sixth scenario: short pages, the size cap, and the paste warning (plan §21) -------
+// --- sixth scenario: short pages, the full 2000, and the paste warning (plan §21-§22) --
 // Three things that only appear on a deep pull, all of which failed silently before:
 //   1. Steam serves 98-99 reviews on ~2% of pages and keeps going. The fetch used to treat
 //      that as end-of-list, so roughly one ten-page pull in five came back short and said
 //      nothing about it. Page 3 here returns 98, and the run must still reach the end.
-//   2. A review COUNT is not a size — the same 2000 is 130 KB on one game and 312 KB on
-//      another — so RD.charBudget trims the request and the header owns up to it.
-//   3. Past ~60 KB a chat composer truncates a paste instead of refusing it, which is how a
-//      digest gets analysed half-read. The result panel has to say so, and past 150 KB the
-//      file has to lead the footer.
+//   2. 2000 has to MEAN 2000 (§22.1). A char budget used to trim the tail on exactly the
+//      text-heavy games the big sizes exist for — this fixture is one of those (~140 chars a
+//      review, ~346 KB at 2000) and it must come back with all 2000 and no "size cap" line.
+//      The short page is why the walk is bounded by the count rather than by 20 pages of
+//      arithmetic: with a 98 in the middle, page 21 is what fetches the last two reviews.
+//   3. Past ~60 KB Gemini truncates a paste instead of refusing it, which is how a digest
+//      gets analysed half-read. The result panel has to say so — and has to say it about
+//      GEMINI, since Claude and ChatGPT turn the same paste into an attachment (§22.2).
 {
   const b6 = await chromium.launch({ executablePath: "/opt/pw-browsers/chromium-1194/chrome-linux/chrome" });
   const p6 = await b6.newPage();
@@ -606,6 +609,8 @@ errors.slice(0, 5).forEach(e => console.log("     " + e));
   const footIds = await p6.locator("#rdFoot button").evaluateAll(
     els => els.map(e => e.id || e.getAttribute("data-rdai")));
   const got6    = Number((out6.match(/^--- REVIEWS \((\d+)\) ---$/m) || [])[1]);
+  const aiTips6 = await p6.locator("#rdFoot [data-rdai]").evaluateAll(
+    els => els.map(e => e.getAttribute("data-rdai") + "|" + e.title));
   await b6.close();
 
   console.log("\nshort pages, size cap and paste warning:");
@@ -613,14 +618,27 @@ errors.slice(0, 5).forEach(e => console.log("     " + e));
   // The short page is at page 3. Anything at or below 300 means it ended the walk, which is
   // the whole bug — the count is capped by the size budget, not by that page.
   check(pages6.length > 3, `the short page did not end the walk (${pages6.length} pages fetched)`);
-  check(got6 > 1000, `the walk ran well past the short page (${got6} reviews in the bundle)`);
+  check(got6 === 2000, `asking for 2000 on a text-heavy game returns 2000 (${got6} in the bundle)`);
+  check(pages6.length === 21, `the short page cost one extra page, not two reviews (${pages6.length})`);
   check(new RegExp(`^SAMPLE: ${got6} newest`, "m").test(out6),
         "the header states the count it actually got, not the one asked for");
-  check(/^  size cap: \d+ oldest reviews dropped/m.test(out6),
-        "the size cap is declared in the header when it bites");
+  check(!/size cap:/.test(out6),
+        "nothing trims the sample from underneath the reader's choice any more");
   check((warnCls || "") === "rd-warn hard", `a ~300 KB bundle gets the hard paste warning (${warnCls})`);
   check(/Download \.txt/.test(warnTxt) && /attach the file/.test(warnTxt),
         "the warning names the download-and-attach route, not just the problem");
+  // The correction of §22.2: the blanket "too long to paste" was false on two of the three
+  // tabs it was shown next to, and a warning that is wrong where the reader is standing is
+  // one they learn to skip — including on the tab where it is true.
+  check(/Gemini/.test(warnTxt) && /Claude and ChatGPT/.test(warnTxt),
+        "the warning names which composer cuts and which two do not");
+  check(!/too long to paste/i.test(warnTxt),
+        "it no longer tells a Claude user their digest cannot be pasted");
+  const cutTip6  = aiTips6.find(t => t.startsWith("gemini")) || "";
+  const fileTip6 = aiTips6.find(t => t.startsWith("claude")) || "";
+  check(/cuts the paste/.test(cutTip6), `the Gemini button warns about the cut (${cutTip6})`);
+  check(/arrives whole/.test(fileTip6) && !/\.txt/.test(fileTip6),
+        `the Claude button does not send the reader to the file (${fileTip6})`);
   check(primary === "rdDl", `past the hard threshold the file takes the primary button (${primary})`);
   check(footIds[0] === "rdDl" && footIds.includes("rdCopy"),
         `the file leads the footer and Copy all survives as a secondary (${footIds.join(",")})`);
@@ -635,12 +653,10 @@ errors.slice(0, 5).forEach(e => console.log("     " + e));
   const p7 = await b7.newPage();
   await p7.goto("http://127.0.0.1:8099/index.html", { waitUntil: "networkidle" });
   const r = await p7.evaluate(() => ({
-    capped:   rdLineCost({ review: "x".repeat(5000) }),
-    short:    rdLineCost({ review: "gg" }),
-    bbcode:   rdLineCost({ review: "[b]hi[/b] there" }),
-    overhead: RD.lineOverhead,
-    cap:      RD.cap,
-    budget:   RD.charBudget,
+    budget:    typeof RD.charBudget,
+    aiPaste:   RD_AI.map(a => a.key + ":" + a.paste),
+    fileNames: RD_AI_FILE,
+    cutNames:  RD_AI_CUT,
     sizes:    RD_SIZES,
     tip2000:  RD_SIZE_TIP[2000] || null,
     warnNone: rdPasteAdvice(40 * 1024),
@@ -648,15 +664,19 @@ errors.slice(0, 5).forEach(e => console.log("     " + e));
     warnHard: rdPasteAdvice(200 * 1024).hard,
   }));
   await b7.close();
-  console.log("\nbudget and paste-threshold arithmetic:");
-  check(r.capped === r.cap + r.overhead, `a long review is priced at the cap plus line overhead (${r.capped})`);
-  check(r.short === 2 + r.overhead, `a two-char review costs two chars plus overhead (${r.short})`);
-  check(r.bbcode < "[b]hi[/b] there".length + r.overhead, `BBCode is stripped before pricing (${r.bbcode})`);
-  check(r.budget === 300 * 1024, `the size cap is 300 KB of review lines (${r.budget})`);
+  console.log("\ncomposer table and paste thresholds:");
+  check(r.budget === "undefined", `no char budget survives to cap a chosen size (${r.budget})`);
+  // Every AI button's copy branches on this field; an entry without one falls through to the
+  // "your paste gets cut" branch and tells a Claude user something untrue.
+  check(r.aiPaste.every(x => /:(file|cut)$/.test(x)),
+        `every AI has a declared paste behaviour (${r.aiPaste.join(", ")})`);
+  check(r.fileNames === "Claude and ChatGPT" && r.cutNames === "Gemini",
+        `the copy names the composers from that table (${r.fileNames} / ${r.cutNames})`);
   check(r.sizes[r.sizes.length - 1] === 2000, `2000 is the largest sample offered (${r.sizes.join(",")})`);
   // Every size pill carries its own argument; a new option with no tip falls back to a bare
   // "2000 reviews." and silently loses the one thing the reader needs to choose it.
-  check(!!r.tip2000 && /\.txt/.test(r.tip2000), "the 2000 pill's tooltip warns about the paste");
+  check(!!r.tip2000 && /\.txt/.test(r.tip2000) && /Gemini/.test(r.tip2000),
+        "the 2000 pill's tooltip names Gemini's cut and the .txt route");
   check(r.warnNone === null, "a small bundle warns about nothing");
   check(r.warnSoft === false && r.warnHard === true, "60 KB warns, 150 KB insists on the file");
 }
