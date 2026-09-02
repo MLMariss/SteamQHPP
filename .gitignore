@@ -18,5 +18,9 @@ Desktop.ini
 h origin*
 t --oneline*
 
-# Playwright for test_review_digest.mjs (not a repo dependency; installed ad hoc)
+# Playwright for test_review_digest.mjs (not a repo dependency; installed ad hoc).
+# `npm install playwright` writes the manifests too, and they describe that ad-hoc
+# install rather than anything this repo depends on — everything else here is Python.
 node_modules/
+package.json
+package-lock.json

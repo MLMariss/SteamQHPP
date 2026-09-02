@@ -132,6 +132,8 @@ const sizeOn    = await page.locator("[data-rdsize].on").allTextContents();
 const focusOpts = await page.locator("[data-rdfocus]").count();
 const focusOn   = await page.locator("[data-rdfocus].on").count();
 const goLabel   = (await page.locator("#rdGo").textContent()).trim();
+const modeOpts  = await page.locator("[data-rdmode]").allTextContents();
+const modeOn    = await page.locator("[data-rdmode].on").allTextContents();
 // A focus whose family name does not exist in RD_TOPICS points the model at nothing and
 // fails silently — no error, just a focus the bundle cannot answer. Typos are the whole risk.
 const badFocusMap = await page.evaluate(() =>
@@ -140,6 +142,10 @@ const badFocusMap = await page.evaluate(() =>
 await page.locator("#rdGo").click();
 await page.waitForSelector("#rdOut", { timeout: 15000 });
 const bundle = await page.locator("#rdOut").inputValue();
+// §18.3 — the handoff row only exists once there is something to hand off, so it is read
+// here rather than with the setup-dialog state above.
+const aiOpts = await page.locator("[data-rdai]").allTextContents();
+const aiHint = await page.locator("#rdBody .rd-hint").last().textContent();
 await browser.close();
 
 console.log("\n================ BUNDLE (first 40 lines) ================");
@@ -225,17 +231,26 @@ check(bundle.includes("--- INSTRUCTIONS ---"), "instructions section present");
   check(/\[top\] among the 10 most-upvoted reviews/.test(bundle), "legend documents the [top] flag");
 }
 {
-  // The setup dialog. The default sample must be the FIRST button, not merely the selected
-  // one — QTPD's segmented controls put the default leftmost, and 300·500·1000 read in
-  // numeric order would quietly break that rule.
-  check(sizeOpts.join("·") === "500·300·1000", `sample sizes offered, default leftmost (${sizeOpts.join("·")})`);
+  // The setup dialog. §18.2 reversed the rule this used to assert: the sizes are a NUMBER
+  // LINE, so they read smallest -> largest even though that puts the default second. The lit
+  // pill is what marks the default now, which makes the second check load-bearing rather
+  // than a restatement of the first.
+  check(sizeOpts.join("·") === "300·500·1000", `sample sizes offered in ascending order (${sizeOpts.join("·")})`);
   check(sizeOn.length === 1 && sizeOn[0] === "500", `500 is the default and the only one lit (${sizeOn.join(",")})`);
+  check(modeOpts.join("·") === "Simplified·Advanced", `both report modes offered, simple first (${modeOpts.join("·")})`);
+  check(modeOn.length === 1 && modeOn[0] === "Advanced", `Advanced is the default report mode (${modeOn.join(",")})`);
   check(goLabel === "Fetch 500 reviews", `fetch button quotes the chosen size (${JSON.stringify(goLabel)})`);
   check(focusOpts === 7, `seven reader-focus toggles offered (${focusOpts})`);
   check(focusOn === 0, `no focus is on by default (${focusOn})`);
   check(badFocusMap.length === 0,
         `every reader focus maps to a real RD_TOPICS family${badFocusMap.length ? " — orphaned: " + badFocusMap.join(", ") : ""}`);
   check(!bundle.includes("--- READER FOCUS"), "no READER FOCUS block when nothing was ticked");
+  // §18.3. The three targets, and the hint that has to stay honest about WHY there is still a
+  // paste: nothing here can prefill 100+ KB through a link, and a button that implied it could
+  // would be the one thing worse than the paste itself.
+  check(aiOpts.join("·") === "Claude ↗·ChatGPT ↗·Gemini ↗", `three chat handoffs offered (${aiOpts.join("·")})`);
+  check(/Ctrl\+V|⌘V/.test(aiHint || ""), `handoff hint names the paste shortcut (${JSON.stringify((aiHint || "").slice(0, 60))})`);
+  check(/Download \.txt/.test(aiHint || ""), "handoff hint offers the file route for oversized pastes");
 }
 {
   // §15.1 restructured the report so the first screen is the answer and the Issues table is
@@ -431,6 +446,72 @@ errors.slice(0, 5).forEach(e => console.log("     " + e));
           "the no-editorialising rule is stated for every focus");
   }
   check(errs4.length === 0, `no uncaught JS errors on the size/focus path (${errs4.length})`);
+}
+
+// --- fifth scenario: the Simplified report mode (plan §18.4) -------------------------
+// Both modes ride the same bundle and differ only in the INSTRUCTIONS block, so the thing
+// worth pinning is that the SWAP happened: the simple skeleton is in, the advanced one is
+// out, and the data blocks the short report still depends on are untouched. Asserting the
+// absence matters as much as the presence — the failure this guards against is a Simplified
+// pick that quietly ships the advanced prompt, which looks fine until the model returns a
+// twelve-row issue table nobody asked for.
+{
+  const b5 = await chromium.launch({ executablePath: "/opt/pw-browsers/chromium-1194/chrome-linux/chrome" });
+  const p5 = await b5.newPage();
+  const errs5 = [];
+  p5.on("pageerror", e => errs5.push(e.message));
+  await p5.route("**/qtpd-reviews.*/**", route => {
+    const per = new URL(route.request().url()).searchParams.get("num_per_page");
+    route.fulfill({ status: 200, contentType: "application/json",
+      headers: { "Access-Control-Allow-Origin": "*" },
+      body: JSON.stringify(per === "0"
+        ? { success: 1, query_summary: { total_reviews: 40000, total_positive: 30000,
+            total_negative: 10000, review_score_desc: "Mostly Positive" }, reviews: [] }
+        // 7200s apart, so 300 reviews span ~25 days and TIMELINE still prints both windows.
+        : { success: 1, query_summary: {},
+            reviews: Array.from({ length: 300 }, (_, i) => mk(i + 1, { ts: 1756000000 - i * 7200 })),
+            cursor: "" }) });
+  });
+  await p5.goto("http://127.0.0.1:8099/index.html", { waitUntil: "networkidle" });
+  await p5.waitForTimeout(500);
+  await p5.locator("button.gsub-rev").first().click();
+  await p5.waitForSelector("#rdHost.on");
+  await p5.locator('[data-rdmode="simple"]').click();
+  const modeOn5 = await p5.locator("[data-rdmode].on").allTextContents();
+  await p5.locator('[data-rdfocus="deck"]').click();
+  await p5.locator("#rdGo").click();
+  await p5.waitForSelector("#rdOut", { timeout: 20000 });
+  const b = await p5.locator("#rdOut").inputValue();
+  await b5.close();
+
+  console.log("\nsimplified report mode:");
+  check(modeOn5.length === 1 && modeOn5[0] === "Simplified", `picking a mode lights exactly one (${modeOn5.join(",")})`);
+  // Only the file carries a version marker; the inline fallback does not. This is what says
+  // review_prompt_simple.md was actually fetched rather than silently fallen back to.
+  check(/=== QTPD REVIEW DIGEST · prompt v\S+-simple ===/.test(b),
+        "real review_prompt_simple.md loaded, not the inline fallback");
+  const at = h => b.indexOf("\n" + h + "\n");
+  const seq = ["### Summary", "### Who it's for", "### Best and worst"].map(h => [h, at(h)]);
+  check(seq.every(([, i]) => i > 0), `simple sections present (${seq.filter(([, i]) => i < 0).map(([h]) => h).join(", ") || "all"})`);
+  check(seq.every(([, i], n) => n === 0 || i > seq[n - 1][1]), "simple sections ordered summary -> who -> best/worst");
+  check(b.includes("| # | Best | N | Worst | N |"), "best/worst table keeps its raw review counts");
+  // The advanced skeleton's own headings must be gone. "### Notes" is checked too: it is the
+  // one heading both files could plausibly want, and it is exactly the kind of section that
+  // creeps back into a report meant to be three sections long.
+  const advanced = ["### Snapshot", "### Where the complaints land", "### Issues", "### Notes"];
+  const leaked = advanced.filter(h => b.includes("\n" + h + "\n"));
+  check(leaked.length === 0, `no advanced sections leaked into the simple prompt${leaked.length ? " — " + leaked.join(", ") : ""}`);
+  check(!/max\(5 reviews, 2% of substantive\)/.test(b), "the advanced row floor is not carried into the simple prompt");
+  check(/No percentages anywhere/.test(b), "the no-percentages rule is stated, not merely implied by the skeleton");
+  // Same bundle, different instructions: the precomputed blocks are what keep a five-line
+  // report honest, so stripping them to match the shorter output would be the wrong economy.
+  check(/^--- TIMELINE \(precomputed/m.test(b), "TIMELINE still rides along in simple mode");
+  check(/^--- TOPIC MENTIONS /m.test(b), "TOPIC MENTIONS still rides along in simple mode");
+  check(/^--- REVIEWS \(\d+\) ---$/m.test(b), "the reviews themselves are unchanged by the mode");
+  // A focus is binding in BOTH modes; the simple prompt answers it in its own last section.
+  check(b.includes("--- READER FOCUS"), "reader focus still reaches the bundle in simple mode");
+  check(/### What you asked about/.test(b), "simple prompt gives the focus its own section");
+  check(errs5.length === 0, `no uncaught JS errors on the simple path (${errs5.length})`);
 }
 
 srv.close();

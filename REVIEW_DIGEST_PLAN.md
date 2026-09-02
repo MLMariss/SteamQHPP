@@ -438,7 +438,8 @@ number they merely *copied* from TIMELINE was identical in all three.
 | file | change |
 |---|---|
 | `index.html` | one new ~400-line section: fetch, compact, format, modal; plus two small entry-point edits (`:2668`, `:3973`) |
-| `review_prompt.md` | **new** — the prompt, iterated independently |
+| `review_prompt.md` | **new** — the Advanced prompt, iterated independently |
+| `review_prompt_simple.md` | **added §18.4** — the Simplified prompt; same bundle, three sections, no percentages |
 | `review_probe.py` + `.github/workflows/review-probe.yml` | **added** — Phase 0 diagnostic; read-only, commits nothing, manual trigger only |
 | `worker/` | **added** — the A1 proxy (`index.js`, `wrangler.toml`, `README.md`, `test.mjs`). In-repo by design; the wishlist Worker's source was lost |
 | `ARCHITECTURE.md` / `ROADMAP.md` | new section + cross-reference |
@@ -821,3 +822,115 @@ after one page, so the loop the size selector consists of was previously never e
 be executed. Every one of the 25 assertions was instead run against a bundle built by the real
 page in a browser — same page, same `rdBuildBundle`, same prompt file, with `fetch` stubbed to
 serve ten pages — and all 25 pass. The Playwright wrapper around them is unexecuted code.
+
+---
+
+## 18. Shipped 2026-09-02 — discoverability, the handoff, and a short mode
+
+Four items, all raised against the shipped feature rather than against the plan. Three are
+about the *seams* — getting into the dialog, getting out of it, and reading the options — and
+one adds a second report shape. Nothing in §16's precomputed arithmetic changes, and neither
+does the bundle: §18.4 swaps instructions, not data.
+
+### 18.1 The entry point was invisible
+
+§9 chose the review count under the title as the table's entry point, on the reasoning that
+"1,015,944 reviews" needs no explaining as the way to reach the reviews. That reasoning holds.
+The *styling* did not: it was a **dotted** underline in `--line` sitting under text coloured
+`--muted-2` — two of the faintest values in the palette stacked on each other. The affordance
+was technically present and practically absent, and the count read as a label.
+
+Now: `--muted` text (one step brighter than the subline around it), a **solid** 1px underline
+in `--muted-2`, and a `⇩` caret after the number saying something gets pulled down. The caret
+is a `::after` set to `display:inline-block`, which both keeps it out of `textContent` (screen
+readers still hear "15,917 reviews") and stops the underline running beneath a glyph that is
+not a word.
+
+**Not gold at rest, deliberately.** Gold is this page's "this is the live pick" colour — the
+lit filter, the active sort, the chosen sample size. Spending it on a control that repeats on
+every row of a 128,000-row table would flatten its meaning everywhere it is doing real work.
+Gold stays the hover and focus state, where it still means *this one*.
+
+The grid card's `.gi-rev` was left alone: it is already a full button in an actions row and
+was never the discoverability problem.
+
+### 18.2 Sample sizes read as a number line, not a menu
+
+`RD_SIZES` was `[500, 300, 1000]` — 500 first because §15.3 followed QTPD's "default leftmost"
+rule for segmented controls. Against three *quantities*, that rule loses. The eye checks the
+ordering of a number row before it reads the values, so `500·300·1000` registers as a typo and
+costs more attention than a default that is not first.
+
+Now `[300, 500, 1000]`, ascending, with `RD_DEFAULT_SIZE = 500` as the single place that
+decides the default and the lit pill as the only thing that marks it. The test assertion was
+inverted rather than deleted — it now pins ascending order, and the "500 is the one lit" check
+becomes load-bearing instead of a restatement of the first check.
+
+This is a local override of the leftmost rule, not a repeal of it. It applies where the
+options form an ordered scale; the Language and Report rows are unordered choices and keep
+their default first.
+
+### 18.3 The handoff — three chat buttons
+
+**What is not possible:** prefilling the digest into a chat through a link. A finished bundle
+is 100–150 KB; `?q=` prefills cap out somewhere between 2k and 8k characters depending on the
+service and the browser, and Gemini has no prefill parameter at all. There is no size of
+digest we would realistically produce that fits, so a button promising "opens with the text
+already in it" would be a button that lies.
+
+**What is possible** is deleting every step except the paste. `Claude` / `ChatGPT` / `Gemini`
+each put the bundle on the clipboard and open an **empty new conversation** in a new tab, so
+the user arrives at a cursor in a blank composer with one keystroke left. The hint under the
+row states the constraint plainly and points at `Download .txt` as the route for a composer
+that refuses text that long — all three accept a `.txt` attachment.
+
+Two implementation notes worth keeping:
+
+- **Order is load-bearing.** Both the clipboard write and the `window.open` have to happen
+  inside the same user gesture. Awaiting the copy first resumes in a later microtask with the
+  gesture spent, and the popup blocker eats the tab. So the write is *started* and the tab is
+  opened synchronously behind it; only the toast waits on the promise.
+- `rdCopyBundle()` is shared with `Copy all`, and keeps the deprecated
+  `execCommand("copy")` fallback: it is the only path that works on a page served without
+  https, and on older iOS Safari where `navigator.clipboard` exists but rejects outside a
+  narrow gesture.
+
+The buttons are `.rd-opt` chips, not `.rd-go`. Three gold buttons in one row would leave the
+panel with no primary action at all — same argument as §18.1.
+
+### 18.4 Simplified vs Advanced
+
+A second prompt file, `review_prompt_simple.md`, selected by a `Report` row at the top of the
+setup dialog. Advanced is the v7 skeleton and stays the default — it is what this page
+shipped with, and Simplified is the addition.
+
+Simplified outputs **three sections and nothing else**: a 3–5 sentence prose `### Summary`,
+the `### Who it's for` Buy/Skip pair, and one `### Best and worst` table of exactly five rows.
+No Issues table, no bucket table, **no percentages anywhere** — but raw review counts stay, in
+an `| # | Best | N | Worst | N |` table. Dropping the counts too was considered and rejected:
+counting 500 reviews is the one thing the reader cannot do himself, and a ranked list with no
+numbers behind it is unfalsifiable. A reader focus stays binding and gets its own
+`### What you asked about` section, still answering zero as zero.
+
+**Both modes ride the same bundle.** Identical reviews, identical TIMELINE, identical TOPIC
+MENTIONS. Stripping the precomputed blocks to match the shorter output is the obvious economy
+and the wrong one — they are ~1% of the bundle and they are the only thing standing between a
+five-line report and five confident guesses. So this is a prompt-file swap, not a second code
+path: `rdLoadPrompt(mode)` picks the file, caches per mode, and falls back per mode.
+
+The `<!-- v7-simple -->` marker means the title line reads `prompt v7-simple`, which is what
+the test uses to prove the file was really fetched rather than silently falling back.
+
+### 18.5 Verification
+
+`test_review_digest.mjs` goes from 74 to 88 checks and **all 88 pass**, run here against
+Chromium — unlike §17, which had no `node` on the machine and had to verify by hand.
+
+New: the ascending size order and the two report-mode pills in the setup dialog; the three
+handoff buttons and the hint naming both the paste shortcut and the file fallback; and a fifth
+scenario that picks Simplified with a focus ticked and asserts the swap actually happened —
+the three simple headings present and in order, the counts column intact, the no-percentages
+rule stated, and `### Snapshot` / `### Where the complaints land` / `### Issues` / `### Notes`
+**absent**. That absence check is the point of the scenario: a Simplified pick that quietly
+ships the advanced prompt looks completely fine until the model returns a twelve-row issue
+table nobody asked for.
