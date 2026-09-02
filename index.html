@@ -1492,11 +1492,22 @@
   /* Table entry point: the review count under the title is ALREADY on the card, so it
      becomes the button. Zero new pixels, and "1,015,944 reviews" needs no explaining as
      the way to reach the reviews. Sits outside the <a class="gtitle"> store link, so
-     there is no nested-interactive problem. */
+     there is no nested-interactive problem.
+
+     It was a DOTTED underline in --line, on a --muted-2 subline: two of the faintest values
+     in the palette stacked on each other, which made the one interactive thing in the cell
+     read as a label. The count is now a step brighter than the text around it, carries a
+     solid underline, and ends in a small caret that says something gets pulled down.
+     Deliberately still NOT gold at rest: gold is this page's "this is the live pick" colour,
+     and spending it on a control that repeats on every row of a 128k-row table would flatten
+     it everywhere else it is doing real work. Gold stays the hover and focus state. */
   .gsub .gsub-rev{appearance:none; background:transparent; border:0; padding:0; cursor:pointer;
-        font:inherit; color:inherit; text-decoration:underline; text-decoration-style:dotted;
-        text-underline-offset:2px; text-decoration-color:var(--line)}
-  .gsub .gsub-rev:hover{color:var(--gold)}
+        font:inherit; color:var(--muted); text-decoration:underline; text-underline-offset:2px;
+        text-decoration-thickness:1px; text-decoration-color:var(--muted-2)}
+  /* inline-block so the underline stops before the caret — a decoration running under a
+     glyph that is not a word reads as a rendering fault. */
+  .gsub .gsub-rev::after{content:"\21e9"; display:inline-block; margin-left:3px; opacity:.8}
+  .gsub .gsub-rev:hover{color:var(--gold); text-decoration-color:var(--gold)}
   .gsub .gsub-rev:focus-visible{outline:2px solid var(--gold); outline-offset:2px; border-radius:3px}
   .gi-actions .gi-rev{background:var(--gold-soft); border:1px solid var(--gold-deep); color:var(--gold)}
 </style>
@@ -5948,11 +5959,55 @@ const RD = {
 const RD_BBCODE = /\[\/?(?:b|i|u|h[1-3]|url|quote|spoiler|list|olist|\*|strike|code|noparse|table|tr|th|td|img|previewyoutube|hr)(?:=[^\]]{0,200})?\]/gi;
 
 // Sample size is a user choice, not a constant (plan §15.3). 500 stays the default — ~21k
-// tokens raw, ~14k after the cap — and leads the row per the "default leftmost" rule; 300
-// is the cheap read, 1000 is for slow games where 500 reviews barely reach back a year.
-// More reviews buy HISTORY, not accuracy: the counting floor is the model's, not the
-// sample's, which is why this only became safe once §16 precomputed the arithmetic.
-const RD_SIZES = [500, 300, 1000];
+// tokens raw, ~14k after the cap; 300 is the cheap read, and 1000 is for slow games where
+// 500 reviews barely reach back a year. More reviews buy HISTORY, not accuracy: the counting
+// floor is the model's, not the sample's, which is why this only became safe once §16
+// precomputed the arithmetic.
+//
+// Ordered smallest → largest, which deliberately OVERRIDES QTPD's "default leftmost" rule for
+// segmented controls (§18.2). These three options are a number line, and 500·300·1000 reads as
+// a typo — the eye checks the ordering before it reads the values, so a scrambled row costs
+// more attention than a default that is not first. The lit pill is what says which is the
+// default, and RD_DEFAULT_SIZE is the one place that decides it.
+const RD_SIZES = [300, 500, 1000];
+const RD_DEFAULT_SIZE = 500;
+
+// §18.4 — depth of the REPORT, not of the sample. Advanced is the v7 skeleton this file has
+// always emitted: every complaint counted, bucketed, and expressed as a percentage of the
+// substantive-review count, with the Issues table as the working. Simplified drops all of
+// that — no Issues table, no bucket table, no percentages — to a prose summary, a Buy/Skip
+// pair, and one best-vs-worst table of five rows carrying raw review counts.
+//
+// Both modes ride the SAME bundle: identical reviews, identical TIMELINE and TOPIC MENTIONS
+// blocks. Only the INSTRUCTIONS block differs, which is why this is a prompt-file swap and
+// not a second code path. Stripping the precomputed arithmetic to match the shorter output
+// would be the obvious economy and the wrong one — those blocks are what stop a five-line
+// report from being five confident guesses.
+const RD_MODES = [
+  { key:"simple",   label:"Simplified", file:"review_prompt_simple.md" },
+  { key:"advanced", label:"Advanced",   file:"review_prompt.md" },
+];
+const RD_DEFAULT_MODE = "advanced";        // what this page shipped with; Simplified is the addition
+
+// §18.3 — the handoff. A finished digest is 100–150 KB. No chat service accepts that through a
+// link: ?q= prefills cap out somewhere between 2k and 8k characters and Gemini has no prefill
+// parameter at all, so "open it with the text already in the box" is not available on any of
+// the three, at any size we would realistically produce. What IS available is deleting every
+// step except the paste — put the digest on the clipboard and open an EMPTY new conversation
+// in the same click, so the user arrives at a cursor in a blank composer.
+const RD_AI = [
+  { key:"claude", label:"Claude",  url:"https://claude.ai/new" },
+  { key:"gpt",    label:"ChatGPT", url:"https://chatgpt.com/" },
+  { key:"gemini", label:"Gemini",  url:"https://gemini.google.com/app" },
+];
+
+// The paste shortcut differs by platform and getting it wrong is the kind of small wrongness
+// that makes the rest of the sentence untrustworthy. navigator.platform is deprecated but is
+// still the most reliable Apple signal in browsers that have not shipped userAgentData.
+function rdPasteKey(){
+  const ua = (navigator.userAgentData && navigator.userAgentData.platform) || navigator.platform || navigator.userAgent || "";
+  return /mac|iphone|ipad|ipod/i.test(ua) ? "⌘V" : "Ctrl+V";
+}
 
 // §15.4 — reader focus. Each entry is one toggle in the setup dialog and, when on, one line
 // in the READER FOCUS block. `topics` names the RD_TOPICS families below that answer it, so
@@ -5976,8 +6031,9 @@ const RD_FOCUS = [
     topics:["Political & ideological content"] },
 ];
 
-const rdState = { open:false, appid:null, lang:"english", size:RD_SIZES[0], focus:[],
-                  busy:false, abort:null, bundle:"", promptText:null };
+const rdState = { open:false, appid:null, lang:"english", size:RD_DEFAULT_SIZE,
+                  mode:RD_DEFAULT_MODE, focus:[],
+                  busy:false, abort:null, bundle:"", prompts:{} };
 
 function rdArtRatio(t){
   const body = t.replace(/\s/g, "");
@@ -6072,13 +6128,18 @@ async function rdCollect(appid, lang, size, onProgress, signal){
   return { raw: raw.slice(0, size), scoped:scoped.query_summary || {}, overall:overall.query_summary || {} };
 }
 
-// The prompt is its own file so it can be iterated without touching this 5,500-line
-// document. Fetched lazily on first open — NOT a 14th load-time fetch — and never
-// allowed to fail into a bundle with no instructions attached.
-// Only reached when review_prompt.md fails to load. It used to be the v1 instructions, which
-// asked for seven prose sections and produced exactly the failures v2-v5 were written to fix —
-// a stale fallback is a worse outcome than a short one, so this is a condensed v5 instead.
-const RD_PROMPT_FALLBACK =
+// The prompts are their own files so they can be iterated without touching this 6,700-line
+// document. Fetched lazily on first run — NOT a 14th load-time fetch — and never allowed to
+// fail into a bundle with no instructions attached. Keyed by RD_MODES.key and cached per mode,
+// so toggling Simplified/Advanced back and forth costs one fetch each, not one per click.
+//
+// Only reached when the .md fails to load. The advanced fallback used to be the v1
+// instructions, which asked for seven prose sections and produced exactly the failures v2-v5
+// were written to fix — a stale fallback is a worse outcome than a short one, so both entries
+// here are condensed restatements of the file that is live NOW, not older drafts of it.
+const RD_PROMPT_FALLBACK = {};
+
+RD_PROMPT_FALLBACK.advanced =
 `Analyse the Steam reviews that follow. Count REVIEWS, not mentions — one review counts once per
 issue. Count complaints only: "simple graphics, but I love it" is praise, not a graphics
 complaint. Percentages use the substantive-review count from the OVERVIEW. The floor for a row
@@ -6105,17 +6166,57 @@ and SPANS warnings — if the NOW window is a fortnight, say "too recent to call
 reporting a trend. If a READER FOCUS block is present it overrides these caps: every focus gets
 its own Issues row even at 0, and one clause in "Who it's for". Counts only, no editorialising.`;
 
-async function rdLoadPrompt(){
-  if(rdState.promptText) return rdState.promptText;
+// The Simplified fallback. Same job as the advanced one above, and the same warning applies:
+// it has to track review_prompt_simple.md, because the one occasion anybody ever reads it is
+// the one occasion the file did not load and nobody is watching.
+RD_PROMPT_FALLBACK.simple =
+`Analyse the Steam reviews that follow and write a SHORT report. Count REVIEWS, not mentions —
+one review counts once for a thing however many times it says it. Count complaints only:
+"simple graphics, but I love it" is praise, not a graphics complaint. Never recompute the
+TIMELINE block; copy its numbers. TOPIC MENTIONS is a regex floor for checking your own
+counting against — never reproduce it and never quote it as an answer.
+
+No percentages anywhere, and no issue table. Output these three sections in this order and
+nothing else — a blank line before the table:
+
+### Summary
+3-5 sentences of plain prose: what players actually say about this game right now, what it
+does well, what goes wrong, and whether sentiment is improving or getting worse (from
+TIMELINE). If TIMELINE warns the window is thin, short or narrowed, write "too recent to call"
+rather than naming a direction.
+
+### Who it's for
+A **Buy it if you** line and a **Skip it if you** line, at most 4 semicolon-separated clauses
+each. Every Skip clause must trace to something the reviews actually said — never to what the
+genre implies.
+
+### Best and worst
+One table, exactly 5 rows, headed \`| # | Best | N | Worst | N |\`. N is the number of reviews
+raising that thing. The two columns are ranked independently. Name concrete things in the
+players' own words, not bucket labels.
+
+If a READER FOCUS block is present, add a fourth section \`### What you asked about\` with one
+line per focus: the focus, its review count, and one sentence on what they say. Report zero as
+zero — that is the answer he came for. Counts only, no advice about whether he should care.
+
+No introduction, no methodology, no closing paragraph, no extra sections.`;
+
+function rdModeSpec(key){
+  return RD_MODES.find(m => m.key === key) || RD_MODES.find(m => m.key === RD_DEFAULT_MODE);
+}
+
+async function rdLoadPrompt(mode){
+  const m = rdModeSpec(mode);
+  if(rdState.prompts[m.key]) return rdState.prompts[m.key];
   try {
-    const r = await fetch("review_prompt.md", { cache:"no-store" });
+    const r = await fetch(m.file, { cache:"no-store" });
     if(r.ok){
       const t = (await r.text()).trim();
-      if(t) { rdState.promptText = t; return t; }
+      if(t) { rdState.prompts[m.key] = t; return t; }
     }
   } catch(e){ /* fall through — a digest without instructions is worse than a generic one */ }
-  rdState.promptText = RD_PROMPT_FALLBACK;
-  return rdState.promptText;
+  rdState.prompts[m.key] = RD_PROMPT_FALLBACK[m.key];
+  return rdState.prompts[m.key];
 }
 
 function rdPct(pos, total){ return total ? Math.round(100 * pos / total) : null; }
@@ -6514,6 +6615,24 @@ function rdBuildBundle(g, data, lang, prompt, focus){
 }
 
 // ---- UI ---------------------------------------------------------------------------
+
+// Shared by "Copy all" and by all three AI buttons, and it must stay SYNCHRONOUS up to the
+// point it returns a promise — see the AI handler for why. execCommand("copy") is deprecated
+// and kept anyway: it is the only path that works on a page served without https, and on the
+// old iOS Safari where navigator.clipboard is present but rejects outside a narrow gesture.
+function rdCopyBundle(){
+  const ta = document.getElementById("rdOut");
+  const legacy = () => {
+    if(!ta) throw new Error("nothing to copy");
+    ta.select();
+    if(!document.execCommand("copy")) throw new Error("copy refused");
+  };
+  if(navigator.clipboard && navigator.clipboard.writeText)
+    return navigator.clipboard.writeText(rdState.bundle).catch(() => { legacy(); });
+  try { legacy(); return Promise.resolve(); }
+  catch(e){ return Promise.reject(e); }
+}
+
 function rdClose(){
   if(rdState.abort) rdState.abort.abort();
   rdState.open = false; rdState.busy = false; rdState.abort = null; rdState.bundle = "";
@@ -6526,8 +6645,15 @@ function rdRenderSetup(g){
   document.getElementById("rdTitle").textContent = g.title;
   body.innerHTML =
     `<p class="rd-note">Pulls the <b id="rdCount">${rdState.size}</b> most recent reviews from Steam and packages them
-     with an analysis prompt — copy the result into any AI to get an issue breakdown.
+     with an analysis prompt — hand the result to any AI to get the reviews read for you.
      Review-bombing reviews are included on purpose; the prompt reports them separately.</p>
+     <div class="rd-row"><span class="rd-lbl">Report</span>
+       ${RD_MODES.map(m => `<button type="button" class="rd-opt${rdState.mode===m.key?" on":""}" data-rdmode="${m.key}">${esc(m.label)}</button>`).join("")}
+     </div>
+     <p class="rd-hint"><b>Simplified</b> is the plain read — what players say, who the game is
+        for, and the five best and worst things, with review counts but no percentages and no
+        issue table. <b>Advanced</b> adds the full working: every complaint counted, bucketed
+        and set against the substantive-review count, with the trend and the Issues table.</p>
      <div class="rd-row"><span class="rd-lbl">Language</span>
        <button type="button" class="rd-opt${rdState.lang==="english"?" on":""}" data-rdlang="english">English</button>
        <button type="button" class="rd-opt${rdState.lang==="all"?" on":""}" data-rdlang="all">All languages</button>
@@ -6563,8 +6689,16 @@ function rdRenderResult(bundle){
   const body = document.getElementById("rdBody"), foot = document.getElementById("rdFoot");
   const kb = (bundle.length / 1024).toFixed(0), tok = Math.round(bundle.length / 4 / 100) / 10;
   body.innerHTML =
-    `<p class="rd-note">Ready. Copy it, paste into an AI, and it will do the counting.
-     The prompt is already included at the bottom.</p>
+    `<p class="rd-note">Ready. Pick a chat below — the digest goes onto your clipboard and a new
+     conversation opens, so the only thing left to do is paste. The analysis prompt is already
+     inside it; the AI does the counting.</p>
+     <div class="rd-row"><span class="rd-lbl">Open in</span>
+       ${RD_AI.map(a => `<button type="button" class="rd-opt" data-rdai="${a.key}">${esc(a.label)} ↗</button>`).join("")}
+     </div>
+     <p class="rd-hint">Opens a new chat in a new tab with the digest on your clipboard — press
+        <b>${rdPasteKey()}</b> there. None of the three can be handed ${kb} KB through a link, so
+        that one paste is the step that cannot be removed. If a composer refuses text this long,
+        use <b>Download .txt</b> below and attach the file instead — all three accept it.</p>
      <textarea class="rd-out" id="rdOut" readonly spellcheck="false"></textarea>`;
   document.getElementById("rdOut").value = bundle;
   foot.innerHTML =
@@ -6586,7 +6720,7 @@ async function rdRun(){
   try {
     const [data, prompt] = await Promise.all([
       rdCollect(g.appid, rdState.lang, rdState.size, say, rdState.abort.signal),
-      rdLoadPrompt(),
+      rdLoadPrompt(rdState.mode),
     ]);
     if(!data.raw.length) throw new Error("this game has no reviews in that language");
     say("building…");
@@ -6651,6 +6785,13 @@ document.addEventListener("click", e => {
       b.classList.toggle("on", b.getAttribute("data-rdlang") === rdState.lang));
     return;
   }
+  const mode = e.target.closest("[data-rdmode]");
+  if(mode && !rdState.busy){
+    rdState.mode = mode.getAttribute("data-rdmode");
+    document.querySelectorAll("[data-rdmode]").forEach(b =>
+      b.classList.toggle("on", b.getAttribute("data-rdmode") === rdState.mode));
+    return;
+  }
   const size = e.target.closest("[data-rdsize]");
   if(size && !rdState.busy){
     rdState.size = parseInt(size.getAttribute("data-rdsize"), 10);
@@ -6683,11 +6824,24 @@ document.addEventListener("click", e => {
     return;
   }
   if(e.target.closest("#rdCopy")){
-    const ta = document.getElementById("rdOut");
-    const done = () => toast("Digest copied — paste it into an AI.", "ok", 4000);
-    if(navigator.clipboard && navigator.clipboard.writeText){
-      navigator.clipboard.writeText(rdState.bundle).then(done).catch(() => { ta.select(); document.execCommand("copy"); done(); });
-    } else { ta.select(); document.execCommand("copy"); done(); }
+    rdCopyBundle()
+      .then(() => toast("Digest copied — paste it into an AI.", "ok", 4000))
+      .catch(() => toast("Couldn't reach the clipboard — select the box and copy it by hand.", "err", 5000));
+    return;
+  }
+  const ai = e.target.closest("[data-rdai]");
+  if(ai){
+    const spec = RD_AI.find(a => a.key === ai.getAttribute("data-rdai"));
+    if(!spec) return;
+    // Order is load-bearing. Both the clipboard write and the window.open have to happen
+    // inside this one click's user gesture: awaiting the copy first would resume in a later
+    // microtask with the gesture spent, and the popup blocker eats the tab. So the write is
+    // STARTED here and the tab is opened synchronously behind it; only the toast waits.
+    const copied = rdCopyBundle();
+    window.open(spec.url, "_blank", "noopener");
+    copied
+      .then(() => toast(`Digest copied — press <b>${rdPasteKey()}</b> in the ${esc(spec.label)} tab that just opened.`, "ok", 7000))
+      .catch(() => toast(`Opened ${esc(spec.label)}, but the clipboard was blocked — copy the box by hand and paste it there.`, "err", 7000));
     return;
   }
   if(e.target.closest("#rdDl")){
