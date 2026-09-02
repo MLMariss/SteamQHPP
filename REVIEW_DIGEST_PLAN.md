@@ -1066,3 +1066,105 @@ above `### Summary` and its footer below `### Best and worst`; and the "copied c
 character" rule asserted in both prompts, since dropping that phrase is how the guarantee
 quietly becomes a suggestion. Both inline `RD_PROMPT_FALLBACK` entries were updated in the same
 pass — §8's stale-fallback failure mode, avoided the same way §16 and §17 avoided it.
+
+---
+
+## 21. Shipped 2026-09-02 — how deep we can actually go
+
+The question that started this: how many reviews can we pull, and how many can an AI actually
+take? Both halves were answered by measurement against live Steam, not by extrapolating from
+the Phase 0 fixture.
+
+### 21.1 Steam has no ceiling — and the fetch was stopping short of it anyway
+
+§14 Q2 called cursor depth "no constraint whatsoever", but it only ever tested 600. Walked
+properly, `filter=recent` goes **120 pages / 12,000 reviews** on both Cyberpunk 2077 and
+Valheim with the cursor advancing every time and **zero duplicates**. Nothing pushed back.
+There is no Steam-side limit anywhere near the range this feature cares about.
+
+What there *is*, is a gap. **Steam serves 98 or 99 reviews on roughly 2% of pages** — a review
+deleted between the cursor being issued and the page being served — and then carries on
+normally. Both fetchers treated a short page as end-of-list:
+
+| site | was | consequence |
+|---|---|---|
+| `rdCollect` (`index.html`) | `batch.length < RD.perPage` → `break` | at 2% a page, **about one ten-page pull in five ended early**, silently — the header honestly reported the short sample it was handed, so the only symptom was a digest covering less time than it should have |
+| `scrape_game` (`playtime_refresh.py`) | `len(reviews) < PER_PAGE` → `exhausted = True` | far worse: `exhausted` is **persisted** and gates `_eligible`, so one unlucky page **permanently retired a game from growing** while it still held fewer than target |
+
+Both now stop only on an empty page or a cursor that stops advancing, which is what Steam's
+actual end-of-list looks like.
+
+### 21.2 A review count is not a budget
+
+Measured live across five games, formatting each review exactly as the REVIEWS block does:
+
+| game | chars/review | 500 | 1000 | 2000 | 3000 |
+|---|---:|---:|---:|---:|---:|
+| Dota 2 | 57–75 | 6.9k tok | 15.9k | 34.5k | 53.6k |
+| Stardew Valley | ~107 | 13.7k | 26.8k | 54.8k | 81.4k |
+| Black Myth Wukong | ~147 | 18.4k | 37.5k | 73.1k | 110.4k |
+| Cyberpunk 2077 | ~156 | 19.8k | 39.8k | 78.5k | 115.8k |
+| Valheim | ~165–185 | 23.4k | 42.8k | 81.9k | 120.9k |
+
+**A review costs 15 tokens on Dota 2 and 47 on Valheim — a 3× spread.** §17.2's "1000 is
+~29.8k tokens" came from one fixture and understates the text-heavy end by ~40%. So the number
+in the size selector was never a budget, and `RD.charBudget` (300 KB of review lines, ~82k
+tokens once the ~18 KB of instructions and header are added) is the ceiling that makes the
+selector safe on any game. It only binds at 2000 on a text-heavy game; at 1000 and below
+nothing reaches it. The trim cuts from the **old** end, so the sample stays a clean "most
+recent N" — the one property every window, trend and topic count is computed against — and
+the header states it, like every other thing done to the sample.
+
+### 21.3 2000 is the ceiling, and it is an AI limit
+
+At ~47 tokens/review, 2000 is ~92k tokens with the prompt; 3000 would be ~126k, which is more
+of a 200k window spent holding the list than reasoning over it — and the binding constraint
+was never context anyway, it is the model's counting, which §16 exists to prop up. Fetch time
+is not a factor: the Worker answers in **0.42 s/page** measured, so 2000 is ~13 s.
+
+The case for going deeper at all is coverage. At 500 reviews the sample reaches back
+**3.4 days on Cyberpunk 2077** and 4.5 on Dota 2 — against an `RD_NOW_DAYS` of 90 and a
+`RD_THIN_SAMPLE_DAYS` warning at 60. On a busy game the default cannot fill the window the
+TIMELINE block was built to compare against; 2000 gets Cyberpunk to ~14 days and Valheim past
+50. The argument sits on the 2000 pill's own tooltip, per §19.1.
+
+### 21.4 Chat composers truncate a long paste instead of refusing it
+
+Reported from use, and it is the failure mode that matters most: **Gemini cuts a 1000-review
+digest partway through**, and because the bundle leads with INSTRUCTIONS and ends with the
+reviews, the model reads a plausible-looking fragment and answers from it. Nothing in the
+reply says it only saw part of the sample. §19.2's Download tooltip assumed a composer would
+*refuse* text this long — that is the polite failure, and not the one that happens.
+
+So the result panel now prices the paste. Under 60 KB, nothing (Dota 2 at 500 is 26 KB,
+Stardew 52 KB). Over 60 KB — the range a 1000-review pull lands in, 60–163 KB — a gold warning
+that composers truncate silently, and that **Download .txt** and attaching the file is the fix.
+Over 150 KB it turns coral, says the paste will be cut, and the footer **inverts**: Download
+.txt becomes the primary and leads the row, Copy all drops to a secondary. The three AI buttons
+stay — they still open the right tab — but at that size their tooltip and their toast both say
+to attach the file rather than paste, and the Copy toast stops congratulating.
+
+Copy is never removed. It still works in a composer with a big enough input, and hiding it
+would be a guess about the reader's AI.
+
+### 21.5 Verification
+
+`test_review_digest.mjs` gains a sixth scenario (a 2000-review pull with a 98-review page 3 —
+asserting the walk runs well past it, the size cap is declared in the header, and the hard
+warning names the download route and leads the footer) and a seventh (`rdLineCost` pricing,
+the budget constant, the 2000 tooltip, and all three `rdPasteAdvice` tiers).
+
+**Not run here**: `node` is still not installed on this machine. Instead every path was driven
+through the **real page in a browser** with `fetch` stubbed at the Worker: a 2000-review pull
+whose page 3 returned 98 reached 1698 reviews before the budget stopped it, trimmed 68 more to
+1630, printed `size cap: 68 oldest reviews dropped`, rendered at 299 KB with the hard warning
+and `rdDl` first in the footer; the same bundle re-rendered at 100 KB gave the gold warning
+with Copy still primary, and at 40 KB no warning at all. `rdLineCost`, `RD.charBudget` and all
+three `rdPasteAdvice` tiers were read straight off the live page.
+
+**A note on where this landed.** The work was first built on `feat-review-digest-recency`,
+which turned out to be fully merged and **1191 commits behind `main`** — and `main` had since
+shipped §18–§20 (ascending sizes, per-pill tooltips, the three chat buttons, the slimmed
+dialog). Committing there would have produced a PR reverting all of it. The branch was
+fast-forwarded to `main` and the change re-applied on top, which is why the footer logic here
+knows about `RD_AI` and the size argument lives in `RD_SIZE_TIP` rather than in body copy.

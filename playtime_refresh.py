@@ -583,9 +583,14 @@ def scrape_game(appid, stored_reviews, target, deep=False):
             exhausted = True           # Steam's end-of-list sentinel
             break
         cursor = next_cursor
-        if len(reviews) < PER_PAGE:
-            exhausted = True
-            break
+        # A SHORT PAGE IS NOT THE END OF THE LIST. Measured live 2026-09-02: Steam serves
+        # 98-99 on roughly 2% of pages — a gap where a review was deleted between the cursor
+        # being issued and the page being served — and the cursor keeps advancing normally
+        # afterwards (120 clean pages / 12,000 reviews on both Cyberpunk 2077 and Valheim,
+        # zero duplicates). This used to set `exhausted`, which is PERSISTED and gates the
+        # re-visit test at `_eligible` — so one unlucky page permanently retired a game from
+        # ever growing past the rung it stopped on, while still holding fewer than target.
+        # Only an empty page or a non-advancing cursor means Steam is actually out.
 
     return added, refreshed, exhausted
 

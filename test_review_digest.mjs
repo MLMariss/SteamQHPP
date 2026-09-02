@@ -258,7 +258,7 @@ check(bundle.includes("--- INSTRUCTIONS ---"), "instructions section present");
   // LINE, so they read smallest -> largest even though that puts the default second. The lit
   // pill is what marks the default now, which makes the second check load-bearing rather
   // than a restatement of the first.
-  check(sizeOpts.join("·") === "300·500·1000", `sample sizes offered in ascending order (${sizeOpts.join("·")})`);
+  check(sizeOpts.join("·") === "300·500·1000·2000", `sample sizes offered in ascending order (${sizeOpts.join("·")})`);
   check(sizeOn.length === 1 && sizeOn[0] === "500", `500 is the default and the only one lit (${sizeOn.join(",")})`);
   check(modeOpts.join("·") === "Simplified·Advanced", `both report modes offered, simple first (${modeOpts.join("·")})`);
   check(modeOn.length === 1 && modeOn[0] === "Advanced", `Advanced is the default report mode (${modeOn.join(",")})`);
@@ -553,6 +553,112 @@ errors.slice(0, 5).forEach(e => console.log("     " + e));
   check(b.includes("--- READER FOCUS"), "reader focus still reaches the bundle in simple mode");
   check(/### What you asked about/.test(b), "simple prompt gives the focus its own section");
   check(errs5.length === 0, `no uncaught JS errors on the simple path (${errs5.length})`);
+}
+
+// --- sixth scenario: short pages, the size cap, and the paste warning (plan §21) -------
+// Three things that only appear on a deep pull, all of which failed silently before:
+//   1. Steam serves 98-99 reviews on ~2% of pages and keeps going. The fetch used to treat
+//      that as end-of-list, so roughly one ten-page pull in five came back short and said
+//      nothing about it. Page 3 here returns 98, and the run must still reach the end.
+//   2. A review COUNT is not a size — the same 2000 is 130 KB on one game and 312 KB on
+//      another — so RD.charBudget trims the request and the header owns up to it.
+//   3. Past ~60 KB a chat composer truncates a paste instead of refusing it, which is how a
+//      digest gets analysed half-read. The result panel has to say so, and past 150 KB the
+//      file has to lead the footer.
+{
+  const b6 = await chromium.launch({ executablePath: "/opt/pw-browsers/chromium-1194/chrome-linux/chrome" });
+  const p6 = await b6.newPage();
+  const errs6 = [];
+  p6.on("pageerror", e => errs6.push(e.message));
+  const pages6 = [];
+  let seq6 = 0;
+  // ~140 chars of prose per review — a text-heavy game like Cyberpunk 2077, measured live at
+  // 156 chars/review. 2000 of those is ~300 KB, so this one fixture crosses both the hard
+  // paste threshold and the size cap.
+  const prose = "Great combat, rough launch, and the last two patches finally fixed the frame stutter in the city. Worth it now, was not at release. Runs fine.";
+  await p6.route("**/qtpd-reviews.*/**", route => {
+    const q = new URL(route.request().url()).searchParams;
+    const fulfil = body => route.fulfill({ status: 200, contentType: "application/json",
+      headers: { "Access-Control-Allow-Origin": "*" }, body: JSON.stringify(body) });
+    if (q.get("num_per_page") === "0")
+      return fulfil({ success: 1, reviews: [], query_summary: { total_reviews: 417281,
+        total_positive: 371000, total_negative: 46281, review_score_desc: "Very Positive" } });
+    const pageNo = pages6.length + 1;
+    pages6.push(q.get("cursor"));
+    const count = pageNo === 3 ? 98 : 100;         // the gap that used to end the walk
+    const base = seq6; seq6 += count;
+    const reviews = Array.from({ length: count }, (_, i) =>
+      mk(base + i + 1, { ts: 1756000000 - (base + i) * 3600, review: prose + " #" + (base + i) }));
+    fulfil({ success: 1, query_summary: {}, reviews, cursor: "c" + seq6 });
+  });
+  await p6.goto("http://127.0.0.1:8099/index.html", { waitUntil: "networkidle" });
+  await p6.waitForTimeout(500);
+  await p6.locator("button.gsub-rev").first().click();
+  await p6.waitForSelector("#rdHost.on");
+  await p6.locator('[data-rdsize="2000"]').click();
+  const goLabel6 = (await p6.locator("#rdGo").textContent()).trim();
+  await p6.locator("#rdGo").click();
+  await p6.waitForSelector("#rdOut", { timeout: 60000 });   // up to 20 pages at 250ms apart
+  const out6    = await p6.locator("#rdOut").inputValue();
+  const warnCls = await p6.locator("#rdWarn").getAttribute("class").catch(() => null);
+  const warnTxt = await p6.locator("#rdWarn").textContent().catch(() => "");
+  const primary = await p6.locator("#rdFoot .rd-go").getAttribute("id");
+  const footIds = await p6.locator("#rdFoot button").evaluateAll(
+    els => els.map(e => e.id || e.getAttribute("data-rdai")));
+  const got6    = Number((out6.match(/^--- REVIEWS \((\d+)\) ---$/m) || [])[1]);
+  await b6.close();
+
+  console.log("\nshort pages, size cap and paste warning:");
+  check(goLabel6 === "Fetch 2000 reviews", `2000 is selectable and the button follows it (${JSON.stringify(goLabel6)})`);
+  // The short page is at page 3. Anything at or below 300 means it ended the walk, which is
+  // the whole bug — the count is capped by the size budget, not by that page.
+  check(pages6.length > 3, `the short page did not end the walk (${pages6.length} pages fetched)`);
+  check(got6 > 1000, `the walk ran well past the short page (${got6} reviews in the bundle)`);
+  check(new RegExp(`^SAMPLE: ${got6} newest`, "m").test(out6),
+        "the header states the count it actually got, not the one asked for");
+  check(/^  size cap: \d+ oldest reviews dropped/m.test(out6),
+        "the size cap is declared in the header when it bites");
+  check((warnCls || "") === "rd-warn hard", `a ~300 KB bundle gets the hard paste warning (${warnCls})`);
+  check(/Download \.txt/.test(warnTxt) && /attach the file/.test(warnTxt),
+        "the warning names the download-and-attach route, not just the problem");
+  check(primary === "rdDl", `past the hard threshold the file takes the primary button (${primary})`);
+  check(footIds[0] === "rdDl" && footIds.includes("rdCopy"),
+        `the file leads the footer and Copy all survives as a secondary (${footIds.join(",")})`);
+  check(errs6.length === 0, `no uncaught JS errors on the deep-pull path (${errs6.length})`);
+}
+
+// --- seventh scenario: the budget and threshold arithmetic ----------------------------
+// Unit-style against the real page's functions. Driving every tier through the UI would mean
+// three more multi-page fixtures to assert what these two decide between them.
+{
+  const b7 = await chromium.launch({ executablePath: "/opt/pw-browsers/chromium-1194/chrome-linux/chrome" });
+  const p7 = await b7.newPage();
+  await p7.goto("http://127.0.0.1:8099/index.html", { waitUntil: "networkidle" });
+  const r = await p7.evaluate(() => ({
+    capped:   rdLineCost({ review: "x".repeat(5000) }),
+    short:    rdLineCost({ review: "gg" }),
+    bbcode:   rdLineCost({ review: "[b]hi[/b] there" }),
+    overhead: RD.lineOverhead,
+    cap:      RD.cap,
+    budget:   RD.charBudget,
+    sizes:    RD_SIZES,
+    tip2000:  RD_SIZE_TIP[2000] || null,
+    warnNone: rdPasteAdvice(40 * 1024),
+    warnSoft: rdPasteAdvice(80 * 1024).hard,
+    warnHard: rdPasteAdvice(200 * 1024).hard,
+  }));
+  await b7.close();
+  console.log("\nbudget and paste-threshold arithmetic:");
+  check(r.capped === r.cap + r.overhead, `a long review is priced at the cap plus line overhead (${r.capped})`);
+  check(r.short === 2 + r.overhead, `a two-char review costs two chars plus overhead (${r.short})`);
+  check(r.bbcode < "[b]hi[/b] there".length + r.overhead, `BBCode is stripped before pricing (${r.bbcode})`);
+  check(r.budget === 300 * 1024, `the size cap is 300 KB of review lines (${r.budget})`);
+  check(r.sizes[r.sizes.length - 1] === 2000, `2000 is the largest sample offered (${r.sizes.join(",")})`);
+  // Every size pill carries its own argument; a new option with no tip falls back to a bare
+  // "2000 reviews." and silently loses the one thing the reader needs to choose it.
+  check(!!r.tip2000 && /\.txt/.test(r.tip2000), "the 2000 pill's tooltip warns about the paste");
+  check(r.warnNone === null, "a small bundle warns about nothing");
+  check(r.warnSoft === false && r.warnHard === true, "60 KB warns, 150 KB insists on the file");
 }
 
 srv.close();
