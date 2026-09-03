@@ -1,4 +1,4 @@
-<!-- html-v2 -->
+<!-- html-v3 -->
 # OUTPUT FORMAT — one HTML page, instead of the Markdown skeleton
 
 This block **replaces the output skeleton in the instructions above.** Everything above still
@@ -6,24 +6,31 @@ decides *what* you report and how you count it — the rules, the buckets, the f
 the `[now]` lookup, the TIMELINE warnings, and the READER FOCUS block if one is present. Only
 the rendering changes. **Do not produce the Markdown report as well.** One artefact, not two.
 
-## What to return — a FILE, not code in a chat window
+## What to return — a DOWNLOADABLE .html FILE
 
-**Deliver the page as a file the reader can open.** Not a fenced code block, not markup pasted
-into the reply. They asked for an HTML page because they want a page: source in a chat window
-leaves them selecting text, saving it and naming it by hand, which is the one job this option
-exists to remove. Hand it over with whatever mechanism you have for producing a document:
+**Write the page to a real file and attach it for download.** Not a fenced code block, not
+markup pasted into the reply, and **not a preview pane** — not an Artifact, not a Canvas, not a
+document view. The reader asked for an HTML page because they want the file: they are running
+several games and keeping the pages side by side in a folder, so a panel they have to hunt a
+download button inside of is the same manual work as a code block, one menu further away.
 
-- **Claude** — create an **Artifact** of type `text/html`, titled `<game title> — review
-  digest`, holding the complete document from `<!DOCTYPE html>` to `</html>`. It renders in the
-  panel and the reader downloads it from there.
-- **ChatGPT** — write the document to a real file and give the download link: save it as
-  `<game>.html` with the python tool and link it. A Canvas holding the HTML is an acceptable
-  second best. The chat body is not.
-- **Gemini** — put it in **Canvas** as an HTML file, so it previews as a page and downloads as
-  one.
-- **Anything else** — whatever your file, canvas, artifact or document feature is called, use
-  it. The test is the same everywhere: the reader ends up with a `.html` they can double-click,
-  having selected no text and copied nothing.
+**Name the file after the game** — the game's title, lowercased, spaces and punctuation reduced
+to single hyphens, `.html` on the end: *STAR WARS Zero Company™* becomes
+`star-wars-zero-company.html`. That is what makes a folder of these readable.
+
+- **Claude** — use the **file-creation / code tool**: write the complete document to
+  `<game>.html` and attach it, so the reply carries a file the reader clicks to save.
+  **Do not answer with an Artifact.**
+- **ChatGPT** — use the **python tool**: write `<game>.html` to disk and give the **download
+  link**. Not Canvas.
+- **Gemini** — write it to a file the reader can download, or put it in **Canvas** as an HTML
+  file. Only if you genuinely have neither: emit the whole document in **one** `html` code block
+  and say, in your one sentence, *"click the download icon on the block to save it as
+  `<game>.html`"* — Gemini's code blocks carry that icon, and it is the only reason this escape
+  exists. It is Gemini's alone: no other chat may answer with a code block.
+- **Anything else** — whatever writes a real file and hands it over. The test is the same
+  everywhere: the reader ends up with a `.html` **in their downloads**, having selected no text,
+  copied nothing and clicked nothing but Save.
 
 Beside the file, write **one short sentence at most** — which game the page covers. No preamble,
 no "here's what I did", no summary of the findings underneath, and never a second copy of the
@@ -48,8 +55,8 @@ Hard rules, all four load-bearing:
 
 ## The skeleton — this is the file to build, not a block to paste back
 
-Fill this in and make it the artifact/canvas/download. The fence below is how the template
-is shown to you here; it is not the shape of your answer.
+Fill this in and write it to the `.html` you attach. The fence below is how the template is
+shown to you here; it is not the shape of your answer.
 
 ```html
 <!DOCTYPE html>
@@ -282,5 +289,6 @@ hero bar, the `.hero-read` line and every table cell carry raw counts only.
 - No `<script>`, no `src=`, no `@import`, no `http` outside a review's own quoted text.
 - The report mode's caps still hold: five Notes, ten Issues rows, five Loved/Hated rows, four
   clauses a side. A section that would be empty is omitted, not padded.
-- The page left as a FILE — artifact, canvas or download — with at most one sentence beside
-  it, and no copy of the report pasted into the chat.
+- The page left as a downloadable `.html` file named after the game — not an Artifact, not a
+  Canvas, not a code block — with at most one sentence beside it and no copy of the report
+  pasted into the chat.
