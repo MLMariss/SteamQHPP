@@ -1363,11 +1363,24 @@ hero split bar, `.scroll` tables, the `.split`/`.minibar` cell for Quit / stayed
 block. That is the whole point of the option. A report per game is only comparable if ten of
 them look like ten pages of one publication, and a model left to style it itself picks a new
 palette every run. The addendum also forbids what would break the file: no external CSS, fonts,
-images or scripts, no charts, no interactivity, nothing outside a single ` ```html ` fence.
+images or scripts, no charts, no interactivity.
+
+**`html-v2` — a file, not a fence.** v1 asked for the document inside a single ` ```html `
+fence, and every model obliged: the reader got a wall of markup in a chat window and a
+save-as-`.html` to do by hand, which is the work this option exists to remove. The addendum now
+asks for the page as a **file** and forbids the fence — an **Artifact** on Claude, a written
+`<game>.html` **with a download link** on ChatGPT (Canvas second best), a **Canvas** HTML file
+on Gemini, and "whatever your document/artifact/canvas feature is called" for anything else,
+with the test stated in the reader's terms: *a `.html` they can double-click, having copied
+nothing.* Naming all three is deliberate — the bundle is built before the reader picks a chat,
+so every line rides along and each model reads its own. **No fenced fallback is offered.** One
+was drafted and dropped: a get-out clause in the sentence is the clause a model takes, and the
+cost of the strict version failing on a chat with no file feature is one re-ask, against a
+softer version failing every time on the chat that does.
 
 It costs ~3k tokens of instructions and is fetched only when selected, so a Markdown run pays
-nothing for it. Both version markers ride the title line — `prompt v9 + html-v1` — because the
-output is now the product of two files and `v8` alone would not identify it.
+nothing for it. Both version markers ride the title line — `prompt v9 + html-v2` — because the
+output is now the product of two files and `v9` alone would not identify it.
 
 ### 23.3 The size now counts reviews that LAND, not reviews fetched
 
