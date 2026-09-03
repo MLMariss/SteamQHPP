@@ -1,4 +1,4 @@
-<!-- html-v3 -->
+<!-- html-v4 -->
 # OUTPUT FORMAT — one HTML page, instead of the Markdown skeleton
 
 This block **replaces the output skeleton in the instructions above.** Everything above still
@@ -31,6 +31,14 @@ to single hyphens, `.html` on the end: *STAR WARS Zero Company™* becomes
 - **Anything else** — whatever writes a real file and hands it over. The test is the same
   everywhere: the reader ends up with a `.html` **in their downloads**, having selected no text,
   copied nothing and clicked nothing but Save.
+
+**Never fake the handover.** Do not write a download link for a file you did not actually
+create with a tool, and never a `sandbox:` URL unless that scheme is genuinely your own — a link
+that resolves to a search page or a 404 is worse than no link, because the reader believes the
+work arrived and finds out later that it did not. If you cannot produce a file, **say so in
+plain words** and fall back to what you do have: Canvas, or the one `html` code block above. An
+honest "I can't attach files here, so the document is in the block below — use its download
+icon" is a good answer. A confident link to nothing is not.
 
 Beside the file, write **one short sentence at most** — which game the page covers. No preamble,
 no "here's what I did", no summary of the findings underneath, and never a second copy of the
@@ -292,3 +300,5 @@ hero bar, the `.hero-read` line and every table cell carry raw counts only.
 - The page left as a downloadable `.html` file named after the game — not an Artifact, not a
   Canvas, not a code block — with at most one sentence beside it and no copy of the report
   pasted into the chat.
+- Every link in that sentence points at a file you actually created. If you could not create
+  one, the sentence says so and names where the document is instead.

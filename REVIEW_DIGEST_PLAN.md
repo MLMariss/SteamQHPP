@@ -1382,6 +1382,17 @@ view — because a rule stated only in the positive gets satisfied by the neares
 The test is stated in the reader's terms: *a `.html` in their downloads, having copied nothing
 and clicked nothing but Save.*
 
+**`html-v4` — no fabricated handovers.** The escape left a hole. Told to *"give the download
+link"*, Gemini Flash wrote `[Download star-wars-zero-company.html](sandbox:/star-wars-zero-company.html)`
+— **ChatGPT's** download scheme, imitated by a model with no file backend — and Gemini's UI
+resolved it to a *Google search for the string*. That is the worst failure this feature can
+produce: v1 at least handed over a code block with a working download icon, whereas this looks
+like success and isn't. The addendum now bans the fabricated handover outright: **no link to a
+file you did not create with a tool, and no `sandbox:` URL unless that scheme is genuinely
+yours**, with the honest alternative spelled out — *"I can't attach files here, so the document
+is in the block below, use its download icon"* beats a confident link to nothing. The
+before-you-hand-it-over checklist gains the matching line.
+
 Naming all three chats is deliberate — the bundle is built before the reader picks one, so every
 line rides along and each model reads its own. **No fenced fallback is offered**, with one
 measured exception: **Gemini Flash**, tested on the same game, ignores the file instruction and
@@ -1392,7 +1403,7 @@ read itself into it; everywhere else a get-out clause in the sentence is the cla
 takes.
 
 It costs ~3k tokens of instructions and is fetched only when selected, so a Markdown run pays
-nothing for it. Both version markers ride the title line — `prompt v9 + html-v3` — because the
+nothing for it. Both version markers ride the title line — `prompt v9 + html-v4` — because the
 output is now the product of two files and `v9` alone would not identify it.
 
 ### 23.3 The size now counts reviews that LAND, not reviews fetched
