@@ -207,10 +207,23 @@ check(/1 duplicates/.test(bundle) && /1 ASCII-art/.test(bundle), "drops counted 
 // §23.1 — the bar is on by default, so the DEFAULT bundle has to own what it removed. The
 // fixture's one-word review ("gg") is the only thing under it here.
 check(/ · 1 under the 5-word bar · /.test(bundle), "the bar's drops sit on the excluded line beside the others");
-check(/^  quality bar: ON at 5 words — 1 shorter reviews? were dropped/m.test(bundle),
+check(/^  quality bar: ON at 5 words\./m.test(bundle),
       "the bar states itself in OVERVIEW rather than silently shrinking the sample");
-check(/^  before the bar: \d+ reviews read · \d+▲\/\d+▼ .* quote the sample split, never this line\.$/m.test(bundle),
-      "the pre-bar split is printed AND labelled as the one not to quote");
+// §23.4 — the two splits sit on consecutive lines in the same shape, with the gap between
+// them named on the line after. Split apart, neither one answers "is that the filter or the
+// game?", which is the only question a reader has when a rate moves.
+{
+  const lines = bundle.split("\n");
+  const i = lines.findIndex(l => l.startsWith("  sample split:"));
+  check(i > 0 && /^  sample split: \d+ up \/ \d+ down \(\d+% positive\) — the \d+ reviews in this bundle, after the bar$/.test(lines[i]),
+        `the sample split says which population it is (${JSON.stringify(lines[i] || "")})`);
+  check(/^  before the bar: \d+ up \/ \d+ down \(\d+% positive\) — the \d+ reviews read to fill it$/.test(lines[i + 1] || ""),
+        `the unfiltered split sits directly under it in the same shape (${JSON.stringify(lines[i + 1] || "")})`);
+  check(/^  the difference: \d+ removed, \d+ up \/ \d+ down — \d+ under the 5-word bar/.test(lines[i + 2] || ""),
+        `and the line after breaks down what came out (${JSON.stringify(lines[i + 2] || "")})`);
+  check(/differ by -?\d+ points — that gap is the filter, not the game/.test(lines[i + 3] || ""),
+        "the gap between the two rates is named, not left as arithmetic");
+}
 check(/^BASIS  : over the \d+ reviews that cleared the 5-word bar/m.test(bundle),
       "TIMELINE declares which population its rates are measured over");
 check(bundle.includes("--- INSTRUCTIONS ---"), "instructions section present");
@@ -768,10 +781,25 @@ errors.slice(0, 5).forEach(e => console.log("     " + e));
   await p8.locator("button.gsub-rev").first().click();
   await p8.waitForSelector("#rdHost.on");
   await p8.locator('[data-rdsize="300"]').click();
+  // §23.5 — the counter is watched WHILE it runs, because that is the only place it exists.
+  // A MutationObserver catches every value the reader would have seen; asserting the final
+  // state only would pass on a counter that sat at 0% and jumped to 100%, which is exactly
+  // the failure the percentage was introduced to fix.
+  await p8.evaluate(() => {
+    window.__prog = [];
+    const host = document.getElementById("rdProg");
+    new MutationObserver(() => {
+      const el = host.querySelector(".rd-prog-pct");
+      const w = host.querySelector(".rd-prog-bar i");
+      if (el && el.textContent) window.__prog.push([el.textContent, w ? w.style.width : ""]);
+    }).observe(host, { subtree: true, childList: true, characterData: true });
+  });
   await p8.locator("#rdGo").click();
   await p8.waitForSelector("#rdOut", { timeout: 60000 });
   const barred = await p8.locator("#rdOut").inputValue();
   const pagesBar = pages8;
+  const prog8 = await p8.evaluate(() => window.__prog);
+  const headBar = (await p8.locator("#rdHeadCount").textContent()).trim();
   await p8.locator("#rdClose").click();
 
   // --- run B: same fixture, bar off --------------------------------------------------------
@@ -785,6 +813,7 @@ errors.slice(0, 5).forEach(e => console.log("     " + e));
   await p8.waitForSelector("#rdOut", { timeout: 60000 });
   const unbarred = await p8.locator("#rdOut").inputValue();
   const pagesOff = pages8;
+  const headOff = (await p8.locator("#rdHeadCount").textContent()).trim();
   await p8.locator("#rdClose").click();
 
   // --- run C: HTML output, bar back on ------------------------------------------------------
@@ -815,8 +844,8 @@ errors.slice(0, 5).forEach(e => console.log("     " + e));
   check(count(barred) === 300, `the bar still delivers the size that was asked for (${count(barred)})`);
   check(count(unbarred) === 300, `so does the walk with the bar off (${count(unbarred)})`);
   check(pagesBar > pagesOff, `filling 300 past the bar costs more pages (${pagesBar} vs ${pagesOff})`);
-  check(/^  quality bar: ON at 5 words — \d+ shorter reviews were dropped/m.test(barred),
-        "the bar names itself and its cost in OVERVIEW");
+  check(/^  quality bar: ON at 5 words\. Short reviews skew positive/m.test(barred),
+        "the bar names itself and why the two splits differ");
   check(/ · \d+ under the 5-word bar · /.test(barred), "and again on the excluded line");
   // Scoped to OVERVIEW on purpose: both prompt files now TALK about the bar (they have to —
   // one prompt serves both settings and has to say which line to read), so a whole-bundle
@@ -830,11 +859,11 @@ errors.slice(0, 5).forEach(e => console.log("     " + e));
   // The bias, reported rather than hidden. The one-liners in this fixture are all ▲, so the
   // pre-bar rate MUST come out above the post-bar one — if these ever match, the line has
   // stopped measuring anything and the model has no way to see the filter's effect.
-  const preRate  = pct(/^  before the bar: \d+ reviews read · \d+▲\/\d+▼ \((\d+)% positive\)/m);
+  const preRate  = pct(/^  before the bar: \d+ up \/ \d+ down \((\d+)% positive\)/m);
   const postRate = pct(/^  sample split: \d+ up \/ \d+ down \((\d+)% positive\)/m);
   check(preRate > postRate,
         `the pre-bar split is reported and sits above the post-bar one (${preRate}% vs ${postRate}%)`);
-  check(/quote the sample split, never this line/.test(barred),
+  check(/Quote the sample split; the before-the-bar line is context, not a figure to report/.test(barred),
         "and it is labelled as the one number not to quote");
   // §23.1 — CJK. A whitespace split scores this review as one word and deletes it; every
   // Japanese, Chinese and Korean review in an "All languages" sample rides on this.
@@ -868,6 +897,28 @@ errors.slice(0, 5).forEach(e => console.log("     " + e));
   check(/HTML file/.test(readyNote) && /\.html/.test(readyNote),
         `the result panel says what shape the answer comes back in (${JSON.stringify(readyNote.trim().slice(0, 90))})`);
   check(errs8.length === 0, `no uncaught JS errors on either path (${errs8.length})`);
+
+  // §23.5 — the fetch counter. A raw review count climbs 100/200/300 with the bar off and
+  // 63/141/197 with it on; the second reads as a stall to anyone who does not know the drop
+  // rate. The percentage is the same shape in both, which is the whole point.
+  const pcts8 = prog8.map(([t]) => t).filter(t => /%$/.test(t)).map(t => parseInt(t, 10));
+  check(pcts8.length >= 4, `the counter ticked several times during the fetch (${pcts8.length} updates)`);
+  check(pcts8.every((v, i) => i === 0 || v >= pcts8[i - 1]),
+        `it only ever climbs (${pcts8.join(" ")})`);
+  check(pcts8[0] === 0 && pcts8[pcts8.length - 1] === 100,
+        `it runs 0 -> 100, not part of the way (${pcts8[0]} -> ${pcts8[pcts8.length - 1]})`);
+  check(pcts8.every(v => v >= 0 && v <= 100), `and never leaves the range (${Math.max(...pcts8)})`);
+  // 100% belongs to a full sample. 299 of 300 rounding up while the fetch carries on is the
+  // one reading of this counter that would be a lie, so the floor is asserted, not assumed.
+  const midway = prog8.find(([t]) => t === "100%");
+  check(!!midway && midway[1] === "100%", `the bar fills to match the number (${JSON.stringify(midway)})`);
+  check(prog8.some(([, w]) => w && w !== "0%" && w !== "100%"),
+        "the bar shows intermediate fill, not just empty and full");
+  // §23.4 — what landed and what it cost, where the human reads it.
+  check(/^300 reviews · \d+ filtered out of \d+$/.test(headBar),
+        `the header pairs what landed with what was filtered (${JSON.stringify(headBar)})`);
+  check(headOff === "300 reviews",
+        `and says nothing about filtering when nothing was filtered (${JSON.stringify(headOff)})`);
 }
 
 srv.close();

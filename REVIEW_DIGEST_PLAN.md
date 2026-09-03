@@ -1393,7 +1393,59 @@ An emptied sample is its own failure and says so: *"all 40 reviews in that langu
 the 5-word bar — lower it or turn it off"* is a different problem from a game with no reviews,
 and the old message named the wrong one.
 
-### 23.4 Verified
+### 23.4 The two splits, side by side
+
+Reported from the first run of §23.1: the disclosure was *correct* and still made the reader
+do the work. `sample split` and `before the bar` sat several lines apart in different shapes,
+one counting `up / down` and the other `▲/▼`, and the reader was left to subtract two
+percentages to find out whether a lower rate was the filter or the game.
+
+They are now consecutive, identically shaped, and followed by the difference itself:
+
+```
+  sample split: 225 up / 75 down (75% positive) — the 300 reviews in this bundle, after the bar
+  before the bar: 425 up / 75 down (85% positive) — the 500 reviews read to fill it
+  the difference: 200 removed, 200 up / 0 down — 200 under the 5-word bar
+  quality bar: ON at 5 words. Short reviews skew positive, which is why those two splits differ
+  by 10 points — that gap is the filter, not the game. Quote the sample split; the
+  before-the-bar line is context, not a figure to report.
+```
+
+The removed reviews' own split (`200 up / 0 down`) is the line that makes the point without
+argument: the bar took 200 positives and no negatives, which is *why* the rate moved, stated
+as data rather than as a warning to be believed. Where nothing fell under the bar, all of this
+collapses to one line saying so — an elaborate disclosure of a filter that removed nothing is
+just noise.
+
+The same pairing runs in the dialog header, where the human looks: **`300 reviews · 200
+filtered out of 500`**. "300 reviews" alone invites the reader to compare it against the 500
+they asked for and conclude the fetch fell short.
+
+### 23.5 The counter had to stop being a review count
+
+Also reported from that first run. The fetch progress was the running review count, which on a
+clean pull climbs 100 · 200 · 300 and reads as progress on its own. With a bar in front of it
+the same counter climbs 63 · 141 · 197 — no round numbers, no sense of how far along it is, and
+a page that drops most of its reviews looks like a stall.
+
+The goal is known before the first request in every configuration, so **the counter is a
+percentage of it**, with a fill bar under it and the raw numbers demoted to a second line that
+explains rather than competes:
+
+```
+  40%
+  ▓▓▓▓▓▓▓▓░░░░░░░░░░░░
+  page 3 · 300 read · 120 of 300 kept
+```
+
+It behaves identically whether the bar is off, at 3 or at 10 — which is the point; the reader
+should not have to know the drop rate to read a progress indicator. Two details are
+load-bearing: the percentage is rounded **down**, so 299 of 300 never shows "100%" while the
+fetch carries on; and it ticks both before and after each page, so the page that just landed
+moves the bar rather than the next one appearing to.
+
+### 23.6 Verified
+
 
 `test_review_digest.mjs` scenario 8 runs one fixture three times — bar at 5, bar off, and HTML
 output — because the failure that matters is a cross one. The fixture is **40% one-liners by
@@ -1415,4 +1467,12 @@ markers on the title line — and the Markdown run carries **none** of it, which
 point of an option.
 
 Scenario 1 also now asserts the two new dialog rows and their defaults (Markdown, and the bar
-ON at 5), and that both carry tooltips like every other option in that dialog.
+ON at 5), that both carry tooltips like every other option in that dialog, and that the two
+splits and the difference sit on four consecutive lines in the shapes §23.4 fixes.
+
+The counter (§23.5) is asserted **while it runs** — a MutationObserver installed before the
+fetch collects every value the reader would have seen, because a check on the final state
+alone would pass on a counter that sat at 0% and jumped to 100%, which is the exact failure
+the percentage was introduced to fix. On the 40%-noise fixture it records `0 20 20 40 40 60 60
+80 80 100 100`: monotonic, in range, starting at 0, ending at 100, with the fill width tracking
+the number and intermediate values actually present. 192 checks pass.

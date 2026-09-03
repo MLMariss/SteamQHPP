@@ -1502,6 +1502,16 @@
      glance from the mutually-exclusive pills above them. */
   .rd-opt.rd-chk{border-radius:6px; padding:7px 10px; font-size:12.5px}
   .rd-prog{font-family:var(--mono); font-size:12.5px; color:var(--gold); min-height:17px}
+  /* §23.5 — the fetch counter is a PERCENTAGE of the goal, so it needs something to fill.
+     A count that climbs 100 · 200 · 300 reads as progress by itself; the same counter with a
+     quality bar in front of it climbs 63 · 141 · 197 and reads as a stall. The bar is the
+     thing that says "moving, and this far from done" without the reader doing arithmetic. */
+  .rd-prog-pct{font-weight:600}
+  .rd-prog-bar{display:block; height:4px; border-radius:2px; background:var(--gold-soft);
+        overflow:hidden; margin:5px 0 0; max-width:340px}
+  .rd-prog-bar i{display:block; height:100%; background:var(--gold); width:0;
+        transition:width .25s ease-out}
+  .rd-prog-sub{display:block; color:var(--muted-2); margin-top:3px}
   .rd-err{font-family:var(--mono); font-size:12.5px; color:var(--coral); line-height:1.6;
         white-space:pre-wrap; word-break:break-word}
   /* Paste-length warning (§21.4). Gold at the soft threshold, coral at the hard one — the
@@ -6414,6 +6424,32 @@ function rdSummary(appid, language, signal){
 // and about +2.5s at the current inter-page delay — I/O-bound, nowhere near the Worker's
 // free-plan CPU limits, so nothing there needs to change.
 //
+// §23.5 — the fetch counter. It used to be the running review count, which on a clean run
+// climbs 100 · 200 · 300 and reads as progress on its own. With a quality bar in front of it
+// the same counter climbs 63 · 141 · 197: the reader has no idea whether that is halfway or
+// nearly done, and a page that drops most of its reviews looks like a stall. The goal is known
+// before the first request in every configuration, so the counter is now a PERCENTAGE of it —
+// which needs no arithmetic from the reader and behaves identically whether the bar is on,
+// off, or set to 10 words. The raw numbers move to a second line, where they explain the
+// percentage rather than being mistaken for it.
+//
+// `pct` null means there is no goal to be a fraction of — "reading the totals", "building" —
+// and hides the bar rather than showing a full or empty one, which would both be lies.
+function rdSetProgress(text, sub, pct){
+  const host = document.getElementById("rdProg");
+  if(!host) return;
+  // Built once, then updated in place: re-rendering the markup on every page would restart
+  // the fill's CSS transition from 0 and make a smooth bar flicker.
+  if(!host.firstElementChild)
+    host.innerHTML = `<span class="rd-prog-pct"></span><span class="rd-prog-bar" hidden><i></i></span><span class="rd-prog-sub"></span>`;
+  host.querySelector(".rd-prog-pct").textContent = text;
+  host.querySelector(".rd-prog-sub").textContent = sub || "";
+  const bar = host.querySelector(".rd-prog-bar");
+  bar.hidden = pct == null;
+  if(pct != null)
+    bar.firstElementChild.style.width = Math.max(0, Math.min(100, pct)) + "%";
+}
+
 // §23.3 — THE SIZE IS WHAT LANDS IN THE BUNDLE. The walk used to count raw reviews and
 // compact afterwards, so a 500 that lost eight to duplicates and art delivered 492 and the
 // reader's number meant "fetched", not "read". With the quality bar on, that gap goes from
@@ -6423,7 +6459,7 @@ function rdSummary(appid, language, signal){
 // which also, with the bar off, finally makes 2000 mean 2000 after the dupes come out.
 async function rdCollect(appid, lang, size, minWords, onProgress, signal){
   const pages = Math.ceil(size / RD.perPage);
-  onProgress(`fetching totals…`);
+  onProgress("reading the review totals…", "", null);
   // Anchor fetched with the SAME language and off-topic setting as the sample, so the
   // header's percentage and the sample's are measured the same way (probe Q3).
   const scoped = await rdSummary(appid, lang, signal);
@@ -6441,9 +6477,16 @@ async function rdCollect(appid, lang, size, minWords, onProgress, signal){
   const comp = rdCompactor(minWords);
   const maxPages = minWords ? Math.ceil(size * RD.noiseFetchMax / RD.perPage) : pages + 5;
   let cursor = "*";
+  // One place decides how far along the run is, so the line before a page and the line after
+  // it cannot disagree. Rounded DOWN: 100% is reserved for a sample that is actually full,
+  // and 499 of 500 rounding up to "100%" while the fetch carries on is the one reading of
+  // this counter that would be wrong.
+  const tick = p => onProgress(
+    Math.floor(100 * Math.min(comp.rows.length, size) / size) + "%",
+    `page ${p} · ${comp.stats.seen} read · ${comp.rows.length} of ${size} kept`,
+    100 * comp.rows.length / size);
   for(let p = 1; p <= maxPages && comp.rows.length < size; p++){
-    onProgress(`page ${p} · ${comp.rows.length}/${size} reviews`
-             + (minWords ? ` · ${comp.stats.seen} read` : ""));
+    tick(p);
     const d = await rdCall({ appid, language:lang, purchase_type:"all",
                              num_per_page:RD.perPage, filter:"recent", cursor,
                              filter_offtopic_activity:0 }, signal);
@@ -6454,6 +6497,7 @@ async function rdCollect(appid, lang, size, minWords, onProgress, signal){
       comp.add(rv);
       if(comp.rows.length >= size) break;
     }
+    tick(p);      // again, so the page that just landed moves the bar before the next wait
     const next = d.cursor;
     // A SHORT PAGE IS NOT THE END OF THE LIST (§21.1). This used to break on
     // `batch.length < RD.perPage` and that was wrong: measured live 2026-09-02, Steam serves
@@ -7000,19 +7044,32 @@ function rdBuildBundle(g, data, lang, prompt, focus, htmlPrompt){
   L.push("");
   L.push(`SAMPLE: ${rows.length} newest ${lang === "all" ? "reviews, all languages" : "English reviews"} (filter=recent) · fetched ${new Date().toISOString().slice(0,10)}`);
   if(times.length) L.push(`  covering: ${rdDay(times[0])} to ${rdDay(times[times.length-1])}`);
-  L.push(`  sample split: ${up} up / ${down} down` + (rows.length ? ` (${Math.round(100*up/rows.length)}% positive)` : ""));
-  // §23.1 — the quality bar, stated wherever it changed something. Two lines, and the second
-  // is the one that matters: the bar drops reviews that skew POSITIVE, so the sample split
-  // above sits a few points under the raw one, and a model comparing it to the all-time
-  // figure at the top of this block would otherwise read the filter as a decline in the game.
+  // §23.1 / §23.4 — the two splits, adjacent and in the SAME shape, plus the difference
+  // between them broken out. The bar removes reviews that skew positive, so these two rates
+  // are never equal, and a reader (or a model) who sees only one of them cannot tell whether
+  // a lower number is the filter or the game. Stacking them and naming the gap answers both
+  // questions where they are asked, instead of leaving the arithmetic to whoever reads it.
+  const samplePct = rows.length ? Math.round(100 * up / rows.length) : 0;
+  L.push(`  sample split: ${up} up / ${down} down` + (rows.length ? ` (${samplePct}% positive)` : "")
+       + (minWords ? ` — the ${rows.length} reviews in this bundle, after the bar` : ""));
   if(minWords){
     const rawUp = stats.up, rawDown = stats.seen - stats.up;
-    L.push(`  quality bar: ON at ${minWords} words — ${stats.short} shorter reviews were dropped as they`
-         + ` were read; they are NOT in this sample and NOT in any count below`);
-    L.push(`  before the bar: ${stats.seen} reviews read · ${rawUp}▲/${rawDown}▼`
-         + (stats.seen ? ` (${Math.round(100*rawUp/stats.seen)}% positive)` : "")
-         + ` — one-word reviews skew positive, so this runs above the sample split.`
-         + ` The gap is the filter, not the game: quote the sample split, never this line.`);
+    const rawPct = stats.seen ? Math.round(100 * rawUp / stats.seen) : 0;
+    const cut = stats.seen - rows.length;
+    if(cut > 0){
+      const other = cut - stats.short;
+      L.push(`  before the bar: ${rawUp} up / ${rawDown} down (${rawPct}% positive)`
+           + ` — the ${stats.seen} reviews read to fill it`);
+      L.push(`  the difference: ${cut} removed, ${rawUp - up} up / ${rawDown - down} down`
+           + ` — ${stats.short} under the ${minWords}-word bar`
+           + (other > 0 ? `, ${other} ASCII art, duplicates or empty` : ""));
+      L.push(`  quality bar: ON at ${minWords} words. Short reviews skew positive, which is why those`
+           + ` two splits differ by ${rawPct - samplePct} points — that gap is the filter, not the game.`
+           + ` Quote the sample split; the before-the-bar line is context, not a figure to report.`);
+    } else {
+      L.push(`  quality bar: ON at ${minWords} words — nothing in this sample fell under it, so the`
+           + ` split above is also the unfiltered one.`);
+    }
   }
   // 38% of real reviews are under 20 chars (probe Q5). With the bar off they are real
   // sentiment and are NOT filtered — dropping them would bias the sample negative, since
@@ -7271,7 +7328,7 @@ function rdBundleCount(bundle){
   return m ? parseInt(m[1], 10) : 0;
 }
 
-function rdRenderResult(bundle){
+function rdRenderResult(bundle, stats){
   const body = document.getElementById("rdBody"), foot = document.getElementById("rdFoot");
   const kb = (bundle.length / 1024).toFixed(0), tok = rdTokens(bundle.length);
   // The reader picked a size, then watched a progress line for 20 pages. Saying how many
@@ -7279,7 +7336,13 @@ function rdRenderResult(bundle){
   // short sample announces itself by — 300 reviews on a game that only has 300.
   const n = rdBundleCount(bundle);
   const head = document.getElementById("rdHeadCount");
-  if(head) head.textContent = n ? rdPlural(n, "review") : "";
+  // §23.4 — what landed and what it cost, side by side. "300 reviews" alone invites the
+  // reader to compare it against the 500 they asked for and conclude the fetch fell short;
+  // the second half says the 200 are missing on purpose and which filter took them.
+  const cut = stats ? stats.seen - n : 0;
+  if(head) head.textContent = n
+    ? rdPlural(n, "review") + (cut > 0 ? ` · ${cut} filtered out of ${stats.seen}` : "")
+    : "";
   const warn = rdPasteAdvice(bundle.length);
   const hard = !!(warn && warn.hard);
   body.innerHTML =
@@ -7332,8 +7395,7 @@ async function rdRun(){
   rdState.abort = new AbortController();
   const go = document.getElementById("rdGo");
   if(go){ go.disabled = true; go.textContent = "Fetching…"; }
-  const prog = document.getElementById("rdProg");
-  const say = m => { if(prog) prog.textContent = m; };
+  const say = rdSetProgress;
   try {
     const [data, prompt, htmlPrompt] = await Promise.all([
       rdCollect(g.appid, rdState.lang, rdState.size, rdState.bar, say, rdState.abort.signal),
@@ -7346,12 +7408,12 @@ async function rdRun(){
       throw new Error(data.comp.stats.seen
         ? `all ${data.comp.stats.seen} reviews in that language are under the ${rdState.bar}-word bar — lower it or turn it off`
         : "this game has no reviews in that language");
-    say("building…");
+    say("100%", "building the bundle…", 100);
     // Resolved from keys here rather than stored as objects, so rdState stays serialisable
     // and the dialog order — not the click order — decides how the focus lines read.
     const focus = RD_FOCUS.filter(f => rdState.focus.includes(f.key));
     rdState.bundle = rdBuildBundle(g, data, rdState.lang, prompt, focus, htmlPrompt);
-    rdRenderResult(rdState.bundle);
+    rdRenderResult(rdState.bundle, data.comp.stats);
   } catch(err){
     if(err && err.name === "AbortError") return;      // user closed the dialog
     const slot = document.getElementById("rdErr");
