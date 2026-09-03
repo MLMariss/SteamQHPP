@@ -887,11 +887,16 @@ errors.slice(0, 5).forEach(e => console.log("     " + e));
         "the Quit / stayed minibar recipe is carried, not left to invention");
   check(/Do not produce the Markdown report as well|NOT also produced/.test(html8),
         "the addendum forbids emitting both renderings");
-  // html-v2 — the whole point of the option is that the reader gets a PAGE, not markup to save
-  // by hand. The addendum has to ask for a file and name the three chats it might be pasted
-  // into, and it must NOT be offering a fenced code block as an acceptable answer.
-  check(/\bArtifact\b/.test(html8) && /Canvas/.test(html8) && /download link/.test(html8),
-        "the addendum asks for a file and names how each chat produces one");
+  // html-v3 — the whole point of the option is that the reader ends up with a .html in their
+  // downloads. The addendum has to ask for a written file, name the tool each chat writes it
+  // with, and refuse the two things that merely LOOK like a file: a fenced block and a preview
+  // pane. v2 asked only for "a file" and Claude answered with an Artifact, which is why the
+  // panes are now named in the negative and this check reads for that.
+  check(/file-creation \/ code tool/.test(html8) && /python tool/.test(html8) &&
+        /attach it for download/i.test(html8),
+        "the addendum asks for a written file and names the tool that writes it");
+  check(/Do not answer with an Artifact/.test(html8) && /not a preview pane/i.test(html8),
+        "and rules out the preview panes by name, not just by implication");
   check(!/inside a single ```html fence|nothing outside it/.test(html8),
         "and no longer offers a fenced code block as the deliverable");
   check(/=== QTPD REVIEW DIGEST · prompt v\S+ \+ html-\S+ ===/.test(html8),
