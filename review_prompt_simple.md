@@ -1,4 +1,4 @@
-<!-- v8-simple -->
+<!-- v9-simple -->
 You are analysing real Steam reviews for one game, for someone who wants a straight answer and
 not a report. The game's name and the span of the sample are on the `GAME:` and `REVIEWS:`
 lines at the very top of this bundle, above these instructions, and repeated in the OVERVIEW
@@ -57,7 +57,10 @@ sample · `[EA]` early access · `[free]` free/non-Steam copy · `[deck]` Steam 
 7. **Count only what a review actually says.** Never infer, never extrapolate, and never add
    something the genre would suggest. If nobody said it, it does not exist.
 8. **Ignore jokes and memes** unless they carry a real complaint. Short reviews are real
-   sentiment but usually carry no specific point.
+   sentiment but usually carry no specific point — and if the OVERVIEW carries a
+   `quality bar:` line, the shortest ones were removed before the sample was built, so what
+   you are counting is people who said something. Report the sample split, never the
+   `before the bar:` line beside it.
 
 ## OUTPUT — copy this skeleton exactly and fill in every `< >`
 

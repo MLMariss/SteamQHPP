@@ -1303,3 +1303,176 @@ put all 354,342 characters on the clipboard with **`window.open` called zero tim
 (375×812) keeps the count in the header and the anchors full-width. `test_review_digest.mjs`
 scenario 6 gains checks for the header count, the labelled token meter, the anchor shape of all
 three handoffs, and a hard cap on the banner's length.
+
+## 23. Shipped 2026-09-03 — the denominator was wrong, and the report is now also a page
+
+Two requests off the same run — the Blood of Dawnwalker digest that produced
+`bloodofdawnwalkerreviewdigest.html` by hand, afterwards, because the Markdown report was not
+the artefact wanted. Both are options in the setup dialog; neither changes what a digest with
+the options off produces.
+
+### 23.1 "500 reviews complain about the story" was 30% of the game and 50% of the sentences
+
+`RD.substantive` (20 characters) has been **measured and never acted on** since §6, on the
+argument that dropping one-liners biases the sample negative — they skew positive, so removing
+them lowers the reported score. That argument is sound about the **sentiment split** and wrong
+about everything else in the report, and everything else is most of the report.
+
+The live case: 1,651 reviews sampled, ~1,000 of them carrying an actual sentence. Every
+percentage in the digest is a share of the substantive count, and the substantive count is
+itself inflated by "gg", "10/10" and a thumbs-up emoji. A story complaint raised by 500
+reviewers reads as **~30% of the game** when, among everyone who said anything at all, it is
+**~50%**. The reader draws the wrong conclusion from an arithmetically correct number.
+
+**The quality bar** is a word-count floor applied during compaction, alongside the ASCII-art
+and copypasta filters that already delete what would poison the counting. `Off · 3+ · 5+ · 10+`
+words, default **5**: the shortest review that can name a thing and say what is wrong with it
+("combat feels stiff and slow"). 3 keeps two-clause verdicts; 10 keeps only reviews arguing a
+case, and on a quiet game will hit the fetch ceiling before it fills the sample.
+
+Words, not characters, and CJK counts per character: whitespace splitting makes a whole
+Japanese review one "word", and at the "All languages" setting the bar would then delete every
+one of them. `rdWords` counts each CJK/kana/Hangul character as its own unit — the usual
+approximation, and it errs toward keeping a review, which is the right way to err for a filter
+that removes data.
+
+**The positive-skew bias is handled by reporting it, not by pretending it is absent.** Two new
+OVERVIEW lines when the bar is on: what it dropped, and the **pre-bar split** beside the
+post-bar one, labelled — *"the gap is the filter, not the game: quote the sample split, never
+this line."* TIMELINE gains a matching `BASIS` line, because every rate in that block is now
+measured over the qualitative reviews and a model reading it against the ALL-TIME anchor
+without knowing that would report the filter as a slump. That is the one way this feature could
+manufacture a wrong finding, and it is the line that stops it.
+
+### 23.2 HTML output — the same report, rendered as a page
+
+`Output: Markdown | HTML page`, a **separate axis from Simplified/Advanced**: the depth decides
+what is counted, the output decides how it is drawn, and all four combinations are legitimate.
+HTML **replaces** the Markdown skeleton rather than adding to it — a model asked for both
+writes the report twice, and the second copy is where the numbers drift.
+
+It ships as an **addendum** (`review_prompt_html.md`), appended after the depth prompt and after
+the READER FOCUS block, under a header that says what it replaces. Not a third prompt file: the
+counting rules, buckets, floor and focus contract are identical in HTML, and a fork of
+`review_prompt.md` differing only in its last forty lines would be two files to keep in step
+and one of them would rot.
+
+**The stylesheet ships inside the addendum, verbatim and closed to edits** — it is the one from
+the hand-made Dawnwalker page: light/dark via `prefers-color-scheme`, a serif masthead, the
+hero split bar, `.scroll` tables, the `.split`/`.minibar` cell for Quit / stayed, and a print
+block. That is the whole point of the option. A report per game is only comparable if ten of
+them look like ten pages of one publication, and a model left to style it itself picks a new
+palette every run. The addendum also forbids what would break the file: no external CSS, fonts,
+images or scripts, no charts, no interactivity, nothing outside a single ` ```html ` fence.
+
+It costs ~3k tokens of instructions and is fetched only when selected, so a Markdown run pays
+nothing for it. Both version markers ride the title line — `prompt v9 + html-v1` — because the
+output is now the product of two files and `v8` alone would not identify it.
+
+### 23.3 The size now counts reviews that LAND, not reviews fetched
+
+The walk counted raw reviews and compacted afterwards, so a 500 that lost eight to duplicates
+and art delivered 492. At 2% that was pedantry. At the bar's ~40% it is not: 500 with the bar
+on would have meant ~300, and an option that improves the denominator by halving the sample is
+a bad trade the reader never agreed to.
+
+So **compaction moved into the fetch loop** — `rdCompact` became `rdCompactor`, an incremental
+object holding the dedupe set and the counters across pages — and the loop runs until `size`
+reviews have been **kept**, stopping mid-page the moment it gets there. With the bar off this
+finally makes 2000 mean 2000 after the dupes come out; §22.1's argument ("the number has to
+mean what it says") always implied it and the page arithmetic never delivered it.
+
+The ceiling: five spare pages is right for a 2% drop rate and useless at 40%, so with the bar
+on the page cap becomes `RD.noiseFetchMax` (3) × the request — well past the worst measured
+ratio (~1.8x at the 5-word bar) and still bounding a pathological game at 60 pages for a 2000
+pull. Hitting it is not an error; the header reports the short sample as it always has. The
+progress line reads `page 7 · 412/500 reviews · 689 read`, so the over-fetch is visible while
+it happens rather than explained afterwards.
+
+An emptied sample is its own failure and says so: *"all 40 reviews in that language are under
+the 5-word bar — lower it or turn it off"* is a different problem from a game with no reviews,
+and the old message named the wrong one.
+
+### 23.4 The two splits, side by side
+
+Reported from the first run of §23.1: the disclosure was *correct* and still made the reader
+do the work. `sample split` and `before the bar` sat several lines apart in different shapes,
+one counting `up / down` and the other `▲/▼`, and the reader was left to subtract two
+percentages to find out whether a lower rate was the filter or the game.
+
+They are now consecutive, identically shaped, and followed by the difference itself:
+
+```
+  sample split: 225 up / 75 down (75% positive) — the 300 reviews in this bundle, after the bar
+  before the bar: 425 up / 75 down (85% positive) — the 500 reviews read to fill it
+  the difference: 200 removed, 200 up / 0 down — 200 under the 5-word bar
+  quality bar: ON at 5 words. Short reviews skew positive, which is why those two splits differ
+  by 10 points — that gap is the filter, not the game. Quote the sample split; the
+  before-the-bar line is context, not a figure to report.
+```
+
+The removed reviews' own split (`200 up / 0 down`) is the line that makes the point without
+argument: the bar took 200 positives and no negatives, which is *why* the rate moved, stated
+as data rather than as a warning to be believed. Where nothing fell under the bar, all of this
+collapses to one line saying so — an elaborate disclosure of a filter that removed nothing is
+just noise.
+
+The same pairing runs in the dialog header, where the human looks: **`300 reviews · 200
+filtered out of 500`**. "300 reviews" alone invites the reader to compare it against the 500
+they asked for and conclude the fetch fell short.
+
+### 23.5 The counter had to stop being a review count
+
+Also reported from that first run. The fetch progress was the running review count, which on a
+clean pull climbs 100 · 200 · 300 and reads as progress on its own. With a bar in front of it
+the same counter climbs 63 · 141 · 197 — no round numbers, no sense of how far along it is, and
+a page that drops most of its reviews looks like a stall.
+
+The goal is known before the first request in every configuration, so **the counter is a
+percentage of it**, with a fill bar under it and the raw numbers demoted to a second line that
+explains rather than competes:
+
+```
+  40%
+  ▓▓▓▓▓▓▓▓░░░░░░░░░░░░
+  page 3 · 300 read · 120 of 300 kept
+```
+
+It behaves identically whether the bar is off, at 3 or at 10 — which is the point; the reader
+should not have to know the drop rate to read a progress indicator. Two details are
+load-bearing: the percentage is rounded **down**, so 299 of 300 never shows "100%" while the
+fetch carries on; and it ticks both before and after each page, so the page that just landed
+moves the bar rather than the next one appearing to.
+
+### 23.6 Verified
+
+
+`test_review_digest.mjs` scenario 8 runs one fixture three times — bar at 5, bar off, and HTML
+output — because the failure that matters is a cross one. The fixture is **40% one-liners by
+construction** ("gg", "10/10", "cool", "👍"), which is the measured shape of a real sample, and
+they are all ▲ so the positive skew is real rather than asserted. It also carries one
+14-character Japanese review with no spaces in it: a whitespace split scores that as one word
+and deletes it, so it is the check that the CJK path is not just a comment.
+
+Asserted: a 300 sample comes back as **300** with the bar on and takes five pages instead of
+three to do it (§23.3); the `quality bar:` and `before the bar:` lines print, with the pre-bar
+rate above the post-bar one (80% vs 67%) and labelled as the one not to quote; `BASIS` appears
+in TIMELINE only when the basis changed; the bar-off run's OVERVIEW says nothing about a filter
+that did not run — scoped to the OVERVIEW, because both prompt files now *talk* about the bar
+and a whole-bundle match would pass on the instructions and test nothing; `rdWords` counts
+"10/10" as one word, punctuation as none, and CJK per character. For HTML: the addendum arrives
+under its replacing header, positioned after the depth prompt and before the data, carrying the
+stylesheet and the minibar recipe and the ban on emitting both renderings, with both version
+markers on the title line — and the Markdown run carries **none** of it, which is the whole
+point of an option.
+
+Scenario 1 also now asserts the two new dialog rows and their defaults (Markdown, and the bar
+ON at 5), that both carry tooltips like every other option in that dialog, and that the two
+splits and the difference sit on four consecutive lines in the shapes §23.4 fixes.
+
+The counter (§23.5) is asserted **while it runs** — a MutationObserver installed before the
+fetch collects every value the reader would have seen, because a check on the final state
+alone would pass on a counter that sat at 0% and jumped to 100%, which is the exact failure
+the percentage was introduced to fix. On the 40%-noise fixture it records `0 20 20 40 40 60 60
+80 80 100 100`: monotonic, in range, starting at 0, ending at 100, with the fill width tracking
+the number and intermediate values actually present. 192 checks pass.
