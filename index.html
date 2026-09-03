@@ -6255,6 +6255,14 @@ const RD_DEFAULT_MODE = "advanced";        // what this page shipped with; Simpl
 // lets Gemini ALONE fall back to one block plus "click the download icon", which converts that
 // failure into a one-click save instead of a copy-paste. The escape names Gemini so no other
 // model can read itself into it.
+//
+// html-v4 closes the hole that escape left open. Told to "give the download link", Gemini Flash
+// wrote `[Download star-wars-zero-company.html](sandbox:/star-wars-zero-company.html)` — ChatGPT's
+// download scheme, imitated by a model with no file backend, which Gemini's UI resolved to a
+// GOOGLE SEARCH for the string. That is the worst failure available: the reader believes the
+// file arrived. So the addendum now bans the fabricated handover outright — no link to a file
+// you did not create, no `sandbox:` URL unless it is genuinely yours — and says plainly that an
+// honest "I can't attach files, it's in the block below" beats a confident link to nothing.
 const RD_HTML_FILE = "review_prompt_html.md";
 const RD_OUT = [
   { key:"md",   label:"Markdown",
@@ -6643,7 +6651,10 @@ hyphenated, \`.html\` on the end. On Claude use the file-creation/code tool and 
 (NOT an Artifact); on ChatGPT write it with the python tool and give the download link (not
 Canvas); on Gemini write a downloadable file or a Canvas HTML file, and only if you have
 neither, emit the document in ONE \`html\` code block and tell the reader to click the download
-icon on it — that escape is Gemini's alone. The test is that the reader ends up with a \`.html\` in their downloads, having
+icon on it — that escape is Gemini's alone. NEVER write a download link for a file you did not
+actually create, and never a \`sandbox:\` URL unless that scheme is genuinely yours: a link that
+resolves to a search page is worse than none. If you cannot produce a file, say so plainly and
+use Canvas or the code block instead. The test is that the reader ends up with a \`.html\` in their downloads, having
 copied nothing. Beside it write one short sentence at most, and never a second copy of the
 report as Markdown or as pasted source. The document is complete from \`<!DOCTYPE html>\` to \`</html>\`, with no external CSS,
 fonts, images, scripts or CDN links — it must open with no network. No charts, no

@@ -897,6 +897,12 @@ errors.slice(0, 5).forEach(e => console.log("     " + e));
         "the addendum asks for a written file and names the tool that writes it");
   check(/Do not answer with an Artifact/.test(html8) && /not a preview pane/i.test(html8),
         "and rules out the preview panes by name, not just by implication");
+  // html-v4 — the failure the escape opened up: Gemini Flash, told to give a download link,
+  // wrote a `sandbox:` URL (ChatGPT's scheme) for a file it never created, and Gemini resolved
+  // it to a Google search. A link to nothing looks like success, which makes it worse than the
+  // code block v1 produced, so the ban has to ride in the bundle rather than in a comment.
+  check(/sandbox:/.test(html8) && /did not actually\s+create|you did not actually create/.test(html8),
+        "the addendum bans links to files that were never created, sandbox: URLs by name");
   check(!/inside a single ```html fence|nothing outside it/.test(html8),
         "and no longer offers a fenced code block as the deliverable");
   check(/=== QTPD REVIEW DIGEST · prompt v\S+ \+ html-\S+ ===/.test(html8),
