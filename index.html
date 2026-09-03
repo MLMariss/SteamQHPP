@@ -6237,12 +6237,23 @@ const RD_DEFAULT_MODE = "advanced";        // what this page shipped with; Simpl
 // The stylesheet ships inside that addendum, verbatim and closed to edits. That is the whole
 // point of the option: a report per game is only comparable if ten of them look like ten pages
 // of one publication, and a model left to style it itself picks new colours every run.
+//
+// html-v2 changed the DELIVERY, not the page. The addendum used to ask for the document inside
+// a ```html fence, which every model obliged — and the reader got a wall of markup in a chat
+// window and a manual save-as-.html to do, which is exactly the work the option exists to
+// remove. It now asks for a FILE and forbids the fence: an Artifact on Claude, a written
+// `<game>.html` with a download link on ChatGPT, a Canvas file on Gemini, and "whatever your
+// document feature is called" for anything else, with the test stated in the reader's terms —
+// a .html to double-click, having copied nothing. Naming the three is deliberate: the bundle is
+// built before the reader picks a chat, so all three lines ride along and each model reads its
+// own. No fenced fallback is offered; one was considered and dropped, because a get-out clause
+// in the sentence is the clause a model takes.
 const RD_HTML_FILE = "review_prompt_html.md";
 const RD_OUT = [
   { key:"md",   label:"Markdown",
     tip:"The report as Markdown — headings and pipe tables. Renders in any chat window and pastes into a doc. This is what the page has always produced." },
   { key:"html", label:"HTML page",
-    tip:"The same report, same counts, rendered as one self-contained HTML file: masthead, sentiment bar, styled tables, dark mode and a print stylesheet. Save the code block as a .html and open it. Costs ~3k more tokens of instructions and a longer reply." },
+    tip:"The same report, same counts, rendered as one self-contained HTML file: masthead, sentiment bar, styled tables, dark mode and a print stylesheet. The prompt asks for it as a real file — a Claude artifact, a ChatGPT or Gemini canvas or download — not as code to copy out of the chat. Costs ~3k more tokens of instructions and a longer reply." },
 ];
 const RD_DEFAULT_OUT = "md";               // the page's own output for two years; HTML is opt-in
 
@@ -6619,8 +6630,13 @@ RD_PROMPT_FALLBACK.html =
 counting rules, buckets, floor, caps and READER FOCUS contract above all still apply — only the
 rendering changes, and the Markdown version is NOT also produced.
 
-Return one complete HTML document inside a single \`\`\`html fence and nothing outside it. No
-external CSS, fonts, images, scripts or CDN links; it must open with no network. No charts, no
+Deliver it as a FILE the reader can open, never as code in the chat: on Claude an Artifact of
+type \`text/html\`, on ChatGPT a saved \`<game>.html\` with a download link (Canvas second best),
+on Gemini a Canvas HTML file — whatever your document/artifact/canvas feature is called, the
+test is that the reader ends up with a \`.html\` to double-click having copied nothing. Beside it
+write one short sentence at most, and never a second copy of the report as Markdown or as pasted
+source. The document is complete from \`<!DOCTYPE html>\` to \`</html>\`, with no external CSS,
+fonts, images, scripts or CDN links — it must open with no network. No charts, no
 interactivity. Every number on the page is one you counted.
 
 Use exactly this stylesheet — do not restyle it, extend it, or recolour it to the game:
@@ -7351,7 +7367,7 @@ function rdRenderResult(bundle, stats){
        ? `Paste it into ${RD_AI_FILE_OR}, or download the .txt and attach it in any chat.`
        : `Text will be copied — paste in the chat of your choice (<b>${rdPasteKey()}</b>).`}${
        rdState.out === "html"
-         ? ` The answer comes back as one <b>HTML file</b> in a code block — save it as <code>game.html</code> and open it.`
+         ? ` The answer comes back as one <b>HTML file</b> — an artifact, canvas or download named <code>game.html</code>, not code to copy out.`
          : ""}</p>
      <textarea class="rd-out" id="rdOut" readonly spellcheck="false"></textarea>`;
   document.getElementById("rdOut").value = bundle;

@@ -1,4 +1,4 @@
-<!-- html-v1 -->
+<!-- html-v2 -->
 # OUTPUT FORMAT — one HTML page, instead of the Markdown skeleton
 
 This block **replaces the output skeleton in the instructions above.** Everything above still
@@ -6,12 +6,28 @@ decides *what* you report and how you count it — the rules, the buckets, the f
 the `[now]` lookup, the TIMELINE warnings, and the READER FOCUS block if one is present. Only
 the rendering changes. **Do not produce the Markdown report as well.** One artefact, not two.
 
-## What to return
+## What to return — a FILE, not code in a chat window
 
-**One HTML document, complete, inside a single ```html fence, and nothing outside it.** No
-preamble, no "here's your report", no notes on what you did, no summary underneath. The reader
-saves that fence as `<game>.html` and double-clicks it; anything written outside the fence is
-either lost or pasted into the file by accident.
+**Deliver the page as a file the reader can open.** Not a fenced code block, not markup pasted
+into the reply. They asked for an HTML page because they want a page: source in a chat window
+leaves them selecting text, saving it and naming it by hand, which is the one job this option
+exists to remove. Hand it over with whatever mechanism you have for producing a document:
+
+- **Claude** — create an **Artifact** of type `text/html`, titled `<game title> — review
+  digest`, holding the complete document from `<!DOCTYPE html>` to `</html>`. It renders in the
+  panel and the reader downloads it from there.
+- **ChatGPT** — write the document to a real file and give the download link: save it as
+  `<game>.html` with the python tool and link it. A Canvas holding the HTML is an acceptable
+  second best. The chat body is not.
+- **Gemini** — put it in **Canvas** as an HTML file, so it previews as a page and downloads as
+  one.
+- **Anything else** — whatever your file, canvas, artifact or document feature is called, use
+  it. The test is the same everywhere: the reader ends up with a `.html` they can double-click,
+  having selected no text and copied nothing.
+
+Beside the file, write **one short sentence at most** — which game the page covers. No preamble,
+no "here's what I did", no summary of the findings underneath, and never a second copy of the
+report pasted in as Markdown or as source. One artefact, not two.
 
 Hard rules, all four load-bearing:
 
@@ -27,10 +43,13 @@ Hard rules, all four load-bearing:
   you would otherwise have written in Markdown, not a new one with different figures. Nothing
   gets rounded differently, promoted, softened or dropped because it looks awkward in a table.
 - **No charts and no interactivity.** The only graphics are the hero bar and the row minibars,
-  and both are plain `<div>`s sized by an inline percentage. No canvas, no SVG plots, no
-  collapsible sections, no sorting.
+  and both are plain `<div>`s sized by an inline percentage. No `<canvas>` element, no SVG
+  plots, no collapsible sections, no sorting.
 
-## The skeleton — copy this file and fill it in
+## The skeleton — this is the file to build, not a block to paste back
+
+Fill this in and make it the artifact/canvas/download. The fence below is how the template
+is shown to you here; it is not the shape of your answer.
 
 ```html
 <!DOCTYPE html>
@@ -255,7 +274,7 @@ hero bar, the `.hero-read` line and every table cell carry raw counts only.
 5. **`<p class="integrity">`** — the one-line footer: how many reviews were read and how many
    carried enough text to count.
 
-## Before you emit it
+## Before you hand it over
 
 - Every `<table>` is inside `.scroll` or `.snapshot`, and every count column carries `class="n"`.
 - Both minibar widths on a row add up to 100, and the `<small>` next to them is ▼ then ▲.
@@ -263,4 +282,5 @@ hero bar, the `.hero-read` line and every table cell carry raw counts only.
 - No `<script>`, no `src=`, no `@import`, no `http` outside a review's own quoted text.
 - The report mode's caps still hold: five Notes, ten Issues rows, five Loved/Hated rows, four
   clauses a side. A section that would be empty is omitted, not padded.
-- Nothing outside the ```html fence.
+- The page left as a FILE — artifact, canvas or download — with at most one sentence beside
+  it, and no copy of the report pasted into the chat.
