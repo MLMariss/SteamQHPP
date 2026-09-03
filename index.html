@@ -6132,8 +6132,16 @@ const RD = {
                         // through; short punctuation-heavy reviews ("10/10", "<3") are well
                         // under 40 chars and under the ratio, so they are never touched.
   dupeMinLen: 20,       // shorter than this, identical text is coincidence, not copypasta
-  substantive: 20,      // 38% of reviews are under this. Reported, never filtered.
+  substantive: 20,      // 38% of reviews are under this. Reported; filtered only by the bar.
   pageDelayMs: 250,     // gentle on the Worker's shared egress IP
+
+  // §23.3 — the ceiling on the over-fetch the quality bar needs. With the bar on, the walk is
+  // bounded by reviews KEPT, and how many pages that costs is a property of the game: a game
+  // whose reviews are half "10/10" needs twice the pages of one written in paragraphs, and
+  // neither is knowable before fetching. 3x the request is well past the worst measured ratio
+  // (~45% dropped at the 5-word bar, i.e. 1.8x) and still bounds a pathological game at 60
+  // pages for a 2000 pull. Hitting it is not an error — the header reports the short sample.
+  noiseFetchMax: 3,
 
   // A REVIEW COUNT IS NOT A SIZE (§21.2, revised §22.1). Measured live 2026-09-02 across
   // five games, formatting each review exactly as the REVIEWS block does: a compacted line
@@ -6205,6 +6213,69 @@ const RD_MODES = [
 ];
 const RD_DEFAULT_MODE = "advanced";        // what this page shipped with; Simplified is the addition
 
+// §23.2 — the RENDERING, which is a different axis from the depth above. Markdown is what the
+// two prompts have always asked for. HTML asks for the same report, counted the same way, as
+// one self-contained page: a masthead, a hero sentiment bar, the same tables, light and dark,
+// and a print stylesheet. It REPLACES the Markdown skeleton rather than adding to it — a model
+// asked for both writes the report twice and the second copy is where the numbers drift.
+//
+// It is an ADDENDUM appended to whichever depth prompt is loaded, not a third prompt file that
+// duplicates one of them: the counting rules, the buckets, the floor and the READER FOCUS
+// contract are identical in HTML, and a fork of review_prompt.md that differed only in its last
+// forty lines would be two files to keep in step and one of them would rot.
+//
+// The stylesheet ships inside that addendum, verbatim and closed to edits. That is the whole
+// point of the option: a report per game is only comparable if ten of them look like ten pages
+// of one publication, and a model left to style it itself picks new colours every run.
+const RD_HTML_FILE = "review_prompt_html.md";
+const RD_OUT = [
+  { key:"md",   label:"Markdown",
+    tip:"The report as Markdown — headings and pipe tables. Renders in any chat window and pastes into a doc. This is what the page has always produced." },
+  { key:"html", label:"HTML page",
+    tip:"The same report, same counts, rendered as one self-contained HTML file: masthead, sentiment bar, styled tables, dark mode and a print stylesheet. Save the code block as a .html and open it. Costs ~3k more tokens of instructions and a longer reply." },
+];
+const RD_DEFAULT_OUT = "md";               // the page's own output for two years; HTML is opt-in
+
+// §23.1 — the quality bar. RD.substantive has always MEASURED this and never acted on it, on
+// the argument that dropping one-liners biases the sample negative (they skew positive). That
+// argument is sound about the SENTIMENT split and wrong about everything else in the report,
+// and the report is mostly everything else: with 1,651 reviews sampled and ~1,000 of them
+// carrying an actual sentence, "500 reviews complain about the story" reads as 30% of the game
+// when it is 50% of everyone who said anything. Every percentage in the digest is a share of a
+// denominator inflated by "gg".
+//
+// So the bar drops them from the sample, and the bias it introduces is handled by REPORTING it:
+// the OVERVIEW prints the pre-bar split next to the post-bar one, so the model can see the gap
+// is the filter rather than the game. That is the same bargain the ASCII-art and copypasta
+// filters already make — remove what poisons the counting, and say what was removed.
+//
+// 0 is off, and off is the pre-§23 behaviour exactly. 5 is the default: a five-word review is
+// the shortest thing that can carry a subject and a complaint ("combat feels stiff and slow"),
+// and 3 keeps "great combat, terrible optimisation" while 10 keeps only reviews arguing a case.
+const RD_BARS = [0, 3, 5, 10];
+const RD_DEFAULT_BAR = 5;
+const RD_BAR_LABEL = n => n ? `${n}+ words` : "Off";
+const RD_BAR_TIP = {
+  0:  "No filter — every review Steam returns, one-worders included. What this page did before the bar existed: the counts stay honest, but every percentage is a share of a sample that is ~38% \"10/10\" and \"gg\".",
+  3:  "The light bar. Drops \"gg\" and \"10/10\" but keeps three-word verdicts like \"great game, terrible optimisation\". Least distortion of the sentiment split.",
+  5:  "The default. A five-word review is the shortest that can name a thing and say what is wrong with it, so this is the bar where a percentage starts meaning \"of the people who said something\".",
+  10: "Only reviews that argue a case. The cleanest denominator and the smallest sample — on a quiet game this can take the fetch to its page ceiling without filling the sample.",
+};
+
+// Word counting for the bar. Whitespace splitting is wrong for the "All languages" sample:
+// a whole Japanese or Chinese review is one "word" to a split on spaces, so every one of them
+// would be dropped as noise. Each CJK/kana/Hangul character therefore counts as its own unit —
+// the standard approximation, and it errs toward KEEPING a review, which is the right way to
+// err for a filter that deletes data.
+const RD_CJK = /[\u3040-\u30ff\u3400-\u4dbf\u4e00-\u9fff\uf900-\ufaff\uac00-\ud7af]/g;
+function rdWords(t){
+  const cjk = (t.match(RD_CJK) || []).length;
+  const rest = t.replace(RD_CJK, " ");
+  // A "word" needs a letter or a digit in it, so a line of "... !!! ---" counts as nothing.
+  const latin = (rest.match(/\S*[\p{L}\p{N}]\S*/gu) || []).length;
+  return cjk + latin;
+}
+
 // §18.3 — the handoff. A finished digest is 100–150 KB. No chat service accepts that through a
 // link: ?q= prefills cap out somewhere between 2k and 8k characters and Gemini has no prefill
 // parameter at all, so "open it with the text already in the box" is not available on any of
@@ -6260,7 +6331,7 @@ const RD_FOCUS = [
 ];
 
 const rdState = { open:false, appid:null, lang:"english", size:RD_DEFAULT_SIZE,
-                  mode:RD_DEFAULT_MODE, focus:[],
+                  mode:RD_DEFAULT_MODE, out:RD_DEFAULT_OUT, bar:RD_DEFAULT_BAR, focus:[],
                   busy:false, abort:null, bundle:"", prompts:{} };
 
 function rdArtRatio(t){
@@ -6273,26 +6344,37 @@ function rdNormKey(t){ return t.toLowerCase().replace(/[^a-z0-9]/g, ""); }
 
 // One pass over the raw reviews: clean the text, drop what would poison the counting,
 // and report every drop so the bundle header can state what happened to the sample.
-function rdCompact(raw){
-  const out = [], seen = new Set();
-  const dropped = { art:0, dupe:0, empty:0 };
-  let truncated = 0;
-  for(const rv of raw){
+//
+// INCREMENTAL since §23.3, because the sample size now counts reviews KEPT rather than
+// reviews fetched. The walk cannot know it has 500 until it has compacted what it fetched,
+// so compaction moved out of rdBuildBundle and into the fetch loop, one review at a time,
+// with the dedupe set and every counter living across pages. `stats.seen` and `stats.up`
+// are the pre-filter figures the OVERVIEW prints beside the post-filter ones.
+function rdCompactor(minWords){
+  const rows = [], seen = new Set();
+  const stats = { seen:0, up:0, art:0, dupe:0, empty:0, short:0, truncated:0 };
+  return { rows, stats, add(rv){
+    stats.seen++;
+    if(rv.voted_up) stats.up++;
     let t = (rv.review || "").replace(RD_BBCODE, " ").replace(/\s+/g, " ").trim();
-    if(!t){ dropped.empty++; continue; }
-    if(t.length > RD.artMinLen && rdArtRatio(t) > RD.artRatio){ dropped.art++; continue; }
-    if(/(.)\1{19,}/.test(t)){ dropped.art++; continue; }   // 20+ repeated chars = art, not prose
+    if(!t){ stats.empty++; return false; }
+    if(t.length > RD.artMinLen && rdArtRatio(t) > RD.artRatio){ stats.art++; return false; }
+    if(/(.)\1{19,}/.test(t)){ stats.art++; return false; }   // 20+ repeated chars = art, not prose
+    // §23.1, and deliberately ahead of the dedupe: a review dropped by the bar is counted
+    // under the reason that actually removed it, and a one-liner never enters `seen` — which
+    // changes nothing, since RD.dupeMinLen already declines to dedupe text that short.
+    if(minWords && rdWords(t) < minWords){ stats.short++; return false; }
     if(t.length >= RD.dupeMinLen){
       const k = rdNormKey(t);
       // Copypasta appears verbatim dozens of times (the probe found one posted 30x) and
       // would skew every single count, so identical text is kept exactly once.
-      if(seen.has(k)){ dropped.dupe++; continue; }
+      if(seen.has(k)){ stats.dupe++; return false; }
       seen.add(k);
     }
-    if(t.length > RD.cap){ t = t.slice(0, RD.cap).trimEnd() + "…"; truncated++; }
-    out.push({ rv, text:t });
-  }
-  return { rows:out, dropped, truncated };
+    if(t.length > RD.cap){ t = t.slice(0, RD.cap).trimEnd() + "…"; stats.truncated++; }
+    rows.push({ rv, text:t });
+    return true;
+  } };
 }
 
 function rdFlags(rv, isNow, isTop){
@@ -6331,7 +6413,15 @@ function rdSummary(appid, language, signal){
 // `size` is the chosen sample (§15.3). Steam caps num_per_page at 100, so 1000 is 10 pages
 // and about +2.5s at the current inter-page delay — I/O-bound, nowhere near the Worker's
 // free-plan CPU limits, so nothing there needs to change.
-async function rdCollect(appid, lang, size, onProgress, signal){
+//
+// §23.3 — THE SIZE IS WHAT LANDS IN THE BUNDLE. The walk used to count raw reviews and
+// compact afterwards, so a 500 that lost eight to duplicates and art delivered 492 and the
+// reader's number meant "fetched", not "read". With the quality bar on, that gap goes from
+// 2% to ~40% and the distinction stops being pedantic: 500 with the bar on has to mean 500
+// reviews with something in them, or the option quietly halves every sample it improves.
+// So compaction happens inline and the loop runs until `size` reviews have been KEPT —
+// which also, with the bar off, finally makes 2000 mean 2000 after the dupes come out.
+async function rdCollect(appid, lang, size, minWords, onProgress, signal){
   const pages = Math.ceil(size / RD.perPage);
   onProgress(`fetching totals…`);
   // Anchor fetched with the SAME language and off-topic setting as the sample, so the
@@ -6344,16 +6434,26 @@ async function rdCollect(appid, lang, size, onProgress, signal){
   // ends four reviews under the 2000 that was asked for. Those pages are ~2% and independent,
   // so a handful of spare pages covers any realistic run — and the loop stops the moment the
   // count is met, so on a clean game the slack is never spent.
-  const maxPages = pages + 5;
-  const raw = [];
+  //
+  // With the bar on, five spare pages is not enough slack — the drop rate is ~40%, not 2% —
+  // so the ceiling becomes RD.noiseFetchMax × the request. It is a guard against a game of
+  // pure one-liners, not a budget: on any normal game the loop meets its count long before.
+  const comp = rdCompactor(minWords);
+  const maxPages = minWords ? Math.ceil(size * RD.noiseFetchMax / RD.perPage) : pages + 5;
   let cursor = "*";
-  for(let p = 1; p <= maxPages && raw.length < size; p++){
-    onProgress(`page ${p} · ${raw.length}/${size} reviews`);
+  for(let p = 1; p <= maxPages && comp.rows.length < size; p++){
+    onProgress(`page ${p} · ${comp.rows.length}/${size} reviews`
+             + (minWords ? ` · ${comp.stats.seen} read` : ""));
     const d = await rdCall({ appid, language:lang, purchase_type:"all",
                              num_per_page:RD.perPage, filter:"recent", cursor,
                              filter_offtopic_activity:0 }, signal);
     const batch = d.reviews || [];
-    raw.push(...batch);
+    // Compacted inline, and stopped mid-page the moment the count is met — the only trim is
+    // the one the reader asked for, so nothing beyond the 500th kept review is even read.
+    for(const rv of batch){
+      comp.add(rv);
+      if(comp.rows.length >= size) break;
+    }
     const next = d.cursor;
     // A SHORT PAGE IS NOT THE END OF THE LIST (§21.1). This used to break on
     // `batch.length < RD.perPage` and that was wrong: measured live 2026-09-02, Steam serves
@@ -6366,12 +6466,10 @@ async function rdCollect(appid, lang, size, onProgress, signal){
     // or a cursor that stops advancing means Steam is genuinely out of reviews.
     if(!batch.length || !next || next === cursor) break;
     cursor = next;
-    if(raw.length < size) await new Promise(r => setTimeout(r, RD.pageDelayMs));
+    if(comp.rows.length < size) await new Promise(r => setTimeout(r, RD.pageDelayMs));
   }
 
-  // The only trim is the one the reader asked for. A page is 100 and a size need not be a
-  // multiple of it, so the last page can overshoot; nothing else shortens the sample.
-  return { raw: raw.slice(0, size),
+  return { comp, minWords,
            scoped:scoped.query_summary || {}, overall:overall.query_summary || {} };
 }
 
@@ -6391,7 +6489,9 @@ RD_PROMPT_FALLBACK.advanced =
 issue. Count complaints only: "simple graphics, but I love it" is praise, not a graphics
 complaint. Percentages use the substantive-review count from the OVERVIEW. The floor for a row
 is max(5 reviews, 2% of substantive); anything under it goes to the Other tally. Copy the
-TIMELINE block's numbers; never recompute them.
+TIMELINE block's numbers; never recompute them. If OVERVIEW carries a \`quality bar:\` line,
+reviews under that word count were removed before the sample was built — count over what is
+here, and quote the sample split rather than the \`before the bar:\` line beside it.
 
 Output in this order, and nothing else — a blank line before every table: (1) \`# <the game's
 title>\` as the first line, copied character for character from the GAME: line at the top of
@@ -6428,7 +6528,9 @@ RD_PROMPT_FALLBACK.simple =
 `Analyse the Steam reviews that follow and write a SHORT report. Count REVIEWS, not mentions —
 one review counts once for a thing however many times it says it. Count complaints only:
 "simple graphics, but I love it" is praise, not a graphics complaint. Never recompute the
-TIMELINE block; copy its numbers. TOPIC MENTIONS is a regex floor for checking your own
+TIMELINE block; copy its numbers. If OVERVIEW carries a \`quality bar:\` line, the shortest
+reviews were removed before the sample was built; quote the sample split, never the
+\`before the bar:\` line beside it. TOPIC MENTIONS is a regex floor for checking your own
 counting against — never reproduce it and never quote it as an answer.
 
 No percentages anywhere, and no issue table. Output a title and these three sections in this
@@ -6463,22 +6565,108 @@ zero — that is the answer he came for. Counts only, no advice about whether he
 End with one italic line under a \`---\` rule: how many reviews were read and how many were
 substantive. No introduction, no methodology, no closing paragraph, no extra sections.`;
 
+// §23.2 — the output addendum's fallback. Same warning as the two above, with one addition:
+// this one carries a STYLESHEET, and the reason the option exists at all is that every report
+// looks like the last one. A fallback that told the model to style it itself would satisfy the
+// request and lose the point of it, so the palette, the type and the class names are here in
+// condensed form — fewer comments and fewer components than the file, the same look.
+RD_PROMPT_FALLBACK.html =
+`Render the report as ONE self-contained HTML page instead of the Markdown skeleton above. The
+counting rules, buckets, floor, caps and READER FOCUS contract above all still apply — only the
+rendering changes, and the Markdown version is NOT also produced.
+
+Return one complete HTML document inside a single \`\`\`html fence and nothing outside it. No
+external CSS, fonts, images, scripts or CDN links; it must open with no network. No charts, no
+interactivity. Every number on the page is one you counted.
+
+Use exactly this stylesheet — do not restyle it, extend it, or recolour it to the game:
+
+<style>
+:root{--paper:#e9ecef;--card:#f6f7f9;--ink:#1d2126;--ink-soft:#5a6470;--rule:#c8ced6;--up:#4a7a4e;--down:#a4503c}
+@media (prefers-color-scheme:dark){:root{--paper:#181c21;--card:#20252b;--ink:#e4e8ec;--ink-soft:#98a3af;--rule:#343b43;--up:#7fae82;--down:#d1826c}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;font-variant-numeric:tabular-nums}
+.wrap{max-width:60rem;margin:0 auto;padding:2.5rem 1.25rem 5rem}
+.title{font-family:"Iowan Old Style",Palatino,Georgia,serif;font-weight:600;font-size:clamp(2rem,6vw,3.4rem);line-height:1.05;margin:0}
+.sub{color:var(--ink-soft);font-size:.9rem;margin:.6rem 0 0}
+.hero{margin:2rem 0 2.75rem}
+.bar{display:flex;height:2.75rem;border-radius:3px;overflow:hidden;background:var(--rule)}
+.bar span{display:flex;align-items:center;color:#fff;font-size:.85rem;font-weight:600;padding:0 .7rem}
+.bar .b-up{background:var(--up)}
+.bar .b-down{background:var(--down);justify-content:flex-end}
+.hero-read{display:flex;flex-wrap:wrap;gap:.4rem 1.25rem;margin-top:.65rem;font-size:.88rem;color:var(--ink-soft)}
+.hero-read b{color:var(--ink)}
+.warn{border-left:3px solid var(--down);background:var(--card);padding:.8rem 1rem;font-size:.92rem;margin:0 0 2.5rem}
+h2{font-family:"Iowan Old Style",Palatino,Georgia,serif;font-weight:600;font-size:1.4rem;margin:2.75rem 0 .9rem;padding-bottom:.4rem;border-bottom:1px solid var(--rule)}
+p{max-width:66ch}
+.scroll{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:.92rem;min-width:36rem}
+th,td{text-align:left;padding:.55rem .7rem;border-bottom:1px solid var(--rule);vertical-align:top}
+thead th{font-size:.78rem;color:var(--ink-soft);border-bottom:1px solid var(--ink-soft);white-space:nowrap}
+td.n,th.n{text-align:right;white-space:nowrap}
+.snapshot table{min-width:0}
+.snapshot th{width:12rem;color:var(--ink-soft);font-size:.85rem}
+.split{display:flex;align-items:center;gap:.45rem;white-space:nowrap}
+.minibar{display:flex;width:4.5rem;height:.55rem;border-radius:2px;overflow:hidden;flex:none}
+.minibar i{display:block;height:100%}
+.minibar .m-down{background:var(--down)}
+.minibar .m-up{background:var(--up)}
+.split small{font-size:.78rem;color:var(--ink-soft)}
+.forwho{display:grid;gap:1rem;grid-template-columns:1fr 1fr}
+@media (max-width:44rem){.forwho{grid-template-columns:1fr}}
+.forwho div{background:var(--card);padding:1rem 1.1rem;border-radius:4px}
+.forwho h3{margin:0 0 .45rem;font-size:1rem}
+.forwho .buy h3{color:var(--up)}
+.forwho .skip h3{color:var(--down)}
+ul.notes{padding-left:1.1rem;max-width:66ch}
+.integrity{margin-top:3rem;padding-top:1rem;border-top:1px solid var(--rule);font-size:.85rem;color:var(--ink-soft)}
+.up{color:var(--up)}.down{color:var(--down)}
+@media print{:root{--paper:#fff;--card:#f2f2f2;--ink:#000;--rule:#bbb}.wrap{padding:0}tr{page-break-inside:avoid}}
+</style>
+
+Everything lives in one \`<div class="wrap">\`. Open with \`<h1 class="title">\` (the game's title)
+and \`<p class="sub">\` (count, date range, appid), then the hero bar:
+\`<div class="hero"><div class="bar" role="img" aria-label="…"><span class="b-up" style="flex:UP">▲ UP</span><span class="b-down" style="flex:DOWN">DOWN ▼</span></div><div class="hero-read"><span>…</span></div></div>\`
+— the flex values are the raw ▲/▼ counts, so the bar cannot disagree with its own labels; drop
+a side entirely if it is 0. Add \`<p class="warn">\` only when TIMELINE actually warns about the
+sample's span, the NOW window or a noisy trend; omit it otherwise.
+
+Then one \`<h2>\` per section of your report mode, in the order the instructions above give them,
+each table wrapped in \`<div class="scroll">\` (Snapshot uses \`<div class="snapshot">\` and a
+\`<th>\`/\`<td>\` row per field, no thead). Count columns carry \`class="n"\`. "Who it's for" is
+\`<div class="forwho">\` with a \`.buy\` and a \`.skip\` child, each \`<h3>\` + \`<p>\`. Notes is
+\`<ul class="notes">\`. In the Issues table the Quit / stayed cell is
+\`<div class="split"><span class="minibar"><i class="m-down" style="width:X%"></i><i class="m-up" style="width:Y%"></i></span><small>N / N</small></div>\`
+with X = ▼/(▼+▲), X+Y = 100, and the raw counts ▼ first. Close with \`<p class="integrity">\`
+carrying the INTEGRITY line (or, in the short mode, the one-line sample footer). Simplified mode
+allows NO percentages anywhere — raw counts in the hero readings and every cell.`;
+
 function rdModeSpec(key){
   return RD_MODES.find(m => m.key === key) || RD_MODES.find(m => m.key === RD_DEFAULT_MODE);
 }
 
-async function rdLoadPrompt(mode){
-  const m = rdModeSpec(mode);
-  if(rdState.prompts[m.key]) return rdState.prompts[m.key];
+// Cached by KEY, not by file, so the HTML addendum (§23.2) rides the same one fetch-per-key
+// path as the two depth prompts and toggling Markdown/HTML back and forth costs nothing.
+async function rdLoadPromptFile(key, file){
+  if(rdState.prompts[key]) return rdState.prompts[key];
   try {
-    const r = await fetch(m.file, { cache:"no-store" });
+    const r = await fetch(file, { cache:"no-store" });
     if(r.ok){
       const t = (await r.text()).trim();
-      if(t) { rdState.prompts[m.key] = t; return t; }
+      if(t) { rdState.prompts[key] = t; return t; }
     }
   } catch(e){ /* fall through — a digest without instructions is worse than a generic one */ }
-  rdState.prompts[m.key] = RD_PROMPT_FALLBACK[m.key];
-  return rdState.prompts[m.key];
+  rdState.prompts[key] = RD_PROMPT_FALLBACK[key];
+  return rdState.prompts[key];
+}
+function rdLoadPrompt(mode){
+  const m = rdModeSpec(mode);
+  return rdLoadPromptFile(m.key, m.file);
+}
+// Null unless the reader asked for a page, so the ~3k tokens of stylesheet are never spent
+// on a Markdown run and the file is never fetched on one either.
+function rdLoadOutPrompt(out){
+  return out === "html" ? rdLoadPromptFile("html", RD_HTML_FILE) : Promise.resolve(null);
 }
 
 function rdPct(pos, total){ return total ? Math.round(100 * pos / total) : null; }
@@ -6728,9 +6916,17 @@ function rdFocusBlock(focus){
   return L.join("\n");
 }
 
-function rdBuildBundle(g, data, lang, prompt, focus){
-  const { raw, scoped, overall } = data;
-  const { rows, dropped, truncated } = rdCompact(raw);
+// Strips a prompt file's leading `<!-- vN -->` marker and hands back both halves. The marker
+// is traceability — which revision of the instructions produced a given report — and it reads
+// as clutter at the top of the document, so it is lifted into the title line instead.
+function rdPromptParts(p){
+  const m = (p || "").match(/^\s*<!--\s*([\w.\-]+)\s*-->\s*\n?/i);
+  return m ? { ver:m[1], body:p.slice(m[0].length).trim() } : { ver:"", body:(p || "").trim() };
+}
+
+function rdBuildBundle(g, data, lang, prompt, focus, htmlPrompt){
+  const { comp, minWords, scoped, overall } = data;
+  const { rows, stats } = comp;          // compacted during the fetch — see rdCollect (§23.3)
 
   const up = rows.filter(r => r.rv.voted_up).length;
   const down = rows.length - up;
@@ -6760,9 +6956,13 @@ function rdBuildBundle(g, data, lang, prompt, focus){
   // sat at the bottom; leading the document it is the first thing anyone reads. Lift the
   // version into the title line and strip it from the body — the traceability is kept, the
   // reader just does not have to look at an HTML comment first.
-  let promptBody = prompt, promptVer = "";
-  const vm = prompt.match(/^\s*<!--\s*(v[\w.\-]+)\s*-->\s*\n?/i);
-  if(vm){ promptVer = " · prompt " + vm[1]; promptBody = prompt.slice(vm[0].length); }
+  const main = rdPromptParts(prompt);
+  const html = htmlPrompt ? rdPromptParts(htmlPrompt) : null;
+  // Both markers ride the title line when the output addendum is attached — the report's
+  // shape is now the product of two files, and "prompt v8" alone would not identify it.
+  const promptVer = main.ver
+    ? " · prompt " + main.ver + (html && html.ver ? " + " + html.ver : "")
+    : (html && html.ver ? " · prompt " + html.ver : "");
   L.push(`=== QTPD REVIEW DIGEST${promptVer} ===`);
   // §18.5 — WHICH GAME, stated before anything else. The title used to appear once, in
   // OVERVIEW, ~230 lines of instructions down the paste: fine for the model, useless for the
@@ -6775,9 +6975,18 @@ function rdBuildBundle(g, data, lang, prompt, focus){
     L.push(`REVIEWS: ${rows.length} sampled · ${rdDay(times[0])} to ${rdDay(times[times.length-1])}`);
   L.push("");
   L.push("--- INSTRUCTIONS ---");
-  L.push(promptBody.trim());
+  L.push(main.body);
   const focusBlock = rdFocusBlock(focus);
   if(focusBlock){ L.push(""); L.push(focusBlock); }
+  // §23.2 — the rendering, last of the three instruction blocks and labelled as a replacement
+  // in its own header. The depth prompt above ends with a Markdown skeleton and this one says
+  // not to use it; a model reading them in the other order gets the override first and the
+  // thing it overrides second, which is how you end up with both reports in one reply.
+  if(html){
+    L.push("");
+    L.push("--- OUTPUT FORMAT (replaces the output skeleton in the INSTRUCTIONS above) ---");
+    L.push(html.body);
+  }
   L.push("");
   L.push("--- OVERVIEW ---");
   L.push(`GAME: ${g.title}  (appid ${g.appid})`);
@@ -6792,12 +7001,29 @@ function rdBuildBundle(g, data, lang, prompt, focus){
   L.push(`SAMPLE: ${rows.length} newest ${lang === "all" ? "reviews, all languages" : "English reviews"} (filter=recent) · fetched ${new Date().toISOString().slice(0,10)}`);
   if(times.length) L.push(`  covering: ${rdDay(times[0])} to ${rdDay(times[times.length-1])}`);
   L.push(`  sample split: ${up} up / ${down} down` + (rows.length ? ` (${Math.round(100*up/rows.length)}% positive)` : ""));
-  // 38% of real reviews are under 20 chars (probe Q5). They are real sentiment and are
-  // NOT filtered — dropping them would bias the sample negative, since one-word reviews
-  // skew positive. Stating the count lets the AI read issue rates against the right base.
+  // §23.1 — the quality bar, stated wherever it changed something. Two lines, and the second
+  // is the one that matters: the bar drops reviews that skew POSITIVE, so the sample split
+  // above sits a few points under the raw one, and a model comparing it to the all-time
+  // figure at the top of this block would otherwise read the filter as a decline in the game.
+  if(minWords){
+    const rawUp = stats.up, rawDown = stats.seen - stats.up;
+    L.push(`  quality bar: ON at ${minWords} words — ${stats.short} shorter reviews were dropped as they`
+         + ` were read; they are NOT in this sample and NOT in any count below`);
+    L.push(`  before the bar: ${stats.seen} reviews read · ${rawUp}▲/${rawDown}▼`
+         + (stats.seen ? ` (${Math.round(100*rawUp/stats.seen)}% positive)` : "")
+         + ` — one-word reviews skew positive, so this runs above the sample split.`
+         + ` The gap is the filter, not the game: quote the sample split, never this line.`);
+  }
+  // 38% of real reviews are under 20 chars (probe Q5). With the bar off they are real
+  // sentiment and are NOT filtered — dropping them would bias the sample negative, since
+  // one-word reviews skew positive. Stating the count lets the AI read issue rates against
+  // the right base, and it stays the denominator whether or not the bar has already gone
+  // through: with the bar on it simply lands within a review or two of the sample size.
   L.push(`  substantive: ${substantive} of ${rows.length} have more than ${RD.substantive} characters of text`);
   L.push(`  off-topic / review-bombing reviews: INCLUDED`);
-  L.push(`  excluded: ${dropped.art} ASCII-art · ${dropped.dupe} duplicates · ${dropped.empty} empty · ${truncated} truncated at ${RD.cap} chars`);
+  L.push(`  excluded: ${stats.art} ASCII-art · ${stats.dupe} duplicates · ${stats.empty} empty`
+       + (minWords ? ` · ${stats.short} under the ${minWords}-word bar` : "")
+       + ` · ${stats.truncated} truncated at ${RD.cap} chars`);
   if(engShare != null) L.push(`  language: english only (~${engShare}% of this game's reviews; ${100-engShare}% are other languages)`);
 
   // Everything below is arithmetic, and arithmetic is the one thing an AI reading 500 rows
@@ -6805,6 +7031,12 @@ function rdBuildBundle(g, data, lang, prompt, focus){
   if(W){
     L.push("");
     L.push("--- TIMELINE (precomputed — copy these numbers; do NOT recalculate them) ---");
+    // §23.1. Every rate below is measured over the sample, and with the bar on the sample is
+    // the qualitative reviews only. Said once, here, because a model that reads these against
+    // the ALL-TIME anchor above without knowing the basis differs will report the filter as
+    // a slump — the one way this feature could produce a wrong finding rather than a sharper one.
+    if(minWords)
+      L.push(`BASIS  : over the ${rows.length} reviews that cleared the ${minWords}-word bar — not over everything Steam served, and so a few points under the ALL-TIME figures above.`);
     // A review count says nothing about the time it covers, and the same 500 reviews are
     // two years of one game and two days of another. Everything below reads differently
     // depending on which, so it is stated before any of it.
@@ -6942,9 +7174,12 @@ function rdRenderSetup(g){
   const head = document.getElementById("rdHeadCount");
   if(head) head.textContent = "";
   body.innerHTML =
-    `<p class="rd-note" title="Review-bombing reviews are included on purpose — the prompt counts them and reports them separately, so you see the pile-on instead of a score quietly smoothed over.">Takes the <b id="rdCount">${rdState.size}</b> newest Steam reviews and wraps them in an AI prompt.</p>
+    `<p class="rd-note" title="Review-bombing reviews are included on purpose — the prompt counts them and reports them separately, so you see the pile-on instead of a score quietly smoothed over.">Takes the <b id="rdCount">${rdState.size}</b> newest <span id="rdCountQual">${rdState.bar ? "reviews worth reading" : "Steam reviews"}</span> and wraps them in an AI prompt.</p>
      <div class="rd-row"><span class="rd-lbl">Report</span>
        ${RD_MODES.map(m => `<button type="button" class="rd-opt${rdState.mode===m.key?" on":""}" data-rdmode="${m.key}" title="${esc(m.tip)}">${esc(m.label)}</button>`).join("")}
+     </div>
+     <div class="rd-row"><span class="rd-lbl">Output</span>
+       ${RD_OUT.map(o => `<button type="button" class="rd-opt${rdState.out===o.key?" on":""}" data-rdout="${o.key}" title="${esc(o.tip)}">${esc(o.label)}</button>`).join("")}
      </div>
      <div class="rd-row"><span class="rd-lbl">Language</span>
        <button type="button" class="rd-opt${rdState.lang==="english"?" on":""}" data-rdlang="english" title="English reviews only — the usual choice, and the cheapest.">English</button>
@@ -6954,6 +7189,10 @@ function rdRenderSetup(g){
        ${RD_SIZES.map(n => `<button type="button" class="rd-opt${rdState.size===n?" on":""}" data-rdsize="${n}" title="${esc(RD_SIZE_TIP[n] || (n + " reviews."))}">${n}</button>`).join("")}
      </div>
      <p class="rd-hint">A bigger sample buys <b>history</b>, not accuracy.</p>
+     <div class="rd-row"><span class="rd-lbl">Quality bar</span>
+       ${RD_BARS.map(n => `<button type="button" class="rd-opt${rdState.bar===n?" on":""}" data-rdbar="${n}" title="${esc(RD_BAR_TIP[n] || "")}">${esc(RD_BAR_LABEL(n))}</button>`).join("")}
+     </div>
+     <p class="rd-hint">Drops <b>"gg"</b> and <b>"10/10"</b> before they count. The sample fills up with reviews that <b>say something</b>, so a percentage means "of the people who did".</p>
      <div class="rd-row"><span class="rd-lbl">Focus</span>
        ${RD_FOCUS.map(f => `<button type="button" class="rd-opt rd-chk${rdState.focus.includes(f.key)?" on":""}"
           data-rdfocus="${f.key}" aria-pressed="${rdState.focus.includes(f.key)}" title="Adds a row answering: ${esc(f.ask)}? You get the row even if the answer is zero — which is the answer you can't get any other way.">${esc(f.label)}</button>`).join("")}
@@ -6968,7 +7207,9 @@ function rdRenderSetup(g){
 // with the rest of the grid long before the dialog opened — so a size change has to reach
 // back and correct their tooltips, or the card promises 500 while the dialog fetches 1000.
 function rdEntryTitle(){
-  return `Pull the ${rdState.size} newest Steam reviews and package them with an AI prompt`;
+  return `Pull the ${rdState.size} newest Steam reviews`
+       + (rdState.bar ? ` that say more than "gg"` : "")
+       + ` and package them with an AI prompt`;
 }
 function rdSyncEntryTitles(){
   document.querySelectorAll("[data-rdopen]").forEach(b => b.title = rdEntryTitle());
@@ -7045,7 +7286,10 @@ function rdRenderResult(bundle){
     (warn ? `<div class="rd-warn${hard ? " hard" : ""}" id="rdWarn">${warn.html}</div>` : "") +
     `<p class="rd-note">Ready. ${hard
        ? `Paste it into ${RD_AI_FILE_OR}, or download the .txt and attach it in any chat.`
-       : `Text will be copied — paste in the chat of your choice (<b>${rdPasteKey()}</b>).`}</p>
+       : `Text will be copied — paste in the chat of your choice (<b>${rdPasteKey()}</b>).`}${
+       rdState.out === "html"
+         ? ` The answer comes back as one <b>HTML file</b> in a code block — save it as <code>game.html</code> and open it.`
+         : ""}</p>
      <textarea class="rd-out" id="rdOut" readonly spellcheck="false"></textarea>`;
   document.getElementById("rdOut").value = bundle;
   // The three AI buttons live HERE, in the footer, next to Copy all — they are actions, and
@@ -7091,16 +7335,22 @@ async function rdRun(){
   const prog = document.getElementById("rdProg");
   const say = m => { if(prog) prog.textContent = m; };
   try {
-    const [data, prompt] = await Promise.all([
-      rdCollect(g.appid, rdState.lang, rdState.size, say, rdState.abort.signal),
+    const [data, prompt, htmlPrompt] = await Promise.all([
+      rdCollect(g.appid, rdState.lang, rdState.size, rdState.bar, say, rdState.abort.signal),
       rdLoadPrompt(rdState.mode),
+      rdLoadOutPrompt(rdState.out),
     ]);
-    if(!data.raw.length) throw new Error("this game has no reviews in that language");
+    // The bar can empty a sample that Steam did answer — a game with 40 reviews, all of them
+    // "gg" — and that is a different failure from a game with no reviews at all, so it says so.
+    if(!data.comp.rows.length)
+      throw new Error(data.comp.stats.seen
+        ? `all ${data.comp.stats.seen} reviews in that language are under the ${rdState.bar}-word bar — lower it or turn it off`
+        : "this game has no reviews in that language");
     say("building…");
     // Resolved from keys here rather than stored as objects, so rdState stays serialisable
     // and the dialog order — not the click order — decides how the focus lines read.
     const focus = RD_FOCUS.filter(f => rdState.focus.includes(f.key));
-    rdState.bundle = rdBuildBundle(g, data, rdState.lang, prompt, focus);
+    rdState.bundle = rdBuildBundle(g, data, rdState.lang, prompt, focus, htmlPrompt);
     rdRenderResult(rdState.bundle);
   } catch(err){
     if(err && err.name === "AbortError") return;      // user closed the dialog
@@ -7163,6 +7413,25 @@ document.addEventListener("click", e => {
     rdState.mode = mode.getAttribute("data-rdmode");
     document.querySelectorAll("[data-rdmode]").forEach(b =>
       b.classList.toggle("on", b.getAttribute("data-rdmode") === rdState.mode));
+    return;
+  }
+  const out = e.target.closest("[data-rdout]");
+  if(out && !rdState.busy){
+    rdState.out = out.getAttribute("data-rdout");
+    document.querySelectorAll("[data-rdout]").forEach(b =>
+      b.classList.toggle("on", b.getAttribute("data-rdout") === rdState.out));
+    return;
+  }
+  const bar = e.target.closest("[data-rdbar]");
+  if(bar && !rdState.busy){
+    rdState.bar = parseInt(bar.getAttribute("data-rdbar"), 10);
+    document.querySelectorAll("[data-rdbar]").forEach(b =>
+      b.classList.toggle("on", parseInt(b.getAttribute("data-rdbar"), 10) === rdState.bar));
+    // The bar changes what the size MEANS — 500 reviews, or 500 reviews with something in
+    // them — so the sentence that quotes the size has to move with it (§23.3).
+    const q = document.getElementById("rdCountQual");
+    if(q) q.textContent = rdState.bar ? "reviews worth reading" : "Steam reviews";
+    rdSyncEntryTitles();
     return;
   }
   const size = e.target.closest("[data-rdsize]");

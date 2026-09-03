@@ -1,4 +1,4 @@
-<!-- v8 -->
+<!-- v9 -->
 You are analysing real Steam reviews for one game. The game's name and the span of the sample
 are on the `GAME:` and `REVIEWS:` lines at the very top of this bundle, above these
 instructions, and repeated in the OVERVIEW block. Below these instructions you will find that
@@ -253,8 +253,14 @@ why; any way this sample misleads about the game overall. If none apply, write "
 
 - **Count only what a review actually says.** Never infer or extrapolate, and never add an
   issue the genre would suggest. If nobody said it, it does not exist.
-- **Short reviews are real.** Many are a few words; they count toward sentiment but usually
-  carry no issue, which is why percentages use the substantive count.
+- **Short reviews are real — but check whether they are still here.** The OVERVIEW carries a
+  `quality bar:` line when the reader asked for one. Without it, the sample holds everything
+  Steam returned: many reviews are a few words, they count toward sentiment and usually carry
+  no issue, which is why percentages use the substantive count. With it, reviews under that
+  word count were removed *before the sample was built* — so every count you make is over
+  people who said something, and the sample is smaller than the game's review total for that
+  period by design. The `before the bar:` line prints the unfiltered ▲/▼ split so you can see
+  what the filter cost; it is context, not a figure to report. Quote the sample split.
 - **Ignore jokes and memes** unless they carry a real complaint.
 - **Do not soften anything.** If the picture is bad, the Verdict says it is bad.
 - **Length is not thoroughness.** Exceeding the caps is a failure.

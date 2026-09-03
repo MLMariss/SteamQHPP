@@ -134,6 +134,14 @@ const focusOn   = await page.locator("[data-rdfocus].on").count();
 const goLabel   = (await page.locator("#rdGo").textContent()).trim();
 const modeOpts  = await page.locator("[data-rdmode]").allTextContents();
 const modeOn    = await page.locator("[data-rdmode].on").allTextContents();
+// §23 — two more axes in the same dialog: how the report is RENDERED, and how much a review
+// has to say before it counts. Both defaults are load-bearing, and they point opposite ways:
+// Markdown is the default because it is what the page has always produced, and the bar is ON
+// because the denominator it fixes was wrong in every digest before it.
+const outOpts   = await page.locator("[data-rdout]").allTextContents();
+const outOn     = await page.locator("[data-rdout].on").allTextContents();
+const barOpts   = await page.locator("[data-rdbar]").allTextContents();
+const barOn     = await page.locator("[data-rdbar].on").allTextContents();
 // A focus whose family name does not exist in RD_TOPICS points the model at nothing and
 // fails silently — no error, just a focus the bundle cannot answer. Typos are the whole risk.
 const badFocusMap = await page.evaluate(() =>
@@ -157,7 +165,7 @@ const dlTip    = await page.locator("#rdFoot #rdDl").getAttribute("title");
 // are gone — an untitled pill is a dead end for anyone who does not already know the answer.
 const setupUntitled = await page.evaluate(() => {
   rdRenderSetup(gameOf(rdState.appid));
-  return [...document.querySelectorAll("#rdBody [data-rdmode],#rdBody [data-rdsize],#rdBody [data-rdlang],#rdBody [data-rdfocus]")]
+  return [...document.querySelectorAll("#rdBody [data-rdmode],#rdBody [data-rdsize],#rdBody [data-rdlang],#rdBody [data-rdfocus],#rdBody [data-rdout],#rdBody [data-rdbar]")]
     .filter(b => !b.title || b.title.trim().length < 12).map(b => b.textContent.trim());
 });
 await browser.close();
@@ -196,6 +204,15 @@ check(bundle.includes("…"), "long review truncated");
 check(!/\[b\]|\[\/b\]|\[url=/.test(bundle), "BBCode stripped");
 check(bundle.includes("[sailing]"), "bracketed PROSE preserved (not treated as BBCode)");
 check(/1 duplicates/.test(bundle) && /1 ASCII-art/.test(bundle), "drops counted in header");
+// §23.1 — the bar is on by default, so the DEFAULT bundle has to own what it removed. The
+// fixture's one-word review ("gg") is the only thing under it here.
+check(/ · 1 under the 5-word bar · /.test(bundle), "the bar's drops sit on the excluded line beside the others");
+check(/^  quality bar: ON at 5 words — 1 shorter reviews? were dropped/m.test(bundle),
+      "the bar states itself in OVERVIEW rather than silently shrinking the sample");
+check(/^  before the bar: \d+ reviews read · \d+▲\/\d+▼ .* quote the sample split, never this line\.$/m.test(bundle),
+      "the pre-bar split is printed AND labelled as the one not to quote");
+check(/^BASIS  : over the \d+ reviews that cleared the 5-word bar/m.test(bundle),
+      "TIMELINE declares which population its rates are measured over");
 check(bundle.includes("--- INSTRUCTIONS ---"), "instructions section present");
 {
   // TIMELINE exists so the AI copies rates instead of deriving them from 500 dated lines.
@@ -263,6 +280,14 @@ check(bundle.includes("--- INSTRUCTIONS ---"), "instructions section present");
   check(modeOpts.join("·") === "Simplified·Advanced", `both report modes offered, simple first (${modeOpts.join("·")})`);
   check(modeOn.length === 1 && modeOn[0] === "Advanced", `Advanced is the default report mode (${modeOn.join(",")})`);
   check(goLabel === "Fetch 500 reviews", `fetch button quotes the chosen size (${JSON.stringify(goLabel)})`);
+  // §23.2 — the output is its own axis, not a third depth. Markdown stays the default: the
+  // HTML addendum is ~3k tokens of stylesheet and nobody should pay it without asking.
+  check(outOpts.join("·") === "Markdown·HTML page", `both output formats offered (${outOpts.join("·")})`);
+  check(outOn.length === 1 && outOn[0] === "Markdown", `Markdown is the default output (${outOn.join(",")})`);
+  // §23.1 — the bar ships ON. Off is offered and is the pre-§23 behaviour exactly, but a
+  // default of Off would leave the wrong denominator as what everybody gets.
+  check(barOpts.join("·") === "Off·3+ words·5+ words·10+ words", `the quality bar offers off and three heights (${barOpts.join("·")})`);
+  check(barOn.length === 1 && barOn[0] === "5+ words", `the 5-word bar is on by default (${barOn.join(",")})`);
   check(focusOpts === 7, `seven reader-focus toggles offered (${focusOpts})`);
   check(focusOn === 0, `no focus is on by default (${focusOn})`);
   check(badFocusMap.length === 0,
@@ -696,6 +721,153 @@ errors.slice(0, 5).forEach(e => console.log("     " + e));
         "the 2000 pill's tooltip names Gemini's cut and the .txt route");
   check(r.warnNone === null, "a small bundle warns about nothing");
   check(r.warnSoft === false && r.warnHard === true, "60 KB warns, 150 KB insists on the file");
+}
+
+// --- eighth scenario: the quality bar and HTML output (plan §23) -----------------------
+// The two options added on 2026-09-03, on one fixture because they are one dialog and the
+// failure that matters is a cross one: an HTML run that also drags the Markdown skeleton in.
+//
+// The fixture is 40% noise BY CONSTRUCTION — 96 of 240 reviews are "gg" / "10/10" / "cool" /
+// "👍" — which is the measured shape of a real sample and the whole reason §23.1 exists. It
+// also carries one 14-character Japanese review: whitespace word-splitting scores that as a
+// single word and would delete it, so it is the check that the CJK path is not just theory.
+{
+  const b8 = await chromium.launch({ executablePath: "/opt/pw-browsers/chromium-1194/chrome-linux/chrome" });
+  const p8 = await b8.newPage();
+  const errs8 = [];
+  p8.on("pageerror", e => errs8.push(e.message));
+  const shorts = ["gg", "10/10", "cool", "👍", "meh", "Good game"];
+  const jp = "神ゲーだけど最適化が酷いです";                       // 14 chars, no spaces at all
+  let seq8 = 0, pages8 = 0;
+  await p8.route("**/qtpd-reviews.*/**", route => {
+    const q = new URL(route.request().url()).searchParams;
+    const fulfil = body => route.fulfill({ status: 200, contentType: "application/json",
+      headers: { "Access-Control-Allow-Origin": "*" }, body: JSON.stringify(body) });
+    if (q.get("num_per_page") === "0")
+      return fulfil({ success: 1, reviews: [], query_summary: { total_reviews: 51234,
+        total_positive: 40000, total_negative: 11234, review_score_desc: "Mostly Positive" } });
+    pages8++;
+    // 40 of every 100 are one-liners, and they are voted_up far more often than the prose —
+    // which is the bias §23.1 reports rather than hides, and is why the pre-bar split has to
+    // come out ABOVE the post-bar one for the assertion below to mean anything.
+    const reviews = Array.from({ length: 100 }, (_, i) => {
+      const n = seq8 + i;
+      if (n % 100 === 7) return mk(n, { ts: 1756000000 - n * 3600, review: jp });
+      return n % 10 < 4
+        ? mk(n, { ts: 1756000000 - n * 3600, voted_up: true, review: shorts[n % shorts.length] + " " + n })
+        : mk(n, { ts: 1756000000 - n * 3600, voted_up: n % 3 !== 0,
+                  review: `The story and the writing carry this one, but the frame pacing in towns is rough. Run ${n}.` });
+    });
+    seq8 += 100;
+    fulfil({ success: 1, query_summary: {}, reviews, cursor: "c" + seq8 });
+  });
+  await p8.goto("http://127.0.0.1:8099/index.html", { waitUntil: "networkidle" });
+  await p8.waitForTimeout(500);
+
+  // --- run A: the defaults (bar at 5, Markdown) -------------------------------------------
+  await p8.locator("button.gsub-rev").first().click();
+  await p8.waitForSelector("#rdHost.on");
+  await p8.locator('[data-rdsize="300"]').click();
+  await p8.locator("#rdGo").click();
+  await p8.waitForSelector("#rdOut", { timeout: 60000 });
+  const barred = await p8.locator("#rdOut").inputValue();
+  const pagesBar = pages8;
+  await p8.locator("#rdClose").click();
+
+  // --- run B: same fixture, bar off --------------------------------------------------------
+  pages8 = 0; seq8 = 0;
+  await p8.locator("button.gsub-rev").first().click();
+  await p8.waitForSelector("#rdHost.on");
+  await p8.locator('[data-rdsize="300"]').click();
+  await p8.locator('[data-rdbar="0"]').click();
+  const offNote = await p8.locator("#rdCountQual").textContent();
+  await p8.locator("#rdGo").click();
+  await p8.waitForSelector("#rdOut", { timeout: 60000 });
+  const unbarred = await p8.locator("#rdOut").inputValue();
+  const pagesOff = pages8;
+  await p8.locator("#rdClose").click();
+
+  // --- run C: HTML output, bar back on ------------------------------------------------------
+  await p8.locator("button.gsub-rev").first().click();
+  await p8.waitForSelector("#rdHost.on");
+  await p8.locator('[data-rdsize="300"]').click();
+  await p8.locator('[data-rdout="html"]').click();
+  await p8.locator("#rdGo").click();
+  await p8.waitForSelector("#rdOut", { timeout: 60000 });
+  const html8 = await p8.locator("#rdOut").inputValue();
+  const readyNote = await p8.locator("#rdBody .rd-note").first().textContent();
+  const words8 = await p8.evaluate(() => ({
+    gg:   rdWords("gg"),
+    ten:  rdWords("10/10"),
+    four: rdWords("great combat, terrible optimisation"),
+    punc: rdWords("!!! ... ---"),
+    jp:   rdWords("神ゲーだけど最適化が酷いです"),   // 14 characters, zero spaces
+  }));
+  await b8.close();
+
+  const count = b => Number((b.match(/^--- REVIEWS \((\d+)\) ---$/m) || [])[1]);
+  const pct   = re => Number((barred.match(re) || [])[1]);
+
+  console.log("\nquality bar and HTML output:");
+  // §23.3 — the number on the pill is the number in the bundle. With ~40% of the fixture
+  // under the bar it takes five pages to fill 300, and the point of the whole change is that
+  // it DOES fill it rather than handing back 180 and calling it 300.
+  check(count(barred) === 300, `the bar still delivers the size that was asked for (${count(barred)})`);
+  check(count(unbarred) === 300, `so does the walk with the bar off (${count(unbarred)})`);
+  check(pagesBar > pagesOff, `filling 300 past the bar costs more pages (${pagesBar} vs ${pagesOff})`);
+  check(/^  quality bar: ON at 5 words — \d+ shorter reviews were dropped/m.test(barred),
+        "the bar names itself and its cost in OVERVIEW");
+  check(/ · \d+ under the 5-word bar · /.test(barred), "and again on the excluded line");
+  // Scoped to OVERVIEW on purpose: both prompt files now TALK about the bar (they have to —
+  // one prompt serves both settings and has to say which line to read), so a whole-bundle
+  // match here would pass on the instructions and never test the header at all.
+  const over8 = b => b.slice(b.indexOf("--- OVERVIEW ---"), b.indexOf("LEGEND:"));
+  check(!/quality bar:|before the bar:|under the \d+-word bar/.test(over8(unbarred)),
+        "with the bar off the header says nothing about a filter that did not run");
+  check(/quality bar:/.test(over8(barred)), "and says it plainly when it did");
+  check(!/^BASIS  :/m.test(unbarred) && /^BASIS  : over the 300 reviews that cleared/m.test(barred),
+        "TIMELINE declares its basis only when the basis changed");
+  // The bias, reported rather than hidden. The one-liners in this fixture are all ▲, so the
+  // pre-bar rate MUST come out above the post-bar one — if these ever match, the line has
+  // stopped measuring anything and the model has no way to see the filter's effect.
+  const preRate  = pct(/^  before the bar: \d+ reviews read · \d+▲\/\d+▼ \((\d+)% positive\)/m);
+  const postRate = pct(/^  sample split: \d+ up \/ \d+ down \((\d+)% positive\)/m);
+  check(preRate > postRate,
+        `the pre-bar split is reported and sits above the post-bar one (${preRate}% vs ${postRate}%)`);
+  check(/quote the sample split, never this line/.test(barred),
+        "and it is labelled as the one number not to quote");
+  // §23.1 — CJK. A whitespace split scores this review as one word and deletes it; every
+  // Japanese, Chinese and Korean review in an "All languages" sample rides on this.
+  check(barred.includes(jp), "a 14-character Japanese review survives the 5-word bar");
+  check(words8.gg === 1 && words8.ten === 1 && words8.four === 4 && words8.jp === 14,
+        `rdWords counts latin words, keeps "10/10" whole, and counts CJK per character (${JSON.stringify(words8)})`);
+  check(words8.punc === 0, `punctuation alone is not words (${words8.punc})`);
+  check(offNote.trim() === "Steam reviews",
+        `turning the bar off corrects the sentence that quotes the size (${JSON.stringify(offNote)})`);
+
+  // §23.2 — HTML output. The addendum has to arrive, has to say what it replaces, and the
+  // Markdown run has to be untouched by any of it.
+  check(/^--- OUTPUT FORMAT \(replaces the output skeleton in the INSTRUCTIONS above\) ---$/m.test(html8),
+        "the addendum arrives under a header that says what it replaces");
+  check(html8.indexOf("--- OUTPUT FORMAT") > html8.indexOf("--- INSTRUCTIONS ---") &&
+        html8.indexOf("--- OUTPUT FORMAT") < html8.indexOf("--- OVERVIEW ---"),
+        "it sits after the depth prompt and before the data");
+  check(/prefers-color-scheme: dark/.test(html8) && /--ink-soft:/.test(html8),
+        "the stylesheet rides in with it, dark mode included");
+  check(/class="minibar"/.test(html8) && /m-down/.test(html8),
+        "the Quit / stayed minibar recipe is carried, not left to invention");
+  check(/Do not produce the Markdown report as well|NOT also produced/.test(html8),
+        "the addendum forbids emitting both renderings");
+  check(/=== QTPD REVIEW DIGEST · prompt v\S+ \+ html-\S+ ===/.test(html8),
+        "the title line carries both prompt versions, since two files shaped this output");
+  // The whole point of an option: the run that did not ask for it pays nothing for it.
+  check(!/OUTPUT FORMAT|prefers-color-scheme|minibar/.test(barred),
+        "a Markdown run carries none of the HTML addendum");
+  check(/=== QTPD REVIEW DIGEST · prompt v[^+]*===/.test(barred),
+        "and its title line names one prompt, not two");
+  check(/HTML file/.test(readyNote) && /\.html/.test(readyNote),
+        `the result panel says what shape the answer comes back in (${JSON.stringify(readyNote.trim().slice(0, 90))})`);
+  check(errs8.length === 0, `no uncaught JS errors on either path (${errs8.length})`);
 }
 
 srv.close();
