@@ -6263,6 +6263,23 @@ const RD_DEFAULT_MODE = "advanced";        // what this page shipped with; Simpl
 // file arrived. So the addendum now bans the fabricated handover outright — no link to a file
 // you did not create, no `sandbox:` URL unless it is genuinely yours — and says plainly that an
 // honest "I can't attach files, it's in the block below" beats a confident link to nothing.
+//
+// html-v5 fixes the addendum, not the model. v4 banned the preview panes BY NAME in its opening
+// rule — "not an Artifact, not a Canvas, not a document view" — and then, nine lines later, told
+// Gemini to "put it in Canvas as an HTML file"; the hand-over checklist re-banned Canvas at the
+// bottom. Three statements against Canvas, one for it. A model reading top-down takes the bans,
+// which leaves Gemini's bullet offering only "write it to a file the reader can download" — a
+// thing Gemini cannot do — so it drops to the escape and answers with a code block. Tested on
+// STAR WARS Zero Company, that is exactly what Gemini Flash did, and it was not disobedience:
+// it was the only rung the file did not contradict itself about.
+//
+// So v5 carves Gemini out of the bans explicitly, restates its bullet as an ORDERED LADDER with
+// a checkable condition — Canvas first, titled `<game>.html` because that title IS the filename
+// Canvas's Download hands over; the single code block only if Canvas will not open — and deletes
+// "only if you genuinely have neither", an escape gated on a fact no model can check about
+// itself and therefore always true. The block stays as rung 2 rather than being removed: v4
+// exists because taking the fence away left a model with nowhere legitimate to go, and it
+// invented a `sandbox:` link instead. An honest fallback is what keeps the fabricated one away.
 const RD_HTML_FILE = "review_prompt_html.md";
 const RD_OUT = [
   { key:"md",   label:"Markdown",
