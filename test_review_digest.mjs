@@ -905,6 +905,22 @@ errors.slice(0, 5).forEach(e => console.log("     " + e));
         "the addendum bans links to files that were never created, sandbox: URLs by name");
   check(!/inside a single ```html fence|nothing outside it/.test(html8),
         "and no longer offers a fenced code block as the deliverable");
+  // html-v5 — v4 banned Canvas in its opening rule and in the hand-over checklist, then told
+  // Gemini to use Canvas in between. Gemini Flash took the bans, found its bullet's remaining
+  // path impossible (it cannot attach a file), and dropped to the code-block escape — which was
+  // gated on "only if you genuinely have neither", a fact no model can check about itself. The
+  // fix is a decidable ladder, so the assertions are that the contradiction is GONE: Canvas is
+  // no longer banned outright, the unverifiable gate is deleted, and the ladder is ordered.
+  check(!/not a Canvas/.test(html8),
+        "the addendum no longer bans Canvas outright while prescribing it to Gemini");
+  check(!/genuinely have neither/.test(html8),
+        "and no longer gates the escape on a fact the model cannot check about itself");
+  check(/first rung that opens/.test(html8) && /title the canvas/i.test(html8),
+        "Gemini gets an ordered ladder with a checkable stop condition, Canvas named first");
+  check(html8.indexOf("**Canvas.**") < html8.indexOf("**One `html` code block**"),
+        "Canvas sits above the code block in that ladder, not beside or under it");
+  check(/One chat is exempt: Gemini/.test(html8),
+        "and the exemption is granted next to the bans it excepts, not a paragraph later");
   check(/=== QTPD REVIEW DIGEST · prompt v\S+ \+ html-\S+ ===/.test(html8),
         "the title line carries both prompt versions, since two files shaped this output");
   // The whole point of an option: the run that did not ask for it pays nothing for it.

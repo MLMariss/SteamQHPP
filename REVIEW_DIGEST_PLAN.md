@@ -1512,4 +1512,56 @@ fetch collects every value the reader would have seen, because a check on the fi
 alone would pass on a counter that sat at 0% and jumped to 100%, which is the exact failure
 the percentage was introduced to fix. On the 40%-noise fixture it records `0 20 20 40 40 60 60
 80 80 100 100`: monotonic, in range, starting at 0, ending at 100, with the fill width tracking
-the number and intermediate values actually present. 192 checks pass.
+the number and intermediate values actually present. 201 checks pass.
+
+### 23.7 `html-v5` — the addendum contradicted itself, and Gemini read it correctly
+
+Reported from a Flash run on *STAR WARS Zero Company*: the reply was one `html` code block. The
+first reading is that Gemini ignored the instruction again. It did not. It picked the only rung
+the file was not of two minds about.
+
+v4 said Canvas four times and meant two different things:
+
+| where | what it said |
+|---|---|
+| opening rule | "not a preview pane — not an Artifact, **not a Canvas**, not a document view" |
+| Gemini's bullet | "or put it in **Canvas** as an HTML file" |
+| the honest-failure paragraph | "fall back to what you do have: **Canvas**, or the one code block" |
+| hand-over checklist | "not an Artifact, **not a Canvas**, not a code block" |
+
+Three against, one for, and the two againsts are the emphatic ones — a bolded ban at the top and
+a checklist line at the bottom, the two places a model re-reads. Take the bans and Gemini's
+bullet reduces to *"write it to a file the reader can download"*, which Gemini cannot do: there
+is no attach-a-file affordance in that chat. Both stated paths gone, the escape is what is left.
+And the escape was gated on **"only if you genuinely have neither"** — a condition about the
+model's own tool inventory, which no model can check and every model resolves in favour of the
+concrete option. The escape was also the *specific* half of the bullet: it named a mechanism and
+supplied the sentence to say, against two abstractions. Specificity wins that contest every time.
+§23.2 wrote down the reason this would happen — *"a get-out clause in the sentence is the clause
+a model takes"* — and then put one in the sentence.
+
+**v5 makes the ladder decidable rather than tightening the ban.** Gemini is carved out of the
+opening rule by name, once, with the reason stated (the bans are written for the chats that have
+a file tool). Its bullet becomes an ordered ladder with a condition a model can actually
+evaluate — *stop at the first rung that opens*:
+
+1. **Canvas**, titled `<game>.html` — the canvas title *is* the filename Canvas's own Download
+   hands over, which is the whole reason the naming rule survives on this path.
+2. **One `html` code block**, only if Canvas will not open, with the download-icon sentence.
+
+"Only if you genuinely have neither" is deleted. The checklist line is rewritten to accept the
+highest rung that opened instead of failing Gemini's own sanctioned answer, and the
+honest-failure paragraph now points *down* the ladder rather than listing Canvas as a last
+resort under the block.
+
+**The block stays as rung 2 on purpose.** The tempting fix is to delete it and let Canvas be the
+only answer — but that is what v3 did to the fence, and v4 exists because a model with nowhere
+legitimate to go fabricated a `sandbox:` link instead of admitting it could not attach a file. A
+stated, honest fallback is the thing that keeps the dishonest one away; what v4 got wrong was
+not offering one, it was making it the easiest rung to reach.
+
+The lesson generalises past Gemini: **a per-model exception has to be granted in the same breath
+as the rule it excepts.** Stating a blanket ban and then quietly contradicting it a paragraph
+later does not produce a model that follows the exception. It produces one that follows the ban
+and falls to whatever is left over — and the leftover was the outcome the option exists to
+prevent.

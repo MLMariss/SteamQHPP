@@ -1,4 +1,4 @@
-<!-- html-v4 -->
+<!-- html-v5 -->
 # OUTPUT FORMAT — one HTML page, instead of the Markdown skeleton
 
 This block **replaces the output skeleton in the instructions above.** Everything above still
@@ -9,10 +9,15 @@ the rendering changes. **Do not produce the Markdown report as well.** One artef
 ## What to return — a DOWNLOADABLE .html FILE
 
 **Write the page to a real file and attach it for download.** Not a fenced code block, not
-markup pasted into the reply, and **not a preview pane** — not an Artifact, not a Canvas, not a
-document view. The reader asked for an HTML page because they want the file: they are running
+markup pasted into the reply, and **not a preview pane** — not an Artifact, not a document
+view. The reader asked for an HTML page because they want the file: they are running
 several games and keeping the pages side by side in a folder, so a panel they have to hunt a
 download button inside of is the same manual work as a code block, one menu further away.
+
+**One chat is exempt: Gemini.** Gemini cannot attach a file to a reply at all, so its bullet
+below is a ladder of what it *can* do, and that ladder is binding for Gemini — the bans on this
+page are written for the chats that have a file tool and do not overrule it. Every other chat
+reads the bans as written.
 
 **Name the file after the game** — the game's title, lowercased, spaces and punctuation reduced
 to single hyphens, `.html` on the end: *STAR WARS Zero Company™* becomes
@@ -23,11 +28,20 @@ to single hyphens, `.html` on the end: *STAR WARS Zero Company™* becomes
   **Do not answer with an Artifact.**
 - **ChatGPT** — use the **python tool**: write `<game>.html` to disk and give the **download
   link**. Not Canvas.
-- **Gemini** — write it to a file the reader can download, or put it in **Canvas** as an HTML
-  file. Only if you genuinely have neither: emit the whole document in **one** `html` code block
-  and say, in your one sentence, *"click the download icon on the block to save it as
-  `<game>.html`"* — Gemini's code blocks carry that icon, and it is the only reason this escape
-  exists. It is Gemini's alone: no other chat may answer with a code block.
+- **Gemini** — you have **no** way to attach a file to a reply. Do not attempt one and do not
+  imitate another chat's. Instead work down this ladder and stop at the
+  **first rung that opens**:
+  1. **Canvas.** Put the whole document into Canvas as an HTML file, and **title the canvas
+     `<game>.html`** — that title is the filename Canvas's own **Download** hands the reader,
+     which is the entire reason it matters. This is your answer. The "not a preview pane" rule
+     above is written for Claude and ChatGPT, which have file tools; it does not apply to you.
+  2. **One `html` code block** — and *only* if Canvas will not open. Emit the whole document in
+     a single block and say, in your one sentence, *"click the download icon on the block to
+     save it as `<game>.html`"*: Gemini's code blocks carry that icon, and it is the only reason
+     this rung exists. It is Gemini's alone — no other chat may answer with a code block.
+
+  Rung 2 is a fallback, not a preference. Answering with a code block while Canvas was there to
+  open leaves the reader saving a file named after nothing, on a rung you were not entitled to.
 - **Anything else** — whatever writes a real file and hands it over. The test is the same
   everywhere: the reader ends up with a `.html` **in their downloads**, having selected no text,
   copied nothing and clicked nothing but Save.
@@ -36,9 +50,9 @@ to single hyphens, `.html` on the end: *STAR WARS Zero Company™* becomes
 create with a tool, and never a `sandbox:` URL unless that scheme is genuinely your own — a link
 that resolves to a search page or a 404 is worse than no link, because the reader believes the
 work arrived and finds out later that it did not. If you cannot produce a file, **say so in
-plain words** and fall back to what you do have: Canvas, or the one `html` code block above. An
-honest "I can't attach files here, so the document is in the block below — use its download
-icon" is a good answer. A confident link to nothing is not.
+plain words** and fall back to what you do have — on Gemini that is the ladder above, Canvas
+first and the block only under it. An honest "I can't attach files here, so the document is in
+the block below — use its download icon" is a good answer. A confident link to nothing is not.
 
 Beside the file, write **one short sentence at most** — which game the page covers. No preamble,
 no "here's what I did", no summary of the findings underneath, and never a second copy of the
@@ -298,7 +312,8 @@ hero bar, the `.hero-read` line and every table cell carry raw counts only.
 - The report mode's caps still hold: five Notes, ten Issues rows, five Loved/Hated rows, four
   clauses a side. A section that would be empty is omitted, not padded.
 - The page left as a downloadable `.html` file named after the game — not an Artifact, not a
-  Canvas, not a code block — with at most one sentence beside it and no copy of the report
-  pasted into the chat.
+  code block, not a document view — with at most one sentence beside it and no copy of the
+  report pasted into the chat. **On Gemini** the equivalent is the highest rung of its ladder
+  that opened: a Canvas titled `<game>.html`, or the one code block if Canvas would not.
 - Every link in that sentence points at a file you actually created. If you could not create
   one, the sentence says so and names where the document is instead.
