@@ -1,4 +1,4 @@
-<!-- html-v5 -->
+<!-- html-v6 -->
 # OUTPUT FORMAT — one HTML page, instead of the Markdown skeleton
 
 This block **replaces the output skeleton in the instructions above.** Everything above still
@@ -14,6 +14,16 @@ view. The reader asked for an HTML page because they want the file: they are run
 several games and keeping the pages side by side in a folder, so a panel they have to hunt a
 download button inside of is the same manual work as a code block, one menu further away.
 
+**Hand over the document, never a program that writes it.** This one is absolute and there is
+no chat it does not apply to, Gemini's fallback rung included. A Python, JavaScript or shell
+snippet that writes `<game>.html`, an `html_content = """..."""` string, a script with an
+`open(...).write(...)` at the bottom, "run this to generate your page" — every one of those is
+a wrong answer, and it is wrong even when the HTML inside the string is perfect. **If you have
+a code tool, you run it yourself and hand over the file it produced; you never print the code
+instead.** If you have no code tool, the answer is the raw HTML document. The reader has a
+browser, not a Python interpreter, and a `.py` on their disk is not the page they asked for.
+An HTML report was requested, so an HTML *file* is what has to arrive.
+
 **One chat is exempt: Gemini.** Gemini cannot attach a file to a reply at all, so its bullet
 below is a ladder of what it *can* do, and that ladder is binding for Gemini — the bans on this
 page are written for the chats that have a file tool and do not overrule it. Every other chat
@@ -26,25 +36,37 @@ to single hyphens, `.html` on the end: *STAR WARS Zero Company™* becomes
 - **Claude** — use the **file-creation / code tool**: write the complete document to
   `<game>.html` and attach it, so the reply carries a file the reader clicks to save.
   **Do not answer with an Artifact.**
-- **ChatGPT** — use the **python tool**: write `<game>.html` to disk and give the **download
-  link**. Not Canvas.
+- **ChatGPT** — use the **python tool**, which is ChatGPT's alone — **no other chat may reach
+  for it, or imitate it by printing a Python block.** *Run* it to write `<game>.html` to disk
+  and give the **download link**. The reply carries the link, never the script that made it.
+  Not Canvas.
 - **Gemini** — you have **no** way to attach a file to a reply. Do not attempt one and do not
-  imitate another chat's. Instead work down this ladder and stop at the
+  imitate another chat's — in particular, **do not reach for ChatGPT's python tool and do not
+  print a Python block that writes the file.** You cannot run it, so the reader would be handed
+  a program instead of a page. Instead work down this ladder and stop at the
   **first rung that opens**:
-  1. **Canvas.** Put the whole document into Canvas as an HTML file, and **title the canvas
-     `<game>.html`** — that title is the filename Canvas's own **Download** hands the reader,
-     which is the entire reason it matters. This is your answer. The "not a preview pane" rule
-     above is written for Claude and ChatGPT, which have file tools; it does not apply to you.
-  2. **One `html` code block** — and *only* if Canvas will not open. Emit the whole document in
-     a single block and say, in your one sentence, *"click the download icon on the block to
-     save it as `<game>.html`"*: Gemini's code blocks carry that icon, and it is the only reason
-     this rung exists. It is Gemini's alone — no other chat may answer with a code block.
+  1. **Canvas.** Put the whole document into Canvas as an HTML file — the canvas holds the
+     document itself, not code that generates it — and **title the canvas `<game>.html`**. That
+     title is the filename Canvas's own **Download** hands the reader, which is the entire
+     reason it matters. This is your answer. The "not a preview pane" rule above is written for
+     Claude and ChatGPT, which have file tools; it does not apply to you.
+  2. **One `html` code block** — and *only* if Canvas will not open. **The block is the
+     document, not code that builds it**: it is tagged `html`, its first characters are
+     `<!DOCTYPE html>` and its last are `</html>`. A `python` block is not this rung and does
+     not satisfy it — the download icon on a Python block saves a `.py`, so the reader ends up
+     with a script they cannot run and no page at all. Emit the whole document in a single
+     block and say, in your one sentence, *"click the download icon on the block to save it as
+     `<game>.html`"*: Gemini's code blocks carry that icon, and it is the only reason this rung
+     exists. It is Gemini's alone — no other chat may answer with a code block.
 
   Rung 2 is a fallback, not a preference. Answering with a code block while Canvas was there to
   open leaves the reader saving a file named after nothing, on a rung you were not entitled to.
-- **Anything else** — whatever writes a real file and hands it over. The test is the same
-  everywhere: the reader ends up with a `.html` **in their downloads**, having selected no text,
-  copied nothing and clicked nothing but Save.
+  There is no rung 3. If both rungs are somehow shut, say so in plain words — do not invent a
+  third answer out of another chat's tooling.
+- **Anything else** — whatever writes a real file and hands it over, running the code itself
+  rather than printing it. The test is the same everywhere: the reader ends up with a `.html`
+  **in their downloads**, having selected no text, copied nothing, run nothing and clicked
+  nothing but Save.
 
 **Never fake the handover.** Do not write a download link for a file you did not actually
 create with a tool, and never a `sandbox:` URL unless that scheme is genuinely your own — a link
@@ -314,6 +336,9 @@ hero bar, the `.hero-read` line and every table cell carry raw counts only.
 - The page left as a downloadable `.html` file named after the game — not an Artifact, not a
   code block, not a document view — with at most one sentence beside it and no copy of the
   report pasted into the chat. **On Gemini** the equivalent is the highest rung of its ladder
-  that opened: a Canvas titled `<game>.html`, or the one code block if Canvas would not.
+  that opened: a Canvas titled `<game>.html`, or the one `html` code block if Canvas would not.
+- **What you handed over is HTML, not a program.** Nothing in the reply is a Python,
+  JavaScript or shell snippet that writes the page, and nothing asks the reader to run
+  anything. If a code tool made the file, the file is attached and the code is not shown.
 - Every link in that sentence points at a file you actually created. If you could not create
   one, the sentence says so and names where the document is instead.
