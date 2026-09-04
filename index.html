@@ -6280,12 +6280,30 @@ const RD_DEFAULT_MODE = "advanced";        // what this page shipped with; Simpl
 // itself and therefore always true. The block stays as rung 2 rather than being removed: v4
 // exists because taking the fence away left a model with nowhere legitimate to go, and it
 // invented a `sandbox:` link instead. An honest fallback is what keeps the fabricated one away.
+//
+// html-v6 closes the last door v5 left open, and it is the same door every time: the addendum
+// named a mechanism belonging to one chat, and another chat took it. v5's ChatGPT bullet said
+// "use the python tool"; Gemini Flash, on STAR WARS Zero Company again, answered with a PYTHON
+// code block — `html_content = """<!DOCTYPE html>..."""` and a write at the bottom — skipping
+// both rungs of its own ladder. It is the sandbox: failure in a new costume: a model with no
+// file backend imitating the one bullet that describes a real file being written. And it is
+// worse than v5's bare code block, because the download icon on a `python` block saves a `.py`:
+// the reader ends up with a script they cannot run instead of a page, and the document is
+// trapped inside a string literal.
+//
+// So v6 states the rule the earlier versions only implied, once, above the per-chat bullets and
+// binding on all of them: HAND OVER THE DOCUMENT, NEVER A PROGRAM THAT WRITES IT. A chat with a
+// code tool runs it and attaches the result; it never prints the code. A chat without one emits
+// the HTML itself. The python tool is scoped to ChatGPT in the same breath it is named, Gemini's
+// bullet bans imitating it by name, and rung 2 is pinned to what the block must CONTAIN — tagged
+// `html`, opening `<!DOCTYPE html>`, closing `</html>` — rather than to what it must not be.
+// Naming the shape of the right answer is what v5 did for Canvas and it is why that rung held.
 const RD_HTML_FILE = "review_prompt_html.md";
 const RD_OUT = [
   { key:"md",   label:"Markdown",
     tip:"The report as Markdown — headings and pipe tables. Renders in any chat window and pastes into a doc. This is what the page has always produced." },
   { key:"html", label:"HTML page",
-    tip:"The same report, same counts, rendered as one self-contained HTML file: masthead, sentiment bar, styled tables, dark mode and a print stylesheet. The prompt asks the AI to write it to a real file and attach it for download — not an artifact, not a canvas, not code to copy out of the chat. Costs ~3k more tokens of instructions and a longer reply." },
+    tip:"The same report, same counts, rendered as one self-contained HTML file: masthead, sentiment bar, styled tables, dark mode and a print stylesheet. The prompt asks the AI to hand over the page itself — a real .html file wherever the chat can attach one, a Canvas or a single html block on Gemini, which cannot — never an artifact, and never a script that writes it. Costs ~3k more tokens of instructions and a longer reply." },
 ];
 const RD_DEFAULT_OUT = "md";               // the page's own output for two years; HTML is opt-in
 

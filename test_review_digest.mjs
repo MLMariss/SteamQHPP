@@ -921,6 +921,28 @@ errors.slice(0, 5).forEach(e => console.log("     " + e));
         "Canvas sits above the code block in that ladder, not beside or under it");
   check(/One chat is exempt: Gemini/.test(html8),
         "and the exemption is granted next to the bans it excepts, not a paragraph later");
+  // html-v6 — v5's ladder was decidable and Gemini still went off it, because the bullet ABOVE
+  // it named a real mechanism for writing a real file ("ChatGPT — use the python tool") and that
+  // was the most concrete instruction on the page. Flash answered STAR WARS Zero Company with a
+  // PYTHON block: `html_content = """<!DOCTYPE html>..."""` plus a write. Worse than a bare
+  // fence — the block's download icon saves a .py, so the reader gets a script instead of a
+  // page. The fix is a rule above all the bullets, a fence around the python tool in the same
+  // breath it is granted, and rung 2 pinned to what the block CONTAINS.
+  check(/never a program that writes it/i.test(html8) && /html_content/.test(html8),
+        "the addendum bans handing over code that writes the page, naming the shape that arrived");
+  check(html8.indexOf("never a program that writes it") < html8.indexOf("python tool"),
+        "and states that rule ABOVE the per-chat bullets, so no bullet can be read out of it");
+  check(/ChatGPT's alone/.test(html8) && /imitate it by printing a Python block/.test(html8),
+        "the python tool is fenced to ChatGPT in the same breath it is named");
+  check(/do not\s+print a Python block that writes the file/.test(html8),
+        "and Gemini's bullet names that imitation as the thing not to do");
+  check(/A `python` block is not this rung/.test(html8) &&
+        /its first characters are\s+`<!DOCTYPE html>`/.test(html8),
+        "rung 2 is pinned to what the block contains, not merely to what it is not");
+  check(/There is no rung 3/.test(html8),
+        "and the ladder closes itself, since every failure here has been an invented rung");
+  check(/not a program/i.test(html8.slice(html8.indexOf("Before you hand it over"))),
+        "the hand-over checklist asserts the reply is HTML rather than a script");
   check(/=== QTPD REVIEW DIGEST · prompt v\S+ \+ html-\S+ ===/.test(html8),
         "the title line carries both prompt versions, since two files shaped this output");
   // The whole point of an option: the run that did not ask for it pays nothing for it.

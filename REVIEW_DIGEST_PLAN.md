@@ -1565,3 +1565,63 @@ as the rule it excepts.** Stating a blanket ban and then quietly contradicting i
 later does not produce a model that follows the exception. It produces one that follows the ban
 and falls to whatever is left over — and the leftover was the outcome the option exists to
 prevent.
+
+### 23.8 `html-v6` — the ladder held, the *other* chat's bullet did not
+
+Same game, same model, one version later: *STAR WARS Zero Company* through Gemini Flash, and the
+reply was a **Python code block** — `import os`, `html_content = """<!DOCTYPE html>…"""`, a write
+at the bottom. Not Canvas, not the `html` block. Both rungs of the v5 ladder skipped for a rung
+that does not exist.
+
+**v5 fixed the contradiction and left the imitation.** §23.7 made Gemini's own bullet decidable,
+and it worked in the sense that mattered — nothing in that bullet is ambiguous any more. But the
+bullet directly above it says:
+
+> **ChatGPT** — use the **python tool**: write `<game>.html` to disk and give the download link.
+
+That is the only line in the addendum that describes, concretely, a real file being written by a
+real mechanism. Everything addressed to Gemini describes what a chat window can *display*. A
+model reaching for the most specific instruction on the page — the same pull §23.2 named, and the
+same pull that produced the `sandbox:` link in §23.4 — reaches for that one. The `sandbox:`
+failure was Gemini imitating ChatGPT's download *scheme*; this is Gemini imitating ChatGPT's
+*tool*. One mechanism, named once, belonging to one chat, taken by another. Third time.
+
+**And this failure is worse than the code block v5 sanctioned.** The download icon on a `python`
+block saves a `.py`. The reader clicks the one affordance the block offers and lands a script
+they have no interpreter for, with the actual document sealed inside a triple-quoted string —
+strictly further from a page in a folder than v1's bare fence, which at least saved as markup.
+
+**v6 states the rule the first five versions only implied.** It goes above the per-chat bullets,
+where nothing can read itself out of it: *hand over the document, never a program that writes
+it.* A chat with a code tool **runs** it and attaches what it produced; it never prints the code.
+A chat without one emits the HTML itself. `html_content = """…"""` is named as a wrong answer
+explicitly, because that is the exact shape that arrived, and it is wrong even when the HTML
+inside the string is perfect.
+
+Three smaller edits carry it:
+
+| where | v5 | v6 |
+|---|---|---|
+| ChatGPT bullet | "use the **python tool**" | "…which is ChatGPT's alone — no other chat may reach for it, or imitate it by printing a Python block", and *run* it, the reply carrying the link and never the script |
+| Gemini bullet | "do not imitate another chat's" | names the thing not to imitate: do not reach for ChatGPT's python tool, do not print a Python block — *you cannot run it* |
+| rung 2 | "One `html` code block" | pinned to what the block **contains**: tagged `html`, opening `<!DOCTYPE html>`, closing `</html>`; a `python` block is not this rung and does not satisfy it |
+
+Plus a closing line under the ladder — **there is no rung 3** — because every failure in this
+series has been a model inventing one, and a checklist item asserting the reply is HTML rather
+than a program.
+
+**The lesson, which is now a pattern and not an anecdote:** *naming a per-chat mechanism arms
+every other chat with it.* A bundle built before the reader picks a model carries all the bullets
+to all of them, so any capability mentioned anywhere is a capability every model has read about
+and none can verify it lacks. §23.7's lesson was that an exception must be granted beside the
+rule it excepts; v6's is the mirror image — **a grant must be fenced in the same breath it is
+made**, and the fence has to say what the right answer *looks like*, not merely what it is not.
+Pinning rung 2 to `<!DOCTYPE html>` is the same move that made Canvas hold in v5: a shape a model
+can check its own output against beats a prohibition it has to reason its way into.
+
+**Verified.** Seven assertions were added to `test_review_digest.mjs` alongside the v5 set — the
+document-not-a-program rule is present and names `html_content`; it sits *above* the first
+mention of the python tool in the assembled bundle; the tool is fenced to ChatGPT; Gemini's
+bullet names the imitation; rung 2 is pinned to `<!DOCTYPE html>`; the ladder closes at rung 2;
+and the hand-over checklist asserts HTML rather than a script. The suite now stands at 208
+checks, all passing.
