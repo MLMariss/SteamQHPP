@@ -915,7 +915,7 @@ errors.slice(0, 5).forEach(e => console.log("     " + e));
         "the addendum no longer bans Canvas outright while prescribing it to Gemini");
   check(!/genuinely have neither/.test(html8),
         "and no longer gates the escape on a fact the model cannot check about itself");
-  check(/first rung that opens/.test(html8) && /title the canvas/i.test(html8),
+  check(/first rung that\s+opens/.test(html8) && /title the canvas/i.test(html8),
         "Gemini gets an ordered ladder with a checkable stop condition, Canvas named first");
   check(html8.indexOf("**Canvas.**") < html8.indexOf("**One `html` code block**"),
         "Canvas sits above the code block in that ladder, not beside or under it");
@@ -936,8 +936,8 @@ errors.slice(0, 5).forEach(e => console.log("     " + e));
         "the python tool is fenced to ChatGPT in the same breath it is named");
   check(/do not\s+print a Python block that writes the file/.test(html8),
         "and Gemini's bullet names that imitation as the thing not to do");
-  check(/A `python` block is not this rung/.test(html8) &&
-        /its first characters are\s+`<!DOCTYPE html>`/.test(html8),
+  check(/A `python` block is not this\s+rung/.test(html8) &&
+        /its first\s+characters are\s+`<!DOCTYPE html>`/.test(html8),
         "rung 2 is pinned to what the block contains, not merely to what it is not");
   check(/There is no rung 3/.test(html8),
         "and the ladder closes itself, since every failure here has been an invented rung");
@@ -970,6 +970,37 @@ errors.slice(0, 5).forEach(e => console.log("     " + e));
         "verbatim is spelled out to include the whitespace, so minifying counts as an edit");
   check(/The `<title>` is exactly `<game title> — Steam review digest`/.test(html8),
         "and the exact <title> string is a rule of its own, not left to the skeleton alone");
+  // html-v8 — v7 made it WORSE, and in the way this series keeps rediscovering. Flash answered
+  // STAR WARS Zero Company with `<a_file_has_been_created_or_edited_view_it_in_the_drawer>`
+  // wrapping the filename, plus a sentence claiming the digest had been compiled into that file.
+  // No Canvas, no block, no file: the drawer was empty and the report existed nowhere. That is
+  // the §23.4 `sandbox:` failure in a third costume, and the imitated thing this time is the
+  // INTERFACE's own file-saved message — the most convincing fake available, because a UI marker
+  // does not read as a claim the model is making. It is also the first failure here to lose the
+  // document outright; every earlier one shipped the page somewhere.
+  //
+  // Six versions ranked hand-overs against each other and never stated the thing underneath all
+  // of them, so v8 states it above the bullets and above the ladder: THE REPLY HAS TO CARRY THE
+  // DOCUMENT. Three things count — a Canvas holding it, a genuinely attached file, one `html`
+  // block from `<!DOCTYPE html>` to `</html>` — and a sentence saying a file was created is not
+  // one of them. It is the first rule in the series checkable against the reply itself rather
+  // than against the model's beliefs about its tooling: "use Canvas" cannot be verified by a
+  // model that believes it did.
+  check(/The reply has to carry the document/.test(html8),
+        "the addendum states the invariant under every rung: the reply carries the page");
+  check(html8.indexOf("The reply has to carry the document") < html8.indexOf("- **Claude**"),
+        "and states it above the per-chat bullets, where no bullet can be read out of it");
+  check(/a_file_has_been_created_or_edited_view_it_in_the_drawer/.test(html8),
+        "the fabricated interface marker is named, the way html_content was named in v6");
+  check(/Never announce a file instead of sending one/.test(html8) &&
+        /only the interface can produce them/.test(html8),
+        "and imitating the chat's own file-saved message is banned in words");
+  check(/that tool did not run/.test(html8),
+        "a marker arriving instead of a document is defined as the rung failing to open");
+  check(/got a marker naming a file instead of a document/.test(html8),
+        "so rung 2 names that case rather than leaving it to the model's judgement");
+  check(/The document is in the reply/.test(html8.slice(html8.indexOf("Before you hand it over"))),
+        "and the hand-over checklist opens with the invariant, not with the table rules");
   check(/=== QTPD REVIEW DIGEST · prompt v\S+ \+ html-\S+ ===/.test(html8),
         "the title line carries both prompt versions, since two files shaped this output");
   // The whole point of an option: the run that did not ask for it pays nothing for it.

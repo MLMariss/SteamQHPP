@@ -1,4 +1,4 @@
-<!-- html-v7 -->
+<!-- html-v8 -->
 # OUTPUT FORMAT — one HTML page, instead of the Markdown skeleton
 
 This block **replaces the output skeleton in the instructions above.** Everything above still
@@ -29,6 +29,26 @@ instead.** If you have no code tool, the answer is the raw HTML document. The re
 browser, not a Python interpreter, and a `.py` on their disk is not the page they asked for.
 An HTML report was requested, so an HTML *file* is what has to arrive.
 
+**The reply has to carry the document.** This check outranks everything else on this page, and
+you run it on the reply you are about to send rather than on what you meant to do: **is the page
+actually in it?** Three things count and nothing else does — a Canvas holding the document, a
+file you genuinely attached, or one `html` block running from `<!DOCTYPE html>` to `</html>`. If
+you cannot point at one of those in what you are sending, the reader gets **nothing**, and
+nothing is the worst outcome available here: worse than a fence, worse than a `.py`. The sample
+was pulled and pasted once; a reply that does not contain the report does not leave one behind.
+
+**Never announce a file instead of sending one, and never imitate the interface.** Do not write
+a tag, a marker, a placeholder or a pseudo-element that looks like the chat's own UI reporting a
+saved file — `<a_file_has_been_created_or_edited_view_it_in_the_drawer>`, "view it in the
+drawer", "I've saved it to your files", a `sandbox:` link. Those messages belong to the
+interface and only the interface can produce them; written out by you they are a claim, and the
+reader believes it until they go looking and find an empty drawer. **If the words "I have
+created the file" are in your reply, the document has to be in that same reply** — otherwise you
+have handed over a description of the report in place of the report. And if you reached for a
+document tool and what came back was a line of markup naming a file rather than a document you
+can see, **that tool did not run**: the rung did not open, so take the next one and emit the
+page.
+
 **One chat reads the bans differently: Gemini.** Its bullet below is an ordered ladder of the
 ways it can put a downloadable page in the reader's hands, and that ladder is binding for
 Gemini — the bans on this page are written for the chats that attach a file to a reply, and
@@ -47,7 +67,9 @@ to single hyphens, `.html` on the end: *STAR WARS Zero Company™* becomes
   Not Canvas.
 - **Gemini** — **create and provide a downloadable HTML file, `<game>.html`, and output it as
   the deliverable.** That is the ask stated as the outcome: the reader finishes with
-  `star-wars-zero-company.html` saved from your reply, having selected no text. Do not get
+  `star-wars-zero-company.html` saved from your reply, having selected no text. Read it as
+  binding on **your reply** — the page arrives inside it, in Canvas or in the block. It never
+  means announcing that a file exists somewhere the reader should go and look. Do not get
   there by imitating another chat's mechanism — in particular, **do not reach for ChatGPT's
   python tool and do not print a Python block that writes the file.** A printed program is not
   a downloadable file: the download icon on a `python` block saves a `.py`, so the reader ends
@@ -62,14 +84,16 @@ to single hyphens, `.html` on the end: *STAR WARS Zero Company™* becomes
      pane" rule above is written for Claude and ChatGPT, which attach files to a reply; it does
      not apply to you. Open Canvas and put the page in it — do not decide in advance that it is
      unavailable, and do not skip it because the document is long. Length is what it is for.
-  2. **One `html` code block** — and *only* if Canvas will not open. **The block is the
-     document, not code that builds it**: it is tagged `html`, its first characters are
-     `<!DOCTYPE html>` and its last are `</html>`. A `python` block is not this rung and does
-     not satisfy it — the download icon on a Python block saves a `.py`, so the reader ends up
-     with a script they cannot run and no page at all. Emit the whole document in a single
-     block and say, in your one sentence, *"click the download icon on the block to save it as
-     `<game>.html`"*: Gemini's code blocks carry that icon, and it is the only reason this rung
-     exists. It is Gemini's alone — no other chat may answer with a code block.
+  2. **One `html` code block** — and *only* if Canvas will not open, which includes the case
+     where you reached for it and got a marker naming a file instead of a document you can see.
+     **The block is the document, not code that builds it**: it is tagged `html`, and
+     its first characters are `<!DOCTYPE html>` and its last are `</html>`.
+     A `python` block is not this rung and does not satisfy it — the download icon on a Python
+     block saves a `.py`, so the reader ends up with a script they cannot run and no page at
+     all. Emit the whole document in a single block and say, in your one sentence, *"click the
+     download icon on the block to save it as `<game>.html`"*: Gemini's code blocks carry that
+     icon, and it is the only reason this rung exists. It is Gemini's alone — no other chat may
+     answer with a code block.
 
   Rung 2 is a fallback, not a preference. Answering with a code block while Canvas was there to
   open leaves the reader saving a file named after nothing, on a rung you were not entitled to.
@@ -81,12 +105,15 @@ to single hyphens, `.html` on the end: *STAR WARS Zero Company™* becomes
   nothing but Save.
 
 **Never fake the handover.** Do not write a download link for a file you did not actually
-create with a tool, and never a `sandbox:` URL unless that scheme is genuinely your own — a link
-that resolves to a search page or a 404 is worse than no link, because the reader believes the
-work arrived and finds out later that it did not. If you cannot produce a file, **say so in
-plain words** and fall back to what you do have — on Gemini that is the ladder above, Canvas
-first and the block only under it. An honest "I can't attach files here, so the document is in
-the block below — use its download icon" is a good answer. A confident link to nothing is not.
+create with a tool, never a `sandbox:` URL unless that scheme is genuinely your own, and never
+the interface's own file-saved message written out by hand. A link that resolves to a search
+page or a 404, and a tag that announces a file into an empty drawer, are both worse than no
+link at all: the reader believes the work arrived and finds out later that it did not.
+
+If you cannot produce a file, **say so in plain words** and fall back to what you do have — on
+Gemini that is the ladder above, Canvas first and the block only under it. An honest "I can't
+attach files here, so the document is in the block below — use its download icon" is a good
+answer. A confident link to nothing is not.
 
 Beside the file, write **one short sentence at most** — which game the page covers. No preamble,
 no "here's what I did", no summary of the findings underneath, and never a second copy of the
@@ -350,6 +377,10 @@ hero bar, the `.hero-read` line and every table cell carry raw counts only.
 
 ## Before you hand it over
 
+- **The document is in the reply.** A Canvas holding the page, a file you genuinely attached, or
+  one `html` block from `<!DOCTYPE html>` to `</html>`. If you cannot point at one of those in
+  what you are about to send, nothing else on this list matters — and a sentence saying the file
+  was created is not one of them.
 - Every `<table>` is inside `.scroll` or `.snapshot`, and every count column carries `class="n"`.
 - Both minibar widths on a row add up to 100, and the `<small>` next to them is ▼ then ▲.
 - The hero bar's two `flex:` values are the same two numbers printed inside it.

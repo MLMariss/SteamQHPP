@@ -1698,3 +1698,73 @@ per-chat bullets; the capability denial is gone; Gemini's bullet leads with the 
 names the file; the ladder says to *try* rung 1; verbatim is spelled out to include the
 whitespace; and the exact `<title>` string is stated as a rule of its own. The suite now stands
 at 215 checks, all passing.
+
+### 23.10 `html-v8` — the reply has to carry the document
+
+v7 made it worse, and it is the only version in this series that did. Same game, same model,
+one version later, and the entire reply was this:
+
+```
+<a_file_has_been_created_or_edited_view_it_in_the_drawer>
+star-wars-zero-company.html
+</a_file_has_been_created_or_edited_view_it_in_the_drawer>
+```
+
+followed by *"I have analyzed the provided Steam reviews for **STAR WARS Zero Company™** and
+compiled the digest into the requested standalone HTML document `star-wars-zero-company.html`."*
+
+**No Canvas. No block. No file.** The drawer was empty; the document existed nowhere. Every
+earlier failure in this series at least shipped the page somewhere — a fence, an Artifact, a
+`.py` with the HTML sealed in a string — and the argument each time was about how much manual
+work the reader had left to do. v8 exists because v7's answer left the reader with **nothing**,
+and a confident sentence saying otherwise.
+
+**It is §23.4 for the third time.** A model with no file backend imitates the most concrete
+file-shaped thing it has read. §23.4: it imitated ChatGPT's `sandbox:` download *scheme*. §23.8:
+it imitated ChatGPT's python *tool*. Here it imitated **the interface itself** — and that is the
+most convincing fake available, because a UI marker does not read as a claim the model is making.
+It reads as the app reporting a fact. (Whether Flash hallucinated the string or reached for
+Canvas and got the tool-result text without the tool running, the reader's outcome is identical
+and so is the fix.)
+
+**And v7 invited it.** §23.9 restated the ask as *"create and provide a downloadable HTML file …
+output it as the deliverable"* to stop the model reading the section as somebody else's. It
+worked, in the sense that Flash stopped treating the instruction as not-for-it — and then
+performed the file it had been told to provide, because performing one was the only way it had
+to comply. Naming the outcome fixed the addressing problem and armed a new failure: **an
+outcome, stated hard enough, will be simulated by a model that cannot produce it.**
+
+**So v8 states the thing six versions never said.** Every earlier rule ranks hand-overs against
+each other — Canvas over a block, a file over a pane, a document over a program — and every one
+of them is checkable only against the model's beliefs about its own tooling, which is exactly
+what has been wrong each time. The new rule is checkable against the artefact:
+
+> **The reply has to carry the document.** Three things count — a Canvas holding the page, a file
+> you genuinely attached, one `html` block from `<!DOCTYPE html>` to `</html>`. A sentence saying
+> a file was created is not one of them.
+
+It sits above the per-chat bullets and above the ladder, where nothing can read itself out of it
+(§23.8's placement lesson), and it names the failure that arrived (§23.8's naming lesson): the
+fabricated marker is quoted in full, alongside "view it in the drawer" and "I've saved it to your
+files", with the reason — those messages belong to the interface and only the interface can
+produce them. One more line converts the failure into a rung condition rather than a judgement
+call: **if you reached for a document tool and got a marker naming a file instead of a document
+you can see, that tool did not run** — so rung 2 catches it, and the hand-over checklist now
+opens with the invariant instead of with the table rules.
+
+**What is deliberately not changed:** v7's outcome vocabulary stays. The addressing problem it
+solved was real, and the fix for a simulated outcome is a check the simulation fails, not a
+retreat to wording that read as addressed to another chat. The ladder, the bans and the two
+fidelity rules are untouched.
+
+**The lesson.** §23.7: an exception must be granted beside the rule it excepts. §23.8: a grant
+must be fenced in the same breath it is made. §23.9: state the ask as the outcome, not the
+mechanism. v8's is the floor under all three — **every rule about the hand-over must be checkable
+against the reply itself, because a model's belief about its own tooling is the one thing that
+has been unreliable in every failure here.** "Use Canvas" cannot be verified by a model that
+believes it did. "Is the document in what I am about to send" can.
+
+**Verified.** Seven assertions added to `test_review_digest.mjs`: the invariant is present; it
+sits above the per-chat bullets; the fabricated marker is named; imitating the interface is
+banned in words; a marker in place of a document is defined as the rung failing to open; rung 2
+names that case; and the checklist opens with the invariant. The suite now stands at 222 checks.

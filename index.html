@@ -6325,6 +6325,29 @@ const RD_DEFAULT_MODE = "advanced";        // what this page shipped with; Simpl
 // exists so ten games produce ten pages of one publication, and that fails at the browser tab
 // as surely as at the palette. So "verbatim" now says in words that it includes the whitespace,
 // and the exact <title> string is a hard rule and a checklist line.
+//
+// html-v8 is the version written because v7 made it WORSE. Flash answered STAR WARS Zero Company
+// with `<a_file_has_been_created_or_edited_view_it_in_the_drawer>star-wars-zero-company.html</…>`
+// and a sentence saying the digest had been compiled into that file. No Canvas, no block, no
+// file — the drawer was empty and the report existed nowhere. Every earlier failure in this
+// series at least shipped the page somewhere; this one lost it, which makes it the worst answer
+// the option has ever produced and v7 the version that invited it: asking for "a downloadable
+// file" as the deliverable pushed a model with no file tool into performing one.
+//
+// It is also the §23.4 `sandbox:` failure a third time, and the pattern is now unmistakable — a
+// model with no file backend imitates the most concrete file-shaped thing it has read. v6 caught
+// it imitating ChatGPT's python tool; here it imitated the INTERFACE ITSELF, which is the most
+// convincing fake available because a UI marker does not read as a claim the model is making.
+//
+// Six versions of ranking better and worse hand-overs never stated the thing underneath all of
+// them, so v8 states it above the bullets and above the ladder: THE REPLY HAS TO CARRY THE
+// DOCUMENT. Three things count — a Canvas holding it, a genuinely attached file, one `html`
+// block from `<!DOCTYPE html>` to `</html>` — and a sentence claiming a file was created is not
+// one of them. That is the first rule in the series a model can check against its own reply
+// rather than against its beliefs about its tooling, which is why it goes at the top. Beside it,
+// the fabricated marker is named the way `html_content` was named in v6, and a marker coming
+// back where a document should be is DEFINED as the rung failing to open, so rung 2 catches the
+// case instead of the model deciding it succeeded.
 const RD_HTML_FILE = "review_prompt_html.md";
 const RD_OUT = [
   { key:"md",   label:"Markdown",
@@ -6708,7 +6731,15 @@ counting rules, buckets, floor, caps and READER FOCUS contract above all still a
 rendering changes, and the Markdown version is NOT also produced.
 
 CREATE AND PROVIDE A DOWNLOADABLE .html FILE — one file the reader saves in a single click,
-named after the game, lowercased and hyphenated (\`star-wars-zero-company.html\`). Never code in
+named after the game, lowercased and hyphenated (\`star-wars-zero-company.html\`). ABOVE
+EVERYTHING ELSE HERE: THE REPLY HAS TO CARRY THE DOCUMENT. Three things count — a Canvas holding
+the page, a file you genuinely attached, one \`html\` block from \`<!DOCTYPE html>\` to
+\`</html>\` — and a sentence claiming a file was created is not one of them. Never announce a
+file instead of sending one and never imitate the interface: no hand-written version of the
+chat's own file-saved message (\`<a_file_has_been_created_or_edited_view_it_in_the_drawer>\`,
+"view it in the drawer", "I've saved it to your files"), no \`sandbox:\` link. If you reached for
+a document tool and got a marker naming a file rather than a document you can see, THAT TOOL DID
+NOT RUN — emit the page instead. Never code in
 the chat, and never a preview pane: not an Artifact, not a document view. HAND OVER THE
 DOCUMENT, NEVER A PROGRAM THAT WRITES IT: if you have a code tool you RUN it and hand over what
 it produced — you never print the script, and an \`html_content = \"\"\"...\"\"\"\` block is a wrong
