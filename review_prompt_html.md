@@ -1,4 +1,4 @@
-<!-- html-v6 -->
+<!-- html-v7 -->
 # OUTPUT FORMAT — one HTML page, instead of the Markdown skeleton
 
 This block **replaces the output skeleton in the instructions above.** Everything above still
@@ -8,11 +8,16 @@ the rendering changes. **Do not produce the Markdown report as well.** One artef
 
 ## What to return — a DOWNLOADABLE .html FILE
 
-**Write the page to a real file and attach it for download.** Not a fenced code block, not
-markup pasted into the reply, and **not a preview pane** — not an Artifact, not a document
-view. The reader asked for an HTML page because they want the file: they are running
-several games and keeping the pages side by side in a folder, so a panel they have to hunt a
-download button inside of is the same manual work as a code block, one menu further away.
+**Create and provide a downloadable HTML file** — one `.html` the reader saves out of your
+reply in a single click, named after the game. Not a fenced code block, not markup pasted into
+the reply, and **not a preview pane** — not an Artifact, not a document view. The reader asked
+for an HTML page because they want the file: they are running several games and keeping the
+pages side by side in a folder, so a panel they have to hunt a download button inside of is the
+same manual work as a code block, one menu further away.
+
+That is the whole test, and it is about the reader's downloads folder rather than about your
+plumbing: **did a `.html` land there?** Every rule below only says how to get it there in the
+chat you happen to be.
 
 **Hand over the document, never a program that writes it.** This one is absolute and there is
 no chat it does not apply to, Gemini's fallback rung included. A Python, JavaScript or shell
@@ -24,10 +29,10 @@ instead.** If you have no code tool, the answer is the raw HTML document. The re
 browser, not a Python interpreter, and a `.py` on their disk is not the page they asked for.
 An HTML report was requested, so an HTML *file* is what has to arrive.
 
-**One chat is exempt: Gemini.** Gemini cannot attach a file to a reply at all, so its bullet
-below is a ladder of what it *can* do, and that ladder is binding for Gemini — the bans on this
-page are written for the chats that have a file tool and do not overrule it. Every other chat
-reads the bans as written.
+**One chat reads the bans differently: Gemini.** Its bullet below is an ordered ladder of the
+ways it can put a downloadable page in the reader's hands, and that ladder is binding for
+Gemini — the bans on this page are written for the chats that attach a file to a reply, and
+they do not overrule it. Every other chat reads the bans as written.
 
 **Name the file after the game** — the game's title, lowercased, spaces and punctuation reduced
 to single hyphens, `.html` on the end: *STAR WARS Zero Company™* becomes
@@ -40,16 +45,23 @@ to single hyphens, `.html` on the end: *STAR WARS Zero Company™* becomes
   for it, or imitate it by printing a Python block.** *Run* it to write `<game>.html` to disk
   and give the **download link**. The reply carries the link, never the script that made it.
   Not Canvas.
-- **Gemini** — you have **no** way to attach a file to a reply. Do not attempt one and do not
-  imitate another chat's — in particular, **do not reach for ChatGPT's python tool and do not
-  print a Python block that writes the file.** You cannot run it, so the reader would be handed
-  a program instead of a page. Instead work down this ladder and stop at the
-  **first rung that opens**:
+- **Gemini** — **create and provide a downloadable HTML file, `<game>.html`, and output it as
+  the deliverable.** That is the ask stated as the outcome: the reader finishes with
+  `star-wars-zero-company.html` saved from your reply, having selected no text. Do not get
+  there by imitating another chat's mechanism — in particular, **do not reach for ChatGPT's
+  python tool and do not print a Python block that writes the file.** A printed program is not
+  a downloadable file: the download icon on a `python` block saves a `.py`, so the reader ends
+  up with a script instead of a page. Work down this ladder and stop at the
+  **first rung that opens** — and *try* rung 1 before concluding it is shut:
   1. **Canvas.** Put the whole document into Canvas as an HTML file — the canvas holds the
      document itself, not code that generates it — and **title the canvas `<game>.html`**. That
      title is the filename Canvas's own **Download** hands the reader, which is the entire
-     reason it matters. This is your answer. The "not a preview pane" rule above is written for
-     Claude and ChatGPT, which have file tools; it does not apply to you.
+     reason it matters. **This is how you create and provide a downloadable HTML file here**:
+     Canvas is not a preview of the answer, its Download button *is* the handover, and the file
+     it saves is the one the reader asked for. So this is your answer, and the "not a preview
+     pane" rule above is written for Claude and ChatGPT, which attach files to a reply; it does
+     not apply to you. Open Canvas and put the page in it — do not decide in advance that it is
+     unavailable, and do not skip it because the document is long. Length is what it is for.
   2. **One `html` code block** — and *only* if Canvas will not open. **The block is the
      document, not code that builds it**: it is tagged `html`, its first characters are
      `<!DOCTYPE html>` and its last are `</html>`. A `python` block is not this rung and does
@@ -80,16 +92,27 @@ Beside the file, write **one short sentence at most** — which game the page co
 no "here's what I did", no summary of the findings underneath, and never a second copy of the
 report pasted in as Markdown or as source. One artefact, not two.
 
-Hard rules, all four load-bearing:
+Hard rules, all five load-bearing:
 
 - **Self-contained.** One file, no dependencies. The `<style>` block below is the entire
   stylesheet. No external CSS, no web fonts, no images, no `<script>`, no CDN link, nothing
   the file has to fetch. It has to open with no network.
 - **Copy the stylesheet verbatim.** Do not restyle it, do not "improve" it, do not add rules,
-  do not switch the colours to match the game's box art. Its whole value is that ten reports
-  on ten games look like ten pages of the same publication and can be read side by side. If a
-  section seems to need a class this sheet does not have, you are inventing a section — go
-  back and use the ones listed below.
+  do not switch the colours to match the game's box art. **Verbatim includes the whitespace:
+  paste it line for line, in the order it is written — do not minify it, do not collapse the
+  rules onto one line each, do not strip its section comments.** It renders the same either
+  way, which is exactly why the shortcut is tempting; what it costs is that the two files stop
+  being the same file — ten reports no longer share one stylesheet byte for byte, and anyone
+  who opens the source to adjust a rule meets a wall instead of the sheet shown here. Its whole
+  value is that ten reports on ten
+  games look like ten pages of the same publication and can be read side by side. If a section
+  seems to need a class this sheet does not have, you are inventing a section — go back and use
+  the ones listed below.
+- **The `<title>` is exactly `<game title> — Steam review digest`.** The game's title copied
+  character for character from the GAME: line, an em dash, then those three words — not "Steam
+  Review Analysis", not "Report", not the game on its own. That string is the browser tab, the
+  bookmark and the window in the reader's dock, and a folder of ten pages is only navigable
+  when all ten agree on the half that is constant.
 - **Every number on the page is a number you counted.** The page is a rendering of the report
   you would otherwise have written in Markdown, not a new one with different figures. Nothing
   gets rounded differently, promoted, softened or dropped because it looks awkward in a table.
@@ -331,6 +354,8 @@ hero bar, the `.hero-read` line and every table cell carry raw counts only.
 - Both minibar widths on a row add up to 100, and the `<small>` next to them is ▼ then ▲.
 - The hero bar's two `flex:` values are the same two numbers printed inside it.
 - No `<script>`, no `src=`, no `@import`, no `http` outside a review's own quoted text.
+- The `<style>` block is the sheet above, line for line and unminified, and the `<title>` reads
+  `<game title> — Steam review digest`.
 - The report mode's caps still hold: five Notes, ten Issues rows, five Loved/Hated rows, four
   clauses a side. A section that would be empty is omitted, not padded.
 - The page left as a downloadable `.html` file named after the game — not an Artifact, not a

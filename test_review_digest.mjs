@@ -893,8 +893,8 @@ errors.slice(0, 5).forEach(e => console.log("     " + e));
   // pane. v2 asked only for "a file" and Claude answered with an Artifact, which is why the
   // panes are now named in the negative and this check reads for that.
   check(/file-creation \/ code tool/.test(html8) && /python tool/.test(html8) &&
-        /attach it for download/i.test(html8),
-        "the addendum asks for a written file and names the tool that writes it");
+        /create and provide a downloadable HTML file/i.test(html8),
+        "the addendum asks for a downloadable file and names the tool that writes it");
   check(/Do not answer with an Artifact/.test(html8) && /not a preview pane/i.test(html8),
         "and rules out the preview panes by name, not just by implication");
   // html-v4 — the failure the escape opened up: Gemini Flash, told to give a download link,
@@ -919,7 +919,7 @@ errors.slice(0, 5).forEach(e => console.log("     " + e));
         "Gemini gets an ordered ladder with a checkable stop condition, Canvas named first");
   check(html8.indexOf("**Canvas.**") < html8.indexOf("**One `html` code block**"),
         "Canvas sits above the code block in that ladder, not beside or under it");
-  check(/One chat is exempt: Gemini/.test(html8),
+  check(/One chat reads the bans differently: Gemini/.test(html8),
         "and the exemption is granted next to the bans it excepts, not a paragraph later");
   // html-v6 — v5's ladder was decidable and Gemini still went off it, because the bullet ABOVE
   // it named a real mechanism for writing a real file ("ChatGPT — use the python tool") and that
@@ -943,6 +943,33 @@ errors.slice(0, 5).forEach(e => console.log("     " + e));
         "and the ladder closes itself, since every failure here has been an invented rung");
   check(/not a program/i.test(html8.slice(html8.indexOf("Before you hand it over"))),
         "the hand-over checklist asserts the reply is HTML rather than a script");
+  // html-v7 — v6 HELD: on STAR WARS Zero Company, Flash answered with rung 2 (an `html` block,
+  // DOCTYPE to </html>, download icon on it), not a python block and not a sandbox: link. What
+  // it never did was try rung 1, and two lines were talking it down there. The ask was phrased
+  // as a MECHANISM Gemini's reply cannot perform — "write the page to a real file and attach
+  // it" — so it read as not-for-me before the ladder arrived; and Gemini's own bullet opened
+  // with "you have **no** way to attach a file to a reply", the addendum arguing the model out
+  // of its tooling one line above instructing it to use it. v7 restates the ask as the OUTCOME,
+  // in the vocabulary Gemini itself reports as its trigger for file output, and drops the denial.
+  check(/create and provide a downloadable HTML file/i.test(html8),
+        "the ask is phrased as the outcome — a downloadable file — rather than as a mechanism");
+  check(html8.indexOf("Create and provide a downloadable HTML file") < html8.indexOf("- **Claude**"),
+        "and it leads the section, above the per-chat bullets");
+  check(!/\*\*no\*\* way to attach a file|cannot attach a file to a reply at all/.test(html8),
+        "Gemini's bullet no longer opens by denying it the tooling the next line prescribes");
+  check(/\*\*create and provide a downloadable HTML file, `<game>\.html`/i.test(html8),
+        "that bullet leads with the same ask and names the file it produces");
+  check(/\*try\* rung 1 before concluding it is shut/.test(html8),
+        "and the ladder says to TRY Canvas, since v6's failure was ruling it out unasked");
+  // The same run exposed a fidelity failure that is not about delivery at all: the page came
+  // back with the stylesheet minified onto single lines and titled "STAR WARS Zero Company™ –
+  // Steam Review Analysis". Both render identically and both defeat the point of shipping a
+  // closed stylesheet — ten games are meant to produce ten pages of one publication, and that
+  // fails at the browser tab as surely as at the palette.
+  check(/Verbatim includes the whitespace/.test(html8) && /do not minify it/.test(html8),
+        "verbatim is spelled out to include the whitespace, so minifying counts as an edit");
+  check(/The `<title>` is exactly `<game title> — Steam review digest`/.test(html8),
+        "and the exact <title> string is a rule of its own, not left to the skeleton alone");
   check(/=== QTPD REVIEW DIGEST · prompt v\S+ \+ html-\S+ ===/.test(html8),
         "the title line carries both prompt versions, since two files shaped this output");
   // The whole point of an option: the run that did not ask for it pays nothing for it.
