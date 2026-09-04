@@ -1768,3 +1768,63 @@ believes it did. "Is the document in what I am about to send" can.
 sits above the per-chat bullets; the fabricated marker is named; imitating the interface is
 banned in words; a marker in place of a document is defined as the rung failing to open; rung 2
 names that case; and the checklist opens with the invariant. The suite now stands at 222 checks.
+
+### 23.11 The page saves the file, because eight versions could not make the chat do it
+
+§23.2 through §23.10 are one long argument with language models about a hand-over, and the score
+after eight versions is: two chats comply, the third finds a new way not to. An Artifact instead
+of a file. A `sandbox:` link to nothing. A Python script with the page sealed in a string. The
+interface's own *"a file has been created"* marker written out over an empty drawer. Each fix was
+a better sentence; each better sentence was obeyed by the models that already complied and
+reinterpreted by the one that did not — and after all of it the reader was still selecting text
+out of a code block by hand.
+
+**The mistake was the location, not the wording.** Look at what the reader actually wants:
+`<game>.html`, in their downloads, named after the game. Now look at what that needs — the
+document, and the title. The document is the one part only the model can produce. **The title
+this page has known all along**, and the document arrives on the reader's clipboard whichever
+rung the chat lands on. Nothing in the naming or the saving requires model tooling at all. It was
+handed to the model because the model happened to be holding the document, and that is the only
+reason.
+
+So the file is written **here**: a Blob and an `<a download>`, in the dialog the digest came out
+of. Deterministic, testable, and identical on every chat.
+
+**What arrives is a reply, not a file**, so `rdExtractHtml` reduces one to the other: it takes the
+fenced block that contains a document (the longest, when a reply carries more than one), slices
+`<!DOCTYPE html>` to the last `</html>` out of whatever prose surrounds it, and hands back the
+page. **Paste the whole reply** is therefore the instruction — chatter, fence and all — because
+selecting the document by hand is precisely the work being removed. It rescues §23.8 for free: a
+page sealed inside `html_content = """…"""` is still a page, and it comes out.
+
+Two inputs get named rather than refused generically, because both are things a chat did to this
+reader and neither is his mistake:
+
+| what the chat sent | what the saver says |
+|---|---|
+| the §23.10 marker, no document anywhere | *"That reply only ANNOUNCED a file — there's no page in it. Ask the chat to paste the document itself into one html code block."* |
+| a script that would write the page, with no page in it | *"That's a script that would write the page, not the page. Ask for the document itself."* |
+
+It sits in the result view **and** in the setup view: a reader who closed the dialog while waiting
+on a slow reply should not have to pay for another twenty-second fetch to reach it. A `<details>`
+rather than a panel, so on the run where the chat behaved it is one line of text nobody opens.
+
+**And the prompt gets to relax.** `html-v9` tells the model what is now true: *the reader's own
+page does the filing, so you do not have to* — the naming is handled, the saving is handled, and
+**a document in one `html` block is a complete answer**, not a consolation prize. That removes the
+exact pressure §23.10 diagnosed: v7 pushed for a file hard enough that a model without one
+performed having made it. Nothing can be gained now by inventing an affordance, because the
+affordance the reader needs is on this side of the clipboard.
+
+**The lesson, and it is the one this whole series was circling.** §23.7 through §23.10 each made
+the instruction better. The instruction was never the problem. **When a step can be done on
+either side of a boundary, put it on the side you control** — the model gets the part only it can
+do, and everything downstream of that becomes code, with tests, that behaves the same on every
+chat and cannot be talked out of it.
+
+**Verified.** Nine assertions in `test_review_digest.mjs`, driving the panel the way a reader does
+rather than testing the extractor in isolation: the saver renders in both views; it names the file
+after the game; a whole chat reply (chatter, fence, page) is read as the page and enables Save;
+the §23.10 marker is named as an announcement and holds Save shut; clicking Save produces a real
+download under that exact filename; and the saved bytes run `<!DOCTYPE html>` to `</html>` with no
+fence markers in them.

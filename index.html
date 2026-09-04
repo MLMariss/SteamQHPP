@@ -1523,6 +1523,17 @@
   .rd-out{width:100%; height:300px; resize:vertical; box-sizing:border-box;
         background:var(--bg); border:1px solid var(--line); border-radius:9px; color:var(--muted);
         font-family:var(--mono); font-size:12px; line-height:1.5; padding:10px; margin-top:4px}
+  /* §23.11 — the saver. A disclosure rather than a panel: on the run where the chat behaved
+     it is one line of text you never open, and on the run where it did not it is the fix. */
+  .rd-save{margin:2px 0 12px; border-top:1px solid var(--line); padding-top:10px}
+  .rd-save summary{cursor:pointer; font-size:13px; color:var(--muted); list-style:revert}
+  .rd-save summary:hover{color:var(--text)}
+  .rd-save[open] summary{margin-bottom:8px; color:var(--text)}
+  .rd-save .rd-out{height:150px; margin-top:0}
+  .rd-say{font-family:var(--mono); font-size:12px; line-height:1.5; margin:8px 0 0; min-height:1.3em;
+        color:var(--muted-2)}
+  .rd-say.ok{color:var(--gold)}
+  .rd-say.bad{color:var(--coral)}
   .rd-foot{display:flex; flex-wrap:wrap; align-items:center; gap:9px; padding:12px 15px;
         border-top:1px solid var(--line)}
   /* Pushes everything after it to the right edge. Download .txt is the escape hatch for when a
@@ -6353,7 +6364,7 @@ const RD_OUT = [
   { key:"md",   label:"Markdown",
     tip:"The report as Markdown — headings and pipe tables. Renders in any chat window and pastes into a doc. This is what the page has always produced." },
   { key:"html", label:"HTML page",
-    tip:"The same report, same counts, rendered as one self-contained HTML file: masthead, sentiment bar, styled tables, dark mode and a print stylesheet. The prompt asks the AI to hand over the page itself — a real .html file wherever the chat can attach one; on Gemini a Canvas titled after the game, whose Download button saves the same file — never an artifact, and never a script that writes it. Costs ~3k more tokens of instructions and a longer reply." },
+    tip:"The same report, same counts, rendered as one self-contained HTML file: masthead, sentiment bar, styled tables, dark mode and a print stylesheet. The prompt asks the AI for the page itself — never an artifact, never a script that writes it — and whatever shape the reply arrives in, paste it back here and this page saves it as star-wars-zero-company.html. Costs ~3k more tokens of instructions and a longer reply." },
 ];
 const RD_DEFAULT_OUT = "md";               // the page's own output for two years; HTML is opt-in
 
@@ -6739,7 +6750,9 @@ file instead of sending one and never imitate the interface: no hand-written ver
 chat's own file-saved message (\`<a_file_has_been_created_or_edited_view_it_in_the_drawer>\`,
 "view it in the drawer", "I've saved it to your files"), no \`sandbox:\` link. If you reached for
 a document tool and got a marker naming a file rather than a document you can see, THAT TOOL DID
-NOT RUN — emit the page instead. Never code in
+NOT RUN — emit the page instead. The reader's own page does the filing: it takes your reply,
+finds the document and saves \`<game>.html\` for them, so a document in one \`html\` block is a
+COMPLETE answer. Spend nothing on getting a file into their hands; spend it on the page. Never code in
 the chat, and never a preview pane: not an Artifact, not a document view. HAND OVER THE
 DOCUMENT, NEVER A PROGRAM THAT WRITES IT: if you have a code tool you RUN it and hand over what
 it produced — you never print the script, and an \`html_content = \"\"\"...\"\"\"\` block is a wrong
@@ -7395,7 +7408,7 @@ function rdRenderSetup(g){
      </div>
      <p class="rd-hint">Optional — each adds its own row.</p>
      <div class="rd-prog" id="rdProg"></div>
-     <div id="rdErr"></div>`;
+     <div id="rdErr"></div>` + rdSaverBlock(g);
   foot.innerHTML = `<button type="button" class="rd-go" id="rdGo">Fetch ${rdState.size} reviews</button>`;
 }
 
@@ -7467,6 +7480,102 @@ function rdBundleCount(bundle){
   return m ? parseInt(m[1], 10) : 0;
 }
 
+// §23.11 — THE PAGE SAVES THE FILE, because eight versions of the addendum could not make the
+// chat do it. The series in §23.2-§23.10 is one long argument with models about a hand-over
+// they variously cannot perform, will not perform, or perform by imitation: an Artifact, a
+// `sandbox:` link to nothing, a python script with the page sealed in a string, and finally
+// Gemini writing out the interface's own "file created" marker over an empty drawer. Every fix
+// was a better sentence, every sentence was obeyed by two chats and reinterpreted by the third,
+// and the reader still ended up selecting text out of a code block by hand.
+//
+// The mistake was the location. The one thing the reader wants — `<game>.html` in their
+// downloads, named after the game — needs no model tooling at all: the reply is on their
+// clipboard already, and this page knows the title. So the file gets written HERE, where it is
+// a Blob and an <a download>, deterministic, testable, and identical on every chat. The prompt
+// keeps asking for the document, because the document is the part only the model can produce;
+// it no longer has to be trusted with the filing.
+//
+// What comes back is a whole chat reply, not a file: prose above, a fenced block, prose below,
+// sometimes a stray "here's your page!". rdExtractHtml reduces that to the document by finding
+// the fence that contains one and slicing `<!DOCTYPE html>` … `</html>` out of it, so pasting
+// the entire reply is the instruction — no selecting, which is the manual step this replaces.
+// The two failure modes get named rather than a generic "no HTML found", because both are
+// things a chat did to this reader and neither is his mistake: a reply that only ANNOUNCED a
+// file (§23.10) and a script that would have written one (§23.8).
+function rdSlug(t){
+  return String(t || "game").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "") || "game";
+}
+// The name the addendum promises: title lowercased, punctuation to single hyphens. The ™ on
+// STAR WARS Zero Company™ is why the trailing hyphen is trimmed rather than left dangling.
+function rdHtmlName(g){ return rdSlug(g && g.title) + ".html"; }
+
+function rdDownload(name, text, mime){
+  const url = URL.createObjectURL(new Blob([text], { type:mime + ";charset=utf-8" }));
+  const a = document.createElement("a");
+  a.href = url; a.download = name;
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+}
+
+// No /g: this is used with .test() and a global regex carries lastIndex between calls.
+const RD_FAKE_FILE = /<\/?a_file_has_been_created_or_edited[^>]*>|view it in the drawer|saved it to your files/i;
+const RD_IS_SCRIPT = /^\s*(?:import\s+\w|from\s+\w+\s+import|html_content\s*=|with\s+open\(|open\s*\()/m;
+
+function rdExtractHtml(raw){
+  const text = String(raw == null ? "" : raw).replace(/\r\n?/g, "\n");
+  if(!text.trim()) return { err:"Nothing pasted yet." };
+  // Fenced blocks first, longest one that actually contains a document — a reply can carry the
+  // page in one fence and a snippet in another, and the page is the long one.
+  const fences = [];
+  const fence = /```[ \t]*([a-z0-9+#-]*)[ \t]*\n([\s\S]*?)```/gi;
+  for(let m; (m = fence.exec(text)); ) fences.push({ lang:(m[1] || "").toLowerCase(), body:m[2] });
+  const withDoc = fences.filter(f => /<!doctype html|<html[\s>]/i.test(f.body))
+                        .sort((a, b) => b.body.length - a.body.length)[0];
+  const source = withDoc ? withDoc.body : text;
+  const start = source.search(/<!doctype html|<html[\s>]/i);
+  const end = source.toLowerCase().lastIndexOf("</html>");
+  if(start < 0 || end < 0 || end < start){
+    // Name what the chat actually did. "No HTML found" would read as the reader's mistake.
+    if(RD_FAKE_FILE.test(text)) return { err:"That reply only ANNOUNCED a file — there's no page in it. Ask the chat to paste the document itself into one html code block." };
+    if(fences.some(f => /^(py|python|sh|bash|js|javascript)$/.test(f.lang)) || RD_IS_SCRIPT.test(source))
+      return { err:"That's a script that would write the page, not the page. Ask for the document itself." };
+    return { err:"No document in there — it has to run from <!DOCTYPE html> to </html>." };
+  }
+  const html = source.slice(start, end + 7).trim();
+  // A soft check, never a refusal: the file saves either way, but a page that carries neither
+  // the shipped stylesheet nor the skeleton's wrapper is probably not the digest.
+  const ours = /--ink-soft|class="wrap"/.test(html);
+  return { html, ours, kb:Math.max(1, Math.round(html.length / 1024)) };
+}
+
+// Rendered in the setup view as well as the result view: the reader who closed the dialog while
+// waiting on a slow reply should not have to re-run a 20-second fetch to get at the saver.
+function rdSaverBlock(g){
+  const name = rdHtmlName(g);
+  return `<details class="rd-save" id="rdSave">
+       <summary title="Works with any chat and any reply — a code block, a Canvas you copied out, or the raw page. The document just has to be somewhere in what you paste.">Got the report back? Save it as <code>${esc(name)}</code></summary>
+       <p class="rd-note">Paste the <b>whole reply</b> — fence, chatter and all. The page is pulled
+        out of it and saved under the right name; nothing to select by hand.</p>
+       <textarea class="rd-out" id="rdHtmlIn" spellcheck="false" placeholder="Paste the chat's reply here…"></textarea>
+       <p class="rd-say" id="rdHtmlSay">&nbsp;</p>
+       <button type="button" class="rd-go" id="rdHtmlSave" disabled>Save ${esc(name)}</button>
+     </details>`;
+}
+
+// The live read-out. It runs on every keystroke of a paste, so it is the thing that tells the
+// reader the reply was good BEFORE they click, and names the chat's failure when it was not.
+function rdSaverSay(){
+  const box = document.getElementById("rdHtmlIn"), say = document.getElementById("rdHtmlSay");
+  const btn = document.getElementById("rdHtmlSave");
+  if(!box || !say || !btn) return;
+  const r = rdExtractHtml(box.value);
+  btn.disabled = !r.html;
+  say.className = "rd-say" + (r.html ? " ok" : box.value.trim() ? " bad" : "");
+  say.textContent = r.html
+    ? `Found the page — ${r.kb} KB${r.ours ? ", QTPD stylesheet" : ", but not the QTPD stylesheet"}. Ready to save.`
+    : (box.value.trim() ? r.err : "\u00a0");
+}
+
 function rdRenderResult(bundle, stats){
   const body = document.getElementById("rdBody"), foot = document.getElementById("rdFoot");
   const kb = (bundle.length / 1024).toFixed(0), tok = rdTokens(bundle.length);
@@ -7490,9 +7599,10 @@ function rdRenderResult(bundle, stats){
        ? `Paste it into ${RD_AI_FILE_OR}, or download the .txt and attach it in any chat.`
        : `Text will be copied — paste in the chat of your choice (<b>${rdPasteKey()}</b>).`}${
        rdState.out === "html"
-         ? ` The answer comes back as one <b>HTML file</b> to download, named after the game (<code>star-wars-zero-company.html</code>) — not an artifact and not code to copy out. On Gemini it arrives as a Canvas of that name: its <b>Download</b> saves the file.`
+         ? ` The answer comes back as one <b>HTML page</b>. Whatever shape it arrives in — a file, a canvas, a code block — paste the reply into <b>Got the report back?</b> below and this page writes <code>star-wars-zero-company.html</code> to your downloads.`
          : ""}</p>
-     <textarea class="rd-out" id="rdOut" readonly spellcheck="false"></textarea>`;
+     <textarea class="rd-out" id="rdOut" readonly spellcheck="false"></textarea>` +
+    (rdState.out === "html" ? rdSaverBlock(gameOf(rdState.appid) || { title:"game" }) : "");
   document.getElementById("rdOut").value = bundle;
   // The three AI buttons live HERE, in the footer, next to Copy all — they are actions, and
   // they were sitting mid-body dressed as another settings row. Each one copies AND opens, so
@@ -7679,17 +7789,25 @@ document.addEventListener("click", e => {
   }
   const ai = e.target.closest("[data-rdai]");
   if(ai){ rdHandoff(ai); return; }        // no preventDefault: the anchor opens its own tab
+  if(e.target.closest("#rdHtmlSave")){
+    const g = gameOf(rdState.appid) || { title:"game", appid:rdState.appid };
+    const box = document.getElementById("rdHtmlIn");
+    const r = rdExtractHtml(box && box.value);
+    if(!r.html){ toast(esc(r.err), "err", 6000); return; }
+    rdDownload(rdHtmlName(g), r.html, "text/html");
+    toast(`Saved <b>${esc(rdHtmlName(g))}</b> — ${r.kb} KB, in your downloads.`, "ok", 5000);
+    return;
+  }
   if(e.target.closest("#rdDl")){
     const g = gameOf(rdState.appid) || { title:"game", appid:rdState.appid };
-    const blob = new Blob([rdState.bundle], { type:"text/plain;charset=utf-8" });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = `qtpd-reviews-${String(g.title).replace(/[^a-z0-9]+/gi, "-").toLowerCase()}-${g.appid}.txt`;
-    document.body.appendChild(a); a.click(); a.remove();
-    setTimeout(() => URL.revokeObjectURL(url), 1000);
+    rdDownload(`qtpd-reviews-${rdSlug(g.title)}-${g.appid}.txt`, rdState.bundle, "text/plain");
   }
 }, true);   // capture: the grid card's own click handler would otherwise flip the card first
+
+// Delegated, because the textarea is re-created every time either view re-renders.
+addEventListener("input", e => {
+  if(e.target && e.target.id === "rdHtmlIn") rdSaverSay();
+});
 
 addEventListener("keydown", e => {
   if(e.key === "Escape" && rdState.open){ e.stopPropagation(); rdClose(); }

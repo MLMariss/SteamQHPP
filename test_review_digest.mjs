@@ -832,6 +832,42 @@ errors.slice(0, 5).forEach(e => console.log("     " + e));
     punc: rdWords("!!! ... ---"),
     jp:   rdWords("神ゲーだけど最適化が酷いです"),   // 14 characters, zero spaces
   }));
+
+  // §23.11 — the saver, driven the way the reader drives it: paste a whole chat reply, watch
+  // the read-out, click Save, get a file. Asserting on rdExtractHtml alone would pass on a
+  // panel that never rendered, which is the failure mode of every "it works in isolation" test.
+  const saverInResult = await p8.locator("#rdSave").count();
+  const saveName = (await p8.locator("#rdSave summary code").textContent()).trim();
+  // Collapsed until asked for, which is the point of a <details> — so open it the way the
+  // reader does. A test that reached into a hidden textarea would pass on a panel nobody can
+  // get at.
+  const shutFirst = await p8.locator("#rdHtmlIn").isVisible();
+  await p8.locator("#rdSave summary").click();
+  await p8.waitForSelector("#rdHtmlIn", { state:"visible" });
+  const doc8 = '<!DOCTYPE html>\n<html lang="en"><head><style>:root{--ink-soft:#5a6470}</style>'
+             + '<title>x — Steam review digest</title></head><body><div class="wrap">report</div></body>\n</html>';
+  // The reply as it actually arrives: chatter, a fenced block, more chatter.
+  await p8.locator("#rdHtmlIn").fill("Here's the digest for that game!\n\n```html\n" + doc8 + "\n```\n\nLet me know if you want it tweaked.");
+  const sayGood = (await p8.locator("#rdHtmlSay").textContent()).trim();
+  const canSaveGood = !(await p8.locator("#rdHtmlSave").isDisabled());
+  // The §23.10 reply: an announcement and no document anywhere.
+  await p8.locator("#rdHtmlIn").fill("<a_file_has_been_created_or_edited_view_it_in_the_drawer>\nstar-wars-zero-company.html\n</a_file_has_been_created_or_edited_view_it_in_the_drawer>\n\nI have compiled the digest into star-wars-zero-company.html.");
+  const sayFake = (await p8.locator("#rdHtmlSay").textContent()).trim();
+  const canSaveFake = !(await p8.locator("#rdHtmlSave").isDisabled());
+  // Back to a good paste, and take the file.
+  await p8.locator("#rdHtmlIn").fill("```html\n" + doc8 + "\n```");
+  const [dl8] = await Promise.all([
+    p8.waitForEvent("download"),
+    p8.locator("#rdHtmlSave").click(),
+  ]);
+  const dlName = dl8.suggestedFilename();
+  const dlBody = fs.readFileSync(await dl8.path(), "utf8");
+  // And the recovery entry point: a reader who closed the dialog gets the saver without
+  // paying for another fetch.
+  await p8.locator("#rdClose").click();
+  await p8.locator("button.gsub-rev").first().click();
+  await p8.waitForSelector("#rdHost.on");
+  const saverInSetup = await p8.locator("#rdSave").count();
   await b8.close();
 
   const count = b => Number((b.match(/^--- REVIEWS \((\d+)\) ---$/m) || [])[1]);
@@ -1001,6 +1037,23 @@ errors.slice(0, 5).forEach(e => console.log("     " + e));
         "so rung 2 names that case rather than leaving it to the model's judgement");
   check(/The document is in the reply/.test(html8.slice(html8.indexOf("Before you hand it over"))),
         "and the hand-over checklist opens with the invariant, not with the table rules");
+  // §23.11 — the saver. Eight versions of the addendum could not make a chat file the page, so
+  // the page files it here: the reply is on the clipboard and this page knows the title, which
+  // is everything the filename needs. These checks are the ones the prompt series never had —
+  // deterministic, and identical whichever chat the reader used.
+  check(saverInResult === 1, "the HTML result view carries the saver");
+  check(shutFirst === false, "it starts collapsed, so a run that went fine costs one line of text");
+  check(saverInSetup === 1, "and so does the setup view, so closing the dialog costs no re-fetch");
+  check(/\.html$/.test(saveName) && saveName === saveName.toLowerCase() && !/\s/.test(saveName),
+        `the saver names the file after the game, lowercased and hyphenated (${saveName})`);
+  check(/Found the page/.test(sayGood) && canSaveGood,
+        `a whole chat reply — chatter, fence and all — is read as the page (${JSON.stringify(sayGood)})`);
+  check(/only ANNOUNCED a file/.test(sayFake) && !canSaveFake,
+        `and the §23.10 reply is named as what it is, with Save held shut (${JSON.stringify(sayFake)})`);
+  check(dlName === saveName, `the download lands under that exact name (${dlName})`);
+  check(/^<!DOCTYPE html>/i.test(dlBody) && /<\/html>$/i.test(dlBody.trim()),
+        "and holds the document itself, DOCTYPE to </html>, with the chatter stripped");
+  check(!/```/.test(dlBody), "no fence markers survive into the saved file");
   check(/=== QTPD REVIEW DIGEST · prompt v\S+ \+ html-\S+ ===/.test(html8),
         "the title line carries both prompt versions, since two files shaped this output");
   // The whole point of an option: the run that did not ask for it pays nothing for it.
@@ -1008,8 +1061,8 @@ errors.slice(0, 5).forEach(e => console.log("     " + e));
         "a Markdown run carries none of the HTML addendum");
   check(/=== QTPD REVIEW DIGEST · prompt v[^+]*===/.test(barred),
         "and its title line names one prompt, not two");
-  check(/HTML file/.test(readyNote) && /\.html/.test(readyNote),
-        `the result panel says what shape the answer comes back in (${JSON.stringify(readyNote.trim().slice(0, 90))})`);
+  check(/HTML page/.test(readyNote) && /\.html/.test(readyNote) && /paste the reply/i.test(readyNote),
+        `the result panel says what comes back and where to paste it (${JSON.stringify(readyNote.trim().slice(0, 90))})`);
   check(errs8.length === 0, `no uncaught JS errors on either path (${errs8.length})`);
 
   // §23.5 — the fetch counter. A raw review count climbs 100/200/300 with the bar off and

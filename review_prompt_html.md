@@ -1,4 +1,4 @@
-<!-- html-v8 -->
+<!-- html-v9 -->
 # OUTPUT FORMAT — one HTML page, instead of the Markdown skeleton
 
 This block **replaces the output skeleton in the instructions above.** Everything above still
@@ -36,6 +36,14 @@ file you genuinely attached, or one `html` block running from `<!DOCTYPE html>` 
 you cannot point at one of those in what you are sending, the reader gets **nothing**, and
 nothing is the worst outcome available here: worse than a fence, worse than a `.py`. The sample
 was pulled and pasted once; a reply that does not contain the report does not leave one behind.
+
+**The reader's own page does the filing, so you do not have to.** The tool that built this
+bundle also saves what you send back: the reader pastes your reply into it, it finds the
+document, and it writes `<game>.html` into their downloads under exactly the right name. So the
+naming is handled, the saving is handled, and **a document in one `html` block is a complete
+answer** — not a consolation prize, and not something to apologise for. What that tool cannot do
+is invent a page that is not there. Spend nothing on getting a *file* into their hands; spend
+everything on the page itself, and make sure it is in the reply.
 
 **Never announce a file instead of sending one, and never imitate the interface.** Do not write
 a tag, a marker, a placeholder or a pseudo-element that looks like the chat's own UI reporting a
