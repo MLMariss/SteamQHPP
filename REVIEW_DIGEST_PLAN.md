@@ -1625,3 +1625,76 @@ mention of the python tool in the assembled bundle; the tool is fenced to ChatGP
 bullet names the imitation; rung 2 is pinned to `<!DOCTYPE html>`; the ladder closes at rung 2;
 and the hand-over checklist asserts HTML rather than a script. The suite now stands at 208
 checks, all passing.
+
+### 23.9 `html-v7` — the ask was phrased as a mechanism Gemini does not have
+
+Same game, same model, one version later: *STAR WARS Zero Company* through Gemini Flash, and the
+reply was **rung 2** — one `html` code block, `<!DOCTYPE html>` to `</html>`, the download icon
+sitting on it. **That is v6 working.** No Python block, no `html_content = """…"""`, no
+`sandbox:` link to a file that was never written: every invented rung this series has produced
+stayed shut. What did not happen is **rung 1**. Canvas was never tried.
+
+A fallback taken while the rung above it was open is a different failure from an invented rung,
+and it is a quieter one — the reader still gets a saveable file, just named after nothing. It is
+also, again, not disobedience. Two lines in the addendum were talking the model down the ladder
+before it ever reached one.
+
+**The ask was phrased as a mechanism, not as an outcome.** The section opened: *"Write the page
+to a real file and attach it for download."* Attaching a file to a reply is precisely what
+Gemini's chat does not do, so the one sentence carrying the whole point of the option reads, to
+the one model that most needs to hear it, as addressed to somebody else. Everything after it is
+exceptions. A model that has filed the section under *not for me* arrives at its own bullet
+looking for the least-wrong thing it can do rather than the best thing it can do.
+
+**And its own bullet then argued it out of its tooling.** v5 opened Gemini's bullet with the
+carve-out — *"you have **no** way to attach a file to a reply"* — written to stop it faking one
+(§23.4), which it did. But it is a capability denial one line above a capability instruction, and
+the instruction under it (open Canvas, title it `<game>.html`, hand over what its Download saves)
+is a version of the very thing the denial calls impossible. Told first what it cannot do and
+second to do a form of it, the model took the rung that needs no tool at all.
+
+**v7 restates the ask as the outcome — in the reader's words, which turn out to be Gemini's
+own.** Asked directly how to get a file out of it, Gemini answers with phrasings, not
+mechanisms: *"create and provide a downloadable HTML file"*, *"generate an `index.html` file I
+can download"*, *"output this as a file deliverable"*. A model's self-report about its own
+triggers is not evidence, and the mechanism it volunteers for *why* they work — "it triggers me
+to run a code script in the background" — is the exact shape §23.8 banned, so that half is
+ignored. The phrasing half costs nothing and names the outcome instead of the plumbing, which is
+independently the fix this failure calls for. So the section now opens **Create and provide a
+downloadable HTML file** and states the test in one line — *did a `.html` land in the reader's
+downloads folder?* — and Gemini's bullet leads with the same sentence, naming the file.
+
+| where | v6 | v7 |
+|---|---|---|
+| section opening | "Write the page to a real file and attach it for download" | "**Create and provide a downloadable HTML file**", plus the test restated as the reader's downloads folder rather than as your plumbing |
+| the carve-out | "One chat is exempt: Gemini. Gemini cannot attach a file to a reply at all" | "One chat reads the bans differently: Gemini" — the exemption kept, the capability denial gone |
+| Gemini bullet | "you have **no** way to attach a file to a reply" | "**create and provide a downloadable HTML file, `<game>.html`, and output it as the deliverable**", then the unchanged ladder, with *try rung 1 before concluding it is shut* |
+
+Rung 1 is relabelled with it, from a consolation prize into the answer: Canvas is not a preview
+of the reply, its **Download** *is* the handover and the canvas title *is* the filename — so
+putting the page in Canvas **is** creating a downloadable HTML file, not a lesser substitute for
+one. **The ladder and the bans are otherwise untouched.** §23.4 exists because taking the honest
+fallback away produced a dishonest one, so rung 2 stays exactly where it is, which bounds the
+risk: the worst case for v7 is the v6 answer — the same block, the same download icon.
+
+**A second failure in the same reply, and nothing to do with delivery.** The page came back with
+the stylesheet **minified onto single lines** and titled *"STAR WARS Zero Company™ – Steam Review
+Analysis"* instead of the skeleton's *"— Steam review digest"*. Both render identically and both
+defeat the reason the option ships a closed stylesheet at all: ten games are meant to produce ten
+pages of one publication, and that fails at the browser tab as surely as it fails at the palette.
+So "copy the stylesheet verbatim" now says in words that verbatim includes the whitespace —
+minifying it is an edit — and the exact `<title>` string is a hard rule of its own as well as a
+line on the hand-over checklist.
+
+**The lesson.** §23.7: an exception must be granted beside the rule it excepts. §23.8: a grant
+must be fenced in the same breath it is made. v7's is the one underneath both — **state the ask
+as the outcome the reader can check, never as the mechanism you imagine producing it.** A
+mechanism named in a bundle that three chats will read is wrong for at least one of them, and the
+chat it is wrong for reads the entire section as somebody else's.
+
+**Verified.** Two v3/v5 assertions in `test_review_digest.mjs` were retargeted at the reworded
+lines, and seven added: the ask is phrased as the outcome; it leads the section above the
+per-chat bullets; the capability denial is gone; Gemini's bullet leads with the same ask and
+names the file; the ladder says to *try* rung 1; verbatim is spelled out to include the
+whitespace; and the exact `<title>` string is stated as a rule of its own. The suite now stands
+at 215 checks, all passing.

@@ -6298,12 +6298,39 @@ const RD_DEFAULT_MODE = "advanced";        // what this page shipped with; Simpl
 // bullet bans imitating it by name, and rung 2 is pinned to what the block must CONTAIN — tagged
 // `html`, opening `<!DOCTYPE html>`, closing `</html>` — rather than to what it must not be.
 // Naming the shape of the right answer is what v5 did for Canvas and it is why that rung held.
+//
+// html-v7 is the first version whose evidence is a SUCCESS of the previous one. Tested on STAR
+// WARS Zero Company yet again, Gemini Flash answered with rung 2 — one `html` block, DOCTYPE to
+// `</html>`, download icon on it — which is v6 working: no python block, no `sandbox:` link to
+// nothing. It just took the lowest rung it was entitled to and never tried Canvas. Two things
+// in the addendum were talking it down there. First, the ask was phrased as MECHANISM ("write
+// the page to a real file and attach it"), which is a thing Gemini's reply cannot literally do,
+// so the sentence read as not-for-me before the ladder was reached. Second, and worse, v5-v6
+// opened Gemini's own bullet by telling it "you have NO way to attach a file to a reply" — an
+// addendum arguing the model out of its own tooling one line above instructing it to use it.
+//
+// So v7 restates the ask as the OUTCOME, in the vocabulary Gemini itself reports as its trigger
+// for file output — "create and provide a downloadable HTML file" — at the top of the section
+// and again at the head of Gemini's bullet, and deletes the capability denial. Canvas is
+// relabelled as the answer to that ask rather than as a consolation for not having a file tool:
+// its Download button IS the handover, the canvas title IS the filename, and the bullet now
+// says to TRY the rung before concluding it is shut. The bans and the ladder are untouched —
+// v4 exists because removing the honest fallback invented a dishonest one — so the worst case
+// is the v6 answer, which is the same code block with the same download icon.
+//
+// v7 also closes a fidelity gap the same test exposed, which is not about delivery at all: the
+// page came back with the stylesheet MINIFIED onto single lines and titled "STAR WARS Zero
+// Company™ – Steam Review Analysis" instead of the skeleton's "— Steam review digest". Both
+// render identically and both defeat the point of shipping a closed stylesheet: the option
+// exists so ten games produce ten pages of one publication, and that fails at the browser tab
+// as surely as at the palette. So "verbatim" now says in words that it includes the whitespace,
+// and the exact <title> string is a hard rule and a checklist line.
 const RD_HTML_FILE = "review_prompt_html.md";
 const RD_OUT = [
   { key:"md",   label:"Markdown",
     tip:"The report as Markdown — headings and pipe tables. Renders in any chat window and pastes into a doc. This is what the page has always produced." },
   { key:"html", label:"HTML page",
-    tip:"The same report, same counts, rendered as one self-contained HTML file: masthead, sentiment bar, styled tables, dark mode and a print stylesheet. The prompt asks the AI to hand over the page itself — a real .html file wherever the chat can attach one, a Canvas or a single html block on Gemini, which cannot — never an artifact, and never a script that writes it. Costs ~3k more tokens of instructions and a longer reply." },
+    tip:"The same report, same counts, rendered as one self-contained HTML file: masthead, sentiment bar, styled tables, dark mode and a print stylesheet. The prompt asks the AI to hand over the page itself — a real .html file wherever the chat can attach one; on Gemini a Canvas titled after the game, whose Download button saves the same file — never an artifact, and never a script that writes it. Costs ~3k more tokens of instructions and a longer reply." },
 ];
 const RD_DEFAULT_OUT = "md";               // the page's own output for two years; HTML is opt-in
 
@@ -6680,22 +6707,31 @@ RD_PROMPT_FALLBACK.html =
 counting rules, buckets, floor, caps and READER FOCUS contract above all still apply — only the
 rendering changes, and the Markdown version is NOT also produced.
 
-Write it to a real FILE and attach it for download — never code in the chat, and never a preview
-pane: not an Artifact, not a Canvas, not a document view. Name it after the game, lowercased and
-hyphenated, \`.html\` on the end. On Claude use the file-creation/code tool and attach the file
-(NOT an Artifact); on ChatGPT write it with the python tool and give the download link (not
-Canvas); on Gemini write a downloadable file or a Canvas HTML file, and only if you have
-neither, emit the document in ONE \`html\` code block and tell the reader to click the download
-icon on it — that escape is Gemini's alone. NEVER write a download link for a file you did not
-actually create, and never a \`sandbox:\` URL unless that scheme is genuinely yours: a link that
-resolves to a search page is worse than none. If you cannot produce a file, say so plainly and
-use Canvas or the code block instead. The test is that the reader ends up with a \`.html\` in their downloads, having
-copied nothing. Beside it write one short sentence at most, and never a second copy of the
-report as Markdown or as pasted source. The document is complete from \`<!DOCTYPE html>\` to \`</html>\`, with no external CSS,
-fonts, images, scripts or CDN links — it must open with no network. No charts, no
-interactivity. Every number on the page is one you counted.
+CREATE AND PROVIDE A DOWNLOADABLE .html FILE — one file the reader saves in a single click,
+named after the game, lowercased and hyphenated (\`star-wars-zero-company.html\`). Never code in
+the chat, and never a preview pane: not an Artifact, not a document view. HAND OVER THE
+DOCUMENT, NEVER A PROGRAM THAT WRITES IT: if you have a code tool you RUN it and hand over what
+it produced — you never print the script, and an \`html_content = \"\"\"...\"\"\"\` block is a wrong
+answer even when the HTML inside it is perfect. On Claude use the file-creation/code tool and
+attach the file (NOT an Artifact). On ChatGPT use the python tool — ChatGPT's alone, and no
+other chat may reach for it or imitate it by printing a Python block — to WRITE the file and
+give the download link (not Canvas). On Gemini the bans above are not written for you: work
+down this ladder and stop at the first rung that opens — (1) CANVAS, holding the document
+itself rather than code that builds it, TITLED \`<game>.html\` because that title is the filename
+its Download button hands over; (2) only if Canvas will not open, ONE \`html\` code block,
+\`<!DOCTYPE html>\` to \`</html>\`, with "click the download icon on the block to save it as
+<game>.html" — that rung is Gemini's alone and a \`python\` block does not satisfy it. NEVER
+write a download link for a file you did not actually create, and never a \`sandbox:\` URL unless
+that scheme is genuinely yours: a link that resolves to a search page is worse than none. The
+test is that the reader ends up with a \`.html\` in their downloads, having copied nothing.
+Beside it write one short sentence at most, and never a second copy of the report as Markdown or
+as pasted source. The document is complete from \`<!DOCTYPE html>\` to \`</html>\` and titled
+exactly \`<game title> — Steam review digest\`, with no external CSS, fonts, images, scripts or
+CDN links — it must open with no network. No charts, no interactivity. Every number on the page
+is one you counted.
 
-Use exactly this stylesheet — do not restyle it, extend it, or recolour it to the game:
+Use exactly this stylesheet — do not restyle it, extend it, recolour it to the game, or
+reformat it; reproduce it exactly as it is written here:
 
 <style>
 :root{--paper:#e9ecef;--card:#f6f7f9;--ink:#1d2126;--ink-soft:#5a6470;--rule:#c8ced6;--up:#4a7a4e;--down:#a4503c}
@@ -7423,7 +7459,7 @@ function rdRenderResult(bundle, stats){
        ? `Paste it into ${RD_AI_FILE_OR}, or download the .txt and attach it in any chat.`
        : `Text will be copied — paste in the chat of your choice (<b>${rdPasteKey()}</b>).`}${
        rdState.out === "html"
-         ? ` The answer comes back as one <b>HTML file</b> to download, named after the game (<code>star-wars-zero-company.html</code>) — not an artifact, a canvas, or code to copy out.`
+         ? ` The answer comes back as one <b>HTML file</b> to download, named after the game (<code>star-wars-zero-company.html</code>) — not an artifact and not code to copy out. On Gemini it arrives as a Canvas of that name: its <b>Download</b> saves the file.`
          : ""}</p>
      <textarea class="rd-out" id="rdOut" readonly spellcheck="false"></textarea>`;
   document.getElementById("rdOut").value = bundle;
