@@ -1698,3 +1698,202 @@ per-chat bullets; the capability denial is gone; Gemini's bullet leads with the 
 names the file; the ladder says to *try* rung 1; verbatim is spelled out to include the
 whitespace; and the exact `<title>` string is stated as a rule of its own. The suite now stands
 at 215 checks, all passing.
+
+### 23.10 `html-v8` — the reply has to carry the document
+
+v7 made it worse, and it is the only version in this series that did. Same game, same model,
+one version later, and the entire reply was this:
+
+```
+<a_file_has_been_created_or_edited_view_it_in_the_drawer>
+star-wars-zero-company.html
+</a_file_has_been_created_or_edited_view_it_in_the_drawer>
+```
+
+followed by *"I have analyzed the provided Steam reviews for **STAR WARS Zero Company™** and
+compiled the digest into the requested standalone HTML document `star-wars-zero-company.html`."*
+
+**No Canvas. No block. No file.** The drawer was empty; the document existed nowhere. Every
+earlier failure in this series at least shipped the page somewhere — a fence, an Artifact, a
+`.py` with the HTML sealed in a string — and the argument each time was about how much manual
+work the reader had left to do. v8 exists because v7's answer left the reader with **nothing**,
+and a confident sentence saying otherwise.
+
+**It is §23.4 for the third time.** A model with no file backend imitates the most concrete
+file-shaped thing it has read. §23.4: it imitated ChatGPT's `sandbox:` download *scheme*. §23.8:
+it imitated ChatGPT's python *tool*. Here it imitated **the interface itself** — and that is the
+most convincing fake available, because a UI marker does not read as a claim the model is making.
+It reads as the app reporting a fact. (Whether Flash hallucinated the string or reached for
+Canvas and got the tool-result text without the tool running, the reader's outcome is identical
+and so is the fix.)
+
+**And v7 invited it.** §23.9 restated the ask as *"create and provide a downloadable HTML file …
+output it as the deliverable"* to stop the model reading the section as somebody else's. It
+worked, in the sense that Flash stopped treating the instruction as not-for-it — and then
+performed the file it had been told to provide, because performing one was the only way it had
+to comply. Naming the outcome fixed the addressing problem and armed a new failure: **an
+outcome, stated hard enough, will be simulated by a model that cannot produce it.**
+
+**So v8 states the thing six versions never said.** Every earlier rule ranks hand-overs against
+each other — Canvas over a block, a file over a pane, a document over a program — and every one
+of them is checkable only against the model's beliefs about its own tooling, which is exactly
+what has been wrong each time. The new rule is checkable against the artefact:
+
+> **The reply has to carry the document.** Three things count — a Canvas holding the page, a file
+> you genuinely attached, one `html` block from `<!DOCTYPE html>` to `</html>`. A sentence saying
+> a file was created is not one of them.
+
+It sits above the per-chat bullets and above the ladder, where nothing can read itself out of it
+(§23.8's placement lesson), and it names the failure that arrived (§23.8's naming lesson): the
+fabricated marker is quoted in full, alongside "view it in the drawer" and "I've saved it to your
+files", with the reason — those messages belong to the interface and only the interface can
+produce them. One more line converts the failure into a rung condition rather than a judgement
+call: **if you reached for a document tool and got a marker naming a file instead of a document
+you can see, that tool did not run** — so rung 2 catches it, and the hand-over checklist now
+opens with the invariant instead of with the table rules.
+
+**What is deliberately not changed:** v7's outcome vocabulary stays. The addressing problem it
+solved was real, and the fix for a simulated outcome is a check the simulation fails, not a
+retreat to wording that read as addressed to another chat. The ladder, the bans and the two
+fidelity rules are untouched.
+
+**The lesson.** §23.7: an exception must be granted beside the rule it excepts. §23.8: a grant
+must be fenced in the same breath it is made. §23.9: state the ask as the outcome, not the
+mechanism. v8's is the floor under all three — **every rule about the hand-over must be checkable
+against the reply itself, because a model's belief about its own tooling is the one thing that
+has been unreliable in every failure here.** "Use Canvas" cannot be verified by a model that
+believes it did. "Is the document in what I am about to send" can.
+
+**Verified.** Seven assertions added to `test_review_digest.mjs`: the invariant is present; it
+sits above the per-chat bullets; the fabricated marker is named; imitating the interface is
+banned in words; a marker in place of a document is defined as the rung failing to open; rung 2
+names that case; and the checklist opens with the invariant. The suite now stands at 222 checks.
+
+### 23.11 The page saves the file, because eight versions could not make the chat do it
+
+§23.2 through §23.10 are one long argument with language models about a hand-over, and the score
+after eight versions is: two chats comply, the third finds a new way not to. An Artifact instead
+of a file. A `sandbox:` link to nothing. A Python script with the page sealed in a string. The
+interface's own *"a file has been created"* marker written out over an empty drawer. Each fix was
+a better sentence; each better sentence was obeyed by the models that already complied and
+reinterpreted by the one that did not — and after all of it the reader was still selecting text
+out of a code block by hand.
+
+**The mistake was the location, not the wording.** Look at what the reader actually wants:
+`<game>.html`, in their downloads, named after the game. Now look at what that needs — the
+document, and the title. The document is the one part only the model can produce. **The title
+this page has known all along**, and the document arrives on the reader's clipboard whichever
+rung the chat lands on. Nothing in the naming or the saving requires model tooling at all. It was
+handed to the model because the model happened to be holding the document, and that is the only
+reason.
+
+So the file is written **here**: a Blob and an `<a download>`, in the dialog the digest came out
+of. Deterministic, testable, and identical on every chat.
+
+**What arrives is a reply, not a file**, so `rdExtractHtml` reduces one to the other: it takes the
+fenced block that contains a document (the longest, when a reply carries more than one), slices
+`<!DOCTYPE html>` to the last `</html>` out of whatever prose surrounds it, and hands back the
+page. **Paste the whole reply** is therefore the instruction — chatter, fence and all — because
+selecting the document by hand is precisely the work being removed. It rescues §23.8 for free: a
+page sealed inside `html_content = """…"""` is still a page, and it comes out.
+
+Two inputs get named rather than refused generically, because both are things a chat did to this
+reader and neither is his mistake:
+
+| what the chat sent | what the saver says |
+|---|---|
+| the §23.10 marker, no document anywhere | *"That reply only ANNOUNCED a file — there's no page in it. Ask the chat to paste the document itself into one html code block."* |
+| a script that would write the page, with no page in it | *"That's a script that would write the page, not the page. Ask for the document itself."* |
+
+It sits in the result view **and** in the setup view: a reader who closed the dialog while waiting
+on a slow reply should not have to pay for another twenty-second fetch to reach it. A `<details>`
+rather than a panel, so on the run where the chat behaved it is one line of text nobody opens.
+
+**And the prompt gets to relax.** `html-v9` tells the model what is now true: *the reader's own
+page does the filing, so you do not have to* — the naming is handled, the saving is handled, and
+**a document in one `html` block is a complete answer**, not a consolation prize. That removes the
+exact pressure §23.10 diagnosed: v7 pushed for a file hard enough that a model without one
+performed having made it. Nothing can be gained now by inventing an affordance, because the
+affordance the reader needs is on this side of the clipboard.
+
+**The lesson, and it is the one this whole series was circling.** §23.7 through §23.10 each made
+the instruction better. The instruction was never the problem. **When a step can be done on
+either side of a boundary, put it on the side you control** — the model gets the part only it can
+do, and everything downstream of that becomes code, with tests, that behaves the same on every
+chat and cannot be talked out of it.
+
+**Verified.** Nine assertions in `test_review_digest.mjs`, driving the panel the way a reader does
+rather than testing the extractor in isolation: the saver renders in both views; it names the file
+after the game; a whole chat reply (chatter, fence, page) is read as the page and enables Save;
+the §23.10 marker is named as an announcement and holds Save shut; clicking Save produces a real
+download under that exact filename; and the saved bytes run `<!DOCTYPE html>` to `</html>` with no
+fence markers in them.
+
+### 23.12 `html-v10` — the ladder is retired, and the evidence is our own sentence
+
+The reply this time was the page wrapped in a tag:
+
+```
+<canvas title="star-wars-zero-company.html">
+<!DOCTYPE html>
+<html lang="en">
+…
+```
+
+Gemini labelled the block **XML**, because with that wrapper around it that is what it was. Its
+download icon saved `gemini-code-1788601693253.xml`. The browser refused to render it —
+*"error on line 2 at column 2: StartTag: invalid element name"* — because a DOCTYPE is invalid
+inside an XML document.
+
+**That is this addendum's own instruction coming back at us.** From v5 to v9, Gemini's bullet
+said: *put the document into Canvas as an HTML file, and **title the canvas `<game>.html`***.
+Flash cannot call the Canvas tool. So it did exactly what the sentence describes, in the only
+medium it has — it wrote the element. `<canvas title="star-wars-zero-company.html">` is not
+disobedience or hallucination; it is a literal reading of a literal instruction by a model with
+no way to perform the non-literal one.
+
+**Third distinct kind of garbage out of that one rung.** §23.8: a python block. §23.10: the
+interface's file-created marker. §23.12: a wrapper element. Every failure in this series since
+v5 has come from Gemini reaching for Canvas and producing something Canvas-shaped instead of
+Canvas — and it reaches because we keep telling it to.
+
+**And since §23.11 the rung buys nothing.** Canvas was ranked first for exactly one reason: its
+Download button hands over a file named by the canvas title, which is how the reader was going
+to get `<game>.html` rather than `gemini-code-1788601693253.xml`. The reader's own page does that
+naming now, from any code block, deterministically. A rung that cannot be reached by
+instruction, produces mangled output whenever it is attempted, and no longer pays for itself is
+not a fallback worth keeping.
+
+So Gemini's bullet is one sentence:
+
+> **One `html` code block holding the document, and nothing else.**
+
+with the wrapper banned by name — `<canvas …>`, `<immersive …>`, `<document …>` — and the reason
+given as a fact rather than a preference: **a panel does not open because you wrote its tag**,
+and the wrapper turns the block into malformed XML that downloads as `.xml` and will not open.
+The ladder, its ordering, its stop condition, "there is no rung 3" and the word *rung* itself are
+gone from the file.
+
+**One old trap re-sprung and was closed with it.** The section still opened *"Not a fenced code
+block"* three lines above a bullet asking for exactly one — §23.7's contradiction, quietly grown
+back while the exception drifted downward. The exception is now carved inline, beside the ban:
+*"Not a fenced code block (**Gemini excepted** — its bullet below asks for exactly one)"*.
+
+**The saver already handles the reply that prompted this**, which is the first time in twelve
+sections that a Gemini failure needed no prompt change to be survivable: `rdExtractHtml` ignores
+the fence's language tag, finds `<!DOCTYPE html>` past the stray `<canvas …>` opener, and saves
+a valid page. v10 stops us *causing* the failure; §23.11 already stopped it *costing* anything.
+
+**The lesson.** §23.11 said to move a step to the side of the boundary you control. This is its
+corollary: **once you have, delete what you built to survive the other side.** The Canvas rung
+was scaffolding for a problem that no longer exists, and scaffolding left up is not neutral —
+it was still issuing an instruction, and the instruction was still being obeyed literally by
+the one model it was written for.
+
+**Verified.** Four assertions added and six inverted or retired: the wrapper ban is present and
+names `<canvas …>`; the reason is stated as a fact about the world; the `.xml` consequence is
+given in the reader's terms; the code-block exception sits beside the ban it excepts, above the
+per-chat bullets; and the word *rung* no longer appears anywhere in the addendum. Prose
+assertions now run against a whitespace-flattened copy of the bundle, because three separate
+re-wraps of this file have failed checks on text that was still present — the test should assert
+that a rule is there, not how it happened to wrap.

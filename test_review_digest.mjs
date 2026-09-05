@@ -832,10 +832,51 @@ errors.slice(0, 5).forEach(e => console.log("     " + e));
     punc: rdWords("!!! ... ---"),
     jp:   rdWords("神ゲーだけど最適化が酷いです"),   // 14 characters, zero spaces
   }));
+
+  // §23.11 — the saver, driven the way the reader drives it: paste a whole chat reply, watch
+  // the read-out, click Save, get a file. Asserting on rdExtractHtml alone would pass on a
+  // panel that never rendered, which is the failure mode of every "it works in isolation" test.
+  const saverInResult = await p8.locator("#rdSave").count();
+  const saveName = (await p8.locator("#rdSave summary code").textContent()).trim();
+  // Collapsed until asked for, which is the point of a <details> — so open it the way the
+  // reader does. A test that reached into a hidden textarea would pass on a panel nobody can
+  // get at.
+  const shutFirst = await p8.locator("#rdHtmlIn").isVisible();
+  await p8.locator("#rdSave summary").click();
+  await p8.waitForSelector("#rdHtmlIn", { state:"visible" });
+  const doc8 = '<!DOCTYPE html>\n<html lang="en"><head><style>:root{--ink-soft:#5a6470}</style>'
+             + '<title>x — Steam review digest</title></head><body><div class="wrap">report</div></body>\n</html>';
+  // The reply as it actually arrives: chatter, a fenced block, more chatter.
+  await p8.locator("#rdHtmlIn").fill("Here's the digest for that game!\n\n```html\n" + doc8 + "\n```\n\nLet me know if you want it tweaked.");
+  const sayGood = (await p8.locator("#rdHtmlSay").textContent()).trim();
+  const canSaveGood = !(await p8.locator("#rdHtmlSave").isDisabled());
+  // The §23.10 reply: an announcement and no document anywhere.
+  await p8.locator("#rdHtmlIn").fill("<a_file_has_been_created_or_edited_view_it_in_the_drawer>\nstar-wars-zero-company.html\n</a_file_has_been_created_or_edited_view_it_in_the_drawer>\n\nI have compiled the digest into star-wars-zero-company.html.");
+  const sayFake = (await p8.locator("#rdHtmlSay").textContent()).trim();
+  const canSaveFake = !(await p8.locator("#rdHtmlSave").isDisabled());
+  // Back to a good paste, and take the file.
+  await p8.locator("#rdHtmlIn").fill("```html\n" + doc8 + "\n```");
+  const [dl8] = await Promise.all([
+    p8.waitForEvent("download"),
+    p8.locator("#rdHtmlSave").click(),
+  ]);
+  const dlName = dl8.suggestedFilename();
+  const dlBody = fs.readFileSync(await dl8.path(), "utf8");
+  // And the recovery entry point: a reader who closed the dialog gets the saver without
+  // paying for another fetch.
+  await p8.locator("#rdClose").click();
+  await p8.locator("button.gsub-rev").first().click();
+  await p8.waitForSelector("#rdHost.on");
+  const saverInSetup = await p8.locator("#rdSave").count();
   await b8.close();
 
   const count = b => Number((b.match(/^--- REVIEWS \((\d+)\) ---$/m) || [])[1]);
   const pct   = re => Number((barred.match(re) || [])[1]);
+
+  // The addendum is a hard-wrapped markdown file, so a phrase in it can be split across a line
+  // break at any time someone reflows a paragraph. Prose assertions run against a
+  // whitespace-flattened copy: they are testing that the RULE is present, not how it wrapped.
+  const flat8 = html8.replace(/\s+/g, " ");
 
   console.log("\nquality bar and HTML output:");
   // §23.3 — the number on the pill is the number in the bundle. With ~40% of the fixture
@@ -893,7 +934,7 @@ errors.slice(0, 5).forEach(e => console.log("     " + e));
   // pane. v2 asked only for "a file" and Claude answered with an Artifact, which is why the
   // panes are now named in the negative and this check reads for that.
   check(/file-creation \/ code tool/.test(html8) && /python tool/.test(html8) &&
-        /create and provide a downloadable HTML file/i.test(html8),
+        /create and provide a downloadable HTML file/i.test(flat8),
         "the addendum asks for a downloadable file and names the tool that writes it");
   check(/Do not answer with an Artifact/.test(html8) && /not a preview pane/i.test(html8),
         "and rules out the preview panes by name, not just by implication");
@@ -911,15 +952,16 @@ errors.slice(0, 5).forEach(e => console.log("     " + e));
   // gated on "only if you genuinely have neither", a fact no model can check about itself. The
   // fix is a decidable ladder, so the assertions are that the contradiction is GONE: Canvas is
   // no longer banned outright, the unverifiable gate is deleted, and the ladder is ordered.
-  check(!/not a Canvas/.test(html8),
-        "the addendum no longer bans Canvas outright while prescribing it to Gemini");
   check(!/genuinely have neither/.test(html8),
-        "and no longer gates the escape on a fact the model cannot check about itself");
-  check(/first rung that opens/.test(html8) && /title the canvas/i.test(html8),
-        "Gemini gets an ordered ladder with a checkable stop condition, Canvas named first");
-  check(html8.indexOf("**Canvas.**") < html8.indexOf("**One `html` code block**"),
-        "Canvas sits above the code block in that ladder, not beside or under it");
-  check(/One chat reads the bans differently: Gemini/.test(html8),
+        "the addendum no longer gates an escape on a fact the model cannot check about itself");
+  // v5 built Gemini a Canvas-first ladder and v10 retired it (§23.12): every attempt at that
+  // top rung produced mangled output, and the reader's own page now does the naming the rung
+  // existed for. So the assertions invert — the ladder must be GONE, not ordered.
+  check(!/rung/i.test(html8),
+        "the ladder is retired: no rungs left to climb, mis-climb, or invent a third of");
+  check(!/title the canvas/i.test(html8),
+        "and nothing tells Gemini to title a canvas, which is what it wrote out as markup");
+  check(/One chat reads the bans differently: Gemini/.test(flat8),
         "and the exemption is granted next to the bans it excepts, not a paragraph later");
   // html-v6 — v5's ladder was decidable and Gemini still went off it, because the bullet ABOVE
   // it named a real mechanism for writing a real file ("ChatGPT — use the python tool") and that
@@ -928,19 +970,18 @@ errors.slice(0, 5).forEach(e => console.log("     " + e));
   // fence — the block's download icon saves a .py, so the reader gets a script instead of a
   // page. The fix is a rule above all the bullets, a fence around the python tool in the same
   // breath it is granted, and rung 2 pinned to what the block CONTAINS.
-  check(/never a program that writes it/i.test(html8) && /html_content/.test(html8),
+  check(/never a program that writes it/i.test(flat8) && /html_content/.test(html8),
         "the addendum bans handing over code that writes the page, naming the shape that arrived");
   check(html8.indexOf("never a program that writes it") < html8.indexOf("python tool"),
         "and states that rule ABOVE the per-chat bullets, so no bullet can be read out of it");
-  check(/ChatGPT's alone/.test(html8) && /imitate it by printing a Python block/.test(html8),
+  check(/ChatGPT's alone/.test(flat8) && /imitate it by printing a Python block/.test(flat8),
         "the python tool is fenced to ChatGPT in the same breath it is named");
-  check(/do not\s+print a Python block that writes the file/.test(html8),
+  check(/do not print a Python block that writes the page/.test(flat8),
         "and Gemini's bullet names that imitation as the thing not to do");
-  check(/A `python` block is not this rung/.test(html8) &&
-        /its first characters are\s+`<!DOCTYPE html>`/.test(html8),
-        "rung 2 is pinned to what the block contains, not merely to what it is not");
-  check(/There is no rung 3/.test(html8),
-        "and the ladder closes itself, since every failure here has been an invented rung");
+  check(/its first characters are `<!DOCTYPE html>`/.test(flat8),
+        "the block is still pinned to what it CONTAINS, not merely to what it is not");
+  check(/There is nothing else to try/.test(flat8),
+        "and the bullet closes itself, since every failure here has been an invented option");
   check(/not a program/i.test(html8.slice(html8.indexOf("Before you hand it over"))),
         "the hand-over checklist asserts the reply is HTML rather than a script");
   // html-v7 — v6 HELD: on STAR WARS Zero Company, Flash answered with rung 2 (an `html` block,
@@ -951,25 +992,97 @@ errors.slice(0, 5).forEach(e => console.log("     " + e));
   // with "you have **no** way to attach a file to a reply", the addendum arguing the model out
   // of its tooling one line above instructing it to use it. v7 restates the ask as the OUTCOME,
   // in the vocabulary Gemini itself reports as its trigger for file output, and drops the denial.
-  check(/create and provide a downloadable HTML file/i.test(html8),
+  check(/create and provide a downloadable HTML file/i.test(flat8),
         "the ask is phrased as the outcome — a downloadable file — rather than as a mechanism");
   check(html8.indexOf("Create and provide a downloadable HTML file") < html8.indexOf("- **Claude**"),
         "and it leads the section, above the per-chat bullets");
   check(!/\*\*no\*\* way to attach a file|cannot attach a file to a reply at all/.test(html8),
         "Gemini's bullet no longer opens by denying it the tooling the next line prescribes");
-  check(/\*\*create and provide a downloadable HTML file, `<game>\.html`/i.test(html8),
-        "that bullet leads with the same ask and names the file it produces");
-  check(/\*try\* rung 1 before concluding it is shut/.test(html8),
-        "and the ladder says to TRY Canvas, since v6's failure was ruling it out unasked");
+  // v7 had Gemini's bullet lead with that same outcome sentence; v10 replaced the bullet
+  // wholesale, so what survives of v7 here is the SECTION opening above and the deleted denial.
+  check(/one `html` code block holding the document, and nothing else/i.test(flat8),
+        "Gemini's bullet is one instruction now, not a ladder to be climbed");
   // The same run exposed a fidelity failure that is not about delivery at all: the page came
   // back with the stylesheet minified onto single lines and titled "STAR WARS Zero Company™ –
   // Steam Review Analysis". Both render identically and both defeat the point of shipping a
   // closed stylesheet — ten games are meant to produce ten pages of one publication, and that
   // fails at the browser tab as surely as at the palette.
-  check(/Verbatim includes the whitespace/.test(html8) && /do not minify it/.test(html8),
+  check(/Verbatim includes the whitespace/.test(flat8) && /do not minify it/.test(flat8),
         "verbatim is spelled out to include the whitespace, so minifying counts as an edit");
-  check(/The `<title>` is exactly `<game title> — Steam review digest`/.test(html8),
+  check(/The `<title>` is exactly `<game title> — Steam review digest`/.test(flat8),
         "and the exact <title> string is a rule of its own, not left to the skeleton alone");
+  // html-v8 — v7 made it WORSE, and in the way this series keeps rediscovering. Flash answered
+  // STAR WARS Zero Company with `<a_file_has_been_created_or_edited_view_it_in_the_drawer>`
+  // wrapping the filename, plus a sentence claiming the digest had been compiled into that file.
+  // No Canvas, no block, no file: the drawer was empty and the report existed nowhere. That is
+  // the §23.4 `sandbox:` failure in a third costume, and the imitated thing this time is the
+  // INTERFACE's own file-saved message — the most convincing fake available, because a UI marker
+  // does not read as a claim the model is making. It is also the first failure here to lose the
+  // document outright; every earlier one shipped the page somewhere.
+  //
+  // Six versions ranked hand-overs against each other and never stated the thing underneath all
+  // of them, so v8 states it above the bullets and above the ladder: THE REPLY HAS TO CARRY THE
+  // DOCUMENT. Three things count — a Canvas holding it, a genuinely attached file, one `html`
+  // block from `<!DOCTYPE html>` to `</html>` — and a sentence saying a file was created is not
+  // one of them. It is the first rule in the series checkable against the reply itself rather
+  // than against the model's beliefs about its tooling: "use Canvas" cannot be verified by a
+  // model that believes it did.
+  check(/The reply has to carry the document/.test(flat8),
+        "the addendum states the invariant under every rung: the reply carries the page");
+  check(html8.indexOf("The reply has to carry the document") < html8.indexOf("- **Claude**"),
+        "and states it above the per-chat bullets, where no bullet can be read out of it");
+  check(/a_file_has_been_created_or_edited_view_it_in_the_drawer/.test(html8),
+        "the fabricated interface marker is named, the way html_content was named in v6");
+  check(/Never announce a file instead of sending one/.test(flat8) &&
+        /only the interface can produce them/.test(flat8),
+        "and imitating the chat's own file-saved message is banned in words");
+  check(/that tool did not run/.test(flat8),
+        "a marker arriving instead of a document is defined as the rung failing to open");
+  check(/nothing opened, so put the document in the code block instead/.test(flat8),
+        "and names the recovery, rather than leaving it to the model's judgement");
+  check(/The document is in the reply/.test(html8.slice(html8.indexOf("Before you hand it over"))),
+        "and the hand-over checklist opens with the invariant, not with the table rules");
+  // §23.11 — the saver. Eight versions of the addendum could not make a chat file the page, so
+  // the page files it here: the reply is on the clipboard and this page knows the title, which
+  // is everything the filename needs. These checks are the ones the prompt series never had —
+  // deterministic, and identical whichever chat the reader used.
+  check(saverInResult === 1, "the HTML result view carries the saver");
+  check(shutFirst === false, "it starts collapsed, so a run that went fine costs one line of text");
+  check(saverInSetup === 1, "and so does the setup view, so closing the dialog costs no re-fetch");
+  check(/\.html$/.test(saveName) && saveName === saveName.toLowerCase() && !/\s/.test(saveName),
+        `the saver names the file after the game, lowercased and hyphenated (${saveName})`);
+  check(/Found the page/.test(sayGood) && canSaveGood,
+        `a whole chat reply — chatter, fence and all — is read as the page (${JSON.stringify(sayGood)})`);
+  check(/only ANNOUNCED a file/.test(sayFake) && !canSaveFake,
+        `and the §23.10 reply is named as what it is, with Save held shut (${JSON.stringify(sayFake)})`);
+  check(dlName === saveName, `the download lands under that exact name (${dlName})`);
+  check(/^<!DOCTYPE html>/i.test(dlBody) && /<\/html>$/i.test(dlBody.trim()),
+        "and holds the document itself, DOCTYPE to </html>, with the chatter stripped");
+  check(!/```/.test(dlBody), "no fence markers survive into the saved file");
+  // html-v10 — the ladder is retired, and the evidence is our own instruction coming back at
+  // us. v5-v9 told Gemini to "put the document into Canvas and TITLE THE CANVAS <game>.html".
+  // Flash cannot call that tool, so it did what the words say and wrote the tag: the reply was
+  // `<canvas title="star-wars-zero-company.html">` wrapped around the page. Gemini labelled the
+  // block XML because that is what it now was, its download icon saved a .xml, and the browser
+  // refused it — "error on line 2 at column 2: StartTag: invalid element name", because a
+  // DOCTYPE inside an XML document is invalid. Third distinct kind of garbage out of that one
+  // rung (a marker in §23.10, a python block in §23.8, a wrapper here), and since §23.11 the
+  // rung buys nothing: the reader's page does the naming it existed for.
+  //
+  // So Gemini's bullet is now one sentence — one `html` block holding the document — with the
+  // wrapper banned by name and the reason given in the reader's terms (it downloads as .xml and
+  // will not open). The bans it is excepted from are carved beside themselves rather than a
+  // paragraph later (§23.7), because "not a fenced code block" three lines above "send a fenced
+  // code block" is the contradiction that started this whole series.
+  check(/Do not wrap the document in anything/.test(flat8) && /<canvas …>/.test(flat8),
+        "the wrapper element is banned by name, the way html_content and the drawer marker were");
+  check(/a panel does not open because you wrote its tag/.test(flat8),
+        "with the reason stated as a fact about the world, not as a preference");
+  check(/malformed XML/.test(flat8) && /\.xml/.test(flat8),
+        "and the consequence given in the reader's terms: it downloads as .xml and will not open");
+  check(/Gemini excepted/.test(html8) &&
+        html8.indexOf("Gemini excepted") < html8.indexOf("- **Claude**"),
+        "the code-block exception is carved beside the ban it excepts, not a paragraph later");
   check(/=== QTPD REVIEW DIGEST · prompt v\S+ \+ html-\S+ ===/.test(html8),
         "the title line carries both prompt versions, since two files shaped this output");
   // The whole point of an option: the run that did not ask for it pays nothing for it.
@@ -977,8 +1090,8 @@ errors.slice(0, 5).forEach(e => console.log("     " + e));
         "a Markdown run carries none of the HTML addendum");
   check(/=== QTPD REVIEW DIGEST · prompt v[^+]*===/.test(barred),
         "and its title line names one prompt, not two");
-  check(/HTML file/.test(readyNote) && /\.html/.test(readyNote),
-        `the result panel says what shape the answer comes back in (${JSON.stringify(readyNote.trim().slice(0, 90))})`);
+  check(/HTML page/.test(readyNote) && /\.html/.test(readyNote) && /paste the reply/i.test(readyNote),
+        `the result panel says what comes back and where to paste it (${JSON.stringify(readyNote.trim().slice(0, 90))})`);
   check(errs8.length === 0, `no uncaught JS errors on either path (${errs8.length})`);
 
   // §23.5 — the fetch counter. A raw review count climbs 100/200/300 with the bar off and
