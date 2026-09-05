@@ -1,4 +1,4 @@
-<!-- html-v9 -->
+<!-- html-v10 -->
 # OUTPUT FORMAT — one HTML page, instead of the Markdown skeleton
 
 This block **replaces the output skeleton in the instructions above.** Everything above still
@@ -9,8 +9,9 @@ the rendering changes. **Do not produce the Markdown report as well.** One artef
 ## What to return — a DOWNLOADABLE .html FILE
 
 **Create and provide a downloadable HTML file** — one `.html` the reader saves out of your
-reply in a single click, named after the game. Not a fenced code block, not markup pasted into
-the reply, and **not a preview pane** — not an Artifact, not a document view. The reader asked
+reply in a single click, named after the game. Not a fenced code block (**Gemini excepted** —
+its bullet below asks for exactly one, and that is its whole instruction), not markup pasted
+into the reply, and **not a preview pane** — not an Artifact, not a document view. The reader asked
 for an HTML page because they want the file: they are running several games and keeping the
 pages side by side in a folder, so a panel they have to hunt a download button inside of is the
 same manual work as a code block, one menu further away.
@@ -20,7 +21,7 @@ plumbing: **did a `.html` land there?** Every rule below only says how to get it
 chat you happen to be.
 
 **Hand over the document, never a program that writes it.** This one is absolute and there is
-no chat it does not apply to, Gemini's fallback rung included. A Python, JavaScript or shell
+no chat it does not apply to, Gemini's code block included. A Python, JavaScript or shell
 snippet that writes `<game>.html`, an `html_content = """..."""` string, a script with an
 `open(...).write(...)` at the bottom, "run this to generate your page" — every one of those is
 a wrong answer, and it is wrong even when the HTML inside the string is perfect. **If you have
@@ -54,13 +55,13 @@ reader believes it until they go looking and find an empty drawer. **If the word
 created the file" are in your reply, the document has to be in that same reply** — otherwise you
 have handed over a description of the report in place of the report. And if you reached for a
 document tool and what came back was a line of markup naming a file rather than a document you
-can see, **that tool did not run**: the rung did not open, so take the next one and emit the
-page.
+can see, **that tool did not run**: nothing opened, so put the document in the code block
+instead.
 
-**One chat reads the bans differently: Gemini.** Its bullet below is an ordered ladder of the
-ways it can put a downloadable page in the reader's hands, and that ladder is binding for
-Gemini — the bans on this page are written for the chats that attach a file to a reply, and
-they do not overrule it. Every other chat reads the bans as written.
+**One chat reads the bans differently: Gemini.** Its bullet below gives it one instruction
+instead, and that instruction is binding for Gemini — the bans on this page are written for the
+chats that attach a file to a reply, and they do not overrule it. Every other chat reads the
+bans as written.
 
 **Name the file after the game** — the game's title, lowercased, spaces and punctuation reduced
 to single hyphens, `.html` on the end: *STAR WARS Zero Company™* becomes
@@ -73,40 +74,25 @@ to single hyphens, `.html` on the end: *STAR WARS Zero Company™* becomes
   for it, or imitate it by printing a Python block.** *Run* it to write `<game>.html` to disk
   and give the **download link**. The reply carries the link, never the script that made it.
   Not Canvas.
-- **Gemini** — **create and provide a downloadable HTML file, `<game>.html`, and output it as
-  the deliverable.** That is the ask stated as the outcome: the reader finishes with
-  `star-wars-zero-company.html` saved from your reply, having selected no text. Read it as
-  binding on **your reply** — the page arrives inside it, in Canvas or in the block. It never
-  means announcing that a file exists somewhere the reader should go and look. Do not get
-  there by imitating another chat's mechanism — in particular, **do not reach for ChatGPT's
-  python tool and do not print a Python block that writes the file.** A printed program is not
-  a downloadable file: the download icon on a `python` block saves a `.py`, so the reader ends
-  up with a script instead of a page. Work down this ladder and stop at the
-  **first rung that opens** — and *try* rung 1 before concluding it is shut:
-  1. **Canvas.** Put the whole document into Canvas as an HTML file — the canvas holds the
-     document itself, not code that generates it — and **title the canvas `<game>.html`**. That
-     title is the filename Canvas's own **Download** hands the reader, which is the entire
-     reason it matters. **This is how you create and provide a downloadable HTML file here**:
-     Canvas is not a preview of the answer, its Download button *is* the handover, and the file
-     it saves is the one the reader asked for. So this is your answer, and the "not a preview
-     pane" rule above is written for Claude and ChatGPT, which attach files to a reply; it does
-     not apply to you. Open Canvas and put the page in it — do not decide in advance that it is
-     unavailable, and do not skip it because the document is long. Length is what it is for.
-  2. **One `html` code block** — and *only* if Canvas will not open, which includes the case
-     where you reached for it and got a marker naming a file instead of a document you can see.
-     **The block is the document, not code that builds it**: it is tagged `html`, and
-     its first characters are `<!DOCTYPE html>` and its last are `</html>`.
-     A `python` block is not this rung and does not satisfy it — the download icon on a Python
-     block saves a `.py`, so the reader ends up with a script they cannot run and no page at
-     all. Emit the whole document in a single block and say, in your one sentence, *"click the
-     download icon on the block to save it as `<game>.html`"*: Gemini's code blocks carry that
-     icon, and it is the only reason this rung exists. It is Gemini's alone — no other chat may
-     answer with a code block.
+- **Gemini** — **one `html` code block holding the document, and nothing else.** That is the
+  whole instruction. The block is tagged `html`, its first characters are `<!DOCTYPE html>` and
+  its last are `</html>`. The reader's own page turns that block into `<game>.html` for them, so
+  it is a **complete answer** — not a fallback, not something to apologise for, and there is
+  nothing you can add that would improve it.
 
-  Rung 2 is a fallback, not a preference. Answering with a code block while Canvas was there to
-  open leaves the reader saving a file named after nothing, on a rung you were not entitled to.
-  There is no rung 3. If both rungs are somehow shut, say so in plain words — do not invent a
-  third answer out of another chat's tooling.
+  **Do not wrap the document in anything.** Not `<canvas …>`, not `<immersive …>`, not
+  `<document …>`, not any other element around the page: **a panel does not open because you
+  wrote its tag**, and a wrapper turns the block into malformed XML — it downloads as `.xml` and
+  the reader's browser refuses it with a parse error on line 2. The first characters inside the
+  block are `<!DOCTYPE html>`, with nothing whatsoever before them.
+
+  **Do not reach for ChatGPT's python tool and do not print a Python block that writes the
+  page** — a printed program is not a page, and the download icon on a `python` block saves a
+  `.py`. **Do not announce a file**, and do not write out the interface's own file-saved
+  message: both are covered above, and both leave the reader with nothing.
+
+  There is nothing else to try and nothing else to offer. If you cannot emit a code block at
+  all, say so in plain words rather than inventing an answer out of another chat's tooling.
 - **Anything else** — whatever writes a real file and hands it over, running the code itself
   rather than printing it. The test is the same everywhere: the reader ends up with a `.html`
   **in their downloads**, having selected no text, copied nothing, run nothing and clicked
@@ -119,9 +105,8 @@ page or a 404, and a tag that announces a file into an empty drawer, are both wo
 link at all: the reader believes the work arrived and finds out later that it did not.
 
 If you cannot produce a file, **say so in plain words** and fall back to what you do have — on
-Gemini that is the ladder above, Canvas first and the block only under it. An honest "I can't
-attach files here, so the document is in the block below — use its download icon" is a good
-answer. A confident link to nothing is not.
+Gemini that is the code block, which is its answer anyway. An honest "I can't attach files here,
+so the document is in the block below" is a good answer. A confident link to nothing is not.
 
 Beside the file, write **one short sentence at most** — which game the page covers. No preamble,
 no "here's what I did", no summary of the findings underneath, and never a second copy of the
@@ -399,8 +384,8 @@ hero bar, the `.hero-read` line and every table cell carry raw counts only.
   clauses a side. A section that would be empty is omitted, not padded.
 - The page left as a downloadable `.html` file named after the game — not an Artifact, not a
   code block, not a document view — with at most one sentence beside it and no copy of the
-  report pasted into the chat. **On Gemini** the equivalent is the highest rung of its ladder
-  that opened: a Canvas titled `<game>.html`, or the one `html` code block if Canvas would not.
+  report pasted into the chat. **On Gemini** it is one `html` code block holding the document,
+  with no wrapper element around it, which the reader's own page saves under that name.
 - **What you handed over is HTML, not a program.** Nothing in the reply is a Python,
   JavaScript or shell snippet that writes the page, and nothing asks the reader to run
   anything. If a code tool made the file, the file is attached and the code is not shown.

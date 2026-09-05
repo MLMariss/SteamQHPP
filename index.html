@@ -6359,6 +6359,24 @@ const RD_DEFAULT_MODE = "advanced";        // what this page shipped with; Simpl
 // the fabricated marker is named the way `html_content` was named in v6, and a marker coming
 // back where a document should be is DEFINED as the rung failing to open, so rung 2 catches the
 // case instead of the model deciding it succeeded.
+//
+// html-v10 retires the ladder, and the evidence is this addendum's own words coming back at us.
+// v5-v9 told Gemini to "put the document into Canvas and TITLE THE CANVAS <game>.html". Flash
+// cannot call that tool, so it did what the sentence says and wrote the TAG: the reply was
+// `<canvas title="star-wars-zero-company.html">` wrapped around the page. Gemini labelled the
+// block XML, because with that wrapper it was; its download icon saved a .xml; and the browser
+// refused to render it — "error on line 2 at column 2: StartTag: invalid element name", a
+// DOCTYPE being invalid inside an XML document. Third distinct kind of garbage out of that one
+// rung: a marker in v8, a python block in v6, a wrapper element here.
+//
+// And since §23.11 the rung buys nothing — the reader's own page does the naming that Canvas's
+// Download was wanted for. A rung that cannot be reached by instruction, produces mangled
+// output when attempted, and no longer pays for itself is not a fallback worth keeping. So
+// Gemini's bullet is now one sentence: one `html` block holding the document, wrapper elements
+// banned by name, with the consequence stated in the reader's terms (it downloads as .xml and
+// will not open) rather than as a preference. The "not a fenced code block" ban three lines
+// above it now carries its exception inline — §23.7's lesson, applied to the rule that had
+// quietly grown its own contradiction back.
 const RD_HTML_FILE = "review_prompt_html.md";
 const RD_OUT = [
   { key:"md",   label:"Markdown",
@@ -6759,12 +6777,13 @@ it produced — you never print the script, and an \`html_content = \"\"\"...\"\
 answer even when the HTML inside it is perfect. On Claude use the file-creation/code tool and
 attach the file (NOT an Artifact). On ChatGPT use the python tool — ChatGPT's alone, and no
 other chat may reach for it or imitate it by printing a Python block — to WRITE the file and
-give the download link (not Canvas). On Gemini the bans above are not written for you: work
-down this ladder and stop at the first rung that opens — (1) CANVAS, holding the document
-itself rather than code that builds it, TITLED \`<game>.html\` because that title is the filename
-its Download button hands over; (2) only if Canvas will not open, ONE \`html\` code block,
-\`<!DOCTYPE html>\` to \`</html>\`, with "click the download icon on the block to save it as
-<game>.html" — that rung is Gemini's alone and a \`python\` block does not satisfy it. NEVER
+give the download link (not Canvas). On Gemini the bans above are not written for you, and you get one
+instruction instead: ONE \`html\` code block holding the document, \`<!DOCTYPE html>\` to
+\`</html>\`, and nothing else. DO NOT WRAP IT — no \`<canvas …>\`, \`<immersive …>\` or any other
+element around the page: a panel does not open because you wrote its tag, and the wrapper turns
+the block into malformed XML that downloads as .xml and will not open. The first characters
+inside the block are \`<!DOCTYPE html>\`, with nothing before them. A \`python\` block is not
+this and does not satisfy it. NEVER
 write a download link for a file you did not actually create, and never a \`sandbox:\` URL unless
 that scheme is genuinely yours: a link that resolves to a search page is worse than none. The
 test is that the reader ends up with a \`.html\` in their downloads, having copied nothing.

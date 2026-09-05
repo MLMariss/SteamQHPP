@@ -1828,3 +1828,72 @@ after the game; a whole chat reply (chatter, fence, page) is read as the page an
 the §23.10 marker is named as an announcement and holds Save shut; clicking Save produces a real
 download under that exact filename; and the saved bytes run `<!DOCTYPE html>` to `</html>` with no
 fence markers in them.
+
+### 23.12 `html-v10` — the ladder is retired, and the evidence is our own sentence
+
+The reply this time was the page wrapped in a tag:
+
+```
+<canvas title="star-wars-zero-company.html">
+<!DOCTYPE html>
+<html lang="en">
+…
+```
+
+Gemini labelled the block **XML**, because with that wrapper around it that is what it was. Its
+download icon saved `gemini-code-1788601693253.xml`. The browser refused to render it —
+*"error on line 2 at column 2: StartTag: invalid element name"* — because a DOCTYPE is invalid
+inside an XML document.
+
+**That is this addendum's own instruction coming back at us.** From v5 to v9, Gemini's bullet
+said: *put the document into Canvas as an HTML file, and **title the canvas `<game>.html`***.
+Flash cannot call the Canvas tool. So it did exactly what the sentence describes, in the only
+medium it has — it wrote the element. `<canvas title="star-wars-zero-company.html">` is not
+disobedience or hallucination; it is a literal reading of a literal instruction by a model with
+no way to perform the non-literal one.
+
+**Third distinct kind of garbage out of that one rung.** §23.8: a python block. §23.10: the
+interface's file-created marker. §23.12: a wrapper element. Every failure in this series since
+v5 has come from Gemini reaching for Canvas and producing something Canvas-shaped instead of
+Canvas — and it reaches because we keep telling it to.
+
+**And since §23.11 the rung buys nothing.** Canvas was ranked first for exactly one reason: its
+Download button hands over a file named by the canvas title, which is how the reader was going
+to get `<game>.html` rather than `gemini-code-1788601693253.xml`. The reader's own page does that
+naming now, from any code block, deterministically. A rung that cannot be reached by
+instruction, produces mangled output whenever it is attempted, and no longer pays for itself is
+not a fallback worth keeping.
+
+So Gemini's bullet is one sentence:
+
+> **One `html` code block holding the document, and nothing else.**
+
+with the wrapper banned by name — `<canvas …>`, `<immersive …>`, `<document …>` — and the reason
+given as a fact rather than a preference: **a panel does not open because you wrote its tag**,
+and the wrapper turns the block into malformed XML that downloads as `.xml` and will not open.
+The ladder, its ordering, its stop condition, "there is no rung 3" and the word *rung* itself are
+gone from the file.
+
+**One old trap re-sprung and was closed with it.** The section still opened *"Not a fenced code
+block"* three lines above a bullet asking for exactly one — §23.7's contradiction, quietly grown
+back while the exception drifted downward. The exception is now carved inline, beside the ban:
+*"Not a fenced code block (**Gemini excepted** — its bullet below asks for exactly one)"*.
+
+**The saver already handles the reply that prompted this**, which is the first time in twelve
+sections that a Gemini failure needed no prompt change to be survivable: `rdExtractHtml` ignores
+the fence's language tag, finds `<!DOCTYPE html>` past the stray `<canvas …>` opener, and saves
+a valid page. v10 stops us *causing* the failure; §23.11 already stopped it *costing* anything.
+
+**The lesson.** §23.11 said to move a step to the side of the boundary you control. This is its
+corollary: **once you have, delete what you built to survive the other side.** The Canvas rung
+was scaffolding for a problem that no longer exists, and scaffolding left up is not neutral —
+it was still issuing an instruction, and the instruction was still being obeyed literally by
+the one model it was written for.
+
+**Verified.** Four assertions added and six inverted or retired: the wrapper ban is present and
+names `<canvas …>`; the reason is stated as a fact about the world; the `.xml` consequence is
+given in the reader's terms; the code-block exception sits beside the ban it excepts, above the
+per-chat bullets; and the word *rung* no longer appears anywhere in the addendum. Prose
+assertions now run against a whitespace-flattened copy of the bundle, because three separate
+re-wraps of this file have failed checks on text that was still present — the test should assert
+that a rule is there, not how it happened to wrap.
